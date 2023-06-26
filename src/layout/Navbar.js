@@ -1,62 +1,93 @@
-import '../navbar.css';
-import Logo from '../logo.png'
+import React from "react";
+import "../navbar.css";
+import Logo from "../logo.png";
+
 export default function Navbar() {
   return (
-    <div className="navbar">
+    <div className="navigation-bar">
       <div className="wrapper">
         <div className="multi_color_border"></div>
         <div className="top_nav">
           {/* <div class="row"> */}
-            {/* <div class="col-lg-12"> */}
-              {/* <div class="d-flex flex-row align-items-center"> */}
-                <div class="site-branding mr-auto left">
-                  <a class="home-link logo" rel="home">
-                    <img src={Logo} id="logo-img" class="img-center" alt="logo" />
-                  </a>
-                  <a href='' className='brand-name'>Firdaus Gate <br/>Group of Schools</a>
-                </div>
-                <div class="widget_info d-flex flex-row align-items-center justify-content-end">
-                  <div class="widget_icon"><i class="flaticon-call"></i></div>
-                  <div class="widget_content">
-                    <h5 class="widget_title">+2349032494949</h5>
-                    <p class="widget_desc">Make A Call</p>
-                  </div>
-                </div>
-                <div class="widget_info d-flex flex-row align-items-center justify-content-end">
-                  <div class="widget_icon"><i class="flaticon-email"></i></div>
-                  <div class="widget_content">
-                    <h5 class="widget_title">enquiries@taidobcollege.org</h5>
-                    <p class="widget_desc">Quick Contact</p>
-                  </div>
-                </div>
-                <div class="widget_info d-flex flex-row align-items-center justify-content-end">
-                  <div class="widget_icon"><i class="flaticon-worldwide"></i></div>
-                  <div class="widget_content">
-                    <h5 class="widget_title">Phase II, Asero Housing Estate,</h5>
-                    <p class="widget_desc">Asero, Abeokuta, Ogun State, Nigeria.</p>
-                  </div>
-                </div>
-              {/* </div> */}
-            {/* </div> */}
+          {/* <div class="col-lg-12"> */}
+          {/* <div class="d-flex flex-row align-items-center"> */}
+          <div class="site-branding left">
+            <a class="home-link logo" rel="home">
+              <img src={Logo} id="logo-img" className="img-center" alt="logo" />
+            </a>
+            <a href="" className="brand-name">
+              Firdaus Gate <br />
+              Group of Schools
+            </a>
+          </div>
+          <div className="widget_info d-flex flex-row align-items-center justify-content-end">
+            <div className="widget_icon">
+              <i className="flaticon-call"></i>
+            </div>
+            <div className="widget_content">
+              <h5 className="widget_title">+2349032494949</h5>
+              <p className="widget_desc">Make A Call</p>
+            </div>
+          </div>
+          <div className="widget_info">
+            <div className="widget_icon">
+              <i className="flaticon-email"></i>
+            </div>
+            <div className="widget_content">
+              <h5 className="widget_title">enquiries@taidobcollege.org</h5>
+              <p className="widget_desc">Quick Contact</p>
+            </div>
+          </div>
+          <div className="widget_info d-flex flex-row align-items-center justify-content-end">
+            <div className="widget_icon">
+              <i className="flaticon-worldwide"></i>
+            </div>
+            <div className="widget_content">
+              <h5 className="widget_title">Phase II, Asero Housing Estate,</h5>
+              <p className="widget_desc">
+                Asero, Abeokuta, Ogun State, Nigeria.
+              </p>
+            </div>
+          </div>
+          {/* </div> */}
+          {/* </div> */}
           {/* </div> */}
         </div>
         <div className="bottom_nav">
-      <nav>
-      <ul className='left'>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Writing</a></li>
-            <li><a href="#">Design</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Map</a></li>
-            <li><a href="#">Articles</a></li>
-          </ul>
-          <ul className='right'>
-            <li><a href="#">Home</a></li>
-          </ul>
-      </nav>
-         
+          <nav>
+            <ul className="left">
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Profile</a>
+              </li>
+              <li>
+                <a href="#">Writing</a>
+              </li>
+              <li>
+                <a href="#">Design</a>
+              </li>
+              <li>
+                <a href="#">Marketing</a>
+              </li>
+              <li>
+                <a href="#">Blog</a>
+              </li>
+              <li>
+                <a href="#">Map</a>
+              </li>
+              <li>
+                <a href="#">Articles</a>
+              </li>
+            </ul>
+            <ul className="right">
+              <li>
+                <a href="#">Home</a>
+              </li>
+            </ul>
+          </nav>
+
           {/* <nav id="menu" class="menu">
                                         <ul class="dropdown">
                                            <li class="active"><a href="index"><i class="fa fa-home"></i></a></li>
@@ -134,14 +165,7 @@ export default function Navbar() {
                                         </ul>
                                     </nav> */}
         </div>
-
       </div>
     </div>
   );
-};
-
-
-
-
-
-
+}
