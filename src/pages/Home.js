@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { LandingHero } from "../components/landing";
 
 export default function Home() {
   return (
-    <div className="container">
-      <h1>Firdaus Gate Group of Schools</h1>
-    </div>
+    <Wrapper>
+      <LandingHero />
+    </Wrapper>
   );
 }
 
-const wrapper = styled.section``;
+const Wrapper = styled.section``;
