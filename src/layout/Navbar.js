@@ -1,10 +1,14 @@
+
 import "../navbar.css";
-import Logo from "../logo.png";
+import React from "react";
+import "../navbar.css";
+
+
 export default function Navbar() {
   return (
     <div className="navigation-bar">
       <div className="wrapper">
-        <div className="not-nav">
+        {/* <div className="not-nav">
           <div className="content">
             <div className="header">
               <p>Building the Future with Knowledge and Faith</p>
@@ -14,14 +18,11 @@ export default function Navbar() {
               <button>Book Appointment</button>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="top_nav">
-          {/* <div className="row"> */}
-          {/* <div className="col-lg-12"> */}
-          {/* <div className="d-flex flex-row align-items-center"> */}
           <div className="site-branding left">
             <a className="home-link logo" rel="home">
-              <img src={Logo} id="logo-img" className="img-center" alt="logo" />
+              <img src="./images/firdaus_logo.png" id="logo-img" className="img-center" alt="logo" />
             </a>
             <a href="" className="brand-name">
               Firdaus Gate <br />
@@ -46,19 +47,13 @@ export default function Navbar() {
               <p class="widget_desc">Quick Contact</p>
             </div>
           </div>
-          <div class="widget_info d-flex flex-row align-items-center justify-content-end">
-            <div class="widget_icon">
-              <i class="flaticon-worldwide"></i>
-            </div>
             <div class="widget_content">
               <h5 class="widget_title">Phase II, Asero Housing Estate,</h5>
               <p class="widget_desc">Asero, Abeokuta, Ogun State, Nigeria.</p>
             </div>
           </div>
-          {/* </div> */}
-          {/* </div> */}
-          {/* </div> */}
-        </div>
+   
+       
         <div className="bottom_nav">
           <nav>
             <ul className="left">
@@ -73,8 +68,7 @@ export default function Navbar() {
                   aria-expanded="false"
                 >
                   ABOUT
-                </a>
-
+                </a>      
                 <div
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuLink"
@@ -169,7 +163,7 @@ export default function Navbar() {
             </ul>
           </nav>
         </div>
+        </div>
       </div>
-    </div>
   );
 }

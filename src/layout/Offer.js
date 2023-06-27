@@ -1,7 +1,7 @@
 import Card from "./card";
 export default function Offer() {
   return (
-    <div className="wrapper">
+    <div className="cover">
         <div className="offers">
       <div className="offers-left">
         <div className="header">

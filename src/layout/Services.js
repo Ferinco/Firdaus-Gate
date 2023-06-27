@@ -8,8 +8,6 @@ export default function Services() {
       }, []);
   return (
     <div className="services">
-      {/* <div className="services-header"><h5>Why Firdaus-Gate?</h5> <p>why you should choose us</p></div>
-            <div className="services-body"> */}
       <div className="services-list" data-aos="fade-right"
      data-aos-offset="300"
      data-aos-easing="ease-in-sine">
@@ -40,7 +38,6 @@ export default function Services() {
             <img src="./images/firdaus-right.png"/>
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }
