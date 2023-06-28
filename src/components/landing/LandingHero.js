@@ -8,7 +8,9 @@ export default function LandingHero() {
       <div className="row">
         <div className="col-md-8 mx-auto">
           <div className="text-center my-5">
-            <h1 className="fw-bolder">Firdaus Gate Group of Schools</h1>
+            <h1 className="display-3 fw-bolder">
+              Firdaus Gate Group of Schools
+            </h1>
             <div className="mx-5 m-4">
               <p className="text-muted mx-md-5">
                 Lorem ipsum et dolor sit a met, loading for transactions dolor
@@ -18,7 +20,7 @@ export default function LandingHero() {
             <div className="button-group">
               <Button>Get started</Button>
               <span> </span>
-              <Button>About us</Button>
+              <Button variant="transparent">About us</Button>
             </div>
           </div>
         </div>
