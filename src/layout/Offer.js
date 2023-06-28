@@ -1,8 +1,8 @@
 import Card from "./card";
 export default function Offer() {
   return (
-    <div className="cover">
-        <div className="offers">
+    <div className="offers">
+          <div className="cover">
       <div className="offers-left">
         <div className="header">
           <h5>WHAT WE OFFER</h5>
@@ -10,6 +10,12 @@ export default function Offer() {
             read through to know about some of our world class facilities and
             ammenities
           </h3>
+          <ul>
+            <li>Spacious, well ventilated, fully furnished and highly secured hostel rooms for accomodation of both male and female students</li>
+            <li></li>
+            <li></li>
+            
+          </ul>
         </div>
       </div>
       <div className="offers-right">

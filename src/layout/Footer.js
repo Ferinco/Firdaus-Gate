@@ -4,7 +4,7 @@ export default function Footer(){
                 <div className="wrapper">
                 <div className="footer-top">
                     <div className="map"><h3>Find our school</h3></div>
-                    <div className="call"><h3>Call us now</h3></div>
+                    <div className="call"><h3>Call us now</h3> <p>+234653647536</p></div>
                     <div className="appointment"><h3>Book an appointment</h3></div>
 
 
@@ -16,10 +16,10 @@ export default function Footer(){
                             <p>gdte kfhf fhfnff hui yejrgeg  fyuorweruog y ryuoewu</p>
                         </div>
                         <ul className="links">
-                            <li>About us</li>
-                            <li>Mission and Vision</li>
-                            <li>Our gallery</li>
-                            <li>Facilities</li>
+                            <li><a href="">About us </a></li>
+                            <li><a href="">Mission and Vision</a></li>
+                            <li><a href="">Our gallery</a></li>
+                            <li><a href="">Facilities</a></li>
 
                         </ul>
                     </div>
@@ -29,10 +29,10 @@ export default function Footer(){
                             <p>gdte kfhf fhfnff hui yejrgeg  fyuorweruog y ryuoewu</p>
                         </div>
                         <ul className="links">
-                            <li>Student Portal</li>
-                            <li>Teacher Portal</li>
-                            <li>School Fees Portal</li>
-                            <li>Parents</li>
+                            <li><a href="">Student Portal</a></li>
+                            <li><a href="">Teacher Portal</a></li>
+                            <li><a href="">School Fees Portal</a></li>
+                            <li><a href="">Parents</a></li>
 
                         </ul>
                     </div>

@@ -16,38 +16,32 @@ export default function News() {
         <h3>News and Events</h3>
       </div>
       <div className="news-body">
-        {/* <div className="card">
-            <h5></h5>
-            <p></p>
-        </div>
-        <div className="card">
-            <p></p>
-            <h5></h5>
-        </div>
-        <div className="card">
-            <p></p>
-            <h5></h5>
-        </div>   <div className="card">
-            <p></p>
-            <h5></h5>
-        </div> */}
+      
+    
         <Card
+        image="./images/calender.png"
           header="20th March, 2024"
           body="An upcoming event or anything related"
         />
         <Card
+        image="./images/calender.png"
           header="20th March, 2024"
           body="An upcoming event or anything related"
         />
         <Card
+        image="./images/calender.png"
+
           header="20th March, 2024"
           body="An upcoming event or anything related"
         />
         <Card
+        image="./images/calender.png"
+
           header="20th March, 2024"
           body="An upcoming event or anything related"
         />
         <Card
+        image="./images/calender.png"
           header="20th March, 2024"
           body="An upcoming event or anything related"
         />

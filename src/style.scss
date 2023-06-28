@@ -90,6 +90,7 @@ $secondary-color: rgb(27, 26, 26);
       height: 90%;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       padding-top: 100px;
       padding-left: 100px;
       padding-right: 50px;
@@ -110,8 +111,19 @@ $secondary-color: rgb(27, 26, 26);
       &-body {
         display: flex;
         flex-direction: column;
-        li {
+        padding: 0 !important;
+        h5 {
           list-style: none;
+          color: white;
+        }
+      }
+      &-button{
+        display: flex;
+        justify-content: end;
+        button{
+          padding: 5px 10px;
+          border: 1px solid blue;
+          background-color: blue;
           color: white;
         }
       }
@@ -143,6 +155,7 @@ $secondary-color: rgb(27, 26, 26);
 .admission {
   background-color: #f5f5f5;
   padding-top: 50px;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   &-header {
@@ -192,11 +205,22 @@ $secondary-color: rgb(27, 26, 26);
   background-color: #f5f5f5;
 }
 .offers {
-  padding-top: 50px;
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  background-image: url(../public/images/back.png);
+  background-color: rgb(238, 241, 248);
+  background-repeat: no-repeat;
+background-size: contain;
+  background-position: right !important;
+
+  .cover{
+background: transparent !important;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+  }
   &-left {
     display: flex;
     flex-direction: column;
@@ -220,7 +244,9 @@ $secondary-color: rgb(27, 26, 26);
       display: flex;
       flex-direction: row;
       justify-content: center;
-      background-color: white;
+      border: 0 !important;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      background: transparentize($color: #fff, $amount: 0.2);
       &-image {
         width: 30%;
         display: flex;
@@ -244,8 +270,9 @@ $secondary-color: rgb(27, 26, 26);
   }
 }
 .news {
-  background-color: #f5f5f5;
-
+  background-color: #ffff;
+padding-top: 50px;
+padding-bottom: 50px;
   width: 100%;
   .wrapper {
     display: flex;
@@ -268,21 +295,36 @@ $secondary-color: rgb(27, 26, 26);
     gap: 20px;
     .card {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
-      .image {
-        display: none;
+      background-color: #f5f5f5;
+      border: 0 !important;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      // padding: 10px;
+      gap: 10px;
+      &-image {
+       width: 30%;
+       height: 100%;
+       border-right: 4px solid #fff;
+       padding: 10px;
+       img{
+        height: 100%;
+width: 100%;       }
       }
-      .text {
-        text-align: center;
+      &-text {
+        width: 70%;
+        text-align: left;
+        justify-content: center;
         display: flex;
         flex-direction: column;
+        padding: 10px;
       }
     }
   }
   &-button {
     display: flex;
     justify-content: center;
+    padding-top: 20px;
     button {
       padding: 5px 20px;
       border: 1px solid blue;
@@ -291,11 +333,80 @@ $secondary-color: rgb(27, 26, 26);
     }
   }
 }
+.testimony {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      justify-content: center;
+      display: block;
+    }
+  }
+  &-text {
+    p {
+      text-align: center;
+      width: 80%;
+      margin: auto !important;
+    }
+  }
+}
 .testimonials {
+  padding-top: 50px;
   width: 90%;
   margin: auto;
+  background: transparent;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .carousel {
+    // display: flex;
+    width: 100%;
+    text-align: center;
+    a {
+      background-color: #f5f5f5;
+      padding: 0 !important;
+    }
+    span {
+      border: 1px soliid red;
+    }
+    &-inner {
+      padding-bottom: 40px;
+    }
+
+    &-indicators {
+      gap: 10px;
+      margin-top: 20px !important;
+      .active {
+        background-color: #f5f5f5 !important;
+      }
+      li {
+        list-style: none;
+        padding: 2px 10px;
+        background-color: #f5f5f5;
+      }
+    }
+  }
 }
-.bottom {
+.base{
   background-image: url("../public/images/photo (3).png");
   height: auto;
   background-attachment: fixed;
@@ -305,13 +416,20 @@ $secondary-color: rgb(27, 26, 26);
 }
 .footer {
   width: 100%;
-  background-color: #f5f5f5;
+  background-color: rgb(27, 26, 26, 0.9);
   .wrapper {
     gap: 30px;
     width: 90%;
     margin: auto;
     display: flex;
     flex-direction: column;
+    color: white !important;
+    ul{
+      padding: 0 !important;
+      li{
+        list-style: none;
+      }
+    }
   }
   &-top {
     display: flex;
@@ -357,7 +475,7 @@ $secondary-color: rgb(27, 26, 26);
     .wrapper{
         width: 90%;
         margin: auto;
-        height: 500px;
+        height: 600px;
         display: flex;
         flex-direction: row;
     }
@@ -380,11 +498,49 @@ $secondary-color: rgb(27, 26, 26);
         }
     }
     &-right{
+      text-align: left;
         width: 50%;
         display: flex;
         flex-direction: column;
         h3{
           color: blue;
+        }
+        .text{
+          width: 90%;
+        }
+        .body{
+          width: 90%;
+          display: flex;
+          gap: 20px;
+          flex-direction: column;
+          .card{
+height: 100px;
+width: auto;
+display: flex;
+flex-direction: row;
+gap: 10px;
+align-items: center;
+&-image{
+  width: 30%;
+  border: 1px solid red;
+  height: 100%;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display:block;
+  }
+}
+&-text{
+  width: 70%;
+}
+          }
+        }
+        .end{
+          display: flex;
+          flex-direction: row;
+          width: 70%;
+          gap: 20px;
         }
     }
 }
