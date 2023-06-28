@@ -3,6 +3,21 @@
   flex-direction: column;
 }
 
+.widget_info {
+  align-items: center !important;
+  gap: 10px;
+}
+.widget_info .widget_content {
+  text-align: left;
+  line-height: 1px;
+}
+
+.icon {
+  font-size: 50px !important;
+  color: blue !important;
+  padding: 0 !important;
+}
+
 .wrapper {
   width: 100%;
   display: flex;

@@ -2,6 +2,7 @@
 import "../navbar.css";
 import React from "react";
 import "../navbar.css";
+import { Icon } from '@iconify/react';
 
 
 export default function Navbar() {
@@ -22,35 +23,40 @@ export default function Navbar() {
         <div className="top_nav">
           <div className="site-branding left">
             <a className="home-link logo" rel="home">
-              <img src="./images/firdaus_logo.png" id="logo-img" className="img-center" alt="logo" />
+              <img src="./images/Firdaus_logo.png" id="logo-img" className="img-center" alt="logo" />
             </a>
             <a href="" className="brand-name">
-              Firdaus Gate <br />
+              Firdaus-Gate <br />
               Group of Schools
             </a>
           </div>
           <div className="widget_info d-flex flex-row align-items-center justify-content-end">
             <div className="widget_icon">
-              <i className="flaticon-call"></i>
+            <Icon className="icon" icon="fluent:call-16-regular" />
             </div>
             <div className="widget_content">
-              <h5 className="widget_title">+2349032494949</h5>
+              <h5 className="widget_title">+2345334353647</h5>
               <p className="widget_desc">Make A Call</p>
             </div>
           </div>
           <div className="widget_info d-flex flex-row align-items-center justify-content-end">
             <div className="widget_icon">
-              <i className="flaticon-email"></i>
+            <Icon className="icon" icon="iconamoon:email-thin" />
             </div>
             <div className="widget_content">
-              <h5 class="widget_title">enquiries@taidobcollege.org</h5>
+              <h5 class="widget_title">enquiries@firdaus-gate.org</h5>
               <p class="widget_desc">Quick Contact</p>
             </div>
           </div>
-            <div class="widget_content">
-              <h5 class="widget_title">Phase II, Asero Housing Estate,</h5>
-              <p class="widget_desc">Asero, Abeokuta, Ogun State, Nigeria.</p>
+          <div className="widget_info d-flex flex-row align-items-center justify-content-end">
+            <div className="widget_icon">
+            <Icon className="icon" icon="game-icons:world" color="blue" />
             </div>
+            <div class="widget_content">
+              <h5 class="widget_title">6/8 Balogun Street, off Igodo Road,</h5>
+              <p class="widget_desc">Magboro, Omo-Olope Area, Ogun State, Nigeria.</p>
+            </div>
+          </div>
           </div>
    
        

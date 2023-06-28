@@ -9,7 +9,7 @@ export default function Welcome() {
   return (
     <div className="welcome">
       <div className="welcome-header">
-        <h5>Welcome</h5>
+        <h5>WELCOME</h5>
       </div>
       <div className="wrapper">
         <div className="welcome-left" data-aos="zoom-in-down">

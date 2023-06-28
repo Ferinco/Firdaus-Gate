@@ -10,16 +10,16 @@ export default function Gallery() {
       <div className="gallery-header" data-aos="fade-right"><h5>Gallery</h5> <h3>A peak at our gallery</h3></div>
       <div className="gallery-photos">
         <div className="photo" data-aos="zoom-in-left">
-          <img src="./images/photo (1).png" />
+          <img src="./images/photo-1.png" />
         </div>
         <div className="photo" data-aos="zoom-in-right" data-aos-delay="300">
-          <img src="./images/photo (2).png" />
+          <img src="./images/photo-2.png" />
         </div>
         <div className="photo" data-aos="zoom-in-right" data-aos-delay="400">
-          <img src="./images/photo (3).png" />
+          <img src="./images/photo-3.png" />
         </div>
         <div className="photo" data-aos="zoom-in-left">
-          <img src="./images/photo (4).png" />
+          <img src="./images/photo-4.png" />
         </div>
       </div>
       <div className="gallery-buttons">
