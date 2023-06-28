@@ -47,12 +47,21 @@ const HeroImagesContainer = styled.div`
     width: 230px;
     background-color: purple;
     border-radius: 50rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &:first-child {
+      background-image: url("images/photo-4.png");
+    }
+    &:last-child {
+      background-image: url("images/photo-1.png");
+    }
     &:nth-child(2) {
-      background-color: red;
+      background-image: url("images/photo-3.png");
       margin-top: 5rem;
     }
     &:nth-child(3) {
-      background-color: red;
+      background-image: url("images/photo-2.png");
       margin-top: 5rem;
     }
     @media (max-width: 768px) {
