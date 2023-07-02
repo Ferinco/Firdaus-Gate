@@ -200,9 +200,9 @@
   color: white;
 }
 .admission-buttons .cont-btn {
-  border: 1px solid rgb(27, 26, 26);
-  background-color: rgb(27, 26, 26);
-  color: white;
+  border: 1px solid rgb(27, 26, 26) !important;
+  background-color: rgb(27, 26, 26) !important;
+  color: white !important;
 }
 
 .cover {
@@ -569,7 +569,6 @@
 }
 .welcome-right .body .card-image {
   width: 30%;
-  border: 1px solid red;
   height: 100%;
 }
 .welcome-right .body .card-image img {

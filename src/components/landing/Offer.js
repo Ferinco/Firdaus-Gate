@@ -1,4 +1,4 @@
-import Card from "./card";
+import Card from "../custom/card";
 export default function Offer() {
   return (
     <div className="offers">

@@ -3,6 +3,7 @@ import "../navbar.css";
 import React from "react";
 import "../navbar.css";
 import { Icon } from '@iconify/react';
+import { Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -26,7 +27,7 @@ export default function Navbar() {
               <img src="./images/Firdaus_logo.png" id="logo-img" className="img-center" alt="logo" />
             </a>
             <a href="" className="brand-name">
-              Firdaus-Gate <br />
+              Firdaus-Gate <br/>
               Group of Schools
             </a>
           </div>
@@ -63,6 +64,11 @@ export default function Navbar() {
         <div className="bottom_nav">
           <nav>
             <ul className="left">
+            <div className="dropdown show">
+                <a className="nav-link" href="#">
+                <Icon icon="basil:home-outline" color="blue" />                                                             
+                </a>
+              </div>
               <div className="dropdown show">
                 <a
                   className="nav-link"
@@ -137,9 +143,9 @@ export default function Navbar() {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuLink"
                 >
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/portal">
                     Portal Login
-                  </a>
+                  </Link>
                   <a className="dropdown-item" href="#">
                     School Fees Payment <br />
                     (New Students)

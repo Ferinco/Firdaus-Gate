@@ -1,0 +1,53 @@
+$form-background: rgb(112, 112, 231);
+$font-color: black;
+$primary-color: blue;
+$form-field-color: rgb(120, 120, 160);
+
+.form-container {
+  
+  padding: 20px;
+  color: $font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  Form{
+      background-color: $form-background;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      padding: 20px;
+}
+  .form-field {
+    margin-bottom: 20px;
+   
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+      color: $font-color;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 3px $primary-color;
+      }
+    }
+  }
+
+  button {
+    background-color: $primary-color;
+    color: $font-color;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
