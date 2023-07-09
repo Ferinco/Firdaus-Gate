@@ -33,7 +33,9 @@ export default function Menubar() {
 </div>
 <div className="sub">
     <p>view school calendar to keep up with activities and planned terms/ sessions schedules.</p>
-    <div className="image"></div>
+    <div className="image">
+        {/* <img src="./images/calendar-image.png"></img> */}
+    </div>
 </div>
         </div>
       </div>
@@ -54,7 +56,7 @@ height: 100%;
         width: 100%;
         gap: 20px;
         .tab{
-            background-color: purple;
+            background-color: blue;
             border-radius: 10px;
             height: 100px;
             display: flex;
@@ -79,11 +81,41 @@ height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
         justify-content: center;
+        button{
+            border: 0;
+            background-color: blue;
+            border-radius: 30px;
+            color: white;padding:20px 0;
+            width: 50%;
+
+        }
         .sub{
             display: flex;
             flex-direction: column;
             gap: 10px;
+            .image{
+                justify-content: right;
+                width: 200px;
+                height: 200px;
+                img{
+                    object-fit: cover;
+                    display: block;
+                    width:100%;
+                    height: 100%;
+                }
+            }
         }
+    }
+}
+@media screen and (max-width: 600px) {
+    display: none !important;
+    border: 1px solid red;
+}
+@media screen and (max-width: 1000px) {
+    width: 100%;
+    .wrapper{
+        padding: 20px;
+    padding-right: 20px !important;
     }
 }
 `;

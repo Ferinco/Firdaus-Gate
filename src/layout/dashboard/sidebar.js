@@ -47,11 +47,12 @@ const SIDEBAR = styled.div`
 width: 20%;
 background-color: rgb(219, 219, 219);
 height: 100%;
+position: sticky;
 
 .wrapper{
-    padding: 50px;
-    padding-left: 70px !important;
-    padding-right: 0 !important;
+    padding: 20px;
+    padding-top: 50px !important;
+    /* padding-right: 0 !important; */
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -98,5 +99,23 @@ height: 100%;
             }
         }
     }
+}
+@media screen and (max-width: 600px) {
+    width: 100%;
+    flex-direction: column;
+
+}
+@media screen and (min-width: 601px)and (max-width: 1000px)  {
+    width: 100%;
+   .wrapper{
+    width: 100%;
+height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    .profile{
+flex-direction: column;
+align-items: center;
+    }
+   }
 }
 `;
