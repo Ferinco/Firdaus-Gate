@@ -29,10 +29,10 @@ export default function LandingHero() {
       {/* HERO IMAGE SECTION */}
 
       <HeroImagesContainer>
-        <div className="img_wrapper"></div>
-        <div className="img_wrapper"></div>
-        <div className="img_wrapper"></div>
-        <div className="img_wrapper"></div>
+        <div className="img_wrapper" />
+        <div className="img_wrapper" />
+        <div className="img_wrapper" />
+        <div className="img_wrapper" />
       </HeroImagesContainer>
     </div>
   );

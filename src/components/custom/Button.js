@@ -24,7 +24,8 @@ const Btn = styled.button`
   outline: none;
   border: none;
   padding: 12px 18px;
-  border-radius: 18px;
+  border-radius: 10px;
+  width: 100%;
 `;
 
 Button.propTypes = {

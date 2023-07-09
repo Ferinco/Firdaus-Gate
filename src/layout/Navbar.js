@@ -44,17 +44,17 @@ export default function Navbar() {
             <Icon className="icon" icon="iconamoon:email-thin" />
             </div>
             <div className="widget_content">
-              <h5 class="widget_title">enquiries@firdaus-gate.org</h5>
-              <p class="widget_desc">Quick Contact</p>
+              <h5 className="widget_title">enquiries@firdaus-gate.org</h5>
+              <p className="widget_desc">Quick Contact</p>
             </div>
           </div>
           <div className="widget_info d-flex flex-row align-items-center justify-content-end">
             <div className="widget_icon">
             <Icon className="icon" icon="game-icons:world" color="blue" />
             </div>
-            <div class="widget_content">
-              <h5 class="widget_title">6/8 Balogun Street, off Igodo Road,</h5>
-              <p class="widget_desc">Magboro, Omo-Olope Area, Ogun State, Nigeria.</p>
+            <div className="widget_content">
+              <h5 className="widget_title">6/8 Balogun Street, off Igodo Road,</h5>
+              <p className="widget_desc">Magboro, Omo-Olope Area, Ogun State, Nigeria.</p>
             </div>
           </div>
           </div>
