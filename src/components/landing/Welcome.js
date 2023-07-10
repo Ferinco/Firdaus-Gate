@@ -3,6 +3,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Card from "../custom/card";
 import { HEADER } from "../custom/Header";
+import styled from "styled-components"
 export default function Welcome() {
   useEffect(() => {
     AOS.init();
@@ -46,3 +47,81 @@ export default function Welcome() {
     </div>
   );
 }
+const WELCOME = styled.div`
+    width: 100%;
+    &-header{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    .wrapper{
+        width: 90%;
+        margin: auto;
+        height: 600px;
+        display: flex;
+        flex-direction: row;
+    }
+    &-left{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to right, blue 70%, #ffff 30%);
+        .image{
+            height: 90%;
+            width: 90%;
+            margin: auto;
+            img{
+                object-fit: contain;
+            display: block;
+            height: 100%;
+            width: 100%;
+            }
+        }
+    }
+    &-right{
+      text-align: left;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        h3{
+          color: blue;
+        }
+        .text{
+          width: 90%;
+        }
+        .body{
+          width: 90%;
+          display: flex;
+          gap: 20px;
+          flex-direction: column;
+          .card{
+height: 100px;
+width: auto;
+display: flex;
+flex-direction: row;
+gap: 10px;
+align-items: center;
+&-image{
+  width: 30%;
+  height: 100%;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display:block;
+  }
+}
+&-text{
+  width: 70%;
+}
+          }
+        }
+        .end{
+          display: flex;
+          flex-direction: row;
+          width: 70%;
+          gap: 20px;
+        }
+    }
+`

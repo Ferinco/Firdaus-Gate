@@ -1,7 +1,7 @@
 
-import "../navbar.css";
+
 import React from "react";
-import "../navbar.css";
+import "../../navbar.css";
 import { Icon } from '@iconify/react';
 import { Link } from "react-router-dom";
 
