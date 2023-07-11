@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import Navbar from "./layout/navbar"
 export default function Menubar() {
   return (
     <MENUBAR>
+        <Navbar/>
       <div className="wrapper">
         <div className="topMenu">
           <div className="tab">
@@ -33,11 +35,11 @@ export default function Menubar() {
           </div>
         </div>
         <div className="calendar">
-          <div className="sub">
+          <div className="sub-1">
             <h2>Check your current and upcoming activties</h2>
             <button>view calendar</button>
           </div>
-          <div className="sub">
+          <div className="sub-2">
             <p>
               view school calendar to keep up with activities and planned terms/
               sessions schedules.
@@ -47,7 +49,7 @@ export default function Menubar() {
             </div>
           </div>
         </div>
-        <div className="bottomMenu">
+        {/* <div className="bottomMenu">
           <div className="tab">
             <h5>Parents</h5>
             <div className="image">
@@ -78,13 +80,13 @@ export default function Menubar() {
               <img src="./images/calendar-image.png" />
             </div>
           </div> */}
-          <div className="tab">
+          {/* <div className="tab">
             <h5>report an occurence</h5>
             <div className="image">
               <img src="./images/calendar-image.png" />
             </div>
           </div>
-        </div>
+        </div>  */}
       </div>
     </MENUBAR>
   );
@@ -111,7 +113,7 @@ const MENUBAR = styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 0 50px;
+        padding: 10px 20px;
 
         .number {
           display: flex;
@@ -153,7 +155,7 @@ const MENUBAR = styled.div`
         width: 50%;
         margin-top: 20px;
       }
-      .sub {
+      .sub-1, sub-2 {
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -202,10 +204,30 @@ const MENUBAR = styled.div`
         }
       }
     }
-  }
-  @media screen and (max-width: 600px) {
-    display: none !important;
-    border: 1px solid red;
+    @media screen and (max-width: 600px) {
+      .topMenu{
+        grid-template-columns: repeat(1, 1fr);
+        .tab {
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        
+      }
+      }
+      .calendar {
+      padding: 20px;
+      flex-direction: column;
+      textalign: center;
+      justify-content: center;
+      .sub-2{
+        display:none;
+      }
+      button {
+        padding: 5px 0;
+        width: 50%;
+      }
+    }
+    }
   }
   @media screen and (max-width: 1000px) {
     width: 100%;

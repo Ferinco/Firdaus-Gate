@@ -103,11 +103,11 @@ position: sticky !important;
         }
     }
 }
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     width: 100%;
     flex-direction: column;
 
-}
+} */
 @media screen and (min-width: 601px)and (max-width: 1000px)  {
     width: 100%;
    .wrapper{

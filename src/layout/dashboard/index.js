@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   
     width: 25%;
     @media screen and (max-width: 600px) {
-    width: 100%;
+    display: none;
 
 }
 @media screen and (min-width: 601px)and (max-width: 1000px)  {
