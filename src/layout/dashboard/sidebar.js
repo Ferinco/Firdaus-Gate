@@ -44,7 +44,7 @@ export default function Sidebar() {
   );
 }
 const SIDEBAR = styled.div`
-width: 100%;
+width: 300px;
 background-color: rgb(219, 219, 219);
 height: 100%;
 position: sticky !important;
