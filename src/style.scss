@@ -200,9 +200,9 @@ $secondary-color: rgb(27, 26, 26);
       color: white;
     }
     .cont-btn {
-      border: 1px solid $secondary-color;
-      background-color: $secondary-color;
-      color: white;
+      border: 1px solid $secondary-color !important;
+      background-color: $secondary-color !important;
+      color: white !important;
     }
   }
 }
@@ -570,7 +570,6 @@ gap: 10px;
 align-items: center;
 &-image{
   width: 30%;
-  border: 1px solid red;
   height: 100%;
   img{
     width: 100%;

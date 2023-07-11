@@ -1,13 +1,16 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { HEADER } from "../custom/Header";
 export default function Gallery() {
   useEffect(() => {
     AOS.init();
   }, []);
   return (
     <div className="gallery" >
-      <div className="gallery-header" data-aos="fade-right"><h5>Gallery</h5> <h3>A peak at our gallery</h3></div>
+      <HEADER data-aos="fade-right">
+      <h5>Gallery</h5> <h3>A peak at our gallery</h3>
+      </HEADER>
       <div className="gallery-photos">
         <div className="photo" data-aos="zoom-in-left">
           <img src="./images/photo-1.png" />

@@ -1,7 +1,8 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
+import { Link, useRoutes } from "react-router-dom";
 import Layout from "../layout";
-import { Home, Login, StartAdmission } from "../pages";
+import { Home } from "../pages";
+import Dashboard from "../pages/dashboard";
 
 export default function Routes() {
   return useRoutes([
@@ -11,14 +12,9 @@ export default function Routes() {
       children: [{ path: "/", element: <Home /> }],
     },
     {
-      path: "auth",
-
-      children: [{ path: "login", element: <Login /> }],
-    },
-    {
-      path: "admission",
+      path: "portal",
       element: <Layout />,
-      children: [{ path: "", element: <StartAdmission /> }],
+      children: [{ path: "/portal", element: <Dashboard /> }],
     },
   ]);
 }

@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.brand-name {
+  color: black !important;
+}
+
 .widget_info {
   align-items: center !important;
   gap: 10px;
@@ -10,6 +14,10 @@
 .widget_info .widget_content {
   text-align: left;
   line-height: 1px;
+}
+
+a {
+  text-decoration: none !important;
 }
 
 .icon {

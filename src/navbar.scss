@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
 }
+.brand-name{
+  color: black !important;
+}
 .widget_info{
  align-items: center !important; 
  gap: 10px;
@@ -10,6 +13,10 @@
   line-height: 1px;
  }
 }
+a{
+  text-decoration: none !important;
+}
+
 .icon{
   font-size: 50px !important;
   color: blue !important;
@@ -78,6 +85,7 @@
   width: 100%;
   background-color: rgb(27, 26, 26);
   height: 60px;
+
 }
 .wrapper .bottom_nav nav {
   width: 90%;
@@ -93,8 +101,7 @@
   display: flex;
   justify-content: right;
 }
-.wrapper .bottom_nav .right li {
-}
+
 .wrapper .bottom_nav .left {
   border-right: 1px solid gray;
   padding: 0 !important;

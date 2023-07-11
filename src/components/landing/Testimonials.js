@@ -1,12 +1,15 @@
 import "bootstrap/dist/css/bootstrap.css";
+import { HEADER } from "../custom/Header";
 import Testimony from "./Testimony";
 export default function Testimonials() {
   return (
     <div className="testimonials">
-      <div className="header">
+      
+        <HEADER white>
         <h5>TESTMONIALS</h5>
         <h3>read what our clients say about us</h3>
-      </div>
+        </HEADER>
+      
       <div className="wrapper">
         <div
           id="carouselExampleIndicators"

@@ -1,7 +1,8 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Card from "./card";
+import { HEADER } from "../custom/Header"; 
 import { useEffect } from "react";
+import Card from "../custom/card";
 export default function News() {
   useEffect(() => {
     AOS.init();
@@ -10,11 +11,13 @@ export default function News() {
     <div className="news">
         <div className="wrapper">
 
-       
-      <div className="news-header">
-        <h5>NEWS</h5>
+       <HEADER>
+       <h5>NEWS</h5>
         <h3>News and Events</h3>
-      </div>
+       </HEADER>
+     
+      
+      
       <div className="news-body">
       
     

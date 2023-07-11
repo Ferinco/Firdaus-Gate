@@ -1,6 +1,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { Icon } from '@iconify/react';
 
 export default function Services() {
     useEffect(() => {
@@ -22,10 +23,10 @@ export default function Services() {
 
             <ul 
             className="text-body">
-                <h5>Intensive Islamic Religious Studies</h5>
-                <h5>Social and cultural activities</h5>
-                <h5>Quranic memorisation classes</h5>
-                <h5>Sport activities</h5>
+                <h5><Icon icon="tabler:checkbox" color="blue" /> Intensive Islamic Religious Studies</h5>
+                <h5><Icon icon="tabler:checkbox" color="blue" /> Social and cultural activities</h5>
+                <h5><Icon icon="tabler:checkbox" color="blue" /> Quranic memorisation classes</h5>
+                <h5><Icon icon="tabler:checkbox" color="blue" /> Sport activities</h5>
                 
 
             </ul>
