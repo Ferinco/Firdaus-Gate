@@ -14,9 +14,11 @@
 // flex-direction: row;
 // `
 import styled from "styled-components";
+import Navbar from "../layout/dashboard/navbar";
 export default function Menubar() {
   return (
     <MENUBAR>
+        <Navbar/>
       <div className="wrapper">
         <div className="topMenu">
           <div className="tab">
@@ -113,7 +115,6 @@ const MENUBAR = styled.div`
     /* padding-right: 70px !important; */
     flex-direction: column;
     width: 100%;
-    border: 1px solid red;
     gap: 20px;
     .topMenu {
       display: grid;

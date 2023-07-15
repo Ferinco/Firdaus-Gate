@@ -1,4 +1,4 @@
-import Sidebar from "../sidebar"
+import Sidebar from "./sidebar"
 import { Icon } from '@iconify/react';
 import { useState } from "react"
 import styled from "styled-components"
@@ -28,12 +28,20 @@ export default function Navbar (){
     )
 } 
 const NAVBAR = styled.div `
-border: 1px solid red;
 background-color: rgb(219, 219, 219);
 display:flex;
-flex-direction: column;
-gap: 20px;
+flex-direction: row;
+justify-content: space-between;
 padding: 10px 20px;
+@media screen and (min-width: 601px) {
+  .menuBar{
+    display: none;
+  }
+  .profileIcon{
+   float: right !important;
+  }
+
+}
 
 
 .sign-nav{
