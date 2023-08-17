@@ -12,10 +12,5 @@ export default function Routes() {
       element: <Layout />,
       children: [{ path: "/", element: <Home /> }],
     },
-    {
-      path: "portal",
-      element: <DashboardLayout/> ,
-      children: [{ path: "/portal", element: <Dashboard /> }],
-    },
   ]);
 }
