@@ -8,11 +8,12 @@ export default function TeacherDashboard(){
     return(
         <Dashboard>
 
-<div className="container d-flex flex-column p-5">
-<Header left>
+<div className="dashboard-container container d-flex flex-column p-5">
+<div>
     <h3>My Dashboard</h3>
-</Header>
-<div className='wrapper d-flex flex-column mt-4'>
+</div>
+<div className='menu-wrapper d-flex flex-row'>
+<div className='nav-wrapper d-flex flex-column mt-4'>
     <Link className='react-router-link tab d-flex flex-row justify-content-between px-3 py-2' to={PATH_DASHBOARD.teacher.create}>
         <div className='d-flex flex-column mt-3 text'>
         <h6>Create Profile</h6>
@@ -39,13 +40,20 @@ export default function TeacherDashboard(){
         </div>
     </div>
 </div>
+<div className='info-wrapper'>
+</div>
+</div>
 </div>
         </Dashboard>
     )
 }
 const Dashboard = styled.div`
-.wrapper{
+.nav-wrapper{
     gap:20px;
+}
+.info-wrapper{
+    border-radius: 10px;
+    
 }
 .tab{
     width:400px;

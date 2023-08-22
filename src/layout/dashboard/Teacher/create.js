@@ -38,7 +38,7 @@ export default function Create() {
         <div className="my-3">
           <input
             placeholder="lastname"
-            name="firstname"
+            name="lastname"
             type="text"
             {...register("lastname", { required: true })}
           />
