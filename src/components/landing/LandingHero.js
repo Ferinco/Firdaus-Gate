@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../custom";
+import { Button } from "../custom/Button";
 
 export default function LandingHero() {
   return (
@@ -18,9 +18,9 @@ export default function LandingHero() {
               </p>
             </div>
             <div className="button-group">
-              <Button>Get started</Button>
+              <Button blue>Get started</Button>
               <span> </span>
-              <Button variant="transparent">About us</Button>
+              <Button white>About us</Button>
             </div>
           </div>
         </div>

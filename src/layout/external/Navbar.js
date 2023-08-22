@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dropdown } from 'react-bootstrap';
 import {useState} from 'react'
+import { PATH_AUTH } from "../../routes/paths";
+import { PATH_DASHBOARD } from "../../routes/paths";
 
 
 export default function Navbar() {
@@ -24,96 +26,215 @@ export default function Navbar() {
        <div className="second-navbar">
        <div className=" container d-flex justify-content-between py-3 px-0">
        <div className="d-lg-none">
- <Icon icon={isOpen? "iconoir:cancel" : 'eva:menu-2-fill'} color="black" className="icon"
+ <Icon icon={isOpen? "iconamoon:sign-times" : 'eva:menu-2-fill'} color="black" className="icon"
  onClick={()=>{
   setIsOpen(!isOpen)
  }}/>
  </div>
           <div className=" d-flex flex-row align-items-start header">
           <Logo/>
-          <div className="info d-flex flex-column ml-2"><h6>FIRDAUS GATE</h6><h6>MODEL SCHOOLS</h6></div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
           <Icon className="icon mr-2" icon="ph:phone-thin" color="blue" />
-          <div className="info d-flex flex-column"><h6>+2349065363554</h6><p>Make A Call</p></div>
+          <div className="info d-flex flex-column"><h6>+2349055512553</h6><p>Give Us A Call</p></div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
           <Icon className="icon mr-2" icon="et:envelope" color="blue" />
-          <div className="info d-flex flex-column"><h6>firdausgate@gmail.com</h6><p>Mail Us</p></div>
+          <div className="info d-flex flex-column"><h6>firdausgateschools@gmail.com</h6><p>Mail Us</p></div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
           <Icon className="icon mr-2" icon="game-icons:world" color="blue" />
-          <div className="info d-flex flex-column"><h6>Phase II, Asero Housing Estate,</h6><p>Asero, Abeokuta, Ogun State, Nigeria.</p></div>
+          <div className="info d-flex flex-column"><h6>6/8 Balogun Street, Off Igodo Road,</h6><p>Omo-Olope Area, Magbooro, Ogun State.</p></div>
           </div>
         </div>
        </div>
       <div className={`third-navbar d-flex ${isOpen ? 'opened' : 'closed'}`}>
   <div className="d-flex flex-row justify-content-between container py-0 px-0">
 
-  <div className="d-flex flex-row dropdowns">
-    <li className="px-2"><Icon icon="ic:round-home" color="blue" /></li>
-            <li className="nav-item dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                 <Link to =''> about us</Link>
-                </Dropdown.Toggle>
+  <div className="d-flex flex-row dropdowns desktop-dropdowns d-none d-lg-flex">
+    <li className="px-2"><Icon icon="ic:round-home" color="blue" className="home-icon"/></li>
+                <div className="dropdown show">
+                <a
+                  className="nav-link"
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  ABOUT
+                </a>      
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <a className="dropdown-item" href="#">
+                    About Us
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Our Mission
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Our vision
+                  </a>
+                </div>
+              </div>
 
-              </Dropdown>
-            </li>
-            <li className="nav-item dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                  portal
-                </Dropdown.Toggle>
+              <div className="dropdown show">
+                <a
+                  className="nav-link"
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  ADMISSION
+                </a>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Student portal</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">teacher portal</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            <li className="nav-item dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                 admission
-                </Dropdown.Toggle>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <a className="dropdown-item" href="#">
+                    Start Admssion
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Continue Admission
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Admssion Letter
+                  </a>
+                </div>
+              </div>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Submenu 1</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Submenu 2</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Submenu 3</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            <li className="nav-item dropdown">
-            <Dropdown>
-                <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                 <Link to =''> gallery</Link>
-                </Dropdown.Toggle>
+              <div className="dropdown show">
+                <a
+                  className="nav-link"
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  PORTAL
+                </a>
 
-              </Dropdown>
-            </li>
-            <li className="nav-item dropdown">
-            <Dropdown>
-                <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                 <Link to =''> news</Link>
-                </Dropdown.Toggle>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <Link className="dropdown-item" to={PATH_AUTH.login}>
+                    Student Login
+                  </Link>
+                  <Link className="dropdown-item" to={PATH_AUTH.teacher}>
+                    Teacher Login
+                  </Link>
+                  <Link className="dropdown-item" to={PATH_DASHBOARD.teacher.index}>
+                    dummy dashboard
+                  </Link>
+                  <Link className="dropdown-item" to={PATH_DASHBOARD.student.index}>
+                    dummy dashboard2
+                  </Link>
+                </div>
+              </div>
 
-              </Dropdown>
-            </li>
+              <div className="dropdown show">
+                <a className="nav-link" href="#">
+                  GALLERY
+                </a>
+              </div>
+              <div className="dropdown show">
+                <a className="nav-link" href="#">
+                  NEWS
+                </a>
+              </div>
           </div>
-         <a className="d-flex flex-row button">
-            CONTACT
-         </a>
-         
+          <div className="mobile-dropdown d-flex d-lg-none flex-column">
+          <div class="btn-group dropright">
+  <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   ABOUT US
+  </a>
+  <div class="dropdown-menu">
+  <a className="dropdown-item" href="#">
+                    About Us
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Our Mission
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Our vision
+                  </a>
   </div>
+</div>
+<div class="btn-group dropright">
+  <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ ADMISSION
+  </a>
+  <div class="dropdown-menu">
+  <a className="dropdown-item" href="#">
+                    Start Admssion
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Continue Admission
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Admssion Letter
+                  </a>
+  </div>
+</div>
+<div class="btn-group dropright">
+  <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ PPORTAL
+  </a>
+  <div class="dropdown-menu">
+  <Link className="dropdown-item" to={PATH_AUTH.login}>
+                    Student Login
+                  </Link>
+                  <a className="dropdown-item" href="#">
+                    Teacher Login
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    School Fees Payment
+                  </a>
+  </div>
+</div>
+<div className="dropdown show">
+                <a className="nav-link" href="#">
+                  GALLERY
+                </a>
+              </div>
+              <div className="dropdown show">
+                <a className="nav-link" href="#">
+                  NEWS
+                </a>
+              </div>
+
+          </div>
+         <div className="d-flex flex-row contact">
+           <a> CONTACT</a>
+         </div>
+  </div>
+         <div className="closing-div" 
+         onClick={()=>{
+          setIsOpen(!isOpen)
+         }}></div>
       </div>
-        {/* <span class="d-block p-2 bg-dark text-white">d-block</span> */}
       </NavigationBar>
 
   );
 }
 const NavigationBar = styled.div `
+.closing-div{
+  display:none;
+}
+.react-router-link{
+  text-decoration: none !important;
+  color: inherit !important;
+}
 .icon{
   font-size:45px;
 }
@@ -147,58 +268,90 @@ const NavigationBar = styled.div `
   align-items:center;
   justify-content: center;
   background-color: rgb(27, 26, 26);
+  height:60px;
   .container{
     display:flex;
     align-items:center;
   justify-content: center;
   border-left: 1px solid grey;
-  .dropdowns{
+  height:100% !important;
+  .desktop-dropdowns{
     display:flex;
     align-items:center;
   justify-content: center;
   list-style: none;
   align-items: center;
-  .dropdown{
-    display:flex;
-    align-items:center;
+  .dropdown {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  height:60px !important;
-  #dropdown-basic{
-    border-left: 1px solid grey;
-    text-transform: uppercase !important;
-    color:white !important;
-    height:60px;
-    border-radius: 0 !important;
+  align-items: center;
+  height: 60px;
+  border-left: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  .nav-link {
+    padding: 0 30px !important;
+    color: white !important;
+    text-decoration: none;
+   
   }
+}
+.dropdown-menu {
+  margin-top: 17px ;
+  border-top: 3px solid blue ;
+  transition: linear 0.5s;
+  border-radius:0;
+  background-color:#f5f5f5;
+  .dropdown-item{
+    &:hover{
+      background-color: blue;
+      color:white;
+    }
   }
+}
   }
-  .button{
-height: 100%;
-padding: 17px;
+  .contact{
+    display: flex;
+    height:100%;
+  justify-content: center !important;
+  align-items: center !important;
+padding:0 30px !important;
 background-color: blue;
-color:white;
+a{
+  display:flex;
+  justify-content:center;
+  color:white;
+  text-decoration: none;
+}
   }
   }
 }
-.dropdown-toggle::after {
-  display: none !important;
-}
-.dropdown-toggle:focus {
-  outline: none;
-  box-shadow: none;
-}
-@media screen and (max-width  : 900px){
+
+
+@media screen and (max-width  : 768px){
  width:100vw !important;
  overflow: hidden !important;
  justify-content: left !important;
  align-items: left !important;
+ .closing-div{
+  display: block;
+  height:100%;
+  width:30%;
+ }
+ .home-icon{
+  display:none;
+ }
+
  .second-navbar{
   height: 70px !important;
   position: relative !important;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
   .container{
     position: fixed !important;
     height:70px !important;
     z-index:999 !important;
+    padding: auto !important;
     width: 65%;
     align-items: center !important;
     .header{
@@ -223,43 +376,60 @@ color:white;
   margin-left: 0;
   transition:0.3s;
   display: flex;
+  position:fixed !important;
  }
  .third-navbar{
   width:100%;
-  align-items:left;
-  justify-content:left;
-  position: absolute !important;
+  align-items:start;
+  justify-content: start !important;
+  position: fixed !important;
   z-index:999 !important;
-  background-color: white;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 80px);
+  background-color: rgba(0.3,0.3,0.3, 0.7);
   .container{
-    width: 100% !important;
+  background-color: white;
+    width: 70% !important;
     display: flex;
-   
-    justify-content: left !important;
+    margin-left:-9px !important;
+    justify-content: center !important;
     align-items: start !important;
     height: 100%;
-    .button{
+    .contact{
       display: none !important;
     }
-    .dropdowns{
+    .mobile-dropdown{
       padding-top:30px;
       flex-direction: column !important;
-      height: 70%;
+      height: 40%;
       justify-content: space-between;
       width: 70%;
       align-items: start !important;
-     
-      .dropdown{
-
-  #dropdown-basic{
-    border-left: none;
-    text-transform: uppercase !important;
+  .dropdown-toggle{
+    font-weight:600;
     color:black !important;
-    height:60px;
     border-radius: 0 !important;
+    width:150px !important;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    &:hover{
+      border-bottom: 1px solid blue;
+      transition:0.5s;
+    }
   }
+  .dropdown-menu {
+width:200px !important;
+  border-left: 3px solid blue ;
+  transition: linear 0.5s;
+  border-radius:0;
+  background-color:#ffff;
+  .dropdown-item{
+    &:hover{
+      background-color: blue;
+      color:white;
+    }
   }
+}
     }
   }
  }

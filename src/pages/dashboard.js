@@ -1,21 +1,9 @@
-// import styled from "styled-components"
-// // import Sidebar from "../layout/dashboard/sidebar"
-// import Menubar from "../layout/dashboard/menubar";
-// export default function Dashboard(){
-//     return(
-//         <DASHBOARD>
-//             {/* <Sidebar/> */}
-//             <Menubar/>
-//         </DASHBOARD>
-//     )
-// }
-// const DASHBOARD = styled.div`
-// display: flex;
-// flex-direction: row;
-// `
+
 import styled from "styled-components";
 import Navbar from "../layout/dashboard/navbar";
+import { useEffect } from "react";
 export default function Menubar() {
+
   return (
     <MENUBAR>
         <Navbar/>
@@ -64,44 +52,7 @@ export default function Menubar() {
             </div>
           </div>
         </div>
-        {/* <div className="bottomMenu">
-          <div className="tab">
-            <h5>Parents</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div>
-          <div className="tab">
-            <h5>Classmates</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div>
-          <div className="tab">
-            <h5>Class teacher info</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div>
-          {/* <div className="tab">
-            <h5>subject teachers' info</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div>
-          <div className="tab">
-            <h5>projects</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div> */}
-          {/* <div className="tab">
-            <h5>report an occurence</h5>
-            <div className="image">
-              <img src="./images/calendar-image.png" />
-            </div>
-          </div>
-        </div>  */}
+       
       </div>
     </MENUBAR>
   );
