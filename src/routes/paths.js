@@ -18,7 +18,7 @@ export const PATH_PAGE = {
 export const PATH_DASHBOARD = {
   teacher: {
     index: ROOT_TEACHER,
-    myStudents: JOIN(ROOT_TEACHER, "my-class"),
+    myStudents: JOIN(ROOT_TEACHER, "students"),
     results: JOIN(ROOT_TEACHER, "results"),
     create: JOIN(ROOT_TEACHER, "create-student")
 

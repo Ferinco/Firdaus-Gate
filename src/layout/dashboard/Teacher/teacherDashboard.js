@@ -13,22 +13,28 @@ export default function TeacherDashboard(){
     <h3>My Dashboard</h3>
 </Header>
 <div className='wrapper d-flex flex-column mt-4'>
-    <Link className='tab d-flex flex-row justify-content-between px-2 py-2' to={PATH_DASHBOARD.teacher.create}>
-        <div className='d-flex flex-column text-align-left text'>
-        <h6>create profle</h6>
+    <Link className='react-router-link tab d-flex flex-row justify-content-between px-3 py-2' to={PATH_DASHBOARD.teacher.create}>
+        <div className='d-flex flex-column mt-3 text'>
+        <h6>Create Profile</h6>
         <p>create a new student profile</p>
         </div>
-        <div><Icon icon="typcn:user-add" /></div>
+        <div><Icon className='icon' icon="typcn:user-add" color="white" /></div>
     </Link>
-    <div className='tab d-flex flex-row justify-content-between px-2 py-2'>
-        <div className='d-flex flex-column text-align-left'>
-        <h6>create profle</h6>
+    <div className='tab d-flex flex-row justify-content-between px-3 py-2'>
+        <div className='d-flex flex-column  mt-3 textt'>
+        <h6>Create Profile</h6>
         <p>create a new student profile</p>
         </div>
     </div>
-    <div className='tab d-flex flex-row justify-content-between px-2 py-2'>
-        <div className='d-flex flex-column text-align-left'>
-        <h6>create profle</h6>
+    <div className='tab d-flex flex-row justify-content-between px-3 py-2'>
+        <div className='d-flex flex-column  mt-3 text'>
+        <h6>Create Profile</h6>
+        <p>create a new student profile</p>
+        </div>
+    </div>
+    <div className='tab d-flex flex-row justify-content-between px-3 py-2'>
+        <div className='d-flex flex-column  mt-3 text'>
+        <h6>create profile</h6>
         <p>create a new student profile</p>
         </div>
     </div>
@@ -43,12 +49,17 @@ const Dashboard = styled.div`
 }
 .tab{
     width:400px;
+    height: 80px;
     border-radius: 10px;
+    align-items: center;
     .text{
-        align-items:center;
+       text-align:left;
     }
       &:first-child {
      background:black;
+     .icon{
+        font-size:40px;
+    }
      h6{
      color:white;
     }
@@ -57,10 +68,13 @@ const Dashboard = styled.div`
    }
 }
    &:nth-child(2) {
-    background:black;
+    background:  #ffff66;
+   }
+   &:nth-child(3) {
+    background: #ffb366;
    }
 &:last-child{
-    background-color:black;
+    background-color:  #8080ff;
 }
 }
 `

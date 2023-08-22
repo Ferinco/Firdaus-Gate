@@ -30,7 +30,7 @@ export default function Routes() {
       element: <TeacherDashboardLayout/>,
       children: [
         {path: "/teacher", element: <TeacherDashboard/>},
-        {path: "/teacher/my-class", element: <MyClass/>},
+        {path: "/teacher/students", element: <MyClass/>},
         {path: "/teacher/results", element: <Results/>},
         {path: "/teacher/create-student", element: <Create/>}
 

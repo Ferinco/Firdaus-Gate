@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {useEffect} from 'react'
 import { Header } from '../../../components/custom/Header';
+import { Button } from '../../../components/custom/Button';
+
 export default function MyClass(){
     const [StudentData, setStudentData]= useState([])
     useEffect(()=>{
@@ -25,13 +27,16 @@ axios.get('https://64e27cacab003735881908fa.mockapi.io/students/studentsData')
         <Header left>
             <h3>My Students</h3>
         </Header>
-<Table>
-<thead>
+<Table className="table table-bordered tabble-stripped">
+<thead className="thead-dark">
         <tr>
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Admission Number</th>
+            <th colSpan="3">Operations</th>
+
+            
             {/* <th>email</th>
             <th>password</th> */}
         </tr>
@@ -43,7 +48,7 @@ axios.get('https://64e27cacab003735881908fa.mockapi.io/students/studentsData')
         <td>{data.firstname}</td>
         <td>{data.lastname}</td>
         <td>{data.admissionNumber}</td>
-        <td><Link to="" onClick={() => setData(data)}>update</Link></td>
+        <td><Link to="" onClick={() => setData(data)}><button>update</button></Link></td>
         <td><Link to="">transfer</Link></td>
         <td><Link to="">delete</Link></td>
 
@@ -59,4 +64,10 @@ axios.get('https://64e27cacab003735881908fa.mockapi.io/students/studentsData')
     )
 }
 const Students = styled.div`
+.container{
+    gap:30px;
+    button{
+        padding:0 5px;
+    }
+}
 `

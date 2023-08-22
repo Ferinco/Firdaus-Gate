@@ -15,9 +15,6 @@ export default function Teacher(){
       };
     return(
         <Wrapper>
-            <div>{counter}</div><button onClick={()=>{
-                setCounter(counter +1)
-            }}>add</button>
               <div className="container-fluid">
         <div className="row">
         <div className="col-md-6 left">
@@ -29,7 +26,7 @@ export default function Teacher(){
                 <h3 className="fw-bolder">Welcome Back!</h3>
                 <p>You are a world class teacher</p>
               </div>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} >
                 <div className="my-3">
                   <input
                     placeholder="Teacher ID"
@@ -103,6 +100,7 @@ const Wrapper = styled.div`
     flex: 1;
     justify-content: space-around;
     .login-wrapper {
+      width: 400px;
       .logo-img {
         height: 70px;
         width: 70px;
@@ -118,7 +116,7 @@ const Wrapper = styled.div`
           overflow: hidden;
         }
       }
-      width: 400px;
+      
     }
   }
   input{

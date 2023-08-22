@@ -11,13 +11,13 @@ export default function TeacherSidebar() {
           <img src="/images/logo.png" />
         </div>
         <div className="nav-links d-flex flex-column">
-          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.teacher.index}><Icon icon="majesticons:home" />Home</Link>
-          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.teacher.myStudents}><Icon icon="healthicons:i-training-class" />My Class</Link>
+          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.teacher.index}><Icon icon="uil:create-dashboard"/>Dashboard</Link>
+          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.teacher.myStudents}><Icon icon="mdi:google-classroom" />My Students</Link>
           <Link className="nav-link react-router-link" to={PATH_DASHBOARD.teacher.results}><Icon icon="fluent-mdl2:poll-results" />Results</Link>
         </div>
       </div>
         <div className="log-out">
-          <Link className="react-router-link nav-link">Log out</Link>
+          <Link className="react-router-link nav-link"><Icon icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right" rotate={2} />Log out</Link>
         </div>
       </div>
     </SIDEBAR>
@@ -33,19 +33,15 @@ const SIDEBAR = styled.div`
     align-items: center;
   }
 .wrapper{
-  height: 40%;
+  height: 50%;
   width:100%;
   align-items: center;
 }
 .nav-links{
   gap:30px;
-  // width:100%;
-  width:70%;
-  border:1px solid white;
-  justify-content: end !important;
 }
 .nav-link{
-  border:1px solid white;
+  font-weight:700 !important;
   color:#b3b3b3 !important;
   display:flex;
   justify-content: left !important;
