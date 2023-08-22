@@ -27,10 +27,26 @@ export default function MyClass() {
   };
   return (
     <Students>
-      <div className="container d-flex flex-column p-5">
-        <Header left>
+      <div className="container-fluid d-flex flex-column p-5">
+        <div className="d-flex flex-row justify-content-between">
           <h3>My Students</h3>
-        </Header>
+        <div className="form-wrapper mt-5">
+          <form className="d-flex flex-row form">
+            <div>
+              <input
+                placeholder="search for student"
+                name="searched"
+                {...register("searched", { required: true })}
+              />
+            </div>
+            <div>
+              <button type="submit">
+                <Icon className="icon" icon="ion:search" color="black" />
+              </button>
+            </div>
+          </form>
+        </div>
+        </div>
         <Table className="table table-bordered tabble-stripped">
           <thead className="thead-dark">
             <tr>
@@ -38,6 +54,8 @@ export default function MyClass() {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Admission Number</th>
+              <th>email</th>
+              <th>gender</th>
               <th colSpan="3">Operations</th>
 
               {/* <th>email</th>
@@ -51,6 +69,9 @@ export default function MyClass() {
                 <td>{data.firstname}</td>
                 <td>{data.lastname}</td>
                 <td>{data.admissionNumber}</td>
+                <td>{data.email}</td>
+                <td>{data.gender}</td>
+
                 <td>
                   <Link to="" onClick={() => setData(data)}>
                     <button>update</button>
@@ -71,31 +92,21 @@ export default function MyClass() {
           </tbody>
         </Table>
       </div>
-      <div className="d-flex flex-column p-5 right-wrapper">
-        <div className="form-wrapper">
-          <form className="d-flex flex-row form">
-            <div>
-              <input
-                placeholder="search for student"
-                name="searched"
-                {...register("searched", { required: true })}
-              />
-            </div>
-            <div>
-              <button type="submit">
-                <Icon className="icon" icon="ion:search" color="black" />
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="info-wrapper d-flex flex-column">
+      <div className="d-none flex-column p-5 right-wrapper">
+     
+        <div className="info-wrapper d-flex flex-column px-4 py-4">
           <div className="tab d-flex flex-row">
             <h6>Your Students</h6>
           </div>
           <div className="top-div">
-          <div className="long"></div>
+            <div className="long"></div>
             <div className="small"></div>
             <div className="small"></div>
+          </div>
+          <div className="bottom-div">
+            <div className="tab d-flex flex-column"></div>
+            <div className="tab d-flex flex-column"></div>
+            <div className="tab d-flex flex-column"></div>
           </div>
         </div>
       </div>
@@ -107,18 +118,11 @@ const Students = styled.div`
   flex-direction: row;
   justify-content: space-between;
   border: 1px solid red;
-  .container {
-    gap: 70px;
-    button {
-      padding: 0 5px;
-    }
-  }
-  .right-wrapper {
-    background-color: #f5f5f5;
-    gap:70px;
+  .container-fluid {
+    gap: 30px;
     .form-wrapper {
       width: 300px;
-      background-color: white;
+      background-color: #f5f5f5;
       border-radius: 20px;
       .form {
         width: 100%;
@@ -141,12 +145,55 @@ const Students = styled.div`
         }
       }
     }
-    .info-wrapper{
-        height: 350px;
-        background-color: black;
-        border-radius:30px;
-        padding: 10px 25px;
-        width:400px;
+    button {
+      padding: 0 5px;
+    }
+  }
+  .right-wrapper {
+    background-color: #f5f5f5;
+    gap: 70px;
+  
+    .info-wrapper {
+      height: 350px;
+      background-color: black;
+      border-radius: 30px;
+      width: 400px;
+      justify-content: space-between;
+      .top-div {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: 120px;
+        gap: 10px;
+        overflow: hidden;
+        .long {
+          border-radius: 10px;
+          grid-row-end: span 2;
+          width: 250px;
+          height: 100%;
+          border: 1px solid white;
+        }
+        .small {
+          border-radius: 10px;
+
+          width: 90px;
+          /* grid-column-end: span 2; */
+          height: 100%;
+          border: 1px solid white;
+        }
+      }
+      .bottom-div {
+        display: flex;
+        flex-direction: row;
+        height: 120px;
+        width:100%;
+        justify-content:space-between;
+        .tab {
+          border: 1px solid white;
+          height: 100%;
+          width:100px;
+          border-radius: 10px;
+        }
+      }
     }
   }
 `;

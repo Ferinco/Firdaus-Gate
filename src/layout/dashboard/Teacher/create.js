@@ -12,11 +12,16 @@ export default function Create() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { firstname, lastname, admissionNumber } = data;
+    const { firstname, lastname, admissionNumber, email, gender } = data;
     axios.post(
       "https://64e27cacab003735881908fa.mockapi.io/students/studentsData",
-      { firstname, lastname, admissionNumber }
+      { firstname, lastname, admissionNumber, email, gender }
     );
+    console.log(
+      firstname,
+      email,
+      gender
+    )
   };
   return (
     <Wrapper className="container d-flex py-5 flex-column">
@@ -50,6 +55,23 @@ export default function Create() {
             type="number"
             {...register("admissionNumber", { required: true })}
           />
+        </div>
+        <div className="my-3">
+          <input
+            placeholder="email address"
+            name="email"
+            type="email"
+            {...register("email", { required: true })}
+          />
+        </div>
+        <div className="my-3">
+         <label htmlFor="gender"> gender:</label>
+         <select {
+          ...register("gender", { required: true })
+         }>
+              <option value="male">male</option>
+              <option value="female">female</option>
+            </select>
         </div>
         <div className="mt-4">
           <Button blue type="submit">
