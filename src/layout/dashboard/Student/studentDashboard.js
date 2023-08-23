@@ -1,63 +1,108 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import styled from 'styled-components'
+import {Link} from "react-router-dom"
+import { Icon } from '@iconify/react';
+import { Button } from '../../../components/custom/Button'
 import { Header } from '../../../components/custom/Header';
+import { useAppContext } from '../../../Context';
 export default function StudentDashboard(){
+    const { setIsSidebarOpen } = useAppContext()
     return(
         <Dashboard>
 
-<div className="container d-flex flex-column p-5">
-<Header left>
-    <h3>My Dashboard</h3>
-</Header>
-<div className='wrapper d-flex flex-column mt-4'>
-    <div className='tab d-flex flex-row justify-content-between px-2 py-2'>
-        <div className='d-flex flex-column text-align-left text'>
-        <h6>create profle</h6>
-        <p>create a new student profile</p>
-        </div>
-    </div>
-    <div className='tab d-flex flex-row justify-content-between px-2 py-2'>
-        <div className='d-flex flex-column text-align-left'>
-        <h6>create profle</h6>
-        <p>create a new student profile</p>
-        </div>
-    </div>
-    <div className='tab d-flex flex-row justify-content-between px-2 py-2'>
-        <div className='d-flex flex-column text-align-left'>
-        <h6>create profle</h6>
-        <p>create a new student profile</p>
-        </div>
-    </div>
+<div className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
+<div>
+    <h3>Dashboard</h3>
 </div>
+<div onClick={()=> setIsSidebarOpen(prevState => !prevState)}><Icon icon="ri:menu-3-fill" /></div>
+</div>
+<div className='middle-div container d-flex flex-row justify-content-between p-5'>
+    <div className='menu d-flex flex-row justify-content-between'>
+        <div className='tab'>
+            <h5>RESULTS</h5>
+<Button blue>view result</Button>
+        </div>
+        {/* <div className='tab'>
+            <h5>ACTIVE SCHOOL TERM</h5>
+            1st 
+        </div>
+        <div className='tab'>
+            <h5>CLASS TEACHER</h5>
+            1st 
+        </div> */}
+    </div>
+    <div className='profile d-flex flex-column align-center py-5 px-3 justify-content-between'>
+        <div className='image'></div>
+        <div className='name d-flex flex-column'>
+            <h5>Idowu Abdulsamad</h5>
+            <p>ss3</p>
+        </div>
+        <div className='info d-flex flex-row'></div>
+        <div className='number'><h3>1255623</h3></div>
+    </div>
+
+</div>
+<div className='end-div container d-flex flex-column p-5'>
+    <div><h5>Help center</h5></div>
+    <div className='d-flex flex-row justify-content-between mr-5 pr-5'>
+        <Link>Contact School</Link>
+        <Link>Mail School</Link>
+        <Link>Contact Teacher</Link>
+    </div>
 </div>
         </Dashboard>
     )
 }
 const Dashboard = styled.div`
 background-color: #f1f1f1;
-.wrapper{
-    gap:20px;
-}
-.tab{
-    width:400px;
-    border-radius: 10px;
-    .text{
+height:auto;
+.middle-div{
+    background-color: white;
+    align-items: center;
+    .menu{
+        gap:50px;
+      .tab{
+        border-radius: 30px;
+        height:200px;
+        width:200px;
+        justify-content:space-evenly;
+        display:flex;
+        flex-direction: column;
         align-items:center;
+        &:first-child{
+            background-color: #8080ff;
+;
+            color:white;
+        }
+        &:nth-child(2){
+            background-color:#ffb366;
+        }
+        &:last-child{
+            background-color:black;
+            color:white;
+        }
+
+      }  
     }
-      &:first-child {
-     background:black;
-     h6{
-     color:white;
+  .profile{
+    height:400px;
+    width:270px;
+   
+    align-items: center;
+  border-radius: 30px;
+  background-color: #f1f1f1;
+    .image{
+        height:90px;
+        width:90px;
+        border-radius: 50%;
+       
+        background-color:white;
     }
-   p{
-    color:#b3b3b3;
-   }
-}
-   &:nth-child(2) {
-    background:black;
-   }
-&:last-child{
-    background-color:black;
-}
+    .name{
+        align-items:center;
+        justify-content: center;
+    }
+  }
 }
 `

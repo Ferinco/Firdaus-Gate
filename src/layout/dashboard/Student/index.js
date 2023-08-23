@@ -1,10 +1,24 @@
 import { Outlet } from "react-router-dom";
 import StudentSidebar from "./sidebar";
+import styled from "styled-components"
 export default function StudentDashboardLayout(){
     return(
-        <div className="d-flex flex-row">
+        <Wrapper className="d-flex flex-row">
             <StudentSidebar/>
-            <Outlet/>
-        </div>
+            <div style={{backgroundColor: "#f1f1f1", height: "100%"}} className="outlet">
+        <Outlet />
+      </div>
+        </Wrapper>
     )
 }
+const Wrapper = styled.div`
+position: relative !important;
+.outlet{
+    width:80%;
+}
+@media screen and (max-width: 1100px){
+    .outlet{
+        width:100% !important;
+    }
+}
+`
