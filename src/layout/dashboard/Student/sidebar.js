@@ -35,7 +35,6 @@ const SIDEBAR = styled.div`
   position: relative;
   .container{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-    border:1px solid white;
     width:20%;
     height:1000px;
     align-items: center;
@@ -86,11 +85,11 @@ const SIDEBAR = styled.div`
 
  }
  .opened{
-  width:270px;
+  width:250px;
   margin-left: 0;
   transition:0.3s;
   display: flex;
-  position:fixed !important;
+  position:fixed !important;z-index:999;
  }
 }
 

@@ -4,15 +4,19 @@ import { Header } from '../../../components/custom/Header';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { PATH_DASHBOARD } from '../../../routes/paths';
+import { useAppContext } from '../../../Context';
 export default function TeacherDashboard(){
+  const {setIsSidebarOpen} = useAppContext()
     return(
         <Dashboard>
 
-<div className="container d-flex flex-column p-5">
+<div className="head container d-flex flex-row p-5 d-flex justify-content-between align-center">
 <div>
     <h3>My Dashboard</h3>
 </div>
-<div className='wrapper d-flex flex-column mt-4'>
+<div onClick={()=> setIsSidebarOpen(prevState => !prevState)}><Icon icon="ri:menu-3-fill" className='nav-btn'/></div>
+</div>
+<div className='wrapper container d-flex flex-column p-5'>
     <Link className='react-router-link tab d-flex flex-row justify-content-between px-3 py-2' to={PATH_DASHBOARD.teacher.create}>
         <div className='d-flex flex-column mt-3 text'>
         <h6>Create Profile</h6>
@@ -54,11 +58,12 @@ export default function TeacherDashboard(){
             <div className="div d-flex flex-column"></div>
           </div>
         </div>
-</div>
         </Dashboard>
     )
 }
 const Dashboard = styled.div`
+height:auto;
+position: relative;
 .wrapper{
     gap:20px;
 }

@@ -5,16 +5,24 @@ import styled from "styled-components"
 
 export default function TeacherDashboardLayout(){
     return(
-        <div className="d-flex flex-row">
+        <Wrapper className="d-flex flex-row">
         <TeacherSidebar />
-        <div style={{ marginLeft: '260px'}}>
+        <div style={{backgroundColor: "#f1f1f1", height: "100%"}} className="outlet">
         <Outlet />
       </div>
 
       
-      </div>
+      </Wrapper>
     )
 }
-// const Wrapper = styled.div`
-// position:relative;`
+const Wrapper = styled.div`
+position:relative;
+.outlet{
+    width:80%;
+}
+@media screen and (max-width: 1100px){
+    .outlet{
+        width:100% !important;
+    }
+}`
 

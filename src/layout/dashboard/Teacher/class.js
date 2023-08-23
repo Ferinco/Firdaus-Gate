@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Header } from "../../../components/custom/Header";
 import { Button } from "../../../components/custom/Button";
-
+import { useAppContext } from "../../../Context";
 export default function MyClass() {
   const { register, handleSubmit } = useForm();
 
@@ -47,6 +47,8 @@ export default function MyClass() {
           </form>
         </div>
         </div>
+      </div>
+      <div className="container p-5">
         <Table className="table table-bordered tabble-stripped">
           <thead className="thead-dark">
             <tr>
@@ -91,31 +93,14 @@ export default function MyClass() {
             ))}
           </tbody>
         </Table>
-      </div>
-      <div className="d-none flex-column p-5 right-wrapper">
-     
-        <div className="info-wrapper d-flex flex-column px-4 py-4">
-          <div className="tab d-flex flex-row">
-            <h6>Your Students</h6>
-          </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
-          </div>
-          <div className="bottom-div">
-            <div className="tab d-flex flex-column"></div>
-            <div className="tab d-flex flex-column"></div>
-            <div className="tab d-flex flex-column"></div>
-          </div>
-        </div>
+
       </div>
     </Students>
   );
 }
 const Students = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   .container-fluid {
     gap: 30px;
