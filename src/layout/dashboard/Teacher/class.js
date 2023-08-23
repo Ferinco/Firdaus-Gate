@@ -117,7 +117,6 @@ const Students = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid red;
   .container-fluid {
     gap: 30px;
     .form-wrapper {

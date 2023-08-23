@@ -34,6 +34,7 @@ export default function StudentDashboard(){
     )
 }
 const Dashboard = styled.div`
+background-color: #f1f1f1;
 .wrapper{
     gap:20px;
 }

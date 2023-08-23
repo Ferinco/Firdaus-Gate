@@ -6,15 +6,15 @@ import { PATH_DASHBOARD } from "../../../routes/paths";
 export default function StudentSidebar() {
   return (
     <SIDEBAR>
-      <div className="container d-flex flex-column py-5 justify-content-between h-100">
+      <div className="container d-flex flex-column py-5 justify-content-between h-100 px-0">
       <div className="wrapper d-flex flex-column justify-content-between">
       <div className="logo">
           <img src="/images/logo.png" />
         </div>
-        <div className="nav-links d-flex flex-column">
-          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.student.index}>Dashboard</Link>
-          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.student.mySubjects}>Subjects</Link>
-          <Link className="nav-link react-router-link" to={PATH_DASHBOARD.student.myTeachers}>My Teachers</Link>
+        <div className="nav-links d-flex flex-column pl-4">
+          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.index}><Icon icon="uil:create-dashboard"/>Dashboard</Link>
+          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.mySubjects}><Icon icon="material-symbols:library-books-outline" />Subjects</Link>
+          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.myTeachers}><Icon icon="la:chalkboard-teacher" />My Teachers</Link>
 
         </div>
       </div>
@@ -27,7 +27,7 @@ export default function StudentSidebar() {
   );
 }
 const SIDEBAR = styled.div`
-  background-color: black;
+  background-color: white;
   height:100vh;
   width:260px;
   .container{
@@ -45,10 +45,15 @@ const SIDEBAR = styled.div`
   width:100%;
 }
 .nav-link{
-  color:#b3b3b3 !important;
+  color:#737373 !important;
+  font-weight:700 !important;
+  display:flex;
+  align-items:center;
+  gap:20px;
   &:hover{
-    color:white !important;
+    color:black !important;
     transition:0.3s;
+    border-right: 5px solid black;
   }
 }
   .logo {

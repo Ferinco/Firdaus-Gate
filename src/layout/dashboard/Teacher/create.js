@@ -24,12 +24,12 @@ export default function Create() {
     )
   };
   return (
-    <Wrapper className="container d-flex py-5 flex-column">
-      <Header>
-        <h5>Create Student Profile</h5>
+    <Wrapper className="container d-flex py-5 flex-column pl-lg-5">
+      <div>
+        <h5 style={{color: "blue" }}>Create Student Profile</h5>
         <h3>enter details here...</h3>
-      </Header>
-  <div className="form-wrapper d-flex justify-content-center flex-column align-items-center">
+      </div>
+  <div className="form-wrapper d-flex justify-content-center flex-column align-center ">
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-3">
@@ -65,10 +65,10 @@ export default function Create() {
           />
         </div>
         <div className="my-3">
-         <label htmlFor="gender"> gender:</label>
+         <label htmlFor="gender" style={{fontWeight: "700"}}> Gender:</label>
          <select {
           ...register("gender", { required: true })
-         }>
+         } className="select px-2 py-1 ml-3">
               <option value="male">male</option>
               <option value="female">female</option>
             </select>
@@ -84,11 +84,15 @@ export default function Create() {
   );
 }
 const Wrapper = styled.div`
-max-width: 700px;
-gap:40px;
+max-width: 500px;
+gap:20px;
 .form-wrapper{
 max-width: 700px;
-
+.select{
+  border-radius:5px;
+  background-color: #f5f5f5;
+  border:0 !important;
+}
 }
   input{
     border-radius: 10px;
@@ -96,7 +100,7 @@ max-width: 700px;
   background-color: #f1f1f1;
   border: none;
   outline: none;
-width: 400px;
+width: 300px;
 
   }
 `

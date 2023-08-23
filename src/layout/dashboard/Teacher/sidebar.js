@@ -27,8 +27,8 @@ const SIDEBAR = styled.div`
   background-color: black;
   height:100vh;
   width:260px;
+  position:fixed;
   .container{
-    border:1px solid white;
     width:100%;
     align-items: center;
   }

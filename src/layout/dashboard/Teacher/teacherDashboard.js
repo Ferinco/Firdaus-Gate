@@ -8,12 +8,11 @@ export default function TeacherDashboard(){
     return(
         <Dashboard>
 
-<div className="dashboard-container container d-flex flex-column p-5">
+<div className="container d-flex flex-column p-5">
 <div>
     <h3>My Dashboard</h3>
 </div>
-<div className='menu-wrapper d-flex flex-row'>
-<div className='nav-wrapper d-flex flex-column mt-4'>
+<div className='wrapper d-flex flex-column mt-4'>
     <Link className='react-router-link tab d-flex flex-row justify-content-between px-3 py-2' to={PATH_DASHBOARD.teacher.create}>
         <div className='d-flex flex-column mt-3 text'>
         <h6>Create Profile</h6>
@@ -40,21 +39,71 @@ export default function TeacherDashboard(){
         </div>
     </div>
 </div>
-<div className='info-wrapper'>
-</div>
-</div>
+<div className="info-wrapper d-flex flex-column px-4 py-4 mt-5">
+          <div className="div d-flex flex-row">
+            <h6>Your Students</h6>
+          </div>
+          <div className="top-div">
+            <div className="long"></div>
+            <div className="small"></div>
+            <div className="small"></div>
+          </div>
+          <div className="bottom-div">
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
+          </div>
+        </div>
 </div>
         </Dashboard>
     )
 }
 const Dashboard = styled.div`
-.nav-wrapper{
+.wrapper{
     gap:20px;
 }
-.info-wrapper{
-    border-radius: 10px;
-    
-}
+.info-wrapper {
+      height: 350px;
+      background-color: black;
+      border-radius: 30px;
+      width: 400px;
+      justify-content: space-between;
+      .top-div {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: 120px;
+        gap: 10px;
+        overflow: hidden;
+        .long {
+          border-radius: 10px;
+          grid-row-end: span 2;
+          width: 250px;
+          height: 100%;
+          border: 1px solid white;
+        }
+        .small {
+          border-radius: 10px;
+
+          width: 90px;
+          /* grid-column-end: span 2; */
+          height: 100%;
+          border: 1px solid white;
+        }
+      }
+      .bottom-div {
+        display: flex;
+        flex-direction: row;
+        height: 120px;
+        width:100%;
+        justify-content:space-between;
+        .div {
+          border: 1px solid white;
+          height: 100%;
+          width:100px;
+          border-radius: 10px;
+        }
+      }
+    }
 .tab{
     width:400px;
     height: 80px;
