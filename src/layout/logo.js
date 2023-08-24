@@ -5,7 +5,7 @@ export default function Logo(){
             <div className="image">
             <img src="/images/logo.png"/>
             </div>
-            <div className=" d-flex flex-column">
+            <div className="text d-flex flex-column">
                 <h6>FIRDAUS GATE</h6>
                 <h6>MODEL SCHOOLS</h6>
             </div>
@@ -32,5 +32,12 @@ height:100%;
     }
 }
 }
-
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .image{
+        margin:0  !important;
+    }
+  .text{
+    display:none !important;
+  }
+    }
 `
