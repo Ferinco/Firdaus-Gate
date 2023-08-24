@@ -14,21 +14,43 @@ export default function StudentDashboard() {
           <h3>Dashboard</h3>
         </div>
         <div className="btns">
-<div className="profile-btn" onClick={()=> {(setIsSidebarOpen ? setIsSidebarOpen(false) : setIsSidebarOpen(false))
-setIsProfileOpen((prevState)=> !prevState)}}>
-<Icon icon="ph:student" />
-</div>
-        <div onClick={() => setIsSidebarOpen((prevState) => !prevState)}>
-          <Icon icon="ri:menu-3-fill" className="nav-btn" />
-        </div>
+          <div
+            className="profile-btn"
+            onClick={() => {
+              setIsSidebarOpen
+                ? setIsSidebarOpen(false)
+                : setIsSidebarOpen(false);
+              setIsProfileOpen((prevState) => !prevState);
+            }}
+          >
+            <Icon icon="ph:student" />
+          </div>
+          <div
+            onClick={() => {
+              setIsSidebarOpen((prevState) => !prevState);
+              setIsProfileOpen(false);
+            }}
+          >
+            <Icon icon="ri:menu-3-fill" className="nav-btn" />
+          </div>
         </div>
       </div>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
+      <div className="tabs d-flex flex-row">
+      <div className="tab">
+          <h5>RESULTS</h5>
+          <Button blue>view result</Button>
+        </div>
         <div className="tab">
           <h5>RESULTS</h5>
           <Button blue>view result</Button>
         </div>
-  <div className={`profile flex-column align-center py-5 px-3 justify-content-between ${isProfileOpen ? "open" : "close"}`}>
+      </div>
+        <div
+          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
+            isProfileOpen ? "open" : "close"
+          }`}
+        >
           <div className="image"></div>
           <div className="name d-flex flex-column">
             <h5>Idowu Abdulsamad</h5>
@@ -40,7 +62,7 @@ setIsProfileOpen((prevState)=> !prevState)}}>
           </div>
         </div>
       </div>
-      <div className="end-div container d-flex flex-column p-5">
+      <div className="end-div container d-flex flex-column">
         <div>
           <h5>Help center</h5>
         </div>
@@ -55,7 +77,7 @@ setIsProfileOpen((prevState)=> !prevState)}}>
 }
 const Dashboard = styled.div`
   height: auto;
-  position: relative;
+background: #f1f1f1 !important;
   .head {
     background-color: white;
     height: 80px;
@@ -67,6 +89,9 @@ const Dashboard = styled.div`
     background-color: #f1f1f1;
     align-items: center;
     height: 500px;
+    .tabs{
+      gap:50px;
+    }
     .tab {
       border-radius: 30px;
       height: 200px;
@@ -76,15 +101,19 @@ const Dashboard = styled.div`
       flex-direction: column;
       align-items: center;
       &:first-child {
-        background-color: black;
+        background-color: yellow;
         color: white;
+      }
+      &:nth-child(2){
+        background-color: antiquewhite;
+        color:black;
       }
     }
 
     .profile {
       height: 400px;
       width: 270px;
-display:flex;
+      display: flex;
       align-items: center;
       border-radius: 30px;
       background-color: white;
@@ -93,7 +122,7 @@ display:flex;
         width: 90px;
         border-radius: 50%;
 
-        background-color: white;
+        background-color: #f5f5f5;
       }
       .name {
         align-items: center;
@@ -101,25 +130,27 @@ display:flex;
       }
     }
   }
+
   @media screen and (max-width: 1100px) {
     .btns {
       display: flex !important;
       flex-direction: row;
-      gap:40px;
+      gap: 40px;
     }
 
-          .profile{
-              display: none !important;
-          }
-          .open{
-            display: flex !important;
-            z-index:999;
-            transition: 0.3s;
-            position: absolute;
-          }
-          .close{
-            margin-right: -1000px !important;
-           
-          }
+    .profile {
+      display: none !important;
     }
+    .open {
+      display: flex !important;
+      z-index: 999;
+      transition: 0.3s;
+      position: absolute;
+      right: 20px !important;
+      top: 100px !important;
+    }
+    .close {
+      margin-right: -1000px !important;
+    }
+  }
 `;

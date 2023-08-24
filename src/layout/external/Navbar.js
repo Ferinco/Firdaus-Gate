@@ -168,67 +168,92 @@ export default function Navbar() {
             </div>
           </div>
           <div className="mobile-dropdown d-flex d-lg-none flex-column">
-            <div class="btn-group dropright">
-              <a
-                type="button"
-                class="dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                ABOUT US
-              </a>
-              <div class="dropdown-menu">
-                <a className="dropdown-item" href="#">
-                  About Us
-                </a>
-                <a className="dropdown-item" href="#">
-                  Our Mission
-                </a>
-                <a className="dropdown-item" href="#">
-                  Our vision
-                </a>
-              </div>
-            </div>
             <div>
               <a
-                class="btn btn-primary"
-                data-toggle="collapse"
-                href="#multiCollapseExample1"
-                role="button"
-                aria-expanded="false"
-                aria-controls="multiCollapseExample1"
-              >
-                Toggle first element
-              </a>
-              <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <div class="card card-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life
-                  accusamus terry richardson ad squid. Nihil anim keffiyeh
-                  helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident.
-                </div>
-              </div>
-            </div>
-            <div>
-              <a
-                class="btn btn-primary"
+                class="drop-btn"
                 data-toggle="collapse"
                 href="#multiCollapseExample2"
                 role="button"
                 aria-expanded="false"
                 aria-controls="multiCollapseExample1"
               >
-                Toggle first element
+                About Us
               </a>
-              <div class="collapse multi-collapse" id="multiCollapseExample2">
-                <div class="card card-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life
-                  accusamus terry richardson ad squid. Nihil anim keffiyeh
-                  helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident.
-                </div>
+              <div
+                class="collapse multi-collapse mobile-links"
+                id="multiCollapseExample2"
+              >
+                <a className="dropdown-item mobile-link" href="#">
+                  About Us
+                </a>
+                <a className="dropdown-item mobile-link" href="#">
+                  Our Mission
+                </a>
+                <a className="dropdown-item mobile-link" href="#">
+                  Our vision
+                </a>
               </div>
+            </div>
+            <div>
+              <a
+                class="drop-btn"
+                data-toggle="collapse"
+                href="#admission"
+                role="button"
+                aria-expanded="false"
+                aria-controls="multiCollapseExample1"
+              >
+                Admission
+              </a>
+              <div class="collapse multi-collapse mobile-links" id="admission">
+                <a className="dropdown-item mobile-link" href="#">
+                  Start Admssion
+                </a>
+                <a className="dropdown-item mobile-link" href="#">
+                  Continue Admission
+                </a>
+                <a className="dropdown-item mobile-link" href="#">
+                  Admssion Letter
+                </a>
+              </div>
+            </div>
+            <div>
+              <a
+                class="drop-btn"
+                data-toggle="collapse"
+                href="#portal"
+                role="button"
+                aria-expanded="false"
+                aria-controls="multiCollapseExample1"
+              >
+                Portal
+              </a>
+              <div class="collapse multi-collapse mobile-links" id="portal">
+                <Link className="dropdown-item mobile-link" to={PATH_AUTH.login}>
+                  Student Login
+                </Link>
+                <Link className="dropdown-item mobile-link" to={PATH_AUTH.teacher}>
+                  Teacher Login
+                </Link>
+                <Link
+                  className="dropdown-item mobile-link"
+                  to={PATH_DASHBOARD.teacher.index}
+                >
+                  dummy dashboard
+                </Link>
+                <Link
+                  className="dropdown-item mobile-link"
+                  to={PATH_DASHBOARD.student.index}
+                >
+                  dummy dashboard2
+                </Link>
+              </div>
+            </div>
+            <div>
+              <Link className="react-router-link drop-btn">Gallery</Link>
+            </div>
+            <div>
+              <Link className="react-router-link drop-btn">News</Link>
             </div>
           </div>
           <div className="d-flex flex-row contact">
@@ -370,7 +395,7 @@ const NavigationBar = styled.div`
         height: 70px !important;
         z-index: 999 !important;
         padding: auto !important;
-        width: 65%;
+        width: 70%;
         align-items: center !important;
         .header {
           padding: 0 !important;
@@ -415,34 +440,26 @@ const NavigationBar = styled.div`
         }
         .mobile-dropdown {
           padding-top: 30px;
+
           flex-direction: column !important;
           height: 40%;
           justify-content: space-between;
           width: 70%;
           align-items: start !important;
-          .dropdown-toggle {
-            font-weight: 600;
-            color: black !important;
-            border-radius: 0 !important;
-            width: 150px !important;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            &:hover {
-              border-bottom: 1px solid blue;
-              transition: 0.5s;
-            }
+          .drop-btn {
+            text-decoration: none !important;
+            font-weight: 700;
+            color: black;
           }
-          .dropdown-menu {
-            width: 200px !important;
-            border-left: 3px solid blue;
-            transition: linear 0.5s;
-            border-radius: 0;
-            background-color: #ffff;
-            .dropdown-item {
-              &:hover {
-                background-color: blue;
-                color: white;
+          .mobile-links {
+            border-top: 1px solid blue;
+            background-color: #f5f5f5;
+            width:200px;
+            .mobile-link{
+              padding:7px !important;
+              &:hover{
+                background-color:blue;
+                color:white;
               }
             }
           }
