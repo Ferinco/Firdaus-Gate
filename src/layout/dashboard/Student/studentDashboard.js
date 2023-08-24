@@ -36,16 +36,59 @@ export default function StudentDashboard() {
         </div>
       </div>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
-      <div className="tabs d-flex flex-row">
-      <div className="tab">
-          <h5>RESULTS</h5>
-          <Button blue>view result</Button>
+        <div className="tabs row">
+          <div className="big-tab col-xs-12 col-md-9 d-flex flex-row justify-content-between">
+            <div>jgsjdgsd</div>
+            <div className="icon-div">
+            <Icon className="icon" icon="streamline-emojis:graduation-cap" />
+            </div>
+          </div>
+          <div className="tab col-md-3">
+            <div className="tab-right">
+              <div className="icon-div">
+                <Icon icon="ion:calendar" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>SCHEME</h6>
+                <p>class scheme</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon icon="ion:calendar" className="big-icon" />
+            </div>
+          </div>
+          <div className="tab col-md-3">
+            <div className="tab-right ">
+              <div className="icon-div">
+                <Icon icon="icon-park-twotone:table-report" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>RESULTS</h6>
+                <p>view results</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon
+                icon="icon-park-twotone:table-report"
+                className="big-icon"
+              />
+            </div>
+          </div>
+          <div className="tab col-md-3">
+            <div className="tab-right">
+              <div className="icon-div">
+                <Icon icon="ion:calendar" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>SCHEME</h6>
+                <p>class scheme</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon icon="ion:calendar" className="big-icon" />
+            </div>
+          </div>
         </div>
-        <div className="tab">
-          <h5>RESULTS</h5>
-          <Button blue>view result</Button>
-        </div>
-      </div>
         <div
           className={`profile flex-column align-center py-5 px-3 justify-content-between ${
             isProfileOpen ? "open" : "close"
@@ -64,7 +107,7 @@ export default function StudentDashboard() {
       </div>
       <div className="end-div container d-flex flex-column">
         <div>
-          <h5>Help center</h5>
+          <h5>Help center</h5>l
         </div>
         <div className="d-flex flex-row justify-content-between mr-5 pr-5">
           <Link>Contact School</Link>
@@ -77,7 +120,7 @@ export default function StudentDashboard() {
 }
 const Dashboard = styled.div`
   height: auto;
-background: #f1f1f1 !important;
+  background: #f1f1f1 !important;
   .head {
     background-color: white;
     height: 80px;
@@ -88,26 +131,83 @@ background: #f1f1f1 !important;
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
-    height: 500px;
-    .tabs{
-      gap:50px;
-    }
-    .tab {
+    height: auto;
+    .tabs {
+   gap:50px;
+    .big-tab {
+      border: 1px solid red;
+      height: 150px;
       border-radius: 30px;
-      height: 200px;
-      width: 200px;
-      justify-content: space-evenly;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &:first-child {
-        background-color: yellow;
-        color: white;
+      .icon-div{
+.icon{
+  font-size: 200px;
+}
       }
-      &:nth-child(2){
-        background-color: antiquewhite;
-        color:black;
+    } 
+      .tab {
+        border-radius: 30px;
+        height: 200px;
+        /* width: 200px; */
+        overflow: hidden;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        align-items: center !important;
+        padding: 15px;
+        .tab-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          gap: 20px;
+        }
+        .tab-left {
+          margin-right: -50% !important;
+        }
+        .icon-div {
+          padding: 10px;
+          background-color: white;
+          border-radius: 30px;
+          width: 50px;
+        }
+        .icon {
+          font-size: 30px;
+        }
+        &:nth-child(2){
+          background-color: #9ea0e7;
+          color: white;
+          .big-icon {
+            font-size: 150px !important;
+            color: #d2d3e9;
+          }
+          .icon {
+            color: #9ea0e7;
+          }
+        }
+        &:nth-child(3) {
+          background-color: #65655d;
+          color: white;
+          .big-icon {
+            font-size: 150px !important;
+            color: grey;
+          }
+          .icon {
+            color: #65655d;
+          }
+        }
+        &:last-child{
+          background-color: #9ea0e7;
+          color: white;
+          .big-icon {
+            font-size: 150px !important;
+            color: #d2d3e9;
+          }
+          .icon {
+            color: #9ea0e7;
+          }
+        }
+  
       }
+
     }
 
     .profile {
