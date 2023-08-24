@@ -36,56 +36,67 @@ export default function StudentDashboard() {
         </div>
       </div>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
-        <div className="tabs row">
-          <div className="big-tab col-xs-12 col-md-9 d-flex flex-row justify-content-between">
-            <div>jgsjdgsd</div>
+        <div className="wrapper d-flex flex-column justify-content-between row">
+          <div className="big-tab d-flex flex-row justify-content-between p-3 col-12">
+            <div className="text">
+              <h5>Hi, welcome</h5>
+              <p>
+                This is your personal dashboard which only you have access to.
+                Navigate through diferrent paths to complete any desired action.
+              </p>
+            </div>
             <div className="icon-div">
-            <Icon className="icon" icon="streamline-emojis:graduation-cap" />
+              <Icon className="icon" icon="streamline-emojis:graduation-cap" />
             </div>
           </div>
-          <div className="tab col-md-3">
-            <div className="tab-right">
-              <div className="icon-div">
-                <Icon icon="ion:calendar" className="icon" />
+          <div className="tabs row w-100 p-0">
+            <div className="tab ">
+              <div className="tab-right">
+                <div className="icon-div">
+                  <Icon icon="ion:calendar" className="icon" />
+                </div>
+                <div className="text d-flex flex-column">
+                  <h6>SCHEME</h6>
+                  <p>class scheme</p>
+                </div>
               </div>
-              <div className="text d-flex flex-column">
-                <h6>SCHEME</h6>
-                <p>class scheme</p>
-              </div>
-            </div>
-            <div className="tab-left">
-              <Icon icon="ion:calendar" className="big-icon" />
-            </div>
-          </div>
-          <div className="tab col-md-3">
-            <div className="tab-right ">
-              <div className="icon-div">
-                <Icon icon="icon-park-twotone:table-report" className="icon" />
-              </div>
-              <div className="text d-flex flex-column">
-                <h6>RESULTS</h6>
-                <p>view results</p>
+              <div className="tab-left">
+                <Icon icon="ion:calendar" className="big-icon" />
               </div>
             </div>
-            <div className="tab-left">
-              <Icon
-                icon="icon-park-twotone:table-report"
-                className="big-icon"
-              />
-            </div>
-          </div>
-          <div className="tab col-md-3">
-            <div className="tab-right">
-              <div className="icon-div">
-                <Icon icon="ion:calendar" className="icon" />
+            <div className="tab ">
+              <div className="tab-right ">
+                <div className="icon-div">
+                  <Icon
+                    icon="icon-park-twotone:table-report"
+                    className="icon"
+                  />
+                </div>
+                <div className="text d-flex flex-column">
+                  <h6>RESULTS</h6>
+                  <p>view results</p>
+                </div>
               </div>
-              <div className="text d-flex flex-column">
-                <h6>SCHEME</h6>
-                <p>class scheme</p>
+              <div className="tab-left">
+                <Icon
+                  icon="icon-park-twotone:table-report"
+                  className="big-icon"
+                />
               </div>
             </div>
-            <div className="tab-left">
-              <Icon icon="ion:calendar" className="big-icon" />
+            <div className="tab ">
+              <div className="tab-right">
+                <div className="icon-div">
+                  <Icon icon="ion:calendar" className="icon" />
+                </div>
+                <div className="text d-flex flex-column">
+                  <h6>SCHEME</h6>
+                  <p>class scheme</p>
+                </div>
+              </div>
+              <div className="tab-left">
+                <Icon icon="ion:calendar" className="big-icon" />
+              </div>
             </div>
           </div>
         </div>
@@ -94,32 +105,26 @@ export default function StudentDashboard() {
             isProfileOpen ? "open" : "close"
           }`}
         >
-          <div className="image"></div>
+          <div className="image">
+          <Icon icon="fa-solid:graduation-cap" className="icon" />
+          </div>
           <div className="name d-flex flex-column">
-            <h5>Idowu Abdulsamad</h5>
-            <p>ss3</p>
+            <h5>Adekoya Ismail Dayo</h5>
+            <p>ismail360@gmail.com</p>
+            <p>Male</p>
+            <h6>63544463</h6>
           </div>
           <div className="info d-flex flex-row"></div>
-          <div className="number">
-            <h3>1255623</h3>
+          <div className="number d-flex flex-row">
+            <h5>JSS2</h5>
           </div>
-        </div>
-      </div>
-      <div className="end-div container d-flex flex-column">
-        <div>
-          <h5>Help center</h5>l
-        </div>
-        <div className="d-flex flex-row justify-content-between mr-5 pr-5">
-          <Link>Contact School</Link>
-          <Link>Mail School</Link>
-          <Link>Contact Teacher</Link>
         </div>
       </div>
     </Dashboard>
   );
 }
 const Dashboard = styled.div`
-  height: auto;
+  height: 100vh;
   background: #f1f1f1 !important;
   .head {
     background-color: white;
@@ -132,18 +137,33 @@ const Dashboard = styled.div`
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
-    .tabs {
-   gap:50px;
+    gap: 50px;
+    .wrapper {
+      gap: 50px;
+
+      width: 80%;
+    }
     .big-tab {
-      border: 1px solid red;
       height: 150px;
       border-radius: 30px;
-      .icon-div{
-.icon{
-  font-size: 200px;
-}
+      z-index: 999;
+      background-color: #9ea0e7;
+      .text {
+        color: white;
+        margin-top: 20px;
       }
-    } 
+      .icon-div {
+        .icon {
+          font-size: 200px;
+        }
+      }
+    }
+    .tabs {
+      gap: 30px;
+      margin-left: 3px !important;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
       .tab {
         border-radius: 30px;
         height: 200px;
@@ -172,7 +192,7 @@ const Dashboard = styled.div`
         .icon {
           font-size: 30px;
         }
-        &:nth-child(2){
+        &:first-child {
           background-color: #9ea0e7;
           color: white;
           .big-icon {
@@ -183,7 +203,7 @@ const Dashboard = styled.div`
             color: #9ea0e7;
           }
         }
-        &:nth-child(3) {
+        &:nth-child(2) {
           background-color: #65655d;
           color: white;
           .big-icon {
@@ -194,7 +214,7 @@ const Dashboard = styled.div`
             color: #65655d;
           }
         }
-        &:last-child{
+        &:last-child {
           background-color: #9ea0e7;
           color: white;
           .big-icon {
@@ -205,9 +225,7 @@ const Dashboard = styled.div`
             color: #9ea0e7;
           }
         }
-  
       }
-
     }
 
     .profile {
@@ -221,12 +239,22 @@ const Dashboard = styled.div`
         height: 90px;
         width: 90px;
         border-radius: 50%;
-
+        display:flex;
         background-color: #f5f5f5;
+        justify-content: center;
+        align-items:center;
+        .icon{
+          font-size: 50px;
+          color:black;
+        }
       }
       .name {
         align-items: center;
         justify-content: center;
+        text-align: center;
+        h6{
+          color:grey;
+        }
       }
     }
   }
@@ -237,7 +265,13 @@ const Dashboard = styled.div`
       flex-direction: row;
       gap: 40px;
     }
-
+    .middle-div {
+      .wrapper {
+        width: 100%;
+      }.big-tab{
+        z-index:0;
+      }
+    }
     .profile {
       display: none !important;
     }
@@ -251,6 +285,31 @@ const Dashboard = styled.div`
     }
     .close {
       margin-right: -1000px !important;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .middle-div {
+      .big-tab {
+        height:auto;
+        .text {
+          color: white;
+          margin-top: 10px;
+        }
+        .icon-div {
+          margin-right: -50px ;
+          .icon {
+            font-size: 70px;
+          }
+        }
+      }
+      .tabs {
+        grid-template-columns: repeat(1, 1fr);
+        .tab {
+        .tab-left {
+          margin-right: -20% !important;
+        }
+      }
+      }
     }
   }
 `;
