@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../Context";
 import { PATH_DASHBOARD } from "../../../routes/paths";
+import { PATH_PAGE } from "../../../routes/paths";
 // import { PATH_DASHBOARD } from "../../../routes/paths";
 export default function StudentSidebar() {
   const { isSidebarOpen } = useAppContext();
@@ -11,7 +12,10 @@ export default function StudentSidebar() {
       <div className={`container d-flex flex-column py-5 justify-content-between h-100 px-0 ${isSidebarOpen ? 'opened' : 'closed'}`}>
       <div className="wrapper d-flex flex-column">
       <div className="logo">
+        <Link react-router-link to={PATH_PAGE.home}>
           <img src="/images/logo.png" />
+
+        </Link>
         </div>
         <div className="nav-links d-flex flex-column pl-4">
           <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.index}><Icon icon="uil:create-dashboard"/>Dashboard</Link>
@@ -20,10 +24,13 @@ export default function StudentSidebar() {
 
         </div>
       </div>
-        {/* <div className="log-out">
-          <Link className="react-router-link nav-link">Profile</Link>
-          <Link className="react-router-link nav-link">Log out</Link>
-        </div> */}
+        <div className="log-out d-flex flex-column pl-4">
+          <Link className="react-router-link nav-link pl-5 py-1"><Icon icon="ic:baseline-settings" />Settings</Link>
+          <Link className="react-router-link nav-link pl-5 py-1"><Icon
+              icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
+              rotate={2}
+            />Log out</Link>
+        </div>
       </div>
     </SIDEBAR>
   );
@@ -57,9 +64,9 @@ const SIDEBAR = styled.div`
   align-items:center;
   gap:20px;
   &:hover, &:active{
-    color:blue !important;
+    color:black !important;
     transition:0.3s;
-    border-right: 5px solid blue;
+    border-right: 5px solid black;
   }
 }
   .logo {
@@ -73,6 +80,10 @@ const SIDEBAR = styled.div`
       object-fit: cover;
       overflow: hidden;
     }
+  }
+  .log-out{
+    gap: 30px;
+    width:100%;
   }
 @media screen and (max-width: 1100px){
   width:0 !important;

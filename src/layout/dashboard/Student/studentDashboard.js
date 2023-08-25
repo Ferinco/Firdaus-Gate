@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { Button } from "../../../components/custom/Button";
 import { Header } from "../../../components/custom/Header";
 import { useAppContext } from "../../../Context";
+import report from "../../../report-sheet.pdf"
 export default function StudentDashboard() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   return (
@@ -53,18 +54,20 @@ export default function StudentDashboard() {
             <div className="tab ">
               <div className="tab-right">
                 <div className="icon-div">
-                  <Icon icon="ion:calendar" className="icon" />
+                <Icon icon="ic:round-book" className="icon"/>
                 </div>
                 <div className="text d-flex flex-column">
-                  <h6>SCHEME</h6>
-                  <p>class scheme</p>
+                  <h6>17</h6>
+                  <p>subjects offered</p>
                 </div>
               </div>
               <div className="tab-left">
-                <Icon icon="ion:calendar" className="big-icon" />
+                <Icon icon="ic:round-book" className="big-icon" />
               </div>
             </div>
+              
             <div className="tab ">
+            <a href={report} download="Adekoya Ismail" className="react-router-link d-flex flex-row">
               <div className="tab-right ">
                 <div className="icon-div">
                   <Icon
@@ -83,6 +86,7 @@ export default function StudentDashboard() {
                   className="big-icon"
                 />
               </div>
+            </a>
             </div>
             <div className="tab ">
               <div className="tab-right">
@@ -112,7 +116,7 @@ export default function StudentDashboard() {
             <h5>Adekoya Ismail Dayo</h5>
             <p>ismail360@gmail.com</p>
             <p>Male</p>
-            <h6>63544463</h6>
+            <h6>1908112</h6>
           </div>
           <div className="info d-flex flex-row"></div>
           <div className="number d-flex flex-row">
@@ -127,6 +131,7 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   .head {
+    align-items: center;
     background-color: white;
     height: 80px;
     .btns {
@@ -174,6 +179,7 @@ const Dashboard = styled.div`
         flex-direction: row;
         align-items: center !important;
         padding: 15px;
+       
         .tab-right {
           display: flex;
           flex-direction: column;
@@ -206,6 +212,9 @@ const Dashboard = styled.div`
         &:nth-child(2) {
           background-color: #65655d;
           color: white;
+          &:hover{
+         transform: scale(1.05);
+        }
           .big-icon {
             font-size: 150px !important;
             color: grey;
@@ -252,6 +261,9 @@ const Dashboard = styled.div`
         align-items: center;
         justify-content: center;
         text-align: center;
+        p{
+          font-size: 17px !important;
+        }
         h6{
           color:grey;
         }
@@ -263,7 +275,13 @@ const Dashboard = styled.div`
     .btns {
       display: flex !important;
       flex-direction: row;
+      align-items:center;
+      flex-direction: row;
       gap: 40px;
+      .profile-btn, .nav-btn{
+        font-weight: 600 !important;
+        font-size: 30px;
+      }
     }
     .middle-div {
       .wrapper {

@@ -141,18 +141,7 @@ export default function Navbar() {
                 <Link className="dropdown-item" to={PATH_AUTH.teacher}>
                   Teacher Login
                 </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PATH_DASHBOARD.teacher.index}
-                >
-                  dummy dashboard
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to={PATH_DASHBOARD.student.index}
-                >
-                  dummy dashboard2
-                </Link>
+        
               </div>
             </div>
 
@@ -235,18 +224,6 @@ export default function Navbar() {
                 <Link className="dropdown-item mobile-link" to={PATH_AUTH.teacher}>
                   Teacher Login
                 </Link>
-                <Link
-                  className="dropdown-item mobile-link"
-                  to={PATH_DASHBOARD.teacher.index}
-                >
-                  dummy dashboard
-                </Link>
-                <Link
-                  className="dropdown-item mobile-link"
-                  to={PATH_DASHBOARD.student.index}
-                >
-                  dummy dashboard2
-                </Link>
               </div>
             </div>
             <div>
@@ -298,7 +275,14 @@ const NavigationBar = styled.div`
   }
   .second-navbar {
     height: 100px !important;
-
+align-items: center;
+.container{
+  align-items: center;
+  height: 100px;
+  @media screen and (min-width: 590px) and (max-width: 991px){
+    width:60% !important;
+  }
+}
     .info {
       line-height: 0.7;
       h6 {
@@ -385,16 +369,19 @@ const NavigationBar = styled.div`
     .home-icon {
       display: none;
     }
-
     .second-navbar {
       height: 70px !important;
       position: relative !important;
+      border-bottom: 1px solid grey;
+      overflow: hidden !important;
+      z-index:999;
       box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
       .container {
         position: fixed !important;
         height: 70px !important;
         z-index: 999 !important;
         padding: auto !important;
+        background: transparent;
         width: 70%;
         align-items: center !important;
         .header {
@@ -439,10 +426,10 @@ const NavigationBar = styled.div`
           display: none !important;
         }
         .mobile-dropdown {
-          padding-top: 30px;
+          padding-top: 50px;
 
           flex-direction: column !important;
-          height: 40%;
+          height: 50%;
           justify-content: space-between;
           width: 70%;
           align-items: start !important;
@@ -450,6 +437,7 @@ const NavigationBar = styled.div`
             text-decoration: none !important;
             font-weight: 700;
             color: black;
+            font-size: 19px !important;
           }
           .mobile-links {
             border-top: 1px solid blue;

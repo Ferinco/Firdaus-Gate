@@ -4,7 +4,13 @@ import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom"
+import { PATH_DASHBOARD } from "../../routes/paths"
+import { PATH_PAGE } from "../../routes/paths"
+
 export default function Login() {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -12,6 +18,8 @@ export default function Login() {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    console.log(errors);
+   return navigate(PATH_DASHBOARD.student.index)
   };
   return (
     <Wrapper>
@@ -23,7 +31,10 @@ export default function Login() {
           <div className="col-md-6 right">
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
-                <img src="/images/logo.png" />
+              <Link react-router-link to={PATH_PAGE.home}>
+          <img src="/images/logo.png" />
+
+        </Link>
               </div>
               <div className="text-center mb-4">
                 <h3 className="fw-bolder">Hello Student!</h3>
@@ -31,25 +42,39 @@ export default function Login() {
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
-                  <Input
-                    placeholder="Email address / Admission number"
-                    name="admissionNumber"
-                    type="text"
-                    {...register("admissionNumber", { required: true })}
-                  />
-                  {errors.admmissionNumber && errors.admmissionNumber.type === "required" && (
-                    <p className="errorMsg" style={{ color: "red" }}>
-                      Email is required.
-                    </p>
-                  )}
+                  
+                    <input
+      placeholder="Admission number"
+      name="admissionNumber"
+      type="text"
+      {...register("admissionNumber", {
+        required: 'Admission number is required',
+        validate: value => value === '1908112' || 'Admission number is incorrect'
+      })}
+    />
+    {errors.admissionNumber && (
+      <p className="errorMsg" style={{ color: "red" }}>
+        {errors.admissionNumber.message}
+      </p>
+    )}
                 </div>
                 <div className="my-3">
-                  <Input
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    {...register("password", { required: true })}
-                  />
+                <div className="my-3">
+                <input
+      placeholder="Password"
+      name="password"
+      type="passowrd"
+      {...register("password", {
+        required: 'Input your password',
+        validate: value => value === 'Ismail360' || 'incorrect password'
+      })}
+    />
+    {errors.password && (
+      <p className="errorMsg" style={{ color: "red" }}>
+        {errors.password.message}
+      </p>
+    )}
+                </div>
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
@@ -114,6 +139,18 @@ const Wrapper = styled.div`
           object-fit: cover;
           overflow: hidden;
         }
+      }
+      input{
+        border-radius: 10px;
+  padding: 14px 16px;
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  width: 100%;
+      }
+      .errorMsg{
+        font-size: 15px;
+        padding-left:7px;
       }
       width: 400px;
     }

@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../Context";
+import { PATH_PAGE } from "../../../routes/paths";
 export default function TeacherSidebar() {
   const { isSidebarOpen } = useAppContext();
   return (
@@ -14,7 +15,9 @@ export default function TeacherSidebar() {
       >
         <div className="wrapper d-flex flex-column justify-content-between">
           <div className="logo">
+            <Link className="react-router-link" to={PATH_PAGE.home}>
             <img src="/images/logo.png" />
+            </Link>
           </div>
           <div className="nav-links d-flex flex-column">
             <Link
