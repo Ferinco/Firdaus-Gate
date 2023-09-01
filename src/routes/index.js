@@ -11,41 +11,49 @@ import Results from "../layout/dashboard/Teacher/results";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
 import Create from "../layout/dashboard/Teacher/create";
+import ProgressPage from "../pages/progressPage";
 export default function Routes() {
   return useRoutes([ 
     {
       path: "/",
-      element: <Layout />,
-      children: [{ path: "/", element: <Home /> }],
+      // element: <Layout />,
+      // children: [{ path: "/", element: <Home /> }],
+      children: [{ path: "/", element: <ProgressPage /> }],
     },
     {
       path: "/auth",
-      children: [
-        {path: "/auth/student-login", element: <Login/>},
-        {path: "/auth/teacher-login", element:<Teacher/>}
-      ]
+      // children: [
+      //   {path: "/auth/student-login", element: <Login/>},
+      //   {path: "/auth/teacher-login", element:<Teacher/>}
+      // ]
+      children: [{ path: "/auth", element: <ProgressPage /> }],
+
     },
     {
       path: "/teacher",
-      element: <TeacherDashboardLayout/>,
-      children: [
-        {path: "/teacher", element: <TeacherDashboard/>},
-        {path: "/teacher/students", element: <MyClass/>},
-        {path: "/teacher/results", element: <Results/>},
-        {path: "/teacher/create-student", element: <Create/>}
+      // element: <TeacherDashboardLayout/>,
+      // children: [
+      //   {path: "/teacher", element: <TeacherDashboard/>},
+      //   {path: "/teacher/students", element: <MyClass/>},
+      //   {path: "/teacher/results", element: <Results/>},
+      //   {path: "/teacher/create-student", element: <Create/>}
 
       
-      ]
+      // ]
+      children: [{ path: "/teacher", element: <ProgressPage /> }],
+
     },
     {
       path: "/student",
-      element: <StudentDashboardLayout/>,
-      children: [
-        {path: "/student", element: <StudentDashboard/>},
-        // {path: "/teacher/my-class", element: <MyClass/>},
-        // {path: "/teacher/results", element: <Results/>}
+      // element: <StudentDashboardLayout/>,
+      // children: [
+      //   {path: "/student", element: <StudentDashboard/>},
+      //   // {path: "/teacher/my-class", element: <MyClass/>},
+      //   // {path: "/teacher/results", element: <Results/>}
       
-      ]
+      // ]
+      children: [{ path: "/student", element: <ProgressPage /> }],
+
     }
   
   ]);

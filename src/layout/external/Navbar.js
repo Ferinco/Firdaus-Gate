@@ -25,6 +25,7 @@ export default function Navbar() {
       </div>
       <div className="second-navbar">
         <div className=" container d-flex justify-content-between py-3 px-0">
+          <div className=" d-flex flex-row align-center header">
           <div className="d-lg-none pl-3">
             <Icon
               icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
@@ -35,7 +36,6 @@ export default function Navbar() {
               }}
             />
           </div>
-          <div className=" d-flex flex-row align-items-start header">
             <Logo />
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
@@ -279,8 +279,13 @@ align-items: center;
 .container{
   align-items: center;
   height: 100px;
-  @media screen and (min-width: 590px) and (max-width: 991px){
-    width:60% !important;
+  .header{
+    .icon{
+      margin-top: 10px;
+    }
+    @media screen and (max-width: 600px){
+      gap:50px !important;
+    }
   }
 }
     .info {
@@ -372,21 +377,21 @@ align-items: center;
     .second-navbar {
       height: 70px !important;
       position: relative !important;
-      border-bottom: 1px solid grey;
       overflow: hidden !important;
-      z-index:999;
-      box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
       .container {
+        z-index:999;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
         position: fixed !important;
         height: 70px !important;
         z-index: 999 !important;
         padding: auto !important;
-        background: transparent;
-        width: 70%;
+        background: white;
+        width: 100% !important;
         align-items: center !important;
         .header {
           padding: 0 !important;
           margin-top: 7px !important;
+          gap:30vw;
           .info {
             line-height: 0.5 !important;
           }

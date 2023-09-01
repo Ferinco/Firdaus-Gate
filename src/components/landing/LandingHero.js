@@ -17,7 +17,7 @@ export default function LandingHero() {
                 sit a met is wokring on the background dam killer baby
               </p>
             </div>
-            <div className="button-group" style={{gap: "20px"}}>
+            <div className="button-group d-flex flex-row">
               <Button blue>Get started</Button>
               <span> </span>
               <Button white>About us</Button>
@@ -39,7 +39,9 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
 .button-group{
-  gap:20px;
+  gap:10px;
+  justify-content: center !important;
+  align-items: center;
 }
   .HeroImageContainer {
     display: flex;
