@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useRoutes } from "react-router-dom";
-import Layout from "../layout";
-import { Home, Login } from "../pages";
+import Layout from "../layout/external";
+import { Home } from "../pages";
 import Dashboard from "../pages/dashboard";
+import DashboardLayout from "../layout/dashboard";
 
 export default function Routes() {
   return useRoutes([
@@ -18,7 +19,7 @@ export default function Routes() {
     },
     {
       path: "portal",
-      element: <Layout />,
+      element: <DashboardLayout />,
       children: [{ path: "/portal", element: <Dashboard /> }],
     },
   ]);

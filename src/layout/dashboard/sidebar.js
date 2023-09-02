@@ -44,10 +44,10 @@ export default function Sidebar() {
   );
 }
 const SIDEBAR = styled.div`
-width: 20%;
+width: 100%;
 background-color: rgb(219, 219, 219);
 height: 100%;
-position: sticky;
+position: sticky !important;
 
 .wrapper{
     padding: 20px;
@@ -95,16 +95,19 @@ position: sticky;
                     align-items: baseline;
                     gap: 10px;
                     color: grey;
+                    &:hover{
+                        color: blue !important;
+                    }
                 }
             }
         }
     }
 }
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     width: 100%;
     flex-direction: column;
 
-}
+} */
 @media screen and (min-width: 601px)and (max-width: 1000px)  {
     width: 100%;
    .wrapper{
