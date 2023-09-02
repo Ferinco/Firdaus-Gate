@@ -66,8 +66,8 @@ export default function StudentDashboard() {
               </div>
             </div>
               
-            <div className="tab ">
-            <a href={report} download="Adekoya Ismail" className="react-router-link d-flex flex-row">
+          
+            <a href={report} download="Adekoya Ismail" className=" tab d-flex flex-row" >
               <div className="tab-right ">
                 <div className="icon-div">
                   <Icon
@@ -87,7 +87,7 @@ export default function StudentDashboard() {
                 />
               </div>
             </a>
-            </div>
+          
             <div className="tab ">
               <div className="tab-right">
                 <div className="icon-div">
@@ -179,7 +179,7 @@ const Dashboard = styled.div`
         flex-direction: row;
         align-items: center !important;
         padding: 15px;
-       
+       text-decoration: none !important;
         .tab-right {
           display: flex;
           flex-direction: column;

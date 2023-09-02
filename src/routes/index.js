@@ -16,43 +16,43 @@ export default function Routes() {
   return useRoutes([ 
     {
       path: "/",
-      // element: <Layout />,
-      // children: [{ path: "/", element: <Home /> }],
-      children: [{ path: "/", element: <ProgressPage /> }],
+      element: <Layout />,
+      children: [{ path: "/", element: <Home /> }],
+      // children: [{ path: "/", element: <ProgressPage /> }],
     },
     {
       path: "/auth",
-      // children: [
-      //   {path: "/auth/student-login", element: <Login/>},
-      //   {path: "/auth/teacher-login", element:<Teacher/>}
-      // ]
-      children: [{ path: "/auth", element: <ProgressPage /> }],
+      children: [
+        {path: "/auth/student-login", element: <Login/>},
+        {path: "/auth/teacher-login", element:<Teacher/>}
+      ]
+      // children: [{ path: "/auth", element: <ProgressPage /> }],
 
     },
     {
       path: "/teacher",
-      // element: <TeacherDashboardLayout/>,
-      // children: [
-      //   {path: "/teacher", element: <TeacherDashboard/>},
-      //   {path: "/teacher/students", element: <MyClass/>},
-      //   {path: "/teacher/results", element: <Results/>},
-      //   {path: "/teacher/create-student", element: <Create/>}
+      element: <TeacherDashboardLayout/>,
+      children: [
+        {path: "/teacher", element: <TeacherDashboard/>},
+        {path: "/teacher/students", element: <MyClass/>},
+        {path: "/teacher/results", element: <Results/>},
+        {path: "/teacher/create-student", element: <Create/>}
 
       
-      // ]
-      children: [{ path: "/teacher", element: <ProgressPage /> }],
+      ]
+      // children: [{ path: "/teacher", element: <ProgressPage /> }],
 
     },
     {
       path: "/student",
-      // element: <StudentDashboardLayout/>,
-      // children: [
-      //   {path: "/student", element: <StudentDashboard/>},
-      //   // {path: "/teacher/my-class", element: <MyClass/>},
-      //   // {path: "/teacher/results", element: <Results/>}
+      element: <StudentDashboardLayout/>,
+      children: [
+        {path: "/student", element: <StudentDashboard/>},
+        // {path: "/teacher/my-class", element: <MyClass/>},
+        // {path: "/teacher/results", element: <Results/>}
       
-      // ]
-      children: [{ path: "/student", element: <ProgressPage /> }],
+      ]
+      // children: [{ path: "/student", element: <ProgressPage /> }],
 
     }
   

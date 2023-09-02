@@ -1,6 +1,6 @@
 import { Button } from "../../../components/custom/Button";
 import { Icon } from "@iconify/react";
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-formd";
 import { useEffect, useState } from "react";
 import {Header} from "../../../components/custom/Header"
 import styled from "styled-components"
@@ -9,7 +9,7 @@ export default function Update(){
     return (
         <Wrapper className="container d-flex py-5 flex-column">
           <Header>
-            <h5>Create Student Profile</h5>
+            <h5>Create Student Profile</h5> 
             <h3>enter details here...</h3>
           </Header>
       <div className="form-wrapper d-flex justify-content-center flex-column align-items-center">
