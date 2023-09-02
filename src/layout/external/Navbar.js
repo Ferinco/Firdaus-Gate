@@ -141,7 +141,7 @@ export default function Navbar() {
                 <Link className="dropdown-item" to={PATH_AUTH.teacher}>
                   Teacher Login
                 </Link>
-        
+                <Link className="dropdown-item" to={PATH_DASHBOARD.teacher.index}>dashboard</Link>
               </div>
             </div>
 

@@ -35,8 +35,8 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </div>
-      <div className="middle-div container d-flex flex-column p-5">
-        <div className="tabs container d-flex flex-column">
+      <div className="middle-div container d-flex flex-row p-5">
+        <div className="tabs container d-flex flex-column ">
           <Link
             className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
             to={PATH_DASHBOARD.teacher.create}
@@ -68,7 +68,29 @@ export default function TeacherDashboard() {
             </div>
           </div>
         </div>
-        {/* <div className="info-wrapper d-flex flex-column">
+        <div
+          className={`profile flex-column align-center py-5 px-3 justify-content-between${
+            isProfileOpen ? "open" : "close"
+          }`}
+        >
+          <div className="image">
+          <Icon icon="fa-solid:graduation-cap" className="icon" />
+          </div>
+          <div className="name d-flex flex-column">
+            <h5>Mr Rasaq Akanni</h5>
+            <p>Rasaq500@gmail.com</p>
+            <p>Male</p>
+            <p>class teacher</p>
+            <h6>1908112</h6>
+          </div>
+          <div className="info d-flex flex-row"></div>
+          <div className="number d-flex flex-row">
+            <h5>JSS2</h5>
+          </div>
+        </div>
+      </div>
+      <div className="end-div container d-flex flex-row p-5 justify-content-between">
+        <div className="info-wrapper d-flex flex-column p-3">
           <div className="div d-flex flex-row">
             <h6>Your Students</h6>
           </div>
@@ -82,7 +104,7 @@ export default function TeacherDashboard() {
             <div className="div d-flex flex-column"></div>
             <div className="div d-flex flex-column"></div>
           </div>
-        </div> */}
+        </div>
       </div>
     </Dashboard>
   );
@@ -102,7 +124,6 @@ const Dashboard = styled.div`
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
-    gap: 50px;
     .tabs {
       gap: 20px;
       .tab {
@@ -136,6 +157,40 @@ const Dashboard = styled.div`
     }
   }
     }
+    .profile {
+      height: 400px;
+      width: 270px;
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      background-color: white;
+      .image {
+        height: 90px;
+        width: 90px;
+        border-radius: 50%;
+        display:flex;
+        background-color: #f5f5f5;
+        justify-content: center;
+        align-items:center;
+        .icon{
+          font-size: 50px;
+          color:black;
+        }
+      }
+      .name {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        p{
+          font-size: 17px !important;
+        }
+        h6{
+          color:grey;
+        }
+      }
+    }
+  }
+  .end-div{
     .info-wrapper {
       height: 350px;
       background-color: black;
@@ -151,14 +206,14 @@ const Dashboard = styled.div`
         .long {
           border-radius: 10px;
           grid-row-end: span 2;
-          width: 250px;
+          width: calc(90% * 400px);
           height: 100%;
           border: 1px solid white;
         }
         .small {
           border-radius: 10px;
 
-          width: 90px;
+          width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
           border: 1px solid white;

@@ -6,7 +6,7 @@ import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
 // import { PATH_DASHBOARD } from "../../../routes/paths";
 export default function StudentSidebar() {
-  const { isSidebarOpen } = useAppContext();
+  const { isSidebarOpen, isDashboardClicked, setIsDashboardClicked } = useAppContext();
   return (
     <SIDEBAR>
       <div className={`container d-flex flex-column py-5 justify-content-between h-100 px-0 ${isSidebarOpen ? 'opened' : 'closed'}`}>
