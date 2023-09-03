@@ -18,12 +18,12 @@ export default function Create() {
       { firstname, lastname, admissionNumber, email, gender }
     );
     console.log(
-      firstname,
-      email,
-      gender
+data
     )
   };
   return (
+    <div>
+
     <Wrapper className="container d-flex py-5 flex-column pl-lg-5">
       <div>
         <h5 style={{color: "blue" }}>Create Student Profile</h5>
@@ -81,6 +81,7 @@ export default function Create() {
       </form>
   </div>
     </Wrapper>
+    </div>
   );
 }
 const Wrapper = styled.div`

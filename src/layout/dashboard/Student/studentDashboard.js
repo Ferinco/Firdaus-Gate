@@ -2,40 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { Button } from "../../../components/custom/Button";
-import { Header } from "../../../components/custom/Header";
 import { useAppContext } from "../../../Context";
 import report from "../../../report-sheet.pdf"
 export default function StudentDashboard() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   return (
     <Dashboard>
-      <div className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
-        <div>
-          <h3>Dashboard</h3>
-        </div>
-        <div className="btns">
-          <div
-            className="profile-btn"
-            onClick={() => {
-              setIsSidebarOpen
-                ? setIsSidebarOpen(false)
-                : setIsSidebarOpen(false);
-              setIsProfileOpen((prevState) => !prevState);
-            }}
-          >
-            <Icon icon="ph:student" />
-          </div>
-          <div
-            onClick={() => {
-              setIsSidebarOpen((prevState) => !prevState);
-              setIsProfileOpen(false);
-            }}
-          >
-            <Icon icon="ri:menu-3-fill" className="nav-btn" />
-          </div>
-        </div>
-      </div>
+   
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
         <div className="wrapper d-flex flex-column justify-content-between row">
           <div className="big-tab d-flex flex-row justify-content-between p-3 col-12">
@@ -130,14 +103,7 @@ export default function StudentDashboard() {
 const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
-  .head {
-    align-items: center;
-    background-color: white;
-    height: 80px;
-    .btns {
-      display: none;
-    }
-  }
+ 
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;

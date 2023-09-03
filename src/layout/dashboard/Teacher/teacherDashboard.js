@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../components/custom/Header";
 import { Link } from "react-router-dom";
@@ -6,37 +6,27 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../Context";
 export default function TeacherDashboard() {
+  let currentTime = new Date().getHours()
+  const [greeting, setGreeting] = useState(getGreeting(currentTime))
+function getGreeting (currentTime){
+switch(true){
+  case currentTime >= 5 && currentTime < 12:
+    return "Good Morning,"
+    case currentTime >= 12 && currentTime < 18:
+      return 'Good afternoon,';
+      default:
+        return 'Good evening,';
+}
+};
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   return (
     <Dashboard>
-      <div className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
-        <div>
-          <h3>Dashboard</h3>
-        </div>
-        <div className="btns">
-          <div
-           className="profile-div"
-            onClick={() => {
-              setIsSidebarOpen
-                ? setIsSidebarOpen(false)
-                : setIsSidebarOpen(false);
-              setIsProfileOpen((prevState) => !prevState);
-            }}
-          >
-            <Icon icon="mdi:account-tie" className="profile-btn" color="white"/>
-          </div>
-          <div
-            onClick={() => {
-              setIsSidebarOpen((prevState) => !prevState);
-              setIsProfileOpen(false);
-            }}
-          >
-            <Icon icon="ri:menu-3-fill" className="nav-btn" />
-          </div>
-        </div>
-      </div>
-      <div className="middle-div container d-flex py-5 px-lg-5">
-        <div className="tabs container d-flex flex-column ">
+ <div className="head d-flex flex-column left container py-3 pt-5 px-lg-5">
+  <h4><span>{greeting}</span> <span>Mr Rasaq</span></h4>
+  <p>Welcome to your dashboard.</p>
+ </div>
+      <div className="middle-div container d-flex px-lg-5 py-3">
+        <div className="tabs  d-flex flex-column ">
           <Link
             className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
             to={PATH_DASHBOARD.teacher.create}
@@ -124,7 +114,7 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </div>
-      <div className="end-div container d-flex flex-row p-5 justify-content-between">
+      <div className="end-div  d-flex flex-row p-5 justify-content-between">
        
       </div>
     </Dashboard>
@@ -134,7 +124,7 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   margin: 0 !important;
-  .head {
+  /* .head {
     align-items: center;
     background-color: white;
     height: 80px;
@@ -162,18 +152,13 @@ const Dashboard = styled.div`
      display:none;
       }
     }
-  }
+  } */
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
     justify-content: space-between !important;
     margin: 0 !important;
-    /* @media screen and (max-width: 992px) {
-      flex-direction: column;
-      justify-content: center !important;
-      .info-wrapper{}
-    } */
     .tabs {
       gap: 20px;
       .tab {
@@ -281,7 +266,6 @@ const Dashboard = styled.div`
       height: 350px;
       background-color: black;
       border-radius: 30px;
-      max-width: 400px;
       min-width: 320px;
       justify-content: space-between;
       margin: 0 !important;
@@ -326,15 +310,6 @@ const Dashboard = styled.div`
   }
   .end-div{
   }
-  @media screen and (max-width: 1100px) {
-    .btns {
 
-   .nav-btn{
-    display:block !important;
-        font-weight: 600 !important;
-        font-size: 30px;
-      }
-    }
-  }
 
 `;

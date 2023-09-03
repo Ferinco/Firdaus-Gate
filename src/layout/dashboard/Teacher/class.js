@@ -11,7 +11,7 @@ import { Button } from "../../../components/custom/Button";
 import { useAppContext } from "../../../Context";
 export default function MyClass() {
   const { register, handleSubmit } = useForm();
-
+  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   const [StudentData, setStudentData] = useState([]);
   useEffect(() => {
     axios
@@ -28,9 +28,15 @@ export default function MyClass() {
   return (
     <Students>
       <div className="container-fluid d-flex flex-column p-5">
-        <div className="d-flex flex-row justify-content-between">
-          <h3>My Students</h3>
-        <div className="form-wrapper mt-5">
+        <div className="d-flex flex-column left">
+          <h4>My Students</h4>
+          <p>see full list of your students</p>
+        </div>
+      </div>
+      <div className="container middle-div px-5 d-flex flex-row">
+<div className="wrapper d-flex flex-column p-3">
+<div className="d-flex flex-row justify-content-between actions-div">
+<div className="form-wrapper mt-5">
           <form className="d-flex flex-row form">
             <div>
               <input
@@ -41,16 +47,17 @@ export default function MyClass() {
             </div>
             <div>
               <button type="submit">
-                <Icon className="icon" icon="ion:search" color="black" />
+                <Icon className="icon" icon="ion:search" color="grey" />
               </button>
             </div>
           </form>
         </div>
+        <div>
+        <Icon icon="system-uicons:filter" color="grey" className="icon" />
         </div>
-      </div>
-      <div className="container p-5">
-        <Table className="table table-bordered tabble-stripped">
-          <thead className="thead-dark">
+</div>
+        <Table className="table table-bordered ">
+          <thead className="">
             <tr>
               <th>#</th>
               <th>First Name</th>
@@ -60,8 +67,7 @@ export default function MyClass() {
               <th>gender</th>
               <th colSpan="3">Operations</th>
 
-              {/* <th>email</th>
-            <th>password</th> */}
+            
             </tr>
           </thead>
           <tbody>
@@ -93,6 +99,27 @@ export default function MyClass() {
             ))}
           </tbody>
         </Table>
+</div>
+<div
+          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
+            isProfileOpen ? "open" : "close"
+          }`}
+        >
+          <div className="image">
+          <Icon icon="icon-park-solid:necktie" className="icon" />
+          </div>
+          <div className="name d-flex flex-column">
+            <h5>Mr Rasaq Akanni</h5>
+            <p>Rasaq500@gmail.com</p>
+            <p>Male</p>
+            <p>class teacher</p>
+            <h6>1908112</h6>
+          </div>
+          <div className="info d-flex flex-row"></div>
+          <div className="number d-flex flex-row">
+            <h5>JSS2</h5>
+          </div>
+        </div>
 
       </div>
     </Students>
@@ -104,15 +131,77 @@ const Students = styled.div`
   justify-content: space-between;
   .container-fluid {
     gap: 30px;
-    .form-wrapper {
+  
+    button {
+      padding: 0 5px;
+    }
+  }
+.middle-div{
+  .profile {
+      height: 400px;
+      width: 270px;
+      display: none;
+      align-items: center;
+      border-radius: 30px;
+      background-color: white;
+      .image {
+        height: 90px;
+        width: 90px;
+        border-radius: 50%;
+        display:flex;
+        background-color: #f5f5f5;
+        justify-content: center;
+        align-items:center;
+        .icon{
+          font-size: 50px;
+          color:black;
+        }
+      }
+      .name {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        p{
+          font-size: 17px !important;
+        }
+        h6{
+          color:grey;
+        }
+      }
+    }
+    .open {
+      display: flex !important;
+      z-index: 999;
+      transition: 0.3s;
+      position: absolute;
+      right: 20px !important;
+      top: 100px !important;
+    }
+    .close {
+      margin-right: -1000px !important;
+    }
+  .wrapper{
+  gap:40px;
+  background-color: white;
+  border-radius: 30px;
+ 
+  .actions-div{
+    align-items: center;
+    .icon{
+      font-size: 30px;
+    }
+  }
+}
+  .form-wrapper {
       width: 300px;
-      background-color: #f5f5f5;
+      background-color: transparent;
       border-radius: 20px;
+      border: 1px solid #f1f1f1;
       .form {
         width: 100%;
         justify-content: space-between;
         align-items: center;
-        padding: 0 10px;
+        padding: 5px 10px;
         button {
           border: 0;
           background: transparent;
@@ -129,55 +218,6 @@ const Students = styled.div`
         }
       }
     }
-    button {
-      padding: 0 5px;
-    }
-  }
-  .right-wrapper {
-    background-color: #f5f5f5;
-    gap: 70px;
   
-    .info-wrapper {
-      height: 350px;
-      background-color: black;
-      border-radius: 30px;
-      width: 400px;
-      justify-content: space-between;
-      .top-div {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        height: 120px;
-        gap: 10px;
-        overflow: hidden;
-        .long {
-          border-radius: 10px;
-          grid-row-end: span 2;
-          width: 250px;
-          height: 100%;
-          border: 1px solid white;
-        }
-        .small {
-          border-radius: 10px;
-
-          width: 90px;
-          /* grid-column-end: span 2; */
-          height: 100%;
-          border: 1px solid white;
-        }
-      }
-      .bottom-div {
-        display: flex;
-        flex-direction: row;
-        height: 120px;
-        width:100%;
-        justify-content:space-between;
-        .tab {
-          border: 1px solid white;
-          height: 100%;
-          width:100px;
-          border-radius: 10px;
-        }
-      }
-    }
-  }
+}
 `;

@@ -12,7 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useAppContext } from "../../Context";
 import axios from "../../api/axios";
 export default function Teacher() {
-  const [auth, setAuth, setPasswordVisibility, passwordVisibility] = useAppContext()
+  const {setPasswordVisibility, passwordVisibility} = useAppContext()
   const navigate = useNavigate();
   const [teacherId, setTeacherId] = useState("");
   const [password, setPassword] = useState("");
@@ -67,15 +67,18 @@ export default function Teacher() {
                   />
                 </div>
                 <div className="my-3">
-                  <div className="my-3">
+                  <div className="my-3 d-flex flex-row password-field">
                     <input
                       placeholder="Password"
                       name="password"
                       type={passwordVisibility? "password" : "text"}
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
+                      
                     />
-                    <button onClick={()=>{ setPasswordVisibility(!passwordVisibility)}}>view</button>
+                    <i onClick={()=>{
+                      (setPasswordVisibility(!passwordVisibility))
+                    }} className="eye-icon"><Icon icon="ph:eye-light" /></i>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -98,6 +101,13 @@ const Wrapper = styled.div`
   .row {
     height: 95% !important;
     align-items: center;
+    .password-field{
+align-items: center;
+.eye-icon{
+  margin-left: -25px;
+  font-size: 15px;
+}
+    }
   }
   .container-fluid,
   .left {
