@@ -15,7 +15,7 @@ export default function TeacherDashboard() {
         </div>
         <div className="btns">
           <div
-            className="profile-btn"
+           className="profile-div"
             onClick={() => {
               setIsSidebarOpen
                 ? setIsSidebarOpen(false)
@@ -23,7 +23,7 @@ export default function TeacherDashboard() {
               setIsProfileOpen((prevState) => !prevState);
             }}
           >
-            <Icon icon="ph:student" />
+            <Icon icon="mdi:account-tie" className="profile-btn" color="white"/>
           </div>
           <div
             onClick={() => {
@@ -35,7 +35,7 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </div>
-      <div className="middle-div container d-flex flex-row p-5">
+      <div className="middle-div container d-flex py-5 px-lg-5">
         <div className="tabs container d-flex flex-column ">
           <Link
             className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
@@ -45,36 +45,71 @@ export default function TeacherDashboard() {
               <h6>Create Profile</h6>
               <p>create a new student profile</p>
             </div>
-            <div>
+            <div className="icon-div">
               <Icon className="icon" icon="typcn:user-add" color="white" />
             </div>
           </Link>
-          <div className="tab d-flex flex-row justify-content-between px-3 py-2">
-            <div className="d-flex flex-column  mt-3 textt">
-              <h6>Create Profile</h6>
-              <p>create a new student profile</p>
+          <Link
+            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
+            to={PATH_DASHBOARD.teacher.create}
+          >
+           <div className="d-flex flex-column  mt-3 text">
+              <h6>
+                Add Subject Scheme
+              </h6>
+              <p>upload the term's scheme of work</p>
             </div>
-          </div>
-          <div className="tab d-flex flex-row justify-content-between px-3 py-2">
+            <div className="icon-div">
+              <Icon className="icon" icon="pepicons-pencil:list" color="black" />
+            </div>
+          </Link>
+          <Link
+            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
+            to={PATH_DASHBOARD.teacher.create}
+          >
+           <div className="d-flex flex-column  mt-3 text">
+              <h6>Term Calender</h6>
+              <p>post the timeline for the current term</p>
+            </div>
+            <div className="icon-div">
+              <Icon className="icon" icon="solar:calendar-bold" color="black" />
+            </div>
+          </Link>
+          <Link
+            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
+            to={PATH_DASHBOARD.teacher.create}
+          >
             <div className="d-flex flex-column  mt-3 text">
-              <h6>Create Profile</h6>
-              <p>create a new student profile</p>
+              <h6>Post a Project</h6>
+              <p>Give your student(s) a project to work on</p>
             </div>
+            <div className="icon-div">
+              <Icon className="icon" icon="ph:potted-plant-fill" color="black" />
+            </div>
+          </Link>
+        </div>
+      <div className="info-wrapper d-flex flex-column p-3">
+          <div className="div d-flex flex-row">
+            <h6 style={{color:"white"}}>Catalog</h6>
           </div>
-          <div className="tab d-flex flex-row justify-content-between px-3 py-2">
-            <div className="d-flex flex-column  mt-3 text">
-              <h6>create profile</h6>
-              <p>create a new student profile</p>
-            </div>
+          <div className="top-div">
+            <div className="long"></div>
+            <div className="small"></div>
+            <div className="small"></div>
+          </div>
+          <div className="bottom-div">
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
           </div>
         </div>
         <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between${
+          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
             isProfileOpen ? "open" : "close"
           }`}
         >
           <div className="image">
-          <Icon icon="fa-solid:graduation-cap" className="icon" />
+          <Icon icon="icon-park-solid:necktie" className="icon" />
           </div>
           <div className="name d-flex flex-column">
             <h5>Mr Rasaq Akanni</h5>
@@ -90,21 +125,7 @@ export default function TeacherDashboard() {
         </div>
       </div>
       <div className="end-div container d-flex flex-row p-5 justify-content-between">
-        <div className="info-wrapper d-flex flex-column p-3">
-          <div className="div d-flex flex-row">
-            <h6>Your Students</h6>
-          </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
-          </div>
-          <div className="bottom-div">
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-          </div>
-        </div>
+       
       </div>
     </Dashboard>
   );
@@ -112,32 +133,70 @@ export default function TeacherDashboard() {
 const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
+  margin: 0 !important;
   .head {
     align-items: center;
     background-color: white;
     height: 80px;
     .btns {
-      display: none;
+      display: flex !important;
+      flex-direction: row;
+      align-items:center;
+      flex-direction: row;
+      gap: 40px;
+      .profile-div{
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 50%;
+        background-color: black;
+        cursor: pointer;
+      }
+      .profile-btn{
+        display: flex !important;
+      }
+      .profile-btn, .nav-btn{
+        font-size: 25px;
+        font-weight: 600 !important;
+      }
+       .nav-btn{
+     display:none;
+      }
     }
   }
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
+    justify-content: space-between !important;
+    margin: 0 !important;
+    /* @media screen and (max-width: 992px) {
+      flex-direction: column;
+      justify-content: center !important;
+      .info-wrapper{}
+    } */
     .tabs {
       gap: 20px;
       .tab {
-    width: 400px;
+    max-width: 400px;
+    min-width:320px;
     height: 80px;
     border-radius: 10px;
     align-items: center;
+    .icon-div{
+      padding: 10px ;
+      border-radius: 50%;
+      /* border:1px solid black; */
+    }
     .text {
       text-align: left;
     }
     &:first-child {
       background: black;
+      .icon-div{
+        background-color:  #1c1c1c;
+    }
       .icon {
-        font-size: 40px;
+        font-size: 30px;
       }
       h6 {
         color: white;
@@ -148,19 +207,37 @@ const Dashboard = styled.div`
     }
     &:nth-child(2) {
       background: #ffff66;
+      .icon-div{
+        background-color:  #fbfb87;
+    }
+      .icon {
+        font-size: 30px;
+      }
     }
     &:nth-child(3) {
       background: #ffb366;
+      .icon-div{
+        background-color: #d9a26b;
+    }
+      .icon {
+        font-size: 30px;
+      }
     }
     &:last-child {
       background-color: #8080ff;
+      .icon-div{
+        background-color:  #8c8ce1;
+    }
+      .icon {
+        font-size: 30px;
+      }
     }
   }
     }
     .profile {
       height: 400px;
       width: 270px;
-      display: flex;
+      display: none;
       align-items: center;
       border-radius: 30px;
       background-color: white;
@@ -189,14 +266,26 @@ const Dashboard = styled.div`
         }
       }
     }
-  }
-  .end-div{
+    .open {
+      display: flex !important;
+      z-index: 999;
+      transition: 0.3s;
+      position: absolute;
+      right: 20px !important;
+      top: 100px !important;
+    }
+    .close {
+      margin-right: -1000px !important;
+    }
     .info-wrapper {
       height: 350px;
       background-color: black;
       border-radius: 30px;
-      width: 400px;
+      max-width: 400px;
+      min-width: 320px;
       justify-content: space-between;
+      margin: 0 !important;
+      margin: 0 !important;
       .top-div {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -212,7 +301,7 @@ const Dashboard = styled.div`
         }
         .small {
           border-radius: 10px;
-
+  
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
@@ -220,28 +309,28 @@ const Dashboard = styled.div`
         }
       }
       .bottom-div {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+       grid-template-columns: repeat(3, 1fr);
         height: 120px;
         width: 100%;
         justify-content: space-between;
+        gap:20px;
         .div {
           border: 1px solid white;
           height: 100%;
-          width: 100px;
           border-radius: 10px;
+          /* width:100px; */
         }
       }
     }
   }
+  .end-div{
+  }
   @media screen and (max-width: 1100px) {
     .btns {
-      display: flex !important;
-      flex-direction: row;
-      align-items:center;
-      flex-direction: row;
-      gap: 40px;
-      .profile-btn, .nav-btn{
+
+   .nav-btn{
+    display:block !important;
         font-weight: 600 !important;
         font-size: 30px;
       }
