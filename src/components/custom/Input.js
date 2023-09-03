@@ -1,9 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Input({ style, others, placeholder }) {
+export default function Input({ style, others, placeholder, name, type }) {
   return (
-    <InputStyle {...others} placeholder={placeholder} style={{ ...style }} />
+    <InputStyle
+      {...others}
+      placeholder={placeholder}
+      style={{ ...style }}
+      name={name}
+      type={type}
+    />
   );
 }
 

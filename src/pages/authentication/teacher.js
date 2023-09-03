@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
@@ -8,18 +8,32 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
-
-export default function Login() {
+import toast, { Toaster } from "react-hot-toast";
+import { useAppContext } from "../../Context";
+import axios from "../../api/axios";
+export default function Teacher() {
+  const [auth, setAuth, setPasswordVisibility, passwordVisibility] =
+    useAppContext();
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
+  const [teacherId, setTeacherId] = useState("");
+  const [password, setPassword] = useState("");
+  const teacherRef = useRef();
+  const errorRef = useRef();
+  const [success, setSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const data = [teacherId, password];
+  useEffect(() => {
+    teacherRef.current.focus();
+  }, []);
+  useEffect(() => {
+    setErrorMsg("");
+  }, [teacherId, password]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log(data);
-    console.log(errors);
-    return navigate(PATH_DASHBOARD.student.index);
+    setPassword("");
+    setTeacherId("");
+    toast.success("login successful");
   };
   return (
     <Wrapper>
@@ -36,44 +50,37 @@ export default function Login() {
                 </Link>
               </div>
               <div className="text-center mb-4">
-                <h3 className="fw-bolder">Hello Student!</h3>
-                <p>Sign in to your dashbard.</p>
+                <h3 className="fw-bolder">Welcome back!</h3>
+                <p>You are a world class teacher.</p>
               </div>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit}>
                 <div className="my-3">
                   <input
-                    placeholder="Admission number"
-                    name="admissionNumber"
+                    placeholder="Teacher ID"
+                    name="teacherId"
                     type="text"
-                    {...register("admissionNumber", {
-                      required: "Admission number is required",
-                      validate: (value) =>
-                        value === "1908112" || "Admission number is incorrect",
-                    })}
+                    ref={teacherRef}
+                    onChange={(e) => setTeacherId(e.target.value)}
+                    value={teacherId}
+                    required
                   />
-                  {errors.admissionNumber && (
-                    <p className="errorMsg" style={{ color: "red" }}>
-                      {errors.admissionNumber.message}
-                    </p>
-                  )}
                 </div>
                 <div className="my-3">
                   <div className="my-3">
                     <input
                       placeholder="Password"
                       name="password"
-                      type="passowrd"
-                      {...register("password", {
-                        required: "Input your password",
-                        validate: (value) =>
-                          value === "Ismail360" || "incorrect password",
-                      })}
+                      type={passwordVisibility ? "password" : "text"}
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
                     />
-                    {errors.password && (
-                      <p className="errorMsg" style={{ color: "red" }}>
-                        {errors.password.message}
-                      </p>
-                    )}
+                    <button
+                      onClick={() => {
+                        setPasswordVisibility(!passwordVisibility);
+                      }}
+                    >
+                      view
+                    </button>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -156,3 +163,5 @@ const Wrapper = styled.div`
     }
   }
 `;
+
+// Anuoluwapo Famakinwa

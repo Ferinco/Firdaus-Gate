@@ -1,35 +1,17 @@
-import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
-export default function Button({ children, variant, others }) {
-  const variants = ["transparent", "primary", "secondary"];
-  return (
-    <Btn {...others} variant={variant}>
-      {children}
-    </Btn>
-  );
-}
-const Btn = styled.button`
-  background-color: ${({ variant }) =>
-    (variant === "transparent" && "transparent") ||
-    (variant === "primary" && "blue") ||
-    (variant === "secondary" && "yellow") ||
-    "blue"};
-  color: ${({ variant }) =>
-    (variant === "transparent" && "black") ||
-    (variant === "primary" && "#fff") ||
-    (variant === "secondary" && "#fff") ||
-    "#fff"};
-  outline: none;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  width: 100%;
+export const Button = styled.button`
+  background-color: ${(props) =>
+    (props.blue && "blue") || (props.white && "white")};
+  color: ${(props) => (props.blue && "white") || (props.white && "black")};
+  font-weight: 600 !important;
+  border: 1px solid blue;
+  padding: 10px 15px;
+  border-radius: 9px;
+  &:hover {
+    transition: 0.4s;
+    background-color: ${(props) =>
+      (props.blue && "white") || (props.white && "blue")};
+    color: ${(props) => (props.blue && "black") || (props.white && "white")};
+  }
 `;
-
-Button.propTypes = {
-  children: PropTypes.node,
-  others: PropTypes.any,
-  variant: PropTypes.oneOf(["transparent", "primary", "secondary"]),
-};
