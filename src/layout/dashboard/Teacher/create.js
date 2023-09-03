@@ -24,12 +24,12 @@ data
   return (
     <div>
 
-    <Wrapper className="container d-flex py-5 flex-column pl-lg-5">
-      <div>
-        <h5 style={{color: "blue" }}>Create Student Profile</h5>
-        <h3>enter details here...</h3>
+    <Wrapper>
+      <div className="head d-flex flex-column py-3 px-5">
+        <h4>Create Student Profile</h4>
+        <p>enter student's details to create his/her profile</p>
       </div>
-  <div className="form-wrapper d-flex justify-content-center flex-column align-center ">
+  <div className="form-wrapper d-flex justify-content-center flex-column align-center px-5">
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-3">
@@ -64,7 +64,7 @@ data
             {...register("email", { required: true })}
           />
         </div>
-        <div className="my-3">
+        {/* <div className="my-3">
          <label htmlFor="gender" style={{fontWeight: "700"}}> Gender:</label>
          <select {
           ...register("gender", { required: true })
@@ -72,9 +72,9 @@ data
               <option value="male">male</option>
               <option value="female">female</option>
             </select>
-        </div>
+        </div> */}
         <div className="mt-4">
-          <Button blue type="submit">
+          <Button blue type="submit" className="button">
             Create Profile
           </Button>
         </div>
@@ -85,10 +85,9 @@ data
   );
 }
 const Wrapper = styled.div`
-max-width: 500px;
-gap:20px;
+
 .form-wrapper{
-max-width: 700px;
+max-width: 500px;
 .select{
   border-radius:5px;
   background-color: #f5f5f5;
@@ -98,8 +97,8 @@ max-width: 700px;
   input{
     border-radius: 10px;
   padding: 14px 16px;
-  background-color: #f1f1f1;
-  border: none;
+  background: transparent;
+  border: 1px solid grey;
   outline: none;
 width: 300px;
 

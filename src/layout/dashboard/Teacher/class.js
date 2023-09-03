@@ -131,10 +131,6 @@ const Students = styled.div`
   justify-content: space-between;
   .container-fluid {
     gap: 30px;
-  
-    button {
-      padding: 0 5px;
-    }
   }
 .middle-div{
   .profile {
@@ -190,6 +186,20 @@ const Students = styled.div`
     .icon{
       font-size: 30px;
     }
+  }
+  .table{
+   button{
+    color: black;
+      border:1px solid black;
+    
+    padding: 5px;
+    border-radius: 10px;
+    background: transparent;
+    &:hover{
+      border:1px solid grey;
+    color: grey;
+    }
+   }
   }
 }
   .form-wrapper {
