@@ -6,11 +6,13 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../Context";
 export default function TeacherDashboard() {
+  //get current time
   let currentTime = new Date().getHours()
   const [greeting, setGreeting] = useState(getGreeting(currentTime))
+  //greeting teacher with regards to current time
 function getGreeting (currentTime){
 switch(true){
-  case currentTime >= 5 && currentTime < 12:
+  case currentTime >= 0 && currentTime < 12:
     return "Good Morning,"
     case currentTime >= 12 && currentTime < 18:
       return 'Good afternoon,';
