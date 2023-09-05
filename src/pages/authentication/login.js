@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
+import { loginAuth } from "../../services/authService";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -15,11 +16,18 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
+  } = useForm({});
+  const onSubmit = async (data) => {
     console.log(data);
+    await loginAuth(data)
+      .then((res) => {
+        console.log(res);
+        navigate(PATH_DASHBOARD.student.index);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     console.log(errors);
-    return navigate(PATH_DASHBOARD.student.index);
   };
   return (
     <Wrapper>
@@ -45,17 +53,8 @@ export default function Login() {
                     placeholder="Admission number"
                     name="admissionNumber"
                     type="text"
-                    {...register("admissionNumber", {
-                      required: "Admission number is required",
-                      validate: (value) =>
-                        value === "1908112" || "Admission number is incorrect",
-                    })}
+                    {...register("admissionNumber")}
                   />
-                  {errors.admissionNumber && (
-                    <p className="errorMsg" style={{ color: "red" }}>
-                      {errors.admissionNumber.message}
-                    </p>
-                  )}
                 </div>
                 <div className="my-3">
                   <div className="my-3">
@@ -63,17 +62,8 @@ export default function Login() {
                       placeholder="Password"
                       name="password"
                       type="passowrd"
-                      {...register("password", {
-                        required: "Input your password",
-                        validate: (value) =>
-                          value === "Ismail360" || "incorrect password",
-                      })}
+                      {...register("password")}
                     />
-                    {errors.password && (
-                      <p className="errorMsg" style={{ color: "red" }}>
-                        {errors.password.message}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <div className="mt-4">

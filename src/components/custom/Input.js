@@ -7,6 +7,7 @@ export default function Input({
   style,
   others,
   placeholder,
+  onChange,
   name,
   type,
   size,
@@ -17,6 +18,7 @@ export default function Input({
       placeholder={placeholder}
       style={{ ...style }}
       name={name}
+      onChange={onChange}
       type={type}
       size={size}
     />

@@ -1,4 +1,4 @@
 import axios from 'axios'
-export default axios.create({
-    baseURL: "https://firdaus-server.cyclic.cloud/"
+export const  api = axios.create({
+    baseURL: "https://firdausgate-api.cyclic.app/api/v1"
 })
