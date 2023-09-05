@@ -11,7 +11,8 @@ export const loginAuth = async (admissionNumber, password) => {
   }
   return data
 };
-//  export const registerAuth = async (data) =>{
-//     const {data} = await api.post("/auth/register", data)
-//  }
+ export const registerAuth = async (firstName, lastName, middleName, admissionNumber, passowrd, email) =>{
+    const {data} = await api.post("/auth/register", firstName, lastName, middleName, admissionNumber, passowrd, email)
+    return  data
+ }
 

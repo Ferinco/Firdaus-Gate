@@ -4,7 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
+import { registerAuth } from "../../../services/authService";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 export default function Create() {
+  const [sucess, setSuccess] = useState(false)
   //yup resolvers
   const schema = yup.object({
     firstName: yup.string().required("first name is required"),
@@ -12,7 +16,6 @@ export default function Create() {
     middleName: yup.string().optional(),
     admissionNumber: yup
       .number()
-      .max(5)
       .required("enter admission number"),
     email: yup.string().email().required("email is required"),
     password: yup.string().min(5).max(12).required("set a passowrd"),
@@ -23,19 +26,29 @@ export default function Create() {
   });
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
   //submission of the form
-  const onSubmit = (data) => {
-    const { firstname, lastname, admissionNumber, email, gender } = data;
-    axios.post(
-      "https://64e27cacab003735881908fa.mockapi.io/students/studentsData",
-      { firstname, lastname, admissionNumber, email, gender }
-    );
-    console.log(data);
+  const onSubmit = async (data) => {
+    reset()
+    console.log(data)
+    setSuccess(true)
+    toast.success('Account Successfully created!');
+    // await registerAuth(data).then(res=>{
+    //   console.log(res)
+    // }).catch(error=> {
+    //   console.log(error)
+    // })
+    // const { firstname, lastname, admissionNumber, email, gender } = data;
+    // axios.post(
+    //   "https://64e27cacab003735881908fa.mockapi.io/students/studentsData",
+    //   { firstname, lastname, admissionNumber, email, gender }
+    // );
+    // console.log(data);
   };
   console.log(errors);
   return (
@@ -54,7 +67,7 @@ export default function Create() {
                   placeholder="Enter Firstname"
                   name="firstName"
                   type="text"
-                  register={{ ...register("firstName") }}
+                  { ...register("firstName") }
                 />
                 <p className="error-message">
                   {errors.firstName?.message
@@ -68,7 +81,7 @@ export default function Create() {
                   placeholder="Enter Lastname"
                   name="lastName"
                   type="text"
-                  register={{ ...register("lastName") }}
+                  { ...register("lastName") }
                 />
                 <p className="error-message">
                   {errors.lastName?.message
@@ -86,7 +99,7 @@ export default function Create() {
                 placeholder="Enter Middle name"
                 name="middleName"
                 type="text"
-                register={{ ...register("middleName") }}
+                { ...register("middleName") }
               />
             </div>
 
@@ -96,7 +109,7 @@ export default function Create() {
                 placeholder="Admission Number"
                 name="admissionNumber"
                 type="text"
-                register={{ ...register("admissionNumber") }}
+               { ...register("admissionNumber") }
               />
               <p className="error-message">
                 {errors.admissionNumber?.message
@@ -113,7 +126,7 @@ export default function Create() {
                 Address"
                 name="email"
                 type="email"
-                register={{ ...register("email") }}
+              { ...register("email") }
               />
               <p className="error-message">
                 {errors.email?.message ? `*${errors.email?.message}` : ""}
@@ -128,7 +141,7 @@ export default function Create() {
                 Password"
                 name="password"
                 type="password"
-                register={{ ...register("password") }}
+                { ...register("password") }
               />
               <p className="error-message">
                 {errors.password?.message ? `*${errors.password?.message}` : ""}
@@ -141,7 +154,7 @@ export default function Create() {
                 Password"
                 name="confirmPassword"
                 type="password"
-                register={{ ...register("confirmPassword") }}
+               { ...register("confirmPassword") }
               />
               <p className="error-message">
                 {errors.confirmPassword?.message
