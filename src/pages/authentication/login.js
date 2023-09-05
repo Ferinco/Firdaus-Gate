@@ -5,21 +5,30 @@ import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import {Link} from "react-router-dom"
-import { PATH_DASHBOARD } from "../../routes/paths"
-import { PATH_PAGE } from "../../routes/paths"
+import { Link } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { PATH_PAGE } from "../../routes/paths";
+import { loginAuth } from "../../services/authService";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
+  } = useForm({
+    
+  });
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log(errors);
-   return navigate(PATH_DASHBOARD.student.index)
+        await loginAuth(data).then(res=> {
+          console.log(res)
+          navigate(PATH_DASHBOARD.student.index)
+
+        }).catch(error=>{
+          console.log(error)
+        })
+      console.log(errors);
   };
   return (
     <Wrapper>
@@ -31,10 +40,9 @@ export default function Login() {
           <div className="col-md-6 right">
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
-              <Link react-router-link to={PATH_PAGE.home}>
-          <img src="/images/logo.png" />
-
-        </Link>
+                <Link react-router-link to={PATH_PAGE.home}>
+                  <img src="/images/logo.png" />
+                </Link>
               </div>
               <div className="text-center mb-4">
                 <h3 className="fw-bolder">Hello Student!</h3>
@@ -42,39 +50,22 @@ export default function Login() {
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
-                  
+                  <input
+                    placeholder="Admission number"
+                    name="admissionNumber"
+                    type="text"
+                    {...register('admissionNumber')}
+                  />
+                </div>
+                <div className="my-3">
+                  <div className="my-3">
                     <input
-      placeholder="Admission number"
-      name="admissionNumber"
-      type="text"
-      {...register("admissionNumber", {
-        required: 'Admission number is required',
-        validate: value => value === '1908112' || 'Admission number is incorrect'
-      })}
-    />
-    {errors.admissionNumber && (
-      <p className="errorMsg" style={{ color: "red" }}>
-        {errors.admissionNumber.message}
-      </p>
-    )}
-                </div>
-                <div className="my-3">
-                <div className="my-3">
-                <input
-      placeholder="Password"
-      name="password"
-      type="passowrd"
-      {...register("password", {
-        required: 'Input your password',
-        validate: value => value === 'Ismail360' || 'incorrect password'
-      })}
-    />
-    {errors.password && (
-      <p className="errorMsg" style={{ color: "red" }}>
-        {errors.password.message}
-      </p>
-    )}
-                </div>
+                      placeholder="Password"
+                      name="password"
+                      type="passowrd"
+                      {...register('password')}
+                    />
+                  </div>
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
@@ -140,17 +131,17 @@ const Wrapper = styled.div`
           overflow: hidden;
         }
       }
-      input{
+      input {
         border-radius: 10px;
-  padding: 14px 16px;
-  background-color: #f1f1f1;
-  border: none;
-  outline: none;
-  width: 100%;
+        padding: 14px 16px;
+        background-color: #f1f1f1;
+        border: none;
+        outline: none;
+        width: 100%;
       }
-      .errorMsg{
+      .errorMsg {
         font-size: 15px;
-        padding-left:7px;
+        padding-left: 7px;
       }
       width: 400px;
     }

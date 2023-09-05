@@ -58,7 +58,7 @@ export default function Teacher() {
                     name="teacherId"
                     type="number"
                     // register={{ ...register("teacherId") }}
-                    ref={{...register("teacherId")}}
+                    register={{...register("teacherId")}}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
