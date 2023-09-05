@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
@@ -11,29 +10,29 @@ import { PATH_PAGE } from "../../routes/paths";
 import toast, { Toaster } from "react-hot-toast";
 import { useAppContext } from "../../Context";
 import axios from "../../api/axios";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 export default function Teacher() {
-  const {setPasswordVisibility, passwordVisibility} = useAppContext()
-  const navigate = useNavigate();
-  const [teacherId, setTeacherId] = useState("");
-  const [password, setPassword] = useState("");
-  const teacherRef = useRef();
-  const errorRef = useRef();
-  const [success, setSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const data = [teacherId, password];
-  useEffect(() => {
-    teacherRef.current.focus();
-  }, []);
-  useEffect(() => {
-    setErrorMsg("");
-  }, [teacherId, password]);
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log(data)
-    setPassword("");
-    setTeacherId("");
-    toast.success("login successful")
-  };
+  const { setPasswordVisibility, passwordVisibility } = useAppContext();
+  // const [success, setSuccess] = useState(false);
+  // const [errorMsg, setErrorMsg] = useState("");
+  const schema = yup.object({
+    teacherId: yup.number().required("enter your ID"),
+    password: yup.string().required("enter your password"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  function onSubmit(data) {
+    // const {teacherId, password} = data;
+    console.log(data);
+    console.log(errors);
+  }
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -42,8 +41,6 @@ export default function Teacher() {
             <div className="left-image"></div>
           </div>
           <div className="col-md-6 right">
-        
-           
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
                 <Link react-router-link to={PATH_PAGE.home}>
@@ -54,31 +51,34 @@ export default function Teacher() {
                 <h3 className="fw-bolder">Welcome back!</h3>
                 <p>You are a world class teacher.</p>
               </div>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
                   <input
                     placeholder="Teacher ID"
                     name="teacherId"
-                    type="text"
-                    ref={teacherRef}
-                    onChange={(e) => setTeacherId(e.target.value)}
-                    value={teacherId}
-                    required
+                    type="number"
+                    // register={{ ...register("teacherId") }}
+                    ref={{...register("teacherId")}}
                   />
+                  <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
                 <div className="my-3">
-                  <div className="my-3 d-flex flex-row password-field">
+                  <div className="my-3">
                     <input
                       placeholder="Password"
                       name="password"
-                      type={passwordVisibility? "password" : "text"}
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                      
+                      type={passwordVisibility ? "password" : "text"}
+                      register={{ ...register("password") }}
                     />
-                    <i onClick={()=>{
-                      (setPasswordVisibility(!passwordVisibility))
-                    }} className="eye-icon"><Icon icon="ph:eye-light" /></i>
+                    {/* <i
+                      onClick={() => {
+                        setPasswordVisibility(!passwordVisibility);
+                      }}
+                      className="eye-icon"
+                    >
+                      <Icon icon="ph:eye-light" />
+                    </i> */}
+                    <p className="error-message">{errors.password?.message}</p>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -101,12 +101,12 @@ const Wrapper = styled.div`
   .row {
     height: 95% !important;
     align-items: center;
-    .password-field{
-align-items: center;
-.eye-icon{
-  margin-left: -25px;
-  font-size: 15px;
-}
+    .password-field {
+      align-items: center;
+      .eye-icon {
+        margin-left: -25px;
+        font-size: 15px;
+      }
     }
   }
   .container-fluid,
@@ -160,9 +160,11 @@ align-items: center;
         outline: none;
         width: 100%;
       }
-      .errorMsg {
-        font-size: 15px;
+      .error-message {
+        color: orangered;
         padding-left: 7px;
+        font-size: 14px;
+        font-weight: 500;
       }
       width: 400px;
     }

@@ -172,7 +172,7 @@ export default function Create() {
 }
 const Wrapper = styled.div`
   .form-wrapper {
-    max-width: 500px;
+    max-width: 420px;
     .select {
       border-radius: 5px;
       background-color: #f5f5f5;
