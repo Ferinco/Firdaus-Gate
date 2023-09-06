@@ -1,6 +1,6 @@
 import { api } from "../api/axios";
 
-export const loginAuth = async ({admissionNumber, password}) => {
+export const loginAuth = async ({ admissionNumber, password }) => {
   const { data } = await api.post("/auth/login", {
     admissionNumber,
     password,
@@ -11,14 +11,14 @@ export const loginAuth = async ({admissionNumber, password}) => {
   }
   return data;
 };
-export const registerAuth = async (
- { firstName,
+export const registerAuth = async ({
+  firstName,
   lastName,
   middleName,
   admissionNumber,
   password,
-  email}
-) => {
+  email,
+}) => {
   const { data } = await api.post("/auth/register", {
     firstName,
     lastName,
@@ -28,4 +28,11 @@ export const registerAuth = async (
     email,
   });
   return data;
+};
+export const isAuthenticated = () => {
+  const user = localStorage.getItem("user");
+  if (!user) {
+    return {};
+  }
+  return JSON.parse(user);
 };

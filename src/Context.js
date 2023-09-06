@@ -5,9 +5,9 @@ export function AppProvider({children}){
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const [passwordVisibility, setPasswordVisibility] = useState(false)
-    const [auth, setAuth]= useState({})
+   const [currentUser, setCurrentUser] = useState(undefined)
     return(
-        <AppContext.Provider value={{isSidebarOpen, setIsSidebarOpen, isProfileOpen, setIsProfileOpen, auth, setAuth, passwordVisibility, setPasswordVisibility}}>
+        <AppContext.Provider value={{isSidebarOpen, setIsSidebarOpen, isProfileOpen, setIsProfileOpen, passwordVisibility, setPasswordVisibility, currentUser, setCurrentUser}}>
 {children}
         </AppContext.Provider>
     )

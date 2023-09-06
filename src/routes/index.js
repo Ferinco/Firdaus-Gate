@@ -13,6 +13,7 @@ import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
 import Create from "../layout/dashboard/Teacher/create";
 import ProgressPage from "../pages/progressPage";
 import CreateResult from "../pages/teacher/createResult";
+import resultsPage from "../layout/dashboard/Student/resultsPage";
 export default function Routes() {
   return useRoutes([
     {
@@ -46,6 +47,7 @@ export default function Routes() {
       element: <StudentDashboardLayout />,
       children: [
         { path: "/student", element: <StudentDashboard /> },
+        { path: "/student/reports", element: <resultsPage /> },
         // {path: "/teacher/my-class", element: <MyClass/>},
         // {path: "/teacher/results", element: <Results/>}
       ],

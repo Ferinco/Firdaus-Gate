@@ -8,7 +8,6 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
-import { Spinner } from "react-bootstrap";
 
 export default function Login() {
   const [success, setSuccess] = useState(false)
