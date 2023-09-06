@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../../Context";
 import report from "../../../report-sheet.pdf";
-import { isAuthenticated } from "../../../services/authService";
+// import { isAuthenticated } from "../../../services/authService";
 export default function StudentDashboard() {
- 
   const {
     setIsSidebarOpen,
     setIsProfileOpen,
@@ -14,19 +13,20 @@ export default function StudentDashboard() {
     currentUser,
     setCurrentUser,
   } = useAppContext();
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      let identity = isAuthenticated();
-      if (identity === null) {
-        localStorage.setItem("user", "");
-        identity = "";
-      }
-      setCurrentUser(identity.user);
-    };
-    checkLoggedIn();
-  }, []);
-    console.log(currentUser)
-    console.log(currentUser.firstName)
+
+  // useEffect(() => {
+  //   // const checkLoggedIn = async () => {
+  //   //   let identity = isAuthenticated();
+  //   //   if (identity === null) {
+  //   //     localStorage.setItem("user", "");
+  //   //     identity = "";
+  //   //   }
+  //   //   setCurrentUser(identity.user);
+  //   // };
+  //   checkLoggedIn();
+  // }, []);
+  // console.log(currentUser);
+
   return (
     <Dashboard>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
@@ -109,10 +109,10 @@ export default function StudentDashboard() {
             <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
           <div className="name d-flex flex-column">
-            <h5>{currentUser.firstName}</h5>
-            <p>ismail360@gmail.com</p>
+            <h5>Adewale Ismail</h5>
+            <p>Ismail360@gmail.com</p>
             <p>Male</p>
-            <h6>1908112</h6>
+            <h6>555555</h6>
           </div>
           <div className="info d-flex flex-row"></div>
           <div className="number d-flex flex-row">

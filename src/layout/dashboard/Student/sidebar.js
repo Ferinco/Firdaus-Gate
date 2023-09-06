@@ -5,6 +5,28 @@ import { useAppContext } from "../../../Context";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
 // import { PATH_DASHBOARD } from "../../../routes/paths";
+const sidebarConfig = [
+  {
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.student.index,
+    title: "Dashboard"
+  },
+  {
+    icon: "material-symbols:library-books-outline",
+    link: PATH_DASHBOARD.student.mySubjects,
+    title: "Subjects"
+  },
+  {
+    icon: "la:chalkboard-teacher",
+    link: PATH_DASHBOARD.student.myTeachers,
+    title: "My Teachers"
+  },
+  {
+    icon: "la:chalkboard-teacher",
+    link: "PATH_DASHBOARD.student.results",
+    title: "Results"
+  },
+]
 export default function StudentSidebar() {
   const { isSidebarOpen, isDashboardClicked, setIsDashboardClicked } = useAppContext();
   return (
@@ -18,12 +40,14 @@ export default function StudentSidebar() {
         </Link>
         </div>
         <div className="nav-links d-flex flex-column pl-4">
-          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.index}><Icon icon="uil:create-dashboard"/>Dashboard</Link>
-          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.mySubjects}><Icon icon="material-symbols:library-books-outline" />Subjects</Link>
-          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.myTeachers}><Icon icon="la:chalkboard-teacher" />My Teachers</Link>
-          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.results}><Icon icon="la:chalkboard-teacher" />Results</Link>
 
-
+          {sidebarConfig.map(({icon, link, title}, index)=>(
+            <Link to={link}
+            className="nav-link react-router-link pl-5 py-1">
+              <Icon icon={icon}/>
+              {title}
+            </Link>
+          ))}
         </div>
       </div>
         <div className="log-out d-flex flex-column pl-4">
