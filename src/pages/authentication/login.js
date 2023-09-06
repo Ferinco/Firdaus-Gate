@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
-import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -10,9 +8,11 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
+import { Spinner } from "react-bootstrap";
 
 export default function Login() {
   const [success, setSuccess] = useState(false)
+  const [loading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const {
     register,
@@ -22,15 +22,19 @@ export default function Login() {
     
   });
   const onSubmit = async (data) => {
+setIsLoading(true)
     console.log(data);
         await loginAuth(data).then(res=> {
           console.log(res)
+          setIsLoading(false)
           navigate(PATH_DASHBOARD.student.index)
           setSuccess(true)
           toast.success('login sucessful!');
-
+          
         }).catch(error=>{
+          setIsLoading(false)
           console.log(error)
+          toast.error(`${error.response?.data.message}`)
         })
       console.log(errors);
   };
@@ -73,7 +77,15 @@ export default function Login() {
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
-                    Sign in
+                  {loading ? (
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  "Sign in"
+                )}
                   </Button>
                 </div>
               </form>
@@ -134,6 +146,10 @@ const Wrapper = styled.div`
           object-fit: cover;
           overflow: hidden;
         }
+        .spinner-border{
+    width:25px;
+    height: 25px;
+  }
       }
       input {
         border-radius: 10px;
