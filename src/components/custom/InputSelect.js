@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Form } from "react-bootstrap";
+import { FormSelect } from "react-bootstrap";
 
-export default function Input({
+export default function InputSelect({
+  children,
   style,
+  onChange,
   others,
   placeholder,
-  onChange,
   name,
   type,
   size,
@@ -16,16 +17,19 @@ export default function Input({
     <InputStyle
       {...others}
       placeholder={placeholder}
+      onChange={onChange}
       style={{ ...style }}
       name={name}
-      onChange={onChange}
       type={type}
       size={size}
-    />
+    >
+      {children}
+    </InputStyle>
   );
 }
 
-Input.propTypes = {
+InputSelect.propTypes = {
+  children: PropTypes.node,
   style: PropTypes.object,
   others: PropTypes.object,
   placeholder: PropTypes.string,
@@ -34,7 +38,7 @@ Input.propTypes = {
   size: PropTypes.oneOf(["small", "large"]),
 };
 
-const InputStyle = styled(Form.Control)`
+const InputStyle = styled(FormSelect)`
   border-radius: 10px;
 
   background-color: #f1f1f1;

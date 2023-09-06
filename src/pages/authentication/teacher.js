@@ -9,7 +9,7 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import toast, { Toaster } from "react-hot-toast";
 import { useAppContext } from "../../Context";
-import axios from "../../api/axios";
+// import axios from "../../api/axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -58,7 +58,7 @@ export default function Teacher() {
                     name="teacherId"
                     type="number"
                     // register={{ ...register("teacherId") }}
-                    register={{...register("teacherId")}}
+                    register={{ ...register("teacherId") }}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
@@ -170,5 +170,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-// Anuoluwapo Famakinwa

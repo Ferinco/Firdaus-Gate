@@ -38,11 +38,11 @@ export default function LandingHero() {
   );
 }
 const Wrapper = styled.div`
-.button-group{
-  gap:10px;
-  justify-content: center !important;
-  align-items: center;
-}
+  .button-group {
+    gap: 10px;
+    justify-content: center !important;
+    align-items: center;
+  }
   .HeroImageContainer {
     display: flex;
     flex-flow: row;

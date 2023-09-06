@@ -1,9 +1,34 @@
 import styled from "styled-components";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../Context";
 import { PATH_PAGE } from "../../../routes/paths";
+
+const sidebarConfig = [
+  {
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.teacher.index,
+    title: "Dashboard",
+  },
+  {
+    icon: "mdi:google-classroom",
+    link: PATH_DASHBOARD.teacher.myStudents,
+    title: "My students",
+  },
+  {
+    icon: "fluent-mdl2:poll-results",
+    link: PATH_DASHBOARD.teacher.results,
+    title: "Report",
+  },
+  {
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.teacher.createResult,
+    title: "Create Report",
+  },
+];
+
 export default function TeacherSidebar() {
   const { isSidebarOpen } = useAppContext();
   return (
@@ -16,35 +41,24 @@ export default function TeacherSidebar() {
         <div className="wrapper d-flex flex-column justify-content-between">
           <div className="logo">
             <Link className="react-router-link" to={PATH_PAGE.home}>
-            <img src="/images/logo.png" />
+              <img src="/images/logo.png" alt="logo" />
             </Link>
           </div>
           <div className="nav-links d-flex flex-column">
-            <Link
-              className="nav-link react-router-link"
-              to={PATH_DASHBOARD.teacher.index}
-            >
-              <Icon icon="uil:create-dashboard" />
-              Dashboard
-            </Link>
-            <Link
-              className="nav-link react-router-link"
-              to={PATH_DASHBOARD.teacher.myStudents}
-            >
-              <Icon icon="mdi:google-classroom" />
-              My Students
-            </Link>
-            <Link
-              className="nav-link react-router-link"
-              to={PATH_DASHBOARD.teacher.results}
-            >
-              <Icon icon="fluent-mdl2:poll-results" />
-              Results
-            </Link>
+            {sidebarConfig.map(({ link, icon, title }, index) => (
+              <Link
+                className="nav-link react-router-link"
+                to={link}
+                key={index}
+              >
+                <Icon icon={icon} />
+                {title}
+              </Link>
+            ))}
           </div>
         </div>
         <div className="log-out">
-          <Link className="react-router-link nav-link">
+          <Link to="" className="react-router-link nav-link">
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}
