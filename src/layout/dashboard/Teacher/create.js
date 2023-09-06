@@ -7,16 +7,17 @@ import axios from "axios";
 import { registerAuth } from "../../../services/authService";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { Spinner } from "react-bootstrap";
 export default function Create() {
-  const [sucess, setSuccess] = useState(false)
+  const [sucess, setSuccess] = useState(false);
+  const [loading, setIsLoading] = useState(false);
+
   //yup resolvers
   const schema = yup.object({
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
     middleName: yup.string().optional(),
-    admissionNumber: yup
-      .number()
-      .required("enter admission number"),
+    admissionNumber: yup.number().required("enter admission number"),
     email: yup.string().email().required("email is required"),
     password: yup.string().min(5).max(12).required("set a passowrd"),
     confirmPassword: yup
@@ -31,24 +32,34 @@ export default function Create() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      admissionNumber: "",
+      confirmPassword: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      middleName: "",
+      password: "",
+      role: "student",
+    },
   });
   //submission of the form
   const onSubmit = async (data) => {
-    reset()
-    console.log(data)
-    setSuccess(true)
-    toast.success('Account Successfully created!');
-    // await registerAuth(data).then(res=>{
-    //   console.log(res)
-    // }).catch(error=> {
-    //   console.log(error)
-    // })
-    // const { firstname, lastname, admissionNumber, email, gender } = data;
-    // axios.post(
-    //   "https://64e27cacab003735881908fa.mockapi.io/students/studentsData",
-    //   { firstname, lastname, admissionNumber, email, gender }
-    // );
-    // console.log(data);
+    console.log(data);
+    setIsLoading(true);
+    await registerAuth(data)
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+        setSuccess(true);
+        toast.success("Account Successfully created!");
+        reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        toast.error(`${error.response?.data.message}`);
+      });
   };
   console.log(errors);
   return (
@@ -62,12 +73,14 @@ export default function Create() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
-                <label htmlFor="firstName" className="label">first name</label>
+                <label htmlFor="firstName" className="label">
+                  first name
+                </label>
                 <input
                   placeholder="Enter Firstname"
                   name="firstName"
                   type="text"
-                  { ...register("firstName") }
+                  {...register("firstName")}
                 />
                 <p className="error-message">
                   {errors.firstName?.message
@@ -76,12 +89,14 @@ export default function Create() {
                 </p>
               </div>
               <div className="d-flex flex-column">
-              <label htmlFor="lastName" className="label">last name</label>
+                <label htmlFor="lastName" className="label">
+                  last name
+                </label>
                 <input
                   placeholder="Enter Lastname"
                   name="lastName"
                   type="text"
-                  { ...register("lastName") }
+                  {...register("lastName")}
                 />
                 <p className="error-message">
                   {errors.lastName?.message
@@ -91,78 +106,89 @@ export default function Create() {
               </div>
             </div>
             <div className="d-flex flex-row input-div my-2">
+              <div className="d-flex flex-column">
+                <label htmlFor="middleName" className="label">
+                  middle name
+                </label>
 
-            <div className="d-flex flex-column">
-            <label htmlFor="middleName" className="label">middle name</label>
+                <input
+                  placeholder="Enter Middle name"
+                  name="middleName"
+                  type="text"
+                  {...register("middleName")}
+                />
+              </div>
 
-              <input
-                placeholder="Enter Middle name"
-                name="middleName"
-                type="text"
-                { ...register("middleName") }
-              />
-            </div>
-
-            <div className="d-flex flex-column">
-            <label htmlFor="admissionNumber" className="label">admission number</label>
-              <input
-                placeholder="Admission Number"
-                name="admissionNumber"
-                type="text"
-               { ...register("admissionNumber") }
-              />
-              <p className="error-message">
-                {errors.admissionNumber?.message
-                  ? `*${errors.admissionNumber?.message}`
-                  : ""}
-              </p>
-            </div>
+              <div className="d-flex flex-column">
+                <label htmlFor="admissionNumber" className="label">
+                  admission number
+                </label>
+                <input
+                  placeholder="Admission Number"
+                  name="admissionNumber"
+                  type="text"
+                  {...register("admissionNumber")}
+                />
+                <p className="error-message">
+                  {errors.admissionNumber?.message
+                    ? `*${errors.admissionNumber?.message}`
+                    : ""}
+                </p>
+              </div>
             </div>
             <div className="my-2 d-flex flex-column">
-            <label htmlFor="email" className="label">email</label>
+              <label htmlFor="email" className="label">
+                email
+              </label>
 
               <input
                 placeholder="Email 
                 Address"
                 name="email"
                 type="email"
-              { ...register("email") }
+                {...register("email")}
               />
               <p className="error-message">
                 {errors.email?.message ? `*${errors.email?.message}` : ""}
               </p>
             </div>
-        <div className="d-flex flex-row input-div my-2">
-        <div className="d-flex flex-column">
-        <label htmlFor="password" className="label">password</label>
+            <div className="d-flex flex-row input-div my-2">
+              <div className="d-flex flex-column">
+                <label htmlFor="password" className="label">
+                  password
+                </label>
 
-              <input
-                placeholder="
+                <input
+                  placeholder="
                 Password"
-                name="password"
-                type="password"
-                { ...register("password") }
-              />
-              <p className="error-message">
-                {errors.password?.message ? `*${errors.password?.message}` : ""}
-              </p>
-            </div>
-            <div className="d-flex flex-column">
-            <label htmlFor="confirmPassword" className="label">confirm passowrd</label>
-              <input
-                placeholder="Confirm 
+                  name="password"
+                  type="password"
+                  {...register("password")}
+                />
+                <p className="error-message">
+                  {errors.password?.message
+                    ? `*${errors.password?.message}`
+                    : ""}
+                </p>
+              </div>
+              <div className="d-flex flex-column">
+                <label htmlFor="confirmPassword" className="label">
+                  confirm passowrd
+                </label>
+                <input
+                  placeholder="Confirm 
                 Password"
-                name="confirmPassword"
-                type="password"
-               { ...register("confirmPassword") }
-              />
-              <p className="error-message">
-                {errors.confirmPassword?.message
-                  ? `*${errors.confirmPassword?.message}`
-                  : ""}
-              </p>
+                  name="confirmPassword"
+                  type="password"
+                  {...register("confirmPassword")}
+                />
+                <p className="error-message">
+                  {errors.confirmPassword?.message
+                    ? `*${errors.confirmPassword?.message}`
+                    : ""}
+                </p>
+              </div>
             </div>
-        </div>
             {/* <div className="my-3">
          <label htmlFor="gender" style={{fontWeight: "700"}}> Gender:</label>
          <select {
@@ -173,8 +199,17 @@ export default function Create() {
             </select>
         </div> */}
             <div className="mt-4">
-              <Button blue type="submit" className="button">
-                Create Profile
+              <Button blue type="submit" className="button"
+              disabled={loading === true}>
+                {loading ? (
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  "Create Profile"
+                )}
               </Button>
             </div>
           </form>
@@ -194,21 +229,20 @@ const Wrapper = styled.div`
     .button {
       width: 100%;
     }
-    .input-div{
+    .input-div {
       gap: 10px;
     }
-    .label{
+    .label {
       font-weight: 500;
       margin-bottom: -10px !important;
-     background-color: #f1f1f1;
-     margin-left: 10px ;
-    padding-right: 5px;
-     font-size: 14px;
+      background-color: #f1f1f1;
+      margin-left: 10px;
+      padding-right: 5px;
+      font-size: 14px;
       z-index: 999;
       color: grey;
       width: fit-content;
-    text-transform: capitalize;
-
+      text-transform: capitalize;
     }
   }
   input {
@@ -218,6 +252,10 @@ const Wrapper = styled.div`
     border: 1px solid grey;
     outline: none;
     width: 100%;
+  }
+  .spinner-border{
+    width:25px;
+    height: 25px;
   }
   .error-message {
     color: orangered;

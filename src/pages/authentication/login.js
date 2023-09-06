@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
@@ -9,8 +9,10 @@ import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
+import { toast } from "react-hot-toast";
 
 export default function Login() {
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate();
   const {
     register,
@@ -19,15 +21,18 @@ export default function Login() {
   } = useForm({});
   const onSubmit = async (data) => {
     console.log(data);
-    await loginAuth(data)
-      .then((res) => {
-        console.log(res);
-        navigate(PATH_DASHBOARD.student.index);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(errors);
+
+        await loginAuth(data).then(res=> {
+          console.log(res)
+          navigate(PATH_DASHBOARD.student.index)
+          setSuccess(true)
+          toast.success('login sucessful!');
+
+        }).catch(error=>{
+          console.log(error)
+        })
+      console.log(errors);
+
   };
   return (
     <Wrapper>
