@@ -2,14 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../custom/Input";
 import { InputSelect } from "../../custom";
+import { seniorSchoolSubjects } from "../../../config/subjects";
 
-const ReportSubjectForm = ({
-  subjects,
-  setSubjects,
-  index,
-  subject,
-  handleChange,
-}) => {
+const ReportSubjectForm = ({ index, handleChange }) => {
   return (
     <Wrapper className="results-field py-4">
       <div className="">
@@ -20,10 +15,11 @@ const ReportSubjectForm = ({
           <InputSelect
             onChange={(e) => handleChange(index, "subject", e.target.value)}
           >
-            <option value="English">English</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Accounting">Accounting</option>
-            <option value="Social studies">Social studies</option>
+            {seniorSchoolSubjects.map((subject, index) => (
+              <option value={subject} key={index}>
+                {subject}
+              </option>
+            ))}
           </InputSelect>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Input from "../../components/custom/Input";
 import { InputSelect } from "../../components/custom";
 import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
 import { ReportService } from "../../services/reportService";
+import { OverlayLoading } from "../../components/OverlayLoading";
 
 export default function CreateResult() {
   // Default values for subject's grade
@@ -58,25 +59,24 @@ export default function CreateResult() {
       </div>
 
       {/* GRADING FORM STARTS HERE */}
-      <form onSubmit={handleSubmit}>
-        {/* SUBJECT INPUT */}
-        {subjects.map((subject, index) => {
-          const {} = subject;
-          return (
-            <ReportSubjectForm
-              subjects={subjects}
-              setSubjects={setSubjects}
-              index={index}
-              subject
-              handleChange={handleChange}
-              setValue={setValue}
-            />
-          );
-        })}
+      {loading ? (
+        <OverlayLoading />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          {/* SUBJECT INPUT */}
+          {subjects.map((subject, index) => {
+            const {} = subject;
+            return (
+              <ReportSubjectForm index={index} handleChange={handleChange} />
+            );
+          })}
 
-        <Button onClick={addSubjectField}>Add new</Button>
-        <Button type="submit">Submit</Button>
-      </form>
+          <Button onClick={addSubjectField}>Add new</Button>
+          <Button type="submit" blue>
+            Submit
+          </Button>
+        </form>
+      )}
     </div>
   );
 }
