@@ -18,12 +18,11 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    
-  });
+  } = useForm({});
   const onSubmit = async (data) => {
 setIsLoading(true)
     console.log(data);
+
         await loginAuth(data).then(res=> {
           console.log(res)
           setIsLoading(false)
@@ -37,6 +36,7 @@ setIsLoading(true)
           toast.error(`${error.response?.data.message}`)
         })
       console.log(errors);
+
   };
   return (
     <Wrapper>
@@ -62,7 +62,7 @@ setIsLoading(true)
                     placeholder="Admission number"
                     name="admissionNumber"
                     type="text"
-                    {...register('admissionNumber')}
+                    {...register("admissionNumber")}
                   />
                 </div>
                 <div className="my-3">
@@ -71,7 +71,7 @@ setIsLoading(true)
                       placeholder="Password"
                       name="password"
                       type="passowrd"
-                      {...register('password')}
+                      {...register("password")}
                     />
                   </div>
                 </div>
@@ -167,5 +167,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-// Anuoluwapo Famakinwa

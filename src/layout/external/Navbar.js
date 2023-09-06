@@ -26,16 +26,16 @@ export default function Navbar() {
       <div className="second-navbar">
         <div className=" container d-flex justify-content-between py-3 px-0">
           <div className=" d-flex flex-row align-center header">
-          <div className="d-lg-none pl-3">
-            <Icon
-              icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
-              color="black"
-              className="icon"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            />
-          </div>
+            <div className="d-lg-none pl-3">
+              <Icon
+                icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
+                color="black"
+                className="icon"
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              />
+            </div>
             <Logo />
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
@@ -141,7 +141,12 @@ export default function Navbar() {
                 <Link className="dropdown-item" to={PATH_AUTH.teacher}>
                   Teacher Login
                 </Link>
-                <Link className="dropdown-item" to={PATH_DASHBOARD.teacher.index}>dashboard</Link>
+                <Link
+                  className="dropdown-item"
+                  to={PATH_DASHBOARD.teacher.index}
+                >
+                  dashboard
+                </Link>
               </div>
             </div>
 
@@ -218,10 +223,16 @@ export default function Navbar() {
                 Portal
               </a>
               <div class="collapse multi-collapse mobile-links" id="portal">
-                <Link className="dropdown-item mobile-link" to={PATH_AUTH.login}>
+                <Link
+                  className="dropdown-item mobile-link"
+                  to={PATH_AUTH.login}
+                >
                   Student Login
                 </Link>
-                <Link className="dropdown-item mobile-link" to={PATH_AUTH.teacher}>
+                <Link
+                  className="dropdown-item mobile-link"
+                  to={PATH_AUTH.teacher}
+                >
                   Teacher Login
                 </Link>
               </div>
@@ -275,19 +286,19 @@ const NavigationBar = styled.div`
   }
   .second-navbar {
     height: 100px !important;
-align-items: center;
-.container{
-  align-items: center;
-  height: 100px;
-  .header{
-    .icon{
-      margin-top: 10px;
+    align-items: center;
+    .container {
+      align-items: center;
+      height: 100px;
+      .header {
+        .icon {
+          margin-top: 10px;
+        }
+        @media screen and (max-width: 600px) {
+          gap: 50px !important;
+        }
+      }
     }
-    @media screen and (max-width: 600px){
-      gap:50px !important;
-    }
-  }
-}
     .info {
       line-height: 0.7;
       h6 {
@@ -379,7 +390,7 @@ align-items: center;
       position: relative !important;
       overflow: hidden !important;
       .container {
-        z-index:999;
+        z-index: 999;
         box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
         position: fixed !important;
         height: 70px !important;
@@ -391,7 +402,7 @@ align-items: center;
         .header {
           padding: 0 !important;
           margin-top: 7px !important;
-          gap:30vw;
+          gap: 30vw;
           .info {
             line-height: 0.5 !important;
           }
@@ -447,12 +458,12 @@ align-items: center;
           .mobile-links {
             border-top: 1px solid blue;
             background-color: #f5f5f5;
-            width:200px;
-            .mobile-link{
-              padding:7px !important;
-              &:hover{
-                background-color:blue;
-                color:white;
+            width: 200px;
+            .mobile-link {
+              padding: 7px !important;
+              &:hover {
+                background-color: blue;
+                color: white;
               }
             }
           }

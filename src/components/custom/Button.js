@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const Button = styled.button`
@@ -15,3 +14,4 @@ color: ${(props=>(props.blue && 'white') || (props.white && 'white'))};
 transition: 0.5s;
 }
 `
+
