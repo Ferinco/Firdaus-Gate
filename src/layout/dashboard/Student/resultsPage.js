@@ -8,7 +8,7 @@ export default function ResultsPage() {
       <div className="">
         <h4>Reports</h4>
         <p>View reports for each school term</p>
-        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container">
+        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-5">
           {/* selection of class */}
           <select>
               {CLASS.map((opt, index) => (
@@ -16,13 +16,13 @@ export default function ResultsPage() {
               ))}
           </select>
           <div>
-            <span className="d-flex flex-row"><p>Current Term:</p> <h4>2nd</h4></span>
+            <span className="d-flex flex-column"><p>Current Term:</p> <h4>2nd</h4></span>
           </div>
         </div>
       </div>
       <div className="tabs-wrapper py-5 mt-5">
     
-        <div className="tabs w-100 p-0 py-5 px-3">
+        <div className="tabs w-100 p-0 py-2 px-3">
           <div className="tab ">
             <div className="tab-right">
               <div className="icon-div">
@@ -84,12 +84,18 @@ background-color: white;
 align-items: center;
 border-radius: 30px;
 span{
-  gap:10px;
-  align-items: baseline;
+  align-items: flex-end;
+  justify-content: right;
+  color: grey;
 
 }
     select{
       width:200px !important;
+      padding: 10px;
+      border: 1px solid grey;
+      color: grey;
+      border-radius: 10px;
+      background: transparent;
     }
   }
   .tabs {
