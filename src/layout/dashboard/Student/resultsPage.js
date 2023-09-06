@@ -1,71 +1,97 @@
 import React from "react";
 import { styled } from "styled-components";
 import { Icon } from "@iconify/react";
-
+import { CLASS } from "../../../constants/class";
 export default function ResultsPage() {
   return (
     <Wrapper className="p-5">
       <div className="">
         <h4>Reports</h4>
         <p>View reports for each school term</p>
-      </div>
-     <div className="tabs-wrapper py-5 mt-5">
-     <div className="tabs row w-100 p-0 py-5 px-3">
-        <div className="tab ">
-          <div className="tab-right">
-            <div className="icon-div">
-              <Icon icon="icon-park-solid:one-key" className="icon" />
-            </div>
-            <div className="text d-flex flex-column">
-              <h6>1st</h6>
-              <p>1st term reports</p>
-            </div>
-          </div>
-          <div className="tab-left">
-            <Icon icon="icon-park-solid:one-key" className="big-icon" />
-          </div>
-        </div>
-
-        <a href="" download="Adekoya Ismail" className=" tab d-flex flex-row">
-          <div className="tab-right ">
-            <div className="icon-div">
-              <Icon icon="icon-park-solid:two-key" className="icon" />
-            </div>
-            <div className="text d-flex flex-column">
-              <h6>2nd</h6>
-              <p>2nd term reports</p>
-            </div>
-          </div>
-          <div className="tab-left">
-            <Icon icon="icon-park-solid:two-key" className="big-icon" />
-          </div>
-        </a>
-
-        <div className="tab ">
-          <div className="tab-right">
-            <div className="icon-div">
-              <Icon icon="icon-park-solid:three-key" className="icon" />
-            </div>
-            <div className="text d-flex flex-column">
-              <h6>SCHEME</h6>
-              <p>class scheme</p>
-            </div>
-          </div>
-          <div className="tab-left">
-            <Icon icon="icon-park-solid:three-key" className="big-icon" />
+        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container">
+          {/* selection of class */}
+          <select>
+              {CLASS.map((opt, index) => (
+                <option key={index}>{opt}</option>
+              ))}
+          </select>
+          <div>
+            <span className="d-flex flex-row"><p>Current Term:</p> <h4>2nd</h4></span>
           </div>
         </div>
       </div>
-     </div>
+      <div className="tabs-wrapper py-5 mt-5">
+    
+        <div className="tabs w-100 p-0 py-5 px-3">
+          <div className="tab ">
+            <div className="tab-right">
+              <div className="icon-div">
+                <Icon icon="icon-park-solid:one-key" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>1st</h6>
+                <p>1st term reports</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon icon="icon-park-solid:one-key" className="big-icon" />
+            </div>
+          </div>
+
+          <a href="" download="Adekoya Ismail" className=" tab d-flex flex-row">
+            <div className="tab-right ">
+              <div className="icon-div">
+                <Icon icon="icon-park-solid:two-key" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>2nd</h6>
+                <p>2nd term reports</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon icon="icon-park-solid:two-key" className="big-icon" />
+            </div>
+          </a>
+
+          <div className="tab ">
+            <div className="tab-right">
+              <div className="icon-div">
+                <Icon icon="icon-park-solid:three-key" className="icon" />
+              </div>
+              <div className="text d-flex flex-column">
+                <h6>3rd</h6>
+                <p>3rd term reports</p>
+              </div>
+            </div>
+            <div className="tab-left">
+              <Icon icon="icon-park-solid:three-key" className="big-icon" />
+            </div>
+          </div>
+        </div>
+      </div>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-.tabs-wrapper{
-  background-color:white;
-  border-radius: 30px;
+  .tabs-wrapper {
+    background-color: white;
+    border-radius: 30px;
+  }
+  .select-wrapper{
+width: 100%;
+background-color: white;
+align-items: center;
+border-radius: 30px;
+span{
+  gap:10px;
+  align-items: baseline;
+
 }
+    select{
+      width:200px !important;
+    }
+  }
   .tabs {
     gap: 30px;
     margin-left: 3px !important;
