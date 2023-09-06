@@ -38,7 +38,7 @@ export default function ResultsPage() {
             </div>
           </div>
 
-          <a href="" download="Adekoya Ismail" className=" tab d-flex flex-row">
+          <div className=" tab ">
             <div className="tab-right ">
               <div className="icon-div">
                 <Icon icon="icon-park-solid:two-key" className="icon" />
@@ -51,7 +51,7 @@ export default function ResultsPage() {
             <div className="tab-left">
               <Icon icon="icon-park-solid:two-key" className="big-icon" />
             </div>
-          </a>
+          </div>
 
           <div className="tab ">
             <div className="tab-right">

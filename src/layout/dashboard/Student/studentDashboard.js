@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../../Context";
-import report from "../../../report-sheet.pdf"
+import report from "../../../report-sheet.pdf";
+import { isAuthenticated } from "../../../services/authService";
 export default function StudentDashboard() {
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
+ 
+  const {
+    setIsSidebarOpen,
+    setIsProfileOpen,
+    isProfileOpen,
+    currentUser,
+    setCurrentUser,
+  } = useAppContext();
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let identity = isAuthenticated();
+      if (identity === null) {
+        localStorage.setItem("user", "");
+        identity = "";
+      }
+      setCurrentUser(identity.user);
+    };
+    checkLoggedIn();
+  }, []);
+    console.log(currentUser)
+    console.log(currentUser.firstName)
   return (
     <Dashboard>
-   
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
         <div className="wrapper d-flex flex-column justify-content-between row">
           <div className="big-tab d-flex flex-row justify-content-between p-3 col-12">
@@ -27,7 +47,7 @@ export default function StudentDashboard() {
             <div className="tab ">
               <div className="tab-right">
                 <div className="icon-div">
-                <Icon icon="ic:round-book" className="icon"/>
+                  <Icon icon="ic:round-book" className="icon" />
                 </div>
                 <div className="text d-flex flex-column">
                   <h6>17</h6>
@@ -38,9 +58,12 @@ export default function StudentDashboard() {
                 <Icon icon="ic:round-book" className="big-icon" />
               </div>
             </div>
-              
-          
-            <a href={report} download="Adekoya Ismail" className=" tab d-flex flex-row" >
+
+            <a
+              href={report}
+              download="Adekoya Ismail"
+              className=" tab d-flex flex-row"
+            >
               <div className="tab-right ">
                 <div className="icon-div">
                   <Icon
@@ -60,7 +83,7 @@ export default function StudentDashboard() {
                 />
               </div>
             </a>
-          
+
             <div className="tab ">
               <div className="tab-right">
                 <div className="icon-div">
@@ -83,10 +106,10 @@ export default function StudentDashboard() {
           }`}
         >
           <div className="image">
-          <Icon icon="fa-solid:graduation-cap" className="icon" />
+            <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
           <div className="name d-flex flex-column">
-            <h5>Adekoya Ismail Dayo</h5>
+            <h5>{currentUser.firstName}</h5>
             <p>ismail360@gmail.com</p>
             <p>Male</p>
             <h6>1908112</h6>
@@ -103,7 +126,7 @@ export default function StudentDashboard() {
 const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
- 
+
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
@@ -145,7 +168,7 @@ const Dashboard = styled.div`
         flex-direction: row;
         align-items: center !important;
         padding: 15px;
-       text-decoration: none !important;
+        text-decoration: none !important;
         .tab-right {
           display: flex;
           flex-direction: column;
@@ -178,9 +201,9 @@ const Dashboard = styled.div`
         &:nth-child(2) {
           background-color: #65655d;
           color: white;
-          &:hover{
-         transform: scale(1.05);
-        }
+          &:hover {
+            transform: scale(1.05);
+          }
           .big-icon {
             font-size: 150px !important;
             color: grey;
@@ -214,24 +237,24 @@ const Dashboard = styled.div`
         height: 90px;
         width: 90px;
         border-radius: 50%;
-        display:flex;
+        display: flex;
         background-color: #f5f5f5;
         justify-content: center;
-        align-items:center;
-        .icon{
+        align-items: center;
+        .icon {
           font-size: 50px;
-          color:black;
+          color: black;
         }
       }
       .name {
         align-items: center;
         justify-content: center;
         text-align: center;
-        p{
+        p {
           font-size: 17px !important;
         }
-        h6{
-          color:grey;
+        h6 {
+          color: grey;
         }
       }
     }
@@ -241,10 +264,11 @@ const Dashboard = styled.div`
     .btns {
       display: flex !important;
       flex-direction: row;
-      align-items:center;
+      align-items: center;
       flex-direction: row;
       gap: 40px;
-      .profile-btn, .nav-btn{
+      .profile-btn,
+      .nav-btn {
         font-weight: 600 !important;
         font-size: 30px;
       }
@@ -252,8 +276,9 @@ const Dashboard = styled.div`
     .middle-div {
       .wrapper {
         width: 100%;
-      }.big-tab{
-        z-index:0;
+      }
+      .big-tab {
+        z-index: 0;
       }
     }
     .profile {
@@ -274,13 +299,13 @@ const Dashboard = styled.div`
   @media screen and (max-width: 767px) {
     .middle-div {
       .big-tab {
-        height:auto;
+        height: auto;
         .text {
           color: white;
           margin-top: 10px;
         }
         .icon-div {
-          margin-right: -50px ;
+          margin-right: -50px;
           .icon {
             font-size: 70px;
           }
@@ -289,10 +314,10 @@ const Dashboard = styled.div`
       .tabs {
         grid-template-columns: repeat(1, 1fr);
         .tab {
-        .tab-left {
-          margin-right: -20% !important;
+          .tab-left {
+            margin-right: -20% !important;
+          }
         }
-      }
       }
     }
   }
