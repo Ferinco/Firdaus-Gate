@@ -21,6 +21,8 @@ export default function StudentSidebar() {
           <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.index}><Icon icon="uil:create-dashboard"/>Dashboard</Link>
           <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.mySubjects}><Icon icon="material-symbols:library-books-outline" />Subjects</Link>
           <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.myTeachers}><Icon icon="la:chalkboard-teacher" />My Teachers</Link>
+          <Link className="nav-link react-router-link pl-5 py-1" to={PATH_DASHBOARD.student.myTeachers}><Icon icon="la:chalkboard-teacher" />Results</Link>
+
 
         </div>
       </div>

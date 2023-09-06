@@ -22,12 +22,12 @@ switch(true){
 };
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   return (
-    <Dashboard>
- <div className="head d-flex flex-column left container py-3 pt-5 px-lg-5">
+    <Dashboard className="p-5">
+ <div className="head d-flex flex-column left container m-0">
   <h4><span>{greeting}</span> <span>Mr Rasaq</span></h4>
   <p>Welcome to your dashboard.</p>
  </div>
-      <div className="middle-div container d-flex px-lg-5 py-3">
+      <div className="middle-div container d-flex py-5">
         <div className="tabs  d-flex flex-column ">
           <Link
             className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
