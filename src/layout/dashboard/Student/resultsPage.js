@@ -2,7 +2,34 @@ import React from "react";
 import { styled } from "styled-components";
 import { Icon } from "@iconify/react";
 import { CLASS } from "../../../constants/class";
+import { ReportService } from "../../../services/reportService";
+import { toast } from "react-hot-toast";
+
 export default function ResultsPage() {
+  const [loading, setLoading] = React.useState(false);
+  async function download() {
+    try {
+      setLoading(true);
+      const data = await ReportService.downloadReport();
+      console.log(data);
+      const blob = new Blob([data]);
+      const url = window.URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+      setLoading(false);
+      toast.success("Result downloaded successfully");
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setLoading(false);
+      toast.error("An error occurred, try again later...");
+    }
+  }
+
   return (
     <Wrapper className="p-5">
       <div className="">
@@ -11,17 +38,18 @@ export default function ResultsPage() {
         <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-5">
           {/* selection of class */}
           <select>
-              {CLASS.map((opt, index) => (
-                <option key={index}>{opt}</option>
-              ))}
+            {CLASS.map((opt, index) => (
+              <option key={index}>{opt}</option>
+            ))}
           </select>
           <div>
-            <span className="d-flex flex-column"><p>Current Term:</p> <h4>2nd</h4></span>
+            <span className="d-flex flex-column">
+              <p>Current Term:</p> <h4>2nd</h4>
+            </span>
           </div>
         </div>
       </div>
       <div className="tabs-wrapper py-5 mt-5">
-    
         <div className="tabs w-100 p-0 py-2 px-3">
           <div className="tab ">
             <div className="tab-right">
@@ -53,7 +81,7 @@ export default function ResultsPage() {
             </div>
           </a>
 
-          <div className="tab ">
+          <div className="tab " onClick={download}>
             <div className="tab-right">
               <div className="icon-div">
                 <Icon icon="icon-park-solid:three-key" className="icon" />
@@ -78,19 +106,18 @@ const Wrapper = styled.div`
     background-color: white;
     border-radius: 30px;
   }
-  .select-wrapper{
-width: 100%;
-background-color: white;
-align-items: center;
-border-radius: 30px;
-span{
-  align-items: flex-end;
-  justify-content: right;
-  color: grey;
-
-}
-    select{
-      width:200px !important;
+  .select-wrapper {
+    width: 100%;
+    background-color: white;
+    align-items: center;
+    border-radius: 30px;
+    span {
+      align-items: flex-end;
+      justify-content: right;
+      color: grey;
+    }
+    select {
+      width: 200px !important;
       padding: 10px;
       border: 1px solid grey;
       color: grey;

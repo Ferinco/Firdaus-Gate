@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../custom/Input";
 import { InputSelect } from "../../custom";
-import { seniorSchoolSubjects } from "../../../config/subjects";
+import { seniorSchoolSubjects } from "../../../constants/subjects";
 
 const ReportSubjectForm = ({ index, handleChange }) => {
   return (
