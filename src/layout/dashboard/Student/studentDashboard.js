@@ -112,16 +112,26 @@ export default function StudentDashboard() {
           <div className="image">
             <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
-          <div className="name d-flex flex-column">
-             <h5>{currentUser?.firstName}{" "}{currentUser?.firstName}</h5>
-             <p>{currentUser?.email}</p>
-             <p>Male</p>
-            <h6>{currentUser?.admissionNumber}</h6>
-          </div>
-          <div className="info d-flex flex-row"></div>
-          <div className="number d-flex flex-row">
-            <h5>JSS2</h5>
-          </div>
+{
+  currentUser? (
+<div>
+<div className="name d-flex flex-column">
+    <h5>{currentUser?.firstName}{" "}{currentUser?.firstName}</h5>
+    <p>{currentUser?.email}</p>
+    <p>Male</p>
+   <h6>{currentUser?.admissionNumber}</h6>
+ </div>
+ <div className="info d-flex flex-row"></div>
+ <div className="number d-flex flex-row">
+   <h5>JSS2</h5>
+ </div>
+</div>
+  ):(
+   <div>
+
+   </div> 
+  )
+}
         </div>
       </div>
     </Dashboard>
