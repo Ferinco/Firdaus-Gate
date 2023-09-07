@@ -1,7 +1,13 @@
 import axios from "axios";
-export const api = axios.create({
+const api = axios.create({
   baseURL: "https://firdausgate-api.cyclic.app/api/v1",
-  headers: {
-    Authorization: "Bearer",
-  },
 });
+
+api.interceptors.request.use((req) => {
+  if (localStorage.getItem("accessToken")) {
+    req.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`;
+  }
+  return req;
+});
+
+export { api };
