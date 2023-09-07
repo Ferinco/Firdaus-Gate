@@ -28,7 +28,7 @@ export default function Login() {
     console.log(data);
     await loginAuth(data)
       .then((res) => {
-        setCurrentUser({res})
+        setCurrentUser((res))
         console.log(currentUser)
         console.log(res);
         setIsLoading(false);

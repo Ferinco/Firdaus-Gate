@@ -8,6 +8,7 @@ import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import { PATH_AUTH } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -146,6 +147,12 @@ export default function Navbar() {
                   to={PATH_DASHBOARD.teacher.index}
                 >
                   dashboard
+                </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PATH_DASHBOARD.admin.index}
+                >
+                  admin
                 </Link>
               </div>
             </div>
