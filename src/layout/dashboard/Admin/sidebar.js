@@ -9,12 +9,12 @@ import { PATH_PAGE } from "../../../routes/paths";
 const sidebarConfig = [
   {
     icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.teacher.index,
+    link: PATH_DASHBOARD.admin.index,
     title: "Dashboard",
   },
   {
     icon: "mdi:google-classroom",
-    link: PATH_DASHBOARD.teacher.myStudents,
+    link: PATH_DASHBOARD.admin.createTeachers,
     title: "My students",
   },
   {

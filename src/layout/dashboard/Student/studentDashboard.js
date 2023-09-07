@@ -14,18 +14,18 @@ export default function StudentDashboard() {
     setCurrentUser,
   } = useAppContext();
 
-  // useEffect(() => {
-  //   const checkLoggedIn = async () => {
-  //     let identity = isAuthenticated();
-  //     if (identity === null) {
-  //       localStorage.setItem("user", "");
-  //       identity = "";
-  //     }
-  //     setCurrentUser(identity.user);
-  //   };
-  //   checkLoggedIn();
-  // }, []);
-  // console.log(currentUser);
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let identity = isAuthenticated();
+      if (identity === null) {
+        localStorage.setItem("user", "");
+        identity = "";
+      }
+      setCurrentUser(identity.user);
+    };
+    checkLoggedIn();
+  }, []);
+  console.log(currentUser);
 // const userConfig = {
 //   firstName : currentUser.firstName,
 //   lastName :currentUser.lastName,
@@ -113,10 +113,10 @@ export default function StudentDashboard() {
             <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
           <div className="name d-flex flex-column">
-            {/* // <h5>{userConfig.lastName}{" "}{userConfig.firstName}</h5>
-            // <p>{userConfig.email}</p>
-            // <p>Male</p>
-            // <h6>{userConfig.admissionNumber}</h6> */}
+             <h5>{currentUser?.firstName}{" "}{currentUser?.firstName}</h5>
+             <p>{currentUser?.email}</p>
+             <p>Male</p>
+            <h6>{currentUser?.admissionNumber}</h6>
           </div>
           <div className="info d-flex flex-row"></div>
           <div className="number d-flex flex-row">

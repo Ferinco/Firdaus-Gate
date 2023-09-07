@@ -4,7 +4,7 @@ import AdminNavbar from "./adminNavbar"
 import { Outlet } from "react-router-dom"
 export default function AdminDashboardLayout(){
     return(
-        <Wrapper>
+        <Wrapper className="d-flex flex-row">
             <AdminSidebar/>
             <div style={{backgroundColor: "#f1f1f1", height: "100%"}} className="outlet">
        <AdminNavbar/>
