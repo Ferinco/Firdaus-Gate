@@ -16,6 +16,7 @@ import CreateResult from "../pages/teacher/createResult";
 import ResultsPage from "../layout/dashboard/Student/resultsPage";
 import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
 import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
+import AdminDashboardLayout from "../layout/dashboard/Admin";
 export default function Routes() {
   return useRoutes([
     {

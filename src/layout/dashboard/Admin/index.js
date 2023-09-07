@@ -1,6 +1,7 @@
 import AdminSidebar from "./sidebar"
 import { styled } from "styled-components"
 import AdminNavbar from "./adminNavbar"
+import { Outlet } from "react-router-dom"
 export default function AdminDashboardLayout(){
     return(
         <Wrapper>

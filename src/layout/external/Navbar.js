@@ -8,7 +8,6 @@ import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import { PATH_AUTH } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
-import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
