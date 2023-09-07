@@ -8,8 +8,9 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
-
+import { useAppContext } from "../../Context";
 export default function Login() {
+  const {currentUser, setCurrentUser} = useAppContext()
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,13 +20,16 @@ export default function Login() {
     formState: { errors },
   } = useForm({});
 
-  
- {/* form submission */}
+  {
+    /* form submission */
+  }
   const onSubmit = async (data) => {
     setIsLoading(true);
     console.log(data);
     await loginAuth(data)
       .then((res) => {
+        setCurrentUser({res})
+        console.log(currentUser)
         console.log(res);
         setIsLoading(false);
         navigate(PATH_DASHBOARD.student.index);
@@ -39,6 +43,7 @@ export default function Login() {
       });
     console.log(errors);
   };
+  
   return (
     <Wrapper>
       <div className="container-fluid">

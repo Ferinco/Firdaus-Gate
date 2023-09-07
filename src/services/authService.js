@@ -29,11 +29,11 @@ export const registerAuth = async ({
   });
   return data;
 };
-// export const isAuthenticated = () => {
-//   const user = localStorage.getItem('user');
-//   if (!user) {
-//     return {};
-//   }
-//   console.log(user)
-//   return JSON.parse(user)
-// };
+export const isAuthenticated = () => {
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return {};
+  }
+  console.log(user)
+  return JSON.parse(user)
+};
