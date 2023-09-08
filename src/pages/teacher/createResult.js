@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
 import { Button } from "../../components/custom/Button";
 import styled from "styled-components";
 import Input from "../../components/custom/Input";
@@ -7,6 +7,8 @@ import { InputSelect } from "../../components/custom";
 import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
 import { ReportService } from "../../services/reportService";
 import { OverlayLoading } from "../../components/OverlayLoading";
+import { Icon } from "@iconify/react";
+import { seniorSchoolSubjects } from "../../constants/subjects";
 
 export default function CreateResult() {
   // Default values for subject's grade
@@ -18,19 +20,19 @@ export default function CreateResult() {
     positionGrade: 0,
     comment: "",
   };
-  const [subjects, setSubjects] = React.useState([defaultSubjectValues]);
-  const [loading, setLoading] = React.useState(false);
-  const { setValue } = useForm({
-    defaultValues: [defaultSubjectValues],
-  });
-  // add new and fresh input components for subject
-  const addSubjectField = () => {
-    setSubjects([...subjects, defaultSubjectValues]);
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(subjects);
+  const [loading, setLoading] = React.useState(false);
+  // React hook form implementation
+
+  const { register, control, handleSubmit, reset } = useForm({
+    defaultValues: { result: [defaultSubjectValues] },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "result",
+  });
+  const onSubmit = async (values) => {
+    console.log(values);
     // try {
     // setLoading(true)
     //   const data = await  ReportService.createReport(subjects)
@@ -40,17 +42,6 @@ export default function CreateResult() {
     //   console.log(error)
     // setLoading(false)
     // }
-  };
-
-  const handleChange = (index, subject, value) => {
-    const updatedFields = [...subjects];
-    updatedFields[index][subject] = value;
-    setSubjects(updatedFields);
-  };
-  const handleRemoveSubject = (index) => {
-    const rows = [...subjects];
-    rows.splice(index, 1);
-    setSubjects(rows);
   };
   return (
     <div className="container w-100 px-5">
@@ -62,16 +53,32 @@ export default function CreateResult() {
       {loading ? (
         <OverlayLoading />
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* SUBJECT INPUT */}
-          {subjects.map((subject, index) => {
-            const {} = subject;
-            return (
-              <ReportSubjectForm index={index} handleChange={handleChange} />
-            );
-          })}
+          {fields.map((item, index) => (
+            <div key={item.id}>
+              <ReportSubjectForm
+                register={register}
+                index={index}
+                control={control}
+              />
+            </div>
+          ))}
 
-          <Button onClick={addSubjectField}>Add new</Button>
+          <Button
+            onClick={() =>
+              append({
+                comment: "",
+                continuousAssessmentScore: 0,
+                examScore: 0,
+                positionGrade: 0,
+                subject: "",
+                totalWeightedAverage: 0,
+              })
+            }
+          >
+            Add new
+          </Button>
           <Button type="submit" blue>
             Submit
           </Button>

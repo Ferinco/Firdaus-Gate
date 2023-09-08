@@ -3,8 +3,17 @@ import styled from "styled-components";
 import Input from "../../custom/Input";
 import { InputSelect } from "../../custom";
 import { seniorSchoolSubjects } from "../../../constants/subjects";
+import { Controller } from "react-hook-form";
 
-const ReportSubjectForm = ({ index, handleChange }) => {
+const ReportSubjectForm = ({ register, index, control }) => {
+  const subjects = seniorSchoolSubjects.map((subject) => {
+    return [
+      {
+        name: subject,
+      },
+    ];
+  });
+  console.log(subjects);
   return (
     <Wrapper className="results-field py-4">
       <div className="">
@@ -12,15 +21,20 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>Subject</small>
           </label>
-          <InputSelect
-            onChange={(e) => handleChange(index, "subject", e.target.value)}
-          >
-            {seniorSchoolSubjects.map((subject, index) => (
-              <option value={subject} key={index}>
-                {subject}
-              </option>
-            ))}
-          </InputSelect>
+
+          <Controller
+            render={({ field }) => (
+              <InputSelect defaultValue="Select subject" {...field}>
+                {seniorSchoolSubjects.map((subject, index) => (
+                  <option value={subject} key={index}>
+                    {subject}
+                  </option>
+                ))}
+              </InputSelect>
+            )}
+            name={`result.${index}.subject`}
+            control={control}
+          />
         </div>
       </div>
 
@@ -29,11 +43,10 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>C.A score</small>
           </label>
-          <Input
-            placeholder="C.A score"
-            onChange={(e) =>
-              handleChange(index, "continuousAssessmentScore", e.target.value)
-            }
+          <Controller
+            render={({ field }) => <Input placeholder="C.A score" {...field} />}
+            name={`result.${index}.continuousAssessmentScore`}
+            control={control}
           />
         </div>
       </div>
@@ -43,9 +56,13 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>Exam score</small>
           </label>
-          <Input
-            placeholder="Exam score"
-            onChange={(e) => handleChange(index, "examScore", e.target.value)}
+
+          <Controller
+            render={({ field }) => (
+              <Input placeholder="Exam score" {...field} />
+            )}
+            name={`result.${index}.examScore`}
+            control={control}
           />
         </div>
       </div>
@@ -55,11 +72,12 @@ const ReportSubjectForm = ({ index, handleChange }) => {
             <small>Total Weighted Ave. </small>
           </label>
 
-          <Input
-            placeholder="Total Weighted Average"
-            onChange={(e) =>
-              handleChange(index, "totalWeightedAverage", e.target.value)
-            }
+          <Controller
+            render={({ field }) => (
+              <Input placeholder="Total Weighted Average" {...field} />
+            )}
+            name={`result.${index}.totalWeightedAverage`}
+            control={control}
           />
         </div>
       </div>
@@ -69,11 +87,12 @@ const ReportSubjectForm = ({ index, handleChange }) => {
             <small>Position grade</small>
           </label>
 
-          <Input
-            placeholder="Position grade"
-            onChange={(e) =>
-              handleChange(index, "positionGrade", e.target.value)
-            }
+          <Controller
+            render={({ field }) => (
+              <Input placeholder="Position grade" {...field} />
+            )}
+            name={`result.${index}.positionGrade`}
+            control={control}
           />
         </div>
       </div>
@@ -83,9 +102,10 @@ const ReportSubjectForm = ({ index, handleChange }) => {
             <small>Comment</small>
           </label>
 
-          <Input
-            placeholder="Comment"
-            onChange={(e) => handleChange(index, "comment", e.target.value)}
+          <Controller
+            render={({ field }) => <Input placeholder="comment" {...field} />}
+            name={`result.${index}.comment`}
+            control={control}
           />
         </div>
       </div>

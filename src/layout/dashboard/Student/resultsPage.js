@@ -4,9 +4,36 @@ import { Icon } from "@iconify/react";
 import { CLASS } from "../../../constants/class";
 import { ReportService } from "../../../services/reportService";
 import { toast } from "react-hot-toast";
+import { OverlayLoading } from "../../../components/OverlayLoading";
 
 export default function ResultsPage() {
+  // const {} = useAuth()
+  const currentClass = "JSS3";
   const [loading, setLoading] = React.useState(false);
+  const [selectedClass, setSelectedClass] = React.useState(currentClass);
+
+  const reports = [
+    {
+      reportTerm: "FIRST_TERM",
+      reportClass: "JSS2",
+      icon: "icon-park-solid:two-key",
+      _id: 4484,
+    },
+    {
+      reportTerm: "SECOND_TERM",
+      reportClass: "JSS2",
+      icon: "icon-park-solid:two-key",
+      _id: 4484,
+    },
+    {
+      reportTerm: "THIRD_TERM",
+      reportClass: "JSS2",
+      icon: "icon-park-solid:two-key",
+      _id: 4484,
+    },
+  ];
+
+  // Download handler for report card
   async function download() {
     try {
       setLoading(true);
@@ -32,14 +59,20 @@ export default function ResultsPage() {
 
   return (
     <Wrapper className="p-5">
+      {loading && <OverlayLoading />}
       <div className="">
         <h4>Reports</h4>
         <p>View reports for each school term</p>
-        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-5">
+        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4">
           {/* selection of class */}
-          <select>
-            {CLASS.map((opt, index) => (
-              <option key={index}>{opt}</option>
+          <select
+            value={selectedClass}
+            onChange={(e) => setSelectedClass(e.target.value)}
+          >
+            {CLASS.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
             ))}
           </select>
           <div>
@@ -50,51 +83,54 @@ export default function ResultsPage() {
         </div>
       </div>
       <div className="tabs-wrapper py-5 mt-5">
+        <h3>See report for {selectedClass}</h3>
         <div className="tabs w-100 p-0 py-2 px-3">
-          <div className="tab ">
-            <div className="tab-right">
-              <div className="icon-div">
-                <Icon icon="icon-park-solid:one-key" className="icon" />
+          {reports.map((report) => (
+            <div className="tab " onClick={download} key={report._id}>
+              <div className="tab-right">
+                <div className="icon-div">
+                  <Icon
+                    icon={
+                      (report.reportTerm === "FIRST_TERM" &&
+                        "icon-park-solid:one-key") ||
+                      (report.reportTerm === "SECOND_TERM" &&
+                        "icon-park-solid:two-key") ||
+                      (report.reportTerm === "THIRD_TERM" &&
+                        "icon-park-solid:three-key")
+                    }
+                    className="icon"
+                  />
+                </div>
+                <div className="text d-flex flex-column">
+                  <h6>
+                    {(report.reportTerm === "FIRST_TERM" && "1ST") ||
+                      (report.reportTerm === "SECOND_TERM" && "2ND") ||
+                      (report.reportTerm === "THIRD_TERM" && "3RD")}
+                  </h6>
+                  <p>
+                    {" "}
+                    {(report.reportTerm === "FIRST_TERM" && "1ST") ||
+                      (report.reportTerm === "SECOND_TERM" && "2ND") ||
+                      (report.reportTerm === "THIRD_TERM" && "3RD")}{" "}
+                    term reports
+                  </p>
+                </div>
               </div>
-              <div className="text d-flex flex-column">
-                <h6>1st</h6>
-                <p>1st term reports</p>
+              <div className="tab-left">
+                <Icon
+                  icon={
+                    (report.reportTerm === "FIRST_TERM" &&
+                      "icon-park-solid:one-key") ||
+                    (report.reportTerm === "SECOND_TERM" &&
+                      "icon-park-solid:two-key") ||
+                    (report.reportTerm === "THIRD_TERM" &&
+                      "icon-park-solid:three-key")
+                  }
+                  className="big-icon"
+                />
               </div>
             </div>
-            <div className="tab-left">
-              <Icon icon="icon-park-solid:one-key" className="big-icon" />
-            </div>
-          </div>
-
-          <a href="" download="Adekoya Ismail" className=" tab d-flex flex-row">
-            <div className="tab-right ">
-              <div className="icon-div">
-                <Icon icon="icon-park-solid:two-key" className="icon" />
-              </div>
-              <div className="text d-flex flex-column">
-                <h6>2nd</h6>
-                <p>2nd term reports</p>
-              </div>
-            </div>
-            <div className="tab-left">
-              <Icon icon="icon-park-solid:two-key" className="big-icon" />
-            </div>
-          </a>
-
-          <div className="tab " onClick={download}>
-            <div className="tab-right">
-              <div className="icon-div">
-                <Icon icon="icon-park-solid:three-key" className="icon" />
-              </div>
-              <div className="text d-flex flex-column">
-                <h6>3rd</h6>
-                <p>3rd term reports</p>
-              </div>
-            </div>
-            <div className="tab-left">
-              <Icon icon="icon-park-solid:three-key" className="big-icon" />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </Wrapper>
@@ -135,6 +171,7 @@ const Wrapper = styled.div`
     align-items: center;
     .tab {
       border-radius: 30px;
+      cursor: pointer;
       height: 200px;
       width: 250px;
       overflow: hidden;
@@ -144,6 +181,7 @@ const Wrapper = styled.div`
       align-items: center !important;
       padding: 15px;
       text-decoration: none !important;
+      transition: 0.4s all cubic-bezier(0.215, 0.61, 0.355, 1);
       .tab-right {
         display: flex;
         flex-direction: column;
@@ -173,12 +211,13 @@ const Wrapper = styled.div`
           color: #9ea0e7;
         }
       }
+      &:hover {
+        transform: scale(1.05);
+      }
       &:nth-child(2) {
         background-color: #65655d;
         color: white;
-        &:hover {
-          transform: scale(1.05);
-        }
+
         .big-icon {
           font-size: 150px !important;
           color: grey;
