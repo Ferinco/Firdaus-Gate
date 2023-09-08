@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../../Context";
 import report from "../../../report-sheet.pdf";
-// import { isAuthenticated } from "../../../services/authService";
+import { isAuthenticated } from "../../../services/authService";
 export default function StudentDashboard() {
   const {
     setIsSidebarOpen,
@@ -15,18 +15,22 @@ export default function StudentDashboard() {
   } = useAppContext();
 
   // useEffect(() => {
-  //   // const checkLoggedIn = async () => {
-  //   //   let identity = isAuthenticated();
-  //   //   if (identity === null) {
-  //   //     localStorage.setItem("user", "");
-  //   //     identity = "";
-  //   //   }
-  //   //   setCurrentUser(identity.user);
-  //   // };
+  //   const checkLoggedIn = async () => {
+  //     let identity = isAuthenticated();
+  //     if (identity === null) {
+  //       localStorage.setItem("user", "");
+  //       identity = "";
+  //     }
+  //     setCurrentUser(identity.user);
+  //   };
   //   checkLoggedIn();
   // }, []);
   // console.log(currentUser);
-
+// const userConfig = {
+//   firstName : currentUser.firstName,
+//   lastName :currentUser.lastName,
+//   admissionNumber : currentUser.admissionNumber
+// }
   return (
     <Dashboard>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
@@ -109,10 +113,10 @@ export default function StudentDashboard() {
             <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
           <div className="name d-flex flex-column">
-            <h5>Adewale Ismail</h5>
-            <p>Ismail360@gmail.com</p>
-            <p>Male</p>
-            <h6>555555</h6>
+            {/* // <h5>{userConfig.lastName}{" "}{userConfig.firstName}</h5>
+            // <p>{userConfig.email}</p>
+            // <p>Male</p>
+            // <h6>{userConfig.admissionNumber}</h6> */}
           </div>
           <div className="info d-flex flex-row"></div>
           <div className="number d-flex flex-row">
