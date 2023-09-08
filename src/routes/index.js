@@ -61,7 +61,7 @@ export default function Routes() {
       element: <AdminDashboardLayout/>,
       children: [
         {path: "/admin", element: <AdminDashboard/>},
-        {path: "/admin/create-profile", element: <CreateTeachers/>}
+        {path: "/admin/create", element: <CreateTeachers/>}
       ]
     }
   ]);

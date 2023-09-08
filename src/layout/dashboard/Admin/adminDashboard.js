@@ -22,11 +22,11 @@ export default function AdminDashboard() {
       <div className="tabs d-flex flex-column py-4 px-5">
         <Link
           className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-          to={PATH_DASHBOARD.teacher.create}
+          to={PATH_DASHBOARD.admin.createTeachers}
         >
           <div className="d-flex flex-column mt-3 text">
             <h6>Create Profile</h6>
-            <p>create a new student profile</p>
+            <p>create a new teacher profile</p>
           </div>
           <div className="icon-div">
             <Icon className="icon" icon="typcn:user-add" color="white" />

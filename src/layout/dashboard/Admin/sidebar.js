@@ -133,7 +133,7 @@ const SIDEBAR = styled.div`
       transition: 0.3s;
       display: flex;
       position: fixed !important;
-      z-index: 999;
+      z-index: 2;
     }
   }
 `;
