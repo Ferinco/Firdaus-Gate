@@ -15,17 +15,17 @@ const sidebarConfig = [
   {
     icon: "mdi:google-classroom",
     link: PATH_DASHBOARD.admin.createTeachers,
-    title: "My students",
+    title: "Teachers",
   },
   {
     icon: "fluent-mdl2:poll-results",
     link: PATH_DASHBOARD.teacher.results,
-    title: "Report",
+    title: "Students",
   },
   {
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.teacher.createResult,
-    title: "Create Report",
+    title: "Active Applications",
   },
 ];
 
