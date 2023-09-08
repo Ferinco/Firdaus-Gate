@@ -10,32 +10,34 @@ import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
 
 export default function Login() {
-  const [success, setSuccess] = useState(false)
-  const [loading, setIsLoading] = useState(false)
+  const [success, setSuccess] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({});
+
+  
+ {/* form submission */}
   const onSubmit = async (data) => {
-setIsLoading(true)
+    setIsLoading(true);
     console.log(data);
-
-        await loginAuth(data).then(res=> {
-          console.log(res)
-          setIsLoading(false)
-          navigate(PATH_DASHBOARD.student.index)
-          setSuccess(true)
-          toast.success('login sucessful!');
-          
-        }).catch(error=>{
-          setIsLoading(false)
-          console.log(error)
-          toast.error(`${error.response?.data.message}`)
-        })
-      console.log(errors);
-
+    await loginAuth(data)
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+        navigate(PATH_DASHBOARD.student.index);
+        setSuccess(true);
+        toast.success("login sucessful!");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+        toast.error(`${error.response?.data.message}`);
+      });
+    console.log(errors);
   };
   return (
     <Wrapper>
@@ -76,15 +78,15 @@ setIsLoading(true)
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
-                  {loading ? (
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  "Sign in"
-                )}
+                    {loading ? (
+                      <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Sign in"
+                    )}
                   </Button>
                 </div>
               </form>
@@ -145,10 +147,10 @@ const Wrapper = styled.div`
           object-fit: cover;
           overflow: hidden;
         }
-        .spinner-border{
-    width:25px;
-    height: 25px;
-  }
+        .spinner-border {
+          width: 25px;
+          height: 25px;
+        }
       }
       input {
         border-radius: 10px;
