@@ -7,8 +7,9 @@ export const ReportService = {
   },
 
   downloadReport: async (params) => {
-    const { data } = await api.get("/reports/download/ddie?class=fromfront", {
-      responseType: "arrayBuffer",
+    const { id } = params;
+    const { data } = await api.get(`/reports/download/${id}`, {
+      responseType: "arraybuffer",
     });
     return data;
   },

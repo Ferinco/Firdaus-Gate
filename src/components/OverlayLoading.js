@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { CircularProgress } from "./custom";
 
 export const OverlayLoading = () => {
   return (
     <Wrapper>
       <div className="overlay_inner">
         <div className="overlay_content">
-          <div className="spinner"></div>
+          <CircularProgress />
         </div>
       </div>
     </Wrapper>
@@ -33,21 +34,5 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
-  }
-  .spinner {
-    width: 75px;
-    height: 75px;
-    display: inline-block;
-    border-width: 5px;
-    border-color: rgba(0, 0, 0, 0.1);
-    border-top-color: #000;
-    animation: spin 1s infinite linear;
-    border-radius: 100%;
-    border-style: solid;
-  }
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
   }
 `;

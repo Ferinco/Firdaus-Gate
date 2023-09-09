@@ -5,22 +5,26 @@ import { Form } from "react-bootstrap";
 
 export default function Input({
   style,
-  others,
   placeholder,
   onChange,
   name,
   type,
   size,
+  value,
+  required,
+  others,
 }) {
   return (
     <InputStyle
-      {...others}
       placeholder={placeholder}
       style={{ ...style }}
       name={name}
       onChange={onChange}
       type={type}
       size={size}
+      required={required}
+      value={value}
+      {...others}
     />
   );
 }

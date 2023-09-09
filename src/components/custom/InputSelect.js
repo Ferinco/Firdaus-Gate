@@ -7,21 +7,23 @@ export default function InputSelect({
   children,
   style,
   onChange,
-  others,
   placeholder,
   name,
   type,
   size,
+  required,
+  others,
 }) {
   return (
     <InputStyle
-      {...others}
       placeholder={placeholder}
       onChange={onChange}
       style={{ ...style }}
       name={name}
       type={type}
       size={size}
+      required={required}
+      {...others}
     >
       {children}
     </InputStyle>
