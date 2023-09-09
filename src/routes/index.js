@@ -21,8 +21,7 @@ import RequireAuth from "./requireAuth";
 
 export default function Routes() {
   return useRoutes([
-
-//GENERAL ROUTES
+    //GENERAL ROUTES
     {
       path: "/",
       element: <Layout />,
@@ -39,10 +38,14 @@ export default function Routes() {
       // children: [{ path: "/auth", element: <ProgressPage /> }],
     },
 
-//PRIVATE ROUTES FOR TEACHERS
+    //PRIVATE ROUTES FOR TEACHERS
     {
       path: "/teacher",
-      element: <TeacherDashboardLayout />,
+      element: (
+        <RequireAuth allowedRoles={["teacher"]}>
+          <TeacherDashboardLayout/>
+        </RequireAuth>
+      ),
       children: [
         { path: "", element: <TeacherDashboard /> },
         { path: "students", element: <MyClass /> },
@@ -53,10 +56,14 @@ export default function Routes() {
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
 
-//PRIVATE ROUTES FOR STUDENTS
+    //PRIVATE ROUTES FOR STUDENTS
     {
       path: "/student",
-      element: (<RequireAuth><StudentDashboardLayout /></RequireAuth>),
+      element: (
+        <RequireAuth allowedRoles={["student"]}>
+          <StudentDashboardLayout />
+        </RequireAuth>
+      ),
       children: [
         { path: "/student", element: <StudentDashboard /> },
         { path: "/student/reports", element: <ResultsPage /> },
@@ -66,16 +73,20 @@ export default function Routes() {
       // children: [{ path: "/student", element: <ProgressPage /> }],
     },
 
-//PRIVATE ROUTES FOR ADMIN
+    //PRIVATE ROUTES FOR ADMIN
     {
       path: "/admin",
-      element: <AdminDashboardLayout/>,
+      element: (
+        <RequireAuth allowedRoles={["admin"]}>
+          <AdminDashboardLayout  />
+        </RequireAuth>
+      ),
       children: [
-        {path: "/admin", element: <AdminDashboard/>},
-        {path: "/admin/create", element: <CreateTeachers/>}
-      ]
-    }
+        { path: "/admin", element: <AdminDashboard /> },
+        { path: "/admin/create", element: <CreateTeachers /> },
+      ],
+    },
 
-//CATCH ALL 
+    //CATCH ALL
   ]);
 }
