@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../components/custom/Button";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
-import { useAppContext } from "../../Context";
+import { useAppContext } from "../../context/Context";
 export default function Login() {
   const {currentUser, setCurrentUser} = useAppContext()
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location =   useLocation();
+  const from = location.state?.from?.pathname || "/"
   const {
     register,
     handleSubmit,
@@ -30,7 +32,7 @@ export default function Login() {
       .then((res) => {
         console.log(res);
         setIsLoading(false);
-        navigate(PATH_DASHBOARD.student.index);
+        navigate(from, {replace: true});
         setSuccess(true);
         toast.success("login sucessful!");
       })

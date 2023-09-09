@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useAppContext } from "../../../Context";
+import { useAppContext } from "../../../context/Context";
 import report from "../../../report-sheet.pdf";
 import { isAuthenticated } from "../../../services/authService";
 export default function StudentDashboard() {

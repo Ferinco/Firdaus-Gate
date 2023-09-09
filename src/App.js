@@ -1,7 +1,7 @@
 import React from "react";
 import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
-import { AppProvider } from "./Context";
+import { AppProvider } from "./context/Context";
 import toast, { Toaster } from "react-hot-toast";
 
 function App() {

@@ -31,7 +31,6 @@ export default function Routes() {
     },
 
     {
-      element: <RequireAuth/>,
       path: "/auth",
       children: [
         { path: "student-login", element: <Login /> },
@@ -57,7 +56,7 @@ export default function Routes() {
 //PRIVATE ROUTES FOR STUDENTS
     {
       path: "/student",
-      element: <StudentDashboardLayout />,
+      element: (<RequireAuth><StudentDashboardLayout /></RequireAuth>),
       children: [
         { path: "/student", element: <StudentDashboard /> },
         { path: "/student/reports", element: <ResultsPage /> },

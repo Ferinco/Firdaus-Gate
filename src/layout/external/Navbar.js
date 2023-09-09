@@ -143,7 +143,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PATH_DASHBOARD.teacher.index}
+                  to={PATH_DASHBOARD.student.index}
                 >
                   dashboard
                 </Link>
