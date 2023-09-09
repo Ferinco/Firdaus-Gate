@@ -17,15 +17,21 @@ import ResultsPage from "../layout/dashboard/Student/resultsPage";
 import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
 import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
+import RequireAuth from "./requireAuth";
+
 export default function Routes() {
   return useRoutes([
+
+//GENERAL ROUTES
     {
       path: "/",
       element: <Layout />,
       children: [{ path: "/", element: <Home /> }],
       // children: [{ path: "/", element: <ProgressPage /> }],
     },
+
     {
+      element: <RequireAuth/>,
       path: "/auth",
       children: [
         { path: "student-login", element: <Login /> },
@@ -33,6 +39,8 @@ export default function Routes() {
       ],
       // children: [{ path: "/auth", element: <ProgressPage /> }],
     },
+
+//PRIVATE ROUTES FOR TEACHERS
     {
       path: "/teacher",
       element: <TeacherDashboardLayout />,
@@ -45,6 +53,8 @@ export default function Routes() {
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
+
+//PRIVATE ROUTES FOR STUDENTS
     {
       path: "/student",
       element: <StudentDashboardLayout />,
@@ -56,6 +66,8 @@ export default function Routes() {
       ],
       // children: [{ path: "/student", element: <ProgressPage /> }],
     },
+
+//PRIVATE ROUTES FOR ADMIN
     {
       path: "/admin",
       element: <AdminDashboardLayout/>,
@@ -64,5 +76,7 @@ export default function Routes() {
         {path: "/admin/create", element: <CreateTeachers/>}
       ]
     }
+
+//CATCH ALL 
   ]);
 }

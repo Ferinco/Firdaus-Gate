@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../../Context";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
-// import { PATH_DASHBOARD } from "../../../routes/paths";
+import { useNavigate } from "react-router-dom";
+
 const sidebarConfig = [
   {
     icon: "uil:create-dashboard",
@@ -27,7 +28,13 @@ const sidebarConfig = [
     title: "Results",
   },
 ];
+
 export default function StudentSidebar() {
+  const navigate = useNavigate()
+  const handleLogOut= ()=>{
+    localStorage.removeItem('user')
+    navigate(PATH_PAGE.home)
+    }
   const { isSidebarOpen, isDashboardClicked, setIsDashboardClicked } =
     useAppContext();
   return (
@@ -65,6 +72,7 @@ export default function StudentSidebar() {
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}
+              onClick={handleLogOut}
             />
             Log out
           </Link>
