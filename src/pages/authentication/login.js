@@ -9,12 +9,15 @@ import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
 import { useAppContext } from "../../context/Context";
+import {useAuth} from "../../hooks/useAuth";
+
 export default function StudentLogin() {
   const { currentUser, setCurrentUser } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const {login} = useAuth()
   const from = location.state?.from?.pathname || "/";
   const {
     register,
@@ -29,7 +32,7 @@ export default function StudentLogin() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     console.log(data);
-    await loginAuth(data)
+    await login(data)
       .then((res) => {
         console.log(res);
         setIsLoading(false);

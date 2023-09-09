@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { useAppContext } from "../../../context/Context";
 import report from "../../../report-sheet.pdf";
 import { isAuthenticated } from "../../../services/authService";
+import { useAuth } from "../../../hooks/useAuth";
 export default function StudentDashboard() {
   const {
     setIsSidebarOpen,
@@ -14,23 +15,8 @@ export default function StudentDashboard() {
     setCurrentUser,
   } = useAppContext();
 
-  // useEffect(() => {
-  //   const checkLoggedIn = async () => {
-  //     let identity = isAuthenticated();
-  //     if (identity === null) {
-  //       localStorage.setItem("user", "");
-  //       identity = "";
-  //     }
-  //     setCurrentUser(identity.user);
-  //   };
-  //   checkLoggedIn();
-  // }, []);
-  console.log(currentUser);
-// const userConfig = {
-//   firstName : currentUser.firstName,
-//   lastName :currentUser.lastName,
-//   admissionNumber : currentUser.admissionNumber
-// }
+const {user}= useAuth()
+console.log(user)
   return (
     <Dashboard>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">

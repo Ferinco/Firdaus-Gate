@@ -6,7 +6,7 @@ import {
   useReducer,
 } from "react";
 import {
-  isAuthenticated,
+
   loginAuth,
   registerAuth,
 } from "../services/authService";
@@ -114,6 +114,7 @@ export const AuthProvider = ({ children }) => {
             role: response.role,
           },
         });
+        return response
       })
       .catch((err) => {
         console.log(err);
