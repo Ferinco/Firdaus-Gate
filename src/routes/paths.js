@@ -4,6 +4,8 @@ const JOIN = (root, sublink) => {
 const ROOT_AUTH = "/auth";
 const ROOT_STUDENT = "/student";
 const ROOT_TEACHER = "/teacher";
+const ROOT_ADMIN = "/admin";
+
 export const PATH_AUTH = {
   login: JOIN(ROOT_AUTH, "student-login"),
   teacher: JOIN(ROOT_AUTH, "teacher-login"),
@@ -27,6 +29,10 @@ export const PATH_DASHBOARD = {
     index: ROOT_STUDENT,
     mySubjects: JOIN(ROOT_STUDENT, "subjects"),
     myTeachers: JOIN(ROOT_STUDENT, "teachers"),
-    results: JOIN(ROOT_STUDENT, "reports")
+    results: JOIN(ROOT_STUDENT, "reports"),
+  },
+  admin: {
+    index: ROOT_ADMIN,
+    createTeachers: JOIN(ROOT_ADMIN, "create"),
   },
 };

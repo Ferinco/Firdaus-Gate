@@ -147,6 +147,12 @@ export default function Navbar() {
                 >
                   dashboard
                 </Link>
+                <Link
+                  className="dropdown-item"
+                  to={PATH_DASHBOARD.admin.index}
+                >
+                  admin
+                </Link>
               </div>
             </div>
 

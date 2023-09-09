@@ -9,24 +9,50 @@ import { ReportService } from "../../services/reportService";
 import { OverlayLoading } from "../../components/OverlayLoading";
 import { Icon } from "@iconify/react";
 import { seniorSchoolSubjects } from "../../constants/subjects";
+import toast from "react-hot-toast";
 
 export default function CreateResult() {
   // Default values for subject's grade
   const defaultSubjectValues = {
     subject: "",
-    continuousAssessmentScore: 0,
-    examScore: 0,
-    totalWeightedAverage: 0,
-    positionGrade: 0,
+    continuousAssessmentScore: "",
+    examScore: "",
+    totalWeightedAverage: "",
+    positionGrade: "",
     comment: "",
   };
 
   const [loading, setLoading] = React.useState(false);
   // React hook form implementation
 
-  const { register, control, handleSubmit, reset } = useForm({
-    defaultValues: { result: [defaultSubjectValues] },
-  });
+  const { register, control, handleSubmit, reset, watch, getValues, setValue } =
+    useForm({
+      defaultValues: {
+        result: [defaultSubjectValues],
+        attendance: {
+          timesSchoolOpened: "",
+          timePresent: "",
+          timeAbsent: "",
+        },
+        personalTrait: {
+          punctuality: false,
+          neatness: false,
+          leadership: false,
+          trait: false,
+          demeanor: false,
+          honesty: false,
+          respect: false,
+          mixing: false,
+          obedience: false,
+          teamWork: false,
+        },
+        reportClass: "",
+        reportTerm: "",
+        classTeacherComment: "",
+        student: "",
+      },
+    });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "result",
@@ -43,6 +69,13 @@ export default function CreateResult() {
     // setLoading(false)
     // }
   };
+
+  const watchResult = watch("result", fields);
+
+  const handleSave = () => {
+    toast.success("Student report has been saved");
+  };
+
   return (
     <div className="container w-100 px-5">
       <div className="py-3">
@@ -55,33 +88,72 @@ export default function CreateResult() {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* SUBJECT INPUT */}
-          {fields.map((item, index) => (
-            <div key={item.id}>
-              <ReportSubjectForm
-                register={register}
-                index={index}
-                control={control}
-              />
-            </div>
-          ))}
+          {fields.map((item, index) => {
+            return (
+              <div key={item.id}>
+                <ReportSubjectForm
+                  index={index}
+                  control={control}
+                  watchResult={watchResult}
+                  remove={remove}
+                  setValue={setValue}
+                />
+              </div>
+            );
+          })}
 
           <Button
             onClick={() =>
               append({
                 comment: "",
-                continuousAssessmentScore: 0,
-                examScore: 0,
-                positionGrade: 0,
+                continuousAssessmentScore: "",
+                examScore: "",
+                positionGrade: "",
                 subject: "",
-                totalWeightedAverage: 0,
+                totalWeightedAverage: "",
               })
             }
           >
             Add new
           </Button>
-          <Button type="submit" blue>
-            Submit
-          </Button>
+
+          <div className="my-5">
+            <p className="lead">ATTENDANCE (Regularity & Punctuality)</p>
+            <div className="d-flex gap-3">
+              <div>
+                <Input placeholder="Times School Opened" />
+              </div>
+              <div>
+                <Input placeholder="Time Present" />
+              </div>
+              <div>
+                <Input placeholder="Time Absent" />
+              </div>
+            </div>
+          </div>
+          <div className="my-2">
+            {Object.keys(getValues().personalTrait).map((item) => {
+              return (
+                <div className="form-check" key={item}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    {...register(`personalTrait.${item}`)}
+                    value=""
+                  />
+                  <label>{item}</label>
+                </div>
+              );
+            })}
+          </div>
+          <div className="d-flex gap-3">
+            <Button type="submit" onClick={handleSave}>
+              Save
+            </Button>
+            <Button type="submit" blue>
+              Publish
+            </Button>
+          </div>
         </form>
       )}
     </div>

@@ -10,6 +10,7 @@ export default function Input({
   name,
   type,
   size,
+  value,
   required,
   others,
 }) {
@@ -22,6 +23,7 @@ export default function Input({
       type={type}
       size={size}
       required={required}
+      value={value}
       {...others}
     />
   );

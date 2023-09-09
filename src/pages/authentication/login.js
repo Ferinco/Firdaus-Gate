@@ -28,8 +28,6 @@ export default function Login() {
     console.log(data);
     await loginAuth(data)
       .then((res) => {
-        setCurrentUser({res})
-        console.log(currentUser)
         console.log(res);
         setIsLoading(false);
         navigate(PATH_DASHBOARD.student.index);

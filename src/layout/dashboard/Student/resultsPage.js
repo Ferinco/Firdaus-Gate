@@ -56,7 +56,10 @@ export default function ResultsPage() {
       toast.error("An error occurred, try again later...");
     }
   }
-
+  function changedClass() {
+    console.log("class has been changed");
+    toast.success("class has been chaned to i go fix this part later");
+  }
   return (
     <Wrapper className="p-5">
       {loading && <OverlayLoading />}
@@ -65,14 +68,9 @@ export default function ResultsPage() {
         <p>View reports for each school term</p>
         <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4">
           {/* selection of class */}
-          <select
-            value={selectedClass}
-            onChange={(e) => setSelectedClass(e.target.value)}
-          >
-            {CLASS.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
-              </option>
+          <select onChange={changedClass}>
+            {CLASS.map((opt, index) => (
+              <option key={index}>{opt}</option>
             ))}
           </select>
           <div>

@@ -14,6 +14,9 @@ import Create from "../layout/dashboard/Teacher/create";
 import ProgressPage from "../pages/progressPage";
 import CreateResult from "../pages/teacher/createResult";
 import ResultsPage from "../layout/dashboard/Student/resultsPage";
+import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
+import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
+import AdminDashboardLayout from "../layout/dashboard/Admin";
 export default function Routes() {
   return useRoutes([
     {
@@ -53,5 +56,13 @@ export default function Routes() {
       ],
       // children: [{ path: "/student", element: <ProgressPage /> }],
     },
+    {
+      path: "/admin",
+      element: <AdminDashboardLayout/>,
+      children: [
+        {path: "/admin", element: <AdminDashboard/>},
+        {path: "/admin/create", element: <CreateTeachers/>}
+      ]
+    }
   ]);
 }
