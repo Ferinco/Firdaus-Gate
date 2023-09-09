@@ -3,8 +3,68 @@ import styled from "styled-components";
 import Input from "../../custom/Input";
 import { InputSelect } from "../../custom";
 import { seniorSchoolSubjects } from "../../../constants/subjects";
+import { Controller } from "react-hook-form";
 
-const ReportSubjectForm = ({ index, handleChange }) => {
+const ReportSubjectForm = ({
+  remove,
+  index,
+  control,
+  watchResult,
+  setValue,
+}) => {
+  const getWA =
+    Number(watchResult[index].continuousAssessmentScore) +
+    Number(watchResult[index].examScore);
+
+  function getPositionGrade() {
+    switch (true) {
+      case getWA >= 75 && getWA <= 100:
+        return "A1";
+      case getWA >= 70 && getWA <= 74:
+        return "B2";
+      case getWA >= 65 && getWA <= 69:
+        return "B3";
+      case getWA >= 60 && getWA <= 64:
+        return "C4";
+      case getWA >= 55 && getWA <= 59:
+        return "C5";
+      case getWA >= 50 && getWA <= 54:
+        return "C6";
+      case getWA >= 45 && getWA <= 49:
+        return "D7";
+      case getWA >= 40 && getWA <= 44:
+        return "E8";
+      case getWA >= 0 && getWA <= 39:
+        return "F9";
+      default:
+        return "";
+    }
+  }
+
+  function getComment() {
+    switch (true) {
+      case getWA >= 75 && getWA <= 100:
+        return "Excellent";
+      case getWA >= 70 && getWA <= 74:
+        return "V/Good";
+      case getWA >= 65 && getWA <= 69:
+        return "Good";
+      case getWA >= 60 && getWA <= 64:
+        return "Credit";
+      case getWA >= 55 && getWA <= 59:
+        return "Credit";
+      case getWA >= 50 && getWA <= 54:
+        return "Credit";
+      case getWA >= 45 && getWA <= 49:
+        return "Pass";
+      case getWA >= 40 && getWA <= 44:
+        return "Pass";
+      case getWA >= 0 && getWA <= 39:
+        return "Fail";
+      default:
+        return "";
+    }
+  }
   return (
     <Wrapper className="results-field py-4">
       <div className="">
@@ -12,15 +72,20 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>Subject</small>
           </label>
-          <InputSelect
-            onChange={(e) => handleChange(index, "subject", e.target.value)}
-          >
-            {seniorSchoolSubjects.map((subject, index) => (
-              <option value={subject} key={index}>
-                {subject}
-              </option>
-            ))}
-          </InputSelect>
+
+          <Controller
+            render={({ field }) => (
+              <InputSelect defaultValue="Select subject" {...field}>
+                {seniorSchoolSubjects.map((subject, index) => (
+                  <option value={subject} key={index}>
+                    {subject}
+                  </option>
+                ))}
+              </InputSelect>
+            )}
+            name={`result.${index}.subject`}
+            control={control}
+          />
         </div>
       </div>
 
@@ -29,11 +94,10 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>C.A score</small>
           </label>
-          <Input
-            placeholder="C.A score"
-            onChange={(e) =>
-              handleChange(index, "continuousAssessmentScore", e.target.value)
-            }
+          <Controller
+            render={({ field }) => <Input placeholder="C.A score" {...field} />}
+            name={`result.${index}.continuousAssessmentScore`}
+            control={control}
           />
         </div>
       </div>
@@ -43,9 +107,13 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <label>
             <small>Exam score</small>
           </label>
-          <Input
-            placeholder="Exam score"
-            onChange={(e) => handleChange(index, "examScore", e.target.value)}
+
+          <Controller
+            render={({ field }) => (
+              <Input placeholder="Exam score" {...field} />
+            )}
+            name={`result.${index}.examScore`}
+            control={control}
           />
         </div>
       </div>
@@ -58,8 +126,9 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           <Input
             placeholder="Total Weighted Average"
             onChange={(e) =>
-              handleChange(index, "totalWeightedAverage", e.target.value)
+              setValue(`result.${index}.totalWeightedAverage`, e.target.value)
             }
+            value={getWA}
           />
         </div>
       </div>
@@ -71,8 +140,9 @@ const ReportSubjectForm = ({ index, handleChange }) => {
 
           <Input
             placeholder="Position grade"
+            value={getPositionGrade()}
             onChange={(e) =>
-              handleChange(index, "positionGrade", e.target.value)
+              setValue(`result.${index}.positionGrade`, e.target.value)
             }
           />
         </div>
@@ -84,10 +154,16 @@ const ReportSubjectForm = ({ index, handleChange }) => {
           </label>
 
           <Input
-            placeholder="Comment"
-            onChange={(e) => handleChange(index, "comment", e.target.value)}
+            placeholder="comment"
+            value={getComment()}
+            onChange={(e) =>
+              setValue(`result.${index}.comment`, e.target.value)
+            }
           />
         </div>
+      </div>
+      <div>
+        <button onClick={() => remove(index)}>X</button>
       </div>
     </Wrapper>
   );
@@ -96,6 +172,7 @@ const ReportSubjectForm = ({ index, handleChange }) => {
 const Wrapper = styled.div`
   width: 100% !important;
   display: flex;
+  align-items: center;
   /* grid-template-columns: repeat(6, 1fr); */
 
   gap: 10px;

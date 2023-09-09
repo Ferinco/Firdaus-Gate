@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
 import { Button } from "../../components/custom/Button";
 import styled from "styled-components";
 import Input from "../../components/custom/Input";
@@ -7,30 +7,58 @@ import { InputSelect } from "../../components/custom";
 import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
 import { ReportService } from "../../services/reportService";
 import { OverlayLoading } from "../../components/OverlayLoading";
+import { Icon } from "@iconify/react";
+import { seniorSchoolSubjects } from "../../constants/subjects";
+import toast from "react-hot-toast";
 
 export default function CreateResult() {
   // Default values for subject's grade
   const defaultSubjectValues = {
     subject: "",
-    continuousAssessmentScore: 0,
-    examScore: 0,
-    totalWeightedAverage: 0,
-    positionGrade: 0,
+    continuousAssessmentScore: "",
+    examScore: "",
+    totalWeightedAverage: "",
+    positionGrade: "",
     comment: "",
   };
-  const [subjects, setSubjects] = React.useState([defaultSubjectValues]);
-  const [loading, setLoading] = React.useState(false);
-  const { setValue } = useForm({
-    defaultValues: [defaultSubjectValues],
-  });
-  // add new and fresh input components for subject
-  const addSubjectField = () => {
-    setSubjects([...subjects, defaultSubjectValues]);
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(subjects);
+  const [loading, setLoading] = React.useState(false);
+  // React hook form implementation
+
+  const { register, control, handleSubmit, reset, watch, getValues, setValue } =
+    useForm({
+      defaultValues: {
+        result: [defaultSubjectValues],
+        attendance: {
+          timesSchoolOpened: "",
+          timePresent: "",
+          timeAbsent: "",
+        },
+        personalTrait: {
+          punctuality: false,
+          neatness: false,
+          leadership: false,
+          trait: false,
+          demeanor: false,
+          honesty: false,
+          respect: false,
+          mixing: false,
+          obedience: false,
+          teamWork: false,
+        },
+        reportClass: "",
+        reportTerm: "",
+        classTeacherComment: "",
+        student: "",
+      },
+    });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "result",
+  });
+  const onSubmit = async (values) => {
+    console.log(values);
     // try {
     // setLoading(true)
     //   const data = await  ReportService.createReport(subjects)
@@ -42,16 +70,12 @@ export default function CreateResult() {
     // }
   };
 
-  const handleChange = (index, subject, value) => {
-    const updatedFields = [...subjects];
-    updatedFields[index][subject] = value;
-    setSubjects(updatedFields);
+  const watchResult = watch("result", fields);
+
+  const handleSave = () => {
+    toast.success("Student report has been saved");
   };
-  const handleRemoveSubject = (index) => {
-    const rows = [...subjects];
-    rows.splice(index, 1);
-    setSubjects(rows);
-  };
+
   return (
     <div className="container w-100 px-5">
       <div className="py-3">
@@ -62,19 +86,74 @@ export default function CreateResult() {
       {loading ? (
         <OverlayLoading />
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* SUBJECT INPUT */}
-          {subjects.map((subject, index) => {
-            const {} = subject;
+          {fields.map((item, index) => {
             return (
-              <ReportSubjectForm index={index} handleChange={handleChange} />
+              <div key={item.id}>
+                <ReportSubjectForm
+                  index={index}
+                  control={control}
+                  watchResult={watchResult}
+                  remove={remove}
+                  setValue={setValue}
+                />
+              </div>
             );
           })}
 
-          <Button onClick={addSubjectField}>Add new</Button>
-          <Button type="submit" blue>
-            Submit
+          <Button
+            onClick={() =>
+              append({
+                comment: "",
+                continuousAssessmentScore: "",
+                examScore: "",
+                positionGrade: "",
+                subject: "",
+                totalWeightedAverage: "",
+              })
+            }
+          >
+            Add new
           </Button>
+
+          <div className="my-5">
+            <p className="lead">ATTENDANCE (Regularity & Punctuality)</p>
+            <div className="d-flex gap-3">
+              <div>
+                <Input placeholder="Times School Opened" />
+              </div>
+              <div>
+                <Input placeholder="Time Present" />
+              </div>
+              <div>
+                <Input placeholder="Time Absent" />
+              </div>
+            </div>
+          </div>
+          <div className="my-2">
+            {Object.keys(getValues().personalTrait).map((item) => {
+              return (
+                <div className="form-check" key={item}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    {...register(`personalTrait.${item}`)}
+                    value=""
+                  />
+                  <label>{item}</label>
+                </div>
+              );
+            })}
+          </div>
+          <div className="d-flex gap-3">
+            <Button type="submit" onClick={handleSave}>
+              Save
+            </Button>
+            <Button type="submit" blue>
+              Publish
+            </Button>
+          </div>
         </form>
       )}
     </div>
