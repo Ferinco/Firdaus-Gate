@@ -14,17 +14,17 @@ export default function StudentDashboard() {
     setCurrentUser,
   } = useAppContext();
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      let identity = isAuthenticated();
-      if (identity === null) {
-        localStorage.setItem("user", "");
-        identity = "";
-      }
-      setCurrentUser(identity.user);
-    };
-    checkLoggedIn();
-  }, []);
+  // useEffect(() => {
+  //   const checkLoggedIn = async () => {
+  //     let identity = isAuthenticated();
+  //     if (identity === null) {
+  //       localStorage.setItem("user", "");
+  //       identity = "";
+  //     }
+  //     setCurrentUser(identity.user);
+  //   };
+  //   checkLoggedIn();
+  // }, []);
   console.log(currentUser);
 // const userConfig = {
 //   firstName : currentUser.firstName,

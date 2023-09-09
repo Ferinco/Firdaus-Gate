@@ -1,8 +1,4 @@
-import { useContext } from "react";
-import { useAppContext } from "../context/Context";
+import { createContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-export const useAuth =()=>{
-    return use
-}
-
-// export const useAuth =()=> useContext(AuthContext)
+export const useAuth = createContext(AuthContext)

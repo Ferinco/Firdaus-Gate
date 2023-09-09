@@ -9,13 +9,13 @@ import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
 import { useAppContext } from "../../context/Context";
-export default function Login() {
-  const {currentUser, setCurrentUser} = useAppContext()
+export default function StudentLogin() {
+  const { currentUser, setCurrentUser } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const location =   useLocation();
-  const from = location.state?.from?.pathname || "/"
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -25,6 +25,7 @@ export default function Login() {
   {
     /* form submission */
   }
+  console.log(from)
   const onSubmit = async (data) => {
     setIsLoading(true);
     console.log(data);
@@ -32,7 +33,7 @@ export default function Login() {
       .then((res) => {
         console.log(res);
         setIsLoading(false);
-        navigate(from, {replace: true});
+        navigate(from, { replace: true });
         setSuccess(true);
         toast.success("login sucessful!");
       })
@@ -43,7 +44,7 @@ export default function Login() {
       });
     console.log(errors);
   };
-  
+
   return (
     <Wrapper>
       <div className="container-fluid">

@@ -5,12 +5,10 @@ import { PATH_AUTH } from "./paths";
 const RequireAuth = ({ allowedRoles }) => {
   const { currentUser } = useAppContext();
   const location = useLocation();
-  const role = localStorage.getItem("user")
   return currentUser?.roles?.find((role) => allowedRoles?.includes(role)) ? (
     <Outlet />
   ) : (
-    <Navigate to={role === "student" ?  PATH_AUTH.login : role === "teacher" ? PATH_AUTH.teacher : PATH_AUTH.teacher} state={{ from: location }} 
-      replace />
+    <Navigate to={PATH_AUTH.login} state={{ from: location }} replace />
   );
 };
 

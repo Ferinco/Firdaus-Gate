@@ -2,12 +2,12 @@ import jwtDecode from "jwt-decode";
 import { verify, sign } from "jsonwebtoken";
 import { api } from "../api/axios";
 
-const isValidToken = (accessToken) => {
-  if (!accessToken) {
+const isValidToken = (token) => {
+  if (!token) {
     return false;
   }
 
-  const decoded = jwtDecode(accessToken);
+  const decoded = jwtDecode(token);
 
   const currentTime = Date.now() / 1000;
   return decoded.exp > currentTime;
@@ -26,17 +26,17 @@ const handleTokenExpired = (exp) => {
   }, timeLeft);
 };
 
-const setSession = (accessToken) => {
-  if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
+const setSession = (token) => {
+  if (token) {
+    localStorage.setItem("token", token);
     api.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
-      "accessToken"
+      "token"
     )}`;
     // This function below will handle when token is expired
-    // const { exp } = jwtDecode(accessToken);
+    // const { exp } = jwtDecode(token);
     // handleTokenExpired(exp);
   } else {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("token");
     delete api.defaults.headers.common.Authorization;
   }
 };

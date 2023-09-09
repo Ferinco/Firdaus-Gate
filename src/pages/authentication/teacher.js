@@ -13,7 +13,7 @@ import { useAppContext } from "../../context/Context";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-export default function Teacher() {
+export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
   // const [success, setSuccess] = useState(false);
   // const [errorMsg, setErrorMsg] = useState("");
