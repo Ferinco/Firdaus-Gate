@@ -1,14 +1,14 @@
 import React from "react";
 import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
-import { Button } from "../../components/custom/Button";
+import { Button } from "../../../components/custom/Button";
 import styled from "styled-components";
-import Input from "../../components/custom/Input";
-import { InputSelect } from "../../components/custom";
-import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
-import { ReportService } from "../../services/reportService";
-import { OverlayLoading } from "../../components/OverlayLoading";
+import Input from "../../../components/custom/Input";
+import { InputSelect } from "../../../components/custom";
+import ReportSubjectForm from "../../../components/dashboard/teacher/ReportSubjectForm";
+import { ReportService } from "../../../services/reportService";
+import { OverlayLoading } from "../../../components/OverlayLoading";
 import { Icon } from "@iconify/react";
-import { seniorSchoolSubjects } from "../../constants/subjects";
+import { seniorSchoolSubjects } from "../../../constants/subjects";
 import toast from "react-hot-toast";
 
 export default function CreateResult() {
