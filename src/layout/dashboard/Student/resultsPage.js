@@ -5,12 +5,14 @@ import { CLASS } from "../../../constants/class";
 import { ReportService } from "../../../services/reportService";
 import { toast } from "react-hot-toast";
 import { OverlayLoading } from "../../../components/OverlayLoading";
+// import {getTer}
 
 export default function ResultsPage() {
   // const {} = useAuth()
-  const currentClass = "JSS3";
+  //  const {} = useTerm
   const [loading, setLoading] = React.useState(false);
-  const [selectedClass, setSelectedClass] = React.useState(currentClass);
+  const [selectedClass, setSelectedClass] = React.useState("currentClass");
+  const [selectedTerm, setSelectedTerm] = React.useState("currentTerm");
 
   const reports = [
     {
@@ -34,10 +36,13 @@ export default function ResultsPage() {
   ];
 
   // Download handler for report card
-  async function download() {
+  async function downloadReport(reportClass, term) {
     try {
       setLoading(true);
-      const data = await ReportService.downloadReport();
+      const data = await ReportService.downloadReport({
+        reportTerm: term,
+        selectedClass: reportClass,
+      });
       console.log(data);
       const blob = new Blob([data]);
       const url = window.URL.createObjectURL(blob);
@@ -81,10 +86,15 @@ export default function ResultsPage() {
         </div>
       </div>
       <div className="tabs-wrapper py-5 mt-5">
-        <h3>See report for {selectedClass}</h3>
         <div className="tabs w-100 p-0 py-2 px-3">
           {reports.map((report) => (
-            <div className="tab " onClick={download} key={report._id}>
+            <div
+              className="tab "
+              onClick={() =>
+                downloadReport(report.reportClass, report.reportTerm)
+              }
+              key={report._id}
+            >
               <div className="tab-right">
                 <div className="icon-div">
                   <Icon
