@@ -11,7 +11,7 @@ import { Button } from "../../../components/custom/Button";
 import styled from "styled-components";
 import Input from "../../../components/custom/Input";
 import { InputSelect } from "../../../components/custom";
-import ReportSubjectForm from "../../../components/dashboard/teacher/ReportSubjectForm";
+import ReportSubjectForm from "./ReportSubjectForm"
 import { ReportService } from "../../../services/reportService";
 import { OverlayLoading } from "../../../components/OverlayLoading";
 import { Icon } from "@iconify/react";
@@ -169,4 +169,5 @@ export default function CreateResult() {
   );
 }
 
-const W
+const Wrapper = styled.div`
+`

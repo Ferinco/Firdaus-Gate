@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
-import { useAppContext } from "../../../context/Context";
+import {useAppContext} from "../../../contexts/Context"
 import { PATH_PAGE } from "../../../routes/paths";
 
 const sidebarConfig = [

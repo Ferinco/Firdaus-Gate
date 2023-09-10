@@ -8,7 +8,7 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
-import { useAppContext } from "../../context/Context";
+import { useAppContext } from "../../contexts/Context";
 import {useAuth} from "../../hooks/useAuth";
 
 export default function StudentLogin() {

@@ -1,9 +1,9 @@
 import React from "react";
 import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
-import { AppProvider } from "./context/Context";
+import { AppProvider } from "./contexts/Context";
 import toast, { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   return (
     <AppProvider>

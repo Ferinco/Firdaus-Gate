@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useAppContext } from "../context/Context";
+import { useAppContext } from "../contexts/Context";
 import { PATH_AUTH } from "./paths";
 import { useAuth } from "../hooks/useAuth";
 

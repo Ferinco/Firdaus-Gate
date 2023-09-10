@@ -4,7 +4,7 @@ import { Header } from "../../../components/custom/Header";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
-import { useAppContext } from "../../../context/Context";
+import { useAppContext } from "../../../contexts/Context";
 export default function TeacherDashboard() {
   //get current time
   let currentTime = new Date().getHours()
