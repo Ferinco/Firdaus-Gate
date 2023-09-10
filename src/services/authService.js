@@ -1,5 +1,5 @@
 import { api } from "../api/axios";
-import { useAppContext } from "../context/Context";
+import { useAppContext } from "../contexts/Context";
 import { useNavigate } from "react-router-dom";
 import { PATH_PAGE } from "../routes/paths";
 export const loginAuth = async ({ admissionNumber, password }) => {
