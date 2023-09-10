@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Header } from "../../../components/custom/Header";
 import { Button } from "../../../components/custom/Button";
-import { useAppContext } from "../../../context/Context";
+import { useAppContext } from "../../../contexts/Context";
 export default function MyClass() {
   const { register, handleSubmit } = useForm();
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();

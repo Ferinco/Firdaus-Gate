@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import toast, { Toaster } from "react-hot-toast";
-import { useAppContext } from "../../context/Context";
+import { useAppContext } from "../../contexts/Context";
 // import axios from "../../api/axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";

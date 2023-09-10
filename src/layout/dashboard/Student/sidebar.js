@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { useAppContext } from "../../../context/Context";
+import { useAppContext } from "../../../contexts/Context";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
 import { useNavigate } from "react-router-dom";
