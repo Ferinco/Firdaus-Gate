@@ -67,7 +67,8 @@ const ReportSubjectForm = ({
   }
   return (
     <Wrapper className="results-field py-4">
-      <div className="">
+ <div className="fields">
+ <div className="">
         <div>
           <label>
             <small>Subject</small>
@@ -88,7 +89,6 @@ const ReportSubjectForm = ({
           />
         </div>
       </div>
-
       <div className="">
         <div>
           <label>
@@ -101,7 +101,6 @@ const ReportSubjectForm = ({
           />
         </div>
       </div>
-
       <div className="">
         <div>
           <label>
@@ -162,20 +161,35 @@ const ReportSubjectForm = ({
           />
         </div>
       </div>
+ </div>
       <div>
-        <button onClick={() => remove(index)}>X</button>
+        <button className="remove-btn" onClick={() => remove(index)}>X</button>
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+.fields{
   width: 100% !important;
   display: flex;
   align-items: center;
+  gap: 10px;
+}
   /* grid-template-columns: repeat(6, 1fr); */
 
   gap: 10px;
+  .remove-btn{
+   width: 20px;
+   height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    font-size: 12px;
+    color: white;
+    border: 0;
+  }
 `;
 
 export default ReportSubjectForm;

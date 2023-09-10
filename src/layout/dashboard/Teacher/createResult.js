@@ -77,7 +77,7 @@ export default function CreateResult() {
   };
 
   return (
-    <div className="container w-100 px-5">
+    <Wrapper className="container w-100 px-5">
       <div className="py-3">
         <h3 className="">Create result for student</h3>
       </div>
@@ -88,9 +88,10 @@ export default function CreateResult() {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* SUBJECT INPUT */}
+        
           {fields.map((item, index) => {
             return (
-              <div key={item.id}>
+              <div key={item.id} className="result-row mt-3">
                 <ReportSubjectForm
                   index={index}
                   control={control}
@@ -101,8 +102,8 @@ export default function CreateResult() {
               </div>
             );
           })}
-
           <Button
+          className="mt-3"
             onClick={() =>
               append({
                 comment: "",
@@ -113,13 +114,17 @@ export default function CreateResult() {
                 totalWeightedAverage: "",
               })
             }
+            blue
           >
             Add new
-          </Button>
+          </Button> 
+
+      
+
 
           <div className="my-5">
             <p className="lead">ATTENDANCE (Regularity & Punctuality)</p>
-            <div className="d-flex gap-3">
+            <div className="d-flex gap-3 attendance-field">
               <div>
                 <Input placeholder="Times School Opened" />
               </div>
@@ -156,9 +161,19 @@ export default function CreateResult() {
           </div>
         </form>
       )}
-    </div>
+    </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+.result-row{
+  padding: 10px;
+ background-color: white;
+ border-radius: 20px;
+}
+.attendance-field{
+  background-color: white;
+ border-radius: 20px;
+ padding: 40px 10px;
+}
 `
