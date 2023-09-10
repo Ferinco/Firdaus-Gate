@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../components/custom/Button";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import { loginAuth } from "../../services/authService";
 import { toast } from "react-hot-toast";
-import { useAppContext } from "../../Context";
-export default function Login() {
-  const {currentUser, setCurrentUser} = useAppContext()
+import { useAppContext } from "../../context/Context";
+import {useAuth} from "../../hooks/useAuth";
+
+export default function StudentLogin() {
+  const { currentUser, setCurrentUser } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const {login} = useAuth()
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -23,14 +28,15 @@ export default function Login() {
   {
     /* form submission */
   }
+  console.log(from)
   const onSubmit = async (data) => {
     setIsLoading(true);
     console.log(data);
-    await loginAuth(data)
+    await login(data)
       .then((res) => {
         console.log(res);
         setIsLoading(false);
-        navigate(PATH_DASHBOARD.student.index);
+        navigate(from, { replace: true });
         setSuccess(true);
         toast.success("login sucessful!");
       })
@@ -41,7 +47,7 @@ export default function Login() {
       });
     console.log(errors);
   };
-  
+
   return (
     <Wrapper>
       <div className="container-fluid">

@@ -39,21 +39,21 @@ export default function Navbar() {
             <Logo />
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-2" icon="ph:phone-thin" color="blue" />
+            <Icon className="icon mr-1" icon="ph:phone-thin" color="blue" />
             <div className="info d-flex flex-column">
               <h6>+2349055512553</h6>
               <p>Give Us A Call</p>
             </div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-2" icon="et:envelope" color="blue" />
+            <Icon className="icon mr-1" icon="et:envelope" color="blue" />
             <div className="info d-flex flex-column">
               <h6>firdausgateschools@gmail.com</h6>
               <p>Mail Us</p>
             </div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-2" icon="game-icons:world" color="blue" />
+            <Icon className="icon mr-1" icon="game-icons:world" color="blue" />
             <div className="info d-flex flex-column">
               <h6>6/8 Balogun Street, Off Igodo Road,</h6>
               <p>Omo-Olope Area, Magbooro, Ogun State.</p>
@@ -143,7 +143,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PATH_DASHBOARD.teacher.index}
+                  to={PATH_DASHBOARD.student.index}
                 >
                   dashboard
                 </Link>
@@ -273,7 +273,8 @@ const NavigationBar = styled.div`
     color: inherit !important;
   }
   .icon {
-    font-size: 45px;
+    font-size: 40px;
+    font-weight: 700 !important;
   }
   .first-navbar {
     background-color: #f5f5f5;

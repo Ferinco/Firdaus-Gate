@@ -12,19 +12,23 @@ import StudentDashboardLayout from "../layout/dashboard/Student";
 import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
 import Create from "../layout/dashboard/Teacher/create";
 import ProgressPage from "../pages/progressPage";
-import CreateResult from "../pages/teacher/createResult";
+import CreateResult from "../layout/dashboard/Teacher/createResult";
 import ResultsPage from "../layout/dashboard/Student/resultsPage";
 import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
 import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
+import RequireAuth from "./requireAuth";
+
 export default function Routes() {
   return useRoutes([
+    //GENERAL ROUTES
     {
       path: "/",
       element: <Layout />,
       children: [{ path: "/", element: <Home /> }],
       // children: [{ path: "/", element: <ProgressPage /> }],
     },
+
     {
       path: "/auth",
       children: [
@@ -33,9 +37,15 @@ export default function Routes() {
       ],
       // children: [{ path: "/auth", element: <ProgressPage /> }],
     },
+
+    //PRIVATE ROUTES FOR TEACHERS
     {
       path: "/teacher",
-      element: <TeacherDashboardLayout />,
+      element: (
+        // <RequireAuth allowedRoles={["teacher"]}>
+          <TeacherDashboardLayout/>
+        // </RequireAuth>
+      ),
       children: [
         { path: "", element: <TeacherDashboard /> },
         { path: "students", element: <MyClass /> },
@@ -45,9 +55,15 @@ export default function Routes() {
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
+
+    //PRIVATE ROUTES FOR STUDENTS
     {
       path: "/student",
-      element: <StudentDashboardLayout />,
+      element: (
+        <RequireAuth allowedRoles={["student"]}>
+          <StudentDashboardLayout />
+        </RequireAuth>
+      ),
       children: [
         { path: "/student", element: <StudentDashboard /> },
         { path: "/student/reports", element: <ResultsPage /> },
@@ -56,13 +72,21 @@ export default function Routes() {
       ],
       // children: [{ path: "/student", element: <ProgressPage /> }],
     },
+
+    //PRIVATE ROUTES FOR ADMIN
     {
       path: "/admin",
-      element: <AdminDashboardLayout/>,
+      element: (
+        // <RequireAuth allowedRoles={["admin"]}>
+          <AdminDashboardLayout  />
+        // </RequireAuth>
+      ),
       children: [
-        {path: "/admin", element: <AdminDashboard/>},
-        {path: "/admin/create", element: <CreateTeachers/>}
-      ]
-    }
+        { path: "/admin", element: <AdminDashboard /> },
+        { path: "/admin/create", element: <CreateTeachers /> },
+      ],
+    },
+
+    //CATCH ALL
   ]);
 }

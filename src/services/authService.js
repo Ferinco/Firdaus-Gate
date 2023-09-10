@@ -1,5 +1,7 @@
 import { api } from "../api/axios";
-import { useAppContext } from "../Context";
+import { useAppContext } from "../contexts/Context";
+import { useNavigate } from "react-router-dom";
+import { PATH_PAGE } from "../routes/paths";
 export const loginAuth = async ({ admissionNumber, password }) => {
   const { data } = await api.post("/auth/login", {
     admissionNumber,
@@ -37,3 +39,4 @@ export const isAuthenticated = () => {
   console.log(user)
   return JSON.parse(user)
 };
+

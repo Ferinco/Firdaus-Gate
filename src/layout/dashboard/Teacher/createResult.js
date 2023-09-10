@@ -1,9 +1,22 @@
 import React from "react";
+<<<<<<< HEAD:src/pages/teacher/createResult.js
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button } from "../../components/custom/Button";
 import Input from "../../components/custom/Input";
 import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
 import { OverlayLoading } from "../../components/OverlayLoading";
+=======
+import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
+import { Button } from "../../../components/custom/Button";
+import styled from "styled-components";
+import Input from "../../../components/custom/Input";
+import { InputSelect } from "../../../components/custom";
+import ReportSubjectForm from "../../../components/dashboard/teacher/ReportSubjectForm";
+import { ReportService } from "../../../services/reportService";
+import { OverlayLoading } from "../../../components/OverlayLoading";
+import { Icon } from "@iconify/react";
+import { seniorSchoolSubjects } from "../../../constants/subjects";
+>>>>>>> 384ac54db19af4ec7eadf2f55771fe61cc38be07:src/layout/dashboard/Teacher/createResult.js
 import toast from "react-hot-toast";
 import lodash from "lodash";
 
@@ -155,3 +168,5 @@ export default function CreateResult() {
     </div>
   );
 }
+
+const W

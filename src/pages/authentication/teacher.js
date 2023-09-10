@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { PATH_PAGE } from "../../routes/paths";
 import toast, { Toaster } from "react-hot-toast";
-import { useAppContext } from "../../Context";
+import { useAppContext } from "../../context/Context";
 // import axios from "../../api/axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-export default function Teacher() {
+export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
   // const [success, setSuccess] = useState(false);
   // const [errorMsg, setErrorMsg] = useState("");

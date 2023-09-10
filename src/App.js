@@ -1,14 +1,13 @@
 import React from "react";
 import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
-import { AppProvider } from "./Context";
-import ReportProvider from "./contexts/ReportContext";
+import { AppProvider } from "./context/Context";
 import toast, { Toaster } from "react-hot-toast";
-
+import { AuthProvider } from "./context/AuthContext";
 function App() {
   return (
     <AppProvider>
-      <ReportProvider>
+      <AuthProvider>
         <div className="App">
           <BrowserRouter>
             <Routes />
@@ -36,7 +35,7 @@ function App() {
             />
           </BrowserRouter>
         </div>
-      </ReportProvider>
+      </AuthProvider>
     </AppProvider>
   );
 }

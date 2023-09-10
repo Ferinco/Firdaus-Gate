@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../../custom/Input";
-import { InputSelect } from "../../custom";
+import Input from "../../../components/custom/Input";
+import { InputSelect } from "../../../components/custom";
 import { seniorSchoolSubjects } from "../../../constants/subjects";
 import { Controller } from "react-hook-form";
 

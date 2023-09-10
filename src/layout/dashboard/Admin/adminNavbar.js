@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { useAppContext } from "../../../Context";
+import { useAppContext } from "../../../context/Context";
 import { Icon } from "@iconify/react";
 export default function  AdminNavbar (){
      const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
