@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Header } from "../../../components/custom/Header";
+import { useApi } from "../../../hooks/useApi";
+
 export default function Results() {
+  const { getReports, reports } = useApi();
+  useEffect(() => {
+    getReports();
+  }, []);
+  console.log(reports);
   return (
     <div>
       <Wrapper>
@@ -14,5 +21,4 @@ export default function Results() {
     </div>
   );
 }
-const Wrapper = styled.div`
-`
+const Wrapper = styled.div``;

@@ -1,4 +1,11 @@
 import React from "react";
+<<<<<<< HEAD:src/pages/teacher/createResult.js
+import { useForm, useFieldArray } from "react-hook-form";
+import { Button } from "../../components/custom/Button";
+import Input from "../../components/custom/Input";
+import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
+import { OverlayLoading } from "../../components/OverlayLoading";
+=======
 import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
 import { Button } from "../../../components/custom/Button";
 import styled from "styled-components";
@@ -9,7 +16,9 @@ import { ReportService } from "../../../services/reportService";
 import { OverlayLoading } from "../../../components/OverlayLoading";
 import { Icon } from "@iconify/react";
 import { seniorSchoolSubjects } from "../../../constants/subjects";
+>>>>>>> 384ac54db19af4ec7eadf2f55771fe61cc38be07:src/layout/dashboard/Teacher/createResult.js
 import toast from "react-hot-toast";
+import lodash from "lodash";
 
 export default function CreateResult() {
   // Default values for subject's grade
@@ -35,16 +44,16 @@ export default function CreateResult() {
           timeAbsent: "",
         },
         personalTrait: {
-          punctuality: false,
-          neatness: false,
-          leadership: false,
-          trait: false,
-          demeanor: false,
-          honesty: false,
-          respect: false,
-          mixing: false,
-          obedience: false,
-          teamWork: false,
+          punctuality: "",
+          neatness: "",
+          leadership: "",
+          trait: "",
+          demeanor: "",
+          honesty: "",
+          respect: "",
+          mixing: "",
+          obedience: "",
+          teamWork: "",
         },
         reportClass: "",
         reportTerm: "",
@@ -59,15 +68,6 @@ export default function CreateResult() {
   });
   const onSubmit = async (values) => {
     console.log(values);
-    // try {
-    // setLoading(true)
-    //   const data = await  ReportService.createReport(subjects)
-    // setLoading(false)
-    // }
-    // catch(error){
-    //   console.log(error)
-    // setLoading(false)
-    // }
   };
 
   const watchResult = watch("result", fields);
@@ -121,30 +121,39 @@ export default function CreateResult() {
             <p className="lead">ATTENDANCE (Regularity & Punctuality)</p>
             <div className="d-flex gap-3">
               <div>
-                <Input placeholder="Times School Opened" />
+                <Input
+                  placeholder="Times School Opened"
+                  {...register("attendance.timesSchoolOpened")}
+                />
               </div>
               <div>
-                <Input placeholder="Time Present" />
+                <Input
+                  placeholder="Time Present"
+                  {...register("attendance.timePresent")}
+                />
               </div>
               <div>
                 <Input placeholder="Time Absent" />
               </div>
             </div>
           </div>
-          <div className="my-2">
-            {Object.keys(getValues().personalTrait).map((item) => {
-              return (
-                <div className="form-check" key={item}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    {...register(`personalTrait.${item}`)}
-                    value=""
-                  />
-                  <label>{item}</label>
-                </div>
-              );
-            })}
+          <div className="my-3">
+            <p className="lead">Personal trait</p>
+            <div className="my-2 d-flex flex-wrap">
+              {Object.keys(getValues().personalTrait).map((item) => {
+                return (
+                  <div className="form-check" key={item}>
+                    <label>{lodash.capitalize(item)}</label>
+                    <Input
+                      onChange={(e) =>
+                        setValue(`personalTrait.${item}`, e.target.value)
+                      }
+                      type="number"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="d-flex gap-3">
             <Button type="submit" onClick={handleSave}>

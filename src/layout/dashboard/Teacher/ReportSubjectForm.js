@@ -125,10 +125,10 @@ const ReportSubjectForm = ({
 
           <Input
             placeholder="Total Weighted Average"
-            onChange={(e) =>
-              setValue(`result.${index}.totalWeightedAverage`, e.target.value)
-            }
-            value={getWA}
+            onChange={(e) => {
+              setValue(`result.${index}.totalWeightedAverage`, e.target.value);
+              console.log(e.target.value);
+            }}
           />
         </div>
       </div>
