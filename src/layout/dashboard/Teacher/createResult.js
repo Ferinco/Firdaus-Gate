@@ -1,22 +1,10 @@
 import React from "react";
-<<<<<<< HEAD:src/pages/teacher/createResult.js
-import { useForm, useFieldArray } from "react-hook-form";
-import { Button } from "../../components/custom/Button";
-import Input from "../../components/custom/Input";
-import ReportSubjectForm from "../../components/dashboard/teacher/ReportSubjectForm";
-import { OverlayLoading } from "../../components/OverlayLoading";
-=======
 import { useForm, useFieldArray, Conroller, Controller } from "react-hook-form";
 import { Button } from "../../../components/custom/Button";
 import styled from "styled-components";
 import Input from "../../../components/custom/Input";
-import { InputSelect } from "../../../components/custom";
 import ReportSubjectForm from "./ReportSubjectForm"
-import { ReportService } from "../../../services/reportService";
 import { OverlayLoading } from "../../../components/OverlayLoading";
-import { Icon } from "@iconify/react";
-import { seniorSchoolSubjects } from "../../../constants/subjects";
->>>>>>> 384ac54db19af4ec7eadf2f55771fe61cc38be07:src/layout/dashboard/Teacher/createResult.js
 import toast from "react-hot-toast";
 import lodash from "lodash";
 
@@ -77,7 +65,7 @@ export default function CreateResult() {
   };
 
   return (
-    <Wrapper className="container w-100 px-5">
+    <Wrapper className="container-fluid w-100 px-5 pb-3">
       <div className="py-3">
         <h3 className="">Create result for student</h3>
       </div>
@@ -94,7 +82,7 @@ export default function CreateResult() {
               <div key={item.id} className="result-row mt-3">
                 <ReportSubjectForm
                   index={index}
-                  control={control}
+                 control={control}
                   watchResult={watchResult}
                   remove={remove}
                   setValue={setValue}
@@ -112,7 +100,8 @@ export default function CreateResult() {
                 positionGrade: "",
                 subject: "",
                 totalWeightedAverage: "",
-              })
+              }
+               )
             }
             blue
           >
@@ -144,7 +133,7 @@ export default function CreateResult() {
           </div>
           <div className="my-3">
             <p className="lead">Personal trait</p>
-            <div className="my-2 d-flex flex-wrap">
+            <div className="my-2 d-flex flex-wrap traits-div">
               {Object.keys(getValues().personalTrait).map((item) => {
                 return (
                   <div className="form-check" key={item}>
@@ -175,14 +164,28 @@ export default function CreateResult() {
 }
 
 const Wrapper = styled.div`
+margin: 0 !important;
+width: 100% !important;
 .result-row{
   padding: 10px;
  background-color: white;
  border-radius: 20px;
+ width: 100% !important;
 }
 .attendance-field{
   background-color: white;
  border-radius: 20px;
  padding: 40px 10px;
+ width: fit-content !important;
+}
+.traits-div{
+  background-color: white;
+ border-radius: 20px;
+ padding: 40px 10px;
+}
+.lead{
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 1px solid white;
 }
 `

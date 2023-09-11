@@ -66,10 +66,9 @@ const ReportSubjectForm = ({
     }
   }
   return (
-    <Wrapper className="results-field py-4">
- <div className="fields">
- <div className="">
-        <div>
+    <Wrapper className=" py-4">
+ <div className=" fields">
+ <div className="field d-flex flex-column">
           <label>
             <small>Subject</small>
           </label>
@@ -87,10 +86,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.subject`}
             control={control}
           />
-        </div>
       </div>
-      <div className="">
-        <div>
+      <div className="field">
           <label>
             <small>C.A score</small>
           </label>
@@ -99,10 +96,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.continuousAssessmentScore`}
             control={control}
           />
-        </div>
       </div>
-      <div className="">
-        <div>
+      <div className="field">
           <label>
             <small>Exam score</small>
           </label>
@@ -114,10 +109,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.examScore`}
             control={control}
           />
-        </div>
       </div>
-      <div className="">
-        <div>
+      <div className="field">
           <label>
             <small>Total Weighted Ave. </small>
           </label>
@@ -127,12 +120,11 @@ const ReportSubjectForm = ({
             onChange={(e) => {
               setValue(`result.${index}.totalWeightedAverage`, e.target.value);
               console.log(e.target.value);
+              
             }}
           />
-        </div>
       </div>
-      <div className="">
-        <div>
+      <div className="field">
           <label>
             <small>Position grade</small>
           </label>
@@ -144,10 +136,8 @@ const ReportSubjectForm = ({
               setValue(`result.${index}.positionGrade`, e.target.value)
             }
           />
-        </div>
       </div>
-      <div className="">
-        <div>
+      <div className="field">
           <label>
             <small>Comment</small>
           </label>
@@ -159,7 +149,6 @@ const ReportSubjectForm = ({
               setValue(`result.${index}.comment`, e.target.value)
             }
           />
-        </div>
       </div>
  </div>
       <div>
@@ -172,11 +161,17 @@ const ReportSubjectForm = ({
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+
 .fields{
-  width: 100% !important;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
+flex-direction:row;
+overflow-x: scroll !important;
+  .field{
+    width: 150px !important;
+  }
 }
   /* grid-template-columns: repeat(6, 1fr); */
 
