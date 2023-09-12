@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
 import { Home } from "../pages";
 import Login from "../pages/authentication/login";
@@ -11,13 +11,15 @@ import Results from "../layout/dashboard/Teacher/results";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
 import Create from "../layout/dashboard/Teacher/create";
-import ProgressPage from "../pages/progressPage";
+// import ProgressPage from "../pages/progressPage";
 import CreateResult from "../layout/dashboard/Teacher/createResult";
 import ResultsPage from "../layout/dashboard/Student/resultsPage";
 import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
 import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
-import RequireAuth from "./requireAuth";
+import TeachersList from "../layout/dashboard/Admin/teachersList";
+import StudentsList from "../layout/dashboard/Admin/studentsList";
+// import RequireAuth from "./requireAuth";
 
 export default function Routes() {
   return useRoutes([
@@ -60,9 +62,9 @@ export default function Routes() {
     {
       path: "/student",
       element: (
-        <RequireAuth allowedRoles={["student"]}>
+        // <RequireAuth allowedRoles={["student"]}>
           <StudentDashboardLayout />
-        </RequireAuth>
+        // </RequireAuth>
       ),
       children: [
         { path: "/student", element: <StudentDashboard /> },
@@ -84,6 +86,9 @@ export default function Routes() {
       children: [
         { path: "/admin", element: <AdminDashboard /> },
         { path: "/admin/create", element: <CreateTeachers /> },
+        { path: "/admin/teachers-list", element: <TeachersList /> },
+        { path: "/admin/students-list", element: <StudentsList /> },
+
       ],
     },
 

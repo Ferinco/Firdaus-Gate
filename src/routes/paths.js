@@ -34,5 +34,9 @@ export const PATH_DASHBOARD = {
   admin: {
     index: ROOT_ADMIN,
     createTeachers: JOIN(ROOT_ADMIN, "create"),
+    teachersList: JOIN(ROOT_ADMIN, "teachers-list"),
+    studentsList: JOIN(ROOT_ADMIN, "students-list"),
+
+
   },
 };

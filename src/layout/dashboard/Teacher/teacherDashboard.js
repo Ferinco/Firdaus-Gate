@@ -5,6 +5,37 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../contexts/Context";
+
+const TabsConfig = [
+  {
+    link: PATH_DASHBOARD.teacher.create,
+    title: "Create Profile",
+    subTitle: "create a new student profile",
+    icon: "typcn:user-add",
+    iconColor: "white",
+  },
+  {
+    link: PATH_DASHBOARD.admin.teachersList,
+    title: "Add Subject Scheeme",
+    subTitle: "Upload subject scheeme for the term",
+    icon: "pepicons-pencil:list",
+    iconColor: "black",
+  },
+  {
+    link: PATH_DASHBOARD.admin.studentsList,
+    title: "Term Calendar",
+    subTitle: "post timeline for current term",
+    icon: "solar:calendar-bold",
+    iconColor: "black",
+  },
+  {
+    link: PATH_DASHBOARD.admin.studentsList,
+    title: "Post Projects",
+    subTitle: "Post a project for your students to work on",
+    icon: "ph:potted-plant-fill",
+    iconColor: "black",
+  },
+];
 export default function TeacherDashboard() {
   //get current time
   let currentTime = new Date().getHours()
@@ -29,56 +60,23 @@ switch(true){
  </div>
       <div className="middle-div container d-flex py-5">
         <div className="tabs  d-flex flex-column ">
+      {
+        TabsConfig.map(({icon, title, subTitle, iconColor, link}, index)=>(
           <Link
-            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-            to={PATH_DASHBOARD.teacher.create}
-          >
-            <div className="d-flex flex-column mt-3 text">
-              <h6>Create Profile</h6>
-              <p>create a new student profile</p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="typcn:user-add" color="white" />
-            </div>
-          </Link>
-          <Link
-            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-            to={PATH_DASHBOARD.teacher.create}
-          >
-           <div className="d-flex flex-column  mt-3 text">
-              <h6>
-                Add Subject Scheme
-              </h6>
-              <p>upload the term's scheme of work</p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="pepicons-pencil:list" color="black" />
-            </div>
-          </Link>
-          <Link
-            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-            to={PATH_DASHBOARD.teacher.create}
-          >
-           <div className="d-flex flex-column  mt-3 text">
-              <h6>Term Calender</h6>
-              <p>post the timeline for the current term</p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="solar:calendar-bold" color="black" />
-            </div>
-          </Link>
-          <Link
-            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-            to={PATH_DASHBOARD.teacher.create}
-          >
-            <div className="d-flex flex-column  mt-3 text">
-              <h6>Post a Project</h6>
-              <p>Give your student(s) a project to work on</p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="ph:potted-plant-fill" color="black" />
-            </div>
-          </Link>
+          className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
+          to={link}
+          key={index}
+        >
+          <div className="d-flex flex-column mt-3 text">
+            <h6>{title}</h6>
+            <p>{subTitle}</p>
+          </div>
+          <div className="icon-div">
+            <Icon className="icon" icon={icon} color={iconColor}/>
+          </div>
+        </Link>
+        ))
+      }
         </div>
       <div className="info-wrapper d-flex flex-column p-3">
           <div className="div d-flex flex-row">

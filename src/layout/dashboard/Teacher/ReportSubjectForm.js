@@ -167,11 +167,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-flex-direction:row;
-overflow-x: scroll !important;
-  .field{
-    width: 150px !important;
-  }
+
 }
   /* grid-template-columns: repeat(6, 1fr); */
 
