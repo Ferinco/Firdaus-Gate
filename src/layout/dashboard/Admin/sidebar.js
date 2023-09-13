@@ -14,12 +14,12 @@ const sidebarConfig = [
   },
   {
     icon: "mdi:google-classroom",
-    link: PATH_DASHBOARD.admin.createTeachers,
+    link: PATH_DASHBOARD.admin.teachersList,
     title: "Teachers",
   },
   {
     icon: "fluent-mdl2:poll-results",
-    link: PATH_DASHBOARD.teacher.results,
+    link: PATH_DASHBOARD.admin.studentsList,
     title: "Students",
   },
   {

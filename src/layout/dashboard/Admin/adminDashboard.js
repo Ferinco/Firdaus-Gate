@@ -14,22 +14,22 @@ export default function AdminDashboard() {
     },
     {
       link: PATH_DASHBOARD.admin.teachersList,
-      title: "Teachers",
-      subTitle: "List of teachers",
+      title: "Set Term",
+      subTitle: "Set the current term",
       icon: "pepicons-pencil:list",
       iconColor: "black",
     },
     {
       link: PATH_DASHBOARD.admin.studentsList,
-      title: "Students",
-      subTitle: "List of Students",
+      title: "Term Calendar",
+      subTitle: "Upload calendar for the current term",
       icon: "solar:calendar-bold",
       iconColor: "black",
     },
     {
       link: PATH_DASHBOARD.admin.studentsList,
-      title: "Students",
-      subTitle: "",
+      title: "Notify",
+      subTitle: "Send a general notification to your staff",
       icon: "solar:calendar-bold",
       iconColor: "black",
     },
@@ -43,10 +43,18 @@ export default function AdminDashboard() {
 
       <div className="middle-div px-5">
         <div className="overviews p-3 py-5">
-          <div className="circle-div"></div>
-          <div className="circle-div"></div>
-          <div className="circle-div"></div>
-          <div className="circle-div"></div>
+          <div className="circle-div">
+            <p>current term</p>
+          </div>
+          <div className="circle-div">
+            <p>active teachers</p>
+          </div>
+          <div className="circle-div">
+            <p>active students</p>
+          </div>
+          <div className="circle-div">
+            <p>active applications</p>
+          </div>
         </div>
       </div>
       <div className="tabs d-flex flex-column py-4 px-5">

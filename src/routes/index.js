@@ -5,20 +5,13 @@ import { Home } from "../pages";
 import Login from "../pages/authentication/login";
 import Teacher from "../pages/authentication/teacher";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
-import TeacherDashboard from "../layout/dashboard/Teacher/teacherDashboard";
-import MyClass from "../layout/dashboard/Teacher/class";
-import Results from "../layout/dashboard/Teacher/results";
+import {TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
-import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
-import Create from "../layout/dashboard/Teacher/create";
-// import ProgressPage from "../pages/progressPage";
-import CreateResult from "../layout/dashboard/Teacher/createResult";
-import ResultsPage from "../layout/dashboard/Student/resultsPage";
-import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
-import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
+import { MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
-import TeachersList from "../layout/dashboard/Admin/teachersList";
-import StudentsList from "../layout/dashboard/Admin/studentsList";
+import { StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+
+
 // import RequireAuth from "./requireAuth";
 
 export default function Routes() {
@@ -69,6 +62,9 @@ export default function Routes() {
       children: [
         { path: "/student", element: <StudentDashboard /> },
         { path: "/student/reports", element: <ResultsPage /> },
+        { path: "/student/subjects", element: <Subjects /> },
+        { path: "/student/teachers", element: <MyTeachers /> },
+
         // {path: "/teacher/my-class", element: <MyClass/>},
         // {path: "/teacher/results", element: <Results/>}
       ],

@@ -3,6 +3,12 @@ import React from "react";
 import TeacherSidebar from "./sidebar";
 import styled from "styled-components"
 import TeacherNavbar from "./teacherNavbar";
+export { default as Create} from "./create"
+export { default as CreateResult} from "./createResult"
+export { default as TeacherDashboard} from "./teacherDashboard"
+export { default as Results} from "./results"
+export { default as MyClass} from "./class"
+
 export default function TeacherDashboardLayout(){
     return(
         <Wrapper className="d-flex flex-row">

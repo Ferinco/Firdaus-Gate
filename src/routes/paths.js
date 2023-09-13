@@ -30,6 +30,9 @@ export const PATH_DASHBOARD = {
     mySubjects: JOIN(ROOT_STUDENT, "subjects"),
     myTeachers: JOIN(ROOT_STUDENT, "teachers"),
     results: JOIN(ROOT_STUDENT, "reports"),
+    subjects: JOIN(ROOT_STUDENT, "subjects"),
+    teachers: JOIN(ROOT_STUDENT, "teachers"),
+
   },
   admin: {
     index: ROOT_ADMIN,

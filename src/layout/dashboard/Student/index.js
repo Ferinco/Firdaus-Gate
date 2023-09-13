@@ -2,6 +2,10 @@ import { Outlet } from "react-router-dom";
 import StudentSidebar from "./sidebar";
 import styled from "styled-components";
 import StudentNavbar from "./studentNavbar";
+export { default as Subjects} from "./mySubjects"
+export { default as MyTeachers} from "./myTeachers"
+export { default as StudentDashboard} from "./studentDashboard"
+export { default as ResultsPage} from "./resultsPage"
 export default function StudentDashboardLayout() {
   return (
     <Wrapper className="d-flex flex-row">
