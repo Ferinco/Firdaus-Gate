@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { verify, sign } from "jsonwebtoken";
 import { api } from "../api/axios";
+import toast from "react-hot-toast";
 
 const isValidToken = (token) => {
   if (!token) {
@@ -22,7 +23,7 @@ const handleTokenExpired = (exp) => {
   console.log(timeLeft);
   expiredTimer = window.setTimeout(() => {
     console.log("expired");
-    // You can do what ever you want here, like show a notification
+toast.error("you have been logged out of your account, sign in to gain access to your dashboard.")
   }, timeLeft);
 };
 

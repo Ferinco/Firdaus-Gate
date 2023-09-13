@@ -8,6 +8,7 @@ import { registerAuth } from "../../../services/authService";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Spinner } from "react-bootstrap";
+import { UserService } from "../../../services/userService";
 export default function Create() {
   const [sucess, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -47,7 +48,7 @@ export default function Create() {
   const onSubmit = async (data) => {
     console.log(data);
     setIsLoading(true);
-    await registerAuth(data)
+    await UserService.createUser(data)
       .then((res) => {
         console.log(res);
         setIsLoading(false);

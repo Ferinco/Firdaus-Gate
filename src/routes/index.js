@@ -1,23 +1,16 @@
 import React from "react";
-import { Link, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
 import { Home } from "../pages";
-import Login from "../pages/authentication/login";
-import Teacher from "../pages/authentication/teacher";
-import TeacherDashboardLayout from "../layout/dashboard/Teacher";
-import TeacherDashboard from "../layout/dashboard/Teacher/teacherDashboard";
-import MyClass from "../layout/dashboard/Teacher/class";
-import Results from "../layout/dashboard/Teacher/results";
-import StudentDashboardLayout from "../layout/dashboard/Student";
-import StudentDashboard from "../layout/dashboard/Student/studentDashboard";
-import Create from "../layout/dashboard/Teacher/create";
-import ProgressPage from "../pages/progressPage";
-import CreateResult from "../layout/dashboard/Teacher/createResult";
-import ResultsPage from "../layout/dashboard/Student/resultsPage";
-import AdminDashboard from "../layout/dashboard/Admin/adminDashboard";
-import CreateTeachers from "../layout/dashboard/Admin/createTeachers";
-import AdminDashboardLayout from "../layout/dashboard/Admin";
-import RequireAuth from "./requireAuth";
+// import Login from "../pages/authentication/login";
+// import Teacher from "../pages/authentication/teacher";
+import {StudentLogin, TeacherLogin} from "../pages";
+import {TeacherDashboardLayout, TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
+import {StudentDashboardLayout, MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
+import {AdminDashboardLayout, StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+
+
+// import RequireAuth from "./requireAuth";
 
 export default function Routes() {
   return useRoutes([
@@ -32,8 +25,8 @@ export default function Routes() {
     {
       path: "/auth",
       children: [
-        { path: "student-login", element: <Login /> },
-        { path: "teacher-login", element: <Teacher /> },
+        { path: "student-login", element: <StudentLogin /> },
+        { path: "teacher-login", element: <TeacherLogin /> },
       ],
       // children: [{ path: "/auth", element: <ProgressPage /> }],
     },
@@ -60,13 +53,16 @@ export default function Routes() {
     {
       path: "/student",
       element: (
-        <RequireAuth allowedRoles={["student"]}>
+        // <RequireAuth allowedRoles={["student"]}>
           <StudentDashboardLayout />
-        </RequireAuth>
+        // </RequireAuth>
       ),
       children: [
         { path: "/student", element: <StudentDashboard /> },
         { path: "/student/reports", element: <ResultsPage /> },
+        { path: "/student/subjects", element: <Subjects /> },
+        { path: "/student/teachers", element: <MyTeachers /> },
+
         // {path: "/teacher/my-class", element: <MyClass/>},
         // {path: "/teacher/results", element: <Results/>}
       ],
@@ -84,6 +80,9 @@ export default function Routes() {
       children: [
         { path: "/admin", element: <AdminDashboard /> },
         { path: "/admin/create", element: <CreateTeachers /> },
+        { path: "/admin/teachers-list", element: <TeachersList /> },
+        { path: "/admin/students-list", element: <StudentsList /> },
+
       ],
     },
 

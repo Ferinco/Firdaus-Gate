@@ -23,9 +23,9 @@ const sidebarConfig = [
     title: "Report",
   },
   {
-    icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.teacher.createResult,
-    title: "Create Report",
+    icon: "solar:calendar-bold",
+    link: "",
+    title: "Term calendar",
   },
 ];
 
