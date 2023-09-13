@@ -65,6 +65,7 @@ const ReportSubjectForm = ({
         return "";
     }
   }
+  const positionGrade = getPositionGrade();
   return (
     <Wrapper className="results-field py-4">
       <div className="">
@@ -138,12 +139,24 @@ const ReportSubjectForm = ({
             <small>Position grade</small>
           </label>
 
-          <Input
+          {/* <Input
             placeholder="Position grade"
             value={getPositionGrade()}
             onChange={(e) =>
               setValue(`result.${index}.positionGrade`, e.target.value)
             }
+          /> */}
+
+          <Controller
+            name={`result.${index}.positionGrade`}
+            control={control}
+            defaultValue={positionGrade} // Initial value can be empty or any default value
+            render={({ field }) => (
+              <input
+                {...field}
+                // value={positionGrade} // Set the input value dynamically
+              />
+            )}
           />
         </div>
       </div>
