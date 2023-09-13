@@ -5,9 +5,12 @@ import { Home } from "../pages";
 // import Login from "../pages/authentication/login";
 // import Teacher from "../pages/authentication/teacher";
 import {StudentLogin, TeacherLogin} from "../pages";
-import {TeacherDashboardLayout, TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
-import {StudentDashboardLayout, MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
-import {AdminDashboardLayout, StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+import AdminDashboardLayout from "../layout/dashboard/Admin";
+import TeacherDashboardLayout from "../layout/dashboard/Teacher";
+import StudentDashboardLayout from "../layout/dashboard/Student";
+import {TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
+import { MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
+import { StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
 
 
 // import RequireAuth from "./requireAuth";
