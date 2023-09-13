@@ -2,14 +2,12 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
 import { Home } from "../pages";
-import Login from "../pages/authentication/login";
-import Teacher from "../pages/authentication/teacher";
-import TeacherDashboardLayout from "../layout/dashboard/Teacher";
-import {TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
-import StudentDashboardLayout from "../layout/dashboard/Student";
-import { MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
-import AdminDashboardLayout from "../layout/dashboard/Admin";
-import { StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+// import Login from "../pages/authentication/login";
+// import Teacher from "../pages/authentication/teacher";
+import {StudentLogin, TeacherLogin} from "../pages";
+import {TeacherDashboardLayout, TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
+import {StudentDashboardLayout, MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
+import {AdminDashboardLayout, StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
 
 
 // import RequireAuth from "./requireAuth";
@@ -27,8 +25,8 @@ export default function Routes() {
     {
       path: "/auth",
       children: [
-        { path: "student-login", element: <Login /> },
-        { path: "teacher-login", element: <Teacher /> },
+        { path: "student-login", element: <StudentLogin /> },
+        { path: "teacher-login", element: <TeacherLogin /> },
       ],
       // children: [{ path: "/auth", element: <ProgressPage /> }],
     },
