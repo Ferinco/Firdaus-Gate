@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../../components/custom/Button";
 import { styled } from "styled-components";
+import { UserService } from "../../../services/userService";
+import toast from "react-hot-toast";
 export default function CreateTeachers() {
   //  yup resolvers
 
@@ -23,6 +25,7 @@ export default function CreateTeachers() {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -37,6 +40,21 @@ export default function CreateTeachers() {
       role: "teacher",
     },
   });
+  const onsubmit = async(data)=>{
+await UserService.createUser(data)
+.then((res)=>{
+  console.log(res);
+  setIsLoading(false);
+  setSuccess(true);
+  toast.success("Account Successfully created!");
+  reset();
+})
+.catch((error) => {
+  console.log(error);
+  setIsLoading(false);
+  toast.error(`${error.response?.data.message}`);
+});
+  }
   const [sucess, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   return (
@@ -48,7 +66,7 @@ export default function CreateTeachers() {
           <p>enter teacher's details to create his/her profile</p>
         </div>
         <div className="form-wrapper d-flex justify-content-center flex-column align-center">
-          <form>
+          <form onsubmit={handleSubmit(onsubmit)}>
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
                 <label htmlFor="firstName" className="label">

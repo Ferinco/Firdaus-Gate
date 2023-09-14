@@ -9,22 +9,25 @@ import { useEffect } from "react";
 import { Header } from "../../../components/custom/Header";
 import { Button } from "../../../components/custom/Button";
 import { useAppContext } from "../../../contexts/Context";
+import { UserService } from "../../../services/userService";
 export default function MyClass() {
-  const { register, handleSubmit } = useForm();
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   const [StudentData, setStudentData] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://64e27cacab003735881908fa.mockapi.io/students/studentsData")
-      .then((response) => {
-        setStudentData(response.data);
-        console.log(response.data);
-        console.log(response.data.firstname);
-      });
+    const FetchStudents = async (data) => {
+      await UserService.getUsers("/users?role=student")
+      .then((res) => {
+        console.log(res);
+        setStudentData(res.data);
+      })
+      .catch((error)=>{
+        console.log(error)
+
+      })
+    };
+    FetchStudents();
   }, []);
-  const setData = (data) => {
-    console.log(data);
-  };
+
   return (
     <Students>
       <div className="container-fluid d-flex flex-column p-5">
@@ -34,79 +37,82 @@ export default function MyClass() {
         </div>
       </div>
       <div className="container middle-div px-5 d-flex flex-row">
-<div className="wrapper d-flex flex-column p-3">
-<div className="d-flex flex-row justify-content-between actions-div">
-<div className="form-wrapper mt-5">
-          <form className="d-flex flex-row form">
-            <div>
-              <input
-                placeholder="search for student"
-                name="searched"
-                {...register("searched", { required: true })}
-              />
+        <div className="wrapper d-flex flex-column p-3">
+          <div className="d-flex flex-row justify-content-between actions-div">
+            <div className="form-wrapper mt-5">
+              <form className="d-flex flex-row form">
+                <div>
+                  <input
+                    placeholder="search for student"
+                    name="searched"
+                    {...register("searched", { required: true })}
+                  />
+                </div>
+                <div>
+                  <button type="submit">
+                    <Icon className="icon" icon="ion:search" color="grey" />
+                  </button>
+                </div>
+              </form>
             </div>
             <div>
-              <button type="submit">
-                <Icon className="icon" icon="ion:search" color="grey" />
-              </button>
+              <Icon icon="system-uicons:filter" color="grey" className="icon" />
             </div>
-          </form>
-        </div>
-        <div>
-        <Icon icon="system-uicons:filter" color="grey" className="icon" />
-        </div>
-</div>
-        <Table className="table table-bordered ">
-          <thead className="">
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Admission Number</th>
-              <th>email</th>
-              <th>gender</th>
-              <th colSpan="3">Operations</th>
-
-            
-            </tr>
-          </thead>
-          <tbody>
-            {StudentData.map((data) => (
-              <tr key={data.id}>
-                <td>{data.id}</td>
-                <td>{data.firstname}</td>
-                <td>{data.lastname}</td>
-                <td>{data.admissionNumber}</td>
-                <td>{data.email}</td>
-                <td>{data.gender}</td>
-
-                <td>
-                  <Link to="" onClick={() => setData(data)}>
-                    <button>update</button>
-                  </Link>
-                </td>
-                <td>
-                  <Link to="">
-                    <button>transfer</button>
-                  </Link>
-                </td>
-                <td>
-                  <Link to="">
-                    <button>delete</button>
-                  </Link>
-                </td>
+          </div>
+          <Table className="table table-bordered ">
+            <thead className="">
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admission Number</th>
+                <th>email</th>
+                <th>gender</th>
+                <th colSpan="3">Operations</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-</div>
-<div
+            </thead>
+            <tbody>
+         {StudentData? 
+             ( StudentData.map((data) => (
+                <tr key={data.id}>
+                  <td>{data.id}</td>
+                  <td>{data.firstname}</td>
+                  <td>{data.lastname}</td>
+                  <td>{data.admissionNumber}</td>
+                  <td>{data.email}</td>
+                  <td>{data.gender}</td>
+
+                  <td>
+                    <Link to="">
+                      <button>update</button>
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to="">
+                      <button>transfer</button>
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to="">
+                      <button>delete</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))) : (
+                <div>
+                  <h2>No Students....</h2>
+                </div>
+              )}
+            </tbody>
+          </Table>
+        </div>
+        <div
           className={`profile flex-column align-center py-5 px-3 justify-content-between ${
             isProfileOpen ? "open" : "close"
           }`}
         >
           <div className="image">
-          <Icon icon="icon-park-solid:necktie" className="icon" />
+            <Icon icon="icon-park-solid:necktie" className="icon" />
           </div>
           <div className="name d-flex flex-column">
             <h5>Mr Rasaq Akanni</h5>
@@ -120,7 +126,6 @@ export default function MyClass() {
             <h5>JSS2</h5>
           </div>
         </div>
-
       </div>
     </Students>
   );
@@ -132,8 +137,8 @@ const Students = styled.div`
   .container-fluid {
     gap: 30px;
   }
-.middle-div{
-  .profile {
+  .middle-div {
+    .profile {
       height: 400px;
       width: 270px;
       display: none;
@@ -144,24 +149,24 @@ const Students = styled.div`
         height: 90px;
         width: 90px;
         border-radius: 50%;
-        display:flex;
+        display: flex;
         background-color: #f5f5f5;
         justify-content: center;
-        align-items:center;
-        .icon{
+        align-items: center;
+        .icon {
           font-size: 50px;
-          color:black;
+          color: black;
         }
       }
       .name {
         align-items: center;
         justify-content: center;
         text-align: center;
-        p{
+        p {
           font-size: 17px !important;
         }
-        h6{
-          color:grey;
+        h6 {
+          color: grey;
         }
       }
     }
@@ -176,33 +181,33 @@ const Students = styled.div`
     .close {
       margin-right: -1000px !important;
     }
-  .wrapper{
-  gap:40px;
-  background-color: white;
-  border-radius: 30px;
- 
-  .actions-div{
-    align-items: center;
-    .icon{
-      font-size: 30px;
+    .wrapper {
+      gap: 40px;
+      background-color: white;
+      border-radius: 30px;
+
+      .actions-div {
+        align-items: center;
+        .icon {
+          font-size: 30px;
+        }
+      }
+      .table {
+        button {
+          color: black;
+          border: 1px solid black;
+
+          padding: 5px;
+          border-radius: 10px;
+          background: transparent;
+          &:hover {
+            border: 1px solid grey;
+            color: grey;
+          }
+        }
+      }
     }
-  }
-  .table{
-   button{
-    color: black;
-      border:1px solid black;
-    
-    padding: 5px;
-    border-radius: 10px;
-    background: transparent;
-    &:hover{
-      border:1px solid grey;
-    color: grey;
-    }
-   }
-  }
-}
-  .form-wrapper {
+    .form-wrapper {
       width: 300px;
       background-color: transparent;
       border-radius: 20px;
@@ -228,6 +233,5 @@ const Students = styled.div`
         }
       }
     }
-  
-}
+  }
 `;

@@ -10,7 +10,8 @@ import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import {TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
 import { MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
-import { StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+import { StudentsList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
+import TeachersList from "../layout/dashboard/Admin/teachersList";
 
 
 // import RequireAuth from "./requireAuth";
@@ -56,9 +57,9 @@ export default function Routes() {
     {
       path: "/student",
       element: (
-        // <RequireAuth allowedRoles={["student"]}>
+        // <RcequireAuth allowedRoles={["student"]}>
           <StudentDashboardLayout />
-        // </RequireAuth>
+        // </RcequireAuth>
       ),
       children: [
         { path: "/student", element: <StudentDashboard /> },

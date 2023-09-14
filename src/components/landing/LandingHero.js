@@ -9,12 +9,12 @@ export default function LandingHero() {
         <div className="col-md-8 mx-auto">
           <div className="text-center my-5">
             <h1 className="display-3 fw-bolder">
-              Firdaus Gate Group of Schools
+              Firdaus-Gate Group of Schools
             </h1>
             <div className="mx-5 m-4">
               <p className="text-muted mx-md-5">
-                Lorem ipsum et dolor sit a met, loading for transactions dolor
-                sit a met is wokring on the background dam killer baby
+Stiil in progress we will update the about and the school's info later...
+oh, dem killa baby frfr!
               </p>
             </div>
             <div className="button-group d-flex flex-row">
