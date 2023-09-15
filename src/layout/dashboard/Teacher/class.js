@@ -9,23 +9,12 @@ import { useEffect } from "react";
 import { Header } from "../../../components/custom/Header";
 import { Button } from "../../../components/custom/Button";
 import { useAppContext } from "../../../contexts/Context";
-import { UserService } from "../../../services/userService";
+import {FetchStudents} from "../../../services/userService"
 export default function MyClass() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   const [StudentData, setStudentData] = useState([]);
   useEffect(() => {
-    const FetchStudents = async (data) => {
-      await UserService.getUsers("/users?role=student")
-      .then((res) => {
-        console.log(res);
-        setStudentData(res.data);
-      })
-      .catch((error)=>{
-        console.log(error)
-
-      })
-    };
-    FetchStudents();
+  FetchStudents()
   }, []);
 const { register,
   handleSubmit,

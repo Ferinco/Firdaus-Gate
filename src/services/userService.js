@@ -31,3 +31,25 @@ export const UserService = {
     return data;
   },
 };
+ export const FetchStudents = async (data) => {
+  await UserService.getStudents
+  .then((res) => {
+    console.log(res);
+    setStudentData(res.data);
+  })
+  .catch((error)=>{
+    console.log(error)
+
+  })
+};
+const FetchTeachers = async (data) => {
+  await UserService.getTeachers
+  .then((res) => {
+    console.log(res);
+    setStudentData(res.data);
+  })
+  .catch((error)=>{
+    console.log(error)
+
+  })
+};
