@@ -11,6 +11,7 @@ const ReportSubjectForm = ({
   control,
   watchResult,
   setValue,
+  field,
 }) => {
   const getWA =
     Number(watchResult[index].continuousAssessmentScore) +
@@ -68,8 +69,8 @@ const ReportSubjectForm = ({
   const positionGrade = getPositionGrade();
   return (
     <Wrapper className=" py-4">
- <div className=" fields">
- <div className="field d-flex flex-column">
+      <div className=" fields">
+        <div className="field d-flex flex-column">
           <label>
             <small>Subject</small>
           </label>
@@ -87,8 +88,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.subject`}
             control={control}
           />
-      </div>
-      <div className="field">
+        </div>
+        <div className="field">
           <label>
             <small>C.A score</small>
           </label>
@@ -97,8 +98,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.continuousAssessmentScore`}
             control={control}
           />
-      </div>
-      <div className="field">
+        </div>
+        <div className="field">
           <label>
             <small>Exam score</small>
           </label>
@@ -110,8 +111,8 @@ const ReportSubjectForm = ({
             name={`result.${index}.examScore`}
             control={control}
           />
-      </div>
-      <div className="field">
+        </div>
+        <div className="field">
           <label>
             <small>Total Weighted Ave. </small>
           </label>
@@ -121,11 +122,10 @@ const ReportSubjectForm = ({
             onChange={(e) => {
               setValue(`result.${index}.totalWeightedAverage`, e.target.value);
               console.log(e.target.value);
-              
             }}
           />
-      </div>
-      <div className="field">
+        </div>
+        <div className="field">
           <label>
             <small>Position grade</small>
           </label>
@@ -139,18 +139,18 @@ const ReportSubjectForm = ({
           /> */}
 
           <Controller
-            name={`result.${index}.positionGrade`}
+            name={`result[${index}].positionGrade`}
             control={control}
-            defaultValue={positionGrade} // Initial value can be empty or any default value
+            defaultValue={field.value} // Initial value can be empty or any default value
             render={({ field }) => (
               <input
                 {...field}
-                // value={positionGrade} // Set the input value dynamically
+                value={positionGrade} // Set the input value dynamically
               />
             )}
           />
-      </div>
-      <div className="field">
+        </div>
+        <div className="field">
           <label>
             <small>Comment</small>
           </label>
@@ -162,10 +162,12 @@ const ReportSubjectForm = ({
               setValue(`result.${index}.comment`, e.target.value)
             }
           />
+        </div>
       </div>
- </div>
       <div>
-        <button className="remove-btn" onClick={() => remove(index)}>X</button>
+        <button className="remove-btn" onClick={() => remove(index)}>
+          X
+        </button>
       </div>
     </Wrapper>
   );
@@ -175,19 +177,18 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 
-.fields{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-}
+  .fields {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   /* grid-template-columns: repeat(6, 1fr); */
 
   gap: 10px;
-  .remove-btn{
-   width: 20px;
-   height: 20px;
+  .remove-btn {
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: red;
     font-size: 12px;

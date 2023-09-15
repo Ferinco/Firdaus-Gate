@@ -86,6 +86,7 @@ export default function CreateResult() {
                   watchResult={watchResult}
                   remove={remove}
                   setValue={setValue}
+                  field={item}
                 />
               </div>
             );

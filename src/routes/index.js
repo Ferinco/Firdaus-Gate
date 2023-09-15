@@ -1,14 +1,34 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
-import { Home } from "../pages";
+import { AdminLogin, Home } from "../pages";
 // import Login from "../pages/authentication/login";
 // import Teacher from "../pages/authentication/teacher";
-import {StudentLogin, TeacherLogin} from "../pages";
-import {TeacherDashboardLayout, TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
-import {StudentDashboardLayout, MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
-import {AdminDashboardLayout, StudentsList, TeachersList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
-
+import { StudentLogin, TeacherLogin } from "../pages";
+import AdminDashboardLayout from "../layout/dashboard/Admin";
+import TeacherDashboardLayout from "../layout/dashboard/Teacher";
+import StudentDashboardLayout from "../layout/dashboard/Student";
+import {
+  TeacherDashboard,
+  CreateResult,
+  Create,
+  Results,
+  MyClass,
+} from "../layout/dashboard/Teacher";
+import {
+  MyTeachers,
+  Subjects,
+  StudentDashboard,
+  ResultsPage,
+} from "../layout/dashboard/Student";
+import {
+  StudentsList,
+  CreateTeachers,
+  AdminDashboard,
+} from "../layout/dashboard/Admin";
+import TeachersList from "../layout/dashboard/Admin/teachersList";
+import RoleBasedGuard from "../guards/RoleBasedGuard";
+import AuthGuard from "../guards/AuthGuard";
 
 // import RequireAuth from "./requireAuth";
 
@@ -26,6 +46,7 @@ export default function Routes() {
       path: "/auth",
       children: [
         { path: "student-login", element: <StudentLogin /> },
+        { path: "admin/login", element: <AdminLogin /> },
         { path: "teacher-login", element: <TeacherLogin /> },
       ],
       // children: [{ path: "/auth", element: <ProgressPage /> }],
@@ -36,7 +57,9 @@ export default function Routes() {
       path: "/teacher",
       element: (
         // <RequireAuth allowedRoles={["teacher"]}>
-          <TeacherDashboardLayout/>
+        <RoleBasedGuard accessibleRoles={["teacher"]}>
+          <TeacherDashboardLayout />
+        </RoleBasedGuard>
         // </RequireAuth>
       ),
       children: [
@@ -54,7 +77,11 @@ export default function Routes() {
       path: "/student",
       element: (
         // <RequireAuth allowedRoles={["student"]}>
-          <StudentDashboardLayout />
+        <AuthGuard loginRoute="/auth/student-login">
+          <RoleBasedGuard accessibleRoles={["student"]}>
+            <StudentDashboardLayout />
+          </RoleBasedGuard>
+        </AuthGuard>
         // </RequireAuth>
       ),
       children: [
@@ -74,7 +101,9 @@ export default function Routes() {
       path: "/admin",
       element: (
         // <RequireAuth allowedRoles={["admin"]}>
-          <AdminDashboardLayout  />
+        <RoleBasedGuard accessibleRoles={["admin"]}>
+          <AdminDashboardLayout />
+        </RoleBasedGuard>
         // </RequireAuth>
       ),
       children: [
@@ -82,7 +111,6 @@ export default function Routes() {
         { path: "/admin/create", element: <CreateTeachers /> },
         { path: "/admin/teachers-list", element: <TeachersList /> },
         { path: "/admin/students-list", element: <StudentsList /> },
-
       ],
     },
 

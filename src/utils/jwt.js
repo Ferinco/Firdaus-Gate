@@ -1,5 +1,4 @@
 import jwtDecode from "jwt-decode";
-import { verify, sign } from "jsonwebtoken";
 import { api } from "../api/axios";
 import toast from "react-hot-toast";
 
@@ -23,7 +22,9 @@ const handleTokenExpired = (exp) => {
   console.log(timeLeft);
   expiredTimer = window.setTimeout(() => {
     console.log("expired");
-toast.error("you have been logged out of your account, sign in to gain access to your dashboard.")
+    toast.error(
+      "you have been logged out of your account, sign in to gain access to your dashboard."
+    );
   }, timeLeft);
 };
 
@@ -42,4 +43,4 @@ const setSession = (token) => {
   }
 };
 
-export { isValidToken, setSession, verify, sign, handleTokenExpired };
+export { isValidToken, setSession, handleTokenExpired };

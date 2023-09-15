@@ -1,15 +1,5 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useReducer,
-} from "react";
-import {
-
-  loginAuth,
-  registerAuth,
-} from "../services/authService";
+import React, { createContext, useEffect, useReducer } from "react";
+import { loginAuth, registerAuth } from "../services/authService";
 import { isValidToken, setSession } from "../utils/jwt";
 import { api } from "../api/axios";
 
@@ -55,8 +45,8 @@ const reducer = (state, action) => {
 
 export const AuthContext = createContext({
   ...initialState,
-  login: () => Promise.resolve(),
-  register: () => Promise.resolve(),
+  login: (value) => Promise.resolve(),
+  register: (value) => Promise.resolve(),
   logout: () => Promise.resolve(),
 });
 
@@ -102,44 +92,33 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (payload) => {
-    await loginAuth(payload)
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: "LOGIN",
-          payload: {
-            ...initialState,
-            user: response,
-            isAuthenticated: true,
-            role: response.role,
-          },
-        });
-        return response
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const { data } = await loginAuth(payload);
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        ...initialState,
+        user: data.data,
+        isAuthenticated: true,
+        role: data.data.role,
+      },
+    });
+    return data;
   };
 
   // This registeration handler is for the ADMIN role only.
   const register = async (payload) => {
-    await registerAuth(payload)
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: "REGISTER",
-          payload: {
-            ...initialState,
-            user: response,
-            isAuthenticated: true,
-            role: response.role,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        throw new Error("Failed to register");
-      });
+    const { data } = await registerAuth(payload);
+
+    dispatch({
+      type: "REGISTER",
+      payload: {
+        ...initialState,
+        user: data.data,
+        isAuthenticated: true,
+        role: data.data.role,
+      },
+    });
+    return data;
   };
   const logout = async () => {
     dispatch({
@@ -159,4 +138,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
