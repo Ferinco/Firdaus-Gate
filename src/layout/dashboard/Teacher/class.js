@@ -27,7 +27,10 @@ export default function MyClass() {
     };
     FetchStudents();
   }, []);
-
+const { register,
+  handleSubmit,
+  reset,
+  formState:{errors} } = useForm()
   return (
     <Students>
       <div className="container-fluid d-flex flex-column p-5">
