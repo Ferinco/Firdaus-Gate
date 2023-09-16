@@ -20,11 +20,11 @@ export default function AuthGuard({ children }) {
     if (pathname.includes("admin")) {
       return <AdminLogin />;
     }
-    if (pathname.includes("student")) {
-      return <StudentLogin />;
-    }
     if (pathname.includes("teacher")) {
       return <TeacherLogin />;
+    }
+    if (pathname.includes("student")) {
+      return <StudentLogin />;
     }
   }
 

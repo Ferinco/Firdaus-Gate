@@ -11,13 +11,16 @@ export default function StudentsList() {
       await UserService.getStudents()
         .then((res) => {
           console.log(res);
+          console.log("hey there");
+
           setStudentData([res.data]);
         })
         .catch((error) => {
           console.log(error);
         });
     };
-  });
+    FetchStudents()
+  }, []);
 
   return (
     <Wrapper className="d-flex flex-column p-5">

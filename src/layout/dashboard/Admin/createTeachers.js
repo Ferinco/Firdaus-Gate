@@ -52,6 +52,7 @@ export default function CreateTeachers() {
         ...values,
         tel: values.mobileNumber,
       });
+      reset()
       console.log(response);
       toast.success(
         `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`

@@ -12,7 +12,6 @@ import { useAppContext } from "../../contexts/Context";
 import {useAuth} from "../../hooks/useAuth";
 
 export default function StudentLogin() {
-  const { currentUser, setCurrentUser } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();

@@ -14,7 +14,7 @@ export default function AdminLogin() {
       email: "",
       password: "",
       role: "admin",
-    },
+      admissionNumber: null   },
   });
 
   const onSubmit = async (values) => {
