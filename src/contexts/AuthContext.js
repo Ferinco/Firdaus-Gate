@@ -104,9 +104,9 @@ export const AuthProvider = ({ children }) => {
       type: "LOGIN",
       payload: {
         ...initialState,
-        user: data,
+        user: data.data,
         isAuthenticated: true,
-        role: data.role,
+        role: data.data.role,
       },
     });
     setSession(data.token);
