@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../../components/custom/Button";
 import { styled } from "styled-components";
 import { UserService } from "../../../services/userService";
-import { findLastKey } from "lodash";
 import toast from "react-hot-toast";
 
 export default function CreateTeachers() {
@@ -27,6 +26,7 @@ export default function CreateTeachers() {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),

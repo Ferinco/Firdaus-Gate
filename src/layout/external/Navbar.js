@@ -136,10 +136,10 @@ export default function Navbar() {
 
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <Link className="dropdown-item" to={PATH_AUTH.login}>
-                  Student Login
+                  Student Portal
                 </Link>
                 <Link className="dropdown-item" to={PATH_AUTH.teacher}>
-                  Teacher Login
+                  Teacher Portal
                 </Link>
                 <Link
                   className="dropdown-item"
@@ -151,7 +151,7 @@ export default function Navbar() {
                   className="dropdown-item"
                   to={PATH_DASHBOARD.admin.index}
                 >
-                  admin
+                 Admin Portal
                 </Link>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function Navbar() {
                 aria-expanded="false"
                 aria-controls="multiCollapseExample1"
               >
-                About Us
+                ABOUT
               </a>
               <div
                 class="collapse multi-collapse mobile-links"
@@ -191,6 +191,9 @@ export default function Navbar() {
                 </a>
                 <a className="dropdown-item mobile-link" href="#">
                   Our vision
+                </a>
+                <a className="dropdown-item mobile-link" href="#">
+                  Our founder
                 </a>
               </div>
             </div>
