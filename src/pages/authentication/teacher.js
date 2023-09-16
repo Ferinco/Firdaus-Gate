@@ -14,9 +14,9 @@ import { useAuth } from "../../hooks/useAuth";
 import { PATH_PAGE } from "../../routes/paths";
 export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
-const [isLoading, setIsLoading] = useState(false)
-const {login}  = useAuth()
-const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const schema = yup.object({
     teacherId: yup.number().required("enter your ID"),
     password: yup.string().required("enter your password"),
@@ -27,22 +27,22 @@ const navigate = useNavigate()
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues :{
+    defaultValues: {
       role: "teacher",
-      password: ""
-    }
+      password: "",
+    },
   });
-  const onSubmit = async(data)=> {
-setIsLoading(true)
-await login(data)
-.then((res)=>{
-  navigate(PATH_DASHBOARD.teacher.index)
-  toast.success("teacher login successful")
-})
-.catch((error)=>{
-  toast.error(`${error.response?.data.message}`)
-})
-  }
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    await login(data)
+      .then((res) => {
+        navigate(PATH_DASHBOARD.teacher.index);
+        toast.success("teacher login successful");
+      })
+      .catch((error) => {
+        toast.error(`${error.response?.data.message}`);
+      });
+  };
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -68,7 +68,7 @@ await login(data)
                     name="teacherId"
                     type="number"
                     // register={{ ...register("teacherId") }}
-                  { ...register("teacherId") }
+                    {...register("teacherId")}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
@@ -78,7 +78,7 @@ await login(data)
                       placeholder="Password"
                       name="password"
                       type={passwordVisibility ? "password" : "text"}
-                      { ...register("password") }
+                      {...register("password")}
                     />
                     {/* <i
                       onClick={() => {
