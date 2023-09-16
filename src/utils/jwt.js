@@ -22,7 +22,9 @@ const handleTokenExpired = (exp) => {
   console.log(timeLeft);
   expiredTimer = window.setTimeout(() => {
     console.log("expired");
-toast.error("you have been logged out of your account, in to gain access to your dashboard.")
+    toast.error(
+      "you have been logged out of your account, log in to gain access to your dashboard."
+    );
   }, timeLeft);
 };
 

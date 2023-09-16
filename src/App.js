@@ -3,39 +3,42 @@ import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./contexts/Context";
 import toast, { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./contexts/AuthContext";
+import { OverlayLoading } from "./components/OverlayLoading";
+import { useAuth } from "./hooks/useAuth";
+
 function App() {
+  const { isInitialized } = useAuth();
+
   return (
     <AppProvider>
-      <AuthProvider>
-        <div className="App">
-          <BrowserRouter>
-            <Routes />
-            <Toaster
-              position="top-right"
-              reverseOrder={false}
-              toastOptions={{
-                // Define default options
-                className: "",
-                duration: 5000,
-                style: {
-                  background: "#fff",
-                  color: "#000",
-                },
+      <div className="App">
+        <BrowserRouter>
+          {isInitialized ? <Routes /> : <OverlayLoading />}
 
-                // Default options for specific types
-                success: {
-                  duration: 5000,
-                  theme: {
-                    primary: "blue",
-                    secondary: "black",
-                  },
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              // Define default options
+              className: "",
+              duration: 5000,
+              style: {
+                background: "#fff",
+                color: "#000",
+              },
+
+              // Default options for specific types
+              success: {
+                duration: 5000,
+                theme: {
+                  primary: "blue",
+                  secondary: "black",
                 },
-              }}
-            />
-          </BrowserRouter>
-        </div>
-      </AuthProvider>
+              },
+            }}
+          />
+        </BrowserRouter>
+      </div>
     </AppProvider>
   );
 }
