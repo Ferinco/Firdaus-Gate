@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Input from "../../components/custom/Input";
 import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../routes/paths";
-import { PATH_PAGE } from "../../routes/paths";
-import toast, { Toaster } from "react-hot-toast";
-import { useAppContext } from "../../contexts/Context";
-// import axios from "../../api/axios";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useAppContext } from "../../contexts/Context";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../../hooks/useAuth";
+import { PATH_PAGE } from "../../routes/paths";
 export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
-  // const [success, setSuccess] = useState(false);
-  // const [errorMsg, setErrorMsg] = useState("");
+const [isLoading, setIsLoading] = useState(false)
+const {login}  = useAuth()
+const navigate = useNavigate()
   const schema = yup.object({
     teacherId: yup.number().required("enter your ID"),
     password: yup.string().required("enter your password"),
@@ -27,11 +27,21 @@ export default function TeacherLogin() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues :{
+      role: "teacher",
+      password: ""
+    }
   });
-  function onSubmit(data) {
-    // const {teacherId, password} = data;
-    console.log(data);
-    console.log(errors);
+  const onSubmit = async(data)=> {
+setIsLoading(true)
+await login(data)
+.then((res)=>{
+  navigate(PATH_DASHBOARD.teacher.index)
+  toast.success("teacher login successful")
+})
+.catch((error)=>{
+  toast.error(`${error.response?.data.message}`)
+})
   }
   return (
     <Wrapper>
@@ -58,7 +68,7 @@ export default function TeacherLogin() {
                     name="teacherId"
                     type="number"
                     // register={{ ...register("teacherId") }}
-                    register={{ ...register("teacherId") }}
+                  { ...register("teacherId") }
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
@@ -68,7 +78,7 @@ export default function TeacherLogin() {
                       placeholder="Password"
                       name="password"
                       type={passwordVisibility ? "password" : "text"}
-                      register={{ ...register("password") }}
+                      { ...register("password") }
                     />
                     {/* <i
                       onClick={() => {

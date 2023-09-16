@@ -8,7 +8,6 @@ import { StudentLogin, TeacherLogin } from "../pages";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
-<<<<<<< HEAD
 import {
   TeacherDashboard,
   CreateResult,
@@ -31,13 +30,7 @@ import TeachersList from "../layout/dashboard/Admin/teachersList";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
-=======
-import {TeacherDashboard, CreateResult, Create, Results, MyClass} from "../layout/dashboard/Teacher";
-import { MyTeachers, Subjects, StudentDashboard, ResultsPage} from "../layout/dashboard/Student";
-import { StudentsList, CreateTeachers, AdminDashboard} from "../layout/dashboard/Admin";
-import TeachersList from "../layout/dashboard/Admin/teachersList";
 
->>>>>>> 9862376cadeb40131e03f67e079b6f58ff6c8010
 
 // import RequireAuth from "./requireAuth";
 
@@ -68,9 +61,9 @@ export default function Routes() {
       element: (
         // <RequireAuth allowedRoles={["teacher"]}>
         <AuthGuard>
-          {/* <RoleBasedGuard accessibleRoles={["teacher"]}> */}
+          <RoleBasedGuard accessibleRoles={["teacher"]}>
           <TeacherDashboardLayout />
-          {/* </RoleBasedGuard> */}
+          </RoleBasedGuard>
         </AuthGuard>
         // </RequireAuth>
       ),
@@ -88,19 +81,13 @@ export default function Routes() {
     {
       path: "/student",
       element: (
-<<<<<<< HEAD
         // <RequireAuth allowedRoles={["student"]}>
         <AuthGuard>
-          {/* <RoleBasedGuard accessibleRoles={["student"]}> */}
+          <RoleBasedGuard accessibleRoles={["student"]}>
           <StudentDashboardLayout />
-          {/* </RoleBasedGuard> */}
+          </RoleBasedGuard>
         </AuthGuard>
-        // </RequireAuth>
-=======
-        // <RcequireAuth allowedRoles={["student"]}>
-          <StudentDashboardLayout />
-        // </RcequireAuth>
->>>>>>> 9862376cadeb40131e03f67e079b6f58ff6c8010
+       
       ),
       children: [
         { path: "/student", element: <StudentDashboard /> },
@@ -120,9 +107,9 @@ export default function Routes() {
       element: (
         // <RequireAuth allowedRoles={["admin"]}>
         <AuthGuard>
-          {/* <RoleBasedGuard accessibleRoles={["admin"]}> */}
+          <RoleBasedGuard accessibleRoles={["admin"]}>
           <AdminDashboardLayout />
-          {/* </RoleBasedGuard> */}
+          </RoleBasedGuard>
         </AuthGuard>
         // </RequireAuth>
       ),

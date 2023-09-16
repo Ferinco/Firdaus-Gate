@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 // hooks
 import { useAuth } from "../hooks/useAuth";
-import { StudentLogin } from "../pages";
+import { AdminLogin, StudentLogin, TeacherLogin } from "../pages";
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +17,15 @@ export default function AuthGuard({ children }) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    return <StudentLogin />;
+    if (pathname.includes("admin")) {
+      return <AdminLogin />;
+    }
+    if (pathname.includes("teacher")) {
+      return <TeacherLogin />;
+    }
+    if (pathname.includes("student")) {
+      return <StudentLogin />;
+    }
   }
 
   if (requestedLocation && pathname !== requestedLocation) {
