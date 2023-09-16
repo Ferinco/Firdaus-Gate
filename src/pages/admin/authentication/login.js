@@ -13,14 +13,14 @@ export default function AdminLogin() {
     defaultValues: {
       email: "",
       password: "",
+      role: "admin",
     },
   });
 
   const onSubmit = async (values) => {
     try {
       setIsLoading(true);
-      const response = await login(values);
-      console.log(response);
+      await login(values);
       setIsLoading(false);
       toast.success("Admin login successful");
       navigate(PATH_DASHBOARD.admin.index);

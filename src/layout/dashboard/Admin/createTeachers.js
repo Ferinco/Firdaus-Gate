@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../../components/custom/Button";
 import { styled } from "styled-components";
+import { UserService } from "../../../services/userService";
+
 export default function CreateTeachers() {
   //  yup resolvers
 
@@ -11,9 +13,9 @@ export default function CreateTeachers() {
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
     middleName: yup.string().optional(),
-    teacherId: yup.number().required("enter admission number"),
+    teacherId: yup.string().required("Enter teacher ID"),
     email: yup.string().email().required("email is required"),
-    mobileNumber: yup.number().max(11).required("email is required"),
+    mobileNumber: yup.number().required("email is required"),
     password: yup.string().min(5).max(12).required("set a passowrd"),
     confirmPassword: yup
       .string()
@@ -23,7 +25,7 @@ export default function CreateTeachers() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -39,16 +41,26 @@ export default function CreateTeachers() {
   });
   const [sucess, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
+
+  const onSubmit = async (values) => {
+    console.log(values);
+    try {
+      const response = await UserService.createUser(values);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
-      {" "}
       <Wrapper className="p-5">
         <div className="head d-flex flex-column py-3">
           <h4>Create Teacher Profile</h4>
           <p>enter teacher's details to create his/her profile</p>
         </div>
         <div className="form-wrapper d-flex justify-content-center flex-column align-center">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
                 <label htmlFor="firstName" className="label">
@@ -126,7 +138,9 @@ export default function CreateTeachers() {
                 {...register("mobileNumber")}
               />
               <p className="error-message">
-                {errors.mobileNumber?.message ? `*${errors.mobileNumber?.message}` : ""}
+                {errors.mobileNumber?.message
+                  ? `*${errors.mobileNumber?.message}`
+                  : ""}
               </p>
             </div>
             <div className="my-2 d-flex flex-column">
@@ -189,7 +203,7 @@ export default function CreateTeachers() {
                 className="button"
                 disabled={loading === true}
               >
-                {loading ? (
+                {isLoading ? (
                   <div class="d-flex justify-content-center">
                     <div class="spinner-border" role="status">
                       <span class="visually-hidden">Loading...</span>

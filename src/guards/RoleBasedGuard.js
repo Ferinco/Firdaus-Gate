@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { PATH_DASHBOARD } from "../routes/paths";
@@ -11,38 +11,35 @@ RoleBasedGuard.propTypes = {
   children: PropTypes.node,
 };
 
-const useCurrentRole = () => {
-  const { role } = useAuth();
-
-  return role;
-};
-
 export default function RoleBasedGuard({ children, accessibleRoles }) {
-  const currentRole = useCurrentRole();
+  const { role: currentRole } = useAuth();
+
   const { pathname } = useLocation();
+
   const navigate = useNavigate();
   useEffect(() => {
-    if (!pathname.includes("student")) {
-      if (currentRole === "student") {
-        return navigate(PATH_DASHBOARD.student.index, { replace: true });
+    function initialize() {
+      if (!pathname.includes("student")) {
+        if (currentRole === "student") {
+          return navigate(PATH_DASHBOARD.student.index, { replace: true });
+        }
       }
-    }
-    if (!pathname.includes("teacher")) {
-      if (currentRole === "teacher") {
-        return navigate(PATH_DASHBOARD.teacher.index, { replace: true });
+      if (!pathname.includes("teacher")) {
+        if (currentRole === "teacher") {
+          return navigate(PATH_DASHBOARD.teacher.index, { replace: true });
+        }
       }
-    }
-    if (!pathname.includes("admin")) {
-      if (currentRole === "admin") {
-        return navigate(PATH_DASHBOARD.admin.index, { replace: true });
+      if (!pathname.includes("admin")) {
+        if (currentRole === "admin") {
+          return navigate(PATH_DASHBOARD.admin.index, { replace: true });
+        }
       }
+      return null;
     }
-    return null;
+    initialize();
   }, [pathname, currentRole, navigate]);
 
   if (!accessibleRoles.includes(currentRole)) {
-    console.log(currentRole, accessibleRoles);
-
     return (
       <div className="container">
         <div className="alert">

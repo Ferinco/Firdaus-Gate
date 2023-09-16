@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import PropTypes from "prop-types";
+// hooks
+import { useAuth } from "../hooks/useAuth";
+import { StudentLogin } from "../pages";
 
-export default function AuthGuard({ children, loginRoute }) {
+// ----------------------------------------------------------------------
+
+export default function AuthGuard({ children }) {
   const { isAuthenticated } = useAuth();
 
   const { pathname } = useLocation();
@@ -13,16 +17,17 @@ export default function AuthGuard({ children, loginRoute }) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    <Navigate to={loginRoute} />;
+    return <StudentLogin />;
   }
+
   if (requestedLocation && pathname !== requestedLocation) {
     setRequestedLocation(null);
     return <Navigate to={requestedLocation} />;
   }
+
   return <>{children}</>;
 }
 
-AuthGuard.prototype = {
+AuthGuard.propTypes = {
   children: PropTypes.node,
-  loginRoute: PropTypes.string,
 };

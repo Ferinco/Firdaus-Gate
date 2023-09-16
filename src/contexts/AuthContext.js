@@ -5,6 +5,7 @@ import { api } from "../api/axios";
 
 const initialState = {
   isAuthenticated: false,
+  isInitialized: false,
   user: null,
   role: null,
 };
@@ -12,9 +13,11 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "INITIALIZE":
+      console.log(action);
       return {
         ...state,
-        isAuthenticated: true,
+        isAuthenticated: action.payload.isAuthenticated,
+        isInitialized: true,
         role: action.payload.role,
         user: action.payload,
       };
@@ -56,8 +59,10 @@ export const AuthProvider = ({ children }) => {
     const initialize = async () => {
       try {
         const token = localStorage.getItem("token");
+
         if (token && isValidToken(token)) {
           const { data } = await api.get("/auth/account");
+
           dispatch({
             type: "INITIALIZE",
             payload: {
@@ -93,22 +98,25 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (payload) => {
     const { data } = await loginAuth(payload);
+    console.log(data.token);
+
     dispatch({
       type: "LOGIN",
       payload: {
         ...initialState,
-        user: data.data,
+        user: data,
         isAuthenticated: true,
-        role: data.data.role,
+        role: data.role,
       },
     });
+    setSession(data.token);
     return data;
   };
 
   // This registeration handler is for the ADMIN role only.
   const register = async (payload) => {
     const { data } = await registerAuth(payload);
-
+    console.log(data.token);
     dispatch({
       type: "REGISTER",
       payload: {
@@ -118,6 +126,7 @@ export const AuthProvider = ({ children }) => {
         role: data.data.role,
       },
     });
+    setSession(data.token);
     return data;
   };
   const logout = async () => {

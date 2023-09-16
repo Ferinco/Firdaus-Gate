@@ -29,6 +29,7 @@ import {
 import TeachersList from "../layout/dashboard/Admin/teachersList";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
+import GuestGuard from "../guards/GuestGuard";
 
 // import RequireAuth from "./requireAuth";
 
@@ -44,6 +45,7 @@ export default function Routes() {
 
     {
       path: "/auth",
+      element: <GuestGuard />,
       children: [
         { path: "student-login", element: <StudentLogin /> },
         { path: "admin/login", element: <AdminLogin /> },
@@ -57,9 +59,11 @@ export default function Routes() {
       path: "/teacher",
       element: (
         // <RequireAuth allowedRoles={["teacher"]}>
-        <RoleBasedGuard accessibleRoles={["teacher"]}>
+        <AuthGuard>
+          {/* <RoleBasedGuard accessibleRoles={["teacher"]}> */}
           <TeacherDashboardLayout />
-        </RoleBasedGuard>
+          {/* </RoleBasedGuard> */}
+        </AuthGuard>
         // </RequireAuth>
       ),
       children: [
@@ -77,10 +81,10 @@ export default function Routes() {
       path: "/student",
       element: (
         // <RequireAuth allowedRoles={["student"]}>
-        <AuthGuard loginRoute="/auth/student-login">
-          <RoleBasedGuard accessibleRoles={["student"]}>
-            <StudentDashboardLayout />
-          </RoleBasedGuard>
+        <AuthGuard>
+          {/* <RoleBasedGuard accessibleRoles={["student"]}> */}
+          <StudentDashboardLayout />
+          {/* </RoleBasedGuard> */}
         </AuthGuard>
         // </RequireAuth>
       ),
@@ -101,9 +105,11 @@ export default function Routes() {
       path: "/admin",
       element: (
         // <RequireAuth allowedRoles={["admin"]}>
-        <RoleBasedGuard accessibleRoles={["admin"]}>
+        <AuthGuard>
+          {/* <RoleBasedGuard accessibleRoles={["admin"]}> */}
           <AdminDashboardLayout />
-        </RoleBasedGuard>
+          {/* </RoleBasedGuard> */}
+        </AuthGuard>
         // </RequireAuth>
       ),
       children: [

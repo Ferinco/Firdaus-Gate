@@ -3,8 +3,9 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
-import {useAppContext} from "../../../contexts/Context"
+import { useAppContext } from "../../../contexts/Context";
 import { PATH_PAGE } from "../../../routes/paths";
+import { useAuth } from "../../../hooks/useAuth";
 
 const sidebarConfig = [
   {
@@ -31,6 +32,7 @@ const sidebarConfig = [
 
 export default function AdminSidebar() {
   const { isSidebarOpen } = useAppContext();
+  const { logout } = useAuth();
   return (
     <SIDEBAR>
       <div
@@ -58,13 +60,13 @@ export default function AdminSidebar() {
           </div>
         </div>
         <div className="log-out">
-          <Link to="" className="react-router-link nav-link">
+          <button onClick={logout} className="react-router-link nav-link">
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}
             />
             Log out
-          </Link>
+          </button>
         </div>
       </div>
     </SIDEBAR>
