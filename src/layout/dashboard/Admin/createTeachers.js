@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../../components/custom/Button";
 import { styled } from "styled-components";
 import { UserService } from "../../../services/userService";
+import { findLastKey } from "lodash";
+import toast from "react-hot-toast";
 
 export default function CreateTeachers() {
   //  yup resolvers
@@ -25,7 +27,7 @@ export default function CreateTeachers() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -37,18 +39,28 @@ export default function CreateTeachers() {
       middleName: "",
       password: "",
       role: "teacher",
+      mobileNumber: "",
     },
   });
-  const [sucess, setSuccess] = useState(false);
-  const [loading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
     console.log(values);
     try {
-      const response = await UserService.createUser(values);
+      setIsSubmitting(true);
+      const response = await UserService.createUser({
+        ...values,
+        tel: values.mobileNumber,
+      });
       console.log(response);
+      toast.success(
+        `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
+      );
+      setIsSubmitting(false);
     } catch (error) {
       console.log(error);
+      setIsSubmitting(false);
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -201,12 +213,12 @@ export default function CreateTeachers() {
                 blue
                 type="submit"
                 className="button"
-                disabled={loading === true}
+                disabled={isSubmitting === true}
               >
-                {isLoading ? (
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
+                {isSubmitting ? (
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
                 ) : (
