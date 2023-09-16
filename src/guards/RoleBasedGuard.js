@@ -12,31 +12,30 @@ RoleBasedGuard.propTypes = {
 };
 
 export default function RoleBasedGuard({ children, accessibleRoles }) {
-  const { role: currentRole } = useAuth();
-
+  const { role } = useAuth();
+  console.log(role);
+  const currentRole = role;
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
+
   useEffect(() => {
-    function initialize() {
-      if (!pathname.includes("student")) {
-        if (currentRole === "student") {
-          return navigate(PATH_DASHBOARD.student.index, { replace: true });
-        }
+    if (!pathname.includes("student")) {
+      if (currentRole === "student") {
+        return navigate(PATH_DASHBOARD.student.index, { replace: true });
       }
-      if (!pathname.includes("teacher")) {
-        if (currentRole === "teacher") {
-          return navigate(PATH_DASHBOARD.teacher.index, { replace: true });
-        }
-      }
-      if (!pathname.includes("admin")) {
-        if (currentRole === "admin") {
-          return navigate(PATH_DASHBOARD.admin.index, { replace: true });
-        }
-      }
-      return null;
     }
-    initialize();
+    if (!pathname.includes("teacher")) {
+      if (currentRole === "teacher") {
+        return navigate(PATH_DASHBOARD.teacher.index, { replace: true });
+      }
+    }
+    if (!pathname.includes("admin")) {
+      if (currentRole === "admin") {
+        return navigate(PATH_DASHBOARD.admin.index, { replace: true });
+      }
+    }
+    return;
   }, [pathname, currentRole, navigate]);
 
   if (!accessibleRoles.includes(currentRole)) {

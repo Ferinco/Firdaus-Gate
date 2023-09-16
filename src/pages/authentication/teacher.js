@@ -28,7 +28,7 @@ export default function TeacherLogin() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  function onSubmit(data) {
+  async function onSubmit(data) {
     // const {teacherId, password} = data;
     console.log(data);
     console.log(errors);
@@ -57,8 +57,7 @@ export default function TeacherLogin() {
                     placeholder="Teacher ID"
                     name="teacherId"
                     type="number"
-                    // register={{ ...register("teacherId") }}
-                    register={{ ...register("teacherId") }}
+                    {...register("teacherId")}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
@@ -68,7 +67,7 @@ export default function TeacherLogin() {
                       placeholder="Password"
                       name="password"
                       type={passwordVisibility ? "password" : "text"}
-                      register={{ ...register("password") }}
+                      {...register("password")}
                     />
                     {/* <i
                       onClick={() => {
