@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../contexts/Context";
-
+import { UserService } from "../../../services/userService";
+const {user} = UserService.getUser()
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.teacher.create,
