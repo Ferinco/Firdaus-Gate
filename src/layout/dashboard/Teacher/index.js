@@ -10,7 +10,6 @@ export { default as Results} from "./results"
 export { default as MyClass} from "./class"
 
 export default function TeacherDashboardLayout(){
-    
     return(
         <Wrapper className="d-flex flex-row">
         <TeacherSidebar />

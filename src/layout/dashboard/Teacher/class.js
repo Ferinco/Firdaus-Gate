@@ -10,12 +10,13 @@ import { Header } from "../../../components/custom/Header";
 import { Button } from "../../../components/custom/Button";
 import { useAppContext } from "../../../contexts/Context";
 import { UserService } from "../../../services/userService";
+import { PATH_DASHBOARD } from "../../../routes/paths";
 export default function MyClass() {
-  const [StudentData, setStudentData] = useState();
+  const [StudentData, setStudentData] = useState([]);
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   useEffect(() => {
     const FetchStudents = async (data) => {
-      await UserService.getStudents
+      await UserService.getStudents()
       .then((res) => {
         console.log(res);
         setStudentData(res.data);
@@ -62,6 +63,8 @@ const { register,
               <Icon icon="system-uicons:filter" color="grey" className="icon" />
             </div>
           </div>
+          {StudentData.length > 0  ?  
+             ( StudentData.map((data) => (
           <Table className="table table-bordered ">
             <thead className="">
               <tr>
@@ -75,8 +78,7 @@ const { register,
               </tr>
             </thead>
             <tbody>
-         {StudentData? 
-             ( StudentData.map((data) => (
+        
                 <tr key={data.id}>
                   <td>{data.id}</td>
                   <td>{data.firstname}</td>
@@ -101,34 +103,15 @@ const { register,
                     </Link>
                   </td>
                 </tr>
-              ))) : (
-                <div>
-                  <h2>No Students....</h2>
-                </div>
-              )}
             </tbody>
           </Table>
+              ))) : (
+                <div className="d-flex justify-content-center center align-center">
+                  <h4>No list to display... navigate to the <Link to={PATH_DASHBOARD.teacher.create}>register student(s) to create a student's profile</Link></h4>  
+                </div>
+              )}
         </div>
-        <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
-            isProfileOpen ? "open" : "close"
-          }`}
-        >
-          <div className="image">
-            <Icon icon="icon-park-solid:necktie" className="icon" />
-          </div>
-          <div className="name d-flex flex-column">
-            <h5>Mr Rasaq Akanni</h5>
-            <p>Rasaq500@gmail.com</p>
-            <p>Male</p>
-            <p>class teacher</p>
-            <h6>1908112</h6>
-          </div>
-          <div className="info d-flex flex-row"></div>
-          <div className="number d-flex flex-row">
-            <h5>JSS2</h5>
-          </div>
-        </div>
+      
       </div>
     </Students>
   );
@@ -141,49 +124,6 @@ const Students = styled.div`
     gap: 30px;
   }
   .middle-div {
-    .profile {
-      height: 400px;
-      width: 270px;
-      display: none;
-      align-items: center;
-      border-radius: 30px;
-      background-color: white;
-      .image {
-        height: 90px;
-        width: 90px;
-        border-radius: 50%;
-        display: flex;
-        background-color: #f5f5f5;
-        justify-content: center;
-        align-items: center;
-        .icon {
-          font-size: 50px;
-          color: black;
-        }
-      }
-      .name {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        p {
-          font-size: 17px !important;
-        }
-        h6 {
-          color: grey;
-        }
-      }
-    }
-    .open {
-      display: flex !important;
-      z-index: 999;
-      transition: 0.3s;
-      position: absolute;
-      right: 20px !important;
-      top: 100px !important;
-    }
-    .close {
-      margin-right: -1000px !important;
-    }
     .wrapper {
       gap: 40px;
       background-color: white;

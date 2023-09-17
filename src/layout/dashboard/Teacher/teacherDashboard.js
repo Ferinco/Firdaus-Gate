@@ -6,7 +6,8 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../contexts/Context";
 import { UserService } from "../../../services/userService";
-const {user} = UserService.getUser()
+import { useAuth } from "../../../hooks/useAuth";
+import { useUserContext } from "../../../contexts/UserContext";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.teacher.create,
@@ -39,6 +40,8 @@ const TabsConfig = [
 ];
 export default function TeacherDashboard() {
   //get current time
+  const { user } = useAuth();
+  console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
   //greeting teacher with regards to current time
@@ -57,9 +60,9 @@ export default function TeacherDashboard() {
     <Dashboard className="p-5">
       <div className="head d-flex flex-column left container m-0">
         <h4>
-          <span>{greeting}</span> <span>Mr Rasaq</span>
+          <span>{greeting}</span> {user.firstName} <span></span>
         </h4>
-        <p>Welcome to your dashboard.</p>
+        <p>Welcome to your dashboard.</p>r
       </div>
       <div className="middle-div container d-flex py-5">
         <div className="tabs  d-flex flex-column ">
@@ -96,7 +99,7 @@ export default function TeacherDashboard() {
             <div className="div d-flex flex-column"></div>
           </div>
         </div>
-        <div
+        {/* <div
           className={`profile flex-column align-center py-5 px-3 justify-content-between ${
             isProfileOpen ? "open" : "close"
           }`}
@@ -115,7 +118,7 @@ export default function TeacherDashboard() {
           <div className="number d-flex flex-row">
             <h5>JSS2</h5>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="end-div  d-flex flex-row p-5 justify-content-between"></div>
     </Dashboard>
@@ -191,49 +194,49 @@ const Dashboard = styled.div`
         }
       }
     }
-    .profile {
-      height: 400px;
-      width: 270px;
-      display: none;
-      align-items: center;
-      border-radius: 30px;
-      background-color: white;
-      .image {
-        height: 90px;
-        width: 90px;
-        border-radius: 50%;
-        display: flex;
-        background-color: #f5f5f5;
-        justify-content: center;
-        align-items: center;
-        .icon {
-          font-size: 50px;
-          color: black;
-        }
-      }
-      .name {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        p {
-          font-size: 17px !important;
-        }
-        h6 {
-          color: grey;
-        }
-      }
-    }
-    .open {
-      display: flex !important;
-      z-index: 999;
-      transition: 0.3s;
-      position: absolute;
-      right: 20px !important;
-      top: 100px !important;
-    }
-    .close {
-      margin-right: -1000px !important;
-    }
+    // .profile {
+    //   height: 400px;
+    //   width: 270px;
+    //   display: none;
+    //   align-items: center;
+    //   border-radius: 30px;
+    //   background-color: white;
+    //   .image {
+    //     height: 90px;
+    //     width: 90px;
+    //     border-radius: 50%;
+    //     display: flex;
+    //     background-color: #f5f5f5;
+    //     justify-content: center;
+    //     align-items: center;
+    //     .icon {
+    //       font-size: 50px;
+    //       color: black;
+    //     }
+    //   }
+    //   .name {
+    //     align-items: center;
+    //     justify-content: center;
+    //     text-align: center;
+    //     p {
+    //       font-size: 17px !important;
+    //     }
+    //     h6 {
+    //       color: grey;
+    //     }
+    //   }
+    // }
+    // .open {
+    //   display: flex !important;
+    //   z-index: 999;
+    //   transition: 0.3s;
+    //   position: absolute;
+    //   right: 20px !important;
+    //   top: 100px !important;
+    // }
+    // .close {
+    //   margin-right: -1000px !important;
+    // }
     .info-wrapper {
       height: 350px;
       background-color: black;
