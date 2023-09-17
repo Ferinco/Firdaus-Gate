@@ -32,6 +32,8 @@ export default function StudentsList() {
         view and edit student(S) details here...
         </p>
       </div>
+      {StudentData ? (
+            StudentData.map((data) => (
       <Table className="table table-bordered">
         <thead className="">
           <tr>
@@ -45,8 +47,6 @@ export default function StudentsList() {
           </tr>
         </thead>
         <tbody>
-          {StudentData ? (
-            StudentData.map((data) => (
               <tr key={data.id}>
                 <td>{data.id}</td>
                 <td>{data.firstname}</td>
@@ -71,14 +71,15 @@ export default function StudentsList() {
                   </Link>
                 </td>
               </tr>
-            ))
-          ) : (
-            <div>
-              <h2>No Students....</h2>
-            </div>
-          )}
+       
         </tbody>
       </Table>
+           ))
+           ) : (
+             <div>
+               <h2>No Students....</h2>
+             </div>
+           )}
     </Wrapper>
   );
 }

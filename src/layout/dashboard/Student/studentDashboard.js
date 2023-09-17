@@ -7,16 +7,9 @@ import report from "../../../report-sheet.pdf";
 import { isAuthenticated } from "../../../services/authService";
 import { useAuth } from "../../../hooks/useAuth";
 export default function StudentDashboard() {
-  const {
-    setIsSidebarOpen,
-    setIsProfileOpen,
-    isProfileOpen,
-    currentUser,
-    setCurrentUser,
-  } = useAppContext();
+  const { user } = useAuth();
+  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
 
-const {user}= useAuth()
-console.log(user)
   return (
     <Dashboard>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
@@ -89,32 +82,6 @@ console.log(user)
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
-            isProfileOpen ? "open" : "close"
-          }`}
-        >
-          <div className="image">
-            <Icon icon="fa-solid:graduation-cap" className="icon" />
-          </div>
-{
-  currentUser? (
-<div>
-<div className="name d-flex flex-column">
-    <h5>{currentUser?.firstName}{" "}{currentUser?.lastName}</h5>
-    <p>{currentUser?.email}</p>
-    <p>Male</p>
-   <h6>{currentUser?.admissionNumber}</h6>
- </div>
- <div className="info d-flex flex-row"></div>
-</div>
-  ):(
-   <div>
-
-   </div> 
-  )
-}
         </div>
       </div>
     </Dashboard>
@@ -222,39 +189,6 @@ const Dashboard = styled.div`
         }
       }
     }
-
-    .profile {
-      height: 400px;
-      width: 270px;
-      display: flex;
-      align-items: center;
-      border-radius: 30px;
-      background-color: white;
-      .image {
-        height: 90px;
-        width: 90px;
-        border-radius: 50%;
-        display: flex;
-        background-color: #f5f5f5;
-        justify-content: center;
-        align-items: center;
-        .icon {
-          font-size: 50px;
-          color: black;
-        }
-      }
-      .name {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        p {
-          font-size: 17px !important;
-        }
-        h6 {
-          color: grey;
-        }
-      }
-    }
   }
 
   @media screen and (max-width: 1100px) {
@@ -277,20 +211,6 @@ const Dashboard = styled.div`
       .big-tab {
         z-index: 0;
       }
-    }
-    .profile {
-      display: none !important;
-    }
-    .open {
-      display: flex !important;
-      z-index: 999;
-      transition: 0.3s;
-      position: absolute;
-      right: 20px !important;
-      top: 100px !important;
-    }
-    .close {
-      margin-right: -1000px !important;
     }
   }
   @media screen and (max-width: 767px) {
