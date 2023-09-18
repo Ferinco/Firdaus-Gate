@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../../../components/custom/Input";
-import { InputSelect } from "../../../components/custom";
-import { seniorSchoolSubjects } from "../../../constants/subjects";
+import { InputSelect, Input } from "../../components/custom";
+import { seniorSchoolSubjects } from "../../constants/subjects";
 import { Controller } from "react-hook-form";
 
 const ReportSubjectForm = ({
@@ -66,7 +65,16 @@ const ReportSubjectForm = ({
         return "";
     }
   }
-  const positionGrade = getPositionGrade();
+
+  React.useEffect(() => {
+    setValue(`result.${index}.positionGrade`, getPositionGrade());
+    setValue(`result.${index}.comment`, getComment());
+    setValue(`result.${index}.totalWeightedAverage`, getWA);
+  }, [
+    watchResult[index].continuousAssessmentScore,
+    watchResult[index].examScore,
+  ]);
+
   return (
     <Wrapper className=" py-4">
       <div className=" fields">
@@ -117,38 +125,25 @@ const ReportSubjectForm = ({
             <small>Total Weighted Ave. </small>
           </label>
 
-          <Input
-            placeholder="Total Weighted Average"
-            onChange={(e) => {
-              setValue(`result.${index}.totalWeightedAverage`, e.target.value);
-              console.log(e.target.value);
-            }}
-          />
+          <Input placeholder="Total Weighted Average" value={getWA} />
         </div>
         <div className="field">
           <label>
             <small>Position grade</small>
           </label>
 
-          {/* <Input
-            placeholder="Position grade"
-            value={getPositionGrade()}
-            onChange={(e) =>
-              setValue(`result.${index}.positionGrade`, e.target.value)
-            }
-          /> */}
+          <Input placeholder="Position grade" value={getPositionGrade()} />
 
-          <Controller
+          {/* <Controller
             name={`result[${index}].positionGrade`}
             control={control}
-            defaultValue={field.value} // Initial value can be empty or any default value
             render={({ field }) => (
               <input
                 {...field}
                 value={positionGrade} // Set the input value dynamically
               />
             )}
-          />
+          /> */}
         </div>
         <div className="field">
           <label>

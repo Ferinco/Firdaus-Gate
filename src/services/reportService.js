@@ -2,7 +2,7 @@ import { api } from "../api/axios";
 
 export const ReportService = {
   createReport: async (reportData) => {
-    const { data } = await api.post("/reports", reportData);
+    const { data } = await api.post("/reports/create", reportData);
     return data;
   },
   getReports: async () => {

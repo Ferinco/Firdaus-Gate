@@ -3,10 +3,6 @@ import { Outlet } from "react-router-dom";
 import AdminSidebar from "./sidebar";
 import { styled } from "styled-components";
 import AdminNavbar from "./adminNavbar";
-export { default as AdminDashboard } from "./adminDashboard";
-export { default as CreateTeachers } from "./createTeachers";
-export { default as StudentsList } from "./studentsList";
-export { default as TeacherLists } from "./teachersList";
 
 export default function AdminDashboardLayout() {
   return (

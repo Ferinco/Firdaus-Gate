@@ -36,11 +36,13 @@ export default function TeacherLogin() {
     setIsLoading(true);
     await login(data)
       .then((res) => {
-        navigate(PATH_DASHBOARD.teacher.index);
+        // navigate(PATH_DASHBOARD.teacher.index);
         toast.success("teacher login successful");
+        console.log(res);
       })
       .catch((error) => {
         toast.error(`${error.response?.data.message}`);
+        console.log(error);
       });
   };
   return (

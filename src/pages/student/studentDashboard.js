@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useAppContext } from "../../../contexts/Context";
-import report from "../../../report-sheet.pdf";
-import { isAuthenticated } from "../../../services/authService";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAppContext } from "../../contexts/Context";
+import { useAuth } from "../../hooks/useAuth";
+
 export default function StudentDashboard() {
   const {
     setIsSidebarOpen,
@@ -15,8 +14,8 @@ export default function StudentDashboard() {
     setCurrentUser,
   } = useAppContext();
 
-const {user}= useAuth()
-console.log(user)
+  const { user } = useAuth();
+  console.log(user);
   return (
     <Dashboard>
       <div className="middle-div container d-flex flex-row justify-content-between p-5">
@@ -50,7 +49,7 @@ console.log(user)
             </div>
 
             <a
-              href={report}
+              href={"report"}
               download="Adekoya Ismail"
               className=" tab d-flex flex-row"
             >
@@ -98,23 +97,21 @@ console.log(user)
           <div className="image">
             <Icon icon="fa-solid:graduation-cap" className="icon" />
           </div>
-{
-  currentUser? (
-<div>
-<div className="name d-flex flex-column">
-    <h5>{currentUser?.firstName}{" "}{currentUser?.lastName}</h5>
-    <p>{currentUser?.email}</p>
-    <p>Male</p>
-   <h6>{currentUser?.admissionNumber}</h6>
- </div>
- <div className="info d-flex flex-row"></div>
-</div>
-  ):(
-   <div>
-
-   </div> 
-  )
-}
+          {currentUser ? (
+            <div>
+              <div className="name d-flex flex-column">
+                <h5>
+                  {currentUser?.firstName} {currentUser?.lastName}
+                </h5>
+                <p>{currentUser?.email}</p>
+                <p>Male</p>
+                <h6>{currentUser?.admissionNumber}</h6>
+              </div>
+              <div className="info d-flex flex-row"></div>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </Dashboard>

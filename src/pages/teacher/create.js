@@ -1,16 +1,15 @@
-import { Button } from "../../../components/custom/Button";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import styled from "styled-components";
-import axios from "axios";
-import { registerAuth } from "../../../services/authService";
-import { useState } from "react";
 import { toast } from "react-hot-toast";
+import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
-import { UserService } from "../../../services/userService";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button } from "../../components/custom/Button";
+import { UserService } from "../../services/userService";
+
 export default function Create() {
-  const [sucess, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
   //yup resolvers
@@ -18,9 +17,9 @@ export default function Create() {
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
     middleName: yup.string().optional(),
-    admissionNumber: yup.number().required("enter admission number"),
+    admissionNumber: yup.string().required("enter admission number"),
     email: yup.string().email().required("email is required"),
-    password: yup.string().min(5).max(12).required("set a passowrd"),
+    password: yup.string().min(5).max(12).required("set a password"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -78,7 +77,7 @@ export default function Create() {
                   first name
                 </label>
                 <input
-                  placeholder="Enter Firstname"
+                  placeholder="Enter First name"
                   name="firstName"
                   type="text"
                   {...register("firstName")}
@@ -200,8 +199,12 @@ export default function Create() {
             </select>
         </div> */}
             <div className="mt-4">
-              <Button blue type="submit" className="button"
-              disabled={loading === true}>
+              <Button
+                blue
+                type="submit"
+                className="button"
+                disabled={loading === true}
+              >
                 {loading ? (
                   <div class="d-flex justify-content-center">
                     <div class="spinner-border" role="status">
@@ -254,8 +257,8 @@ const Wrapper = styled.div`
     outline: none;
     width: 100%;
   }
-  .spinner-border{
-    width:25px;
+  .spinner-border {
+    width: 25px;
     height: 25px;
   }
   .error-message {

@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { PATH_DASHBOARD } from "../../../routes/paths";
+import { PATH_DASHBOARD } from "../../routes/paths";
 export default function AdminDashboard() {
   const TabsConfig = [
     {

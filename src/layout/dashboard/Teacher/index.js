@@ -1,35 +1,31 @@
 import { Outlet } from "react-router-dom";
 import React from "react";
 import TeacherSidebar from "./sidebar";
-import styled from "styled-components"
+import styled from "styled-components";
 import TeacherNavbar from "./teacherNavbar";
-export { default as Create} from "./create"
-export { default as CreateResult} from "./createResult"
-export { default as TeacherDashboard} from "./teacherDashboard"
-export { default as Results} from "./results"
-export { default as MyClass} from "./class"
 
-export default function TeacherDashboardLayout(){
-    return(
-        <Wrapper className="d-flex flex-row">
-        <TeacherSidebar />
-        <div style={{backgroundColor: "#f1f1f1", height: "100%"}} className="outlet">
-        <TeacherNavbar/>
+export default function TeacherDashboardLayout() {
+  return (
+    <Wrapper className="d-flex flex-row">
+      <TeacherSidebar />
+      <div
+        style={{ backgroundColor: "#f1f1f1", height: "100%" }}
+        className="outlet"
+      >
+        <TeacherNavbar />
         <Outlet />
       </div>
-
-      
-      </Wrapper>
-    )
+    </Wrapper>
+  );
 }
 const Wrapper = styled.div`
-position:relative;
-.outlet{
-    width:80%;
-}
-@media screen and (max-width: 1100px){
-    .outlet{
-        width:100% !important;
+  position: relative;
+  .outlet {
+    width: 80%;
+  }
+  @media screen and (max-width: 1100px) {
+    .outlet {
+      width: 100% !important;
     }
-}`
-
+  }
+`;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { UserService } from "../../../services/userService";
+import { UserService } from "../../services/userService";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -19,18 +19,14 @@ export default function StudentsList() {
           console.log(error);
         });
     };
-    FetchStudents()
+    FetchStudents();
   }, []);
 
   return (
     <Wrapper className="d-flex flex-column p-5">
       <div className="header pb-3">
-        <h4>
-          List of Students
-        </h4>
-        <p>
-        view and edit student(S) details here...
-        </p>
+        <h4>List of Students</h4>
+        <p>view and edit student(S) details here...</p>
       </div>
       <Table className="table table-bordered">
         <thead className="">
@@ -84,17 +80,18 @@ export default function StudentsList() {
 }
 
 const Wrapper = styled.div`
-      .table {
-        button {
-          color: black;
-          border: 1px solid black;
+  .table {
+    button {
+      color: black;
+      border: 1px solid black;
 
-          padding: 5px;
-          border-radius: 10px;
-          background: transparent;
-          &:hover {
-            border: 1px solid grey;
-            color: grey;
-          }
-        }
-      }`;
+      padding: 5px;
+      border-radius: 10px;
+      background: transparent;
+      &:hover {
+        border: 1px solid grey;
+        color: grey;
+      }
+    }
+  }
+`;

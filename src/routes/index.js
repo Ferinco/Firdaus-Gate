@@ -5,28 +5,36 @@ import { AdminLogin, Home } from "../pages";
 // import Login from "../pages/authentication/login";
 // import Teacher from "../pages/authentication/teacher";
 import { StudentLogin, TeacherLogin } from "../pages";
+// ========================================================
+// Dashboard Layouts
+// ========================================================
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
+
+// ========================================================
+// Dashboard Pages
+// ========================================================
 import {
   TeacherDashboard,
   CreateResult,
   Create,
   Results,
   MyClass,
-} from "../layout/dashboard/Teacher";
+} from "../pages/teacher";
+
 import {
   MyTeachers,
   Subjects,
   StudentDashboard,
   ResultsPage,
-} from "../layout/dashboard/Student";
+} from "../pages/student";
 import {
   StudentsList,
   CreateTeachers,
   AdminDashboard,
-} from "../layout/dashboard/Admin";
-import TeachersList from "../layout/dashboard/Admin/teachersList";
+  TeachersList,
+} from "../pages/admin";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";

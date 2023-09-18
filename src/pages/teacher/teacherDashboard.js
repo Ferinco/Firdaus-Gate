@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Header } from "../../../components/custom/Header";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { PATH_DASHBOARD } from "../../../routes/paths";
-import { useAppContext } from "../../../contexts/Context";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { useAppContext } from "../../contexts/Context";
 
 const TabsConfig = [
   {

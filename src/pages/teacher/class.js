@@ -6,31 +6,32 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Header } from "../../../components/custom/Header";
-import { Button } from "../../../components/custom/Button";
-import { useAppContext } from "../../../contexts/Context";
-import { UserService } from "../../../services/userService";
+import { Button, Header } from "../../components/custom";
+import { useAppContext } from "../../contexts/Context";
+import { UserService } from "../../services/userService";
+
 export default function MyClass() {
   const [StudentData, setStudentData] = useState();
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   useEffect(() => {
     const FetchStudents = async (data) => {
       await UserService.getStudents
-      .then((res) => {
-        console.log(res);
-        setStudentData(res.data);
-      })
-      .catch((error)=>{
-        console.log(error)
-
-      })
+        .then((res) => {
+          console.log(res);
+          setStudentData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
     FetchStudents();
   }, []);
-const { register,
-  handleSubmit,
-  reset,
-  formState:{errors} } = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   return (
     <Students>
       <div className="container-fluid d-flex flex-column p-5">
@@ -75,33 +76,34 @@ const { register,
               </tr>
             </thead>
             <tbody>
-         {StudentData? 
-             ( StudentData.map((data) => (
-                <tr key={data.id}>
-                  <td>{data.id}</td>
-                  <td>{data.firstname}</td>
-                  <td>{data.lastname}</td>
-                  <td>{data.admissionNumber}</td>
-                  <td>{data.email}</td>
-                  <td>{data.gender}</td>
+              {StudentData ? (
+                StudentData.map((data) => (
+                  <tr key={data.id}>
+                    <td>{data.id}</td>
+                    <td>{data.firstname}</td>
+                    <td>{data.lastname}</td>
+                    <td>{data.admissionNumber}</td>
+                    <td>{data.email}</td>
+                    <td>{data.gender}</td>
 
-                  <td>
-                    <Link to="">
-                      <button>update</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="">
-                      <button>transfer</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="">
-                      <button>delete</button>
-                    </Link>
-                  </td>
-                </tr>
-              ))) : (
+                    <td>
+                      <Link to="">
+                        <button>update</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button>transfer</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button>delete</button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <div>
                   <h2>No Students....</h2>
                 </div>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useForm, handleSubmit } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../../components/custom/Button";
+import { Button } from "../../components/custom/Button";
 import { styled } from "styled-components";
-import { UserService } from "../../../services/userService";
+import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 
 export default function CreateTeachers() {
@@ -16,8 +16,8 @@ export default function CreateTeachers() {
     middleName: yup.string().optional(),
     teacherId: yup.string().required("Enter teacher ID"),
     email: yup.string().email().required("email is required"),
-    mobileNumber: yup.number().required("email is required"),
-    password: yup.string().min(5).max(12).required("set a passowrd"),
+    mobileNumber: yup.string().required("mobile number is required"),
+    password: yup.string().min(5).max(12).required("set a password"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -52,7 +52,7 @@ export default function CreateTeachers() {
         ...values,
         tel: values.mobileNumber,
       });
-      reset()
+      reset();
       console.log(response);
       toast.success(
         `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
