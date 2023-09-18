@@ -1,7 +1,9 @@
 import { styled } from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { Icon } from "@iconify/react";
+import { useAuth } from "../../../hooks/useAuth";
 export default function AdminNavbar() {
+  const {user} = useAuth()
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   return (
     <Wrapper className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
