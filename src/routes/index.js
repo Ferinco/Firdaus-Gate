@@ -1,10 +1,9 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
-import { AdminLogin, Home } from "../pages";
+import { Home } from "../pages";
 // import Login from "../pages/authentication/login";
 // import Teacher from "../pages/authentication/teacher";
-import { StudentLogin, TeacherLogin } from "../pages";
 // ========================================================
 // Dashboard Layouts
 // ========================================================
@@ -21,6 +20,7 @@ import {
   Create,
   Results,
   MyClass,
+  TeacherLogin,
 } from "../pages/teacher";
 
 import {
@@ -28,12 +28,14 @@ import {
   Subjects,
   StudentDashboard,
   ResultsPage,
+  StudentLogin,
 } from "../pages/student";
 import {
   StudentsList,
   CreateTeachers,
   AdminDashboard,
   TeachersList,
+  AdminLogin,
 } from "../pages/admin";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";

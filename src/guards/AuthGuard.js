@@ -3,8 +3,9 @@ import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 // hooks
 import { useAuth } from "../hooks/useAuth";
-import { AdminLogin, StudentLogin, TeacherLogin } from "../pages";
-
+import { TeacherLogin } from "../pages/teacher";
+import { AdminLogin } from "../pages/admin/";
+import { StudentLogin } from "../pages/student/";
 // ----------------------------------------------------------------------
 
 export default function AuthGuard({ children }) {

@@ -1,9 +1,11 @@
 import { api } from "../api/axios";
 
-// Everything here requires authentication
+// Everything here requires authorization
 export const UserService = {
-  getStudents: async () => {
-    const { data } = await api.get("/users?role=student");
+  getStudents: async (teacherId) => {
+    const { data } = await api.get(
+      `/users?role=student${teacherId && `&teacherId=${teacherId}`}`
+    );
     return data;
   },
   getTeachers: async () => {

@@ -1,52 +1,47 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../components/custom/Button";
-import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "../../../components/custom/Button";
 import { Link } from "react-router-dom";
-import { PATH_DASHBOARD } from "../../routes/paths";
-import { PATH_PAGE } from "../../routes/paths";
-import { loginAuth } from "../../services/authService";
-import { toast } from "react-hot-toast";
-import { useAppContext } from "../../contexts/Context";
-import {useAuth} from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { useAppContext } from "../../../contexts/Context";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../../../hooks/useAuth";
+import { PATH_PAGE } from "../../../routes/paths";
 
-export default function StudentLogin() {
-  const [success, setSuccess] = useState(false);
-  const [loading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const {login} = useAuth()
-  const from = location.state?.from?.pathname || "/";
+export default function TeacherLogin() {
+  const { setPasswordVisibility, passwordVisibility } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
+  const schema = yup.object({
+    teacherId: yup.number().required("enter your ID"),
+    password: yup.string().required("enter your password"),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
-
-  {
-    /* form submission */
-  }
-  console.log(from)
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      role: "teacher",
+      password: "",
+    },
+  });
   const onSubmit = async (data) => {
     setIsLoading(true);
-    console.log(data);
     await login(data)
       .then((res) => {
+        // navigate(PATH_DASHBOARD.teacher.index);
+        toast.success("teacher login successful");
         console.log(res);
-        setIsLoading(false);
-        navigate(from, { replace: true });
-        setSuccess(true);
-        toast.success("login sucessful!");
       })
       .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
         toast.error(`${error.response?.data.message}`);
+        console.log(error);
       });
-    console.log(errors);
   };
-
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -62,39 +57,41 @@ export default function StudentLogin() {
                 </Link>
               </div>
               <div className="text-center mb-4">
-                <h3 className="fw-bolder">Hello Student!</h3>
-                <p>Sign in to your dashbard.</p>
+                <h3 className="fw-bolder">Welcome back!</h3>
+                <p>You are a world class teacher.</p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
                   <input
-                    placeholder="Admission number"
-                    name="admissionNumber"
-                    type="text"
-                    {...register("admissionNumber")}
+                    placeholder="Teacher ID"
+                    name="teacherId"
+                    type="number"
+                    {...register("teacherId")}
                   />
+                  <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
                 <div className="my-3">
                   <div className="my-3">
                     <input
                       placeholder="Password"
                       name="password"
-                      type="passowrd"
+                      type={passwordVisibility ? "password" : "text"}
                       {...register("password")}
                     />
+                    {/* <i
+                      onClick={() => {
+                        setPasswordVisibility(!passwordVisibility);
+                      }}
+                      className="eye-icon"
+                    >
+                      <Icon icon="ph:eye-light" />
+                    </i> */}
+                    <p className="error-message">{errors.password?.message}</p>
                   </div>
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
-                    {loading ? (
-                      <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-                    ) : (
-                      "Sign in"
-                    )}
+                    Sign in
                   </Button>
                 </div>
               </form>
@@ -112,6 +109,13 @@ const Wrapper = styled.div`
   .row {
     height: 95% !important;
     align-items: center;
+    .password-field {
+      align-items: center;
+      .eye-icon {
+        margin-left: -25px;
+        font-size: 15px;
+      }
+    }
   }
   .container-fluid,
   .left {
@@ -155,10 +159,6 @@ const Wrapper = styled.div`
           object-fit: cover;
           overflow: hidden;
         }
-        .spinner-border {
-          width: 25px;
-          height: 25px;
-        }
       }
       input {
         border-radius: 10px;
@@ -168,9 +168,11 @@ const Wrapper = styled.div`
         outline: none;
         width: 100%;
       }
-      .errorMsg {
-        font-size: 15px;
+      .error-message {
+        color: orangered;
         padding-left: 7px;
+        font-size: 14px;
+        font-weight: 500;
       }
       width: 400px;
     }

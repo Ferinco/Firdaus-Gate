@@ -11,6 +11,8 @@ import { UserService } from "../../services/userService";
 export default function Create() {
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
+  const phoneRegEx =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   //yup resolvers
   const schema = yup.object({
@@ -20,6 +22,12 @@ export default function Create() {
     admissionNumber: yup.string().required("enter admission number"),
     email: yup.string().email().required("email is required"),
     password: yup.string().min(5).max(12).required("set a password"),
+    parentPhone: yup
+      .string()
+      .matches(phoneRegEx, "Phone number is invalid")
+      .required("Phone number is required")
+      .min(10, "Phone number is invalid")
+      .max(11, "Phone number is invalid"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -41,6 +49,7 @@ export default function Create() {
       middleName: "",
       password: "",
       role: "student",
+      parentPhone: "",
     },
   });
   //submission of the form
@@ -135,6 +144,23 @@ export default function Create() {
                     : ""}
                 </p>
               </div>
+            </div>
+            <div className="my-2 d-flex flex-column">
+              <label htmlFor="email" className="label">
+                Parent phone number
+              </label>
+
+              <input
+                placeholder="Parent phone"
+                name="parentPhone"
+                type="tel"
+                {...register("parentPhone")}
+              />
+              <p className="error-message">
+                {errors.parentPhone?.message
+                  ? `*${errors.parentPhone?.message}`
+                  : ""}
+              </p>
             </div>
             <div className="my-2 d-flex flex-column">
               <label htmlFor="email" className="label">

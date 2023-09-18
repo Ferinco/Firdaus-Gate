@@ -28,9 +28,9 @@ export default function CreateResult() {
       defaultValues: {
         result: [defaultSubjectValues],
         attendance: {
-          timesSchoolOpened: "",
-          timePresent: "",
-          timeAbsent: "",
+          timesSchoolOpened: 0,
+          timePresent: 0,
+          timeAbsent: 0,
         },
         personalTrait: {
           punctuality: "",
@@ -63,10 +63,12 @@ export default function CreateResult() {
       .then((response) => {
         console.log(response);
         setLoading(false);
+        toast.success("Report card has been created successfully");
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
+        toast.error("Error creating student report, try again later");
       });
   };
 
@@ -142,7 +144,10 @@ export default function CreateResult() {
                   />
                 </div>
                 <div>
-                  <Input placeholder="Time Absent" />
+                  <Input
+                    placeholder="Time Absent"
+                    {...register("attendance.timeAbsent")}
+                  />
                 </div>
               </div>
             </div>
@@ -164,6 +169,17 @@ export default function CreateResult() {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* CLASS TEACHER COMMENT */}
+            <div className="my-3">
+              <p className="lead">Class teacher comment</p>
+              <div className="card">
+                <textarea
+                  {...register("classTeacherComment")}
+                  placeholder="Class teacher comment"
+                />
               </div>
             </div>
             <div className="d-flex gap-3">

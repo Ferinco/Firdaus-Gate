@@ -1,50 +1,57 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../components/custom/Button";
-import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { PATH_DASHBOARD } from "../../routes/paths";
-import toast from "react-hot-toast";
+import { Button } from "../../../components/custom/Button";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { useAppContext } from "../../contexts/Context";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useAuth } from "../../hooks/useAuth";
-import { PATH_PAGE } from "../../routes/paths";
-export default function TeacherLogin() {
-  const { setPasswordVisibility, passwordVisibility } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../../routes/paths";
+import { PATH_PAGE } from "../../../routes/paths";
+import { loginAuth } from "../../../services/authService";
+import { toast } from "react-hot-toast";
+import { useAppContext } from "../../../contexts/Context";
+import { useAuth } from "../../../hooks/useAuth";
+
+export default function StudentLogin() {
+  const [success, setSuccess] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const schema = yup.object({
-    teacherId: yup.number().required("enter your ID"),
-    password: yup.string().required("enter your password"),
-  });
+  const location = useLocation();
+  const { login } = useAuth();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
     defaultValues: {
-      role: "teacher",
+      admissionNumber: "",
       password: "",
+      role: "student",
     },
   });
+
+  {
+    /* form submission */
+  }
+  console.log(from);
   const onSubmit = async (data) => {
     setIsLoading(true);
+    console.log(data);
     await login(data)
       .then((res) => {
-        // navigate(PATH_DASHBOARD.teacher.index);
-        toast.success("teacher login successful");
         console.log(res);
+        setIsLoading(false);
+        navigate(from, { replace: true });
+        setSuccess(true);
+        toast.success("Logged in successfully");
       })
       .catch((error) => {
-        toast.error(`${error.response?.data.message}`);
+        setIsLoading(false);
         console.log(error);
+        toast.error(`${error.response?.data.message}`);
       });
   };
+
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -60,42 +67,39 @@ export default function TeacherLogin() {
                 </Link>
               </div>
               <div className="text-center mb-4">
-                <h3 className="fw-bolder">Welcome back!</h3>
-                <p>You are a world class teacher.</p>
+                <h3 className="fw-bolder">Hello Student!</h3>
+                <p>Sign in to your dashboard.</p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
                   <input
-                    placeholder="Teacher ID"
-                    name="teacherId"
-                    type="number"
-                    // register={{ ...register("teacherId") }}
-                    {...register("teacherId")}
+                    placeholder="Admission number"
+                    name="admissionNumber"
+                    type="text"
+                    {...register("admissionNumber")}
                   />
-                  <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
                 <div className="my-3">
                   <div className="my-3">
                     <input
                       placeholder="Password"
                       name="password"
-                      type={passwordVisibility ? "password" : "text"}
+                      type="passowrd"
                       {...register("password")}
                     />
-                    {/* <i
-                      onClick={() => {
-                        setPasswordVisibility(!passwordVisibility);
-                      }}
-                      className="eye-icon"
-                    >
-                      <Icon icon="ph:eye-light" />
-                    </i> */}
-                    <p className="error-message">{errors.password?.message}</p>
                   </div>
                 </div>
                 <div className="mt-4">
                   <Button blue type="submit">
-                    Sign in
+                    {loading ? (
+                      <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Sign in"
+                    )}
                   </Button>
                 </div>
               </form>
@@ -113,13 +117,6 @@ const Wrapper = styled.div`
   .row {
     height: 95% !important;
     align-items: center;
-    .password-field {
-      align-items: center;
-      .eye-icon {
-        margin-left: -25px;
-        font-size: 15px;
-      }
-    }
   }
   .container-fluid,
   .left {
@@ -163,6 +160,10 @@ const Wrapper = styled.div`
           object-fit: cover;
           overflow: hidden;
         }
+        .spinner-border {
+          width: 25px;
+          height: 25px;
+        }
       }
       input {
         border-radius: 10px;
@@ -172,11 +173,9 @@ const Wrapper = styled.div`
         outline: none;
         width: 100%;
       }
-      .error-message {
-        color: orangered;
+      .errorMsg {
+        font-size: 15px;
         padding-left: 7px;
-        font-size: 14px;
-        font-weight: 500;
       }
       width: 400px;
     }
