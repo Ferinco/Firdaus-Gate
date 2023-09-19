@@ -107,4 +107,13 @@ const Wrapper = styled.div`
     outline: none;
     width: 100%;
   }
+  .logo-img{
+    width:70px;
+    height:70px;
+    img{
+      height: 100%;
+      width: 100%;
+      display: block;
+    }
+  }
 `;

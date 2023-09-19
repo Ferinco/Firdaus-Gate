@@ -6,6 +6,7 @@ import { UserService } from "../../../services/userService";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
+  const [teacherDetails, setTeacherDetails] = useState([])
   useEffect(() => {
     const FetchTeachers = async (data) => {
       await UserService.getTeachers()
@@ -20,6 +21,22 @@ export default function TeachersList() {
           console.log(error);
         });
     };
+    const DeleteTeachers = async (data) => {
+      await UserService.deleteUser()
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    }
+    const EditTeachers = async()=>{
+      await UserService.updateUser()
+      .then((res)=>{
+        console.log(res)
+        setTeacherDetails(res.data)
+      })
+    }
     FetchTeachers()
   }, []);
   return (
@@ -51,7 +68,9 @@ export default function TeachersList() {
               <td>{teacher.email}</td>
               <td>{teacher.tel}</td>
 
-              <td></td>
+              <td> <button>Edit</button> </td>
+              <td> <button>Delete</button> </td>
+
             </tr>
 
             ))}
