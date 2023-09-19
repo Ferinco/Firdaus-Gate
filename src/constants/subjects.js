@@ -23,3 +23,26 @@ export const seniorSchoolSubjects = [
 ];
 
 export const juniorSchoolSubjects = [];
+export const allSubjects=[
+  "Accounting",
+  "Agriculture",
+  "Animal Husbandry",
+  "Arabic",
+  "Biology",
+  "Catering Craft Practice",
+  "Chemistry",
+  "Civic Education",
+  "Commerce",
+  "Data Processing",
+  "Economics",
+  "English Language",
+  "Further Mathematics",
+  "Geography",
+  "Government",
+  "IRS",
+  "Literature In English",
+  "Marketing",
+  "Mathematics",
+  "Physics",
+  "Yoruba Language",
+]
