@@ -81,11 +81,19 @@ const Wrapper = styled.div`
   border: 1px solid red;
   height: 100vh;
   align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/photo-1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   .form-wrapper {
     border: 1px solid green;
     justify-content: center;
     align-items: center;
     height: 500px;
+    max-width: 500px !important;
+    z-index: 999;
+    background-color: white;
+    opacity: 0.7;
   }
   .label {
     font-weight: 500;
@@ -112,7 +120,7 @@ const Wrapper = styled.div`
     height:70px;
     img{
       height: 100%;
-      width: 100%;
+      width: 100%; 
       display: block;
     }
   }
