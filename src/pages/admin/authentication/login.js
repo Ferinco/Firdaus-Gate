@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { PATH_DASHBOARD, PATH_PAGE } from "../../../routes/paths";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Button } from "../../../components/custom/Button";
 export default function AdminLogin() {
   const { login } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -21,13 +22,12 @@ export default function AdminLogin() {
 
   const onSubmit = async (values) => {
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
       await login(values);
-      setIsLoading(false);
       toast.success("Admin login successful");
       navigate(PATH_DASHBOARD.admin.index);
     } catch (error) {
-      setIsLoading(false);
+      setIsSubmitting(true);
       toast.error(error.response.data.message);
       console.error(error);
     }
@@ -44,10 +44,10 @@ export default function AdminLogin() {
             </Link>
           </div>
           <div>
-            <h4>Admin Login</h4>
+            <h6>Admin Login</h6>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
           <div className="my-2 d-flex flex-column">
             <label htmlFor="email" className="label">
               email
@@ -66,11 +66,24 @@ export default function AdminLogin() {
               {...register("password")}
             />
           </div>
-          <div>
-            <button type="submit" disabled={isLoading}>
-              Login
-            </button>
-          </div>
+          <div className="mt-4">
+              <Button
+                blue
+                type="submit"
+                className="button"
+                disabled={isSubmitting === true}
+              >
+                {isSubmitting ? (
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  "Sign in"
+                )}
+              </Button>
+            </div>
         </form>
       </div>
     </Wrapper>
@@ -78,22 +91,24 @@ export default function AdminLogin() {
 }
 
 const Wrapper = styled.div`
-  border: 1px solid red;
+background-color: #f1f1f1;
   height: 100vh;
   align-items: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/photo-1.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   .form-wrapper {
-    border: 1px solid green;
     justify-content: center;
     align-items: center;
     height: 500px;
-    max-width: 500px !important;
+    width: 500px !important;
     z-index: 999;
     background-color: white;
-    opacity: 0.7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .header{
+    justify-content: center;
+    align-items: center;
+  }
+  .form{
+    width: 100%;
   }
   .label {
     font-weight: 500;
@@ -106,6 +121,10 @@ const Wrapper = styled.div`
     color: grey;
     width: fit-content;
     text-transform: capitalize;
+  }
+  button{
+    width: 100%;
+    border-radius: 10px;
   }
   input {
     border-radius: 10px;
@@ -120,7 +139,8 @@ const Wrapper = styled.div`
     height:70px;
     img{
       height: 100%;
-      width: 100%; 
+      object-fit: cover;
+      width: 100%;
       display: block;
     }
   }
