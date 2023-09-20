@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CircularProgress } from "./custom";
+import CircularProgress from "./custom/CircularProgress";
 
 export const OverlayLoading = () => {
   return (
