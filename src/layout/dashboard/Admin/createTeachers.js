@@ -11,7 +11,6 @@ import { CLASS } from "../../../constants/class";
 import { allSubjects } from "../../../constants/subjects";
 export default function CreateTeachers() {
   //  yup resolvers
-
   const schema = yup.object({
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
@@ -191,7 +190,7 @@ export default function CreateTeachers() {
 
             {selectedTeacherType === "classTeacher" && (
               <div className="my-2 d-flex flex-column">
-                <label htmlFor="classTaught" className="label">Class Taught</label>
+                <label htmlFor="classTaught" className="label">Class Managed</label>
                 <select name="classTaught" {...register("classTaught")}>
                   {CLASS.map((option, index) => (
                     <option key={index}>{option}</option>
@@ -199,7 +198,6 @@ export default function CreateTeachers() {
                 </select>
               </div>
             )}
-              {selectedTeacherType === "subjectTeacher" && (
               <div className="my-2 d-flex flex-column">
                 <label htmlFor="subjectTaught" className="label">Subject Taught</label>
                 <select name="subjectTaught" {...register("subjectTaught")}>
@@ -208,7 +206,7 @@ export default function CreateTeachers() {
                   ))}
                 </select>
               </div>
-            )}
+
             <div className="my-2 d-flex flex-column">
               <label htmlFor="email" className="label">
                 email
