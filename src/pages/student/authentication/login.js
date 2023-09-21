@@ -1,33 +1,39 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../components/custom/Button";
+import { Button } from "../../../components/custom/Button";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { PATH_DASHBOARD } from "../../routes/paths";
-import { PATH_PAGE } from "../../routes/paths";
-import { loginAuth } from "../../services/authService";
+import { PATH_DASHBOARD } from "../../../routes/paths";
+import { PATH_PAGE } from "../../../routes/paths";
+import { loginAuth } from "../../../services/authService";
 import { toast } from "react-hot-toast";
-import { useAppContext } from "../../contexts/Context";
-import {useAuth} from "../../hooks/useAuth";
+import { useAppContext } from "../../../contexts/Context";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function StudentLogin() {
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const {login} = useAuth()
+  const { login } = useAuth();
   const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    defaultValues: {
+      admissionNumber: "",
+      password: "",
+      role: "student",
+    },
+  });
 
   {
     /* form submission */
   }
-  console.log(from)
+  console.log(from);
   const onSubmit = async (data) => {
     setIsLoading(true);
     console.log(data);
@@ -37,14 +43,13 @@ export default function StudentLogin() {
         setIsLoading(false);
         navigate(from, { replace: true });
         setSuccess(true);
-        toast.success("login sucessful!");
+        toast.success("Logged in successfully");
       })
       .catch((error) => {
         setIsLoading(false);
         console.log(error);
         toast.error(`${error.response?.data.message}`);
       });
-    console.log(errors);
   };
 
   return (
@@ -63,7 +68,7 @@ export default function StudentLogin() {
               </div>
               <div className="text-center mb-4">
                 <h3 className="fw-bolder">Hello Student!</h3>
-                <p>Sign in to your dashbard.</p>
+                <p>Sign in to your dashboard.</p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">

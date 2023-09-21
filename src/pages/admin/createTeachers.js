@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useForm, handleSubmit } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../../components/custom/Button";
+import { Button } from "../../components/custom/Button";
 import { styled } from "styled-components";
-import { UserService } from "../../../services/userService";
+import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CLASS } from "../../../constants/class";
 import { allSubjects } from "../../../constants/subjects";
+
 export default function CreateTeachers() {
   //  yup resolvers
   const schema = yup.object({
@@ -44,7 +45,7 @@ export default function CreateTeachers() {
       mobileNumber: "",
       gender: "",
       teacherType: "",
-      signature: ""
+      signature: "",
     },
   });
   const selectedTeacherType = watch("teacherType");
@@ -163,6 +164,7 @@ export default function CreateTeachers() {
               </p>
             </div>
             <div className="selects row my-2">
+
            <div className="d-flex flex-column col-6">
            <label htmlFor="gender" className="label">Gender</label>
               <select name="gender" {...register("gender")}>
@@ -175,7 +177,9 @@ export default function CreateTeachers() {
            </div>
 
               <div className="d-flex flex-column col-6">
-                <label htmlFor="teacherType" className="label">Teacher Type</label>
+                <label htmlFor="teacherType" className="label">
+                  Teacher Type
+                </label>
                 <select name="teacherType" {...register("teacherType")}>
                   <option value="" disabled>
                     Select Teacher Type
@@ -188,7 +192,9 @@ export default function CreateTeachers() {
 
             {selectedTeacherType === "classTeacher" && (
               <div className="my-2 d-flex flex-column">
-                <label htmlFor="classTaught" className="label">Class Managed</label>
+                <label htmlFor="classTaught" className="label">
+                  Class Managed
+                </label>
                 <select name="classTaught" {...register("classTaught")}>
                   {CLASS.map((option, index) => (
                     <option key={index}>{option}</option>
@@ -196,14 +202,16 @@ export default function CreateTeachers() {
                 </select>
               </div>
             )}
-              <div className="my-2 d-flex flex-column">
-                <label htmlFor="subjectTaught" className="label">Subject Taught</label>
-                <select name="subjectTaught" {...register("subjectTaught")}>
-                  {allSubjects.map((option, index) => (
-                    <option key={index}>{option}</option>
-                  ))}
-                </select>
-              </div>
+            <div className="my-2 d-flex flex-column">
+              <label htmlFor="subjectTaught" className="label">
+                Subject Taught
+              </label>
+              <select name="subjectTaught" {...register("subjectTaught")}>
+                {allSubjects.map((option, index) => (
+                  <option key={index}>{option}</option>
+                ))}
+              </select>
+            </div>
 
             <div className="my-2 d-flex flex-column">
               <label htmlFor="email" className="label">
@@ -223,24 +231,26 @@ export default function CreateTeachers() {
             </div>
 
             {selectedTeacherType === "classTeacher" && (
-           <div className="my-2 d-flex flex-column">
-           <label htmlFor="signature" className="label">
-            signature
-           </label>
+              <div className="my-2 d-flex flex-column">
+                <label htmlFor="signature" className="label">
+                  signature
+                </label>
 
-           <input
-             placeholder="Teacher's  
+                <input
+                  placeholder="Teacher's  
          Signature"
-             name="signature"
-             type="file"
-             {...register("signature")}
-           />
-           <p className="error-message">
-             {errors.signature?.message ? `*${errors.signature?.message}` : ""}
-           </p>
-         </div>
+                  name="signature"
+                  type="file"
+                  {...register("signature")}
+                />
+                <p className="error-message">
+                  {errors.signature?.message
+                    ? `*${errors.signature?.message}`
+                    : ""}
+                </p>
+              </div>
             )}
-      
+
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
                 <label htmlFor="password" className="label">
@@ -333,14 +343,13 @@ const Wrapper = styled.div`
     outline: none;
     width: 100%;
   }
-select{
-  border-radius: 10px;
+  select {
+    border-radius: 10px;
     padding: 14px 16px;
     background: transparent;
     border: 1px solid grey;
     outline: none;
-
-}
+  }
   .spinner-border {
     width: 25px;
     height: 25px;

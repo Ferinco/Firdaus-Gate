@@ -13,7 +13,6 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "INITIALIZE":
-      console.log(action);
       return {
         ...state,
         isAuthenticated: action.payload.isAuthenticated,
@@ -98,8 +97,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (payload) => {
     const { data } = await loginAuth(payload);
-    console.log(data.token);
-
     dispatch({
       type: "LOGIN",
       payload: {
@@ -116,7 +113,6 @@ export const AuthProvider = ({ children }) => {
   // This registeration handler is for the ADMIN role only.
   const register = async (payload) => {
     const { data } = await registerAuth(payload);
-    console.log(data.token);
     dispatch({
       type: "REGISTER",
       payload: {

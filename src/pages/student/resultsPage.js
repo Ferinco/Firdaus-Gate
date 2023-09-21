@@ -1,10 +1,10 @@
 import React from "react";
 import { styled } from "styled-components";
 import { Icon } from "@iconify/react";
-import { CLASS } from "../../../constants/class";
-import { ReportService } from "../../../services/reportService";
+import { CLASS } from "../../constants/class";
+import { ReportService } from "../../services/reportService";
 import { toast } from "react-hot-toast";
-import { OverlayLoading } from "../../../components/OverlayLoading";
+import { OverlayLoading } from "../../components/OverlayLoading";
 // import {getTer}
 
 export default function ResultsPage() {

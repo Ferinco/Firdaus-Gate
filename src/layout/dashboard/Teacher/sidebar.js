@@ -32,7 +32,7 @@ const sidebarConfig = [
 
 export default function TeacherSidebar() {
   const { isSidebarOpen } = useAppContext();
-  const { logout } = useAuth()
+  const { logout } = useAuth();
   return (
     <SIDEBAR>
       <div
@@ -59,19 +59,20 @@ export default function TeacherSidebar() {
             ))}
           </div>
         </div>
-        <div className="log-out" >
-          <Link to="" className="react-router-link nav-link" onClick={logout}>
+        <div className="log-out">
+          <button to="" className="react-router-link nav-link" onClick={logout}>
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}
             />
             Log out
-          </Link>
+          </button>
         </div>
       </div>
     </SIDEBAR>
   );
 }
+
 const SIDEBAR = styled.div`
   background-color: black;
   height: 100vh;

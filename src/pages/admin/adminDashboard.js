@@ -2,10 +2,10 @@ import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { PATH_DASHBOARD } from "../../../routes/paths";
-import { useAuth } from "../../../hooks/useAuth";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { useAuth } from "../../hooks/useAuth";
 export default function AdminDashboard() {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const TabsConfig = [
     {
       link: PATH_DASHBOARD.admin.createTeachers,

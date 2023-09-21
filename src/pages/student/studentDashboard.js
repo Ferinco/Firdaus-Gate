@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useAppContext } from "../../../contexts/Context";
-import report from "../../../report-sheet.pdf";
-import { isAuthenticated } from "../../../services/authService";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAppContext } from "../../contexts/Context";
+import { useAuth } from "../../hooks/useAuth";
+
 export default function StudentDashboard() {
   const { user } = useAuth();
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
@@ -43,7 +42,7 @@ export default function StudentDashboard() {
             </div>
 
             <a
-              href={report}
+              href={"report"}
               download="Adekoya Ismail"
               className=" tab d-flex flex-row"
             >

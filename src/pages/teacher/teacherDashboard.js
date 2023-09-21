@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Header } from "../../../components/custom/Header";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { PATH_DASHBOARD } from "../../../routes/paths";
-import { useAppContext } from "../../../contexts/Context";
-import { UserService } from "../../../services/userService";
-import { useAuth } from "../../../hooks/useAuth";
-import { useUserContext } from "../../../contexts/UserContext";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { useAppContext } from "../../contexts/Context";
+import { UserService } from "../../services/userService";
+import { useAuth } from "../../hooks/useAuth";
+import { useUserContext } from "../../contexts/UserContext";
+
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.teacher.create,

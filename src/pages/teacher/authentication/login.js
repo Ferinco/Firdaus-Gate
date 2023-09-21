@@ -1,22 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../components/custom/Button";
-import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
+import { Button } from "../../../components/custom/Button";
 import { Link } from "react-router-dom";
-import { PATH_DASHBOARD } from "../../routes/paths";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useAppContext } from "../../contexts/Context";
+import { useAppContext } from "../../../contexts/Context";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAuth } from "../../hooks/useAuth";
-import { PATH_PAGE } from "../../routes/paths";
+import { useAuth } from "../../../hooks/useAuth";
+import { PATH_PAGE } from "../../../routes/paths";
+
 export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
-  const navigate = useNavigate();
   const schema = yup.object({
     teacherId: yup.number().required("enter your ID"),
     password: yup.string().required("enter your password"),
@@ -36,11 +33,13 @@ export default function TeacherLogin() {
     setIsLoading(true);
     await login(data)
       .then((res) => {
-        navigate(PATH_DASHBOARD.teacher.index);
+        // navigate(PATH_DASHBOARD.teacher.index);
         toast.success("teacher login successful");
+        console.log(res);
       })
       .catch((error) => {
         toast.error(`${error.response?.data.message}`);
+        console.log(error);
       });
   };
   return (
@@ -67,7 +66,6 @@ export default function TeacherLogin() {
                     placeholder="Teacher ID"
                     name="teacherId"
                     type="number"
-                    // register={{ ...register("teacherId") }}
                     {...register("teacherId")}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>

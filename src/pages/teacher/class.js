@@ -6,32 +6,33 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Header } from "../../../components/custom/Header";
-import { Button } from "../../../components/custom/Button";
-import { useAppContext } from "../../../contexts/Context";
-import { UserService } from "../../../services/userService";
-import { PATH_DASHBOARD } from "../../../routes/paths";
+import { Button, Header } from "../../components/custom";
+import { useAppContext } from "../../contexts/Context";
+import { UserService } from "../../services/userService";
+import { PATH_DASHBOARD } from "../../routes/paths";
+
 export default function MyClass() {
   const [StudentData, setStudentData] = useState([]);
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   useEffect(() => {
     const FetchStudents = async (data) => {
       await UserService.getStudents()
-      .then((res) => {
-        console.log(res);
-        setStudentData(res.data);
-      })
-      .catch((error)=>{
-        console.log(error)
-
-      })
+        .then((res) => {
+          console.log(res);
+          setStudentData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
     FetchStudents();
   }, []);
-const { register,
-  handleSubmit,
-  reset,
-  formState:{errors} } = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   return (
     <Students>
       <div className="container-fluid d-flex flex-column p-5">
@@ -63,55 +64,59 @@ const { register,
               <Icon icon="system-uicons:filter" color="grey" className="icon" />
             </div>
           </div>
-          {StudentData.length > 0  ?  
-             ( StudentData.map((data) => (
-          <Table className="table table-bordered ">
-            <thead className="">
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Admission Number</th>
-                <th>email</th>
-                <th>gender</th>
-                <th colSpan="3">Operations</th>
-              </tr>
-            </thead>
-            <tbody>
-        
-                <tr key={data.id}>
-                  <td>{data.id}</td>
-                  <td>{data.firstname}</td>
-                  <td>{data.lastname}</td>
-                  <td>{data.admissionNumber}</td>
-                  <td>{data.email}</td>
-                  <td>{data.gender}</td>
+          {StudentData.length > 0 ? (
+            StudentData.map((data) => (
+              <Table className="table table-bordered ">
+                <thead className="">
+                  <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Admission Number</th>
+                    <th>email</th>
+                    <th>gender</th>
+                    <th colSpan="3">Operations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr key={data.id}>
+                    <td>{data.id}</td>
+                    <td>{data.firstname}</td>
+                    <td>{data.lastname}</td>
+                    <td>{data.admissionNumber}</td>
+                    <td>{data.email}</td>
+                    <td>{data.gender}</td>
 
-                  <td>
-                    <Link to="">
-                      <button>update</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="">
-                      <button>transfer</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="">
-                      <button>delete</button>
-                    </Link>
-                  </td>
-                </tr>
-            </tbody>
-          </Table>
-              ))) : (
-                <div className="d-flex justify-content-center center align-center">
-                  <h4>No list to display... navigate to the <Link to={PATH_DASHBOARD.teacher.create}>register student(s) to create a student's profile</Link></h4>  
-                </div>
-              )}
+                    <td>
+                      <Link to="">
+                        <button>update</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button>transfer</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button>delete</button>
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            ))
+          ) : (
+            <div className="d-flex justify-content-center center align-center">
+              <h4>
+                No list to display... navigate to the{" "}
+                <Link to={PATH_DASHBOARD.teacher.create}>
+                  register student(s) to create a student's profile
+                </Link>
+              </h4>
+            </div>
+          )}
         </div>
-      
       </div>
     </Students>
   );

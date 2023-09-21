@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
-import { UserService } from "../../../services/userService";
+import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
-import CircularProgress from "../../../components/custom/CircularProgress";
+import { CircularProgress } from "../../components/custom";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
@@ -16,17 +16,16 @@ export default function TeachersList() {
       await UserService.getTeachers()
         .then((res) => {
           console.log(res);
-          setIsLoading(false)
+          setIsLoading(false);
           setTeachers(res.data);
           console.log(teachers);
           console.log(overlay);
         })
         .catch((error) => {
           console.log(error);
-          setIsLoading(false)
+          setIsLoading(false);
         });
     };
-
     FetchTeachers();
   }, []);
   const DeleteTeachers = async (data) => {
@@ -35,7 +34,7 @@ export default function TeachersList() {
         console.log(res);
         console.log(data);
         setOverlay(false);
-        toast.success("teacher profile has been deleted successfully")
+        toast.success("teacher profile has been deleted successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -53,11 +52,7 @@ export default function TeachersList() {
         <h4>List of Teachers</h4>
         <p>View and edit details of teachers</p>
       </div>
-      {
-        isLoading? (<CircularProgress/>): (
-          ""
-        )
-      }
+      {isLoading ? <CircularProgress /> : ""}
       {teachers.length > 0 ? (
         <div className=" px-5">
           <Table>
@@ -102,7 +97,6 @@ export default function TeachersList() {
           </Table>
         </div>
       ) : (
-
         <div className="p-5">no details to display atm.</div>
       )}
       {overlay ? (
@@ -140,11 +134,9 @@ const Wrapper = styled.div`
   .table-body {
     background: transparent !important;
   }
-  .close{
-
+  .close {
   }
-  .open{
-
+  .open {
   }
   .buttons {
     justify-content: right;
