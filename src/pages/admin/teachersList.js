@@ -4,22 +4,26 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
+import { CircularProgress } from "../../components/custom";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [teacherDetails, setTeacherDetails] = useState([]);
   const [overlay, setOverlay] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const FetchTeachers = async (data) => {
       await UserService.getTeachers()
         .then((res) => {
           console.log(res);
+          setIsLoading(false);
           setTeachers(res.data);
           console.log(teachers);
           console.log(overlay);
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
         });
     };
     FetchTeachers();
@@ -48,6 +52,7 @@ export default function TeachersList() {
         <h4>List of Teachers</h4>
         <p>View and edit details of teachers</p>
       </div>
+      {isLoading ? <CircularProgress /> : ""}
       {teachers.length > 0 ? (
         <div className=" px-5">
           <Table>
@@ -80,7 +85,6 @@ export default function TeachersList() {
                     {" "}
                     <button
                       onClick={() => {
-                        //  DeleteTeachers();
                         setOverlay(true);
                       }}
                     >
@@ -93,7 +97,7 @@ export default function TeachersList() {
           </Table>
         </div>
       ) : (
-        <div>no details to display atm.</div>
+        <div className="p-5">no details to display atm.</div>
       )}
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
@@ -104,7 +108,7 @@ export default function TeachersList() {
           >
             <p>Are you sure you want to delete this teacher profile?</p>
             <div className=" buttons d-flex gap-3">
-              <button className="left" blue onClick={DeleteTeachers}>
+              <button className="left" onClick={DeleteTeachers}>
                 yes
               </button>
               <button
@@ -129,24 +133,6 @@ const Wrapper = styled.div`
   }
   .table-body {
     background: transparent !important;
-  }
-  .overlay-wrapper {
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    z-index: 999;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    position: absolute;
-  }
-  .overlay-options {
-    max-width: 500px;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
   .close {
   }

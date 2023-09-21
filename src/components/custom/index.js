@@ -4,4 +4,4 @@ export { default as Input } from "./Input";
 export { Button } from "./Button";
 export { default as Iconify } from "./Iconify";
 export { Header } from "./Header";
-export { CircularProgress } from "./CircularProgress";
+export { default as CircularProgress } from "./CircularProgress";
