@@ -50,14 +50,14 @@ export default function AdminLogin() {
         <form onSubmit={handleSubmit(onSubmit)} className="form">
           <div className="my-2 d-flex flex-column">
             <label htmlFor="email" className="label">
-              email
+              Email
             </label>
             <input type="email" required aria-required {...register("email")} />
           </div>
 
           <div className="my-2 d-flex flex-column">
             <label htmlFor="password" className="label">
-              password
+              Password
             </label>
             <input
               type="password"
@@ -111,15 +111,7 @@ background-color: #f1f1f1;
     width: 100%;
   }
   .label {
-    font-weight: 500;
-    margin-bottom: -10px !important;
-    background-color: white;
-    margin-left: 10px;
-    padding-right: 5px;
-    font-size: 14px;
-    z-index: 999;
-    color: grey;
-    width: fit-content;
+    font-weight: 700;
     text-transform: capitalize;
   }
   button{
