@@ -6,7 +6,6 @@ import { Button } from "../../../components/custom/Button";
 import { styled } from "styled-components";
 import { UserService } from "../../../services/userService";
 import toast from "react-hot-toast";
-import { Gender } from "../../../constants/gender";
 import { CLASS } from "../../../constants/class";
 import { allSubjects } from "../../../constants/subjects";
 export default function CreateTeachers() {
@@ -43,7 +42,7 @@ export default function CreateTeachers() {
       password: "",
       role: "teacher",
       mobileNumber: "",
-      gender: "gender",
+      gender: "",
       teacherType: "",
       signature: ""
     },
@@ -166,13 +165,12 @@ export default function CreateTeachers() {
             <div className="selects row my-2">
            <div className="d-flex flex-column col-6">
            <label htmlFor="gender" className="label">Gender</label>
-              <select name="gender">
-                <option selected disabled {...register("gender")}>
+              <select name="gender" {...register("gender")}>
+                <option value="" disabled>
                   gender
                 </option>
-                {Gender.map((gender, index) => (
-                  <option key={index}>{gender}</option>
-                ))}
+                <option value="male">male</option>
+                  <option value="female">female</option>
               </select>
            </div>
 
