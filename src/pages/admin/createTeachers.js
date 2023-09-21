@@ -6,8 +6,8 @@ import { Button } from "../../components/custom/Button";
 import { styled } from "styled-components";
 import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
-import { CLASS } from "../../../constants/class";
-import { allSubjects } from "../../../constants/subjects";
+import { CLASS } from "../../constants/class";
+import { allSubjects } from "../../constants/subjects";
 
 export default function CreateTeachers() {
   //  yup resolvers

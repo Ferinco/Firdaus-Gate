@@ -153,7 +153,7 @@ export default function CreateResult() {
             </div>
 
             {/* PERSONAL TRAIT */}
-            <div className="my-3">
+            <div className="my-5">
               <p className="lead">Personal trait</p>
               <div className="my-2 d-flex flex-wrap traits-div">
                 {Object.keys(getValues().personalTrait).map((item) => {
@@ -177,6 +177,7 @@ export default function CreateResult() {
               <p className="lead">Class teacher comment</p>
               <div className="card">
                 <textarea
+                className="text-area"
                   {...register("classTeacherComment")}
                   placeholder="Class teacher comment"
                 />
@@ -221,5 +222,14 @@ const Wrapper = styled.div`
     font-weight: 600;
     padding-bottom: 10px;
     border-bottom: 1px solid white;
+  }
+  .card{
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px 10px;
+  }
+  .text-area{
+    border: 0;
+    outline: 0;
   }
 `;

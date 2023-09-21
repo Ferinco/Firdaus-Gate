@@ -50,6 +50,8 @@ export default function Create() {
       password: "",
       role: "student",
       parentPhone: "",
+      gender: "",
+      
     },
   });
   //submission of the form
@@ -143,6 +145,32 @@ export default function Create() {
                     ? `*${errors.admissionNumber?.message}`
                     : ""}
                 </p>
+              </div>
+            </div>
+            <div className="selects row my-2">
+              <div className="d-flex flex-column col-6">
+                <label htmlFor="gender" className="label">
+                  Gender
+                </label>
+                <select name="gender" {...register("gender")}>
+                  <option value="" disabled>
+                    gender
+                  </option>
+                  <option value="male">male</option>
+                  <option value="female">female</option>
+                </select>
+              </div>
+
+              <div className="d-flex flex-column col-6">
+                <label htmlFor="Class" className="label">
+                  Class
+                </label>
+                <input
+                  name="Class"
+                  {...register("Class")}
+                  readOnly
+                  value="JSS 2"
+                ></input>
               </div>
             </div>
             <div className="my-2 d-flex flex-column">
@@ -274,6 +302,13 @@ const Wrapper = styled.div`
       width: fit-content;
       text-transform: capitalize;
     }
+  }
+  select {
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: transparent;
+    border: 1px solid grey;
+    outline: none;
   }
   input {
     border-radius: 10px;

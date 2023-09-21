@@ -90,17 +90,22 @@ export default function StudentLogin() {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <Button blue type="submit">
-                    {loading ? (
-                      <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-                    ) : (
-                      "Sign in"
-                    )}
-                  </Button>
+                <Button
+                blue
+                type="submit"
+                className="button"
+                disabled={loading === true}
+              >
+                {loading ? (
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  "Sign in"
+                )}
+              </Button>
                 </div>
               </form>
             </div>
@@ -122,6 +127,9 @@ const Wrapper = styled.div`
   .left {
     height: 100%;
   }
+  .button {
+      width: 100%;
+    }
   @media (max-width: 768px) {
     .col-md-7.left {
       display: none;

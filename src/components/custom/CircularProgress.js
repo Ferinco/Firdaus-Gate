@@ -21,6 +21,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+
 .circular-progress{
   width: 50px;
   height: 50px;
@@ -36,5 +38,8 @@ const Wrapper = styled.div`
       transform: rotate(360deg);
     }
   }
+}
+@media screen and (max-width: 1100px) {
+ width:100% ;
 }
 `;

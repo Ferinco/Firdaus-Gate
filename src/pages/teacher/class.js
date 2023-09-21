@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Button, Header } from "../../components/custom";
+import { Button, CircularProgress, Header } from "../../components/custom";
 import { useAppContext } from "../../contexts/Context";
 import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
@@ -14,15 +14,18 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 export default function MyClass() {
   const [StudentData, setStudentData] = useState([]);
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const FetchStudents = async (data) => {
       await UserService.getStudents()
         .then((res) => {
           console.log(res);
           setStudentData(res.data);
+          setIsLoading(false)
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false)
         });
     };
     FetchStudents();
@@ -64,6 +67,7 @@ export default function MyClass() {
               <Icon icon="system-uicons:filter" color="grey" className="icon" />
             </div>
           </div>
+    
           {StudentData.length > 0 ? (
             StudentData.map((data) => (
               <Table className="table table-bordered ">
@@ -118,6 +122,13 @@ export default function MyClass() {
           )}
         </div>
       </div>
+      {
+            isLoading? (
+              <CircularProgress/>
+            ) : (
+              ""
+            )
+          }
     </Students>
   );
 }

@@ -31,7 +31,7 @@ export default function TeacherNavbar() {
           <div className="name d-flex flex-column">
             <h5>{user.firstName}{" "}{user.lastName}</h5>
             <p>{user.email}</p>
-            <p>Male</p>
+            <p>{user.gender}</p>
             <p>{user.role}</p>
             <h6>{user.teacherId}</h6>
           </div>
