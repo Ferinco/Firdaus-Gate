@@ -6,18 +6,21 @@ import { Button } from "../../components/custom/Button";
 import { styled } from "styled-components";
 import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
+import { Gender } from "../../constants/gender";
+import { CLASS } from "../../constants/class";
+import { allSubjects } from "../../constants/subjects";
 
 export default function CreateTeachers() {
   //  yup resolvers
-
   const schema = yup.object({
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
     middleName: yup.string().optional(),
     teacherId: yup.string().required("Enter teacher ID"),
     email: yup.string().email().required("email is required"),
-    mobileNumber: yup.string().required("mobile number is required"),
-    password: yup.string().min(5).max(12).required("set a password"),
+    mobileNumber: yup.number().required("email is required"),
+    signature: yup.mixed().required("class teacher signature is required"),
+    password: yup.string().min(5).max(12).required("set a passowrd"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -27,6 +30,7 @@ export default function CreateTeachers() {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -40,8 +44,12 @@ export default function CreateTeachers() {
       password: "",
       role: "teacher",
       mobileNumber: "",
+      gender: "gender",
+      teacherType: "",
+      signature: "",
     },
   });
+  const selectedTeacherType = watch("teacherType");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
@@ -156,6 +164,58 @@ export default function CreateTeachers() {
                   : ""}
               </p>
             </div>
+            <div className="selects row my-2">
+              <div className="d-flex flex-column col-6">
+                <label htmlFor="gender" className="label">
+                  Gender
+                </label>
+                <select name="gender">
+                  <option selected disabled {...register("gender")}>
+                    gender
+                  </option>
+                  {Gender.map((gender, index) => (
+                    <option key={index}>{gender}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="d-flex flex-column col-6">
+                <label htmlFor="teacherType" className="label">
+                  Teacher Type
+                </label>
+                <select name="teacherType" {...register("teacherType")}>
+                  <option value="" disabled>
+                    Select Teacher Type
+                  </option>
+                  <option value="subjectTeacher">Subject Teacher</option>
+                  <option value="classTeacher">Class Teacher</option>
+                </select>
+              </div>
+            </div>
+
+            {selectedTeacherType === "classTeacher" && (
+              <div className="my-2 d-flex flex-column">
+                <label htmlFor="classTaught" className="label">
+                  Class Managed
+                </label>
+                <select name="classTaught" {...register("classTaught")}>
+                  {CLASS.map((option, index) => (
+                    <option key={index}>{option}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+            <div className="my-2 d-flex flex-column">
+              <label htmlFor="subjectTaught" className="label">
+                Subject Taught
+              </label>
+              <select name="subjectTaught" {...register("subjectTaught")}>
+                {allSubjects.map((option, index) => (
+                  <option key={index}>{option}</option>
+                ))}
+              </select>
+            </div>
+
             <div className="my-2 d-flex flex-column">
               <label htmlFor="email" className="label">
                 email
@@ -172,6 +232,28 @@ export default function CreateTeachers() {
                 {errors.email?.message ? `*${errors.email?.message}` : ""}
               </p>
             </div>
+
+            {selectedTeacherType === "classTeacher" && (
+              <div className="my-2 d-flex flex-column">
+                <label htmlFor="signature" className="label">
+                  signature
+                </label>
+
+                <input
+                  placeholder="Teacher's  
+         Signature"
+                  name="signature"
+                  type="file"
+                  {...register("signature")}
+                />
+                <p className="error-message">
+                  {errors.signature?.message
+                    ? `*${errors.signature?.message}`
+                    : ""}
+                </p>
+              </div>
+            )}
+
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
                 <label htmlFor="password" className="label">
@@ -237,11 +319,6 @@ export default function CreateTeachers() {
 const Wrapper = styled.div`
   .form-wrapper {
     max-width: 420px;
-    .select {
-      border-radius: 5px;
-      background-color: #f5f5f5;
-      border: 0 !important;
-    }
     .button {
       width: 100%;
     }
@@ -268,6 +345,13 @@ const Wrapper = styled.div`
     border: 1px solid grey;
     outline: none;
     width: 100%;
+  }
+  select {
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: transparent;
+    border: 1px solid grey;
+    outline: none;
   }
   .spinner-border {
     width: 25px;

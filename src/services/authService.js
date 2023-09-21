@@ -32,3 +32,4 @@ export const registerAuth = async ({
   });
   return data;
 };
+

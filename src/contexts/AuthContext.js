@@ -18,21 +18,21 @@ const reducer = (state, action) => {
         isAuthenticated: action.payload.isAuthenticated,
         isInitialized: true,
         role: action.payload.role,
-        user: action.payload,
+        user: action.payload.user,
       };
     case "LOGIN":
       return {
         ...state,
         isAuthenticated: true,
         role: action.payload.role,
-        user: action.payload,
+        user: action.payload.user,
       };
     case "REGISTER":
       return {
         ...state,
         isAuthenticated: true,
         role: action.payload.role,
-        user: action.payload,
+        user: action.payload.user,
       };
     case "LOGOUT":
       return {

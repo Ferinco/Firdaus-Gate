@@ -5,13 +5,12 @@ import { AppProvider } from "./contexts/Context";
 import toast, { Toaster } from "react-hot-toast";
 import { OverlayLoading } from "./components/OverlayLoading";
 import { useAuth } from "./hooks/useAuth";
-
 function App() {
   const { isInitialized } = useAuth();
 
   return (
     <AppProvider>
-      <div className="App">
+   <div className="App">
         <BrowserRouter>
           {isInitialized ? <Routes /> : <OverlayLoading />}
 

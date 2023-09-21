@@ -4,6 +4,7 @@ import { UserService } from "../../services/userService";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 export default function StudentsList() {
   const [StudentData, setStudentData] = useState([]);
   useEffect(() => {
@@ -12,8 +13,7 @@ export default function StudentsList() {
         .then((res) => {
           console.log(res);
           console.log("hey there");
-
-          setStudentData([res.data]);
+          setStudentData(res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -28,21 +28,21 @@ export default function StudentsList() {
         <h4>List of Students</h4>
         <p>view and edit student(S) details here...</p>
       </div>
-      <Table className="table table-bordered">
-        <thead className="">
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Admission Number</th>
-            <th>email</th>
-            <th>gender</th>
-            <th colSpan="3">Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {StudentData ? (
-            StudentData.map((data) => (
+      {StudentData ? (
+        StudentData.map((data) => (
+          <Table className="table table-bordered">
+            <thead className="">
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admission Number</th>
+                <th>email</th>
+                <th>gender</th>
+                <th colSpan="3">Operations</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr key={data.id}>
                 <td>{data.id}</td>
                 <td>{data.firstname}</td>
@@ -67,14 +67,14 @@ export default function StudentsList() {
                   </Link>
                 </td>
               </tr>
-            ))
-          ) : (
-            <div>
-              <h2>No Students....</h2>
-            </div>
-          )}
-        </tbody>
-      </Table>
+            </tbody>
+          </Table>
+        ))
+      ) : (
+        <div>
+          <h2>No Students....</h2>
+        </div>
+      )}
     </Wrapper>
   );
 }

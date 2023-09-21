@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../contexts/Context";
 import { PATH_PAGE } from "../../../routes/paths";
-import {useAuth} from "../../../hooks/useAuth"
+import { useAuth } from "../../../hooks/useAuth";
 
 const sidebarConfig = [
   {
@@ -32,7 +32,7 @@ const sidebarConfig = [
 
 export default function TeacherSidebar() {
   const { isSidebarOpen } = useAppContext();
-  const {logout} = useAuth()
+  const { logout } = useAuth();
   return (
     <SIDEBAR>
       <div
@@ -60,7 +60,7 @@ export default function TeacherSidebar() {
           </div>
         </div>
         <div className="log-out">
-          <button className="react-router-link nav-link" onClick={logout}>
+          <button to="" className="react-router-link nav-link" onClick={logout}>
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}

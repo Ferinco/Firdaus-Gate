@@ -56,10 +56,10 @@ export default function StudentLogin() {
     <Wrapper>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6 left">
+          <div className="col-md-7 left">
             <div className="left-image"></div>
           </div>
-          <div className="col-md-6 right">
+          <div className="col-md-5 right">
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
                 <Link react-router-link to={PATH_PAGE.home}>
@@ -123,7 +123,7 @@ const Wrapper = styled.div`
     height: 100%;
   }
   @media (max-width: 768px) {
-    .col-md-6.left {
+    .col-md-7.left {
       display: none;
     }
   }

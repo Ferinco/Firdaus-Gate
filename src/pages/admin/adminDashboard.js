@@ -3,7 +3,9 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import { useAuth } from "../../hooks/useAuth";
 export default function AdminDashboard() {
+  const { user } = useAuth();
   const TabsConfig = [
     {
       link: PATH_DASHBOARD.admin.createTeachers,
@@ -37,7 +39,7 @@ export default function AdminDashboard() {
   return (
     <Wrapper className="">
       <div className="d-flex flex-column left p-5">
-        <h4>Good Afternoon, Mr Lawal</h4>
+        <h4>Good Afternoon, Mr {user.lastName}</h4>
         <p>welcome to your dashboard</p>
       </div>
 
