@@ -6,13 +6,20 @@ import { useAuth } from "../hooks/useAuth";
 import { TeacherLogin } from "../pages/teacher";
 import { AdminLogin } from "../pages/admin/";
 import { StudentLogin } from "../pages/student/";
+import { PATH_PAGE } from "../routes/paths";
+
 // ----------------------------------------------------------------------
 
 export default function AuthGuard({ children }) {
   const { isAuthenticated } = useAuth();
-
+const { logout } = useAuth()
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
+// if(isAuthenticated){
+//   if(logout){
+//     window.history.replaceState(null, "", PATH_PAGE.home)
+//   }
+// }
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {

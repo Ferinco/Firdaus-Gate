@@ -27,7 +27,7 @@ export default function AdminLogin() {
       toast.success("Admin login successful");
       navigate(PATH_DASHBOARD.admin.index);
     } catch (error) {
-      setIsSubmitting(true);
+      setIsSubmitting(false);
       toast.error(error.response.data.message);
       console.error(error);
     }

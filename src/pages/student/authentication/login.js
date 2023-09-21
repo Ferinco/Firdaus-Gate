@@ -4,11 +4,8 @@ import { Button } from "../../../components/custom/Button";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
-import { loginAuth } from "../../../services/authService";
 import { toast } from "react-hot-toast";
-import { useAppContext } from "../../../contexts/Context";
 import { useAuth } from "../../../hooks/useAuth";
 
 export default function StudentLogin() {
@@ -145,7 +142,6 @@ const Wrapper = styled.div`
     margin-top: 15px;
     min-height: 100%;
     width: 100%;
-
     border-radius: 20px;
   }
   .right {
