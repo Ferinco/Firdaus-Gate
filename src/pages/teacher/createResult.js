@@ -93,6 +93,14 @@ export default function CreateResult() {
             <h3 className="">Create result for student</h3>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="">
+              <label> Select student </label>
+              <select {...register("student")}>
+                <option value="" disabled selected>
+                  Select student
+                </option>
+              </select>
+            </div>
             {/* SUBJECT INPUT */}
 
             {fields.map((item, index) => {
@@ -164,7 +172,7 @@ export default function CreateResult() {
                         onChange={(e) =>
                           setValue(`personalTrait.${item}`, e.target.value)
                         }
-                        type="number"
+                        type="text"
                       />
                     </div>
                   );

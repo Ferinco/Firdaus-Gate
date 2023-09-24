@@ -18,9 +18,12 @@ body {
   list-style: none;
   text-decoration: none;
 }
-.react-router-link{
+.react-router-link {
   text-decoration: none !important;
   color: inherit !important;
+}
+.nav-link {
+  cursor: pointer !important;
 }
 h1,
 h2,

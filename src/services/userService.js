@@ -13,7 +13,7 @@ export const UserService = {
     return data;
   },
   getUser: async (userId) => {
-    const { data } = await api.get(`/users/${userId}`);
+    const { data } = await api.get(`/users/single/${userId}`);
     return data;
   },
   //   User role must be 'teacher'

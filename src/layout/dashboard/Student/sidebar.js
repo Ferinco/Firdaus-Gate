@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../contexts/Context";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { PATH_PAGE } from "../../../routes/paths";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 const sidebarConfig = [
   {
@@ -30,11 +32,8 @@ const sidebarConfig = [
 ];
 
 export default function StudentSidebar() {
-  const navigate = useNavigate()
-  const handleLogOut= ()=>{
-    localStorage.removeItem('user')
-    navigate(PATH_PAGE.home)
-    }
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const { isSidebarOpen, isDashboardClicked, setIsDashboardClicked } =
     useAppContext();
   return (
@@ -46,7 +45,7 @@ export default function StudentSidebar() {
       >
         <div className="wrapper d-flex flex-column">
           <div className="logo">
-            <Link react-router-link to={PATH_PAGE.home}>
+            <Link className="react-router-link" to={PATH_PAGE.home}>
               <img src="/images/logo.png" />
             </Link>
           </div>
@@ -64,18 +63,20 @@ export default function StudentSidebar() {
           </div>
         </div>
         <div className="log-out d-flex flex-column pl-4">
-          <Link className="react-router-link nav-link pl-5 py-1">
+          <Link to="" className="react-router-link nav-link pl-5 py-1">
             <Icon icon="ic:baseline-settings" />
             Settings
           </Link>
-          <Link className="react-router-link nav-link pl-5 py-1">
+          <div
+            className="react-router-link nav-link pl-5 py-1"
+            onClick={logout}
+          >
             <Icon
               icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
               rotate={2}
-              onClick={handleLogOut}
             />
             Log out
-          </Link>
+          </div>
         </div>
       </div>
     </SIDEBAR>
