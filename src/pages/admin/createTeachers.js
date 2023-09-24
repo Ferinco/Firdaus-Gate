@@ -17,8 +17,10 @@ export default function CreateTeachers() {
     middleName: yup.string().optional(),
     teacherId: yup.string().required("Enter teacher ID"),
     email: yup.string().email().required("email is required"),
-    mobileNumber: yup.number().required("email is required"),
-    signature: yup.mixed().required("class teacher signature is required"),
+    mobileNumber: yup.string().required("email is required"),
+    teacherSignature: yup
+      .mixed()
+      .required("class teacher signature is required"),
     password: yup.string().min(5).max(12).required("set a passowrd"),
     confirmPassword: yup
       .string()
@@ -45,7 +47,9 @@ export default function CreateTeachers() {
       mobileNumber: "",
       gender: "",
       teacherType: "",
-      signature: "",
+      teacherSignature: "",
+      classHandled: "",
+      subjectTaught: "",
     },
   });
   const selectedTeacherType = watch("teacherType");
@@ -55,15 +59,15 @@ export default function CreateTeachers() {
     console.log(values);
     try {
       setIsSubmitting(true);
-      const response = await UserService.createUser({
-        ...values,
-        tel: values.mobileNumber,
-      });
-      reset();
-      console.log(response);
-      toast.success(
-        `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
-      );
+      // const response = await UserService.createUser({
+      //   ...values,
+      //   tel: values.mobileNumber,
+      // });
+      // reset();
+      // console.log(response);
+      // toast.success(
+      //   `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
+      // );
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
@@ -164,17 +168,18 @@ export default function CreateTeachers() {
               </p>
             </div>
             <div className="selects row my-2">
-
-           <div className="d-flex flex-column col-6">
-           <label htmlFor="gender" className="label">Gender</label>
-              <select name="gender" {...register("gender")}>
-                <option value="" disabled>
-                  gender
-                </option>
-                <option value="male">male</option>
+              <div className="d-flex flex-column col-6">
+                <label htmlFor="gender" className="label">
+                  Gender
+                </label>
+                <select name="gender" {...register("gender")}>
+                  <option value="" disabled>
+                    gender
+                  </option>
+                  <option value="male">male</option>
                   <option value="female">female</option>
-              </select>
-           </div>
+                </select>
+              </div>
 
               <div className="d-flex flex-column col-6">
                 <label htmlFor="teacherType" className="label">
@@ -192,10 +197,10 @@ export default function CreateTeachers() {
 
             {selectedTeacherType === "classTeacher" && (
               <div className="my-2 d-flex flex-column">
-                <label htmlFor="classTaught" className="label">
+                <label htmlFor="classHandled" className="label">
                   Class Managed
                 </label>
-                <select name="classTaught" {...register("classTaught")}>
+                <select name="classHandled" {...register("classHandled")}>
                   {CLASS.map((option, index) => (
                     <option key={index}>{option}</option>
                   ))}
@@ -232,20 +237,19 @@ export default function CreateTeachers() {
 
             {selectedTeacherType === "classTeacher" && (
               <div className="my-2 d-flex flex-column">
-                <label htmlFor="signature" className="label">
-                  signature
+                <label htmlFor="teacherSignature" className="label">
+                  Signature
                 </label>
 
                 <input
-                  placeholder="Teacher's  
-         Signature"
-                  name="signature"
+                  placeholder="Teacher's signature"
+                  name="teacherSignature"
                   type="file"
-                  {...register("signature")}
+                  {...register("teacherSignature")}
                 />
                 <p className="error-message">
-                  {errors.signature?.message
-                    ? `*${errors.signature?.message}`
+                  {errors.teacherSignature?.message
+                    ? `*${errors.teacherSignature?.message}`
                     : ""}
                 </p>
               </div>

@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAppContext } from "../../contexts/Context";
-import { UserService } from "../../services/userService";
 import { useAuth } from "../../hooks/useAuth";
-import { useUserContext } from "../../contexts/UserContext";
 
 const TabsConfig = [
   {
@@ -65,7 +63,7 @@ export default function TeacherDashboard() {
         <p>Welcome to your dashboard.</p>r
       </div>
       <div className="middle-div container d-flex py-5">
-        <div className="tabs  d-flex flex-column ">
+        <div className="tabs d-flex flex-column ">
           {TabsConfig.map(
             ({ icon, title, subTitle, iconColor, link }, index) => (
               <Link
@@ -130,16 +128,16 @@ const Dashboard = styled.div`
   margin: 0 !important;
   .middle-div {
     background-color: #f1f1f1;
-    align-items: center;
+    align-items: start;
     height: auto;
     justify-content: space-between !important;
     margin: 0 !important;
     .tabs {
-      gap: 20px;
+      gap: 10px;
       .tab {
         max-width: 400px;
         min-width: 320px;
-        height: 80px;
+        height: auto;
         border-radius: 10px;
         align-items: center;
         .icon-div {

@@ -15,7 +15,7 @@ export default function TeacherLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const schema = yup.object({
-    teacherId: yup.number().required("enter your ID"),
+    teacherId: yup.string().required("enter your teacher ID"),
     password: yup.string().required("enter your password"),
   });
   const {
@@ -27,10 +27,12 @@ export default function TeacherLogin() {
     defaultValues: {
       role: "teacher",
       password: "",
+      teacherId: "",
     },
   });
   const onSubmit = async (data) => {
     setIsLoading(true);
+    console.log(errors);
     await login(data)
       .then((res) => {
         // navigate(PATH_DASHBOARD.teacher.index);

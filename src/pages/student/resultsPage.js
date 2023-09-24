@@ -5,10 +5,11 @@ import { CLASS } from "../../constants/class";
 import { ReportService } from "../../services/reportService";
 import { toast } from "react-hot-toast";
 import { OverlayLoading } from "../../components/OverlayLoading";
+import { useAuth } from "../../hooks/useAuth";
 // import {getTer}
 
 export default function ResultsPage() {
-  // const {} = useAuth()
+  const { user } = useAuth();
   //  const {} = useTerm
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState("currentClass");
@@ -25,13 +26,13 @@ export default function ResultsPage() {
       reportTerm: "SECOND_TERM",
       reportClass: "JSS2",
       icon: "icon-park-solid:two-key",
-      _id: 4484,
+      _id: 4485,
     },
     {
       reportTerm: "THIRD_TERM",
       reportClass: "JSS2",
       icon: "icon-park-solid:two-key",
-      _id: 4484,
+      _id: 4486,
     },
   ];
 
@@ -43,12 +44,15 @@ export default function ResultsPage() {
         reportTerm: term,
         selectedClass: reportClass,
       });
-      console.log(data);
+
       const blob = new Blob([data]);
       const url = window.URL.createObjectURL(blob);
       var link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "report.pdf");
+      link.setAttribute(
+        "download",
+        `${user.admissionNumber}-${selectedTerm}.pdf`
+      );
       document.body.appendChild(link);
       link.click();
       window.URL.revokeObjectURL(url);
@@ -58,7 +62,11 @@ export default function ResultsPage() {
     } catch (error) {
       console.error("An error occurred:", error);
       setLoading(false);
-      toast.error("An error occurred, try again later...");
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred, try again later...");
+      }
     }
   }
   function changedClass() {
