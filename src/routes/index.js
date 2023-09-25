@@ -2,18 +2,9 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
 import { Home } from "../pages";
-// import Login from "../pages/authentication/login";
-// import Teacher from "../pages/authentication/teacher";
-// ========================================================
-// Dashboard Layouts
-// ========================================================
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
-
-// ========================================================
-// Dashboard Pages
-// ========================================================
 import {
   TeacherDashboard,
   CreateResult,

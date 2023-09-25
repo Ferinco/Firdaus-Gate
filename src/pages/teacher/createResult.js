@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import toast from "react-hot-toast";
 import lodash from "lodash";
@@ -8,8 +8,18 @@ import { Input } from "../../components/custom";
 import ReportSubjectForm from "./ReportSubjectForm";
 import { CircularProgress } from "../../components/custom";
 import { ReportService } from "../../services/reportService";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStudentNames } from "../../redux/slices/students";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function CreateResult() {
+  const {user} = useAuth()
+  const dispatch = useDispatch()
+  const studentNames = useSelector((state)=> state.students.studentNames)
+console.log(studentNames)
+  useEffect(()=>{
+    dispatch(fetchStudentNames("student", user._id))
+  }, [dispatch])
   // Default values for subject's grade
   const defaultSubjectValues = {
     subject: "",
@@ -96,9 +106,10 @@ export default function CreateResult() {
             <div className="">
               <label> Select student </label>
               <select {...register("student")}>
-                <option value="" disabled selected>
-                  Select student
-                </option>
+              {/* {studentNames.map((name, index) => (
+        <option key={index}>{name}</option>
+      ))} */}
+
               </select>
             </div>
             {/* SUBJECT INPUT */}

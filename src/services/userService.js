@@ -32,4 +32,8 @@ export const UserService = {
     const { data } = await api.post("/users/create", payload);
     return data;
   },
+  getStudentNames : async(role, teacherId)=> {
+    const {data} = await api.post(`/users?role=${role}&teacherId=${teacherId}`)
+    return data
+  }
 };
