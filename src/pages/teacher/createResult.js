@@ -106,9 +106,9 @@ console.log(studentNames)
             <div className="">
               <label> Select student </label>
               <select {...register("student")}>
-              {/* {studentNames.map((name, index) => (
-        <option key={index}>{name}</option>
-      ))} */}
+              {studentNames.map((name) => (
+        <option key={name}>{name}</option>
+      ))}
 
               </select>
             </div>
