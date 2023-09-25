@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import studentReducer from "./slices/students"
+import rootReducer from "./rootReducer";
+
 export const store = configureStore({
-    reducer : {
-students: studentReducer,
-    }
-})
+  reducer: rootReducer,
+});

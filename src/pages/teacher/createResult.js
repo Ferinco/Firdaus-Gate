@@ -9,17 +9,19 @@ import ReportSubjectForm from "./ReportSubjectForm";
 import { CircularProgress } from "../../components/custom";
 import { ReportService } from "../../services/reportService";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStudentNames } from "../../redux/slices/students";
+import { fetchStudents } from "../../redux/slices/students";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function CreateResult() {
-  const {user} = useAuth()
-  const dispatch = useDispatch()
-  const studentNames = useSelector((state)=> state.students.studentNames)
-console.log(studentNames)
-  useEffect(()=>{
-    dispatch(fetchStudentNames("student", user._id))
-  }, [dispatch])
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchStudents({ teacherId: user._id }));
+  }, []);
+  const { students, isLoading } = useSelector((state) => state.students);
+
+  console.log(students);
+
   // Default values for subject's grade
   const defaultSubjectValues = {
     subject: "",
@@ -106,10 +108,13 @@ console.log(studentNames)
             <div className="">
               <label> Select student </label>
               <select {...register("student")}>
-              {studentNames.map((name) => (
-        <option key={name}>{name}</option>
-      ))}
-
+                {!isLoading &&
+                  students.map((student) => (
+                    <option key={student._id}>
+                      {student.admissionNumber} - {student.firstName}{" "}
+                      {student.lastName}
+                    </option>
+                  ))}
               </select>
             </div>
             {/* SUBJECT INPUT */}
@@ -196,7 +201,7 @@ console.log(studentNames)
               <p className="lead">Class teacher comment</p>
               <div className="card">
                 <textarea
-                className="text-area"
+                  className="text-area"
                   {...register("classTeacherComment")}
                   placeholder="Class teacher comment"
                 />
@@ -242,12 +247,12 @@ const Wrapper = styled.div`
     padding-bottom: 10px;
     border-bottom: 1px solid white;
   }
-  .card{
+  .card {
     background-color: white;
     border-radius: 20px;
     padding: 40px 10px;
   }
-  .text-area{
+  .text-area {
     border: 0;
     outline: 0;
   }
