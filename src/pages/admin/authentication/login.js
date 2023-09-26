@@ -16,7 +16,6 @@ export default function AdminLogin() {
       email: "",
       password: "",
       role: "admin",
-      admissionNumber: null,
     },
   });
 
@@ -67,23 +66,23 @@ export default function AdminLogin() {
             />
           </div>
           <div className="mt-4">
-              <Button
-                blue
-                type="submit"
-                className="button"
-                disabled={isSubmitting === true}
-              >
-                {isSubmitting ? (
-                  <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
+            <Button
+              blue
+              type="submit"
+              className="button"
+              disabled={isSubmitting === true}
+            >
+              {isSubmitting ? (
+                <div className="d-flex justify-content-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
                   </div>
-                ) : (
-                  "Sign in"
-                )}
-              </Button>
-            </div>
+                </div>
+              ) : (
+                "Sign in"
+              )}
+            </Button>
+          </div>
         </form>
       </div>
     </Wrapper>
@@ -91,7 +90,7 @@ export default function AdminLogin() {
 }
 
 const Wrapper = styled.div`
-background-color: #f1f1f1;
+  background-color: #f1f1f1;
   height: 100vh;
   align-items: center;
   .form-wrapper {
@@ -103,18 +102,18 @@ background-color: #f1f1f1;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
-  .header{
+  .header {
     justify-content: center;
     align-items: center;
   }
-  .form{
+  .form {
     width: 100%;
   }
   .label {
     font-weight: 700;
     text-transform: capitalize;
   }
-  button{
+  button {
     width: 100%;
     border-radius: 10px;
   }
@@ -126,10 +125,10 @@ background-color: #f1f1f1;
     outline: none;
     width: 100%;
   }
-  .logo-img{
-    width:70px;
-    height:70px;
-    img{
+  .logo-img {
+    width: 70px;
+    height: 70px;
+    img {
       height: 100%;
       object-fit: cover;
       width: 100%;

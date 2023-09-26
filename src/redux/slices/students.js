@@ -5,8 +5,8 @@ import { useAuth } from "../../hooks/useAuth";
 
 const initialState = {
   isLoading: false,
-  success: false,
-  error: false,
+  isSuccess: false,
+  error: null,
   students: [],
 };
 
@@ -29,7 +29,7 @@ const studentSlice = createSlice({
   initialState,
   reducers: {
     clearState: () => initialState,
-    clearSuccess: () => (initialState.success = false),
+    clearSuccess: () => (initialState.isSuccess = false),
   },
   extraReducers: (builder) => {
     // reducers for fetching students
@@ -38,12 +38,12 @@ const studentSlice = createSlice({
     });
     builder.addCase(fetchStudents.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.success = true;
+      state.isSuccess = true;
       state.students = action.payload.data;
     });
     builder.addCase(fetchStudents.rejected, (state, action) => {
       state.isLoading = false;
-      state.success = false;
+      state.isSuccess = false;
       state.error = action.payload;
     });
     //  end fetching students

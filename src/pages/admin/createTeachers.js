@@ -18,9 +18,9 @@ export default function CreateTeachers() {
     teacherId: yup.string().required("Enter teacher ID"),
     email: yup.string().email().required("email is required"),
     mobileNumber: yup.string().required("email is required"),
-    teacherSignature: yup
-      .mixed()
-      .required("class teacher signature is required"),
+    // teacherSignature: yup
+    //   .mixed()
+    //   .required("class teacher signature is required"),
     password: yup.string().min(5).max(12).required("set a passowrd"),
     confirmPassword: yup
       .string()
@@ -53,21 +53,22 @@ export default function CreateTeachers() {
     },
   });
   const selectedTeacherType = watch("teacherType");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
     console.log(values);
     try {
       setIsSubmitting(true);
-      // const response = await UserService.createUser({
-      //   ...values,
-      //   tel: values.mobileNumber,
-      // });
-      // reset();
-      // console.log(response);
-      // toast.success(
-      //   `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
-      // );
+      const response = await UserService.createUser({
+        ...values,
+        tel: values.mobileNumber,
+      });
+      reset();
+      console.log(response);
+      toast.success(
+        `${response.data.firstName} ${response.data.lastName}'s teacher profile has been created`
+      );
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
