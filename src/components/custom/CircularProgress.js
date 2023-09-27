@@ -23,6 +23,7 @@ top:0;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
+  z-index:9999;
 
 .circular-progress{
   width: 50px;

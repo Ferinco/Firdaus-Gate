@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useState} from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../contexts/Context";
@@ -34,8 +34,13 @@ const sidebarConfig = [
 export default function StudentSidebar() {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const [activeTab, setActiveTab] = useState("Dashboard")
   const { isSidebarOpen, isDashboardClicked, setIsDashboardClicked } =
     useAppContext();
+    function handleNavClick(title){
+      setActiveTab(title)
+      console.log(activeTab)
+        }
   return (
     <SIDEBAR>
       <div
@@ -49,12 +54,13 @@ export default function StudentSidebar() {
               <img src="/images/logo.png" />
             </Link>
           </div>
-          <div className="nav-links d-flex flex-column pl-4">
+          <div className="nav-links d-flex flex-column ">
             {sidebarConfig.map(({ icon, link, title }, index) => (
               <Link
                 to={link}
                 key={index}
-                className="nav-link react-router-link pl-5 py-1"
+                className={`nav-link react-router-link px-5 py-1 ${activeTab === title ? "active-tab" : ""}`}
+                onClick={()=> handleNavClick(title)}
               >
                 <Icon icon={icon} />
                 {title}
@@ -102,7 +108,7 @@ const SIDEBAR = styled.div`
   }
   .nav-links {
     gap: 30px !important;
-    width: 100%;
+    width: 85%;
   }
   .nav-link {
     color: #737373 !important;
@@ -110,12 +116,13 @@ const SIDEBAR = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    &:hover,
-    &:active {
-      color: black !important;
+    &:hover{
       transition: 0.3s;
-      border-right: 5px solid black;
     }
+  }
+  .active-tab{
+    color: blue !important;
+    background-color: #737373;
   }
   .logo {
     height: 70px;
