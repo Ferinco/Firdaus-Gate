@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { InputSelect, Input } from "../../components/custom";
-import { seniorSchoolSubjects } from "../../constants/subjects";
+import { InputSelect, Input } from "../../custom";
+import { seniorSchoolSubjects } from "../../../constants/subjects";
 import { Controller } from "react-hook-form";
 
-const ReportSubjectForm = ({
+const SeniorPerformanceForm = ({
   remove,
   index,
   control,
@@ -192,4 +192,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default ReportSubjectForm;
+export default SeniorPerformanceForm;

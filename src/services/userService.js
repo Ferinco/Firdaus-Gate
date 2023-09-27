@@ -4,7 +4,7 @@ import { api } from "../api/axios";
 export const UserService = {
   getStudents: async (teacherId) => {
     const { data } = await api.get(
-      `/users?role=student${teacherId && `&teacherId=${teacherId}`}`
+      `/users?role=student&${teacherId && `teacherId=${teacherId}`}`
     );
     return data;
   },
@@ -32,8 +32,4 @@ export const UserService = {
     const { data } = await api.post("/users/create", payload);
     return data;
   },
-  getStudentNames : async(role, teacherId)=> {
-    const {data} = await api.post(`/users?role=${role}&teacherId=${teacherId}`)
-    return data
-  }
 };

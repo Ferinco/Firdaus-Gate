@@ -1,7 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import studentReducer from "./slices/students"
+import rootReducer from "./rootReducer";
+// import storage from "redux-persist"
+
+// const persistConfig = {
+//   key: 'root',
+//   storage
+// }
+
 export const store = configureStore({
-    reducer : {
-students: studentReducer,
-    }
-})
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== "production",
+});

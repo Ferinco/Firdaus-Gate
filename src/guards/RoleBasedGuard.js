@@ -13,7 +13,6 @@ RoleBasedGuard.propTypes = {
 
 export default function RoleBasedGuard({ children, accessibleRoles }) {
   const { role } = useAuth();
-  console.log(role);
   const currentRole = role;
   const { pathname } = useLocation();
 

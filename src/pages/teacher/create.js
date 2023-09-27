@@ -3,14 +3,15 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
 import styled from "styled-components";
-import { Spinner } from "react-bootstrap";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../components/custom/Button";
 import { UserService } from "../../services/userService";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Create() {
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
+  const { user } = useAuth();
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -51,7 +52,7 @@ export default function Create() {
       role: "student",
       parentPhone: "",
       gender: "",
-      
+      classTeacher: user._id,
     },
   });
   //submission of the form
