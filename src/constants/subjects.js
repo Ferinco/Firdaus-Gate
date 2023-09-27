@@ -22,8 +22,14 @@ export const seniorSchoolSubjects = [
   "Yoruba Language",
 ];
 
-export const juniorSchoolSubjects = [];
-export const allSubjects=[
+export const juniorSchoolSubjects = [
+  "English Language",
+  "Mathematics",
+  "Qualitative Reasoning",
+  "Verbal Reasoning",
+  "Arabic",
+];
+export const allSubjects = [
   "Accounting",
   "Agriculture",
   "Animal Husbandry",
@@ -45,4 +51,4 @@ export const allSubjects=[
   "Mathematics",
   "Physics",
   "Yoruba Language",
-]
+];
