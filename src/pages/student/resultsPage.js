@@ -6,43 +6,53 @@ import { ReportService } from "../../services/reportService";
 import { toast } from "react-hot-toast";
 import { OverlayLoading } from "../../components/OverlayLoading";
 import { useAuth } from "../../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { getReports } from "../../redux/slices/reports";
 // import {getTer}
 
 export default function ResultsPage() {
   const { user } = useAuth();
   //  const {} = useTerm
   const [loading, setLoading] = React.useState(false);
-  const [selectedClass, setSelectedClass] = React.useState("currentClass");
+  const [selectedClass, setSelectedClass] = React.useState("JSS1");
   const [selectedTerm, setSelectedTerm] = React.useState("currentTerm");
+  // const dispatch = useDispatch();
 
-  const reports = [
+  // React.useEffect(() => {
+  //   dispatch(getReports({ student: user._id }));
+  // }, [dispatch]);
+
+  // const { reports } = useSelector((state) => state.reports);
+  // console.log(reports);
+
+  const reportsItem = [
     {
       reportTerm: "FIRST_TERM",
-      reportClass: "JSS2",
+
       icon: "icon-park-solid:two-key",
       _id: 4484,
     },
     {
       reportTerm: "SECOND_TERM",
-      reportClass: "JSS2",
       icon: "icon-park-solid:two-key",
       _id: 4485,
     },
     {
       reportTerm: "THIRD_TERM",
-      reportClass: "JSS2",
       icon: "icon-park-solid:two-key",
       _id: 4486,
     },
   ];
 
   // Download handler for report card
-  async function downloadReport(reportClass, term) {
+  async function downloadReport(term) {
     try {
       setLoading(true);
       const data = await ReportService.downloadReport({
-        reportTerm: term,
-        selectedClass: reportClass,
+        classSection: "junior",
+        selectedTerm: term,
+        selectedClass,
+        student: user._id,
       });
 
       const blob = new Blob([data]);
@@ -64,14 +74,15 @@ export default function ResultsPage() {
       setLoading(false);
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
-      } else {
-        toast.error("An error occurred, try again later...");
+      }
+      if (error.response.status === 404) {
+        toast.error("You do not have a report for this session!");
       }
     }
   }
-  function changedClass() {
-    console.log("class has been changed");
-    toast.success("class has been chaned to i go fix this part later");
+  function changedClass(e) {
+    setSelectedClass(e.target.value);
+    toast.success(`class has been changed to ${selectedClass}`);
   }
   return (
     <Wrapper className="p-5">
@@ -83,7 +94,9 @@ export default function ResultsPage() {
           {/* selection of class */}
           <select onChange={changedClass}>
             {CLASS.map((opt, index) => (
-              <option key={index}>{opt}</option>
+              <option key={index} value={opt}>
+                {opt}
+              </option>
             ))}
           </select>
           <div>
@@ -95,12 +108,10 @@ export default function ResultsPage() {
       </div>
       <div className="tabs-wrapper py-5 mt-5">
         <div className="tabs w-100 p-0 py-2 px-3">
-          {reports.map((report) => (
+          {reportsItem.map((report) => (
             <div
               className="tab "
-              onClick={() =>
-                downloadReport(report.reportClass, report.reportTerm)
-              }
+              onClick={() => downloadReport(report.reportTerm)}
               key={report._id}
             >
               <div className="tab-right">

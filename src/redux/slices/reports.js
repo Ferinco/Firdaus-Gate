@@ -3,9 +3,9 @@ import { ReportService } from "../../services/reportService";
 
 export const getReports = createAsyncThunk(
   "reports/fetchReports",
-  async (thunkApi) => {
+  async (params, thunkApi) => {
     try {
-      const response = await ReportService.getReports();
+      const response = await ReportService.getReports(params);
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);

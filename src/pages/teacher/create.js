@@ -53,6 +53,7 @@ export default function Create() {
       parentPhone: "",
       gender: "",
       classTeacher: user._id,
+      currentClass: user.classHandled,
     },
   });
   //submission of the form
