@@ -1,7 +1,14 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentTerm } from "../redux/slices/term";
+
 export const useTerm = () => {
-  let currentTerm;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentTerm());
+  }, [dispatch]);
 
-  currentTerm = "FIRST_TERM";
+  const currentTerm = useSelector((state) => state.term);
 
-  return { currentTerm: currentTerm };
+  return { currentTerm };
 };

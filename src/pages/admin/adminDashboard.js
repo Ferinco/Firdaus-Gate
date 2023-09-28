@@ -15,7 +15,7 @@ export default function AdminDashboard() {
       iconColor: "white",
     },
     {
-      link: PATH_DASHBOARD.admin.teachersList,
+      link: PATH_DASHBOARD.admin.createTerm,
       title: "Set Term",
       subTitle: "Set the current term",
       icon: "pepicons-pencil:list",

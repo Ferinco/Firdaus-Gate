@@ -8,15 +8,18 @@ import { OverlayLoading } from "../../components/OverlayLoading";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { getReports } from "../../redux/slices/reports";
-// import {getTer}
+import { useTerm } from "../../hooks/useTerm";
+import { fetchCurrentTerm } from "../../redux/slices/term";
 
 export default function ResultsPage() {
   const { user } = useAuth();
-  //  const {} = useTerm
+
+  const currentTerm = useSelector((state) => state.term);
+  console.log(currentTerm);
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState("JSS1");
-  const [selectedTerm, setSelectedTerm] = React.useState("currentTerm");
-  // const dispatch = useDispatch();
+  const [selectedTerm, setSelectedTerm] = React.useState(currentTerm);
+  const dispatch = useDispatch();
 
   // React.useEffect(() => {
   //   dispatch(getReports({ student: user._id }));
@@ -24,7 +27,9 @@ export default function ResultsPage() {
 
   // const { reports } = useSelector((state) => state.reports);
   // console.log(reports);
-
+  React.useEffect(() => {
+    dispatch(fetchCurrentTerm());
+  }, [dispatch]);
   const reportsItem = [
     {
       reportTerm: "FIRST_TERM",
