@@ -19,8 +19,8 @@ const {reports, isLoading} = useSelector((state)=> state.reports)
 </div>
 {reports > 0 ? (
   <>
-{reports.map((geng)=>(
-  <div key={geng._id}>{geng}</div>
+{reports.map((result)=>(
+  <div key={result._id}>{result}</div>
 ))}
   </>
 ) : (
