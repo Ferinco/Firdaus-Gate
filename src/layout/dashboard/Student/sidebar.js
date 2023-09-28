@@ -121,8 +121,8 @@ const SIDEBAR = styled.div`
     }
   }
   .active-tab{
-    color: blue !important;
-    background-color: #737373;
+    color:  #9ea0e7 !important;
+    background-color: #e6ffff;
   }
   .logo {
     height: 70px;

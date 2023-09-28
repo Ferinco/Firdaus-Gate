@@ -23,7 +23,7 @@ export default function JuniorReportForm({ students, isLoading }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  const { register, control, watch, setValue, handleSubmit } = useForm({
+  const { register, control, watch, setValue, handleSubmit, reset } = useForm({
     defaultValues: {
       classSection: "junior",
       // Number 1
@@ -111,6 +111,7 @@ export default function JuniorReportForm({ students, isLoading }) {
       .then((res) => {
         setLoading(false);
         toast.success("Report card has been created successfully");
+        reset()
       })
       .catch((error) => {
         console.log(error);
@@ -122,7 +123,7 @@ export default function JuniorReportForm({ students, isLoading }) {
     <Wrapper>
       {loading && <CircularProgress />}
       {!loading && (
-        <div className="container">
+        <div className="container p-5">
           <h2>Junior report form</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -135,7 +136,7 @@ export default function JuniorReportForm({ students, isLoading }) {
                   </option>
                 ))}
             </select>
-            <div className="card">
+            <div className="card p-3 my-5">
               <h6>
                 Attendance <br /> (Regularity & Punctuality)
               </h6>
@@ -167,7 +168,7 @@ export default function JuniorReportForm({ students, isLoading }) {
               </div>
             </div>
 
-            <div className="card my-5">
+            <div className="card my-5 p-3">
               <h6>2. CONDUCT</h6>
               <div>
                 <label>Comments</label>
@@ -179,7 +180,7 @@ export default function JuniorReportForm({ students, isLoading }) {
               </div>
             </div>
 
-            <div className="card my-5">
+            <div className="card my-5 p-3">
               <h6>3. PHYSICAL DEVELOPMENT, HEALTH AND CLEANLINESS</h6>
               <div className="row">
                 <div className="col-md-6">
@@ -261,7 +262,7 @@ export default function JuniorReportForm({ students, isLoading }) {
               </div>
             </div>
 
-            <div className="my-4">
+            <div className="card my-4 p-3">
               <h6>4. PERFORMANCE IN SUBJECTS</h6>
               {fields.map((item, index) => {
                 return (
@@ -400,4 +401,7 @@ export default function JuniorReportForm({ students, isLoading }) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+.card{
+  border-radius: 10px;
+}`;
