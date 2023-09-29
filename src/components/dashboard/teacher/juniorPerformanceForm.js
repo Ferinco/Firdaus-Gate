@@ -78,7 +78,7 @@ const JuniorPerformanceForm = ({
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-
+border-bottom: 1px solid #f1f1f1;
   .fields {
     width: 100%;
     display: flex;

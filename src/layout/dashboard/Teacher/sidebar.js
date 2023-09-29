@@ -31,12 +31,13 @@ const sidebarConfig = [
 ];
 
 export default function TeacherSidebar() {
-  const { isSidebarOpen } = useAppContext();
+  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard")
   function handleNavClick(title){
     setActiveTab(title)
     console.log(activeTab)
+    setIsSidebarOpen(false)
       }
   return (
     <SIDEBAR>

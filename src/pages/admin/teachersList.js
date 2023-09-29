@@ -54,7 +54,7 @@ export default function TeachersList() {
       </div>
       {isLoading ? <CircularProgress /> : ""}
       {teachers.length > 0 ? (
-        <div className=" px-5">
+        <div className="table-div px-5">
           <Table>
             <thead>
               <tr>
@@ -129,6 +129,9 @@ export default function TeachersList() {
   );
 }
 const Wrapper = styled.div`
+.table-div{
+  overflow-x:scroll;
+}
   .table {
   }
   .table-body {

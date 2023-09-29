@@ -60,7 +60,7 @@ export default function TeacherDashboard() {
         <h4>
           <span>{greeting}</span> {user.firstName} <span></span>
         </h4>
-        <p>Welcome to your dashboard.</p>r
+        <p>Welcome to your dashboard.</p>
       </div>
       <div className="middle-div container d-flex py-5">
         <div className="tabs d-flex flex-column ">

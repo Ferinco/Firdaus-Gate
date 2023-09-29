@@ -37,13 +37,14 @@ const sidebarConfig = [
 
 export default function AdminSidebar() {
 const [activeTab, setActiveTab] = useState("Dashboard")
-  const { isSidebarOpen } = useAppContext();
+  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
   const { logout } = useAuth();
   const dispatch = useDispatch()
 
   function handleNavClick(title){
 setActiveTab(title)
 console.log(activeTab)
+setIsSidebarOpen(false)
   }
   return (
     <SIDEBAR>

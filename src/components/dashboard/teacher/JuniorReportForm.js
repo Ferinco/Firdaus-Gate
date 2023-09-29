@@ -189,7 +189,7 @@ export default function JuniorReportForm({ students, isLoading }) {
             <div className="card my-5 p-3 physicals-div">
               <h6>3. PHYSICAL DEVELOPMENT, HEALTH AND CLEANLINESS</h6>
               <div className="d-flex flex-column mt-3 gap-3">
-                <div className="d-flex row justify-content-between gap-2">
+                <div className="d-flex row justify-content-between">
                   <div className="col-md-6 d-flex flex-column">
                     <label>Height (Beginning of Term)</label>
                     <input
@@ -208,7 +208,7 @@ export default function JuniorReportForm({ students, isLoading }) {
                   </div>
                 </div>
 
-                <div className="row gap-2">
+                <div className="row">
                   <div className="col-md-6 d-flex flex-column">
                     <label>Weight (Beginning of Term)</label>
                     <input
@@ -226,7 +226,7 @@ export default function JuniorReportForm({ students, isLoading }) {
                     />
                   </div>
                 </div>
-                <div className="row gap-2">
+                <div className="row">
                   <div className="col-md-6 d-flex flex-column">
                     <label>Number of Days Absent Due to Illness</label>
                     <input
@@ -244,7 +244,7 @@ export default function JuniorReportForm({ students, isLoading }) {
                     />
                   </div>
                 </div>
-                <div className="row gap-2">
+                <div className="row">
                   <div className="col-md-6 d-flex flex-column">
                     <label>Cleanliness Rating</label>
                     <input
@@ -380,7 +380,7 @@ export default function JuniorReportForm({ students, isLoading }) {
               </div>
             </div>
 
-            <div className="my-4 card my-5 p-3 d-flex flex-wrap flex-row gap-3">
+            <div className="my-4 card my-5 p-3 d-flex flex-wrap flex-row gap-3 end-div">
               <div className="d-flex flex-column">
                 <label>Class teacher's comments </label>
                 <textarea
@@ -396,6 +396,7 @@ export default function JuniorReportForm({ students, isLoading }) {
                   type="date"
                   {...register("schoolReopens")}
                   placeholder=""
+                  className="date-input"
                 />
               </div>
             </div>
@@ -416,9 +417,11 @@ const Wrapper = styled.div`
   select {
     border-radius: 10px;
     padding: 5px;
+    outline: 0;
   }
   label {
     font-size: 14px;
+    color: black;
   }
 
   .row {
@@ -427,7 +430,8 @@ const Wrapper = styled.div`
   .physicals-div,
   .sports-div,
   .clubs-div,
-  .attendance-div {
+  .attendance-div,
+  .end-div {
     input {
       padding: 5px 10px;
       border-radius: 5px;
