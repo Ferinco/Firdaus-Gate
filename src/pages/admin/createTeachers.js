@@ -21,7 +21,7 @@ export default function CreateTeachers() {
     // teacherSignature: yup
     //   .mixed()
     //   .required("class teacher signature is required"),
-    password: yup.string().min(5).max(12).required("set a passowrd"),
+    password: yup.string().min(5).max(12).required("set a password"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -50,6 +50,7 @@ export default function CreateTeachers() {
       teacherSignature: "",
       classHandled: "",
       subjectTaught: "",
+      department: "",
     },
   });
   const selectedTeacherType = watch("teacherType");
@@ -203,8 +204,25 @@ export default function CreateTeachers() {
                 </label>
                 <select name="classHandled" {...register("classHandled")}>
                   {CLASS.map((option, index) => (
-                    <option key={index}>{option}</option>
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
                   ))}
+                </select>
+              </div>
+            )}
+            {selectedTeacherType === "classTeacher" && (
+              <div className="my-2 d-flex flex-column">
+                <label htmlFor="department" className="label">
+                  Department
+                </label>
+                <select name="department" {...register("department")}>
+                  <option value="select department" selected disabled>
+                    Select department
+                  </option>
+                  <option value="science">science</option>
+                  <option value="commercial">commercial</option>
+                  <option value="art">art</option>
                 </select>
               </div>
             )}

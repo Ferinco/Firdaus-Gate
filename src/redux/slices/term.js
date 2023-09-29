@@ -42,7 +42,7 @@ const slices = createSlice({
     });
     builder.addCase(fetchCurrentTerm.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.currentTerm = action.payload;
+      state.currentTerm = action.payload.data;
     });
     builder.addCase(fetchCurrentTerm.rejected, (state, action) => {
       state.isLoading = true;

@@ -8,13 +8,13 @@ const SeniorPerformanceForm = ({
   remove,
   index,
   control,
-  watchResult,
+  watchPerformance,
   setValue,
   field,
 }) => {
   const getWA =
-    Number(watchResult[index].continuousAssessmentScore) +
-    Number(watchResult[index].examScore);
+    Number(watchPerformance[index].continuousAssessmentScore) +
+    Number(watchPerformance[index].examScore);
 
   function getPositionGrade() {
     switch (true) {
@@ -67,12 +67,12 @@ const SeniorPerformanceForm = ({
   }
 
   React.useEffect(() => {
-    setValue(`result.${index}.positionGrade`, getPositionGrade());
-    setValue(`result.${index}.comment`, getComment());
-    setValue(`result.${index}.totalWeightedAverage`, getWA);
+    setValue(`performance.${index}.positionGrade`, getPositionGrade());
+    setValue(`performance.${index}.comment`, getComment());
+    setValue(`performance.${index}.totalWeightedAverage`, getWA);
   }, [
-    watchResult[index].continuousAssessmentScore,
-    watchResult[index].examScore,
+    watchPerformance[index].continuousAssessmentScore,
+    watchPerformance[index].examScore,
   ]);
 
   return (
@@ -85,15 +85,15 @@ const SeniorPerformanceForm = ({
 
           <Controller
             render={({ field }) => (
-              <InputSelect defaultValue="Select subject" {...field}>
-                {seniorSchoolSubjects.map((subject, index) => (
-                  <option value={subject} key={index}>
-                    {subject}
+              <select defaultValue="Select subject" {...field}>
+                {seniorSchoolSubjects.map((item, index) => (
+                  <option value={item.name} key={index}>
+                    {item.name}
                   </option>
                 ))}
-              </InputSelect>
+              </select>
             )}
-            name={`result.${index}.subject`}
+            name={`performance.${index}.subject`}
             control={control}
           />
         </div>
@@ -103,7 +103,7 @@ const SeniorPerformanceForm = ({
           </label>
           <Controller
             render={({ field }) => <Input placeholder="C.A score" {...field} />}
-            name={`result.${index}.continuousAssessmentScore`}
+            name={`performance.${index}.continuousAssessmentScore`}
             control={control}
           />
         </div>
@@ -116,26 +116,26 @@ const SeniorPerformanceForm = ({
             render={({ field }) => (
               <Input placeholder="Exam score" {...field} />
             )}
-            name={`result.${index}.examScore`}
+            name={`performance.${index}.examScore`}
             control={control}
           />
         </div>
         <div className="field">
           <label>
-            <small>Total Weighted Ave. </small>
+            <small>Total W.A </small>
           </label>
 
           <Input placeholder="Total Weighted Average" value={getWA} />
         </div>
         <div className="field">
           <label>
-            <small>Position grade</small>
+            <small>Position G</small>
           </label>
 
           <Input placeholder="Position grade" value={getPositionGrade()} />
 
           {/* <Controller
-            name={`result[${index}].positionGrade`}
+            name={`performance[${index}].positionGrade`}
             control={control}
             render={({ field }) => (
               <input
@@ -154,7 +154,7 @@ const SeniorPerformanceForm = ({
             placeholder="comment"
             value={getComment()}
             onChange={(e) =>
-              setValue(`result.${index}.comment`, e.target.value)
+              setValue(`performance.${index}.comment`, e.target.value)
             }
           />
         </div>

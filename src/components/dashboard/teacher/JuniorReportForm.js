@@ -8,6 +8,7 @@ import { Button, CircularProgress } from "../../custom";
 import { juniorSchoolSubjects } from "../../../constants/subjects";
 import { createReports } from "../../../redux/slices/reports";
 import { useAuth } from "../../../hooks/useAuth";
+import { useTerm } from "../../../hooks/useTerm";
 
 const performanceValues = juniorSchoolSubjects.map((item) => {
   return {
@@ -21,6 +22,7 @@ const defaultSubjectValues = [...performanceValues];
 export default function JuniorReportForm({ students, isLoading }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
+  const { currentTerm } = useTerm();
   const [loading, setLoading] = useState(false);
 
   const { register, control, watch, setValue, handleSubmit } = useForm({
@@ -92,7 +94,7 @@ export default function JuniorReportForm({ students, isLoading }) {
       schoolReopens: "",
       student: "",
       reportClass: user.classHandled,
-      reportTerm: "FIRST_TERM",
+      reportTerm: currentTerm.name,
     },
   });
 
@@ -115,6 +117,8 @@ export default function JuniorReportForm({ students, isLoading }) {
       .catch((error) => {
         console.log(error);
         setLoading(false);
+        if (error.response.data.message)
+          toast.error(error.response.data.message);
         toast.error("Error creating student report, try again later");
       });
   };

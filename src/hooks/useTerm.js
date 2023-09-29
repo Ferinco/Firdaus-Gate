@@ -8,7 +8,20 @@ export const useTerm = () => {
     dispatch(fetchCurrentTerm());
   }, [dispatch]);
 
-  const currentTerm = useSelector((state) => state.term);
+  const { currentTerm, isLoading } = useSelector((state) => state.term);
+  let activeTerm = "";
 
-  return { currentTerm };
+  if (!isLoading) {
+    if (currentTerm.name === "FIRST TERM") activeTerm = "1st";
+    if (currentTerm.name === "SECOND TERM") activeTerm = "2nd";
+    if (currentTerm.name === "THIRD TERM") activeTerm = "3rd";
+  }
+  return {
+    currentTerm: {
+      position: activeTerm,
+      name: currentTerm.name,
+      endDate: currentTerm.endDate,
+      startDate: currentTerm.startDate,
+    },
+  };
 };
