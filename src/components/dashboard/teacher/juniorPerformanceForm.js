@@ -60,7 +60,7 @@ const JuniorPerformanceForm = ({
 
         <div className="field">
           <label>
-            <small>Total Weighted Ave. </small>
+            <small>T.W Average </small>
           </label>
 
           <Input placeholder="Total Weighted Average" value={getWA} />
