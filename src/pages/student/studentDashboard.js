@@ -11,9 +11,9 @@ export default function StudentDashboard() {
 
   return (
     <Dashboard>
-      <div className="middle-div container d-flex flex-row justify-content-between p-5">
-        <div className="wrapper d-flex flex-column justify-content-between row">
-          <div className="big-tab d-flex flex-row justify-content-between p-3 col-12">
+      <div className="middle-div d-flex flex-row justify-content-between align-items-start p-5">
+        <div className="d-flex flex-column justify-content-between gap-3">
+          <div className="big-tab d-flex flex-row justify-content-between p-3">
             <div className="text">
               <h5>Hi, welcome</h5>
               <p>
@@ -25,20 +25,11 @@ export default function StudentDashboard() {
               <Icon className="icon" icon="streamline-emojis:graduation-cap" />
             </div>
           </div>
+        
           <div className="tabs row w-100 p-0">
-            <div className="tab ">
-              <div className="tab-right">
-                <div className="icon-div">
-                  <Icon icon="ic:round-book" className="icon" />
-                </div>
-                <div className="text d-flex flex-column">
-                  <h6>17</h6>
-                  <p>subjects offered</p>
-                </div>
-              </div>
-              <div className="tab-left">
-                <Icon icon="ic:round-book" className="big-icon" />
-              </div>
+            <div className="sub-tabs d-flex flex-column gap-2">
+              <div className="sub-tab"></div>
+              <div className="sub-tab"></div>
             </div>
 
             <a
@@ -82,6 +73,11 @@ export default function StudentDashboard() {
             </div>
           </div>
         </div>
+        <div className="details d-flex flex-md-column p-2 gap-2">
+          <div className="info"></div>
+          <div className="info"></div>
+          <div className="info"></div>
+          </div>
       </div>
     </Dashboard>
   );
@@ -104,7 +100,11 @@ const Dashboard = styled.div`
       height: 150px;
       border-radius: 30px;
       z-index: 999;
-      background-color: #9ea0e7;
+      background-color: rgba(158, 160, 231, 0.7);
+      border: 1px solid #9ea0e7;
+      backdrop-filter: blur(10px); 
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
+      height: 180px;
       .text {
         color: white;
         margin-top: 20px;
@@ -112,6 +112,25 @@ const Dashboard = styled.div`
       .icon-div {
         .icon {
           font-size: 200px;
+        }
+      }
+    }
+    .details{
+      width: fit-content;
+      border: 1px solid green;
+      border-radius: 30px;
+      .info{
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        &:first-child{
+          background-color: brown;
+        }
+        &:nth-child(2){
+          background-color: blue;
+        }
+        &:nth-child(3){
+          background-color: black;
         }
       }
     }
@@ -150,17 +169,6 @@ const Dashboard = styled.div`
         .icon {
           font-size: 30px;
         }
-        &:first-child {
-          background-color: #9ea0e7;
-          color: white;
-          .big-icon {
-            font-size: 150px !important;
-            color: #d2d3e9;
-          }
-          .icon {
-            color: #9ea0e7;
-          }
-        }
         &:nth-child(2) {
           background-color: #65655d;
           color: white;
@@ -175,7 +183,7 @@ const Dashboard = styled.div`
             color: #65655d;
           }
         }
-        &:last-child {
+        &:nth-child(3) {
           background-color: #9ea0e7;
           color: white;
           .big-icon {
