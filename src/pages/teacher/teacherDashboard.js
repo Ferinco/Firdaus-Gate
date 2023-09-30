@@ -62,7 +62,7 @@ export default function TeacherDashboard() {
         </h4>
         <p>Welcome to your dashboard.</p>
       </div>
-      <div className="middle-div container d-flex py-5">
+      <div className="middle-div d-flex py-5">
         <div className="tabs d-flex flex-column ">
           {TabsConfig.map(
             ({ icon, title, subTitle, iconColor, link }, index) => (
@@ -192,49 +192,6 @@ const Dashboard = styled.div`
         }
       }
     }
-    // .profile {
-    //   height: 400px;
-    //   width: 270px;
-    //   display: none;
-    //   align-items: center;
-    //   border-radius: 30px;
-    //   background-color: white;
-    //   .image {
-    //     height: 90px;
-    //     width: 90px;
-    //     border-radius: 50%;
-    //     display: flex;
-    //     background-color: #f5f5f5;
-    //     justify-content: center;
-    //     align-items: center;
-    //     .icon {
-    //       font-size: 50px;
-    //       color: black;
-    //     }
-    //   }
-    //   .name {
-    //     align-items: center;
-    //     justify-content: center;
-    //     text-align: center;
-    //     p {
-    //       font-size: 17px !important;
-    //     }
-    //     h6 {
-    //       color: grey;
-    //     }
-    //   }
-    // }
-    // .open {
-    //   display: flex !important;
-    //   z-index: 999;
-    //   transition: 0.3s;
-    //   position: absolute;
-    //   right: 20px !important;
-    //   top: 100px !important;
-    // }
-    // .close {
-    //   margin-right: -1000px !important;
-    // }
     .info-wrapper {
       height: 350px;
       background-color: black;
@@ -281,6 +238,9 @@ const Dashboard = styled.div`
       }
     }
   }
-  .end-div {
+ @media screen and (max-width: 840px) {
+  .info-wrapper{
+    display: none !important;
   }
+ }
 `;

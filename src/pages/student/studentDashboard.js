@@ -12,7 +12,7 @@ export default function StudentDashboard() {
   return (
     <Dashboard>
       <div className="middle-div d-flex flex-row justify-content-between align-items-start p-5">
-        <div className="d-flex flex-column justify-content-between gap-3">
+        <div className="wrapper-div  justify-content-between gap-3">
           <div className="big-tab d-flex flex-row justify-content-between p-3">
             <div className="text">
               <h5>Hi, welcome</h5>
@@ -25,16 +25,42 @@ export default function StudentDashboard() {
               <Icon className="icon" icon="streamline-emojis:graduation-cap" />
             </div>
           </div>
-        
-          <div className="tabs row w-100 p-0">
-            <div className="sub-tabs d-flex flex-column gap-2">
-              <div className="sub-tab"></div>
-              <div className="sub-tab"></div>
+          <div className="details-wrapper mt-5">
+          <div className="mobile-details d-flex d-lg-none flex-row py-2 gap-2 px-4 justify-content-between">
+          <div className="info"><p>current term</p></div>
+          <div className="info">session start</div>
+          <div className="info">session end</div>
+          </div>
+          </div>
+          <div className="tabs row w-100 pt-5 pt-lg-0">
+            <div className="d-none mobile-tabs row">
+              <div className="tab col-4">gdg</div>
+              <div className="tab col-4">gdg</div>
+              <div className="tab col-4">gdg</div>
             </div>
-
+            <div className="sub-tabs d-flex flex-column gap-2 justify-content-center">
+              <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
+                <div>
+                  <p>number of subjects offered</p>
+                  <h6>15</h6>
+                </div>
+                <div className="icon-div">
+                <Icon  icon="mdi:bookshelf"  className="icon"/>
+                </div>
+              </div>
+              <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
+              <div>
+                  <p>current department</p>
+                  <h6>Chemistry</h6>
+                </div>
+                <div className="icon-div">
+                <Icon icon="material-symbols:label-rounded" rotate={1} className="icon" />
+                </div>
+              </div>
+            </div>
             <a
               href={"report"}
-              download="Adekoya Ismail"
+              download="Adekoya Ilgail"
               className=" tab d-flex flex-row"
             >
               <div className="tab-right ">
@@ -73,7 +99,7 @@ export default function StudentDashboard() {
             </div>
           </div>
         </div>
-        <div className="details d-flex flex-md-column p-2 gap-2">
+        <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
           <div className="info"></div>
           <div className="info"></div>
           <div className="info"></div>
@@ -85,21 +111,16 @@ export default function StudentDashboard() {
 const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
-
+  overflow-x: hidden !important;
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
     gap: 50px;
-    .wrapper {
-      gap: 50px;
-
-      width: 80%;
-    }
+    overflow: hidden !important;
     .big-tab {
-      height: 150px;
       border-radius: 30px;
-      z-index: 999;
+      z-index: 99;
       background-color: rgba(158, 160, 231, 0.7);
       border: 1px solid #9ea0e7;
       backdrop-filter: blur(10px); 
@@ -117,14 +138,16 @@ const Dashboard = styled.div`
     }
     .details{
       width: fit-content;
-      border: 1px solid green;
       border-radius: 30px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
       .info{
         width: 120px;
         height: 120px;
         border-radius: 50%;
+        
         &:first-child{
-          background-color: brown;
+          background-color: #65655d;
         }
         &:nth-child(2){
           background-color: blue;
@@ -134,12 +157,74 @@ const Dashboard = styled.div`
         }
       }
     }
+    .details-wrapper{
+      width: 100% !important;
+      overflow: hidden !important;
+    
+    
+    }
+    .mobile-details{
+      width: fit-content;
+      border-radius: 30px;
+      background-color: white;
+      width: 100% !important;
+      overflow: hidden !important;
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
+      .info{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        
+        &:first-child{
+          background-color: #65655d;
+        }
+        &:nth-child(2){
+          background-color: blue;
+        }
+        &:nth-child(3){
+          background-color: black;
+        }
+      } 
+    }
+    .sub-tabs{
+      height: 200px;
+    }
+    .sub-tab{
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      padding-top: 5px;
+      &:first-child{
+        background-color: #b3b3b3;
+        .icon-div{
+          background-color: #9ea0e7;
+          .icon{
+            color: black;
+          }
+        }
+      }
+      &:nth-child(2){
+        background-color: #d9a26b;
+        .icon-div{
+          background-color: #e98f35;
+        }
+      }
+      p{
+        font-size: 13px;
+      }
+      .icon{
+        font-size: 30px;
+      }
+      .icon-div{
+        padding: 7px;
+        border-radius: 50%;
+      }
+    }
     .tabs {
       gap: 30px;
       margin-left: 3px !important;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-
       .tab {
         border-radius: 30px;
         height: 200px;
@@ -169,7 +254,7 @@ const Dashboard = styled.div`
         .icon {
           font-size: 30px;
         }
-        &:nth-child(2) {
+        &:nth-child(4) {
           background-color: #65655d;
           color: white;
           &:hover {
@@ -245,4 +330,34 @@ const Dashboard = styled.div`
       }
     }
   }
+  @media screen and (max-width: 600px) {
+.details-wrapper{
+  display: none !important;
+}
+.sub-tabs{
+  width: 100% !important;
+  /* background-color: white; */
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.mobile-tabs{
+  margin-top: 50px;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  flex-wrap: nowrap;
+  .tab{
+    height: 100px !important;
+    &:first-child{ 
+    background-color: #9ea0e7;
+    }
+    &:nth-child(2){
+      background-color: #9ea0e7;
+    }
+  }
+}
+      }
 `;
