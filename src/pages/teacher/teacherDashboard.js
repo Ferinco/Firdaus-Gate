@@ -62,6 +62,21 @@ export default function TeacherDashboard() {
         </h4>
         <p>Welcome to your dashboard.</p>
       </div>
+      <div className="mobile-info flex-column p-3 mt-5">
+          <div className="div d-flex flex-row">
+            <h6 style={{ color: "white" }}>Catalog</h6>
+          </div>
+          <div className="top-div">
+            <div className="long"></div>
+            <div className="small"></div>
+            <div className="small"></div>
+          </div>
+          <div className="bottom-div">
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column"></div>
+          </div>
+        </div>
       <div className="middle-div d-flex py-5">
         <div className="tabs d-flex flex-column ">
           {TabsConfig.map(
@@ -97,26 +112,6 @@ export default function TeacherDashboard() {
             <div className="div d-flex flex-column"></div>
           </div>
         </div>
-        {/* <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
-            isProfileOpen ? "open" : "close"
-          }`}
-        >
-          <div className="image">
-            <Icon icon="icon-park-solid:necktie" className="icon" />
-          </div>
-          <div className="name d-flex flex-column">
-            <h5>Mr Rasaq Akanni</h5>
-            <p>Rasaq500@gmail.com</p>
-            <p>Male</p>
-            <p>class teacher</p>
-            <h6>1908112</h6>
-          </div>
-          <div className="info d-flex flex-row"></div>
-          <div className="number d-flex flex-row">
-            <h5>JSS2</h5>
-          </div>
-        </div> */}
       </div>
       <div className="end-div  d-flex flex-row p-5 justify-content-between"></div>
     </Dashboard>
@@ -126,6 +121,9 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   margin: 0 !important;
+  .mobile-info{
+    display: none;
+  }
   .middle-div {
     background-color: #f1f1f1;
     align-items: start;
@@ -239,6 +237,50 @@ const Dashboard = styled.div`
     }
   }
  @media screen and (max-width: 840px) {
+  .mobile-info {
+    display: flex !important;
+      height: 350px;
+      background-color: black;
+      border-radius: 30px;
+      min-width: 320px;
+      justify-content: space-between;
+      .top-div {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: 120px;
+        gap: 10px;
+        overflow: hidden;
+        .long {
+          border-radius: 10px;
+          grid-row-end: span 2;
+          width: calc(90% * 400px);
+          height: 100%;
+          border: 1px solid white;
+        }
+        .small {
+          border-radius: 10px;
+
+          width: calc(10% * 400px);
+          /* grid-column-end: span 2; */
+          height: 100%;
+          border: 1px solid white;
+        }
+      }
+      .bottom-div {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        height: 120px;
+        width: 100%;
+        justify-content: space-between;
+        gap: 20px;
+        .div {
+          border: 1px solid white;
+          height: 100%;
+          border-radius: 10px;
+          /* width:100px; */
+        }
+      }
+    }
   .info-wrapper{
     display: none !important;
   }
