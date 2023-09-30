@@ -3,24 +3,31 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Button, CircularProgress, Header } from "../../components/custom";
-import { useAppContext } from "../../contexts/Context";
+import {  CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import ReactPaginate from "react-paginate";
 
 export default function MyClass() {
-  const [StudentData, setStudentData] = useState([]);
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
+  const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
+
+  //pagination of teacher lists
+  const [offset, setOffset] = useState(0)
+  const [perPage] = useState(5)
+  const [pageData, setPageData] = useState([]);
+  const[pageCount, setPageCount] = useState(0)
   useEffect(() => {
     const FetchStudents = async (data) => {
       await UserService.getStudents()
         .then((res) => {
           console.log(res);
-          setStudentData(res.data);
+          setPageData(res.data);
+          const slice = pageData.slice(offset, offset + perPage)
+          setStudents(slice)
+          setPageCount(Math.ceil(students.length / perPage))
           setIsLoading(false)
         })
         .catch((error) => {
@@ -30,6 +37,10 @@ export default function MyClass() {
     };
     FetchStudents();
   }, []);
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1)
+};
   const {
     register,
     handleSubmit,
@@ -44,7 +55,7 @@ export default function MyClass() {
           <p>see full list of your students</p>
         </div>
       </div>
-      <div className="container middle-div px-5 d-flex flex-row">
+      <div className="middle-div d-flex flex-row p-5">
         <div className="wrapper d-flex flex-column p-3">
           <div className="d-flex flex-row justify-content-between actions-div">
             <div className="form-wrapper mt-5">
@@ -68,8 +79,8 @@ export default function MyClass() {
             </div>
           </div>
     
-          {StudentData.length > 0 ? (
-            StudentData.map((data) => (
+          {pageData.length > 0 ? (
+            <>
               <Table className="table table-bordered ">
                 <thead className="">
                   <tr>
@@ -82,14 +93,15 @@ export default function MyClass() {
                     <th colSpan="3">Operations</th>
                   </tr>
                 </thead>
+           {students.map((student, index) => (
                 <tbody>
-                  <tr key={data.id}>
-                    <td>{data.id}</td>
-                    <td>{data.firstname}</td>
-                    <td>{data.lastname}</td>
-                    <td>{data.admissionNumber}</td>
-                    <td>{data.email}</td>
-                    <td>{data.gender}</td>
+                  <tr key={student._id}>
+                    <td>{student.index}</td>
+                    <td>{student.firstName}</td>
+                    <td>{student.lastName}</td>
+                    <td>{student.admissionNumber}</td>
+                    <td>{student.email}</td>
+                    <td>{student.gender}</td>
 
                     <td>
                       <Link to="">
@@ -108,8 +120,21 @@ export default function MyClass() {
                     </td>
                   </tr>
                 </tbody>
+            ))}
               </Table>
-            ))
+                   <ReactPaginate
+                   previousLabel={"prev"}
+                   nextLabel={"next"}
+                   breakLabel={"..."}
+                   breakClassName={"break-me"}
+                   pageCount={pageCount}
+                   marginPagesDisplayed={2}
+                   pageRangeDisplayed={5}
+                   onPageChange={handlePageClick}
+                   containerClassName={"pagination"}
+                   subContainerClassName={"pages pagination"}
+                   activeClassName={"active"}/>
+   </>
           ) : (
             <div className="d-flex justify-content-center center align-center">
               <h4>
@@ -139,7 +164,9 @@ const Students = styled.div`
   .container-fluid {
     gap: 30px;
   }
+
   .middle-div {
+    overflow-x: scroll !important;
     .wrapper {
       gap: 40px;
       background-color: white;

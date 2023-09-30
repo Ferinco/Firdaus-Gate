@@ -34,7 +34,7 @@ export default function StudentsList() {
       </div>
       {isLoading ? <CircularProgress /> : ""}
       {students > 0 ? (
-        students.map((student) => (
+        
           <div className="p-5">
             <Table className="table table-bordered">
               <thead className="">
@@ -48,6 +48,7 @@ export default function StudentsList() {
                   <th colSpan="3">Operations</th>
                 </tr>
               </thead>
+              {students.map((student) => (
               <tbody>
                 <tr key={student.id}>
                   <td>{student.id}</td>
@@ -81,9 +82,9 @@ export default function StudentsList() {
                   </td>
                 </tr>
               </tbody>
+            ))}
             </Table>
           </div>
-        ))
       ) : (
         <div className="p-5">no details to display atm.</div>
       )}

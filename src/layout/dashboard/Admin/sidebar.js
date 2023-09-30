@@ -1,38 +1,51 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 import { useAppContext } from "../../../contexts/Context";
 import { PATH_PAGE } from "../../../routes/paths";
 import { useAuth } from "../../../hooks/useAuth";
-
+import { ClickNav } from "../../../redux/slices/nav";
+import { useDispatch, useSelector } from "react-redux";
 const sidebarConfig = [
   {
+    id: 1,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.index,
     title: "Dashboard",
   },
   {
+    id: 2,
     icon: "mdi:google-classroom",
     link: PATH_DASHBOARD.admin.teachersList,
     title: "Teachers",
   },
   {
+    id: 3,
     icon: "fluent-mdl2:poll-results",
     link: PATH_DASHBOARD.admin.studentsList,
     title: "Students",
   },
   {
+    id: 4,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.teacher.createResult,
-    title: "Active Applications",
+    title: "Applications",
   },
 ];
 
 export default function AdminSidebar() {
-  const { isSidebarOpen } = useAppContext();
+const [activeTab, setActiveTab] = useState("Dashboard")
+  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
   const { logout } = useAuth();
+  const dispatch = useDispatch()
+
+  function handleNavClick(title){
+setActiveTab(title)
+console.log(activeTab)
+setIsSidebarOpen(false)
+  }
   return (
     <SIDEBAR>
       <div
@@ -46,12 +59,13 @@ export default function AdminSidebar() {
               <img src="/images/logo.png" alt="logo" />
             </Link>
           </div>
-          <div className="nav-links d-flex flex-column">
+          <div className="nav-links d-flex flex-column pl-5">
             {sidebarConfig.map(({ link, icon, title }, index) => (
               <Link
-                className="nav-link react-router-link"
+                className={`nav-link react-router-link ${activeTab === title ? "active-tab" : ""}`}
                 to={link}
                 key={index}
+                onClick={()=> handleNavClick(title)}
               >
                 <Icon icon={icon} />
                 {title}
@@ -85,12 +99,13 @@ const SIDEBAR = styled.div`
     background-color: black;
   }
   .wrapper {
-    height: 50%;
+    height: 55%;
     width: 100%;
     align-items: center;
   }
   .nav-links {
     gap: 30px;
+  width: 100% !important;
   }
   .nav-link {
     font-weight: 700 !important;
@@ -104,6 +119,10 @@ const SIDEBAR = styled.div`
       color: white !important;
       transition: 0.3s;
     }
+  }
+  .active-tab{
+    border-right: 5px solid white !important;
+color: white !important;
   }
   .logo {
     height: 80px;

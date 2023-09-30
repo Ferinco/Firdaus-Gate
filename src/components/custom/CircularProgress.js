@@ -14,6 +14,7 @@ export default function CircularProgress() {
 
 
 const Wrapper = styled.div`
+top:0;
   height: 100vh;
   width: 80%;
   position: absolute;
@@ -22,6 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
+  z-index:9999;
 
 .circular-progress{
   width: 50px;
@@ -35,7 +37,7 @@ const Wrapper = styled.div`
   border-style: solid;
   @keyframes spin {
     100% {
-      transform: rotate(360deg);
+      transform: rotate(360deg) !important;
     }
   }
 }

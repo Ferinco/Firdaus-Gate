@@ -11,6 +11,7 @@ export default function StudentNavbar(){
           
         </div>
         <div className="btns">
+          <div className="profile-div">
           <div
             className="profile-btn"
             onClick={() => {
@@ -20,7 +21,8 @@ export default function StudentNavbar(){
               setIsProfileOpen((prevState) => !prevState);
             }}
           >
-            <Icon icon="ph:student" />
+            <Icon icon="bxs:graduation" color="white" />
+          </div>
           </div>
           <div
             onClick={() => {
@@ -60,65 +62,80 @@ const Wrapper = styled.div`
     background-color: white;
     height: 80px;
     .btns {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    flex-direction: row;
+    gap: 40px;
+    .profile-div {
+      padding: 5px;
+      border: 1px solid blue;
+      border-radius: 50%;
+      background-color: blue;
+      cursor: pointer;
+    }
+    .profile-btn {
+      display: flex !important;
+    }
+    .profile-btn,
+    .nav-btn {
+      font-size: 25px;
+      font-weight: 600 !important;
+    }
+    .nav-btn {
       display: none;
     }
-    .profile {
-      height: 400px;
-      width: 270px;
+  }
+  .profile {
+    height: 400px;
+    width: 300px;
+    display: none;
+    align-items: center;
+    border-radius: 30px;
+    background-color: white;
+    .image {
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
       display: flex;
+      background-color: #f5f5f5;
+      justify-content: center;
       align-items: center;
-      border-radius: 30px;
-      background-color: white;
-      .image {
-        height: 90px;
-        width: 90px;
-        border-radius: 50%;
-        display: flex;
-        background-color: #f5f5f5;
-        justify-content: center;
-        align-items: center;
-        .icon {
-          font-size: 50px;
-          color: black;
-        }
-      }
-      .name {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        p {
-          font-size: 17px !important;
-        }
-        h6 {
-          color: grey;
-        }
+      .icon {
+        font-size: 50px;
+        color: black;
       }
     }
+    .name {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      p {
+        font-size: 17px !important;
+      }
+      h6 {
+        color: grey;
+      }
+    }
+  }
+  .open {
+    display: flex !important;
+    z-index: 999;
+    transition: 0.3s;
+    position: absolute;
+    right: 20px !important;
+    top: 100px !important;
+  }
+  .close {
+    margin-right: -1000px !important;
+  }
     @media screen and (max-width: 1100px) {
-    .btns {
-      display: flex !important;
-      flex-direction: row;
-      align-items:center;
-      flex-direction: row;
-      gap: 40px;
-      .profile-btn, .nav-btn{
+      .btns {
+      .nav-btn {
+        display: block !important;
         font-weight: 600 !important;
         font-size: 30px;
       }
-      .profile {
-      display: none !important;
-    }
-    .open {
-      display: flex !important;
-      z-index: 999;
-      transition: 0.3s;
-      position: absolute;
-      right: 20px !important;
-      top: 100px !important;
-    }
-    .close {
-      margin-right: -1000px !important;
-    }
     }
 }
 `

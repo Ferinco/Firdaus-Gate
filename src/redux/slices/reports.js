@@ -36,8 +36,8 @@ const slices = createSlice({
   initialState,
   name: "reports",
   reducers: {
-    clearSuccess: () => (initialState.success = false),
-    clearState: () => initialState,
+    // clearSuccess: () => (initialState.success = false),
+    // clearState: () => initialState,
   },
   extraReducers: (builder) => {
     // create report promise check

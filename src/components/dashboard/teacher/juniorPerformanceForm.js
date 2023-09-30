@@ -60,7 +60,7 @@ const JuniorPerformanceForm = ({
 
         <div className="field">
           <label>
-            <small>Total Weighted Ave. </small>
+            <small>T.W Average </small>
           </label>
 
           <Input placeholder="Total Weighted Average" value={getWA} />
@@ -78,7 +78,7 @@ const JuniorPerformanceForm = ({
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-
+border-bottom: 1px solid #f1f1f1;
   .fields {
     width: 100%;
     display: flex;
