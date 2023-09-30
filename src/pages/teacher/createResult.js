@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStudents } from "../../redux/slices/students";
+import { fetchUsers } from "../../redux/slices/users";
 import { useAuth } from "../../hooks/useAuth";
 import {
   SeniorReportForm,
@@ -13,17 +13,17 @@ export default function CreateResult() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchStudents({ teacherId: user._id }));
+    dispatch(fetchUsers({ classTeacher: user._id }));
   }, [dispatch, user._id]);
 
-  const { students, isLoading } = useSelector((state) => state.students);
+  const { users, isLoading } = useSelector((state) => state.users);
 
   return (
     <>
       {user.classHandled.startsWith("JSS") ? (
-        <JuniorReportForm students={students} isLoading={isLoading} />
+        <JuniorReportForm students={users} isLoading={isLoading} />
       ) : (
-        <SeniorReportForm students={students} isLoading={isLoading} />
+        <SeniorReportForm students={users} isLoading={isLoading} />
       )}
     </>
   );

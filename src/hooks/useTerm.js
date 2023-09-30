@@ -1,7 +1,27 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentTerm } from "../redux/slices/term";
+
 export const useTerm = () => {
-  let currentTerm;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentTerm());
+  }, [dispatch]);
 
-  currentTerm = "FIRST_TERM";
+  const { currentTerm, isLoading } = useSelector((state) => state.term);
+  let activeTerm = "";
 
-  return { currentTerm: currentTerm };
+  if (!isLoading) {
+    if (currentTerm.name === "FIRST TERM") activeTerm = "1st";
+    if (currentTerm.name === "SECOND TERM") activeTerm = "2nd";
+    if (currentTerm.name === "THIRD TERM") activeTerm = "3rd";
+  }
+  return {
+    currentTerm: {
+      position: activeTerm,
+      name: currentTerm.name,
+      endDate: currentTerm.endDate,
+      startDate: currentTerm.startDate,
+    },
+  };
 };

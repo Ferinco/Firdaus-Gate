@@ -38,5 +38,6 @@ export const PATH_DASHBOARD = {
     createTeachers: JOIN(ROOT_ADMIN, "create"),
     teachersList: JOIN(ROOT_ADMIN, "teachers-list"),
     studentsList: JOIN(ROOT_ADMIN, "students-list"),
+    createTerm: JOIN(ROOT_ADMIN, "create-term"),
   },
 };

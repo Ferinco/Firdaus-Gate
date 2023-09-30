@@ -8,22 +8,16 @@ import { OverlayLoading } from "../../components/OverlayLoading";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { getReports } from "../../redux/slices/reports";
-// import {getTer}
+import { useTerm } from "../../hooks/useTerm";
+import { fetchCurrentTerm } from "../../redux/slices/term";
 
 export default function ResultsPage() {
   const { user } = useAuth();
-  //  const {} = useTerm
+
+  const { currentTerm } = useTerm();
+  console.log(currentTerm);
   const [loading, setLoading] = React.useState(false);
-  const [selectedClass, setSelectedClass] = React.useState("JSS1");
-  const [selectedTerm, setSelectedTerm] = React.useState("currentTerm");
-  // const dispatch = useDispatch();
-
-  // React.useEffect(() => {
-  //   dispatch(getReports({ student: user._id }));
-  // }, [dispatch]);
-
-  // const { reports } = useSelector((state) => state.reports);
-  // console.log(reports);
+  const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
 
   const reportsItem = [
     {
@@ -49,7 +43,7 @@ export default function ResultsPage() {
     try {
       setLoading(true);
       const data = await ReportService.downloadReport({
-        classSection: "junior",
+        classSection: selectedClass.startsWith("JSS") ? "senior" : "senior",
         selectedTerm: term,
         selectedClass,
         student: user._id,
@@ -59,10 +53,7 @@ export default function ResultsPage() {
       const url = window.URL.createObjectURL(blob);
       var link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `${user.admissionNumber}-${selectedTerm}.pdf`
-      );
+      link.setAttribute("download", `${user.admissionNumber}-${term}.pdf`);
       document.body.appendChild(link);
       link.click();
       window.URL.revokeObjectURL(url);
@@ -82,7 +73,7 @@ export default function ResultsPage() {
   }
   function changedClass(e) {
     setSelectedClass(e.target.value);
-    toast.success(`class has been changed to ${selectedClass}`);
+    toast.success(`class has been changed to ${e.target.value}`);
   }
   return (
     <Wrapper className="p-5">
@@ -91,17 +82,20 @@ export default function ResultsPage() {
         <h4>Reports</h4>
         <p>View reports for each school term</p>
         <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4">
-          {/* selection of class */}
-          <select onChange={changedClass}>
-            {CLASS.map((opt, index) => (
-              <option key={index} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
+          <div>
+            <div>current class selected : {selectedClass}</div>
+            {/* selection of class */}
+            <select onChange={changedClass}>
+              {CLASS.map((opt, index) => (
+                <option key={index} value={opt}>
+                  {opt}
+                </option>
+              ))}
+            </select>
+          </div>
           <div>
             <span className="d-flex flex-column">
-              <p>Current Term:</p> <h4>2nd</h4>
+              <p>Current Term:</p> <h4>{currentTerm.position}</h4>
             </span>
           </div>
         </div>

@@ -52,6 +52,7 @@ export default function Create() {
       role: "student",
       parentPhone: "",
       gender: "",
+      department: user.department,
       classTeacher: user._id,
       currentClass: user.classHandled,
     },
@@ -171,8 +172,8 @@ export default function Create() {
                   name="Class"
                   {...register("Class")}
                   readOnly
-                  value="JSS 2"
-                ></input>
+                  value={user.classHandled}
+                />
               </div>
             </div>
             <div className="my-2 d-flex flex-column">

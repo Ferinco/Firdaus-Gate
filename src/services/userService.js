@@ -2,14 +2,8 @@ import { api } from "../api/axios";
 
 // Everything here requires authorization
 export const UserService = {
-  getStudents: async (teacherId) => {
-    const { data } = await api.get(
-      `/users?role=student&${teacherId && `teacherId=${teacherId}`}`
-    );
-    return data;
-  },
-  getTeachers: async () => {
-    const { data } = await api.get("/users?role=teacher");
+  findUsers: async (params) => {
+    const { data } = await api.get(`/users`, { params });
     return data;
   },
   getUser: async (userId) => {
@@ -29,7 +23,11 @@ export const UserService = {
   },
   // User role must be 'teacher'
   createUser: async (payload) => {
-    const { data } = await api.post("/users/create", payload);
+    const { data } = await api.post("/users/create", payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return data;
   },
 };
