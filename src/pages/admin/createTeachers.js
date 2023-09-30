@@ -20,7 +20,7 @@ export default function CreateTeachers() {
     mobileNumber: yup.string().required("email is required"),
     // teacherSignature: yup
     //   .mixed()
-    //   .required("class teacher signature is required"),
+    //   .required("class teacher teacherSignature is required"),
     password: yup.string().min(5).max(12).required("set a password"),
     confirmPassword: yup
       .string()
@@ -59,12 +59,15 @@ export default function CreateTeachers() {
 
   const onSubmit = async (values) => {
     console.log(values);
+    const formData = new FormData();
+    formData.append(
+      "values",
+      JSON.stringify({ ...values, tel: values.mobileNumber })
+    );
+    formData.append("teacherSignature", values.teacherSignature[0]);
     try {
       setIsSubmitting(true);
-      const response = await UserService.createUser({
-        ...values,
-        tel: values.mobileNumber,
-      });
+      const response = await UserService.createUser(formData);
       reset();
       console.log(response);
       toast.success(
@@ -86,7 +89,7 @@ export default function CreateTeachers() {
           <p>enter teacher's details to create his/her profile</p>
         </div>
         <div className="form-wrapper d-flex justify-content-center flex-column align-center">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
                 <label htmlFor="firstName" className="label">
@@ -257,11 +260,11 @@ export default function CreateTeachers() {
             {selectedTeacherType === "classTeacher" && (
               <div className="my-2 d-flex flex-column">
                 <label htmlFor="teacherSignature" className="label">
-                  Signature
+                  teacherSignature
                 </label>
 
                 <input
-                  placeholder="Teacher's signature"
+                  placeholder="Teacher's teacherSignature"
                   name="teacherSignature"
                   type="file"
                   {...register("teacherSignature")}

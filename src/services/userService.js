@@ -23,7 +23,11 @@ export const UserService = {
   },
   // User role must be 'teacher'
   createUser: async (payload) => {
-    const { data } = await api.post("/users/create", payload);
+    const { data } = await api.post("/users/create", payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return data;
   },
 };
