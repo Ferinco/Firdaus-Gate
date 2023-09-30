@@ -5,21 +5,31 @@ import styled from "styled-components";
 import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
+import ReactPaginate from "react-paginate";
+
+
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [teacherDetails, setTeacherDetails] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  //pagination of teacherlist
+  const [offset, setOffset] = useState(0)
+  const [pageCount, setPageCount] = useState(0)
+  const [perPage] = useState(2)
+  const [pageData, setPageData] = useState([])
   useEffect(() => {
     const FetchTeachers = async (data) => {
       await UserService.getTeachers()
         .then((res) => {
           console.log(res);
+           setPageData(res.data)
+           const slice = pageData.slice(offset, offset + perPage)
+           setTeachers(slice)
+           setPageCount(Math.ceil(teachers.length / perPage))
           setIsLoading(false);
-          setTeachers(res.data);
-          console.log(teachers);
-          console.log(overlay);
         })
         .catch((error) => {
           console.log(error);
@@ -28,6 +38,11 @@ export default function TeachersList() {
     };
     FetchTeachers();
   }, []);
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1)
+};
+
   const DeleteTeachers = async (data) => {
     await UserService.deleteUser()
       .then((res) => {
@@ -53,7 +68,7 @@ export default function TeachersList() {
         <p>View and edit details of teachers</p>
       </div>
       {isLoading ? <CircularProgress /> : ""}
-      {teachers.length > 0 ? (
+      {pageData.length > 0 ? (
         <div className="table-div px-5">
           <Table>
             <thead>
@@ -95,6 +110,18 @@ export default function TeachersList() {
               ))}
             </tbody>
           </Table>
+          <ReactPaginate
+                   previousLabel={"prev"}
+                   nextLabel={"next"}
+                   breakLabel={"..."}
+                   breakClassName={"break-me"}
+                   pageCount={pageCount}
+                   marginPagesDisplayed={2}
+                   pageRangeDisplayed={5}
+                   onPageChange={handlePageClick}
+                   containerClassName={"pagination"}
+                   subContainerClassName={"pages pagination"}
+                   activeClassName={"active"}/>
         </div>
       ) : (
         <div className="p-5">no details to display atm.</div>

@@ -3,23 +3,31 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import {  CircularProgress } from "../../components/custom";
-import { useAppContext } from "../../contexts/Context";
 import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import ReactPaginate from "react-paginate";
 
 export default function MyClass() {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
+
+  //pagination of teacher lists
+  const [offset, setOffset] = useState(0)
+  const [perPage] = useState(5)
+  const [pageData, setPageData] = useState([]);
+  const[pageCount, setPageCount] = useState(0)
   useEffect(() => {
     const FetchStudents = async (data) => {
       await UserService.getStudents()
         .then((res) => {
           console.log(res);
-          setStudents(res.data);
+          setPageData(res.data);
+          const slice = pageData.slice(offset, offset + perPage)
+          setStudents(slice)
+          setPageCount(Math.ceil(students.length / perPage))
           setIsLoading(false)
         })
         .catch((error) => {
@@ -29,6 +37,10 @@ export default function MyClass() {
     };
     FetchStudents();
   }, []);
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setOffset(selectedPage + 1)
+};
   const {
     register,
     handleSubmit,
@@ -67,7 +79,8 @@ export default function MyClass() {
             </div>
           </div>
     
-          {students.length > 0 ? (
+          {pageData.length > 0 ? (
+            <>
               <Table className="table table-bordered ">
                 <thead className="">
                   <tr>
@@ -109,6 +122,19 @@ export default function MyClass() {
                 </tbody>
             ))}
               </Table>
+                   <ReactPaginate
+                   previousLabel={"prev"}
+                   nextLabel={"next"}
+                   breakLabel={"..."}
+                   breakClassName={"break-me"}
+                   pageCount={pageCount}
+                   marginPagesDisplayed={2}
+                   pageRangeDisplayed={5}
+                   onPageChange={handlePageClick}
+                   containerClassName={"pagination"}
+                   subContainerClassName={"pages pagination"}
+                   activeClassName={"active"}/>
+   </>
           ) : (
             <div className="d-flex justify-content-center center align-center">
               <h4>
