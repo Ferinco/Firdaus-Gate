@@ -11,7 +11,7 @@ export default function StudentsList() {
   const [overlay, setOverlay] = useState(false);
   useEffect(() => {
     const FetchStudents = async () => {
-      await UserService.getStudents()
+      await UserService.findUsers({role : "student"})
         .then((res) => {
           console.log(res);
           console.log("hey there");

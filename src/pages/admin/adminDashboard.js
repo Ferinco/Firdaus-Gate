@@ -1,41 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAuth } from "../../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import {fetchCurrentTerm} from "../../redux/slices/term"
+import { UserService } from "../../services/userService";
+const TabsConfig = [
+  {
+    link: PATH_DASHBOARD.admin.createTeachers,
+    title: "Create Profile",
+    subTitle: "create a new teacher profile",
+    icon: "typcn:user-add",
+    iconColor: "white",
+  },
+  {
+    link: PATH_DASHBOARD.admin.createTerm,
+    title: "Set Term",
+    subTitle: "Set the current term",
+    icon: "pepicons-pencil:list",
+    iconColor: "black",
+  },
+  {
+    link: PATH_DASHBOARD.admin.studentsList,
+    title: "Term Calendar",
+    subTitle: "Upload calendar for the current term",
+    icon: "solar:calendar-bold",
+    iconColor: "black",
+  },
+  {
+    link: PATH_DASHBOARD.admin.studentsList,
+    title: "Notify",
+    subTitle: "Send a general notification to your staff",
+    icon: "solar:calendar-bold",
+    iconColor: "black",
+  },
+];
+
 export default function AdminDashboard() {
   const { user } = useAuth();
-  const TabsConfig = [
-    {
-      link: PATH_DASHBOARD.admin.createTeachers,
-      title: "Create Profile",
-      subTitle: "create a new teacher profile",
-      icon: "typcn:user-add",
-      iconColor: "white",
-    },
-    {
-      link: PATH_DASHBOARD.admin.createTerm,
-      title: "Set Term",
-      subTitle: "Set the current term",
-      icon: "pepicons-pencil:list",
-      iconColor: "black",
-    },
-    {
-      link: PATH_DASHBOARD.admin.studentsList,
-      title: "Term Calendar",
-      subTitle: "Upload calendar for the current term",
-      icon: "solar:calendar-bold",
-      iconColor: "black",
-    },
-    {
-      link: PATH_DASHBOARD.admin.studentsList,
-      title: "Notify",
-      subTitle: "Send a general notification to your staff",
-      icon: "solar:calendar-bold",
-      iconColor: "black",
-    },
-  ];
+  const dispatch = useDispatch()
+const {currentTerm, isLoading} = useSelector(state => state.term)
+const [Teachers, setTeachers] = useState()
+const [Students, setStudents] = useState()
+useEffect(()=>{
+dispatch(fetchCurrentTerm())
+const FetchTeachers = async (data) => {
+  try {
+    const res = await UserService.findUsers({role : "teacher"});
+    console.log(res);
+    console.log(res.data.length);
+    setTeachers(res.data.length)
+  } catch (error) {
+    console.log(error);
+  }
+};
+const FetchStudents = async (data) => {
+  try {
+    const res = await UserService.findUsers({role: "student"});
+    console.log(res.data.length)
+    setStudents(res.data.length)
+  }
+  catch (error) {
+console.log(error)
+  }
+}
+FetchTeachers()
+FetchStudents()
+  },[])
+  console.log(currentTerm)
+ 
   return (
     <Wrapper className="">
       <div className="d-flex flex-column left p-5">
@@ -45,16 +80,21 @@ export default function AdminDashboard() {
 
       <div className="middle-div px-5">
         <div className="overviews p-3 py-5">
-          <div className="circle-div">
+          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
+            <p>{currentTerm.name}</p>
           </div>
-          <div className="circle-div">
+          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
+            <p>{Teachers}</p>
+
           </div>
-          <div className="circle-div">
+          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
+            <p>{Students}</p>
+
           </div>
-          <div className="circle-div">
+          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
           </div>
         </div>
