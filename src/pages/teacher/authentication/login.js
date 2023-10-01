@@ -36,12 +36,17 @@ export default function TeacherLogin() {
     await login(data)
       .then((res) => {
         // navigate(PATH_DASHBOARD.teacher.index);
+        setIsLoading(false);
         toast.success("teacher login successful");
         console.log(res);
       })
       .catch((error) => {
-        toast.error(`${error.response?.data.message}`);
-        console.log(error);
+        setIsLoading(false);
+        if (error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Network error");
+        }
       });
   };
   return (
@@ -92,22 +97,22 @@ export default function TeacherLogin() {
                   </div>
                 </div>
                 <div className="mt-4">
-                <Button
-                blue
-                type="submit"
-                className="button"
-                disabled={isLoading === true}
-              >
-                {isLoading ? (
-                  <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  "Sign in"
-                )}
-              </Button>
+                  <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={isLoading === true}
+                  >
+                    {isLoading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Sign in"
+                    )}
+                  </Button>
                 </div>
               </form>
             </div>
@@ -121,8 +126,8 @@ export default function TeacherLogin() {
 const Wrapper = styled.div`
   height: 100vh;
   .button {
-      width: 100%;
-    }
+    width: 100%;
+  }
   .row {
     height: 95% !important;
     align-items: center;

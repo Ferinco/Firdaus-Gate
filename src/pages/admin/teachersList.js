@@ -7,8 +7,6 @@ import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
 
-
-
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [teacherDetails, setTeacherDetails] = useState([]);
@@ -16,19 +14,19 @@ export default function TeachersList() {
   const [isLoading, setIsLoading] = useState(true);
 
   //pagination of teacherlist
-  const [offset, setOffset] = useState(0)
-  const [pageCount, setPageCount] = useState(0)
-  const [perPage] = useState(2)
-  const [pageData, setPageData] = useState([])
+  const [offset, setOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [perPage] = useState(2);
+  const [pageData, setPageData] = useState([]);
   useEffect(() => {
     const FetchTeachers = async (data) => {
-      await UserService.getTeachers()
+      await UserService.findUsers({ role: "teacher" })
         .then((res) => {
           console.log(res);
-           setPageData(res.data)
-           const slice = pageData.slice(offset, offset + perPage)
-           setTeachers(slice)
-           setPageCount(Math.ceil(teachers.length / perPage))
+          setPageData(res.data);
+          const slice = pageData.slice(offset, offset + perPage);
+          setTeachers(slice);
+          setPageCount(Math.ceil(teachers.length / perPage));
           setIsLoading(false);
         })
         .catch((error) => {
@@ -40,8 +38,8 @@ export default function TeachersList() {
   }, []);
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
-    setOffset(selectedPage + 1)
-};
+    setOffset(selectedPage + 1);
+  };
 
   const DeleteTeachers = async (data) => {
     await UserService.deleteUser()
@@ -111,17 +109,18 @@ export default function TeachersList() {
             </tbody>
           </Table>
           <ReactPaginate
-                   previousLabel={"prev"}
-                   nextLabel={"next"}
-                   breakLabel={"..."}
-                   breakClassName={"break-me"}
-                   pageCount={pageCount}
-                   marginPagesDisplayed={2}
-                   pageRangeDisplayed={5}
-                   onPageChange={handlePageClick}
-                   containerClassName={"pagination"}
-                   subContainerClassName={"pages pagination"}
-                   activeClassName={"active"}/>
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
         </div>
       ) : (
         <div className="p-5">no details to display atm.</div>
@@ -156,9 +155,9 @@ export default function TeachersList() {
   );
 }
 const Wrapper = styled.div`
-.table-div{
-  overflow-x:scroll;
-}
+  .table-div {
+    overflow-x: scroll;
+  }
   .table {
   }
   .table-body {

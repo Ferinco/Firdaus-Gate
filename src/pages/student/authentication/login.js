@@ -44,8 +44,11 @@ export default function StudentLogin() {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
-        toast.error(`${error.response?.data.message}`);
+        if (error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Network error");
+        }
       });
   };
 
@@ -87,22 +90,22 @@ export default function StudentLogin() {
                   </div>
                 </div>
                 <div className="mt-4">
-                <Button
-                blue
-                type="submit"
-                className="button"
-                disabled={loading === true}
-              >
-                {loading ? (
-                  <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                ) : (
-                  "Sign in"
-                )}
-              </Button>
+                  <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={loading === true}
+                  >
+                    {loading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Sign in"
+                    )}
+                  </Button>
                 </div>
               </form>
             </div>
@@ -125,8 +128,8 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .button {
-      width: 100%;
-    }
+    width: 100%;
+  }
   @media (max-width: 768px) {
     .col-md-7.left {
       display: none;

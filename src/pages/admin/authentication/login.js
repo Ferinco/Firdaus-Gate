@@ -27,8 +27,11 @@ export default function AdminLogin() {
       navigate(PATH_DASHBOARD.admin.index);
     } catch (error) {
       setIsSubmitting(false);
-      toast.error(error.response.data.message);
-      console.error(error);
+      if (error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Network error");
+      }
     }
 
     console.log(values);
