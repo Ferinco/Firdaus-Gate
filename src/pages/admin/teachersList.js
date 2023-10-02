@@ -6,6 +6,8 @@ import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
+import { Icon } from '@iconify/react';
+import { ControlButton } from "../../components/custom/Button";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
@@ -16,7 +18,7 @@ export default function TeachersList() {
   //pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(2);
+  const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
   useEffect(() => {
     const FetchTeachers = async (data) => {
@@ -68,8 +70,9 @@ export default function TeachersList() {
       </div>
       {isLoading ? <CircularProgress /> : ""}
       {pageData.length > 0 ? (
+        <>
         <div className="table-div px-5">
-          <Table>
+          <Table className="table">
             <thead>
               <tr>
                 <th>#</th>
@@ -109,20 +112,21 @@ export default function TeachersList() {
               ))}
             </tbody>
           </Table>
+        </div>
           <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
+            previousLabel={<ControlButton><Icon icon="ooui:next-rtl" className="icon"/></ControlButton>}
+            nextLabel={<ControlButton><Icon icon="ooui:next-ltr" className="icon"/></ControlButton>}
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={2}
             onPageChange={handlePageClick}
-            containerClassName={"pagination"}
+            containerClassName={"pagination pl-5 align-items-center gap-2"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
           />
-        </div>
+          </>
       ) : (
         <div className="p-5">no details to display atm.</div>
       )}
@@ -158,6 +162,12 @@ export default function TeachersList() {
 const Wrapper = styled.div`
   .table-div {
     overflow-x: scroll;
+    height:310px !important;
+.pagination{
+  a{
+    color: blue !important;
+  }
+}
   }
   .table {
   }

@@ -19,3 +19,18 @@ export const Button = styled.button`
     opacity: 0.6;
   }
 `;
+export const ControlButton = styled.button`
+border: 0;
+padding: 10px;
+background-color: blue;
+.icon{
+  color: white;
+}
+&:hover{
+  background-color: white;
+  transition: 0.3s;
+  .icon{
+  color: blue;
+}
+}
+`
