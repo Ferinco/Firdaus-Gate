@@ -19,7 +19,7 @@ const performanceValues = juniorSchoolSubjects.map((item) => {
   };
 });
 const defaultSubjectValues = [...performanceValues];
-export default function JuniorReportForm({ students, isLoading }) {
+export default function JuniorReportForm({ students, isLoading, reportYear }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const { currentTerm } = useTerm();
@@ -95,6 +95,7 @@ export default function JuniorReportForm({ students, isLoading }) {
       student: "",
       reportClass: user.classHandled,
       reportTerm: currentTerm.name,
+      reportYear: reportYear || "",
     },
   });
 
@@ -113,7 +114,7 @@ export default function JuniorReportForm({ students, isLoading }) {
       .then((res) => {
         setLoading(false);
         toast.success("Report card has been created successfully");
-        reset();
+        // reset();
         window.scrollTo({
           top: 0,
           behavior: "smooth",

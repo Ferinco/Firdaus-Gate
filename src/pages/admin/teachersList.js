@@ -20,19 +20,15 @@ export default function TeachersList() {
   const [pageData, setPageData] = useState([]);
   useEffect(() => {
     const FetchTeachers = async (data) => {
-      await UserService.findUsers({ role: "teacher" })
-        .then((res) => {
-          console.log(res);
-          setPageData(res.data);
-          const slice = pageData.slice(offset, offset + perPage);
-          setTeachers(slice);
-          setPageCount(Math.ceil(teachers.length / perPage));
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
+      try {
+        const res = await UserService.findUsers({ role: "teacher" });
+        console.log(res);
+        setPageData(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
     };
     FetchTeachers();
   }, []);
@@ -40,6 +36,11 @@ export default function TeachersList() {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1);
   };
+  useEffect(() => {
+    const slice = pageData.slice(offset, offset + perPage);
+    setTeachers(slice);
+    setPageCount(Math.ceil(pageData.length / perPage));
+  }, [pageData, offset]);
 
   const DeleteTeachers = async (data) => {
     await UserService.deleteUser()
@@ -115,7 +116,7 @@ export default function TeachersList() {
             breakClassName={"break-me"}
             pageCount={pageCount}
             marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={2}
             onPageChange={handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}

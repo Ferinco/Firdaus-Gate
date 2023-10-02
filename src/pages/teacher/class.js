@@ -11,32 +11,40 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import ReactPaginate from "react-paginate";
 
 export default function MyClass() {
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState();
   const [isLoading, setIsLoading] = useState(true)
 
   //pagination of teacher lists
   const [offset, setOffset] = useState(0)
-  const [perPage] = useState(5)
+  const [perPage] = useState(2)
   const [pageData, setPageData] = useState([]);
   const[pageCount, setPageCount] = useState(0)
+
+
   useEffect(() => {
-    const FetchStudents = async (data) => {
-      await UserService.getStudents()
-        .then((res) => {
-          console.log(res);
-          setPageData(res.data);
-          const slice = pageData.slice(offset, offset + perPage)
-          setStudents(slice)
-          setPageCount(Math.ceil(students.length / perPage))
-          setIsLoading(false)
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false)
-        });
+    const FetchStudents = async () => {
+      try {
+        const res = await UserService.findUsers({role : "student"});
+        console.log(res);
+        console.log(res.data);
+        setPageData(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
     };
     FetchStudents();
   }, []);
+  
+  useEffect(() => {
+    const slice = pageData.slice(offset, offset + perPage);
+    setStudents(slice);
+    setPageCount(Math.ceil(pageData.length / perPage));
+  }, [pageData, offset]);
+  
+  console.log(pageData);
+
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1)
@@ -81,7 +89,7 @@ export default function MyClass() {
     
           {pageData.length > 0 ? (
             <>
-              <Table className="table table-bordered ">
+              <Table className="table table-bordered">
                 <thead className="">
                   <tr>
                     <th>#</th>
@@ -94,8 +102,8 @@ export default function MyClass() {
                   </tr>
                 </thead>
            {students.map((student, index) => (
-                <tbody>
-                  <tr key={student._id}>
+                <tbody  key={student._id}>
+                  <tr>
                     <td>{student.index}</td>
                     <td>{student.firstName}</td>
                     <td>{student.lastName}</td>
@@ -129,7 +137,7 @@ export default function MyClass() {
                    breakClassName={"break-me"}
                    pageCount={pageCount}
                    marginPagesDisplayed={2}
-                   pageRangeDisplayed={5}
+                   pageRangeDisplayed={2}
                    onPageChange={handlePageClick}
                    containerClassName={"pagination"}
                    subContainerClassName={"pages pagination"}

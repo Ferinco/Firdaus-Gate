@@ -21,7 +21,7 @@ export const createReports = createAsyncThunk(
       const response = await ReportService.createReport(reportData);
       return response;
     } catch (error) {
-      return thunkApi.rejectWithValue;
+      return thunkApi.rejectWithValue(error);
     }
   }
 );
@@ -48,7 +48,7 @@ const slices = createSlice({
       console.log(action);
       state.isLoading = false;
       state.isSuccess = true;
-      state.reports.push(action.payload);
+      state.reports = [...state.reports, action.payload];
     });
     builder.addCase(createReports.rejected, (state, action) => {
       state.isLoading = false;

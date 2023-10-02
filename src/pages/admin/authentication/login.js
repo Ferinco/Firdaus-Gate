@@ -27,10 +27,10 @@ export default function AdminLogin() {
       navigate(PATH_DASHBOARD.admin.index);
     } catch (error) {
       setIsSubmitting(false);
-      if (error.response.data.message) {
+      if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
-        toast.error("Network error");
+        toast.error("Network error, try again later");
       }
     }
 

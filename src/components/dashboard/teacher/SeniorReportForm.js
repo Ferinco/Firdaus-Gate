@@ -20,7 +20,7 @@ SeniorReportForm.propTypes = {
   students: PropTypes.array,
   isLoading: PropTypes.bool,
 };
-export default function SeniorReportForm({ students, isLoading }) {
+export default function SeniorReportForm({ students, isLoading, reportYear }) {
   const { user } = useAuth();
   const dispatch = useDispatch();
   console.log(students);
@@ -150,9 +150,8 @@ export default function SeniorReportForm({ students, isLoading }) {
         reportTerm: "FIRST_TERM",
         classTeacherComment: "",
         student: "",
-        classSection: user.classHandled?.startsWith("JSS")
-          ? "junior"
-          : "senior",
+        reportYear: reportYear || "",
+        classSection: "senior",
       },
     });
 
