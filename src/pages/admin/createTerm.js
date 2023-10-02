@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { createTerm } from "../../redux/slices/term";
 import { Button } from "../../components/custom";
-
+import styled from "styled-components"
 export default function CreateTerm() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -32,11 +32,12 @@ export default function CreateTerm() {
       });
   };
   return (
-    <div className="container">
-      <h1>Create term</h1>
+    <Container className="container p-5">
+      <h4>Set Current Term</h4>
+      <p>set start and end date of current term.</p>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="form mt-5">
+        <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
           <label> Select Term</label>
           <select {...register("name")}>
             <option value="Select term" disabled selected>
@@ -47,7 +48,7 @@ export default function CreateTerm() {
             <option value="THIRD TERM">THIRD TERM</option>
           </select>
         </div>
-        <div>
+        <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
           <label>Start Date</label>
           <input
             type="date"
@@ -56,7 +57,7 @@ export default function CreateTerm() {
           />
         </div>
 
-        <div>
+        <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
           <label>End Date</label>
           <input
             type="date"
@@ -65,10 +66,31 @@ export default function CreateTerm() {
           />
         </div>
 
+<div className="button mt-5">
         <Button blue type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create"}
         </Button>
+</div>
       </form>
-    </div>
+    </Container>
   );
 }
+const Container = styled.div`
+.form{
+  max-width: 270px;
+  label{
+    font-weight: 600;
+  }
+  input{
+    width: fit-content;
+  }
+  select{
+    width: 160px !important;
+  }
+  input, select{
+padding: 5px;
+outline: 0;
+border: 1px solid grey;
+  }
+}
+`
