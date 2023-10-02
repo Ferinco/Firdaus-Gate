@@ -87,10 +87,23 @@ export default function AdminDashboard() {
     FetchTeachers();
     }, [])
 
+    //getting current hour
+    const currentTime = new Date().getHours()
+    const [greeting, setGreeting] = useState(getGreeting(currentTime))
+    function getGreeting(currentTime) {
+      switch (true) {
+        case currentTime >= 0 && currentTime < 12:
+          return "Good Morning,";
+        case currentTime >= 12 && currentTime < 18:
+          return "Good Afternoon,";
+        default:
+          return "Good Evening,";
+      }
+    }
   return (
     <Wrapper className="">
       <div className="d-flex flex-column left p-5">
-        <h4>Good Afternoon, Mr {user.lastName}</h4>
+        <h4>{greeting} Mr {user.lastName}</h4>
         <p>welcome to your dashboard</p>
       </div>
 

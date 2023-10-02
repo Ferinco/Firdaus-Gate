@@ -15,11 +15,13 @@ export default function TeachersList() {
   const [overlay, setOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  //pagination of teacherlist
+  //states to manage pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
+
+  //fetching teacher details
   useEffect(() => {
     const FetchTeachers = async (data) => {
       try {
@@ -34,10 +36,14 @@ export default function TeachersList() {
     };
     FetchTeachers();
   }, []);
+
+  //handle navigation of pages to next || previous
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1);
   };
+
+  //effect to mangage pagination of teacherlist
   useEffect(() => {
     const slice = pageData.slice(offset, offset + perPage);
     setTeachers(slice);
@@ -45,7 +51,7 @@ export default function TeachersList() {
   }, [pageData, offset]);
 
   const DeleteTeachers = async (data) => {
-    await UserService.deleteUser()
+    await UserService.deleteUser(teachers.id)
       .then((res) => {
         console.log(res);
         console.log(data);
@@ -69,10 +75,10 @@ export default function TeachersList() {
         <p>View and edit details of teachers</p>
       </div>
       {isLoading ? <CircularProgress /> : ""}
-      {pageData.length > 0 ? (
+      {teachers.length > 0 ? (
         <>
         <div className="table-div px-5">
-          <Table className="table">
+          <Table className="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
@@ -96,7 +102,7 @@ export default function TeachersList() {
 
                   <td>
                     {" "}
-                    <button onClick={EditTeachers}>Edit</button>{" "}
+                    <button onClick={EditTeachers} className="update-button">Edit</button>{" "}
                   </td>
                   <td>
                     {" "}
@@ -104,6 +110,7 @@ export default function TeachersList() {
                       onClick={() => {
                         setOverlay(true);
                       }}
+                      className="delete-button"
                     >
                       Delete
                     </button>{" "}
@@ -139,7 +146,7 @@ export default function TeachersList() {
           >
             <p>Are you sure you want to delete this teacher profile?</p>
             <div className=" buttons d-flex gap-3">
-              <button className="left" onClick={DeleteTeachers}>
+              <button className="left" onClick={()=> DeleteTeachers()}>
                 yes
               </button>
               <button
@@ -160,15 +167,6 @@ export default function TeachersList() {
   );
 }
 const Wrapper = styled.div`
-  .table-div {
-    overflow-x: scroll;
-    height:310px !important;
-.pagination{
-  a{
-    color: blue !important;
-  }
-}
-  }
   .table {
   }
   .table-body {

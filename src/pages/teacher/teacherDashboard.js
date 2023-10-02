@@ -48,9 +48,9 @@ export default function TeacherDashboard() {
       case currentTime >= 0 && currentTime < 12:
         return "Good Morning,";
       case currentTime >= 12 && currentTime < 18:
-        return "Good afternoon,";
+        return "Good Afternoon,";
       default:
-        return "Good evening,";
+        return "Good Evening,";
     }
   }
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();

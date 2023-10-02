@@ -28,6 +28,7 @@ import {
   TeachersList,
   AdminLogin,
   CreateTerm,
+  ActiveApplications
 } from "../pages/admin";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
@@ -112,6 +113,8 @@ export default function Routes() {
         { path: "/admin/teachers-list", element: <TeachersList /> },
         { path: "/admin/students-list", element: <StudentsList /> },
         { path: "/admin/create-term", element: <CreateTerm /> },
+        { path: "/admin/applications", element: <ActiveApplications /> },
+
       ],
     },
 

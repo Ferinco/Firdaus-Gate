@@ -40,8 +40,8 @@ export default function CreateTerm() {
         <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
           <label> Select Term</label>
           <select {...register("name")}>
-            <option value="Select term" disabled selected>
-              Select term
+            <option value="" disabled>
+              CURRENT TERM
             </option>
             <option value="FIRST TERM">FIRST TERM</option>
             <option value="SECOND TERM">SECOND TERM</option>

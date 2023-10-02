@@ -34,7 +34,7 @@ export default function AdminNavbar() {
           }`}
         >
           <div className="image">
-            <Icon icon="fa-solid:graduation-cap" className="icon" />
+            <Icon icon="fa-solid:user-tie" className="icon" />
           </div>
 
           <div>
@@ -83,8 +83,8 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 400px;
-    width: 300px;
+    height: 370px;
+    width: 270px;
     display: none;
     align-items: center;
     border-radius: 30px;

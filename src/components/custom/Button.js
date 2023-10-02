@@ -22,15 +22,15 @@ export const Button = styled.button`
 export const ControlButton = styled.button`
 border: 0;
 padding: 10px;
-background-color: blue;
+background-color: black;
 .icon{
   color: white;
 }
 &:hover{
-  background-color: white;
+  background-color: blue;
   transition: 0.3s;
   .icon{
-  color: blue;
+  color: white;
 }
 }
 `

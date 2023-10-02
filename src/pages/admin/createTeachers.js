@@ -54,7 +54,7 @@ export default function CreateTeachers() {
     },
   });
   const selectedTeacherType = watch("teacherType");
-
+const selectedClass = watch("classHandled")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
@@ -214,13 +214,13 @@ export default function CreateTeachers() {
                 </select>
               </div>
             )}
-            {selectedTeacherType === "classTeacher" && (
+            {selectedTeacherType === "classTeacher"  && selectedClass.startsWith("SSS") && (
               <div className="my-2 d-flex flex-column">
                 <label htmlFor="department" className="label">
                   Department
                 </label>
                 <select name="department" {...register("department")}>
-                  <option value="select department" selected disabled>
+                  <option value="" disabled>
                     Select department
                   </option>
                   <option value="science">science</option>
@@ -257,7 +257,7 @@ export default function CreateTeachers() {
               </p>
             </div>
 
-            {selectedTeacherType === "classTeacher" && (
+
               <div className="my-2 d-flex flex-column">
                 <label htmlFor="teacherSignature" className="label">
                   teacherSignature
@@ -275,7 +275,7 @@ export default function CreateTeachers() {
                     : ""}
                 </p>
               </div>
-            )}
+
 
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">
