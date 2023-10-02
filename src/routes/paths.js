@@ -39,6 +39,8 @@ export const PATH_DASHBOARD = {
     teachersList: JOIN(ROOT_ADMIN, "teachers-list"),
     studentsList: JOIN(ROOT_ADMIN, "students-list"),
     createTerm: JOIN(ROOT_ADMIN, "create-term"),
-    applications: JOIN(ROOT_ADMIN, "applications")
+    applications: JOIN(ROOT_ADMIN, "applications"),
+    calendar: JOIN(ROOT_ADMIN, "create-calendar"),
+
   },
 };

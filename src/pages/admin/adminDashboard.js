@@ -25,7 +25,7 @@ const TabsConfig = [
     iconColor: "black",
   },
   {
-    link: PATH_DASHBOARD.admin.studentsList,
+    link: PATH_DASHBOARD.admin.calendar,
     title: "Term Calendar",
     subTitle: "Upload calendar for the current term",
     icon: "solar:calendar-bold",
