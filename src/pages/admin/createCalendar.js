@@ -6,6 +6,7 @@ import { fetchCurrentTerm } from "../../redux/slices/term";
 
 export default function CreateCalendar() {
   const dispatch = useDispatch();
+  //getting current term
   const { currentTerm } = useSelector((state) => state.term);
   const [weeks, setWeeks] = useState([]);
   useEffect(() => {
@@ -15,21 +16,19 @@ export default function CreateCalendar() {
   const startDate = new Date(currentTerm.startDate);
   const endDate = new Date(currentTerm.endDate);
   const dateDifference = endDate - startDate;
+
+//   difference between startDate and EndDate of term
   const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
   weeks.length = weeksDifference;
-useEffect(()=>{
 
-    const initiailWeeks = Array.from({length: weeks.length}, (_, index)=>({
-        value: ""
-    }))
-    setWeeks(initiailWeeks)
+  //creating array for weeks
+  useEffect(() => {
+    const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
+      value: "",
+    }));
+    setWeeks(initiailWeeks);
     console.log(initiailWeeks);
-}, [weeksDifference])
-// const handleInputChange = (index, newValue) => {
-//     const updatedWeeks = [...weeks];
-//     updatedWeeks[index].value = newValue;
-//     setWeeks(updatedWeeks);
-//   };
+  }, [weeksDifference]);
   console.log(weeks);
   return (
     <div className="p-5">
@@ -42,11 +41,9 @@ useEffect(()=>{
         </p>
       </div>
       {weeks.map((week, index) => (
-        <input
-          key={index}
-          type="text"
-          value={week.value}
-        />
+     <div  key={index}>
+        <label htmlFor="input" >week {week.id}</label>
+        <input type="text" value={week.value} name="input"/></div>
       ))}
     </div>
   );

@@ -50,7 +50,9 @@ export default function AdminDashboard() {
 
   //current term
   useEffect(() => {
-    dispatch(fetchCurrentTerm());
+    dispatch(fetchCurrentTerm()).unwrap().then((res)=> {
+      console.log(res)
+    })
   }, []);
   console.log(currentTerm);
 
@@ -80,7 +82,7 @@ export default function AdminDashboard() {
         const Length = users.data.length
         console.log(Length);
         setTeachers(Length);
-      } catch (error) {
+      } catch (error) { 
         console.log(error)
       }
     };
@@ -111,7 +113,7 @@ export default function AdminDashboard() {
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
-            <h5>{currentTerm.name}</h5>
+            <h5>{currentTerm && currentTerm.name}</h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
