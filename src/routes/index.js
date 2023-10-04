@@ -29,7 +29,7 @@ import {
   AdminLogin,
   CreateTerm,
   ActiveApplications,
-  CreateCalendar
+  CreateCalendar,
 } from "../pages/admin";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
@@ -76,8 +76,6 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
-
-
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -122,8 +120,6 @@ export default function Routes() {
         { path: "/admin/create-term", element: <CreateTerm /> },
         { path: "/admin/applications", element: <ActiveApplications /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
-
-
       ],
     },
 

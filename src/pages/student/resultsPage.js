@@ -21,18 +21,18 @@ export default function ResultsPage() {
 
   const reportsItem = [
     {
-      reportTerm: "FIRST_TERM",
+      reportTerm: "FIRST TERM",
 
       icon: "icon-park-solid:two-key",
       _id: 4484,
     },
     {
-      reportTerm: "SECOND_TERM",
+      reportTerm: "SECOND TERM",
       icon: "icon-park-solid:two-key",
       _id: 4485,
     },
     {
-      reportTerm: "THIRD_TERM",
+      reportTerm: "THIRD TERM",
       icon: "icon-park-solid:two-key",
       _id: 4486,
     },
@@ -43,7 +43,7 @@ export default function ResultsPage() {
     try {
       setLoading(true);
       const data = await ReportService.downloadReport({
-        classSection: selectedClass.startsWith("JSS") ? "senior" : "senior",
+        classSection: selectedClass.startsWith("JSS") ? "junior" : "senior",
         selectedTerm: term,
         selectedClass,
         student: user._id,

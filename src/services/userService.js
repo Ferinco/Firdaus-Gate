@@ -5,7 +5,7 @@ export const UserService = {
   findUsers: async (params) => {
     const { data } = await api.get(`/users`, { params });
     return data;
-  },
+  },    
   getUser: async (userId) => {
     const { data } = await api.get(`/users/single/${userId}`);
     return data;
