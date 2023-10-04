@@ -20,7 +20,7 @@ export default function TeachersList() {
   //states to manage pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(2);
+  const [perPage] = useState(5);
   const [deleteId, setDeleteId] = useState("");
 
   useEffect(() => {

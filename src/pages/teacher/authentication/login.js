@@ -53,10 +53,10 @@ export default function TeacherLogin() {
     <Wrapper>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6 left">
+          <div className="col-md-8 left">
             <div className="left-image"></div>
           </div>
-          <div className="col-md-6 right">
+          <div className="col-md-4 right">
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
                 <Link react-router-link to={PATH_PAGE.home}>
@@ -82,7 +82,7 @@ export default function TeacherLogin() {
                     <input
                       placeholder="Password"
                       name="password"
-                      type={passwordVisibility ? "password" : "text"}
+                      type="password"
                       {...register("password")}
                     />
                     {/* <i

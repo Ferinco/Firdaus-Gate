@@ -5,6 +5,10 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
+import { UserService } from "../../services/userService";
+import { useEffect } from "react";
+import { fetchCurrentTerm } from "../../redux/slices/term";
+import { useDispatch, useSelector } from "react-redux";
 
 const TabsConfig = [
   {
@@ -36,12 +40,55 @@ const TabsConfig = [
     iconColor: "black",
   },
 ];
+
 export default function TeacherDashboard() {
+  const { currentTerm } = useSelector((state) => state.term);
+  const dispatch = useDispatch();
+  const startDate = new Date(currentTerm.startDate);
+  const currentDate = new Date().getDate();
+  const dateDifference = endDate - startDate;
+
+  //   difference between startDate and EndDate of term
+  const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
+  weeks.length = weeksDifference;
+
+
   //get current time
   const { user } = useAuth();
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
+  const [students, setStudents] = useState();
+  const [maleGender, setMaleGender] = useState();
+  const [femaleGender, setFemaleGender] = useState();
+
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      });
+  }, []);
+  console.log(currentTerm);
+
+  //fetching class length details
+  useEffect(() => {
+    const FetchStudents = async () => {
+      try {
+        const res = await UserService.findUsers({ role: "student" });
+        const Data = res.data;
+        const male = Data.filter((user) => user.gender === "male");
+        setMaleGender(male.length);
+        const female = Data.filter((user) => user.gender === "female");
+        setFemaleGender(female.length);
+        setStudents(Data.length);
+      } catch (error) {
+        console(error);
+      }
+    };
+    FetchStudents();
+  }, []);
+
   //greeting teacher with regards to current time
   function getGreeting(currentTime) {
     switch (true) {
@@ -53,7 +100,7 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
+
   return (
     <Dashboard className="p-5">
       <div className="head d-flex flex-column left container m-0">
@@ -63,20 +110,42 @@ export default function TeacherDashboard() {
         <p>Welcome to your dashboard.</p>
       </div>
       <div className="mobile-info flex-column p-3 mt-5">
-          <div className="div d-flex flex-row">
-            <h6 style={{ color: "white" }}>Catalog</h6>
+        <div className="div d-flex flex-row">
+          <h6 style={{ color: "white" }}>Catalog</h6>
+        </div>
+        <div className="term-div d-flex flex-column justify-content-center">
+          <p>Current Term:</p>
+        <h5>
+              {currentTerm ? (
+                currentTerm.name
+              ) : (
+                  <p>Term has ended! or yet to start</p>
+              )}
+            </h5>
+        </div>
+        <div className="bottom-div">
+          <div className="div d-flex flex-column">
+
           </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
+          <div className="div d-flex flex-column"></div>
+          <div className="div d-flex flex-column"></div>
+        </div>
+        <div className="top-div">
+          <div className="long">
+            <p>STUDENTS</p>
+            {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
           </div>
-          <div className="bottom-div">
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
+          <div className="small">
+            {" "}
+            <p>MALE</p>
+            {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
+          </div>
+          <div className="small">
+            <p>FEMALE</p>
+            {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
           </div>
         </div>
+      </div>
       <div className="middle-div d-flex py-5">
         <div className="tabs d-flex flex-column ">
           {TabsConfig.map(
@@ -101,15 +170,25 @@ export default function TeacherDashboard() {
           <div className="div d-flex flex-row">
             <h6 style={{ color: "white" }}>Catalog</h6>
           </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
-          </div>
+        <div className="term-div"></div>
           <div className="bottom-div">
             <div className="div d-flex flex-column"></div>
             <div className="div d-flex flex-column"></div>
             <div className="div d-flex flex-column"></div>
+          </div>
+          <div className="top-div">
+            <div className="long">
+              <p>STUDENTS</p>
+              {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
+            </div>
+            <div className="small">
+              <p>MALE</p>
+              {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
+            </div>
+            <div className="small">
+              <p>FEMALE</p>
+              {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
+            </div>
           </div>
         </div>
       </div>
@@ -121,7 +200,7 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   margin: 0 !important;
-  .mobile-info{
+  .mobile-info {
     display: none;
   }
   .middle-div {
@@ -134,7 +213,7 @@ const Dashboard = styled.div`
       gap: 10px;
       .tab {
         max-width: 400px;
-        min-width: 320px;
+        min-width: 100%;
         height: auto;
         border-radius: 10px;
         align-items: center;
@@ -191,17 +270,20 @@ const Dashboard = styled.div`
       }
     }
     .info-wrapper {
-      height: 350px;
+      min-height: 450px;
       background-color: black;
       border-radius: 30px;
       min-width: 320px;
       justify-content: space-between;
-      margin: 0 !important;
-      margin: 0 !important;
+      .term-div{
+        min-height: 70px;
+        border: 1px solid white;
+        border-radius: 10px;
+      }
       .top-div {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        height: 120px;
+        min-height: 150px;
         gap: 10px;
         overflow: hidden;
         .long {
@@ -236,18 +318,24 @@ const Dashboard = styled.div`
       }
     }
   }
- @media screen and (max-width: 840px) {
-  .mobile-info {
-    display: flex !important;
-      height: 350px;
+  @media screen and (max-width: 840px) {
+    .mobile-info {
+      display: flex !important;
+      min-height: 450px;
       background-color: black;
       border-radius: 30px;
-      min-width: 320px;
+      min-width: 100%;
+      max-width: 350px;
       justify-content: space-between;
+      .term-div{
+        min-height: 70px;
+        border: 1px solid white;
+        border-radius: 10px;
+      }
       .top-div {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        height: 120px;
+        min-height: 150px;
         gap: 10px;
         overflow: hidden;
         .long {
@@ -281,8 +369,11 @@ const Dashboard = styled.div`
         }
       }
     }
-  .info-wrapper{
-    display: none !important;
+    .info-wrapper {
+      display: none !important;
+    }
   }
- }
+  @media screen and (max-width: 840px) {
+    padding: 40px 30px !important;
+  }
 `;

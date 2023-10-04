@@ -75,7 +75,7 @@ export default function StudentLogin() {
                   <input
                     placeholder="Admission number"
                     name="admissionNumber"
-                    type="text"
+                    type="password"
                     {...register("admissionNumber")}
                   />
                 </div>

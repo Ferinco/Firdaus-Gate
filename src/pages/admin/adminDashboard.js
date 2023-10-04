@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { fetchUsers } from "../../redux/slices/users";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
 const TabsConfig = [
   {
@@ -32,7 +31,7 @@ const TabsConfig = [
     iconColor: "black",
   },
   {
-    link: PATH_DASHBOARD.admin.studentsList,
+    link: PATH_DASHBOARD.admin.notify,
     title: "Notify",
     subTitle: "Send a general notification to your staff",
     icon: "tabler:bell-filled",

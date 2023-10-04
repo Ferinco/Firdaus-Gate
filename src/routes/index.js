@@ -36,6 +36,7 @@ import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
 import Calendar from "../pages/teacher/calendar";
 import Scheme from "../pages/teacher/scheme";
+import Notify from "../pages/admin/notify";
 
 export default function Routes() {
   return useRoutes([
@@ -120,6 +121,8 @@ export default function Routes() {
         { path: "/admin/create-term", element: <CreateTerm /> },
         { path: "/admin/applications", element: <ActiveApplications /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
+        { path: "/admin/notify", element: <Notify /> },
+
       ],
     },
 

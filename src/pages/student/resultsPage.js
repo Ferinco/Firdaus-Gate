@@ -66,8 +66,11 @@ export default function ResultsPage() {
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
       }
-      if (error.response.status === 404) {
+      if (error?.response?.status === 404) {
         toast.error("You do not have a report for this session!");
+      }
+      else {
+        toast.error('Network error, try again later')
       }
     }
   }
