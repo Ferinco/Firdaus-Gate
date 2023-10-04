@@ -123,9 +123,11 @@ export default function JuniorReportForm({ students, isLoading, reportYear }) {
       .catch((error) => {
         console.log(error);
         setLoading(false);
-        if (error.response.data.message)
+        if (error?.response?.data?.message)
           toast.error(error.response.data.message);
-        toast.error("Error creating student report, try again later");
+        else {
+          toast.error("Error creating student report, try again later");
+        }
       });
   };
   return (
