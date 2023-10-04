@@ -206,7 +206,7 @@ const Wrapper = styled.div`
     gap: 20px;
     .tab {
       max-width: 400px;
-      min-width: 320px;
+      min-width: 300px;
       height: 80px;
       border-radius: 10px;
       align-items: center;

@@ -62,7 +62,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     flex-direction: row;
-    gap: 40px;
+    gap: 20px;
     .profile-div {
       padding: 5px;
       border: 1px solid black;
@@ -127,6 +127,7 @@ const Wrapper = styled.div`
   }
   @media screen and (max-width: 1100px) {
     .btns {
+      margin-right: -20px;
       .nav-btn {
         display: block !important;
         font-weight: 600 !important;

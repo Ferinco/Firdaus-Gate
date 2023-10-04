@@ -42,7 +42,7 @@ export default function CreateCalendar() {
       </div>
       {weeks.map((week, index) => (
      <div  key={index}>
-        <label htmlFor="input" >week {week.id}</label>
+        <label htmlFor="input" >week {index +1}</label>
         <input type="text" value={week.value} name="input"/></div>
       ))}
     </div>

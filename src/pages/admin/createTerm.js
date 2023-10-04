@@ -8,7 +8,7 @@ import styled from "styled-components"
 export default function CreateTerm() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, reset } = useForm({
     defaultValues: {
       startDate: "",
       name: "",
@@ -21,6 +21,7 @@ export default function CreateTerm() {
       .unwrap()
       .then((res) => {
         setLoading(false);
+        reset()
         console.log(res);
         toast.success(`${res.data.name} created successfully`);
       })

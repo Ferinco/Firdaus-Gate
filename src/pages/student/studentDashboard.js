@@ -4,11 +4,20 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentTerm } from "../../redux/slices/term";
+
 
 export default function StudentDashboard() {
   const { user } = useAuth();
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
 
+  //fetch current term
+  const {currentTerm} = useSelector(state => state.term)
+const dispatch = useDispatch()
+useEffect(()=>{
+  dispatch(fetchCurrentTerm())
+}, [])
   return (
     <Dashboard>
       <div className="middle-div d-flex flex-row justify-content-between align-items-start p-5">
@@ -100,8 +109,8 @@ export default function StudentDashboard() {
           </div>
         </div>
         <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
-          <div className="info"></div>
-          <div className="info"></div>
+          <div className="info">current term {currentTerm.name}</div>
+          <div className="info">current week</div>
           <div className="info"></div>
           </div>
       </div>
