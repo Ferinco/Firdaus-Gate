@@ -15,8 +15,8 @@ const TabsConfig = [
     iconColor: "white",
   },
   {
-    link: PATH_DASHBOARD.admin.teachersList,
-    title: "Add Subject Scheeme",
+    link: PATH_DASHBOARD.teacher.addScheme,
+    title: "Add Subject Scheme",
     subTitle: "Upload subject scheeme for the term",
     icon: "pepicons-pencil:list",
     iconColor: "black",

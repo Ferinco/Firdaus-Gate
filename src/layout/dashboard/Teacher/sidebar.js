@@ -25,7 +25,7 @@ const sidebarConfig = [
   },
   {
     icon: "solar:calendar-bold",
-    link: "",
+    link: PATH_DASHBOARD.teacher.viewCalendar,
     title: "Term calendar",
   },
 ];

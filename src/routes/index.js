@@ -34,6 +34,8 @@ import {
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
+import Calendar from "../pages/teacher/calendar";
+import Scheme from "../pages/teacher/scheme";
 
 export default function Routes() {
   return useRoutes([
@@ -72,6 +74,10 @@ export default function Routes() {
         { path: "results", element: <Results /> },
         { path: "create-student", element: <Create /> },
         { path: "create-result", element: <CreateResult /> },
+        { path: "view-calendar", element: <Calendar /> },
+        { path: "add-scheme", element: <Scheme /> },
+
+
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
