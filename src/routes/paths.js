@@ -24,6 +24,10 @@ export const PATH_DASHBOARD = {
     results: JOIN(ROOT_TEACHER, "results"),
     create: JOIN(ROOT_TEACHER, "create-student"),
     createResult: JOIN(ROOT_TEACHER, "create-result"),
+    viewCalendar: JOIN(ROOT_TEACHER, "view-calendar"),
+    addScheme: JOIN(ROOT_TEACHER, "add-scheme"),
+
+
   },
   student: {
     index: ROOT_STUDENT,
@@ -39,5 +43,8 @@ export const PATH_DASHBOARD = {
     teachersList: JOIN(ROOT_ADMIN, "teachers-list"),
     studentsList: JOIN(ROOT_ADMIN, "students-list"),
     createTerm: JOIN(ROOT_ADMIN, "create-term"),
+    applications: JOIN(ROOT_ADMIN, "applications"),
+    calendar: JOIN(ROOT_ADMIN, "create-calendar"),
+
   },
 };

@@ -61,7 +61,9 @@ export default function Create() {
   const onSubmit = async (data) => {
     console.log(data);
     setIsLoading(true);
-    await UserService.createUser(data)
+    const formData = new FormData();
+    formData.append("values", JSON.stringify(data));
+    await UserService.createUser(formData)
       .then((res) => {
         console.log(res);
         setIsLoading(false);

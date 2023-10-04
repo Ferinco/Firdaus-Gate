@@ -25,19 +25,21 @@ const sidebarConfig = [
   },
   {
     icon: "solar:calendar-bold",
-    link: "",
+    link: PATH_DASHBOARD.teacher.viewCalendar,
     title: "Term calendar",
   },
 ];
 
 export default function TeacherSidebar() {
-  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
+      const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard")
   function handleNavClick(title){
     setActiveTab(title)
     console.log(activeTab)
     setIsSidebarOpen(false)
+    setIsProfileOpen(false)
+
       }
   return (
     <SIDEBAR>

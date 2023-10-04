@@ -5,26 +5,27 @@ import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import {  CircularProgress } from "../../components/custom";
+import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import ReactPaginate from "react-paginate";
-
+import toast from "react-hot-toast";
+import { ControlButton } from "../../components/custom/Button";
 export default function MyClass() {
   const [students, setStudents] = useState();
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [overlay, setOverlay] = useState(false);
 
   //pagination of teacher lists
-  const [offset, setOffset] = useState(0)
-  const [perPage] = useState(2)
+  const [offset, setOffset] = useState(0);
+  const [perPage] = useState(2);
   const [pageData, setPageData] = useState([]);
-  const[pageCount, setPageCount] = useState(0)
-
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     const FetchStudents = async () => {
       try {
-        const res = await UserService.findUsers({role : "student"});
+        const res = await UserService.findUsers({ role: "student" });
         console.log(res);
         console.log(res.data);
         setPageData(res.data);
@@ -36,19 +37,33 @@ export default function MyClass() {
     };
     FetchStudents();
   }, []);
-  
+
   useEffect(() => {
     const slice = pageData.slice(offset, offset + perPage);
     setStudents(slice);
     setPageCount(Math.ceil(pageData.length / perPage));
   }, [pageData, offset]);
-  
+
   console.log(pageData);
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
-    setOffset(selectedPage + 1)
-};
+    setOffset(selectedPage + 1);
+  };
+
+  //delete student
+  const DeleteStudents = async (data) => {
+    await UserService.deleteUser(students.id)
+      .then((res) => {
+        console.log(res);
+        console.log(data);
+        setOverlay(false);
+        toast.success("teacher profile has been deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const {
     register,
     handleSubmit,
@@ -86,63 +101,83 @@ export default function MyClass() {
               <Icon icon="system-uicons:filter" color="grey" className="icon" />
             </div>
           </div>
-    
+
           {pageData.length > 0 ? (
             <>
-              <Table className="table table-bordered">
-                <thead className="">
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Admission Number</th>
-                    <th>email</th>
-                    <th>gender</th>
-                    <th colSpan="3">Operations</th>
-                  </tr>
-                </thead>
-           {students.map((student, index) => (
-                <tbody  key={student._id}>
-                  <tr>
-                    <td>{student.index}</td>
-                    <td>{student.firstName}</td>
-                    <td>{student.lastName}</td>
-                    <td>{student.admissionNumber}</td>
-                    <td>{student.email}</td>
-                    <td>{student.gender}</td>
+              <div className="table-div">
+                <Table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Admission Number</th>
+                      <th>email</th>
+                      <th>gender</th>
+                      <th colSpan="3">Operations</th>
+                    </tr>
+                  </thead>
+                  {students.map((student, index) => (
+                    <tbody key={student._id}>
+                      <tr>
+                        <td>{student.index}</td>
+                        <td>{student.firstName}</td>
+                        <td>{student.lastName}</td>
+                        <td>{student.admissionNumber}</td>
+                        <td>{student.email}</td>
+                        <td>{student.gender}</td>
 
-                    <td>
-                      <Link to="">
-                        <button>update</button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to="">
-                        <button>transfer</button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to="">
-                        <button>delete</button>
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-            ))}
-              </Table>
-                   <ReactPaginate
-                   previousLabel={"prev"}
-                   nextLabel={"next"}
-                   breakLabel={"..."}
-                   breakClassName={"break-me"}
-                   pageCount={pageCount}
-                   marginPagesDisplayed={2}
-                   pageRangeDisplayed={2}
-                   onPageChange={handlePageClick}
-                   containerClassName={"pagination"}
-                   subContainerClassName={"pages pagination"}
-                   activeClassName={"active"}/>
-   </>
+                        <td>
+                          <Link to="">
+                            <button className="update-button">update</button>
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to="">
+                            <button className="transfer-button">
+                              transfer
+                            </button>
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to="">
+                            <button
+                              className="delete-button"
+                              onClick={() => {
+                                setOverlay(true);
+                              }}
+                            >
+                              delete
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))}
+                </Table>
+              </div>
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </>
           ) : (
             <div className="d-flex justify-content-center center align-center">
               <h4>
@@ -155,13 +190,33 @@ export default function MyClass() {
           )}
         </div>
       </div>
-      {
-            isLoading? (
-              <CircularProgress/>
-            ) : (
-              ""
-            )
-          }
+      {isLoading ? <CircularProgress /> : ""}
+      {overlay ? (
+        <div className="overlay-wrapper d-flex ">
+          <div
+            className={`d-flex flex-column p-3 overlay-options ${
+              overlay ? "open" : "close"
+            }`}
+          >
+            <p>Are you sure you want to delete this teacher profile?</p>
+            <div className=" buttons d-flex gap-3">
+              <button className="left" onClick={() => DeleteStudents()}>
+                yes
+              </button>
+              <button
+                className="right"
+                onClick={() => {
+                  setOverlay(false);
+                }}
+              >
+                no
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </Students>
   );
 }
@@ -169,12 +224,17 @@ const Students = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
   .container-fluid {
     gap: 30px;
   }
 
   .middle-div {
-    overflow-x: scroll !important;
+    width: 100% !important;
+    .table-div {
+      position: relative;
+      width: fit-content !important;
+    }
     .wrapper {
       gap: 40px;
       background-color: white;
@@ -187,18 +247,6 @@ const Students = styled.div`
         }
       }
       .table {
-        button {
-          color: black;
-          border: 1px solid black;
-
-          padding: 5px;
-          border-radius: 10px;
-          background: transparent;
-          &:hover {
-            border: 1px solid grey;
-            color: grey;
-          }
-        }
       }
     }
     .form-wrapper {

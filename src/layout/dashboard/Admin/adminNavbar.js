@@ -34,7 +34,7 @@ export default function AdminNavbar() {
           }`}
         >
           <div className="image">
-            <Icon icon="fa-solid:graduation-cap" className="icon" />
+            <Icon icon="fa-solid:user-tie" className="icon" />
           </div>
 
           <div>
@@ -62,7 +62,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     flex-direction: row;
-    gap: 40px;
+    gap: 20px;
     .profile-div {
       padding: 5px;
       border: 1px solid black;
@@ -83,8 +83,8 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 400px;
-    width: 300px;
+    height: 370px;
+    width: 270px;
     display: none;
     align-items: center;
     border-radius: 30px;
@@ -127,6 +127,7 @@ const Wrapper = styled.div`
   }
   @media screen and (max-width: 1100px) {
     .btns {
+      margin-right: -20px;
       .nav-btn {
         display: block !important;
         font-weight: 600 !important;

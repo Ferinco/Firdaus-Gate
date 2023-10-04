@@ -30,14 +30,14 @@ const sidebarConfig = [
   {
     id: 4,
     icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.teacher.createResult,
+    link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
   },
 ];
 
 export default function AdminSidebar() {
 const [activeTab, setActiveTab] = useState("Dashboard")
-  const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
+  const { isSidebarOpen, setIsSidebarOpen,  setIsProfileOpen } = useAppContext();
   const { logout } = useAuth();
   const dispatch = useDispatch()
 
@@ -45,6 +45,7 @@ const [activeTab, setActiveTab] = useState("Dashboard")
 setActiveTab(title)
 console.log(activeTab)
 setIsSidebarOpen(false)
+setIsProfileOpen(false)
   }
   return (
     <SIDEBAR>

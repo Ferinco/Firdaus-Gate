@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
+import { fetchUsers } from "../../redux/slices/users";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { UserService } from "../../services/userService";
+import { PATH_DASHBOARD } from "../../routes/paths";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.admin.createTeachers,
@@ -23,7 +25,7 @@ const TabsConfig = [
     iconColor: "black",
   },
   {
-    link: PATH_DASHBOARD.admin.studentsList,
+    link: PATH_DASHBOARD.admin.calendar,
     title: "Term Calendar",
     subTitle: "Upload calendar for the current term",
     icon: "solar:calendar-bold",
@@ -33,7 +35,7 @@ const TabsConfig = [
     link: PATH_DASHBOARD.admin.studentsList,
     title: "Notify",
     subTitle: "Send a general notification to your staff",
-    icon: "solar:calendar-bold",
+    icon: "tabler:bell-filled",
     iconColor: "black",
   },
 ];
@@ -42,38 +44,72 @@ export default function AdminDashboard() {
   const { user } = useAuth();
   const dispatch = useDispatch();
   const { currentTerm, isLoading } = useSelector((state) => state.term);
+  // const { users } = useSelector((state) => state.users);
   const [Teachers, setTeachers] = useState();
   const [Students, setStudents] = useState();
+
+  //current term
   useEffect(() => {
-    dispatch(fetchCurrentTerm());
-    const FetchTeachers = async (data) => {
-      try {
-        const res = await UserService.findUsers({ role: "teacher" });
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
         console.log(res);
-        console.log(res.data.length);
-        setTeachers(res.data.length);
+      });
+  }, []);
+  console.log(currentTerm);
+
+  //number of students
+  useEffect(() => {
+    const FetchStudents = async () => {
+      try {
+        const results = await dispatch(fetchUsers({ role: "student" }));
+        const users = unwrapResult(results);
+        const Length = users.data.length;
+        console.log(Length);
+        setStudents(Length);
       } catch (error) {
         console.log(error);
       }
     };
-    const FetchStudents = async (data) => {
+    FetchStudents();
+  }, []);
+
+  //number of teachers
+  useEffect(() => {
+    const FetchTeachers = async () => {
       try {
-        const res = await UserService.findUsers({ role: "student" });
-        console.log(res.data.length);
-        setStudents(res.data.length);
+        const results = await dispatch(fetchUsers({ role: "teacher" }));
+        console.log(results);
+        const users = unwrapResult(results);
+        const Length = users.data.length;
+        console.log(Length);
+        setTeachers(Length);
       } catch (error) {
         console.log(error);
       }
     };
     FetchTeachers();
-    FetchStudents();
   }, []);
-  console.log(currentTerm);
 
+  //getting current hour
+  const currentTime = new Date().getHours();
+  const [greeting, setGreeting] = useState(getGreeting(currentTime));
+  function getGreeting(currentTime) {
+    switch (true) {
+      case currentTime >= 0 && currentTime < 12:
+        return "Good Morning,";
+      case currentTime >= 12 && currentTime < 18:
+        return "Good Afternoon,";
+      default:
+        return "Good Evening,";
+    }
+  }
   return (
     <Wrapper className="">
       <div className="d-flex flex-column left p-5">
-        <h4>Good Afternoon, Mr {user.lastName}</h4>
+        <h4>
+          {greeting} Mr {user.lastName}
+        </h4>
         <p>welcome to your dashboard</p>
       </div>
 
@@ -81,18 +117,33 @@ export default function AdminDashboard() {
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
-            <p>{currentTerm?.name}</p>
+            <h5>
+              {currentTerm ? (
+                currentTerm.name
+              ) : (
+                <>
+                  <p>
+                    Term has ended! or yet to start
+                    <br />
+                    Set a
+                    <Link to={PATH_DASHBOARD.admin.createTerm}> term </Link>, if
+                    there are no upcoming term
+                  </p>
+                </>
+              )}
+            </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
-            <p>{Teachers}</p>
+            <h5>{Teachers}</h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
-            <p>{Students}</p>
+            <h5>{Students}</h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
+            <h5>0</h5>
           </div>
         </div>
       </div>
@@ -132,17 +183,35 @@ const Wrapper = styled.div`
         height: 150px;
         border-radius: 50%;
         display: flex;
+        p {
+          font-weight: 600;
+          font-size: 13px;
+          color: white;
+        }
+        h5 {
+          color: white;
+        }
         &:first-child {
-          background: red;
+          background-color: #8080ff;
         }
         &:nth-child(2) {
-          background: blue;
+          background: #ffff66;
+          p {
+            color: black !important;
+          }
+          h5 {
+            color: black !important;
+          }
         }
         &:nth-child(3) {
-          background: purple;
+          background: #ffb366;
         }
         &:last-child {
-          background: black;
+          background-color: #1c1c1c;
+          p,
+          h5 {
+            color: white;
+          }
         }
       }
       .overviews {
@@ -155,7 +224,7 @@ const Wrapper = styled.div`
     gap: 20px;
     .tab {
       max-width: 400px;
-      min-width: 320px;
+      min-width: 300px;
       height: 80px;
       border-radius: 10px;
       align-items: center;

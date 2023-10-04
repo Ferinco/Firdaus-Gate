@@ -72,7 +72,7 @@ export default function TeacherLogin() {
                   <input
                     placeholder="Teacher ID"
                     name="teacherId"
-                    type="number"
+                    type="text"
                     {...register("teacherId")}
                   />
                   <p className="error-message">{errors.teacherId?.message}</p>

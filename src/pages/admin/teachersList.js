@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
 import { deleteUser, fetchUsers } from "../../redux/slices/users";
+import { Icon } from "@iconify/react";
+import { ControlButton } from "../../components/custom/Button";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
@@ -15,7 +17,7 @@ export default function TeachersList() {
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
 
-  //pagination of teacherlist
+  //states to manage pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(2);
@@ -35,6 +37,7 @@ export default function TeachersList() {
   }, []);
   const { users, isLoading } = useSelector((state) => state.users);
 
+  //handle navigation of pages to next || previous
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1);
@@ -74,62 +77,75 @@ export default function TeachersList() {
       </div>
       {isLoading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
-        <div className="table-div px-5">
-          <Table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Teacher ID</th>
-                <th>email</th>
-                <th>telephone</th>
-                <th colSpan="2">Operations</th>
-              </tr>
-            </thead>
-            <tbody className="bg-transparent table-body">
-              {teachers.map((teacher) => (
-                <tr key={teacher._id}>
-                  <td>{teacher.id}</td>
-                  <td>{teacher.firstName}</td>
-                  <td>{teacher.lastName}</td>
-                  <td>{teacher.teacherId}</td>
-                  <td>{teacher.email}</td>
-                  <td>{teacher.tel}</td>
-
-                  <td>
-                    {" "}
-                    <button onClick={EditTeachers}>Edit</button>{" "}
-                  </td>
-                  <td>
-                    {" "}
-                    <button
-                      onClick={() => {
-                        setOverlay(true);
-                        setDeleteId(teacher._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
+        <>
+          <div className="table-div px-5">
+            <Table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Teacher ID</th>
+                  <th>email</th>
+                  <th>telephone</th>
+                  <th colSpan="2">Operations</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody className="bg-transparent table-body">
+                {teachers.map((teacher) => (
+                  <tr key={teacher._id}>
+                    <td>{teacher.id}</td>
+                    <td>{teacher.firstName}</td>
+                    <td>{teacher.lastName}</td>
+                    <td>{teacher.teacherId}</td>
+                    <td>{teacher.email}</td>
+                    <td>{teacher.tel}</td>
+
+                    <td>
+                      {" "}
+                      <button onClick={EditTeachers} className="update-button">
+                        Edit
+                      </button>{" "}
+                    </td>
+                    <td>
+                      {" "}
+                      <button
+                        onClick={() => {
+                          setOverlay(true);
+                          setDeleteId(teacher._id);
+                        }}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
           <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
+            previousLabel={
+              <ControlButton>
+                <Icon icon="ooui:next-rtl" className="icon" />
+              </ControlButton>
+            }
+            nextLabel={
+              <ControlButton>
+                <Icon icon="ooui:next-ltr" className="icon" />
+              </ControlButton>
+            }
             breakLabel={"..."}
             breakClassName={"break-me"}
             pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={2}
             onPageChange={handlePageClick}
-            containerClassName={"pagination"}
+            containerClassName={"pagination pl-5 align-items-center gap-2"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
           />
-        </div>
+        </>
       ) : (
         <div className="p-5">no details to display atm.</div>
       )}
@@ -166,9 +182,6 @@ export default function TeachersList() {
   );
 }
 const Wrapper = styled.div`
-  .table-div {
-    overflow-x: scroll;
-  }
   .table {
   }
   .table-body {

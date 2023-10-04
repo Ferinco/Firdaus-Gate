@@ -28,11 +28,14 @@ import {
   TeachersList,
   AdminLogin,
   CreateTerm,
+  ActiveApplications,
+  CreateCalendar,
 } from "../pages/admin";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
-import Test from './Test'
+import Calendar from "../pages/teacher/calendar";
+import Scheme from "../pages/teacher/scheme";
 
 export default function Routes() {
   return useRoutes([
@@ -40,10 +43,7 @@ export default function Routes() {
     {
       path: "/",
       element: <Layout />,
-      children: [
-        { path: "/", element: <Home /> },
-        { path: "/test-file", element: <Test /> }
-    ],
+      children: [{ path: "/", element: <Home /> }],
       // children: [{ path: "/", element: <ProgressPage /> }],
     },
 
@@ -74,6 +74,8 @@ export default function Routes() {
         { path: "results", element: <Results /> },
         { path: "create-student", element: <Create /> },
         { path: "create-result", element: <CreateResult /> },
+        { path: "view-calendar", element: <Calendar /> },
+        { path: "add-scheme", element: <Scheme /> },
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -116,6 +118,8 @@ export default function Routes() {
         { path: "/admin/teachers-list", element: <TeachersList /> },
         { path: "/admin/students-list", element: <StudentsList /> },
         { path: "/admin/create-term", element: <CreateTerm /> },
+        { path: "/admin/applications", element: <ActiveApplications /> },
+        { path: "/admin/create-calendar", element: <CreateCalendar /> },
       ],
     },
 

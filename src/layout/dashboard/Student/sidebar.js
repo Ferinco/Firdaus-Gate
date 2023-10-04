@@ -35,12 +35,13 @@ export default function StudentSidebar() {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard")
-  const { isSidebarOpen, setIsSidebarOpen } =
+  const { isSidebarOpen, setIsSidebarOpen ,setIsProfileOpen} =
     useAppContext();
     function handleNavClick(title){
       setActiveTab(title)
       console.log(activeTab)
       setIsSidebarOpen(false)
+      setIsProfileOpen(false)
         }
   return (
     <SIDEBAR>

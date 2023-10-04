@@ -13,6 +13,7 @@ export const fetchCurrentTerm = createAsyncThunk(
   async (thunk) => {
     try {
       const data = await TermService.getCurrentTerm();
+      console.log(data)
       return data;
     } catch (error) {
       return thunk.rejectWithValue(error);
