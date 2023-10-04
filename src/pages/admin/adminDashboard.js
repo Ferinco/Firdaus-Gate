@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchCurrentTerm} from "../../redux/slices/term"
+import { fetchCurrentTerm } from "../../redux/slices/term";
 import { UserService } from "../../services/userService";
 const TabsConfig = [
   {
@@ -40,37 +40,36 @@ const TabsConfig = [
 
 export default function AdminDashboard() {
   const { user } = useAuth();
-  const dispatch = useDispatch()
-const {currentTerm, isLoading} = useSelector(state => state.term)
-const [Teachers, setTeachers] = useState()
-const [Students, setStudents] = useState()
-useEffect(()=>{
-dispatch(fetchCurrentTerm())
-const FetchTeachers = async (data) => {
-  try {
-    const res = await UserService.findUsers({role : "teacher"});
-    console.log(res);
-    console.log(res.data.length);
-    setTeachers(res.data.length)
-  } catch (error) {
-    console.log(error);
-  }
-};
-const FetchStudents = async (data) => {
-  try {
-    const res = await UserService.findUsers({role: "student"});
-    console.log(res.data.length)
-    setStudents(res.data.length)
-  }
-  catch (error) {
-console.log(error)
-  }
-}
-FetchTeachers()
-FetchStudents()
-  },[])
-  console.log(currentTerm)
- 
+  const dispatch = useDispatch();
+  const { currentTerm, isLoading } = useSelector((state) => state.term);
+  const [Teachers, setTeachers] = useState();
+  const [Students, setStudents] = useState();
+  useEffect(() => {
+    dispatch(fetchCurrentTerm());
+    const FetchTeachers = async (data) => {
+      try {
+        const res = await UserService.findUsers({ role: "teacher" });
+        console.log(res);
+        console.log(res.data.length);
+        setTeachers(res.data.length);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const FetchStudents = async (data) => {
+      try {
+        const res = await UserService.findUsers({ role: "student" });
+        console.log(res.data.length);
+        setStudents(res.data.length);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    FetchTeachers();
+    FetchStudents();
+  }, []);
+  console.log(currentTerm);
+
   return (
     <Wrapper className="">
       <div className="d-flex flex-column left p-5">
@@ -82,17 +81,15 @@ FetchStudents()
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
-            <p>{currentTerm.name}</p>
+            <p>{currentTerm?.name}</p>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
             <p>{Teachers}</p>
-
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
             <p>{Students}</p>
-
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>

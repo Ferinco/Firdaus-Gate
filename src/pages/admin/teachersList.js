@@ -1,52 +1,58 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
+import { deleteUser, fetchUsers } from "../../redux/slices/users";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [teacherDetails, setTeacherDetails] = useState([]);
   const [overlay, setOverlay] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   //pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(2);
-  const [pageData, setPageData] = useState([]);
+  const [deleteId, setDeleteId] = useState("");
+
   useEffect(() => {
-    const FetchTeachers = async (data) => {
-      try {
-        const res = await UserService.findUsers({ role: "teacher" });
-        console.log(res);
-        setPageData(res.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
-    };
-    FetchTeachers();
+    dispatch(fetchUsers({ role: "teacher" }));
+    // .unwrap()
+    // .then((res) => {
+    //   setusers(res.data);
+    //   setIsLoading(false);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    //   setIsLoading(false);
+    // });
   }, []);
+  const { users, isLoading } = useSelector((state) => state.users);
+
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1);
   };
-  useEffect(() => {
-    const slice = pageData.slice(offset, offset + perPage);
-    setTeachers(slice);
-    setPageCount(Math.ceil(pageData.length / perPage));
-  }, [pageData, offset]);
 
-  const DeleteTeachers = async (data) => {
-    await UserService.deleteUser()
+  useEffect(() => {
+    const slice = users.slice(offset, offset + perPage);
+    setTeachers(slice);
+    setPageCount(Math.ceil(users.length / perPage));
+  }, [users, offset]);
+
+  const handleDeleteUser = async (id) => {
+    console.log(id);
+    dispatch(deleteUser({ id: id }))
+      .unwrap()
       .then((res) => {
         console.log(res);
-        console.log(data);
+        console.log(id);
         setOverlay(false);
         toast.success("teacher profile has been deleted successfully");
       })
@@ -67,7 +73,7 @@ export default function TeachersList() {
         <p>View and edit details of teachers</p>
       </div>
       {isLoading ? <CircularProgress /> : ""}
-      {pageData.length > 0 ? (
+      {users.length > 0 ? (
         <div className="table-div px-5">
           <Table>
             <thead>
@@ -100,10 +106,11 @@ export default function TeachersList() {
                     <button
                       onClick={() => {
                         setOverlay(true);
+                        setDeleteId(teacher._id);
                       }}
                     >
                       Delete
-                    </button>{" "}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -135,7 +142,10 @@ export default function TeachersList() {
           >
             <p>Are you sure you want to delete this teacher profile?</p>
             <div className=" buttons d-flex gap-3">
-              <button className="left" onClick={DeleteTeachers}>
+              <button
+                className="left"
+                onClick={() => handleDeleteUser(deleteId)}
+              >
                 yes
               </button>
               <button

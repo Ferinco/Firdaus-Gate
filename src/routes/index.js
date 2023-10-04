@@ -32,6 +32,7 @@ import {
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
+import Test from './Test'
 
 export default function Routes() {
   return useRoutes([
@@ -39,7 +40,10 @@ export default function Routes() {
     {
       path: "/",
       element: <Layout />,
-      children: [{ path: "/", element: <Home /> }],
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/test-file", element: <Test /> }
+    ],
       // children: [{ path: "/", element: <ProgressPage /> }],
     },
 
