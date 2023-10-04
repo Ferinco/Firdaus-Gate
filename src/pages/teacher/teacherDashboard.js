@@ -43,33 +43,72 @@ const TabsConfig = [
 
 export default function TeacherDashboard() {
   const [weeks, setWeeks] = useState([]);
-
-  const { currentTerm } = useSelector((state) => state.term);
+  const [startDate, setStartDate] = useState(null);
+  const [begin, setBegin] = useState()
+  const [end, setEnd] = useState()
+  const [endDate, setEndDate] = useState(null);
+  const [termName, setTermName] = useState("")
+const [currentTerm, setCurrentTerm] =useState({})
+ 
   const dispatch = useDispatch();
-  const startDate = new Date(currentTerm.startDate);
-  const endDate = new Date(currentTerm.endDate);
-  const begin = startDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
-  const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
 
-  const currentDate = new Date();
-  const dateDifference = currentDate - startDate;
-  console.log(currentDate);
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res.data.startDate);
+        setCurrentTerm(res.data);
+       setStartDate(new Date(res.data.startDate))
+       setEndDate(new Date(res.data.endDate))
+       setTermName(res.data.name)
+        console.log(currentTerm);
+        console.log(startDate);
+      });
+  }, []);
+  
+
+  console.log(currentTerm)
+  console.log(startDate)
+  // const begin = 
+// const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
+console.log(begin, end)
+  useEffect(()=>{
+    if (startDate !==null){
+      const currentDate = new Date();
+      const dateDifference = currentDate - startDate;
+      const weeksDifference = Math.max(Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)), 0);
+      setWeeks(new Array(weeksDifference));
+      setBegin(startDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric"}))
+      setEnd(endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric"}))
+    }
+  }, [startDate])
+
+  //   const startDate = new Date(currentTerm.startDate);
+  //   const endDate = new Date(currentTerm.endDate);
+
+
+
+  
+  // const termName = currentTerm.name
+  //   const currentDate = new Date();
+  //   const dateDifference = currentDate - startDate;
+  //   console.log(currentDate);
   console.log(startDate);
-
+console.log(weeks)
   //   difference between startDate and EndDate of term
-  const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
-  console.log(dateDifference);
-  weeks.length = weeksDifference;
+  // const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
+  // console.log(dateDifference);
+  // weeks.length = weeksDifference;
 
   //creating array for weeks
-  useEffect(() => {
-    const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
-      value: "",
-    }));
-    setWeeks(initiailWeeks);
-    console.log(initiailWeeks);
-  }, [weeksDifference]);
-  console.log(weeks.length);
+  // useEffect(() => {
+  //   const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
+  //     value: "",
+  //   }));
+  //   setWeeks(initiailWeeks);
+  //   console.log(initiailWeeks);
+  // }, [weeksDifference]);
+  // console.log(weeks.length);
   const lastWeek = weeks.length - 1;
   console.log(lastWeek);
   console.log(weeks);
@@ -83,13 +122,7 @@ export default function TeacherDashboard() {
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
 
-  useEffect(() => {
-    dispatch(fetchCurrentTerm())
-      .unwrap()
-      .then((res) => {
-        console.log(res);
-      });
-  }, []);
+ 
   console.log(currentTerm);
 
   //fetching class length details
@@ -134,41 +167,39 @@ export default function TeacherDashboard() {
         <div className="div d-flex flex-row">
           <h6 style={{ color: "white" }}>Catalog</h6>
         </div>
-        <div className="term-div d-flex flex-column justify-content-center">
+        <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
           <p>Current Term:</p>
-          <h5>
-            {currentTerm ? (
-              currentTerm.name
-            ) : (
-              <p>Term has ended! or yet to start</p>
-            )}
-          </h5>
+          {currentTerm ? (
+            <h5>{termName}</h5>
+          ) : (
+            <p>Term has ended! or yet to start</p>
+          )}
         </div>
         <div className="bottom-div">
-          <div className="div d-flex flex-column">
+          <div className="div d-flex flex-column p-2 align-items-center justify-content-center">
             <p>week:</p>
-            <h5>{lastWeek}</h5>
+           {currentTerm ? (<h5>{lastWeek}</h5>): (<h5>no record</h5>)}
           </div>
-          <div className="div d-flex flex-column">
+          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
             <p>term begin</p>
-            <h5>{begin}</h5>
+             {currentTerm ? (<h5>{begin}</h5>): (<h5>no record</h5>)} 
           </div>
-          <div className="div d-flex flex-column">
-          <p>term end</p>
-            <h5>{end}</h5>
+          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
+            <p>term end</p>
+             {currentTerm ? (<h5>{end}</h5>): (<h5>no record</h5>)} 
           </div>
         </div>
         <div className="top-div">
-          <div className="long">
+          <div className="long d-flex flex-column p-2 align-items-center justify-content-center">
             <p>STUDENTS</p>
             {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
           </div>
-          <div className="small">
+          <div className="small d-flex flex-column  align-items-center justify-content-center">
             {" "}
             <p>MALE</p>
             {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
           </div>
-          <div className="small">
+          <div className="small d-flex flex-column  align-items-center justify-content-center">
             <p>FEMALE</p>
             {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
           </div>
@@ -198,11 +229,28 @@ export default function TeacherDashboard() {
           <div className="div d-flex flex-row">
             <h6 style={{ color: "white" }}>Catalog</h6>
           </div>
-          <div className="term-div"></div>
+          <div className="term-div d-flex flex-column justify-content-center">
+            <p>Current Term:</p>
+
+            {currentTerm ? (
+              <h5>{termName}</h5>
+            ) : (
+              <p>Term has ended! or yet to start</p>
+            )}
+          </div>
           <div className="bottom-div">
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column">
+              <p>week:</p>
+              {currentTerm ? (<h5>{lastWeek}</h5>): (<h5>no record</h5>)}
+            </div>
+            <div className="div d-flex flex-column">
+              <p>term begin</p>
+              {currentTerm ? (<h5>{begin}</h5>): (<h5>no record</h5>)}
+            </div>
+            <div className="div d-flex flex-column">
+              <p>term end</p>
+              {currentTerm ? (<h5>{end}</h5>): (<h5>no record</h5>)}
+            </div>
           </div>
           <div className="top-div">
             <div className="long">
@@ -210,6 +258,7 @@ export default function TeacherDashboard() {
               {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
             </div>
             <div className="small">
+              {" "}
               <p>MALE</p>
               {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
             </div>
@@ -298,10 +347,10 @@ const Dashboard = styled.div`
       }
     }
     .info-wrapper {
-      min-height: 450px;
+      min-height: 520px;
       background-color: black;
       border-radius: 30px;
-      min-width: 320px;
+      width: 450px;
       justify-content: space-between;
       .term-div {
         min-height: 70px;
@@ -349,7 +398,7 @@ const Dashboard = styled.div`
   @media screen and (max-width: 840px) {
     .mobile-info {
       display: flex !important;
-      min-height: 450px;
+      min-height: 520px;
       background-color: black;
       border-radius: 30px;
       min-width: 100%;

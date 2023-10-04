@@ -131,7 +131,7 @@ color: white !important;
       height: 100%;
       width: 100%;
       object-fit: contain;
-      overflow: hidden;
+      overflow: hidden;    
       border-radius: 50%;
     }
   }
