@@ -42,16 +42,37 @@ const TabsConfig = [
 ];
 
 export default function TeacherDashboard() {
+  const [weeks, setWeeks] = useState([]);
+
   const { currentTerm } = useSelector((state) => state.term);
   const dispatch = useDispatch();
   const startDate = new Date(currentTerm.startDate);
-  const currentDate = new Date().getDate();
-  const dateDifference = endDate - startDate;
+  const endDate = new Date(currentTerm.endDate);
+  const begin = startDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
+  const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
+
+  const currentDate = new Date();
+  const dateDifference = currentDate - startDate;
+  console.log(currentDate);
+  console.log(startDate);
 
   //   difference between startDate and EndDate of term
   const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
+  console.log(dateDifference);
   weeks.length = weeksDifference;
 
+  //creating array for weeks
+  useEffect(() => {
+    const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
+      value: "",
+    }));
+    setWeeks(initiailWeeks);
+    console.log(initiailWeeks);
+  }, [weeksDifference]);
+  console.log(weeks.length);
+  const lastWeek = weeks.length - 1;
+  console.log(lastWeek);
+  console.log(weeks);
 
   //get current time
   const { user } = useAuth();
@@ -115,20 +136,27 @@ export default function TeacherDashboard() {
         </div>
         <div className="term-div d-flex flex-column justify-content-center">
           <p>Current Term:</p>
-        <h5>
-              {currentTerm ? (
-                currentTerm.name
-              ) : (
-                  <p>Term has ended! or yet to start</p>
-              )}
-            </h5>
+          <h5>
+            {currentTerm ? (
+              currentTerm.name
+            ) : (
+              <p>Term has ended! or yet to start</p>
+            )}
+          </h5>
         </div>
         <div className="bottom-div">
           <div className="div d-flex flex-column">
-
+            <p>week:</p>
+            <h5>{lastWeek}</h5>
           </div>
-          <div className="div d-flex flex-column"></div>
-          <div className="div d-flex flex-column"></div>
+          <div className="div d-flex flex-column">
+            <p>term begin</p>
+            <h5>{begin}</h5>
+          </div>
+          <div className="div d-flex flex-column">
+          <p>term end</p>
+            <h5>{end}</h5>
+          </div>
         </div>
         <div className="top-div">
           <div className="long">
@@ -170,7 +198,7 @@ export default function TeacherDashboard() {
           <div className="div d-flex flex-row">
             <h6 style={{ color: "white" }}>Catalog</h6>
           </div>
-        <div className="term-div"></div>
+          <div className="term-div"></div>
           <div className="bottom-div">
             <div className="div d-flex flex-column"></div>
             <div className="div d-flex flex-column"></div>
@@ -275,7 +303,7 @@ const Dashboard = styled.div`
       border-radius: 30px;
       min-width: 320px;
       justify-content: space-between;
-      .term-div{
+      .term-div {
         min-height: 70px;
         border: 1px solid white;
         border-radius: 10px;
@@ -327,7 +355,7 @@ const Dashboard = styled.div`
       min-width: 100%;
       max-width: 350px;
       justify-content: space-between;
-      .term-div{
+      .term-div {
         min-height: 70px;
         border: 1px solid white;
         border-radius: 10px;
