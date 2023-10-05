@@ -44,12 +44,12 @@ const TabsConfig = [
 export default function TeacherDashboard() {
   const [weeks, setWeeks] = useState([]);
   const [startDate, setStartDate] = useState(null);
-  const [begin, setBegin] = useState()
-  const [end, setEnd] = useState()
+  const [begin, setBegin] = useState();
+  const [end, setEnd] = useState();
   const [endDate, setEndDate] = useState(null);
-  const [termName, setTermName] = useState("")
-const [currentTerm, setCurrentTerm] =useState({})
- 
+  const [termName, setTermName] = useState("");
+  const [currentTerm, setCurrentTerm] = useState({});
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,43 +58,54 @@ const [currentTerm, setCurrentTerm] =useState({})
       .then((res) => {
         console.log(res.data.startDate);
         setCurrentTerm(res.data);
-       setStartDate(new Date(res.data.startDate))
-       setEndDate(new Date(res.data.endDate))
-       setTermName(res.data.name)
+        setStartDate(new Date(res.data.startDate));
+        setEndDate(new Date(res.data.endDate));
+        setTermName(res.data.name);
         console.log(currentTerm);
         console.log(startDate);
       });
   }, []);
-  
 
-  console.log(currentTerm)
-  console.log(startDate)
-  // const begin = 
-// const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
-console.log(begin, end)
-  useEffect(()=>{
-    if (startDate !==null){
+  console.log(currentTerm);
+  console.log(startDate);
+  // const begin =
+  // const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
+  console.log(begin, end);
+  useEffect(() => {
+    if (startDate !== null) {
       const currentDate = new Date();
       const dateDifference = currentDate - startDate;
-      const weeksDifference = Math.max(Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)), 0);
+      const weeksDifference = Math.max(
+        Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)),
+        0
+      );
       setWeeks(new Array(weeksDifference));
-      setBegin(startDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric"}))
-      setEnd(endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric"}))
+      setBegin(
+        startDate.toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+      setEnd(
+        endDate.toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
     }
-  }, [startDate])
+  }, [startDate]);
 
   //   const startDate = new Date(currentTerm.startDate);
   //   const endDate = new Date(currentTerm.endDate);
 
-
-
-  
   // const termName = currentTerm.name
   //   const currentDate = new Date();
   //   const dateDifference = currentDate - startDate;
   //   console.log(currentDate);
   console.log(startDate);
-console.log(weeks)
+  console.log(weeks);
   //   difference between startDate and EndDate of term
   // const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
   // console.log(dateDifference);
@@ -122,7 +133,6 @@ console.log(weeks)
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
 
- 
   console.log(currentTerm);
 
   //fetching class length details
@@ -170,7 +180,15 @@ console.log(weeks)
         <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
           <p>Current Term:</p>
           {currentTerm ? (
-            <h5>{termName}</h5>
+            <h5>
+              {termName === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                termName
+              )}
+            </h5>
           ) : (
             <p>Term has ended! or yet to start</p>
           )}
@@ -178,15 +196,27 @@ console.log(weeks)
         <div className="bottom-div">
           <div className="div d-flex flex-column p-2 align-items-center justify-content-center">
             <p>week:</p>
-           {currentTerm ? (<h5>{lastWeek}</h5>): (<h5>no record</h5>)}
+            {currentTerm ? (
+              <h5>
+                {lastWeek < 0 ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  lastWeek
+                )}
+              </h5>
+            ) : (
+              <h5>no record</h5>
+            )}
           </div>
           <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>term begin</p>
-             {currentTerm ? (<h5>{begin}</h5>): (<h5>no record</h5>)} 
+            <p>Term Begins:</p>
+            {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
           </div>
           <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>term end</p>
-             {currentTerm ? (<h5>{end}</h5>): (<h5>no record</h5>)} 
+            <p>Term Ends:</p>
+            {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
           </div>
         </div>
         <div className="top-div">
@@ -231,38 +261,57 @@ console.log(weeks)
           </div>
           <div className="term-div d-flex flex-column justify-content-center">
             <p>Current Term:</p>
-
             {currentTerm ? (
-              <h5>{termName}</h5>
+              <h5>
+                {termName === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  termName
+                )}
+              </h5>
             ) : (
               <p>Term has ended! or yet to start</p>
             )}
           </div>
           <div className="bottom-div">
-            <div className="div d-flex flex-column">
+            <div className="div d-flex flex-column align-items-center justify-content-center">
               <p>week:</p>
-              {currentTerm ? (<h5>{lastWeek}</h5>): (<h5>no record</h5>)}
+              {currentTerm ? (
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              ) : (
+                <h5>no record</h5>
+              )}
             </div>
-            <div className="div d-flex flex-column">
-              <p>term begin</p>
-              {currentTerm ? (<h5>{begin}</h5>): (<h5>no record</h5>)}
+            <div className="div d-flex flex-column align-items-center justify-content-center">
+              <p>Term Begins:</p>
+              {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
             </div>
-            <div className="div d-flex flex-column">
-              <p>term end</p>
-              {currentTerm ? (<h5>{end}</h5>): (<h5>no record</h5>)}
+            <div className="div d-flex flex-column align-items-center justify-content-center">
+              <p>Term Ends:</p>
+              {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
             </div>
           </div>
           <div className="top-div">
-            <div className="long">
+            <div className="long d-flex flex-column align-items-center justify-content-center">
               <p>STUDENTS</p>
               {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
             </div>
-            <div className="small">
+            <div className="small d-flex flex-column align-items-center justify-content-center">
               {" "}
               <p>MALE</p>
               {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
             </div>
-            <div className="small">
+            <div className="small d-flex flex-column align-items-center justify-content-center">
               <p>FEMALE</p>
               {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
             </div>
@@ -277,6 +326,11 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   margin: 0 !important;
+  .spinner-border {
+    font-size: 9px !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
   .mobile-info {
     display: none;
   }
@@ -347,15 +401,26 @@ const Dashboard = styled.div`
       }
     }
     .info-wrapper {
-      min-height: 520px;
+      min-height: 460px;
       background-color: black;
       border-radius: 30px;
-      width: 450px;
+      width: 350px;
       justify-content: space-between;
+      color: grey;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      p {
+        font-size: 13px;
+        text-transform: uppercase;
+        padding: 3px;
+      }
       .term-div {
         min-height: 70px;
-        border: 1px solid white;
+
         border-radius: 10px;
+        background-color: #d9a26b;
+        color: black;
       }
       .top-div {
         display: grid;
@@ -368,15 +433,17 @@ const Dashboard = styled.div`
           grid-row-end: span 2;
           width: calc(90% * 400px);
           height: 100%;
-          border: 1px solid white;
+
+          background-color: #8080ff;
+          color: black;
         }
         .small {
           border-radius: 10px;
-
+          background-color: #d9a26b;
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
-          border: 1px solid white;
+          color: black;
         }
       }
       .bottom-div {
@@ -387,9 +454,10 @@ const Dashboard = styled.div`
         justify-content: space-between;
         gap: 20px;
         .div {
-          border: 1px solid white;
           height: 100%;
           border-radius: 10px;
+          background-color: #8080ff;
+          color: black;
           /* width:100px; */
         }
       }
@@ -399,15 +467,25 @@ const Dashboard = styled.div`
     .mobile-info {
       display: flex !important;
       min-height: 520px;
-      background-color: black;
+      background: rgba(0, 0, 0, 1);
       border-radius: 30px;
       min-width: 100%;
       max-width: 350px;
       justify-content: space-between;
+      color: grey !important;
+      text-align: center !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      p {
+        font-size: 13px;
+        text-transform: uppercase;
+        padding: 3px;
+      }
       .term-div {
         min-height: 70px;
-        border: 1px solid white;
+
         border-radius: 10px;
+        background-color: #d9a26b;
+        color: black;
       }
       .top-div {
         display: grid;
@@ -420,15 +498,17 @@ const Dashboard = styled.div`
           grid-row-end: span 2;
           width: calc(90% * 400px);
           height: 100%;
-          border: 1px solid white;
+
+          background-color: #8080ff;
+          color: black;
         }
         .small {
           border-radius: 10px;
-
+          background-color: #d9a26b;
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
-          border: 1px solid white;
+          color: black;
         }
       }
       .bottom-div {
@@ -439,9 +519,10 @@ const Dashboard = styled.div`
         justify-content: space-between;
         gap: 20px;
         .div {
-          border: 1px solid white;
           height: 100%;
           border-radius: 10px;
+          background-color: #8080ff;
+          color: black;
           /* width:100px; */
         }
       }
