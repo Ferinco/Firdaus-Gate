@@ -44,8 +44,9 @@ export default function AdminDashboard() {
   const dispatch = useDispatch();
   const { currentTerm, isLoading } = useSelector((state) => state.term);
   // const { users } = useSelector((state) => state.users);
-  const [Teachers, setTeachers] = useState();
-  const [Students, setStudents] = useState();
+  const [Teachers, setTeachers] = useState("");
+  const [Students, setStudents] = useState("");
+  const [termName, setTermName] = useState("")
 
   //current term
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function AdminDashboard() {
       .unwrap()
       .then((res) => {
         console.log(res);
+        setTermName(res.data.name)
       });
   }, []);
   console.log(currentTerm);
@@ -118,7 +120,15 @@ export default function AdminDashboard() {
             <p>current term</p>
             <h5>
               {currentTerm ? (
-                currentTerm.name
+                  <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
               ) : (
                 <>
                   <p>
@@ -134,11 +144,27 @@ export default function AdminDashboard() {
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
-            <h5>{Teachers}</h5>
+            <h5>
+                  {Teachers === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    Teachers
+                  )}
+                </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
-            <h5>{Students}</h5>
+            <h5>
+                  {Students === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    Students
+                  )}
+                </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
@@ -279,5 +305,10 @@ const Wrapper = styled.div`
         }
       }
     }
+  }
+  .spinner-border {
+    font-size: 12 !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 `;
