@@ -144,7 +144,7 @@ const Wrapper = styled.div`
     height: 100%;
   }
   @media (max-width: 768px) {
-    .col-md-6.left {
+    .col-md-8.left {
       display: none;
     }
   }

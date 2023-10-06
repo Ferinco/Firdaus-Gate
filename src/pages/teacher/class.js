@@ -11,12 +11,26 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
 import { ControlButton } from "../../components/custom/Button";
+
 export default function MyClass() {
-  const [students, setStudents] = useState();
+  const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
 
-  //pagination of teacher lists
+  //search students' list
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searched, setSearched] = useState([]);
+
+  //handle input on search form
+  let inputHandler = (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setSearchQuery(inputValue);
+  };
+
+
+
+  //pagination of student lists
   const [offset, setOffset] = useState(0);
   const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
@@ -44,6 +58,18 @@ export default function MyClass() {
     setPageCount(Math.ceil(pageData.length / perPage));
   }, [pageData, offset]);
 
+  useEffect(() => {
+    const performSearch = (query) => {
+      const filterBySearch = students.filter(
+        (student) =>
+          student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+          student.firstName.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearched(filterBySearch);
+    };
+    performSearch(searchQuery);
+  }, [searchQuery]);
+
   console.log(pageData);
 
   const handlePageClick = (e) => {
@@ -64,47 +90,128 @@ export default function MyClass() {
         console.log(error);
       });
   };
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register } = useForm();
   return (
-    <Students>
-      <div className="container-fluid d-flex flex-column p-5">
-        <div className="d-flex flex-column left">
-          <h4>My Students</h4>
-          <p>see full list of your students</p>
-        </div>
+    <Students className="d-flex flex-column">
+      <div className="d-flex p-5 header flex-column">
+        <h4>My Students</h4>
+        <p>see full list of your students</p>
       </div>
-      <div className="middle-div d-flex flex-row p-5">
-        <div className="wrapper d-flex flex-column p-3">
-          <div className="d-flex flex-row justify-content-between actions-div">
-            <div className="form-wrapper mt-5">
-              <form className="d-flex flex-row form">
-                <div>
-                  <input
-                    placeholder="search for student"
-                    name="searched"
-                    {...register("searched", { required: true })}
-                  />
-                </div>
-                <div>
-                  <button type="submit">
-                    <Icon className="icon" icon="ion:search" color="grey" />
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div>
-              <Icon icon="system-uicons:filter" color="grey" className="icon" />
+      {isLoading ? <CircularProgress /> : ""}
+      {pageData.length > 0 ? (
+        <>
+          <div className="d-flex p-5 justify-content-end">
+            <div className="search-field d-flex gap-3 align-items-center">
+              <Icon icon="circum:search" color="gray" />
+              <input
+                type="text"
+                placeholder="search teacher"
+                onChange={inputHandler}
+                onFocus={() => {
+                  setActiveSearch(true);
+                }}
+              />
             </div>
           </div>
-
-          {pageData.length > 0 ? (
+          {activeSearch ? (
             <>
-              <div className="table-div">
+              {searched.length > 0 ? (
+                <>
+                  <div
+                    className="table-div px-5"
+                    onClick={() => {
+                      setActiveSearch(false);
+                    }}
+                  >
+                    <Table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Admission Number</th>
+                          <th>email</th>
+                          <th>gender</th>
+                          <th colSpan="3">Operations</th>
+                        </tr>
+                      </thead>
+                      {searched.map((student, index) => (
+                        <tbody key={student._id}>
+                          <tr>
+                            <td>{student.index}</td>
+                            <td>{student.firstName}</td>
+                            <td>{student.lastName}</td>
+                            <td>{student.admissionNumber}</td>
+                            <td>{student.email}</td>
+                            <td>{student.gender}</td>
+
+                            <td>
+                              <Link to="">
+                                <button className="update-button">
+                                  update
+                                </button>
+                              </Link>
+                            </td>
+                            <td>
+                              <Link to="">
+                                <button className="transfer-button">
+                                  transfer
+                                </button>
+                              </Link>
+                            </td>
+                            <td>
+                              <Link to="">
+                                <button
+                                  className="delete-button"
+                                  onClick={() => {
+                                    setOverlay(true);
+                                  }}
+                                >
+                                  delete
+                                </button>
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
+                    </Table>
+                  </div>
+                </>
+              ) : (
+                <div className="not-found">
+                  can't find "{searchQuery}" in students' list
+                </div>
+              )}
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </>
+          ) : (
+            <>
+              <div
+                className="table-div px-5"
+                onClick={() => {
+                  setActiveSearch(false);
+                }}
+              >
                 <Table className="table table-bordered">
                   <thead>
                     <tr>
@@ -178,19 +285,19 @@ export default function MyClass() {
                 activeClassName={"active"}
               />
             </>
-          ) : (
-            <div className="d-flex justify-content-center center align-center">
-              <h4>
-                No list to display... navigate to the{" "}
-                <Link to={PATH_DASHBOARD.teacher.create}>
-                  register student(s) to create a student's profile
-                </Link>
-              </h4>
-            </div>
           )}
+        </>
+      ) : (
+        <div className="d-flex justify-content-center center align-center">
+          <h4>
+            No list to display... navigate to the{" "}
+            <Link to={PATH_DASHBOARD.teacher.create}>
+              register student(s) to create a student's profile
+            </Link>
+          </h4>
         </div>
-      </div>
-      {isLoading ? <CircularProgress /> : ""}
+      )}
+
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
           <div
@@ -224,7 +331,6 @@ const Students = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
   .container-fluid {
     gap: 30px;
   }
@@ -232,8 +338,8 @@ const Students = styled.div`
   .middle-div {
     width: 100% !important;
     .table-div {
-      position: relative;
-      width: fit-content !important;
+      overflow-x: scroll !important;
+      width: 100% !important;
     }
     .wrapper {
       gap: 40px;

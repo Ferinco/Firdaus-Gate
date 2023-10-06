@@ -169,7 +169,7 @@ export default function TeachersList() {
                   </div>
                 </>
               ) : (
-                <div className="not-found">not found shii</div>
+                <div className="not-found">can't find "{searchQuery}" in students' list</div>
               )}
               <ReactPaginate
                 previousLabel={
