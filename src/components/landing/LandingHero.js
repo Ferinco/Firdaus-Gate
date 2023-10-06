@@ -4,7 +4,7 @@ import { Button } from "../custom/Button";
 
 export default function LandingHero() {
   return (
-    <Wrapper className="container my-5">
+    <Wrapper className="p-5">
       <div className="row">
         <div className="col-md-8 mx-auto">
           <div className="text-center my-5">
@@ -38,6 +38,7 @@ oh, dem killa baby frfr!
   );
 }
 const Wrapper = styled.div`
+    background: linear-gradient(1turn,hsla(0,0%,100%,.01),#fff 85%),radial-gradient(ellipse at top left,rgba(13,110,253,.5),transparent 50%),radial-gradient(ellipse at top right,rgba(255,228,132,.5),transparent 50%),radial-gradient(ellipse at center right,rgba(113,44,249,.5),transparent 50%),radial-gradient(ellipse at center left,rgba(254,51,132,.5),transparent 50%);
   .button-group {
     gap: 10px;
     justify-content: center !important;

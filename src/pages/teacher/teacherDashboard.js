@@ -323,8 +323,7 @@ export default function TeacherDashboard() {
   );
 }
 const Dashboard = styled.div`
-  height: 100vh;
-  background: #f1f1f1 !important;
+  height: 100%;
   margin: 0 !important;
   .spinner-border {
     font-size: 9px !important;
@@ -335,7 +334,6 @@ const Dashboard = styled.div`
     display: none;
   }
   .middle-div {
-    background-color: #f1f1f1;
     align-items: start;
     height: auto;
     justify-content: space-between !important;

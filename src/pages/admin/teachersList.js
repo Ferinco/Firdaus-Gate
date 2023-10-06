@@ -99,7 +99,7 @@ export default function TeachersList() {
               <Icon icon="circum:search" color="gray" />
               <input
                 type="text"
-                placeholder="search teacher"
+                placeholder="search for teacher"
                 onChange={inputHandler}
                 onFocus={() => {
                   setActiveSearch(true);

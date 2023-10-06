@@ -105,7 +105,7 @@ export default function MyClass() {
               <Icon icon="circum:search" color="gray" />
               <input
                 type="text"
-                placeholder="search teacher"
+                placeholder="search for student"
                 onChange={inputHandler}
                 onFocus={() => {
                   setActiveSearch(true);
