@@ -20,8 +20,8 @@ export default function CreateTeachers() {
     mobileNumber: yup.string().required("mobile number is required"),
     teacherType: yup.string().required("select teacher type"),
     password: yup.string().min(5).max(12).required("set a password"),
-    classHandled: yup.string().required("select class managed"),
-    department: yup.string().required("select department"),
+    // classHandled: yup.string().required("select class managed"),
+    // department: yup.string().required("select department"),
     subjectTaught: yup.string().required("select subject taught"),
     gender: yup.string().required("select teacher's gender"),
     confirmPassword: yup
@@ -50,9 +50,9 @@ export default function CreateTeachers() {
       gender: "",
       teacherType: "",
       teacherSignature: "",
-      classHandled: "",
+      // classHandled: "",
       subjectTaught: "",
-      department: "",
+      // department: "",
     },
   });
   const selectedTeacherType = watch("teacherType");
@@ -235,7 +235,7 @@ export default function CreateTeachers() {
               </div>
             )}
             {selectedTeacherType === "classTeacher" &&
-              selectedClass.startsWith("SSS") && (
+              selectedClass?.startsWith("SSS") && (
                 <div className="my-2 d-flex flex-column">
                   <label htmlFor="department" className="label">
                     Department
