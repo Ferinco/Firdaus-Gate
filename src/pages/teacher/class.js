@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
-import { useForm } from "react-hook-form";
+import { deleteUser, fetchUsers } from "../../redux/slices/users";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { CircularProgress } from "../../components/custom";
@@ -12,7 +12,7 @@ import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
 import { ControlButton } from "../../components/custom/Button";
 import { useAuth } from "../../hooks/useAuth";
-
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
 export default function MyClass() {
   const {user} = useAuth()
   const [students, setStudents] = useState([]);
@@ -23,7 +23,9 @@ export default function MyClass() {
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searched, setSearched] = useState([]);
+  const [deleteId, setDeleteId] = useState("");
 
+const dispatch = useDispatch()
   //handle input on search form
   let inputHandler = (e) => {
     const inputValue = e.target.value.toLowerCase();
@@ -80,19 +82,17 @@ export default function MyClass() {
   };
 
   //delete student
-  const DeleteStudents = async (data) => {
-    await UserService.deleteUser(students.id)
+  const handleDeleteUser = async (id) => {
+    dispatch(deleteUser({ id: id }))
+      .unwrap()
       .then((res) => {
-        console.log(res);
-        console.log(data);
         setOverlay(false);
-        toast.success("teacher profile has been deleted successfully");
+        toast.success("student account has been deleted successfully");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("unable to delete student account");
       });
   };
-  const { register } = useForm();
   return (
     <Students className="d-flex flex-column">
       <div className="d-flex p-5 header flex-column">
@@ -163,14 +163,15 @@ export default function MyClass() {
                             </td>
                             <td>
                               <Link to="">
-                                <button
-                                  className="delete-button"
-                                  onClick={() => {
-                                    setOverlay(true);
-                                  }}
-                                >
-                                  delete
-                                </button>
+                              <button
+                          onClick={() => {
+                            setOverlay(true);
+                            setDeleteId(student._id);
+                          }}
+                          className="delete-button"
+                        >
+                          delete
+                        </button>
                               </Link>
                             </td>
                           </tr>
@@ -250,14 +251,15 @@ export default function MyClass() {
                         </td>
                         <td>
                           <Link to="">
-                            <button
-                              className="delete-button"
-                              onClick={() => {
-                                setOverlay(true);
-                              }}
-                            >
-                              delete
-                            </button>
+                          <button
+                          onClick={() => {
+                            setOverlay(true);
+                            setDeleteId(student._id);
+                          }}
+                          className="delete-button"
+                        >
+                          delete
+                        </button>
                           </Link>
                         </td>
                       </tr>
@@ -301,28 +303,33 @@ export default function MyClass() {
       )}
 
       {overlay ? (
-        <div className="overlay-wrapper d-flex ">
-          <div
-            className={`d-flex flex-column p-3 overlay-options ${
-              overlay ? "open" : "close"
-            }`}
-          >
-            <p>Are you sure you want to delete this teacher profile?</p>
-            <div className=" buttons d-flex gap-3">
-              <button className="left" onClick={() => DeleteStudents()}>
-                yes
-              </button>
-              <button
-                className="right"
-                onClick={() => {
-                  setOverlay(false);
-                }}
-              >
-                no
-              </button>
-            </div>
-          </div>
-        </div>
+       <div className="overlay-wrapper d-flex ">
+       <div
+         className={`d-flex flex-column p-3 overlay-options ${
+           overlay ? "open" : "close"
+         }`}
+       >
+         <p>Are you sure you want to delete this student profile?</p>
+         <div className=" buttons d-flex gap-3">
+           <button
+             className="left"
+             onClick={() => {
+               handleDeleteUser(deleteId);
+             }}
+           >
+             yes
+           </button>
+           <button
+             className="right"
+             onClick={() => {
+               setOverlay(false);
+             }}
+           >
+             no
+           </button>
+         </div>
+       </div>
+     </div>
       ) : (
         ""
       )}
@@ -333,54 +340,28 @@ const Students = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .container-fluid {
-    gap: 30px;
-  }
-
-  .middle-div {
-    width: 100% !important;
-    .table-div {
-      overflow-x: scroll !important;
-      width: 100% !important;
+  .buttons {
+    justify-content: right;
+    width: 100%;
+    .left {
+      width: 70px;
+      border: 0;
+      border-radius: 10px;
+      padding: 7px;
+      color: white;
+      background-color: blue;
     }
-    .wrapper {
-      gap: 40px;
-      background-color: white;
-      border-radius: 30px;
-
-      .actions-div {
-        align-items: center;
-        .icon {
-          font-size: 30px;
-        }
-      }
-      .table {
-      }
-    }
-    .form-wrapper {
-      width: 300px;
-      background-color: transparent;
-      border-radius: 20px;
-      border: 1px solid #f1f1f1;
-      .form {
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        padding: 5px 10px;
-        button {
-          border: 0;
-          background: transparent;
-        }
-        .icon {
-          font-size: 20px;
-        }
-        input {
-          border-radius: 20px;
-          padding: 14px 16px;
-          background-color: transparent;
-          border: 0 !important;
-          outline: none !important;
-        }
+    .right {
+      background-color: #f1f1f1;
+      width: 50px;
+      border: 0;
+      border-radius: 10px;
+      padding: 7px;
+      color: red;
+      &:hover {
+        background-color: red;
+        transition: 0.3s;
+        color: white;
       }
     }
   }

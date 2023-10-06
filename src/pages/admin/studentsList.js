@@ -23,7 +23,6 @@ export default function StudentsList() {
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(5);
-  const [pageData, setPageData] = useState([]);
   const [deleteId, setDeleteId] = useState("");
 
   //serach teachers' list
