@@ -276,7 +276,7 @@ export default function TeachersList() {
           )}
         </>
       ) : (
-        <div className="p-5">no details to display atm.</div>
+        <div className="p-5">no details to display...</div>
       )}
 
       {overlay ? (

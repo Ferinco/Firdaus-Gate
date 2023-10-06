@@ -15,7 +15,7 @@ export default function CircularProgress() {
 
 const Wrapper = styled.div`
 top:0;
-  height: 100vh;
+  height: 100%;
   width: 80%;
   position: absolute;
   display: flex;

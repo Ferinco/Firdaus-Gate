@@ -24,13 +24,37 @@ export default function StudentsList() {
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
-  const [deleteId, setDeleteId] = useState("")
+  const [deleteId, setDeleteId] = useState("");
+
+  //serach teachers' list
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searched, setSearched] = useState([]);
+
+  //handle input on search form
+  let inputHandler = (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setSearchQuery(inputValue);
+  };
+
+  useEffect(() => {
+    const performSearch = (query) => {
+      const filterBySearch = students.filter(
+        (student) =>
+          student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+          student.firstName.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearched(filterBySearch);
+    };
+    performSearch(searchQuery);
+  }, [searchQuery]);
+
+  console.log(activeSearch);
 
   //fetching student details
   useEffect(() => {
     dispatch(fetchUsers({ role: "student" }));
   }, []);
-
 
   const { users, isLoading } = useSelector((state) => state.users);
   useEffect(() => {
@@ -39,27 +63,25 @@ export default function StudentsList() {
     setPageCount(Math.ceil(users.length / perPage));
   }, [users, offset]);
 
-
   //handle navigation of pages to next || previous
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage + 1);
   };
 
-  const handleDeleteUser = async (id)=>{
-dispatch(deleteUser({id:id}))
-.unwrap()
-.then((res)=>{
-  console.log(res);
-  setOverlay(false);
-  toast.success("student account has been deleted successfully");
-})
-.catch((error) => {
-  console.log(error);
-  toast.error("unable to delete student account");
-
-});
-  }
+  const handleDeleteUser = async (id) => {
+    dispatch(deleteUser({ id: id }))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        setOverlay(false);
+        toast.success("student account has been deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("unable to delete student account");
+      });
+  };
   return (
     <Wrapper className="d-flex flex-column">
       <div className="header p-5">
@@ -69,7 +91,103 @@ dispatch(deleteUser({id:id}))
       {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
         <>
-          <div className="px-5 table-div">
+      <div className="d-flex p-5 justify-content-end">
+        <div className="search-field d-flex gap-3 align-items-center">
+          <Icon icon="circum:search" color="gray" />
+          <input
+            type="text"
+            placeholder="search teacher"
+            onChange={inputHandler}
+            onFocus={() => {
+              setActiveSearch(true);
+            }}
+          />
+        </div>
+      </div>
+      {activeSearch? (
+        <>
+        {searched.length > 0 ? (
+          <>
+            <div className="px-5 table-div" onClick={()=>{setActiveSearch(false)}}>
+            <Table className="table table-bordered">
+              <thead className="">
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Admission Number</th>
+                  <th>email</th>
+                  <th>gender</th>
+                  <th colSpan="3">Operations</th>
+                </tr>
+              </thead>
+              {searched.map((student) => (
+                <tbody>
+                  <tr key={student.id}>
+                    <td>{student.id}</td>
+                    <td>{student.firstName}</td>
+                    <td>{student.lastName}</td>
+                    <td>{student.admissionNumber}</td>
+                    <td>{student.email}</td>
+                    <td>{student.gender}</td>
+
+                    <td>
+                      <Link to="">
+                        <button className="update-button">update</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button className="transfer-button">transfer</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to="">
+                        <button
+                          onClick={() => {
+                            setOverlay(true);
+                            setDeleteId(student._id);
+                          }}
+                          className="delete-button"
+                        >
+                          delete
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </Table>
+          </div>
+          </>
+        ): (
+           <div className="not-found">not found shii</div>
+        )}
+            <ReactPaginate
+            previousLabel={
+              <ControlButton>
+                <Icon icon="ooui:next-rtl" className="icon" />
+              </ControlButton>
+            }
+            nextLabel={
+              <ControlButton>
+                <Icon icon="ooui:next-ltr" className="icon" />
+              </ControlButton>
+            }
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination pl-5 align-items-center gap-2"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </>
+      ): (
+       <>
+         <div className="px-5 table-div" onClick={()=>{setActiveSearch(false)}}>
             <Table className="table table-bordered">
               <thead className="">
                 <tr>
@@ -107,7 +225,7 @@ dispatch(deleteUser({id:id}))
                         <button
                           onClick={() => {
                             setOverlay(true);
-                           setDeleteId(student._id)
+                            setDeleteId(student._id);
                           }}
                           className="delete-button"
                         >
@@ -141,9 +259,12 @@ dispatch(deleteUser({id:id}))
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
           />
+       </>
+      )
+    }
         </>
       ) : (
-        <div className="p-5">no details to display atm.</div>
+        <div className="p-5">no details to display...</div>
       )}
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
@@ -154,14 +275,19 @@ dispatch(deleteUser({id:id}))
           >
             <p>Are you sure you want to delete this student profile?</p>
             <div className=" buttons d-flex gap-3">
-              <button className="left"  onClick={() => {
-                 handleDeleteUser(deleteId)
-                }}>yes</button>
+              <button
+                className="left"
+                onClick={() => {
+                  handleDeleteUser(deleteId);
+                }}
+              >
+                yes
+              </button>
               <button
                 className="right"
-               onClick={()=>{
-                setOverlay(false)
-               }}
+                onClick={() => {
+                  setOverlay(false);
+                }}
               >
                 no
               </button>
