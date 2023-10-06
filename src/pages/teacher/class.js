@@ -11,8 +11,10 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
 import { ControlButton } from "../../components/custom/Button";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function MyClass() {
+  const {user} = useAuth()
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
@@ -39,7 +41,7 @@ export default function MyClass() {
   useEffect(() => {
     const FetchStudents = async () => {
       try {
-        const res = await UserService.findUsers({ role: "student" });
+        const res = await UserService.findUsers({ role: "student", classTeacher: user._id });
         console.log(res);
         console.log(res.data);
         setPageData(res.data);

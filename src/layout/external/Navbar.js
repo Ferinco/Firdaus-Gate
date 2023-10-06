@@ -39,7 +39,7 @@ export default function Navbar() {
             <Logo />
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-1" icon="ph:phone-thin" color="blue" />
+            <Icon className="icon mr-1" icon="carbon:phone-filled" color="blue" />
             <div className="info d-flex flex-column">
               <h6>+2349055512553</h6>
               <p>Give Us A Call</p>
@@ -300,6 +300,9 @@ const NavigationBar = styled.div`
     .container {
       align-items: center;
       height: 100px;
+      .icon{
+       font-size: 30px;
+      }
       .header {
         .icon {
           margin-top: 10px;
@@ -313,6 +316,11 @@ const NavigationBar = styled.div`
       line-height: 0.7;
       h6 {
         font-weight: 600;
+        font-size: 16px;
+      }
+      p{
+        font-size: 14px;
+        font-weight: 500;
       }
     }
   }
