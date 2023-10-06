@@ -18,7 +18,7 @@ export default function MyClass() {
 
   //pagination of teacher lists
   const [offset, setOffset] = useState(0);
-  const [perPage] = useState(2);
+  const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
 

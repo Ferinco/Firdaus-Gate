@@ -25,15 +25,6 @@ export default function TeachersList() {
 
   useEffect(() => {
     dispatch(fetchUsers({ role: "teacher" }));
-    // .unwrap()
-    // .then((res) => {
-    //   setusers(res.data);
-    //   setIsLoading(false);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   setIsLoading(false);
-    // });
   }, []);
   const { users, isLoading } = useSelector((state) => state.users);
 
@@ -50,12 +41,10 @@ export default function TeachersList() {
   }, [users, offset]);
 
   const handleDeleteUser = async (id) => {
-    console.log(id);
     dispatch(deleteUser({ id: id }))
       .unwrap()
       .then((res) => {
         console.log(res);
-        console.log(id);
         setOverlay(false);
         toast.success("teacher profile has been deleted successfully");
       })
@@ -198,7 +187,7 @@ const Wrapper = styled.div`
       width: 70px;
       border: 0;
       border-radius: 10px;
-      padding: 10px;
+      padding: 7px;
       color: white;
       background-color: blue;
     }
@@ -207,7 +196,7 @@ const Wrapper = styled.div`
       width: 50px;
       border: 0;
       border-radius: 10px;
-      padding: 10px;
+      padding: 7px;
       color: red;
       &:hover {
         background-color: red;
