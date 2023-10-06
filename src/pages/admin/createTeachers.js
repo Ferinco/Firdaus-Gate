@@ -242,7 +242,7 @@ export default function CreateTeachers() {
                   </label>
                   <select name="department" {...register("department")}>
                     <option value="" disabled>
-                      Select department
+                      Select Department
                     </option>
                     <option value="science">science</option>
                     <option value="commercial">commercial</option>
@@ -293,11 +293,11 @@ export default function CreateTeachers() {
 
             <div className="my-2 d-flex flex-column">
               <label htmlFor="teacherSignature" className="label">
-                teacherSignature
+                Teacher Signature
               </label>
 
               <input
-                placeholder="Teacher's teacherSignature"
+                placeholder="Teacher's Signature"
                 name="teacherSignature"
                 type="file"
                 {...register("teacherSignature")}
