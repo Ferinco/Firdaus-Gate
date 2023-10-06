@@ -46,7 +46,7 @@ export default function Navbar() {
             </div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-1" icon="et:envelope" color="blue" />
+            <Icon className="icon mr-1" icon="fa6-solid:envelope-open-text" color="blue"  />
             <div className="info d-flex flex-column">
               <h6>firdausgateschools@gmail.com</h6>
               <p>Mail Us</p>

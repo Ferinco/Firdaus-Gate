@@ -143,12 +143,16 @@ console.log(currentTerm)
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <select {...register("student")}>
+             <option value="" disabled>
+            Select Student
+           </option>
               {!isLoading &&
                 students.map((student) => (
                   <option key={student._id} value={student._id}>
                     {student.admissionNumber}/{student.firstName}{" "}
                     {student.lastName}
                   </option>
+                 
                 ))}
             </select>
             <div className="card p-3 my-5 attendance-div d-flex flex-column gap-3">

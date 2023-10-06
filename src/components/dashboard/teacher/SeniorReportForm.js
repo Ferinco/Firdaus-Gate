@@ -201,6 +201,7 @@ export default function SeniorReportForm({ students, isLoading, reportYear }) {
               <div className="">
                 <label> Select student </label>
                 <select {...register("student")}>
+                  <option value="" disabled>Select Student</option>
                   {!isLoading &&
                     students.map((student) => (
                       <option key={student._id} value={student._id}>
