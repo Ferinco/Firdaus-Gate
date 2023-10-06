@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
-import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
-import { deleteUser, fetchUsers } from "../../redux/slices/users";
+import { deleteUser, fetchUsers, editUser } from "../../redux/slices/users";
 import { Icon } from "@iconify/react";
 import { ControlButton } from "../../components/custom/Button";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
-  const [teacherDetails, setTeacherDetails] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
 
@@ -52,11 +50,15 @@ export default function TeachersList() {
         console.log(error);
       });
   };
-  const EditTeachers = async () => {
-    await UserService.updateUser().then((res) => {
-      console.log(res);
-      setTeacherDetails(res.data);
-    });
+  const handleEditUser = async (id) => {
+  dispatch(editUser({id: id}))
+  .unwrap()
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch((error)=>{
+    console.log(error)
+  })
   };
   return (
     <Wrapper className="d-flex flex-column">
@@ -92,7 +94,7 @@ export default function TeachersList() {
 
                     <td>
                       {" "}
-                      <button onClick={EditTeachers} className="update-button">
+                      <button onClick={()=>{handleEditUser(teacher._id)}} className="update-button">
                         Edit
                       </button>{" "}
                     </td>
