@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  LandingHero
+  LandingHero, AboutSection
 } from "../components/landing";
 
 export default function Home() {
   return (
     <Wrapper>
       <LandingHero />
+      <AboutSection/>
     </Wrapper>
   );
 }
