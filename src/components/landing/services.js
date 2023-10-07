@@ -3,7 +3,7 @@ import { Button } from "../custom/Button";
 
 export default function Services() {
   return (
-    <Container>
+    <Container className="py-5">
       <div className="container d-flex py-5 align-items-center gap-5">
         <div className="left d-flex flex-column align-items-center">
           <h6>about us</h6>

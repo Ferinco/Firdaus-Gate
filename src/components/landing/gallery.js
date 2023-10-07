@@ -3,8 +3,9 @@ import Marquee from "react-fast-marquee";
 export default function Gallery (){
     const marqueImages = ["image1", "image2", "image3", "image4", "image5", "image6","image1", "image2", "image3", "image4", "image5", "image6"];
     return (
-        <Container>
-<div className="header d-flex justify-content-center align-items-center">
+        <Container className="py-5">
+<div className="header d-flex flex-column justify-content-center align-items-center">
+    {/* <h6>Gallery</h6> */}
     <h2>
         view multiple photos and say alot about us and our top notch services
     </h2>
@@ -22,7 +23,7 @@ export default function Gallery (){
     </div>
 </Marquee>
 <Marquee direction="left" speed={60}>
-    <div className="d-flex flex-row gap-4">
+    <div className="d-flex flex-row gap-3">
     <div className="text">sports</div>
     <div className="text">science</div>
     <div className="text">art</div>
@@ -59,11 +60,12 @@ export default function Gallery (){
 
 const Container = styled.div`
 overflow: hidden !important;
-  /* background-image: linear-gradient(to right, #00008b, #000000) !important; */
+background-image: linear-gradient(to right, #00008b, #000000) !important;
+color: white;
 .image{
     width: 200px;
     height: 200px;
-    border: 1px solid black;
+    background-color: purple;
 }
 .text{
     padding: 10px;
@@ -71,7 +73,7 @@ overflow: hidden !important;
     color: black;
 }
 .body{
-    transform: rotate(3deg);
+    transform: rotate(-3deg);
 }
 .header{
     h2{
