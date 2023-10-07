@@ -75,34 +75,51 @@ const Container = styled.div`
   }
 
   @media (max-width: 768px) {
-    .container {
-      align-items: center;
-      gap: 50px !important;
+  .container {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 50px !important;
+  }
+  .left{
+    gap: 20px;
+        h6{
+            display: flex;
+            color: white;
+        }
     }
-    .left {
-      gap: 20px;
-      h6 {
-        display: flex;
+  .image-wrapper {
+    height: fit-content;
+    .image {
+      width: 150px;
+      height: 150px;
+      &:first-child {
+        background-color: purple;
+        margin-top: 20px;
       }
-    }
-    .image-wrapper {
-      height: fit-content;
-    }
-
-    .right {
-      text-align: center;
-      justify-content: center;
-      align-items: center;
-      max-width: 90%;
-      h6 {
+      &:nth-child(2){
+        background-color: blue;
+        margin-top: 0;
+      }
+      &:last-child{
         display: none;
-      }
-      h2 {
-        font-size: 24px;
-      }
-      p {
-        font-size: 14px;
       }
     }
   }
+
+  .right {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    h6{
+        display: none;
+    }
+    h2 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+}
 `;
