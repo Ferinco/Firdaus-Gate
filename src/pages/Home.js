@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  LandingHero, AboutSection, OfferSection
+  LandingHero, AboutSection, OfferSection, Services
 } from "../components/landing";
 
 export default function Home() {
@@ -10,6 +10,7 @@ export default function Home() {
       <LandingHero />
       <AboutSection/>
       <OfferSection/>
+      <Services/>
     </Wrapper>
   );
 }
