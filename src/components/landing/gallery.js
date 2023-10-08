@@ -83,4 +83,16 @@ color: white;
         max-width: 700px;
     }
 }
+@media screen and (max-width: 768px){
+    .header{
+        h2{
+            font-size: 36px;
+        }
+    }
+    .image{
+    width: 150px;
+    height: 150px;
+    background-color: purple;
+}
+}
 `

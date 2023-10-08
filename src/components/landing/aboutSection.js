@@ -3,7 +3,7 @@ import { Button } from "../custom/Button";
 export default function AboutSection() {
   return (
     <Container className="py-5">
-      <div className="container d-flex py-5 align-items-center gap-5">
+      <div className="container d-flex py-5 align-items-center">
         <div className="left d-flex flex-column align-items-center">
         <h6>about us</h6>
         <div className="image-wrapper d-flex gap-2 ">
@@ -16,9 +16,7 @@ export default function AboutSection() {
           <h6>about us</h6>
           <h2>The place where you grow and learn</h2>
           <p>
-            lets see how this hows will i ne able to ryoe yhis that maje sense?
-            i dony know bugt gbhw us ghkyfkhg ifyf f oyufouyfo ytoy7f ftiyd yufo
-            yf
+         Firdaus-Gate model schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at makuing them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
           </p>
           <Button blue>Learn more</Button>
         </div>
@@ -28,7 +26,7 @@ export default function AboutSection() {
 }
 const Container = styled.div`
     .container{
-        gap: 100px;
+        gap: 50px;
         justify-content: space-between !important;
     }
     .left{
