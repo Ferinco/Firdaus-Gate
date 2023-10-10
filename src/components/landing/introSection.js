@@ -3,7 +3,8 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 export default function IntroSection(){
     return(
-        <Container className="d-flex align-items-center p-5 flex-column gap-5">
+        <Container>
+        <div className="d-flex align-items-center flex-column gap-5 container">
             <div className="header d-flex flex-column justify-content-center align-items-center">
                 <h6>what we offer</h6>
                 <h2>some of our core services that make us the best</h2>
@@ -53,6 +54,7 @@ export default function IntroSection(){
 </div>
 </div>
 <Link className="link mt-4">learn more <Icon icon="system-uicons:arrow-up" color="blue" rotate={1} className="icon"/></Link>
+        </div>
         </Container>
     )
 }
