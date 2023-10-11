@@ -38,7 +38,6 @@ export default function StudentLogin() {
       .then((res) => {
         console.log(res);
         setIsLoading(false);
-        navigate(from, { replace: true });
         setSuccess(true);
         toast.success("Logged in successfully");
       })
@@ -56,10 +55,10 @@ export default function StudentLogin() {
     <Wrapper>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-7 left">
+          <div className="col-md-8 left">
             <div className="left-image"></div>
           </div>
-          <div className="col-md-5 right">
+          <div className="col-md-4 right">
             <div className="login-wrapper pl-sm-0 d-flex flex-column">
               <div className="logo-img mb-2">
                 <Link react-router-link to={PATH_PAGE.home}>
@@ -84,7 +83,7 @@ export default function StudentLogin() {
                     <input
                       placeholder="Password"
                       name="password"
-                      type="passowrd"
+                      type= "password"
                       {...register("password")}
                     />
                   </div>
@@ -118,7 +117,6 @@ export default function StudentLogin() {
 
 const Wrapper = styled.div`
   height: 100vh;
-
   .row {
     height: 95% !important;
     align-items: center;
@@ -131,7 +129,7 @@ const Wrapper = styled.div`
     width: 100%;
   }
   @media (max-width: 768px) {
-    .col-md-7.left {
+    .col-md-8.left {
       display: none;
     }
   }

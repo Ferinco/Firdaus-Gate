@@ -19,6 +19,8 @@ export default function Home() {
 }
 
 const Wrapper = styled.section`
+width:100vw !important;
+overflow-x:hidden !important;
 background: linear-gradient(1turn, hsla(0, 0%, 100%, 0.01), #fff 85%),
     radial-gradient(
       ellipse at top left,

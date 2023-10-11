@@ -10,17 +10,17 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { PATH_DASHBOARD } from "../../routes/paths";
 const TabsConfig = [
   {
-    link: PATH_DASHBOARD.admin.createTeachers,
-    title: "Create Profile",
-    subTitle: "create a new teacher profile",
-    icon: "typcn:user-add",
-    iconColor: "white",
-  },
-  {
     link: PATH_DASHBOARD.admin.createTerm,
     title: "Set Term",
     subTitle: "Set the current term",
     icon: "pepicons-pencil:list",
+    iconColor: "white",
+  },
+  {
+    link: PATH_DASHBOARD.admin.createTeachers,
+    title: "Create Profile",
+    subTitle: "create a new teacher profile",
+    icon: "typcn:user-add",
     iconColor: "black",
   },
   {

@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 export default function IntroSection(){
     return(
-        <Container>
+        <Container className="py-5">
         <div className="d-flex align-items-center flex-column gap-5 container">
             <div className="header d-flex flex-column justify-content-center align-items-center">
                 <h6>what we offer</h6>
