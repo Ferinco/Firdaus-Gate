@@ -48,6 +48,7 @@ const Container = styled.div`
     .image {
       width: 150px;
       height: 100%;
+      border-radius: 30px;
       &:first-child {
         background-color: purple;
         margin-top: 10px;

@@ -66,6 +66,7 @@ color: white;
     width: 200px;
     height: 200px;
     background-color: purple;
+    border-radius: 30px;
 }
 .text{
     padding: 10px;

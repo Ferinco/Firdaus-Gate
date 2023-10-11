@@ -43,6 +43,7 @@ const CarouselSlide = styled.div`
     height: 200px;
     margin-left: -50px;
     background-color: purple;
+    border-radius: 30px;
   }
 `;
 
