@@ -116,7 +116,7 @@ const Container = styled.div`
         display: none;
     }
     h2 {
-      font-size: 24px;
+      font-size: 36px !important;
     }
     p {
       font-size: 14px;

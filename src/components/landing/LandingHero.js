@@ -20,6 +20,10 @@ const CarouselContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100% !important;
+@media screen and (max-width: 768px) {
+  display: none;
+  
+}
 `;
 
 const CarouselWrapper = styled.div`
@@ -30,6 +34,16 @@ const CarouselWrapper = styled.div`
   margin-left: 100px !important;
 `;
 
+const MobileImage = styled.div`
+display: none;
+@media screen and (max-width: 768px) {
+  display: block;
+  width: 100%;
+  height:250px;
+  background-color: purple;
+  
+}
+`
 const CarouselSlide = styled.div`
   width: 100%;
   height: 100%;
@@ -42,7 +56,7 @@ const CarouselSlide = styled.div`
   }
   .image {
     width: 200px;
-    margin-left: -50px;
+    margin-left: -100px;
     background-color: purple;
     border-radius: 30px;
     
@@ -66,8 +80,8 @@ export default function LandingHero() {
     <Wrapper className="">
      <div className="container py-5">
      <div className="row">
-        <div className="col-md-6 d-flex ">
-          <div className="my-5 d-flex flex-column gap-3"> 
+        <div className="col-md-6 d-flex left">
+          <div className="my-5 d-flex flex-column gap-3 text-div"> 
             <h1 className="display-3 fw-bolder">
               Firdaus-Gate Group of Schools
             </h1>
@@ -101,31 +115,13 @@ this part should contain a short intro on the school's mission and some other re
         </div>
       </div>
      </div>
+    <MobileImage>
+      </MobileImage> 
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
-background: linear-gradient(1turn, hsla(0, 0%, 100%, 0.01), #fff 85%),
-    radial-gradient(
-      ellipse at top left,
-      rgba(13, 110, 253, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at top right,
-      rgba(255, 228, 132, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at center right,
-      rgba(113, 44, 249, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at center left,
-      rgba(254, 51, 132, 0.5),
-      transparent 50%
-    );
+
 height: 90vh;
 .row{
   justify-content: space-between;
@@ -156,5 +152,27 @@ text-align: left;
     height:400px;
     background-color: purple;
     border-radius: 30px;
+  }
+
+  @media(max-width: 768px){
+    height: auto !important;
+    h1{
+        font-size: 48px;
+    }
+    p{
+      font-size: 16px;
+    }
+    .image{
+    max-width: 250px;
+    height:250px;
+    background-color: purple;
+    border-radius: 30px;
+  }
+  .text-div{
+    padding-bottom: 0 !important;
+  }
+  .container{
+    padding-bottom: 0 !important;
+}
   }
 `;

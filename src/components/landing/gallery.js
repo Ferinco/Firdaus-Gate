@@ -7,7 +7,7 @@ export default function Gallery (){
 <div className="header d-flex flex-column justify-content-center align-items-center">
     {/* <h6>Gallery</h6> */}
     <h2>
-        view multiple photos and say alot about us and our top notch services
+        View multiple photos that say alot about us and our top notch services
     </h2>
 </div>
 <div className="d-flex flex-column gap-4 body py-5">
@@ -72,6 +72,7 @@ color: white;
     padding: 10px;
     background-color: #ffff;
     color: black;
+    font-weight: 700;
 }
 .body{
     transform: rotate(-3deg);

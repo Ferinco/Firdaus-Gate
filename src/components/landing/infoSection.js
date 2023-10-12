@@ -26,6 +26,9 @@ const CarouselWrapper = styled.div`
   position: relative;
   transform-style: preserve-3d;
   margin-left: 100px !important;
+  @media screen and (max-width: 390px) {
+    width: 300px;
+}
 `;
 
 const CarouselSlide = styled.div`
@@ -44,6 +47,11 @@ const CarouselSlide = styled.div`
     margin-left: -50px;
     background-color: purple;
     border-radius: 30px;
+    @media screen and (max-width: 390px) {
+    width: 180px;
+    margin-left: -10px;
+
+}
   }
 `;
 
@@ -72,7 +80,7 @@ const ThreeDCarousel = () => {
   return (
     <Info className=" p-0">
       <div className="row m-auto align-items-center p-0 container">
-        <div className="col-lg-6 py-5">
+        <div className="col-lg-6 py-5 d-flex flex-column gap-4">
           <h2>Take a peak at our world class facilities</h2>
           <div>
             {tabItems.map((tabItem) => (
@@ -133,17 +141,15 @@ const Info = styled.div`
       margin-top: 280px;
       margin-right: -300px;
       button {
-        background: none;
         border: none;
         font-size: 24px;
         cursor: pointer;
-        background-color: blue;
+        background-color: transparent;
         .icon {
           font-size: 30px;
-          color: white;
+          color: blue;
         }
 
-        padding: 10px;
         /* position: absolute; */
         top: 50%;
         transform: translateY(-50%);
@@ -154,6 +160,17 @@ const Info = styled.div`
   .activeTab{
     color: red !important;
   }
+
+  @media screen and (max-width: 768px){
+    h2{
+        font-size: 36px !important;
+    }
+}
+@media screen and (max-width: 390px) {
+  .buttons {
+      margin-right: -250px !important;
+    }
+}
 `;
 
 export default ThreeDCarousel;

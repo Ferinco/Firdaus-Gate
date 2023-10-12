@@ -319,8 +319,9 @@ const NavigationBar = styled.div`
         font-size: 16px;
       }
       p{
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 14px !important;
+        font-weight: 600;
+        color: grey;
       }
     }
   }

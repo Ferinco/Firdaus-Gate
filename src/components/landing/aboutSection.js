@@ -5,7 +5,7 @@ export default function AboutSection() {
     <Container className="py-5">
       <div className="container d-flex py-5 align-items-center">
         <div className="left d-flex flex-column align-items-center">
-        <h6>about us</h6>
+        <h6 className="pre-header">about us</h6>
         <div className="image-wrapper d-flex gap-2 ">
           <div className=" image"></div>
           <div className=" image"></div>
@@ -13,7 +13,7 @@ export default function AboutSection() {
         </div>
         </div>
         <div className="right d-flex flex-column gap-3">
-          <h6>about us</h6>
+          <h6 className="pre-header">about us</h6>
           <h2>The place where you grow and learn</h2>
           <p>
          Firdaus-Gate model schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at makuing them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
@@ -59,7 +59,7 @@ border-radius: 30px;
     padding-right: 10px;
     max-width: 450px;
     h2{
-        font-size: 45px !important;
+        font-size: 45px;
         font-weight: 800;
     }
     Button{
@@ -102,11 +102,12 @@ border-radius: 30px;
     h6{
         display: none;
     }
-    h2 {
-      font-size: 24px;
+    h2{
+        font-size: 36px;
     }
     p {
-      font-size: 14px;
+      padding: 0 !important;
+      margin: 0 !important;
     }
   }
 }
