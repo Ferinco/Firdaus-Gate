@@ -70,10 +70,10 @@ const ThreeDCarousel = () => {
       name: "Science Laboratory",
       id: 0,
     },
-    { name: " Sports", id: 1 },
-    { name: "Economics", id: 2 },
-    { name: " Computer", id: 3 },
-    { name: "Couselling", id: 4 },
+    { name: " Sports and Gaming", id: 1 },
+    { name: "Economics Laboratory", id: 2 },
+    { name: " Computer Laboratory", id: 3 },
+    { name: "Hostel Facilities", id: 4 },
   ];
   
 
@@ -82,7 +82,7 @@ const ThreeDCarousel = () => {
       <div className="row m-auto align-items-center p-0 container">
         <div className="col-lg-6 py-5 d-flex flex-column gap-4">
           <h2>Take a peak at our world class facilities</h2>
-          <div>
+          <div className="d-flex flex-column gap-1">
             {tabItems.map((tabItem) => (
               <h5 id={tabItem.id} className={tabItem.id === currentIndex ? "activeTab" : ""}>{tabItem.name}</h5>
             ))}
@@ -157,9 +157,17 @@ const Info = styled.div`
       }
     }
   }
-  .activeTab{
-    color: red !important;
-  }
+  .activeTab {
+  transform: scale(1.05);
+  transition:0.5s !important;
+  padding: 10px 25px;
+  /* background-color: grey; */
+  border-bottom: 2px solid blue;
+  width: fit-content;
+  color: black;
+  font-size: 20px !important;
+}
+
 
   @media screen and (max-width: 768px){
     h2{
