@@ -1,6 +1,7 @@
 [build]
-  command = "npm run build"  # Replace with your build command
-  publish = "build"         # Replace with your build output directory
+  command = "npm run build" 
+  publish = "build"   
+  base = "build"     
 
 [context.production]
   command = "npm run build"  # Replace with your production build command
