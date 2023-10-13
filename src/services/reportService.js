@@ -15,7 +15,6 @@ export const ReportService = {
 
     const { data } = await api.get(`/reports/download`, {
       params: { classSection, selectedTerm, selectedClass, student },
-      responseType: "arraybuffer",
     });
     return data;
   },

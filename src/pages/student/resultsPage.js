@@ -10,12 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getReports } from "../../redux/slices/reports";
 import { useTerm } from "../../hooks/useTerm";
 import { fetchCurrentTerm } from "../../redux/slices/term";
+import { generatePdfApi } from "../../api/axios";
+import axios from "axios";
 
 export default function ResultsPage() {
   const { user } = useAuth();
 
   const { currentTerm } = useTerm();
-  console.log(currentTerm);
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
 
@@ -43,21 +44,38 @@ export default function ResultsPage() {
     try {
       setLoading(true);
       const data = await ReportService.downloadReport({
-        classSection: selectedClass.startsWith("JSS") ? "junior" : "senior",
+        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
         selectedTerm: term,
         selectedClass,
         student: user._id,
       });
 
-      const blob = new Blob([data]);
-      const url = window.URL.createObjectURL(blob);
-      var link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `${user.admissionNumber}-${term}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(link);
+      if (data?.success) {
+        await axios
+          .post(
+            generatePdfApi,
+            { html: data.data },
+            { responseType: "arraybuffer" }
+          )
+          .then(({ data }) => {
+            const blob = new Blob([data]);
+            const url = window.URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.setAttribute(
+              "download",
+              `${user.admissionNumber}-${term}.pdf`
+            );
+            document.body.appendChild(link);
+            link.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(link);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+
       setLoading(false);
       toast.success("Result downloaded successfully");
     } catch (error) {
@@ -66,7 +84,7 @@ export default function ResultsPage() {
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
       }
-      if (error.response.status === 404) {
+      if (error?.response?.status === 404) {
         toast.error("You do not have a report for this session!");
       }
     }

@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./bootstrap.css";
 import "aos/dist/aos.css";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -13,8 +12,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <Provider store={store}>
-      <App />
-
+        <App />
       </Provider>
     </AuthProvider>
   </React.StrictMode>

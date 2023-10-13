@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
-
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css");
 :root {
   --brand-blue: #030c8b;
   --brand-yellow: #feff36;
@@ -43,9 +43,9 @@ h6 {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
   position: absolute;
-  top:0;
-  right:0;
-  @media screen and (max-width :1100px) {
+  top: 0;
+  right: 0;
+  @media screen and (max-width: 1100px) {
     width: 100%;
   }
 }
@@ -59,53 +59,49 @@ h6 {
 }
 .table-div {
   overflow-x: scroll;
-  height:310px !important;
-
+  height: 310px !important;
 }
-.pagination >li{
-
-    font-size: 12px;
-    border-bottom: 1px solid #f1f1f1;
-    transition: 0.3s;
+.pagination > li {
+  font-size: 12px;
+  border-bottom: 1px solid #f1f1f1;
+  transition: 0.3s;
 }
-.pagination >.active {
+.pagination > .active {
   border-bottom: 1px solid blue;
 }
 
 .transfer-button {
-    color: black;
-    border: 1px solid green;
-    padding: 5px;
-    border-radius: 10px;
-    background: green;
-    font-size: 14px;
-    font-weight: 600;
-color: white;
-  }
-  /* .transfer-button:hover{
+  color: black;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 10px;
+  background: green;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+/* .transfer-button:hover{
     border: 1px solid grey;
     color: grey;
     transition: 0.3s;
     font-weight: 600;
 
   } */
-  .update-button{
-    background-color: #8080ff;
-    font-size: 14px;
-    border: 1px solid #8080ff;
-    padding: 5px;
-    border-radius: 10px;
-    font-weight: 600;
-    color: white;
-  }
-  .delete-button{
-    color: white;
-    border: 1px solid red;
-    padding: 5px;
-    border-radius: 10px;
-    background: red;
-    font-size: 14px;
-    font-weight: 600;
-
-  }
-
+.update-button {
+  background-color: #8080ff;
+  font-size: 14px;
+  border: 1px solid #8080ff;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+}
+.delete-button {
+  color: white;
+  border: 1px solid red;
+  padding: 5px;
+  border-radius: 10px;
+  background: red;
+  font-size: 14px;
+  font-weight: 600;
+}
