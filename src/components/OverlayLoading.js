@@ -4,9 +4,8 @@ import styled from "styled-components";
 export const OverlayLoading = () => {
   return (
     <Wrapper>
-        <div className="overlay_content">
-        <div className="circular-progress">
-        </div>
+      <div className="overlay_content">
+        <div className="circular-progress"></div>
       </div>
     </Wrapper>
   );
@@ -26,20 +25,20 @@ const Wrapper = styled.div`
     justify-content: center;
     height: 100%;
   }
-  .circular-progress{
-  width: 70px;
-  height: 70px;
-  display: inline-block;
-  border-width: 5px;
-  border-color: black;
-  border-top-color: #000;
-  animation: spin 1s infinite linear;
-  border-radius: 100%;
-  border-style: solid;
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
+  .circular-progress {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-width: 5px;
+    border-color: blue;
+    border-top-color: #000;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg) !important;
+      }
     }
   }
-}
 `;
