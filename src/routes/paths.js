@@ -14,6 +14,8 @@ export const PATH_AUTH = {
 // for  external pages
 export const PATH_PAGE = {
   home: "/",
+  jss1Admission: "/admission/admission-into-jss1",
+  admissionForm: "/admission/admission-form",
 };
 
 // for teacher dashboard pages
@@ -26,8 +28,6 @@ export const PATH_DASHBOARD = {
     createResult: JOIN(ROOT_TEACHER, "create-result"),
     viewCalendar: JOIN(ROOT_TEACHER, "view-calendar"),
     addScheme: JOIN(ROOT_TEACHER, "add-scheme"),
-
-
   },
   student: {
     index: ROOT_STUDENT,
@@ -46,7 +46,5 @@ export const PATH_DASHBOARD = {
     applications: JOIN(ROOT_ADMIN, "applications"),
     calendar: JOIN(ROOT_ADMIN, "create-calendar"),
     notify: JOIN(ROOT_ADMIN, "notify"),
-
-
   },
 };

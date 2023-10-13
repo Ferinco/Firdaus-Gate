@@ -31,6 +31,8 @@ import {
   ActiveApplications,
   CreateCalendar,
 } from "../pages/admin";
+
+import { JSS1Admission, AdmissionForm } from "../pages/admission";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
@@ -47,7 +49,13 @@ export default function Routes() {
       children: [{ path: "/", element: <Home /> }],
       // children: [{ path: "/", element: <ProgressPage /> }],
     },
-
+    {
+      path: "/admission",
+      children: [
+        { path: "admission-into-jss1", element: <JSS1Admission /> },
+        { path: "admission-form", element: <AdmissionForm /> },
+      ],
+    },
     {
       path: "/auth",
       element: <GuestGuard />,
