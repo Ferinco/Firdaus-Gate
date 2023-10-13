@@ -5,7 +5,9 @@ export default function CircularProgress() {
   return (
     <Wrapper>
       <div className="circular-progress">
-
+      <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
       </div>
     </Wrapper>
   )
@@ -28,18 +30,12 @@ top:0;
 .circular-progress{
   width: 50px;
   height: 50px;
-  display: inline-block;
-  border-width: 5px;
-  border-color: blue;
-  border-top-color: #000;
-  animation: spin 1s infinite linear;
-  border-radius: 100%;
-  border-style: solid;
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg) !important;
-    }
-  }
+  .spinner-border{
+  color: blue;
+  height: 50px !important;
+  width: 50px !important;
+  font-weight: 700 !important;
+}
 }
 @media screen and (max-width: 1100px) {
  width:100% ;

@@ -249,7 +249,6 @@ const Wrapper = styled.div`
     gap: 20px;
     .tab {
       max-width: 400px;
-      min-width: 300px;
       height: 80px;
       border-radius: 10px;
       align-items: center;
@@ -310,5 +309,12 @@ const Wrapper = styled.div`
     font-size: 12 !important;
     width: 14px !important;
     height: 14px !important;
+  }
+
+  @media screen and (max-width: 500px) {
+.middle-div, .tabs{
+  padding:  24px !important;
+
+}    
   }
 `;

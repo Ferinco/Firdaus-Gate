@@ -134,11 +134,11 @@ export default function ResultsPage() {
                 <div className="icon-div">
                   <Icon
                     icon={
-                      (report.reportTerm === "FIRST_TERM" &&
+                      (report.reportTerm === "FIRST TERM" &&
                         "icon-park-solid:one-key") ||
-                      (report.reportTerm === "SECOND_TERM" &&
+                      (report.reportTerm === "SECOND TERM" &&
                         "icon-park-solid:two-key") ||
-                      (report.reportTerm === "THIRD_TERM" &&
+                      (report.reportTerm === "THIRD TERM" &&
                         "icon-park-solid:three-key")
                     }
                     className="icon"
@@ -146,15 +146,15 @@ export default function ResultsPage() {
                 </div>
                 <div className="text d-flex flex-column">
                   <h6>
-                    {(report.reportTerm === "FIRST_TERM" && "1ST") ||
-                      (report.reportTerm === "SECOND_TERM" && "2ND") ||
-                      (report.reportTerm === "THIRD_TERM" && "3RD")}
+                    {(report.reportTerm === "FIRST TERM" && "1ST") ||
+                      (report.reportTerm === "SECOND TERM" && "2ND") ||
+                      (report.reportTerm === "THIRD TERM" && "3RD")}
                   </h6>
                   <p>
                     {" "}
-                    {(report.reportTerm === "FIRST_TERM" && "1ST") ||
-                      (report.reportTerm === "SECOND_TERM" && "2ND") ||
-                      (report.reportTerm === "THIRD_TERM" && "3RD")}{" "}
+                    {(report.reportTerm === "FIRST TERM" && "1ST") ||
+                      (report.reportTerm === "SECOND TERM" && "2ND") ||
+                      (report.reportTerm === "THIRD TERM" && "3RD")}{" "}
                     term reports
                   </p>
                 </div>
@@ -162,11 +162,11 @@ export default function ResultsPage() {
               <div className="tab-left">
                 <Icon
                   icon={
-                    (report.reportTerm === "FIRST_TERM" &&
+                    (report.reportTerm === "FIRST TERM" &&
                       "icon-park-solid:one-key") ||
-                    (report.reportTerm === "SECOND_TERM" &&
+                    (report.reportTerm === "SECOND TERM" &&
                       "icon-park-solid:two-key") ||
-                    (report.reportTerm === "THIRD_TERM" &&
+                    (report.reportTerm === "THIRD TERM" &&
                       "icon-park-solid:three-key")
                   }
                   className="big-icon"

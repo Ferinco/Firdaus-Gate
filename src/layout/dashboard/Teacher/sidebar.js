@@ -95,7 +95,7 @@ const SIDEBAR = styled.div`
     background-color: black;
   }
   .wrapper {
-    height: 50%;
+    height: 60% !important;
     width: 100%;
     align-items: center;
   }

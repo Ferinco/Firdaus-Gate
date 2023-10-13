@@ -61,7 +61,7 @@ export default function StudentSidebar() {
               <Link
                 to={link}
                 key={index}
-                className={`nav-link react-router-link px-5 py-1 ${activeTab === title ? "active-tab" : ""}`}
+                className={`nav-link react-router-link px-5 py-2 ${activeTab === title ? "active-tab" : ""}`}
                 onClick={()=> handleNavClick(title)}
               >
                 <Icon icon={icon} />
@@ -120,6 +120,11 @@ const SIDEBAR = styled.div`
     gap: 20px;
     &:hover{
       transition: 0.3s;
+    }
+    @media screen and (max-width:1342px) {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+
     }
   }
   .active-tab{

@@ -143,15 +143,17 @@ export default function Navbar() {
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PATH_DASHBOARD.student.index}
+                  // to={PATH_DASHBOARD.admin.index}
                 >
-                  dashboard
+                 School Fees Payment <br/>
+                 (Exsisting Students)
                 </Link>
                 <Link
                   className="dropdown-item"
-                  to={PATH_DASHBOARD.admin.index}
+                  // to={PATH_DASHBOARD.admin.index}
                 >
-                 Admin Portal
+                 School Fees Payment <br/>
+                 (New Students)
                 </Link>
               </div>
             </div>
