@@ -3,37 +3,50 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
-import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CircularProgress } from "../../components/custom";
 import ReactPaginate from "react-paginate";
-import { deleteUser, fetchUsers } from "../../redux/slices/users";
+import { deleteUser, fetchUsers, editUser } from "../../redux/slices/users";
 import { Icon } from "@iconify/react";
 import { ControlButton } from "../../components/custom/Button";
 
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
-  const [teacherDetails, setTeacherDetails] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
 
+  //serach teachers' list
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searched, setSearched] = useState([]);
+
+  //handle input on search form
+  let inputHandler = (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setSearchQuery(inputValue);
+  };
+
+  useEffect(() => {
+    const performSearch = (query) => {
+      const filterBySearch = teachers.filter(
+        (teacher) =>
+          teacher.lastName.toLowerCase().includes(query.toLowerCase()) ||
+          teacher.firstName.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearched(filterBySearch);
+    };
+    performSearch(searchQuery);
+  }, [searchQuery]);
+
+  console.log(activeSearch);
   //states to manage pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(2);
+  const [perPage] = useState(5);
   const [deleteId, setDeleteId] = useState("");
 
   useEffect(() => {
     dispatch(fetchUsers({ role: "teacher" }));
-    // .unwrap()
-    // .then((res) => {
-    //   setusers(res.data);
-    //   setIsLoading(false);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   setIsLoading(false);
-    // });
   }, []);
   const { users, isLoading } = useSelector((state) => state.users);
 
@@ -50,12 +63,10 @@ export default function TeachersList() {
   }, [users, offset]);
 
   const handleDeleteUser = async (id) => {
-    console.log(id);
     dispatch(deleteUser({ id: id }))
       .unwrap()
       .then((res) => {
         console.log(res);
-        console.log(id);
         setOverlay(false);
         toast.success("teacher profile has been deleted successfully");
       })
@@ -63,11 +74,15 @@ export default function TeachersList() {
         console.log(error);
       });
   };
-  const EditTeachers = async () => {
-    await UserService.updateUser().then((res) => {
-      console.log(res);
-      setTeacherDetails(res.data);
-    });
+  const handleEditUser = async (id) => {
+    dispatch(editUser({ id: id }))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <Wrapper className="d-flex flex-column">
@@ -75,80 +90,195 @@ export default function TeachersList() {
         <h4>List of Teachers</h4>
         <p>View and edit details of teachers</p>
       </div>
+
       {isLoading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
         <>
-          <div className="table-div px-5">
-            <Table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Teacher ID</th>
-                  <th>email</th>
-                  <th>telephone</th>
-                  <th colSpan="2">Operations</th>
-                </tr>
-              </thead>
-              <tbody className="bg-transparent table-body">
-                {teachers.map((teacher) => (
-                  <tr key={teacher._id}>
-                    <td>{teacher.id}</td>
-                    <td>{teacher.firstName}</td>
-                    <td>{teacher.lastName}</td>
-                    <td>{teacher.teacherId}</td>
-                    <td>{teacher.email}</td>
-                    <td>{teacher.tel}</td>
-
-                    <td>
-                      {" "}
-                      <button onClick={EditTeachers} className="update-button">
-                        Edit
-                      </button>{" "}
-                    </td>
-                    <td>
-                      {" "}
-                      <button
-                        onClick={() => {
-                          setOverlay(true);
-                          setDeleteId(teacher._id);
-                        }}
-                        className="delete-button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+          <div className="d-flex p-5 justify-content-end">
+            <div className="search-field d-flex gap-3 align-items-center">
+              <Icon icon="circum:search" color="gray" />
+              <input
+                type="text"
+                placeholder="search for teacher"
+                onChange={inputHandler}
+                onFocus={() => {
+                  setActiveSearch(true);
+                }}
+              />
+            </div>
           </div>
-          <ReactPaginate
-            previousLabel={
-              <ControlButton>
-                <Icon icon="ooui:next-rtl" className="icon" />
-              </ControlButton>
-            }
-            nextLabel={
-              <ControlButton>
-                <Icon icon="ooui:next-ltr" className="icon" />
-              </ControlButton>
-            }
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination pl-5 align-items-center gap-2"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
+          {activeSearch ? (
+            <>
+              {searched.length > 0 ? (
+                <>
+                  <div
+                    className="table-div px-5"
+                    onClick={() => {
+                      setActiveSearch(false);
+                    }}
+                  >
+                    <Table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Teacher ID</th>
+                          <th>email</th>
+                          <th>telephone</th>
+                          <th colSpan="2">Operations</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-transparent table-body">
+                        {searched.map((teacher) => (
+                          <tr key={teacher._id}>
+                            <td>{teacher.id}</td>
+                            <td>{teacher.firstName}</td>
+                            <td>{teacher.lastName}</td>
+                            <td>{teacher.teacherId}</td>
+                            <td>{teacher.email}</td>
+                            <td>{teacher.tel}</td>
+
+                            <td>
+                              {" "}
+                              <button
+                                onClick={() => {
+                                  handleEditUser(teacher._id);
+                                }}
+                                className="update-button"
+                              >
+                                Edit
+                              </button>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <button
+                                onClick={() => {
+                                  setOverlay(true);
+                                  setDeleteId(teacher._id);
+                                }}
+                                className="delete-button"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
+                </>
+              ) : (
+                <div className="not-found">can't find "{searchQuery}" in students' list</div>
+              )}
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </>
+          ) : (
+            <>
+              <div
+                className="table-div px-5"
+                onClick={() => {
+                  setActiveSearch(false);
+                }}
+              >
+                <Table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Teacher ID</th>
+                      <th>email</th>
+                      <th>telephone</th>
+                      <th colSpan="2">Operations</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-transparent table-body">
+                    {teachers.map((teacher) => (
+                      <tr key={teacher._id}>
+                        <td>{teacher.id}</td>
+                        <td>{teacher.firstName}</td>
+                        <td>{teacher.lastName}</td>
+                        <td>{teacher.teacherId}</td>
+                        <td>{teacher.email}</td>
+                        <td>{teacher.tel}</td>
+
+                        <td>
+                          {" "}
+                          <button
+                            onClick={() => {
+                              handleEditUser(teacher._id);
+                            }}
+                            className="update-button"
+                          >
+                            Edit
+                          </button>{" "}
+                        </td>
+                        <td>
+                          {" "}
+                          <button
+                            onClick={() => {
+                              setOverlay(true);
+                              setDeleteId(teacher._id);
+                            }}
+                            className="delete-button"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </>
+          )}
         </>
       ) : (
-        <div className="p-5">no details to display atm.</div>
+        <div className="p-5">no details to display...</div>
       )}
+
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
           <div
@@ -198,7 +328,7 @@ const Wrapper = styled.div`
       width: 70px;
       border: 0;
       border-radius: 10px;
-      padding: 10px;
+      padding: 7px;
       color: white;
       background-color: blue;
     }
@@ -207,7 +337,7 @@ const Wrapper = styled.div`
       width: 50px;
       border: 0;
       border-radius: 10px;
-      padding: 10px;
+      padding: 7px;
       color: red;
       &:hover {
         background-color: red;

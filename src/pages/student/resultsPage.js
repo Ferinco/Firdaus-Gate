@@ -70,14 +70,16 @@ export default function ResultsPage() {
             link.click();
             window.URL.revokeObjectURL(url);
             document.body.removeChild(link);
+
+            toast.success("Report downloaded successfully");
           })
           .catch((error) => {
+            toast.error("Error downloading report");
             console.error(error);
           });
       }
 
       setLoading(false);
-      toast.success("Result downloaded successfully");
     } catch (error) {
       console.error("An error occurred:", error);
       setLoading(false);
@@ -86,6 +88,8 @@ export default function ResultsPage() {
       }
       if (error?.response?.status === 404) {
         toast.error("You do not have a report for this session!");
+      } else {
+        toast.error("Network error, try again later");
       }
     }
   }

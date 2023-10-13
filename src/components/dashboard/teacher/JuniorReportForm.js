@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import styled from "styled-components";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import JuniorPerformanceForm from "./juniorPerformanceForm";
 import { Button, CircularProgress } from "../../custom";
 import { juniorSchoolSubjects } from "../../../constants/subjects";
 import { createReports } from "../../../redux/slices/reports";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTerm } from "../../../hooks/useTerm";
+import {fetchCurrentTerm} from "../../../redux/slices/term"
 
 const performanceValues = juniorSchoolSubjects.map((item) => {
   return {
@@ -22,9 +23,12 @@ const defaultSubjectValues = [...performanceValues];
 export default function JuniorReportForm({ students, isLoading, reportYear }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const { currentTerm } = useTerm();
+  const  {currentTerm}  = useSelector((state)=> state.term)
+  useEffect(()=> {
+dispatch(fetchCurrentTerm())
+  },[])
   const [loading, setLoading] = useState(false);
-
+console.log(currentTerm)
   const { register, control, watch, setValue, handleSubmit, reset } = useForm({
     defaultValues: {
       classSection: "junior",
@@ -95,7 +99,7 @@ export default function JuniorReportForm({ students, isLoading, reportYear }) {
       student: "",
       reportClass: user.classHandled,
       reportTerm: currentTerm.name,
-      reportYear: reportYear || "",
+      reportYear: currentTerm.startDate,
     },
   });
 
@@ -139,12 +143,16 @@ export default function JuniorReportForm({ students, isLoading, reportYear }) {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <select {...register("student")}>
+             <option value="" disabled>
+            Select Student
+           </option>
               {!isLoading &&
                 students.map((student) => (
                   <option key={student._id} value={student._id}>
                     {student.admissionNumber}/{student.firstName}{" "}
                     {student.lastName}
                   </option>
+                 
                 ))}
             </select>
             <div className="card p-3 my-5 attendance-div d-flex flex-column gap-3">

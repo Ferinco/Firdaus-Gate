@@ -7,21 +7,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { fetchUsers } from "../../redux/slices/users";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
 const TabsConfig = [
-  {
-    link: PATH_DASHBOARD.admin.createTeachers,
-    title: "Create Profile",
-    subTitle: "create a new teacher profile",
-    icon: "typcn:user-add",
-    iconColor: "white",
-  },
   {
     link: PATH_DASHBOARD.admin.createTerm,
     title: "Set Term",
     subTitle: "Set the current term",
     icon: "pepicons-pencil:list",
+    iconColor: "white",
+  },
+  {
+    link: PATH_DASHBOARD.admin.createTeachers,
+    title: "Create Profile",
+    subTitle: "create a new teacher profile",
+    icon: "typcn:user-add",
     iconColor: "black",
   },
   {
@@ -32,7 +31,7 @@ const TabsConfig = [
     iconColor: "black",
   },
   {
-    link: PATH_DASHBOARD.admin.studentsList,
+    link: PATH_DASHBOARD.admin.notify,
     title: "Notify",
     subTitle: "Send a general notification to your staff",
     icon: "tabler:bell-filled",
@@ -45,8 +44,9 @@ export default function AdminDashboard() {
   const dispatch = useDispatch();
   const { currentTerm, isLoading } = useSelector((state) => state.term);
   // const { users } = useSelector((state) => state.users);
-  const [Teachers, setTeachers] = useState();
-  const [Students, setStudents] = useState();
+  const [Teachers, setTeachers] = useState("");
+  const [Students, setStudents] = useState("");
+  const [termName, setTermName] = useState("")
 
   //current term
   useEffect(() => {
@@ -54,6 +54,7 @@ export default function AdminDashboard() {
       .unwrap()
       .then((res) => {
         console.log(res);
+        setTermName(res.data.name)
       });
   }, []);
   console.log(currentTerm);
@@ -119,7 +120,15 @@ export default function AdminDashboard() {
             <p>current term</p>
             <h5>
               {currentTerm ? (
-                currentTerm.name
+                  <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
               ) : (
                 <>
                   <p>
@@ -135,11 +144,27 @@ export default function AdminDashboard() {
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
-            <h5>{Teachers}</h5>
+            <h5>
+                  {Teachers === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    Teachers
+                  )}
+                </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
-            <h5>{Students}</h5>
+            <h5>
+                  {Students === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    Students
+                  )}
+                </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
@@ -280,5 +305,10 @@ const Wrapper = styled.div`
         }
       }
     }
+  }
+  .spinner-border {
+    font-size: 12 !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 `;

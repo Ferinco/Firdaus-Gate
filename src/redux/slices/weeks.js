@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const CreateWeek = createAsyncThunk(
+export const CreateWeeks = createAsyncThunk(
   "weeks/createWeeks",
   async (values, { rejectWithValue }) => {
     try {
@@ -38,7 +38,7 @@ const slices = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-      // fetch current term
+//to fetch list of weeks
       builder.addCase(FetchWeeks.pending, (state) => {
         state.isLoading = true;
       });
@@ -51,14 +51,16 @@ const slices = createSlice({
         state.error = action.payload;
       });
 
-      builder.addCase(createTerm.pending, (state) => {
+
+      //to create weeks
+      builder.addCase(CreateWeeks.pending, (state) => {
         state.isLoading = true;
       });
-      builder.addCase(createTerm.fulfilled, (state, action) => {
+      builder.addCase(CreateWeeks.fulfilled, (state, action) => {
         state.isLoading = false;
         state.weeks = [...state.weeks, action.payload];
       });
-      builder.addCase(createTerm.rejected, (state, action) => {
+      builder.addCase(CreateWeeks.rejected, (state, action) => {
         state.isLoading = true;
         state.error = action.payload;
       });

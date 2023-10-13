@@ -131,7 +131,7 @@ color: white !important;
       height: 100%;
       width: 100%;
       object-fit: contain;
-      overflow: hidden;
+      overflow: hidden;    
       border-radius: 50%;
     }
   }
@@ -150,7 +150,7 @@ color: white !important;
       transition: 0.3s;
       display: flex;
       position: fixed !important;
-      z-index: 999;
+      z-index: 9999;
     }
   }
 `;

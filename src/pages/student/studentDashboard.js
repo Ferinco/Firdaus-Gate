@@ -7,20 +7,49 @@ import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 
-
 export default function StudentDashboard() {
-  const { user } = useAuth();
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
-
+  const [weeks, setWeeks] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [termName, setTermName] = useState("");
+  const [begin, setBegin] = useState();
+  const [currentTerm, setCurrentTerm] = useState({});
   //fetch current term
-  const {currentTerm} = useSelector(state => state.term)
-const dispatch = useDispatch()
-useEffect(()=>{
-  dispatch(fetchCurrentTerm())
-}, [])
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res.data.startDate);
+        setCurrentTerm(res.data);
+        setStartDate(new Date(res.data.startDate));
+        setTermName(res.data.name);
+        console.log(currentTerm);
+        console.log(startDate);
+      });
+  }, []);
+  useEffect(() => {
+    if (startDate !== null) {
+      const currentDate = new Date();
+      const dateDifference = currentDate - startDate;
+      const weeksDifference = Math.max(
+        Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)),
+        0
+      );
+      setWeeks(new Array(weeksDifference));
+      setBegin(
+        startDate.toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+    }
+  }, [startDate]);
+  const lastWeek = weeks.length - 1;
   return (
     <Dashboard>
-      <div className="middle-div d-flex flex-row justify-content-between align-items-start p-5">
+      <div className="middle-div d-flex flex-row justify-content-between align-items-center p-5">
         <div className="wrapper-div  justify-content-between gap-3">
           <div className="big-tab d-flex flex-row justify-content-between p-3">
             <div className="text">
@@ -35,17 +64,78 @@ useEffect(()=>{
             </div>
           </div>
           <div className="details-wrapper mt-5">
-          <div className="mobile-details d-flex d-lg-none flex-row py-2 gap-2 px-4 justify-content-between">
-          <div className="info"><p>current term</p></div>
-          <div className="info">session start</div>
-          <div className="info">session end</div>
-          </div>
+            <div className="mobile-details d-flex d-lg-none flex-row py-2 gap-2 px-4 justify-content-between">
+              <div className="info">
+                current term{" "}
+                <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
+              </div>
+              <div className="info">
+                current week{" "}
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              </div>
+              <div className="info"></div>
+            </div>
           </div>
           <div className="tabs row w-100 pt-5 pt-lg-0">
             <div className="d-none mobile-tabs row">
-              <div className="tab col-4">gdg</div>
-              <div className="tab col-4">gdg</div>
-              <div className="tab col-4">gdg</div>
+              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
+             
+                current term
+    
+                <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
+              </div>
+              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
+              
+                current week
+              
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              </div>
+              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
+              
+                current week
+              
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              </div>
             </div>
             <div className="sub-tabs d-flex flex-column gap-2 justify-content-center">
               <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
@@ -54,16 +144,20 @@ useEffect(()=>{
                   <h6>15</h6>
                 </div>
                 <div className="icon-div">
-                <Icon  icon="mdi:bookshelf"  className="icon"/>
+                  <Icon icon="mdi:bookshelf" className="icon" />
                 </div>
               </div>
               <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
-              <div>
+                <div>
                   <p>current department</p>
                   <h6>Chemistry</h6>
                 </div>
                 <div className="icon-div">
-                <Icon icon="material-symbols:label-rounded" rotate={1} className="icon" />
+                  <Icon
+                    icon="material-symbols:label-rounded"
+                    rotate={1}
+                    className="icon"
+                  />
                 </div>
               </div>
             </div>
@@ -109,10 +203,32 @@ useEffect(()=>{
           </div>
         </div>
         <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
-          <div className="info">current term {currentTerm.name}</div>
-          <div className="info">current week</div>
-          <div className="info"></div>
+          <div className="info">
+            current Term
+            <h5>
+              {termName === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                termName
+              )}
+            </h5>
           </div>
+          <div className="info">
+            current week{" "}
+            <h5>
+              {lastWeek < 0 ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                lastWeek
+              )}
+            </h5>
+          </div>
+          <div className="info"></div>
+        </div>
       </div>
     </Dashboard>
   );
@@ -121,19 +237,25 @@ const Dashboard = styled.div`
   height: 100vh;
   background: #f1f1f1 !important;
   overflow-x: hidden !important;
+  .spinner-border {
+    font-size: 9px !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
   .middle-div {
     background-color: #f1f1f1;
     align-items: center;
     height: auto;
     gap: 50px;
     overflow: hidden !important;
+    justify-content: center !important;
     .big-tab {
       border-radius: 30px;
       z-index: 99;
       background-color: rgba(158, 160, 231, 0.7);
       border: 1px solid #9ea0e7;
-      backdrop-filter: blur(10px); 
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
       height: 180px;
       .text {
         color: white;
@@ -145,86 +267,99 @@ const Dashboard = styled.div`
         }
       }
     }
-    .details{
+    .details {
       width: fit-content;
       border-radius: 30px;
       background-color: white;
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
-      .info{
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
+      .info {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        
-        &:first-child{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+p{
+  font-weight: 500;
+}
+        &:first-child {
+          background-color: #8080ff;
+          color: white;
+        }
+        &:nth-child(2) {
+          background-color: #d9a26b;
+        }
+        &:nth-child(3) {
           background-color: #65655d;
-        }
-        &:nth-child(2){
-          background-color: blue;
-        }
-        &:nth-child(3){
-          background-color: black;
+          color: white;
         }
       }
     }
-    .details-wrapper{
+    .details-wrapper {
       width: 100% !important;
       overflow: hidden !important;
-    
-    
     }
-    .mobile-details{
+    .mobile-details {
       width: fit-content;
       border-radius: 30px;
       background-color: white;
       width: 100% !important;
       overflow: hidden !important;
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5); 
-      .info{
+      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
+      .info {
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        
-        &:first-child{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        &:first-child {
+          background-color: #8080ff;
+          color: white;
+        }
+        &:nth-child(2) {
+          background-color: #d9a26b;
+        }
+        &:nth-child(3) {
           background-color: #65655d;
+          color: white;
         }
-        &:nth-child(2){
-          background-color: blue;
-        }
-        &:nth-child(3){
-          background-color: black;
-        }
-      } 
+      }
     }
-    .sub-tabs{
+    .sub-tabs {
       height: 200px;
     }
-    .sub-tab{
+    .sub-tab {
       width: 250px;
       height: auto;
       border-radius: 10px;
       padding-top: 5px;
-      &:first-child{
+      &:first-child {
         background-color: #b3b3b3;
-        .icon-div{
+        .icon-div {
           background-color: #9ea0e7;
-          .icon{
+          .icon {
             color: black;
           }
         }
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         background-color: #d9a26b;
-        .icon-div{
+        .icon-div {
           background-color: #e98f35;
         }
       }
-      p{
+      p {
         font-size: 13px;
       }
-      .icon{
+      .icon {
         font-size: 30px;
       }
-      .icon-div{
+      .icon-div {
         padding: 7px;
         border-radius: 50%;
       }
@@ -340,33 +475,46 @@ const Dashboard = styled.div`
     }
   }
   @media screen and (max-width: 600px) {
-.details-wrapper{
-  display: none !important;
-}
-.sub-tabs{
-  width: 100% !important;
-  /* background-color: white; */
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
-.mobile-tabs{
-  margin-top: 50px;
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-  flex-wrap: nowrap;
-  .tab{
-    height: 100px !important;
-    &:first-child{ 
-    background-color: #9ea0e7;
+    .details-wrapper {
+      display: none !important;
     }
-    &:nth-child(2){
-      background-color: #9ea0e7;
+    .sub-tabs {
+      width: 100% !important;
+      /* background-color: white; */
+      border-radius: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .mobile-tabs {
+      margin-top: 50px !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center !important;
+      gap: 5px;
+      flex-wrap: nowrap;
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+      .tab {
+        height: 120px !important;
+        text-align: center;
+       padding: 5px 10px !important;
+        h5{
+          font-size: 17px ;
+        }
+        p{
+font-size: 13px;
+        }
+        &:first-child {
+          background-color: #65655d;
+          color: white !important;
+        }
+        &:nth-child(2) {
+          background-color: #d9a26b;
+          color: white !important;
+
+        }
+      }
     }
   }
-}
-      }
 `;

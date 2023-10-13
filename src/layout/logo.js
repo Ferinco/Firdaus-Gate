@@ -6,8 +6,8 @@ export default function Logo(){
             <img src="/images/logo.png"/>
             </div>
             <div className="text d-flex flex-column">
-                <h6>FIRDAUS GATE</h6>
-                <h6>MODEL SCHOOLS</h6>
+                <h6>FIRDAUS GATE <br/>MODEL SCHOOLS</h6>
+              
             </div>
         </LOGO>
     )
@@ -25,12 +25,14 @@ display:block;
 width:100%;
 height:100%;
 }
+}
 .text{
-    line-height: 0.7 !important;
+    justify-content: center;
+    align-items: start;
     h6{
+        line-height: 1.2 !important;
         font-weight: 600 !important;
     }
-}
 }
 @media screen and (min-width: 992px) and (max-width: 1200px){
     .image{

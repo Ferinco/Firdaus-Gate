@@ -5,6 +5,10 @@ import { Icon } from "@iconify/react";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
+import { UserService } from "../../services/userService";
+import { useEffect } from "react";
+import { fetchCurrentTerm } from "../../redux/slices/term";
+import { useDispatch, useSelector } from "react-redux";
 
 const TabsConfig = [
   {
@@ -36,12 +40,119 @@ const TabsConfig = [
     iconColor: "black",
   },
 ];
+
 export default function TeacherDashboard() {
+  const [weeks, setWeeks] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [begin, setBegin] = useState();
+  const [end, setEnd] = useState();
+  const [endDate, setEndDate] = useState(null);
+  const [termName, setTermName] = useState("");
+  const [currentTerm, setCurrentTerm] = useState({});
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res.data.startDate);
+        setCurrentTerm(res.data);
+        setStartDate(new Date(res.data.startDate));
+        setEndDate(new Date(res.data.endDate));
+        setTermName(res.data.name);
+        console.log(currentTerm);
+        console.log(startDate);
+      });
+  }, []);
+
+  console.log(currentTerm);
+  console.log(startDate);
+  // const begin =
+  // const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
+  console.log(begin, end);
+  useEffect(() => {
+    if (startDate !== null) {
+      const currentDate = new Date();
+      const dateDifference = currentDate - startDate;
+      const weeksDifference = Math.max(
+        Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)),
+        0
+      );
+      setWeeks(new Array(weeksDifference));
+      setBegin(
+        startDate.toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+      setEnd(
+        endDate.toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+    }
+  }, [startDate]);
+
+  //   const startDate = new Date(currentTerm.startDate);
+  //   const endDate = new Date(currentTerm.endDate);
+
+  // const termName = currentTerm.name
+  //   const currentDate = new Date();
+  //   const dateDifference = currentDate - startDate;
+  //   console.log(currentDate);
+  console.log(startDate);
+  console.log(weeks);
+  //   difference between startDate and EndDate of term
+  // const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
+  // console.log(dateDifference);
+  // weeks.length = weeksDifference;
+
+  //creating array for weeks
+  // useEffect(() => {
+  //   const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
+  //     value: "",
+  //   }));
+  //   setWeeks(initiailWeeks);
+  //   console.log(initiailWeeks);
+  // }, [weeksDifference]);
+  // console.log(weeks.length);
+  const lastWeek = weeks.length - 1;
+  console.log(lastWeek);
+  console.log(weeks);
+
   //get current time
   const { user } = useAuth();
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
+  const [students, setStudents] = useState();
+  const [maleGender, setMaleGender] = useState();
+  const [femaleGender, setFemaleGender] = useState();
+
+  console.log(currentTerm);
+
+  //fetching class length details
+  useEffect(() => {
+    const FetchStudents = async () => {
+      try {
+        const res = await UserService.findUsers({ role: "student" });
+        const Data = res.data;
+        const male = Data.filter((user) => user.gender === "male");
+        setMaleGender(male.length);
+        const female = Data.filter((user) => user.gender === "female");
+        setFemaleGender(female.length);
+        setStudents(Data.length);
+      } catch (error) {
+        console(error);
+      }
+    };
+    FetchStudents();
+  }, []);
+
   //greeting teacher with regards to current time
   function getGreeting(currentTime) {
     switch (true) {
@@ -53,7 +164,7 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
+
   return (
     <Dashboard className="p-5">
       <div className="head d-flex flex-column left container m-0">
@@ -63,20 +174,67 @@ export default function TeacherDashboard() {
         <p>Welcome to your dashboard.</p>
       </div>
       <div className="mobile-info flex-column p-3 mt-5">
-          <div className="div d-flex flex-row">
-            <h6 style={{ color: "white" }}>Catalog</h6>
+        <div className="div d-flex flex-row">
+          <h6 style={{ color: "white" }}>Catalog</h6>
+        </div>
+        <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
+          <p>Current Term:</p>
+          {currentTerm ? (
+            <h5>
+              {termName === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                termName
+              )}
+            </h5>
+          ) : (
+            <p>Term has ended! or yet to start</p>
+          )}
+        </div>
+        <div className="bottom-div">
+          <div className="div d-flex flex-column p-2 align-items-center justify-content-center">
+            <p>week:</p>
+            {currentTerm ? (
+              <h5>
+                {lastWeek < 0 ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  lastWeek
+                )}
+              </h5>
+            ) : (
+              <h5>no record</h5>
+            )}
           </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
+          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
+            <p>Term Begins:</p>
+            {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
           </div>
-          <div className="bottom-div">
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
+          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
+            <p>Term Ends:</p>
+            {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
           </div>
         </div>
+        <div className="top-div">
+          <div className="long d-flex flex-column p-2 align-items-center justify-content-center">
+            <p>STUDENTS</p>
+            {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
+          </div>
+          <div className="small d-flex flex-column  align-items-center justify-content-center">
+            {" "}
+            <p>MALE</p>
+            {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
+          </div>
+          <div className="small d-flex flex-column  align-items-center justify-content-center">
+            <p>FEMALE</p>
+            {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
+          </div>
+        </div>
+      </div>
       <div className="middle-div d-flex py-5">
         <div className="tabs d-flex flex-column ">
           {TabsConfig.map(
@@ -101,15 +259,62 @@ export default function TeacherDashboard() {
           <div className="div d-flex flex-row">
             <h6 style={{ color: "white" }}>Catalog</h6>
           </div>
-          <div className="top-div">
-            <div className="long"></div>
-            <div className="small"></div>
-            <div className="small"></div>
+          <div className="term-div d-flex flex-column justify-content-center">
+            <p>Current Term:</p>
+            {currentTerm ? (
+              <h5>
+                {termName === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  termName
+                )}
+              </h5>
+            ) : (
+              <p>Term has ended! or yet to start</p>
+            )}
           </div>
           <div className="bottom-div">
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
-            <div className="div d-flex flex-column"></div>
+            <div className="div d-flex flex-column align-items-center justify-content-center">
+              <p>week:</p>
+              {currentTerm ? (
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              ) : (
+                <h5>no record</h5>
+              )}
+            </div>
+            <div className="div d-flex flex-column align-items-center justify-content-center">
+              <p>Term Begins:</p>
+              {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
+            </div>
+            <div className="div d-flex flex-column align-items-center justify-content-center">
+              <p>Term Ends:</p>
+              {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
+            </div>
+          </div>
+          <div className="top-div">
+            <div className="long d-flex flex-column align-items-center justify-content-center">
+              <p>STUDENTS</p>
+              {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
+            </div>
+            <div className="small d-flex flex-column align-items-center justify-content-center">
+              {" "}
+              <p>MALE</p>
+              {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
+            </div>
+            <div className="small d-flex flex-column align-items-center justify-content-center">
+              <p>FEMALE</p>
+              {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
+            </div>
           </div>
         </div>
       </div>
@@ -118,14 +323,17 @@ export default function TeacherDashboard() {
   );
 }
 const Dashboard = styled.div`
-  height: 100vh;
-  background: #f1f1f1 !important;
+  height: 100%;
   margin: 0 !important;
-  .mobile-info{
+  .spinner-border {
+    font-size: 9px !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
+  .mobile-info {
     display: none;
   }
   .middle-div {
-    background-color: #f1f1f1;
     align-items: start;
     height: auto;
     justify-content: space-between !important;
@@ -134,7 +342,7 @@ const Dashboard = styled.div`
       gap: 10px;
       .tab {
         max-width: 400px;
-        min-width: 320px;
+        min-width: 100%;
         height: auto;
         border-radius: 10px;
         align-items: center;
@@ -191,17 +399,31 @@ const Dashboard = styled.div`
       }
     }
     .info-wrapper {
-      height: 350px;
+      min-height: 460px;
       background-color: black;
       border-radius: 30px;
-      min-width: 320px;
+      width: 350px;
       justify-content: space-between;
-      margin: 0 !important;
-      margin: 0 !important;
+      color: grey;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      p {
+        font-size: 13px;
+        text-transform: uppercase;
+        padding: 3px;
+      }
+      .term-div {
+        min-height: 70px;
+
+        border-radius: 10px;
+        background-color: #d9a26b;
+        color: black;
+      }
       .top-div {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        height: 120px;
+        min-height: 150px;
         gap: 10px;
         overflow: hidden;
         .long {
@@ -209,15 +431,17 @@ const Dashboard = styled.div`
           grid-row-end: span 2;
           width: calc(90% * 400px);
           height: 100%;
-          border: 1px solid white;
+
+          background-color: #8080ff;
+          color: black;
         }
         .small {
           border-radius: 10px;
-
+          background-color: #d9a26b;
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
-          border: 1px solid white;
+          color: black;
         }
       }
       .bottom-div {
@@ -228,26 +452,43 @@ const Dashboard = styled.div`
         justify-content: space-between;
         gap: 20px;
         .div {
-          border: 1px solid white;
           height: 100%;
           border-radius: 10px;
+          background-color: #8080ff;
+          color: black;
           /* width:100px; */
         }
       }
     }
   }
- @media screen and (max-width: 840px) {
-  .mobile-info {
-    display: flex !important;
-      height: 350px;
-      background-color: black;
+  @media screen and (max-width: 840px) {
+    .mobile-info {
+      display: flex !important;
+      min-height: 520px;
+      background: rgba(0, 0, 0, 1);
       border-radius: 30px;
-      min-width: 320px;
+      min-width: 100%;
+      max-width: 350px;
       justify-content: space-between;
+      color: grey !important;
+      text-align: center !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      p {
+        font-size: 13px;
+        text-transform: uppercase;
+        padding: 3px;
+      }
+      .term-div {
+        min-height: 70px;
+
+        border-radius: 10px;
+        background-color: #d9a26b;
+        color: black;
+      }
       .top-div {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        height: 120px;
+        min-height: 150px;
         gap: 10px;
         overflow: hidden;
         .long {
@@ -255,15 +496,17 @@ const Dashboard = styled.div`
           grid-row-end: span 2;
           width: calc(90% * 400px);
           height: 100%;
-          border: 1px solid white;
+
+          background-color: #8080ff;
+          color: black;
         }
         .small {
           border-radius: 10px;
-
+          background-color: #d9a26b;
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
-          border: 1px solid white;
+          color: black;
         }
       }
       .bottom-div {
@@ -274,15 +517,19 @@ const Dashboard = styled.div`
         justify-content: space-between;
         gap: 20px;
         .div {
-          border: 1px solid white;
           height: 100%;
           border-radius: 10px;
+          background-color: #8080ff;
+          color: black;
           /* width:100px; */
         }
       }
     }
-  .info-wrapper{
-    display: none !important;
+    .info-wrapper {
+      display: none !important;
+    }
   }
- }
+  @media screen and (max-width: 840px) {
+    padding: 40px 30px !important;
+  }
 `;

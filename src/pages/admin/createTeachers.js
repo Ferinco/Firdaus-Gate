@@ -15,13 +15,15 @@ export default function CreateTeachers() {
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
     middleName: yup.string().optional(),
-    teacherId: yup.string().required("Enter teacher ID"),
+    teacherId: yup.string().required("enter teacher ID"),
     email: yup.string().email().required("email is required"),
-    mobileNumber: yup.string().required("email is required"),
-    // teacherSignature: yup
-    //   .mixed()
-    //   .required("class teacher teacherSignature is required"),
+    mobileNumber: yup.string().required("mobile number is required"),
+    teacherType: yup.string().required("select teacher type"),
     password: yup.string().min(5).max(12).required("set a password"),
+    // classHandled: yup.string().required("select class managed"),
+    // department: yup.string().required("select department"),
+    subjectTaught: yup.string().required("select subject taught"),
+    gender: yup.string().required("select teacher's gender"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null])
@@ -48,13 +50,13 @@ export default function CreateTeachers() {
       gender: "",
       teacherType: "",
       teacherSignature: "",
-      classHandled: "",
+      // classHandled: "",
       subjectTaught: "",
-      department: "",
+      // department: "",
     },
   });
   const selectedTeacherType = watch("teacherType");
-const selectedClass = watch("classHandled")
+  const selectedClass = watch("classHandled");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
@@ -179,11 +181,16 @@ const selectedClass = watch("classHandled")
                 </label>
                 <select name="gender" {...register("gender")}>
                   <option value="" disabled>
-                    gender
+                    Gender
                   </option>
                   <option value="male">male</option>
                   <option value="female">female</option>
                 </select>
+                <p className="error-message">
+                  {errors.gender?.message
+                    ? `*${errors.gender?.message}`
+                    : ""}
+                </p>
               </div>
 
               <div className="d-flex flex-column col-6">
@@ -197,6 +204,11 @@ const selectedClass = watch("classHandled")
                   <option value="subjectTeacher">Subject Teacher</option>
                   <option value="classTeacher">Class Teacher</option>
                 </select>
+                <p className="error-message">
+                  {errors.teacherType?.message
+                    ? `*${errors.teacherType?.message}`
+                    : ""}
+                </p>
               </div>
             </div>
 
@@ -206,38 +218,60 @@ const selectedClass = watch("classHandled")
                   Class Managed
                 </label>
                 <select name="classHandled" {...register("classHandled")}>
+                <option value="" disabled>
+                      Class Managed
+                    </option>
                   {CLASS.map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
                   ))}
                 </select>
+                <p className="error-message">
+                  {errors.classHandled?.message
+                    ? `*${errors.classHandled?.message}`
+                    : ""}
+                </p>
               </div>
             )}
-            {selectedTeacherType === "classTeacher"  && selectedClass.startsWith("SSS") && (
-              <div className="my-2 d-flex flex-column">
-                <label htmlFor="department" className="label">
-                  Department
-                </label>
-                <select name="department" {...register("department")}>
-                  <option value="" disabled>
-                    Select department
-                  </option>
-                  <option value="science">science</option>
-                  <option value="commercial">commercial</option>
-                  <option value="art">art</option>
-                </select>
-              </div>
-            )}
+            {selectedTeacherType === "classTeacher" &&
+              selectedClass?.startsWith("SSS") && (
+                <div className="my-2 d-flex flex-column">
+                  <label htmlFor="department" className="label">
+                    Department
+                  </label>
+                  <select name="department" {...register("department")}>
+                    <option value="" disabled>
+                      Select Department
+                    </option>
+                    <option value="science">science</option>
+                    <option value="commercial">commercial</option>
+                    <option value="art">art</option>
+                  </select>
+                  <p className="error-message">
+                  {errors.department?.message
+                    ? `*${errors.department?.message}`
+                    : ""}
+                </p>
+                </div>
+              )}
             <div className="my-2 d-flex flex-column">
               <label htmlFor="subjectTaught" className="label">
                 Subject Taught
               </label>
               <select name="subjectTaught" {...register("subjectTaught")}>
+              <option value="" disabled>
+                      Subject Taught
+                    </option>
                 {allSubjects.map((option, index) => (
                   <option key={index}>{option}</option>
                 ))}
               </select>
+              <p className="error-message">
+                  {errors.subjectTaught?.message
+                    ? `*${errors.subjectTaught?.message}`
+                    : ""}
+                </p>
             </div>
 
             <div className="my-2 d-flex flex-column">
@@ -257,25 +291,23 @@ const selectedClass = watch("classHandled")
               </p>
             </div>
 
+            <div className="my-2 d-flex flex-column">
+              <label htmlFor="teacherSignature" className="label">
+                Teacher Signature
+              </label>
 
-              <div className="my-2 d-flex flex-column">
-                <label htmlFor="teacherSignature" className="label">
-                  teacherSignature
-                </label>
-
-                <input
-                  placeholder="Teacher's teacherSignature"
-                  name="teacherSignature"
-                  type="file"
-                  {...register("teacherSignature")}
-                />
-                <p className="error-message">
-                  {errors.teacherSignature?.message
-                    ? `*${errors.teacherSignature?.message}`
-                    : ""}
-                </p>
-              </div>
-
+              <input
+                placeholder="Teacher's Signature"
+                name="teacherSignature"
+                type="file"
+                {...register("teacherSignature")}
+              />
+              <p className="error-message">
+                {errors.teacherSignature?.message
+                  ? `*${errors.teacherSignature?.message}`
+                  : ""}
+              </p>
+            </div>
 
             <div className="d-flex flex-row input-div my-2">
               <div className="d-flex flex-column">

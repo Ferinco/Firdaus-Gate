@@ -6,7 +6,9 @@ export const Button = styled.button`
   color: ${(props) => (props.blue && "white") || (props.white && "black")};
   font-weight: 600 !important;
   border: 1px solid blue;
-  padding: 10px 15px;
+  padding: 10px 25px;
+  font-weight: 700 !important;
+  font-size: 15px;
   border-radius: 9px;
   &:hover {
     transition: 0.4s;
