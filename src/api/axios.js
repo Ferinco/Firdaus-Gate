@@ -1,7 +1,8 @@
 import axios from "axios";
 const api = axios.create({
   // baseURL: "https://firdausgate-api.cyclic.app/api/v1",
-  baseURL: process.env.REACT_APP_API,
+  // baseURL: process.env.REACT_APP_API,
+  baseURL: "http://localhost:4000/api/v1",
 });
 
 export const generatePdfApi = "https://generate-pdf-emhz.onrender.com/to-pdf";
