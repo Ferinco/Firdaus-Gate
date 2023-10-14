@@ -162,8 +162,6 @@ export default function StudentDashboard() {
               </div>
             </div>
             <a
-              href={"report"}
-              download="Adekoya Ilgail"
               className=" tab d-flex flex-row"
             >
               <div className="tab-right ">

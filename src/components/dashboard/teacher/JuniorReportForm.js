@@ -118,7 +118,7 @@ console.log(currentTerm)
       .then((res) => {
         setLoading(false);
         toast.success("Report card has been created successfully");
-        // reset();
+        reset();
         window.scrollTo({
           top: 0,
           behavior: "smooth",

@@ -119,8 +119,8 @@ export default function TeachersList() {
                   >
                     <Table className="table table-bordered">
                       <thead>
-                        <tr>
-                          <th>#</th>
+                        <tr >
+                          <th className="p-5">#</th>
                           <th>First Name</th>
                           <th>Last Name</th>
                           <th>Teacher ID</th>
@@ -196,14 +196,14 @@ export default function TeachersList() {
           ) : (
             <>
               <div
-                className="table-div px-5"
+                className="table-div px-5 "
                 onClick={() => {
                   setActiveSearch(false);
                 }}
               >
-                <Table className="table table-bordered">
-                  <thead>
-                    <tr>
+                <Table className="table table-bordered ">
+                  <thead className="p-3">
+                    <tr >
                       <th>#</th>
                       <th>First Name</th>
                       <th>Last Name</th>
