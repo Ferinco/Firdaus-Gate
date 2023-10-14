@@ -18,22 +18,22 @@ const TabsConfig = [
   },
   {
     link: PATH_DASHBOARD.admin.createTeachers,
-    title: "Create Profile",
-    subTitle: "create a new teacher profile",
+    title: "Create Account",
+    subTitle: "create a new teacher account",
     icon: "typcn:user-add",
     iconColor: "black",
   },
   {
     link: PATH_DASHBOARD.admin.calendar,
     title: "Term Calendar",
-    subTitle: "Upload calendar for the current term",
+    subTitle: "Set calendar for current term",
     icon: "solar:calendar-bold",
     iconColor: "black",
   },
   {
     link: PATH_DASHBOARD.admin.notify,
     title: "Notify",
-    subTitle: "Send a general notification to your staff",
+    subTitle: "Send message to your staff",
     icon: "tabler:bell-filled",
     iconColor: "black",
   },
@@ -249,7 +249,6 @@ const Wrapper = styled.div`
     gap: 20px;
     .tab {
       max-width: 400px;
-      min-width: 300px;
       height: 80px;
       border-radius: 10px;
       align-items: center;
@@ -310,5 +309,12 @@ const Wrapper = styled.div`
     font-size: 12 !important;
     width: 14px !important;
     height: 14px !important;
+  }
+
+  @media screen and (max-width: 500px) {
+.middle-div, .tabs{
+  padding:  24px !important;
+
+}    
   }
 `;

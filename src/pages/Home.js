@@ -41,4 +41,13 @@ background: linear-gradient(1turn, hsla(0, 0%, 100%, 0.01), #fff 85%),
       ellipse at center left,
       rgba(254, 51, 132, 0.5),
       transparent 50%
-    );`;
+    );
+    p {
+  font-size: 19px !important;
+}
+@media (max-width: 768px) {
+  p {
+    font-size: 15px !important;
+  }
+}
+    `;

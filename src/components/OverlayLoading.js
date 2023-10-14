@@ -5,7 +5,11 @@ export const OverlayLoading = () => {
   return (
     <Wrapper>
       <div className="overlay_content">
-        <div className="circular-progress"></div>
+        <div className="circular-progress">
+        <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+        </div>
       </div>
     </Wrapper>
   );
@@ -17,8 +21,9 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 999 !important;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index:9999;
   .overlay_content {
     display: flex;
     align-items: center;
@@ -26,19 +31,11 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .circular-progress {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    border-width: 5px;
-    border-color: blue;
-    border-top-color: #000;
-    animation: spin 1s infinite linear;
-    border-radius: 100%;
-    border-style: solid;
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg) !important;
-      }
-    }
+.spinner-border{
+  color: black;
+  height: 70px !important;
+  width: 70px !important;
+  font-weight: 700 !important;
+}
   }
 `;

@@ -78,7 +78,7 @@ export default function SeniorReportForm({ students, isLoading }) {
   });
   const [loading, setLoading] = React.useState(false);
   // React hook form implementation
-  const { register, control, handleSubmit, watch, getValues, setValue } =
+  const { register, control, handleSubmit, watch, getValues, setValue, reset } =
     useForm({
       defaultValues: {
         // (1) PERFORMANCE IN SUBJECT
@@ -162,6 +162,7 @@ export default function SeniorReportForm({ students, isLoading }) {
       .unwrap()
       .then((res) => {
         setLoading(false);
+        reset()
         toast.success("Report card has been created successfully");
       })
       .catch((error) => {

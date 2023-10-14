@@ -4,12 +4,19 @@ import { Button } from "../custom/Button";
 
 
 const images = [
-  'image1.jpg',
-  'image2.jpg',
-  'image3.jpg',
-  'image1.jpg',
-  'image2.jpg',
-  'image3.jpg',
+  {
+className: "image image-1",
+content: ""
+  },
+  {
+    className: "image image-2",
+    content: ""
+      },
+      {
+        className: "image image-1",
+        content: ""
+          },
+
   // Add more image URLs as needed
 ];
 
@@ -57,10 +64,23 @@ const CarouselSlide = styled.div`
   .image {
     width: 200px;
     margin-left: -100px;
-    background-color: purple;
     border-radius: 30px;
-    
-  }
+    height:250px;
+    border-radius: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.image-1{
+  background-image: url('/images/photo-1.png');
+}  
+.image-2{
+  background-image:url(/images/photo-2.png);
+}
+.image-2{
+  background-image:url(/images/photo-3.png);
+}
 `;
 export default function LandingHero() {
 
@@ -107,7 +127,8 @@ this part should contain a short intro on the school's mission and some other re
             rotation={(index - currentIndex) * 45}
             className={index === currentIndex ? 'active' : ''}
           >
-            <div className="image"></div>
+            <div className={image.className}></div>
+            
           </CarouselSlide>
         ))}
       </CarouselWrapper>
@@ -162,12 +183,7 @@ text-align: left;
     p{
       font-size: 16px;
     }
-    .image{
-    max-width: 250px;
-    height:250px;
-    background-color: purple;
-    border-radius: 30px;
-  }
+
   .text-div{
     padding-bottom: 0 !important;
   }

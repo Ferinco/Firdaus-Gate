@@ -150,7 +150,7 @@ export default function StudentDashboard() {
               <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
                 <div>
                   <p>current department</p>
-                  <h6>Chemistry</h6>
+                  <h6>Science</h6>
                 </div>
                 <div className="icon-div">
                   <Icon
@@ -162,8 +162,6 @@ export default function StudentDashboard() {
               </div>
             </div>
             <a
-              href={"report"}
-              download="Adekoya Ilgail"
               className=" tab d-flex flex-row"
             >
               <div className="tab-right ">
