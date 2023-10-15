@@ -6,23 +6,27 @@ const initialState = {
   payment: null,
 };
 
-const slices = createSlice({
+const slice = createSlice({
   initialState,
   name: "admission",
   reducers: {
-    stepOne: (state, payload) => {
-      state.studentInformation = payload;
+    studentInformation: (state, action) => {
+      state.studentInformation = action.payload;
     },
-    stepTwo: (state, payload) => {
-      state.studentInformation = payload;
+    parentInformation: (state, action) => {
+      state.parentInformation = action.payload;
     },
-    stepThree: (state, payload) => {
-      state.studentInformation = payload;
+    payment: (state, action) => {
+      state.payment = action.payload;
     },
-    stepFour: (state, payload) => {
-      state.studentInformation = payload;
+    stepFour: (state, action) => {
+      state.studentInformation = action.payload;
     },
   },
 });
+export const { studentInformation, payment, parentInformation } = slice.actions;
+// export const admissionInfo =(values)=> (dispatch)=> {
+//   dispatch(slice)
+// }
 
-export default slices.reducer;
+export default slice.reducer;
