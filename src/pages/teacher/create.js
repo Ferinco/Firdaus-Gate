@@ -25,14 +25,14 @@ export default function Create() {
     password: yup.string().min(5).max(12).required("set a password"),
     parentPhone: yup
       .string()
-      .matches(phoneRegEx, "Phone number is invalid")
-      .required("Phone number is required")
-      .min(10, "Phone number is invalid")
-      .max(11, "Phone number is invalid"),
-    confirmPassword: yup
+      .matches(phoneRegEx, "phone number is invalid")
+      .required("phone number is required")
+      .min(10, "phone number is invalid")
+      .max(11, "phone number is invalid"),
+      confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null])
-      .required("passwords must match!"),
+      .oneOf([yup.ref("password"), null], "passwords must match")
+      .required("confirm your password"),
   });
   const {
     register,
@@ -248,15 +248,6 @@ export default function Create() {
                 </p>
               </div>
             </div>
-            {/* <div className="my-3">
-         <label htmlFor="gender" style={{fontWeight: "700"}}> Gender:</label>
-         <select {
-          ...register("gender", { required: true })
-         } className="select px-2 py-1 ml-3">
-              <option value="male">male</option>
-              <option value="female">female</option>
-            </select>
-        </div> */}
             <div className="mt-4">
               <Button
                 blue
