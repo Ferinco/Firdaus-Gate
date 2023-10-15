@@ -97,29 +97,9 @@ export default function TeacherDashboard() {
     }
   }, [startDate]);
 
-  //   const startDate = new Date(currentTerm.startDate);
-  //   const endDate = new Date(currentTerm.endDate);
-
-  // const termName = currentTerm.name
-  //   const currentDate = new Date();
-  //   const dateDifference = currentDate - startDate;
-  //   console.log(currentDate);
   console.log(startDate);
   console.log(weeks);
-  //   difference between startDate and EndDate of term
-  // const weeksDifference = Math.ceil(dateDifference / (1000 * 3600 * 24 * 7));
-  // console.log(dateDifference);
-  // weeks.length = weeksDifference;
 
-  //creating array for weeks
-  // useEffect(() => {
-  //   const initiailWeeks = Array.from({ length: weeks.length }, (_, index) => ({
-  //     value: "",
-  //   }));
-  //   setWeeks(initiailWeeks);
-  //   console.log(initiailWeeks);
-  // }, [weeksDifference]);
-  // console.log(weeks.length);
   const lastWeek = weeks.length - 1;
   console.log(lastWeek);
   console.log(weeks);
@@ -129,6 +109,7 @@ export default function TeacherDashboard() {
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
+  const [title, setTitle] = useState("")
   const [students, setStudents] = useState();
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
@@ -159,17 +140,26 @@ export default function TeacherDashboard() {
       case currentTime >= 0 && currentTime < 12:
         return "Good Morning,";
       case currentTime >= 12 && currentTime < 18:
-        return "Good Afternoon,";
+        return "Good Afternoon, ";
       default:
         return "Good Evening,";
     }
   }
+useEffect(()=>{
+  function getTitle(){
+    if(user.gender === "male"){
+    setTitle("Mr")
+    }
+    else setTitle("Mrs")
+      }
+      getTitle()
+},[])
 
   return (
     <Dashboard className="p-5">
       <div className="head d-flex flex-column left container m-0">
         <h4>
-          <span>{greeting}</span> {user.firstName} <span></span>
+          <span>{greeting}{" "}</span>{title}{" "}{user.firstName} <span></span>
         </h4>
         <p>Welcome to your dashboard.</p>
       </div>
@@ -380,6 +370,7 @@ const Dashboard = styled.div`
         }
         &:nth-child(3) {
           background: #ffb366;
+          
           .icon-div {
             background-color: #d9a26b;
           }
@@ -389,11 +380,13 @@ const Dashboard = styled.div`
         }
         &:last-child {
           background-color: #8080ff;
+          color: white !important;
           .icon-div {
             background-color: #8c8ce1;
           }
           .icon {
             font-size: 30px;
+            color: white !important;
           }
         }
       }
@@ -418,7 +411,7 @@ const Dashboard = styled.div`
 
         border-radius: 10px;
         background-color: #d9a26b;
-        color: black;
+        color: white;
       }
       .top-div {
         display: grid;
@@ -433,7 +426,7 @@ const Dashboard = styled.div`
           height: 100%;
 
           background-color: #8080ff;
-          color: black;
+          color: white;
         }
         .small {
           border-radius: 10px;
@@ -441,7 +434,7 @@ const Dashboard = styled.div`
           width: calc(10% * 400px);
           /* grid-column-end: span 2; */
           height: 100%;
-          color: black;
+          color: white;
         }
       }
       .bottom-div {
@@ -455,7 +448,7 @@ const Dashboard = styled.div`
           height: 100%;
           border-radius: 10px;
           background-color: #8080ff;
-          color: black;
+          color: white;
           /* width:100px; */
         }
       }
@@ -483,7 +476,7 @@ const Dashboard = styled.div`
 
         border-radius: 10px;
         background-color: #d9a26b;
-        color: black;
+        color: white;
       }
       .top-div {
         display: grid;
@@ -498,7 +491,7 @@ const Dashboard = styled.div`
           height: 100%;
 
           background-color: #8080ff;
-          color: black;
+          color: white;
         }
         .small {
           border-radius: 10px;
@@ -520,7 +513,7 @@ const Dashboard = styled.div`
           height: 100%;
           border-radius: 10px;
           background-color: #8080ff;
-          color: black;
+          color: white;
           /* width:100px; */
         }
       }
@@ -532,4 +525,14 @@ const Dashboard = styled.div`
   @media screen and (max-width: 840px) {
     padding: 40px 30px !important;
   }
-`;
+
+  @media screen and (max-width: 400px) {
+    .mobile-info {
+      height: 540px;
+      .bottom-div {
+        height:auto;
+      }
+    }
+  }
+`
+;

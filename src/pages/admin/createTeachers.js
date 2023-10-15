@@ -25,10 +25,9 @@ export default function CreateTeachers() {
     subjectTaught: yup.string().required("select subject taught"),
     gender: yup.string().required("select teacher's gender"),
     confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null])
-      .required("passwords must match!"),
-  });
+    .string()
+    .oneOf([yup.ref("password"), null], "passwords must match")
+    .required("passwords must match!"),  });
   const {
     handleSubmit,
     register,
