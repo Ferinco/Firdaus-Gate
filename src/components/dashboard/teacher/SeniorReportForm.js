@@ -20,10 +20,9 @@ SeniorReportForm.propTypes = {
   students: PropTypes.array,
   isLoading: PropTypes.bool,
 };
-export default function SeniorReportForm({ students, isLoading, reportYear }) {
+export default function SeniorReportForm({ students, isLoading }) {
   const { user } = useAuth();
   const dispatch = useDispatch();
-  console.log(students);
 
   // science subject list default values
   const scienceSubject = seniorSchoolSubjects
@@ -77,7 +76,6 @@ export default function SeniorReportForm({ students, isLoading, reportYear }) {
       comment: "",
     };
   });
-
   const [loading, setLoading] = React.useState(false);
   // React hook form implementation
   const { register, control, handleSubmit, watch, getValues, setValue, reset } =
@@ -147,10 +145,8 @@ export default function SeniorReportForm({ students, isLoading, reportYear }) {
           jumps: "",
         },
         reportClass: user.classHandled,
-        reportTerm: "FIRST_TERM",
         classTeacherComment: "",
         student: "",
-        reportYear: reportYear || "",
         classSection: "senior",
       },
     });
@@ -171,9 +167,12 @@ export default function SeniorReportForm({ students, isLoading, reportYear }) {
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         if (error.response.data.message)
           toast.error(error.response.data.message);
-        toast.error("Error creating student report, try again later");
+        else {
+          toast.error("Error creating student report, try again later");
+        }
       });
   };
 
@@ -202,7 +201,9 @@ export default function SeniorReportForm({ students, isLoading, reportYear }) {
               <div className="">
                 <label> Select student </label>
                 <select {...register("student")}>
-                  <option value="" disabled>Select Student</option>
+                  <option value="" disabled>
+                    Select Student
+                  </option>
                   {!isLoading &&
                     students.map((student) => (
                       <option key={student._id} value={student._id}>

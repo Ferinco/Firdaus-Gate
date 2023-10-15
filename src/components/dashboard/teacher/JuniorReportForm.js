@@ -9,7 +9,8 @@ import { juniorSchoolSubjects } from "../../../constants/subjects";
 import { createReports } from "../../../redux/slices/reports";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTerm } from "../../../hooks/useTerm";
-import {fetchCurrentTerm} from "../../../redux/slices/term"
+import { fetchCurrentTerm } from "../../../redux/slices/term";
+import PropTypes from "prop-types";
 
 const performanceValues = juniorSchoolSubjects.map((item) => {
   return {
@@ -20,15 +21,18 @@ const performanceValues = juniorSchoolSubjects.map((item) => {
   };
 });
 const defaultSubjectValues = [...performanceValues];
-export default function JuniorReportForm({ students, isLoading, reportYear }) {
+JuniorReportForm.propTypes = {
+  students: PropTypes.array,
+  isLoading: PropTypes.bool,
+};
+export default function JuniorReportForm({ students, isLoading }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const  {currentTerm}  = useSelector((state)=> state.term)
-  useEffect(()=> {
-dispatch(fetchCurrentTerm())
-  },[])
+  useEffect(() => {
+    dispatch(fetchCurrentTerm());
+  }, []);
+  const { currentTerm } = useSelector((state) => state.term);
   const [loading, setLoading] = useState(false);
-console.log(currentTerm)
   const { register, control, watch, setValue, handleSubmit, reset } = useForm({
     defaultValues: {
       classSection: "junior",
@@ -98,8 +102,6 @@ console.log(currentTerm)
       schoolReopens: "",
       student: "",
       reportClass: user.classHandled,
-      reportTerm: currentTerm.name,
-      reportYear: currentTerm.startDate,
     },
   });
 
@@ -143,16 +145,15 @@ console.log(currentTerm)
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <select {...register("student")}>
-             <option value="" disabled>
-            Select Student
-           </option>
+              <option value="" disabled>
+                Select Student
+              </option>
               {!isLoading &&
                 students.map((student) => (
                   <option key={student._id} value={student._id}>
                     {student.admissionNumber}/{student.firstName}{" "}
                     {student.lastName}
                   </option>
-                 
                 ))}
             </select>
             <div className="card p-3 my-5 attendance-div d-flex flex-column gap-3">
