@@ -74,15 +74,25 @@ setIsProfileOpen(false)
             ))}
           </div>
         </div>
-        <div className="log-out">
-          <button onClick={logout} className="react-router-link nav-link">
-            <Icon
-              icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
-              rotate={2}
-            />
-            Log out
-          </button>
-        </div>
+        <div className="log-out nav-links d-flex flex-column pl-5">
+          <Link
+              className={`nav-link react-router-link ${
+                activeTab === "Log out" ? "active-tab" : ""
+              }`}
+            > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
+            <button
+              to=""
+              className="react-router-link nav-link"
+              onClick={logout}
+            >
+              <Icon
+                icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
+                rotate={2}
+              />
+              Log out
+            </button>
+
+          </div>
         </div>
         <Closer
           className="d-flex"

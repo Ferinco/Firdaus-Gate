@@ -97,7 +97,8 @@ const SeniorPerformanceForm = ({
             control={control}
           />
         </div>
-        <div className="field">
+<div className="d-flex flex-row align-items-center gap-1 no-wrap">
+<div className="field">
           <label>
             <small>C.A score</small>
           </label>
@@ -158,12 +159,15 @@ const SeniorPerformanceForm = ({
             }
           />
         </div>
-      </div>
-      <div>
+        <div>
         <button className="remove-btn" onClick={() => remove(index)}>
           X
         </button>
       </div>
+</div>
+
+      </div>
+     
     </Wrapper>
   );
 };
@@ -171,12 +175,17 @@ const SeniorPerformanceForm = ({
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-
+border-bottom: 1px solid #f1f1f1;
   .fields {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
+    @media screen and (max-width:550px) {
+    flex-direction:column;
+    justify-content: left;
+    align-items: start;
+    }
   }
   /* grid-template-columns: repeat(6, 1fr); */
 

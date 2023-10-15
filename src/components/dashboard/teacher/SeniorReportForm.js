@@ -162,7 +162,7 @@ export default function SeniorReportForm({ students, isLoading }) {
       .unwrap()
       .then((res) => {
         setLoading(false);
-        reset()
+        reset();
         toast.success("Report card has been created successfully");
       })
       .catch((error) => {
@@ -192,14 +192,13 @@ export default function SeniorReportForm({ students, isLoading }) {
           </div>
         </div>
       ) : (
-        <Wrapper className="container-fluid w-100 px-5 pb-3">
-          <div className="py-3">
+        <Wrapper className="container-fluid w-100 p-3">
+          <div className="">
             <h3 className="">Create result for student</h3>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             {students.length ? (
               <div className="">
-                <label> Select student </label>
                 <select {...register("student")}>
                   <option value="" disabled>
                     Select Student
@@ -224,40 +223,43 @@ export default function SeniorReportForm({ students, isLoading }) {
 
             {/* SUBJECT INPUT */}
 
-            {fields.map((item, index) => {
-              return (
-                <div key={item.id} className="result-row mt-3">
-                  <SeniorPerformanceForm
-                    index={index}
-                    control={control}
-                    watchPerformance={watchPerformance}
-                    remove={remove}
-                    setValue={setValue}
-                    field={item}
-                  />
-                </div>
-              );
-            })}
-            <Button
-              className="mt-3"
-              type="button"
-              onClick={() =>
-                append({
-                  comment: "",
-                  continuousAssessmentScore: "",
-                  examScore: "",
-                  positionGrade: "",
-                  subject: "",
-                  totalWeightedAverage: "",
-                })
-              }
-              blue
-            >
-              Add new
-            </Button>
+            <div className="card my-4 p-3 results-div">
+              {" "}
+              {fields.map((item, index) => {
+                return (
+                  <div key={item.id} className="result-row mt-3">
+                    <SeniorPerformanceForm
+                      index={index}
+                      control={control}
+                      watchPerformance={watchPerformance}
+                      remove={remove}
+                      setValue={setValue}
+                      field={item}
+                    />
+                  </div>
+                );
+              })}
+              <Button
+                className="mt-3"
+                type="button"
+                onClick={() =>
+                  append({
+                    comment: "",
+                    continuousAssessmentScore: "",
+                    examScore: "",
+                    positionGrade: "",
+                    subject: "",
+                    totalWeightedAverage: "",
+                  })
+                }
+                blue
+              >
+                Add new
+              </Button>
+            </div>
 
             {/* ATTENDANCE (REGULARITY AND PUNCTUALITY) */}
-            <div className="my-5">
+            <div className="card attendance-div my-5 p-3">
               <p className="lead">ATTENDANCE (Regularity & Punctuality)</p>
               <div className="d-flex gap-3 attendance-field">
                 <div>
@@ -282,9 +284,9 @@ export default function SeniorReportForm({ students, isLoading }) {
             </div>
 
             {/* SPORTS */}
-            <div className="my-5">
+            <div className="card my-5 sports-div p-3">
               <p className="lead">Sports</p>
-              <div className="my-2 d-flex flex-wrap traits-div">
+              <div className="my-2 d-flex flex-wrap div">
                 {Object.keys(getValues().sports).map((item) => {
                   return (
                     <div className="form-check" key={item}>
@@ -302,7 +304,7 @@ export default function SeniorReportForm({ students, isLoading }) {
             </div>
 
             {/* PERSONAL TRAIT */}
-            <div className="my-5">
+            <div className="card my-5 traits-div p-3">
               <p className="lead">Personal trait</p>
               <div className="my-2 d-flex flex-wrap traits-div">
                 {Object.keys(getValues().personalTrait).map((item) => {
@@ -322,7 +324,7 @@ export default function SeniorReportForm({ students, isLoading }) {
             </div>
 
             {/* PERSONAL SKILLS */}
-            <div className="my-5">
+            <div className="card my-5 personal-div p-3">
               <p className="lead">Personal skills</p>
               <div className="my-2 d-flex flex-wrap traits-div">
                 {Object.keys(getValues().personalSkills).map((item) => {
@@ -341,7 +343,7 @@ export default function SeniorReportForm({ students, isLoading }) {
               </div>
             </div>
             {/* AFFECTIVE DOMAIN */}
-            <div className="my-5">
+            <div className="card my-5 domain-div p-3">
               <p className="lead">Affective domain</p>
               <div className="my-2 d-flex flex-wrap traits-div">
                 {Object.keys(getValues().affectiveDomain).map((item) => {
@@ -389,37 +391,47 @@ export default function SeniorReportForm({ students, isLoading }) {
 }
 
 const Wrapper = styled.div`
-  margin: 0 !important;
-  width: 100% !important;
-  .result-row {
-    padding: 10px;
-    background-color: white;
-    border-radius: 20px;
-    width: 100% !important;
+  select {
+    border-radius: 10px;
+    padding: 5px;
+    outline: 0;
+    max-width: 120px;
+    background-color: #f5f5f5;
+    color: grey;
   }
-  .attendance-field {
-    background-color: white;
-    border-radius: 20px;
-    padding: 40px 10px;
-    width: fit-content !important;
+  label {
+    font-size: 14px;
+    color: black;
   }
-  .traits-div {
-    background-color: white;
-    border-radius: 20px;
-    padding: 40px 10px;
-  }
-  .lead {
-    font-weight: 600;
-    padding-bottom: 10px;
-    border-bottom: 1px solid white;
-  }
-  .card {
-    background-color: white;
-    border-radius: 20px;
-    padding: 40px 10px;
-  }
-  .text-area {
+
+  input {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
     border: 0;
     outline: 0;
+    border: 1px solid grey;
+    max-width: 120px;
+  }
+  .card {
+    border-radius: 20px;
+    border: 0;
+  }
+  .sports-div{
+    .div{
+      margin: 0 !important;
+      justify-content: left;
+      align-items: start;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .card {
+   padding-left:7px !important;
+   padding-right:7px !important;
+
+  }
+  input {
+    max-width: 90px;
+  }
   }
 `;

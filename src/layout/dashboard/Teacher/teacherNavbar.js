@@ -21,7 +21,7 @@ export default function TeacherNavbar() {
           <Icon icon="mdi:account-tie" className="profile-btn" color="white" />
         </div>
         <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
+          className={`profile d-flex flex-column align-center p-3 justify-content-between ${
             isProfileOpen ? "open" : "close"
           }`}
         >
@@ -30,14 +30,14 @@ export default function TeacherNavbar() {
           </div>
           <div className="name d-flex flex-column">
             <h5>{user.firstName}{" "}{user.lastName}</h5>
-            <p>{user.email}</p>
+            <p >{user.email}</p>
             <p>{user.gender}</p>
             <p>{user.role}</p>
             <h6>{user.teacherId}</h6>
           </div>
           <div className="info d-flex flex-row"></div>
           <div className="number d-flex flex-row">
-            <h5>JSS2</h5>
+            <h5>{user.classHandled}</h5>
           </div>
         </div>
         <div
@@ -82,12 +82,13 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 370px;
+    height: auto;
     width: 270px;
     display: none;
     align-items: center;
     border-radius: 30px;
     background-color: white;
+    flex-wrap: wrap;
     .image {
       height: 90px;
       width: 90px;
