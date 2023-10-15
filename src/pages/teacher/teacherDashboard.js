@@ -165,7 +165,7 @@ useEffect(()=>{
       </div>
       <div className="mobile-info flex-column p-3 mt-5">
         <div className="div d-flex flex-row">
-          <h6 style={{ color: "white" }}>Catalog</h6>
+          <h6 style={{ color: "white" }} className="mt-3">Catalog</h6>
         </div>
         <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
           <p>Current Term:</p>
@@ -247,7 +247,7 @@ useEffect(()=>{
         </div>
         <div className="info-wrapper d-flex flex-column p-3">
           <div className="div d-flex flex-row">
-            <h6 style={{ color: "white" }}>Catalog</h6>
+            <h6 style={{ color: "white" }} className="mt-3">Catalog</h6>
           </div>
           <div className="term-div d-flex flex-column justify-content-center">
             <p>Current Term:</p>
@@ -457,7 +457,7 @@ const Dashboard = styled.div`
   @media screen and (max-width: 840px) {
     .mobile-info {
       display: flex !important;
-      min-height: 520px;
+      min-height: 510px;
       background: rgba(0, 0, 0, 1);
       border-radius: 30px;
       min-width: 100%;
@@ -497,15 +497,14 @@ const Dashboard = styled.div`
           border-radius: 10px;
           background-color: #d9a26b;
           width: calc(10% * 400px);
-          /* grid-column-end: span 2; */
           height: 100%;
-          color: black;
+          color: white;
         }
       }
       .bottom-div {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        height: 120px;
+        height: auto;
         width: 100%;
         justify-content: space-between;
         gap: 20px;
@@ -513,7 +512,7 @@ const Dashboard = styled.div`
           height: 100%;
           border-radius: 10px;
           background-color: #8080ff;
-          color: white;
+          color: white !important;
           /* width:100px; */
         }
       }
