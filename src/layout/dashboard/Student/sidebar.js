@@ -51,7 +51,7 @@ export default function StudentSidebar() {
         }`}
       >
 <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
-        <div className="wrapper d-flex flex-column">
+        <div className="wrapper d-flex flex-column justify-content-between">
           <div className="logo">
             <Link className="react-router-link" to={PATH_PAGE.home}>
               <img src="/images/logo.png" />
@@ -106,7 +106,7 @@ const SIDEBAR = styled.div`
   .container {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     width: 20%;
-    height: 1000px;
+    height: 100vh;
     align-items: center;
     position: fixed;
   }
@@ -114,9 +114,8 @@ const SIDEBAR = styled.div`
     width: 100%;
   }
   .wrapper {
-    height: 500px;
+    height: 60% !important;
     width: 100%;
-    gap: 70px;
     align-items: center;
   }
   .nav-links {
