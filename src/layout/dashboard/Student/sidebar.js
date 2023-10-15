@@ -46,10 +46,11 @@ export default function StudentSidebar() {
   return (
     <SIDEBAR>
       <div
-        className={`container d-flex flex-column py-5 justify-content-between h-100 px-0 ${
+        className={`container d-flex flex-row ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
+<div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
         <div className="wrapper d-flex flex-column">
           <div className="logo">
             <Link className="react-router-link" to={PATH_PAGE.home}>
@@ -86,6 +87,13 @@ export default function StudentSidebar() {
             Log out
           </div>
         </div>
+        </div>
+        <Closer
+          className="d-flex"
+          onClick={() => {
+            setIsSidebarOpen(false);
+          }}
+        ></Closer>
       </div>
     </SIDEBAR>
   );
@@ -101,6 +109,9 @@ const SIDEBAR = styled.div`
     height: 1000px;
     align-items: center;
     position: fixed;
+  }
+  .nav-container {
+    width: 100%;
   }
   .wrapper {
     height: 500px;
@@ -165,4 +176,31 @@ const SIDEBAR = styled.div`
       z-index: 999;
     }
   }
+  @media screen and (max-width: 550px) {
+    .container {
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+
+      background-color: transparent;
+    }
+    .opened {
+      width: 100%;
+    }
+    .nav-container {
+      width: 250px;
+      background-color: white;
+    }
+  }
 `;
+const Closer = styled.div`
+  display: none;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  @media screen and (max-width: 500px) {
+    display: flex;
+    height: 100%;
+    width: calc(100vw - 250px);
+  }
+`;
+
