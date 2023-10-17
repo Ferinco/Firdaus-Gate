@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ReportService } from "../../services/reportService";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../../hooks/useAuth";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../contexts/Context";
-import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
+import { generatePdfApi } from "../../api/axios";
+import { OverlayLoading } from "../../components/OverlayLoading";
+
 
 export default function StudentDashboard() {
+  const {user} = useAuth()
   const [weeks, setWeeks] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [termName, setTermName] = useState("");
   const [begin, setBegin] = useState();
   const [currentTerm, setCurrentTerm] = useState({});
+  const [loading, setLoading] = React.useState(false);
+  const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
+
   //fetch current term
   const dispatch = useDispatch();
 
@@ -47,8 +57,68 @@ export default function StudentDashboard() {
     }
   }, [startDate]);
   const lastWeek = weeks.length - 1;
+
+
+
+//downloading current report
+async function downloadReport(term) {
+  try {
+    setLoading(true);
+    const data = await ReportService.downloadReport({
+      classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
+      selectedTerm: term,
+      selectedClass,
+      student: user._id,
+    });
+
+    if (data?.success) {
+      await axios
+        .post(
+          generatePdfApi,
+          { html: data.data },
+          { responseType: "arraybuffer" }
+        )
+        .then(({ data }) => {
+          const blob = new Blob([data]);
+          const url = window.URL.createObjectURL(blob);
+          var link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            `${user.admissionNumber}-${term}.pdf`
+          );
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+
+          toast.success("Report downloaded successfully");
+        })
+        .catch((error) => {
+          toast.error("Error downloading report");
+          console.error(error);
+        });
+    }
+
+    setLoading(false);
+  } catch (error) {
+    console.error("An error occurred:", error);
+    setLoading(false);
+    if (error?.response?.data?.message) {
+      toast.error(error.response.data.message);
+    }
+    if (error?.response?.status === 404) {
+      toast.error("Report is currently unavailable!");
+    } else {
+      toast.error("Network error, try again later");
+    }
+  }
+}
+
+
   return (
     <Dashboard>
+      {loading && <OverlayLoading />}
       <div className="middle-div d-flex flex-row justify-content-between align-items-center p-5">
         <div className="wrapper-div  justify-content-between gap-3">
           <div className="big-tab d-flex flex-row justify-content-between p-3">
@@ -163,6 +233,7 @@ export default function StudentDashboard() {
             </div>
             <a
               className=" tab d-flex flex-row"
+              onClick={() => downloadReport(termName)}
             >
               <div className="tab-right ">
                 <div className="icon-div">
@@ -172,8 +243,8 @@ export default function StudentDashboard() {
                   />
                 </div>
                 <div className="text d-flex flex-column">
-                  <h6>RESULTS</h6>
-                  <p>view results</p>
+                  <h6>REPORT</h6>
+                  <p>download report</p>
                 </div>
               </div>
               <div className="tab-left">
@@ -277,6 +348,7 @@ const Dashboard = styled.div`
         justify-content: center;
         align-items: center;
         text-align: center;
+        padding:7px;
 p{
   font-weight: 500;
 }
