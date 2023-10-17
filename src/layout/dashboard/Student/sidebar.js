@@ -22,7 +22,7 @@ const sidebarConfig = [
   {
     icon: "la:chalkboard-teacher",
     link: PATH_DASHBOARD.student.myTeachers,
-    title: "My Teachers",
+    title: "Teachers",
   },
   {
     icon: "la:chalkboard-teacher",
@@ -32,7 +32,6 @@ const sidebarConfig = [
 ];
 
 export default function StudentSidebar() {
-  const navigate = useNavigate();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard")
   const { isSidebarOpen, setIsSidebarOpen ,setIsProfileOpen} =
@@ -119,7 +118,7 @@ const SIDEBAR = styled.div`
     align-items: center;
   }
   .nav-links {
-    gap: 30px !important;
+    gap: 10px !important;
     width: 85%;
   }
   .nav-link {
