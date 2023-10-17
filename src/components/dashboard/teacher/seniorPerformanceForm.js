@@ -76,7 +76,7 @@ const SeniorPerformanceForm = ({
   ]);
 
   return (
-    <Wrapper className=" py-4">
+    <Wrapper className=" py-2 px-2">
       <div className=" fields">
         <div className="field d-flex flex-column">
           <label>
@@ -85,7 +85,11 @@ const SeniorPerformanceForm = ({
 
           <Controller
             render={({ field }) => (
-              <select defaultValue="Select subject" {...field}>
+              <select
+                className="form-select"
+                defaultValue="Select subject"
+                {...field}
+              >
                 {seniorSchoolSubjects.map((item, index) => (
                   <option value={item.name} key={index}>
                     {item.name}
@@ -159,9 +163,12 @@ const SeniorPerformanceForm = ({
           />
         </div>
       </div>
-      <div>
-        <button className="remove-btn" onClick={() => remove(index)}>
-          X
+      <div className="d-flex mt-3 justify-content-end">
+        <button
+          className="btn btn-outline-danger btn-sm"
+          onClick={() => remove(index)}
+        >
+          Remove
         </button>
       </div>
     </Wrapper>
@@ -169,9 +176,6 @@ const SeniorPerformanceForm = ({
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-
   .fields {
     width: 100%;
     display: flex;
@@ -182,13 +186,6 @@ const Wrapper = styled.div`
 
   gap: 10px;
   .remove-btn {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: red;
-    font-size: 12px;
-    color: white;
-    border: 0;
   }
 `;
 

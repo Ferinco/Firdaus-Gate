@@ -44,8 +44,8 @@ export default function StepOne({ setStep }) {
     setStep(2);
   };
   return (
-    <div className="py-5">
-      <form className="mt-5" onSubmit={handleSubmit(onSave)}>
+    <div className="">
+      <form className="" onSubmit={handleSubmit(onSave)}>
         <div className="row">
           <div className="col-md-6 col-sm-6 mb-3">
             <div>
@@ -111,7 +111,7 @@ export default function StepOne({ setStep }) {
             <div>
               <label className="form-label">Date of Birth</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
                 placeholder="Date of Birth"
                 {...register("dateOfBirth")}

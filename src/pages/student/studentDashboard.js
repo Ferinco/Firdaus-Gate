@@ -6,6 +6,7 @@ import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
+import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function StudentDashboard() {
   const [weeks, setWeeks] = useState([]);
@@ -95,9 +96,7 @@ export default function StudentDashboard() {
           <div className="tabs row w-100 pt-5 pt-lg-0">
             <div className="d-none mobile-tabs row">
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-             
                 current term
-    
                 <h5>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
@@ -109,9 +108,7 @@ export default function StudentDashboard() {
                 </h5>
               </div>
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-              
                 current week
-              
                 <h5>
                   {lastWeek < 0 ? (
                     <div className="spinner-border" role="status">
@@ -123,9 +120,7 @@ export default function StudentDashboard() {
                 </h5>
               </div>
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-              
                 current week
-              
                 <h5>
                   {lastWeek < 0 ? (
                     <div className="spinner-border" role="status">
@@ -161,10 +156,11 @@ export default function StudentDashboard() {
                 </div>
               </div>
             </div>
-            <a
-              className=" tab d-flex flex-row"
+            <Link
+              to={PATH_DASHBOARD.student.results}
+              className="tab d-flex flex-row"
             >
-              <div className="tab-right ">
+              <div className="tab-right">
                 <div className="icon-div">
                   <Icon
                     icon="icon-park-twotone:table-report"
@@ -173,7 +169,7 @@ export default function StudentDashboard() {
                 </div>
                 <div className="text d-flex flex-column">
                   <h6>RESULTS</h6>
-                  <p>view results</p>
+                  <p>View Results</p>
                 </div>
               </div>
               <div className="tab-left">
@@ -182,7 +178,7 @@ export default function StudentDashboard() {
                   className="big-icon"
                 />
               </div>
-            </a>
+            </Link>
 
             <div className="tab ">
               <div className="tab-right">
@@ -191,7 +187,7 @@ export default function StudentDashboard() {
                 </div>
                 <div className="text d-flex flex-column">
                   <h6>SCHEME</h6>
-                  <p>class scheme</p>
+                  <p>Class Scheme</p>
                 </div>
               </div>
               <div className="tab-left">
@@ -279,9 +275,9 @@ const Dashboard = styled.div`
         justify-content: center;
         align-items: center;
         text-align: center;
-p{
-  font-weight: 500;
-}
+        p {
+          font-weight: 500;
+        }
         &:first-child {
           background-color: #8080ff;
           color: white;
@@ -378,6 +374,7 @@ p{
         align-items: center !important;
         padding: 15px;
         text-decoration: none !important;
+        cursor: pointer;
         .tab-right {
           display: flex;
           flex-direction: column;
@@ -496,12 +493,12 @@ p{
       .tab {
         height: 120px !important;
         text-align: center;
-       padding: 5px 10px !important;
-        h5{
-          font-size: 17px ;
+        padding: 5px 10px !important;
+        h5 {
+          font-size: 17px;
         }
-        p{
-font-size: 13px;
+        p {
+          font-size: 13px;
         }
         &:first-child {
           background-color: #65655d;
@@ -510,7 +507,6 @@ font-size: 13px;
         &:nth-child(2) {
           background-color: #d9a26b;
           color: white !important;
-
         }
       }
     }
