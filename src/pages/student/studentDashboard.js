@@ -92,7 +92,7 @@ export default function StudentDashboard() {
               <div className="info"></div>
             </div>
           </div>
-          <div className="tabs row w-100 pt-5 pt-lg-0">
+          <div className="tabs w-100 pt-5 pt-lg-0 ">
             <div className="d-none mobile-tabs row">
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
              
@@ -198,9 +198,7 @@ export default function StudentDashboard() {
                 <Icon icon="ion:calendar" className="big-icon" />
               </div>
             </div>
-          </div>
-        </div>
-        <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
+            <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
           <div className="info">
             current Term
             <h5>
@@ -225,8 +223,10 @@ export default function StudentDashboard() {
               )}
             </h5>
           </div>
-          <div className="info"></div>
         </div>
+          </div>
+        </div>
+       
       </div>
     </Dashboard>
   );
@@ -268,12 +268,10 @@ const Dashboard = styled.div`
     .details {
       width: fit-content;
       border-radius: 30px;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
       .info {
         width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        height: 90px;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -288,10 +286,8 @@ p{
         }
         &:nth-child(2) {
           background-color: #d9a26b;
-        }
-        &:nth-child(3) {
-          background-color: #65655d;
           color: white;
+
         }
       }
     }
@@ -301,8 +297,6 @@ p{
     }
     .mobile-details {
       width: fit-content;
-      border-radius: 30px;
-      background-color: white;
       width: 100% !important;
       overflow: hidden !important;
       box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
@@ -321,6 +315,7 @@ p{
         }
         &:nth-child(2) {
           background-color: #d9a26b;
+          color: white;
         }
         &:nth-child(3) {
           background-color: #65655d;
@@ -365,8 +360,9 @@ p{
     .tabs {
       gap: 30px;
       margin-left: 3px !important;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
       .tab {
         border-radius: 30px;
         height: 200px;
@@ -463,6 +459,7 @@ p{
         }
       }
       .tabs {
+        display: grid;
         grid-template-columns: repeat(1, 1fr);
         .tab {
           .tab-left {
@@ -473,6 +470,9 @@ p{
     }
   }
   @media screen and (max-width: 600px) {
+    .middle-div{
+      padding: 24px !important;
+    }
     .details-wrapper {
       display: none !important;
     }

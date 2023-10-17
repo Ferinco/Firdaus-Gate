@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { useAuth } from "../../../hooks/useAuth";
 export default function TeacherNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
-  const {user} = useAuth()
+  const { user } = useAuth();
   return (
     <Wrapper className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
       <div></div>
@@ -21,23 +21,25 @@ export default function TeacherNavbar() {
           <Icon icon="mdi:account-tie" className="profile-btn" color="white" />
         </div>
         <div
-          className={`profile d-flex flex-column align-center p-3 justify-content-between ${
+          className={`profile flex-column align-center py-3 justify-content-between mr-4 ${
             isProfileOpen ? "open" : "close"
           }`}
         >
-          <div className="image">
-            <Icon icon="icon-park-solid:necktie" className="icon" />
-          </div>
-          <div className="name d-flex flex-column">
-            <h5>{user.firstName}{" "}{user.lastName}</h5>
-            <p >{user.email}</p>
-            <p>{user.gender}</p>
-            <p>{user.role}</p>
-            <h6>{user.teacherId}</h6>
-          </div>
-          <div className="info d-flex flex-row"></div>
-          <div className="number d-flex flex-row">
-            <h5>{user.classHandled}</h5>
+          <div className="div d-flex flex-column justify-content-center align-items-center">
+            <div className="image">
+              <Icon icon="icon-park-solid:necktie" className="icon" />
+            </div>
+
+            <h5>
+              {user.firstName} {user.lastName}
+            </h5>
+            <p className="email">{user.email}</p>
+            <div className="row ">
+            <span className="col-6">{user.role}</span>
+            <p className="col-6">{user.gender}</p>
+            </div>
+            <div className="d-flex flex-row align-items-baseline gap-1"><span>ID: </span><h6>{user.teacherId}</h6></div>
+            <div className="d-flex subject flex-row align-items-baseline gap-1"><span>Subject Handled: </span><h6>{user.subjectTaught}</h6></div>
           </div>
         </div>
         <div
@@ -61,7 +63,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     flex-direction: row;
-    gap: 40px;
+    gap: 20px;
     .profile-div {
       padding: 5px;
       border: 1px solid black;
@@ -88,7 +90,33 @@ const Wrapper = styled.div`
     align-items: center;
     border-radius: 30px;
     background-color: white;
-    flex-wrap: wrap;
+    overflow-x: hidden;
+    color: grey;
+    .div{
+      width: 90%;
+      margin: auto;
+     p{
+      display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  text-transform: capitalize;
+     }
+     span{
+  font-weight: 600;
+  text-transform: capitalize;
+     }
+     .email{
+      text-transform: lowercase !important;
+     }
+     .subject{
+      span{
+        text-overflow: ellipsis;
+      }
+     }
+    }
     .image {
       height: 90px;
       width: 90px;
@@ -102,17 +130,7 @@ const Wrapper = styled.div`
         color: black;
       }
     }
-    .name {
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      p {
-        font-size: 17px !important;
-      }
-      h6 {
-        color: grey;
-      }
-    }
+
   }
   .open {
     display: flex !important;

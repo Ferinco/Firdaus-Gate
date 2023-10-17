@@ -292,13 +292,13 @@ const dispatch = useDispatch()
           )}
         </>
       ) : (
-        <div className="d-flex justify-content-center center align-center">
-          <h4>
+        <div className="d-flex justify-content-center center align-center px-5">
+            <p>
             No list to display... navigate to the{" "}
             <Link to={PATH_DASHBOARD.teacher.create}>
               register student(s) to create a student's profile
             </Link>
-          </h4>
+            </p>
         </div>
       )}
 

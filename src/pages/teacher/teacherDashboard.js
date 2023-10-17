@@ -30,7 +30,7 @@ const TabsConfig = [
     title: "Create reports",
     subTitle: "Upload reports on students performances",
     icon: "uil:create-dashboard",
-    iconColor: "black",
+    iconColor: "white",
   },
   {
     link: PATH_DASHBOARD.admin.studentsList,
@@ -370,7 +370,7 @@ const Dashboard = styled.div`
         }
         &:nth-child(3) {
           background: #ffb366;
-          
+          color: white !important;
           .icon-div {
             background-color: #d9a26b;
           }
