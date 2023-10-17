@@ -282,4 +282,7 @@ const Wrapper = styled.div`
       }
     }
   }
+  @media (max-width:600px){
+    padding:24px !important;
+  }
 `;
