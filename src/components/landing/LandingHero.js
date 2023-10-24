@@ -98,7 +98,7 @@ export default function LandingHero() {
   }, []);
   return (
     <Wrapper className="">
-     <div className="container py-5">
+     <div className="container py-2">
      <div className="row">
         <div className="col-md-6 d-flex left">
           <div className="my-5 d-flex flex-column gap-3 text-div"> 

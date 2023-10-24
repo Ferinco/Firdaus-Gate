@@ -29,7 +29,7 @@ export default function AdminNavbar() {
           <Icon icon="ri:menu-3-fill" className="nav-btn" />
         </div>
         <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
+          className={`profile flex-column align-center p-3 gap-3 justify-content-between mr-4 ${
             isProfileOpen ? "open" : "close"
           }`}
         >
@@ -83,7 +83,7 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 370px;
+    height: auto;
     width: 270px;
     display: none;
     align-items: center;

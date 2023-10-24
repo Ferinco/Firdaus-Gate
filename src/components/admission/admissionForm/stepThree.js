@@ -8,7 +8,7 @@ const config = {
   reference: new Date().getTime().toString(),
   email: "user@example.com",
   amount: 20000, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-  publicKey: "pk_test_dsdfghuytfd2345678gvxxxxxxxxxx",
+  publicKey: "pk_test_04dd699dfc4661f56ad39113ba41e9c5e9af44e5",
 };
 StepThree.propTypes = {
   setStep: PropTypes.any,
@@ -18,7 +18,7 @@ export default function StepThree({ setStep }) {
     defaultValues: {},
   });
   const initializePayment = usePaystackPayment(config);
-  function onSave(values) {
+  function onSave() {
     initializePayment(handleSuccess, onClose);
   }
   const handleSuccess = async (reference) => {
@@ -44,7 +44,13 @@ export default function StepThree({ setStep }) {
         <p>Payment of Admission fee for Ifeanyi Lucky</p>
       </div>
 
-      <button className="w-100 btn btn-primary" type="submit">
+      <button
+        className="w-100 btn btn-primary"
+        type="button"
+        onClick={() => {
+          initializePayment(handleSuccess, onClose);
+        }}
+      >
         Continue
       </button>
     </form>

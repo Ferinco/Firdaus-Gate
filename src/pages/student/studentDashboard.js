@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ReportService } from "../../services/reportService";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../../hooks/useAuth";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAppContext } from "../../contexts/Context";
-import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import { generatePdfApi } from "../../api/axios";
+import { OverlayLoading } from "../../components/OverlayLoading";
 
 export default function StudentDashboard() {
+  const { user } = useAuth();
   const [weeks, setWeeks] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [termName, setTermName] = useState("");
   const [begin, setBegin] = useState();
   const [currentTerm, setCurrentTerm] = useState({});
+  const [loading, setLoading] = React.useState(false);
+  const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
+
   //fetch current term
   const dispatch = useDispatch();
 
@@ -48,8 +57,65 @@ export default function StudentDashboard() {
     }
   }, [startDate]);
   const lastWeek = weeks.length - 1;
+
+  //downloading current report
+  async function downloadReport(term) {
+    try {
+      setLoading(true);
+      const data = await ReportService.downloadReport({
+        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
+        selectedTerm: term,
+        selectedClass,
+        student: user._id,
+      });
+
+      if (data?.success) {
+        await axios
+          .post(
+            generatePdfApi,
+            { html: data.data },
+            { responseType: "arraybuffer" }
+          )
+          .then(({ data }) => {
+            const blob = new Blob([data]);
+            const url = window.URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.setAttribute(
+              "download",
+              `${user.admissionNumber}-${term}.pdf`
+            );
+            document.body.appendChild(link);
+            link.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(link);
+
+            toast.success("Report downloaded successfully");
+          })
+          .catch((error) => {
+            toast.error("Error downloading report");
+            console.error(error);
+          });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      }
+      if (error?.response?.status === 404) {
+        toast.error("Report is currently unavailable!");
+      } else {
+        toast.error("Network error, try again later");
+      }
+    }
+  }
+
   return (
     <Dashboard>
+      {loading && <OverlayLoading />}
       <div className="middle-div d-flex flex-row justify-content-between align-items-center p-5">
         <div className="wrapper-div  justify-content-between gap-3">
           <div className="big-tab d-flex flex-row justify-content-between p-3">
@@ -93,7 +159,7 @@ export default function StudentDashboard() {
               <div className="info"></div>
             </div>
           </div>
-          <div className="tabs row w-100 pt-5 pt-lg-0">
+          <div className="tabs w-100 pt-5 pt-lg-0 ">
             <div className="d-none mobile-tabs row">
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
                 current term
@@ -194,34 +260,33 @@ export default function StudentDashboard() {
                 <Icon icon="ion:calendar" className="big-icon" />
               </div>
             </div>
+            <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
+              <div className="info">
+                current Term
+                <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
+              </div>
+              <div className="info">
+                current week{" "}
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
-          <div className="info">
-            current Term
-            <h5>
-              {termName === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                termName
-              )}
-            </h5>
-          </div>
-          <div className="info">
-            current week{" "}
-            <h5>
-              {lastWeek < 0 ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                lastWeek
-              )}
-            </h5>
-          </div>
-          <div className="info"></div>
         </div>
       </div>
     </Dashboard>
@@ -264,17 +329,16 @@ const Dashboard = styled.div`
     .details {
       width: fit-content;
       border-radius: 30px;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
       .info {
         width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        height: 90px;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
+        padding: 7px;
         p {
           font-weight: 500;
         }
@@ -284,9 +348,6 @@ const Dashboard = styled.div`
         }
         &:nth-child(2) {
           background-color: #d9a26b;
-        }
-        &:nth-child(3) {
-          background-color: #65655d;
           color: white;
         }
       }
@@ -297,8 +358,6 @@ const Dashboard = styled.div`
     }
     .mobile-details {
       width: fit-content;
-      border-radius: 30px;
-      background-color: white;
       width: 100% !important;
       overflow: hidden !important;
       box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
@@ -317,6 +376,7 @@ const Dashboard = styled.div`
         }
         &:nth-child(2) {
           background-color: #d9a26b;
+          color: white;
         }
         &:nth-child(3) {
           background-color: #65655d;
@@ -361,8 +421,9 @@ const Dashboard = styled.div`
     .tabs {
       gap: 30px;
       margin-left: 3px !important;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       .tab {
         border-radius: 30px;
         height: 200px;
@@ -460,6 +521,7 @@ const Dashboard = styled.div`
         }
       }
       .tabs {
+        display: grid;
         grid-template-columns: repeat(1, 1fr);
         .tab {
           .tab-left {
@@ -470,6 +532,9 @@ const Dashboard = styled.div`
     }
   }
   @media screen and (max-width: 600px) {
+    .middle-div {
+      padding: 24px !important;
+    }
     .details-wrapper {
       display: none !important;
     }

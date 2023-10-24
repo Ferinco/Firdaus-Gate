@@ -5,10 +5,10 @@ export default function Calendar() {
     <Wrapper className="px-5">
       <div className="py-3">
         <h4>Term Calendar</h4>
-        <p>view the calendar bnof the current term.</p>
+        <p>view the calendar/schedule for the current term.</p>
       </div>
       <div>
-        <div className="p-5 calendar-div">
+        <div className="p-1 calendar-div">
           <p>calendar not created yet... check back later</p>
         </div>
       </div>

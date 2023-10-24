@@ -10,10 +10,12 @@ export default function Gallery (){
         View multiple photos that say alot about us and our top notch services
     </h2>
 </div>
-<div className="d-flex flex-column gap-4 body py-5">
+<div className="d-flex flex-column body py-5 gap-4">
 
-<Marquee direction="left" speed={30}>
-    <div className="d-flex flex-row gap-4">
+<Marquee direction="left" speed={30} className="d-flex gap-3">
+    <div className="d-flex flex-row gap-3">
+    <div className="image"></div>
+    <div className="image"></div>
     <div className="image"></div>
     <div className="image"></div>
     <div className="image"></div>
@@ -22,7 +24,7 @@ export default function Gallery (){
     <div className="image"></div>
     </div>
 </Marquee>
-<Marquee direction="left" speed={60}>
+<Marquee direction="left" speed={60} className="d-flex gap-3">
     <div className="d-flex flex-row gap-3">
     <div className="text">sports</div>
     <div className="text">science</div>
@@ -42,8 +44,10 @@ export default function Gallery (){
     <div className="text">tech</div>
     </div>
 </Marquee>
-<Marquee direction="right" speed={30}>
-    <div className="d-flex flex-row gap-4">
+<Marquee direction="left" speed={30} className="d-flex gap-3">
+    <div className="d-flex flex-row gap-3 ">
+    <div className="image"></div>
+    <div className="image"></div>
     <div className="image"></div>
     <div className="image"></div>
     <div className="image"></div>

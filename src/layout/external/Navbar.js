@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
-import { PATH_AUTH } from "../../routes/paths";
+import { PATH_AUTH, PATH_PAGE } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function Navbar() {
@@ -109,15 +109,20 @@ export default function Navbar() {
               </a>
 
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a className="dropdown-item" href="#">
-                  Start Admssion
-                </a>
-                <a className="dropdown-item" href="#">
+              <Link className="dropdown-item" to={PATH_PAGE.admissionForm}>
+                  Student Admission Portal
+                </Link>
+                <Link className="dropdown-item" to={PATH_PAGE.jss1Admission}>
+                  Admssion Into JSS1
+                </Link>
+                <Link className="dropdown-item" onMouseOver={()=>{
+                  console.log("correct")
+                }}>
                   Continue Admission
-                </a>
-                <a className="dropdown-item" href="#">
+                </Link>
+                  <Link className="dropdown-item" >
                   Admssion Letter
-                </a>
+                </Link>
               </div>
             </div>
 

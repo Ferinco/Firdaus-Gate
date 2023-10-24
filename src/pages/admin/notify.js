@@ -5,7 +5,7 @@ export default function Notify() {
     <Container className='p-5'>
 <div>
     <h4>Send a Notification</h4>
-    <p>semd a specific message to your staff.</p>
+    <p>send a specific message to your staff.</p>
 </div>
     </Container>
   )

@@ -101,44 +101,47 @@ const SeniorPerformanceForm = ({
             control={control}
           />
         </div>
-        <div className="field">
-          <label>
-            <small>C.A score</small>
-          </label>
-          <Controller
-            render={({ field }) => <Input placeholder="C.A score" {...field} />}
-            name={`performance.${index}.continuousAssessmentScore`}
-            control={control}
-          />
-        </div>
-        <div className="field">
-          <label>
-            <small>Exam score</small>
-          </label>
+        <div className="d-flex flex-row align-items-center gap-1 no-wrap">
+          <div className="field">
+            <label>
+              <small>C.A score</small>
+            </label>
+            <Controller
+              render={({ field }) => (
+                <Input placeholder="C.A score" {...field} />
+              )}
+              name={`performance.${index}.continuousAssessmentScore`}
+              control={control}
+            />
+          </div>
+          <div className="field">
+            <label>
+              <small>Exam score</small>
+            </label>
 
-          <Controller
-            render={({ field }) => (
-              <Input placeholder="Exam score" {...field} />
-            )}
-            name={`performance.${index}.examScore`}
-            control={control}
-          />
-        </div>
-        <div className="field">
-          <label>
-            <small>Total W.A </small>
-          </label>
+            <Controller
+              render={({ field }) => (
+                <Input placeholder="Exam score" {...field} />
+              )}
+              name={`performance.${index}.examScore`}
+              control={control}
+            />
+          </div>
+          <div className="field">
+            <label>
+              <small>Total W.A </small>
+            </label>
 
-          <Input placeholder="Total Weighted Average" value={getWA} />
-        </div>
-        <div className="field">
-          <label>
-            <small>Position G</small>
-          </label>
+            <Input placeholder="Total Weighted Average" value={getWA} />
+          </div>
+          <div className="field">
+            <label>
+              <small>Position G</small>
+            </label>
 
-          <Input placeholder="Position grade" value={getPositionGrade()} />
+            <Input placeholder="Position grade" value={getPositionGrade()} />
 
-          {/* <Controller
+            {/* <Controller
             name={`performance[${index}].positionGrade`}
             control={control}
             render={({ field }) => (
@@ -148,28 +151,29 @@ const SeniorPerformanceForm = ({
               />
             )}
           /> */}
-        </div>
-        <div className="field">
-          <label>
-            <small>Comment</small>
-          </label>
+          </div>
+          <div className="field">
+            <label>
+              <small>Comment</small>
+            </label>
 
-          <Input
-            placeholder="comment"
-            value={getComment()}
-            onChange={(e) =>
-              setValue(`performance.${index}.comment`, e.target.value)
-            }
-          />
+            <Input
+              placeholder="comment"
+              value={getComment()}
+              onChange={(e) =>
+                setValue(`performance.${index}.comment`, e.target.value)
+              }
+            />
+          </div>
         </div>
-      </div>
-      <div className="d-flex mt-3 justify-content-end">
-        <button
-          className="btn btn-outline-danger btn-sm"
-          onClick={() => remove(index)}
-        >
-          Remove
-        </button>
+        <div className="d-flex mt-3 justify-content-end">
+          <button
+            className="btn btn-outline-danger btn-sm"
+            onClick={() => remove(index)}
+          >
+            Remove
+          </button>
+        </div>
       </div>
     </Wrapper>
   );
@@ -181,6 +185,11 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+    @media screen and (max-width: 550px) {
+      flex-direction: column;
+      justify-content: left;
+      align-items: start;
+    }
   }
   /* grid-template-columns: repeat(6, 1fr); */
 

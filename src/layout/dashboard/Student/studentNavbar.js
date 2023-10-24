@@ -33,7 +33,7 @@ export default function StudentNavbar(){
             <Icon icon="ri:menu-3-fill" className="nav-btn" />
           </div>
           <div
-          className={`profile flex-column align-center py-5 px-3 justify-content-between ${
+          className={`profile flex-column align-center p-3 justify-content-between mr-4 ${
             isProfileOpen ? "open" : "close"
           }`}
         >
@@ -47,7 +47,6 @@ export default function StudentNavbar(){
                 {user.firstName}{" "}{user.lastName}
               </h5>
               <p>{user.email}</p>
-              <p>Male</p>
               <h6>{user.admissionNumber}</h6>
             </div>
             <div className="info d-flex flex-row"></div>
@@ -66,7 +65,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     flex-direction: row;
-    gap: 40px;
+    gap: 20px;
     .profile-div {
       padding: 5px;
       border: 1px solid blue;
@@ -87,12 +86,16 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 370px;
+    height: auto;
     width: 270px;
     display: none;
     align-items: center;
     border-radius: 30px;
     background-color: white;
+    
+    @media (max-width:600px) {
+    margin-right: 0px !important;
+    }
     .image {
       height: 90px;
       width: 90px;
@@ -138,4 +141,8 @@ const Wrapper = styled.div`
       }
     }
 }
+@media screen and (max-width: 1100px) {
+  padding: 24px !important;
+}
+
 `

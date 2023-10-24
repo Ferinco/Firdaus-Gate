@@ -141,7 +141,7 @@ export default function JuniorReportForm({ students, isLoading }) {
       {loading && <CircularProgress />}
       {!loading && (
         <div className="p-md-5 p-3">
-          <h2>Junior report form</h2>
+          <h4>Create result for student</h4>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <select {...register("student")}>

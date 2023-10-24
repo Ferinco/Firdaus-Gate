@@ -116,8 +116,8 @@ export default function ResultsPage() {
             </select>
           </div>
           <div>
-            <span className="d-flex flex-column">
-              <p>Current Term:</p> <h4>{currentTerm.position}</h4>
+            <span className="d-flex flex-column justify-content-center">
+              <p>Current Term:</p> <h6>{currentTerm.name}</h6>
             </span>
           </div>
         </div>
@@ -281,5 +281,8 @@ const Wrapper = styled.div`
         }
       }
     }
+  }
+  @media (max-width:600px){
+    padding:24px !important;
   }
 `;

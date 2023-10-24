@@ -22,7 +22,7 @@ const sidebarConfig = [
   {
     icon: "la:chalkboard-teacher",
     link: PATH_DASHBOARD.student.myTeachers,
-    title: "My Teachers",
+    title: "Teachers",
   },
   {
     icon: "la:chalkboard-teacher",
@@ -32,7 +32,6 @@ const sidebarConfig = [
 ];
 
 export default function StudentSidebar() {
-  const navigate = useNavigate();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard")
   const { isSidebarOpen, setIsSidebarOpen ,setIsProfileOpen} =
@@ -46,11 +45,12 @@ export default function StudentSidebar() {
   return (
     <SIDEBAR>
       <div
-        className={`container d-flex flex-column py-5 justify-content-between h-100 px-0 ${
+        className={`container d-flex flex-row ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="wrapper d-flex flex-column">
+<div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
+        <div className="wrapper d-flex flex-column justify-content-between">
           <div className="logo">
             <Link className="react-router-link" to={PATH_PAGE.home}>
               <img src="/images/logo.png" />
@@ -86,6 +86,13 @@ export default function StudentSidebar() {
             Log out
           </div>
         </div>
+        </div>
+        <Closer
+          className="d-flex"
+          onClick={() => {
+            setIsSidebarOpen(false);
+          }}
+        ></Closer>
       </div>
     </SIDEBAR>
   );
@@ -98,18 +105,20 @@ const SIDEBAR = styled.div`
   .container {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     width: 20%;
-    height: 1000px;
+    height: 100vh;
     align-items: center;
     position: fixed;
   }
-  .wrapper {
-    height: 500px;
+  .nav-container {
     width: 100%;
-    gap: 70px;
+  }
+  .wrapper {
+    height: 60% !important;
+    width: 100%;
     align-items: center;
   }
   .nav-links {
-    gap: 30px !important;
+    gap: 10px !important;
     width: 85%;
   }
   .nav-link {
@@ -165,4 +174,31 @@ const SIDEBAR = styled.div`
       z-index: 999;
     }
   }
+  @media screen and (max-width: 550px) {
+    .container {
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+
+      background-color: transparent;
+    }
+    .opened {
+      width: 100%;
+    }
+    .nav-container {
+      width: 250px;
+      background-color: white;
+    }
+  }
 `;
+const Closer = styled.div`
+  display: none;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  @media screen and (max-width: 500px) {
+    display: flex;
+    height: 100%;
+    width: calc(100vw - 250px);
+  }
+`;
+
