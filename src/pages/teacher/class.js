@@ -100,14 +100,37 @@ export default function MyClass() {
 
   async function createCsvUsers() {
     if (csvData.length) {
+      let newStudents = csvData.slice(1);
       setIsLoading(true);
       Promise.all(
-        csvData.map(async (item) => {
-          await UserService.createUser({
-            // firstName:
-          });
+        newStudents.map(async (item) => {
+          const data = {
+            firstName: item[0],
+            lastName: item[1],
+            middleName: item[2],
+            admissionNumber: item[3],
+            parentPhone: item[4],
+            email: item[5],
+            gender: item[6],
+            role: "student",
+            department: user.department,
+            classTeacher: user._id,
+            currentClass: user.classHandled,
+          };
+          const formData = new FormData();
+          formData.append("values", JSON.stringify(data));
+          await UserService.createUser(formData);
         })
-      );
+      )
+        .then((res) => {
+          toast.success("Student account created successfully");
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Failure creating students from CSV");
+        });
+      setIsLoading(false);
     }
   }
   return (

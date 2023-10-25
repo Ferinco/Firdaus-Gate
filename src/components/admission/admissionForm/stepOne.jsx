@@ -55,6 +55,7 @@ export default function StepOne({ setStep }) {
                 onChange={handleStudentPhotoChange}
                 className="form-control"
                 placeholder="student photo"
+                accept="image/*"
               />
             </div>
             {studentPhoto && (
@@ -134,12 +135,13 @@ export default function StepOne({ setStep }) {
           <div className="col-md-6 col-sm-6 mb-3">
             <div>
               <label className="form-label">Gender</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Gender"
-                {...register("gender")}
-              />
+              <select className="form-select" {...register("gender")}>
+                <option value="" disabled>
+                  -- select --
+                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
           </div>
           <div className="col-md-6 col-sm-6 mb-3">
@@ -207,7 +209,7 @@ export default function StepOne({ setStep }) {
             <div>
               <label className="form-label">Local Govt. Area</label>
               <input
-                type="file"
+                type="text"
                 className="form-control"
                 {...register("localGovernmentArea")}
                 placeholder="Local Govt. Area"
@@ -249,11 +251,15 @@ export default function StepOne({ setStep }) {
                 placeholder="Do you want to be a Day or Boarding Student"
                 {...register("dayOrBoarding")}
               >
+                <option value="" disabled>
+                  -- select --
+                </option>
                 <option value="day">Day</option>
                 <option value="boarding">Boarding</option>
               </select>
             </div>
           </div>
+          -
         </div>{" "}
         {/* <button className="btn-primary btn w-100"> Next</button> */}
         <div className="d-flex justify-content-end">
