@@ -9,12 +9,12 @@ import { Icon } from "@iconify/react";
 import { useAppContext } from "../../contexts/Context";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentTerm } from "../../redux/slices/term";
+import { PATH_DASHBOARD } from "../../routes/paths";
 import { generatePdfApi } from "../../api/axios";
 import { OverlayLoading } from "../../components/OverlayLoading";
 
-
 export default function StudentDashboard() {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [weeks, setWeeks] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [termName, setTermName] = useState("");
@@ -58,63 +58,60 @@ export default function StudentDashboard() {
   }, [startDate]);
   const lastWeek = weeks.length - 1;
 
+  //downloading current report
+  async function downloadReport(term) {
+    try {
+      setLoading(true);
+      const data = await ReportService.downloadReport({
+        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
+        selectedTerm: term,
+        selectedClass,
+        student: user._id,
+      });
 
+      if (data?.success) {
+        await axios
+          .post(
+            generatePdfApi,
+            { html: data.data },
+            { responseType: "arraybuffer" }
+          )
+          .then(({ data }) => {
+            const blob = new Blob([data]);
+            const url = window.URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.setAttribute(
+              "download",
+              `${user.admissionNumber}-${term}.pdf`
+            );
+            document.body.appendChild(link);
+            link.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(link);
 
-//downloading current report
-async function downloadReport(term) {
-  try {
-    setLoading(true);
-    const data = await ReportService.downloadReport({
-      classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
-      selectedTerm: term,
-      selectedClass,
-      student: user._id,
-    });
+            toast.success("Report downloaded successfully");
+          })
+          .catch((error) => {
+            toast.error("Error downloading report");
+            console.error(error);
+          });
+      }
 
-    if (data?.success) {
-      await axios
-        .post(
-          generatePdfApi,
-          { html: data.data },
-          { responseType: "arraybuffer" }
-        )
-        .then(({ data }) => {
-          const blob = new Blob([data]);
-          const url = window.URL.createObjectURL(blob);
-          var link = document.createElement("a");
-          link.href = url;
-          link.setAttribute(
-            "download",
-            `${user.admissionNumber}-${term}.pdf`
-          );
-          document.body.appendChild(link);
-          link.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(link);
-
-          toast.success("Report downloaded successfully");
-        })
-        .catch((error) => {
-          toast.error("Error downloading report");
-          console.error(error);
-        });
-    }
-
-    setLoading(false);
-  } catch (error) {
-    console.error("An error occurred:", error);
-    setLoading(false);
-    if (error?.response?.data?.message) {
-      toast.error(error.response.data.message);
-    }
-    if (error?.response?.status === 404) {
-      toast.error("Report is currently unavailable!");
-    } else {
-      toast.error("Network error, try again later");
+      setLoading(false);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      }
+      if (error?.response?.status === 404) {
+        toast.error("Report is currently unavailable!");
+      } else {
+        toast.error("Network error, try again later");
+      }
     }
   }
-}
-
 
   return (
     <Dashboard>
@@ -165,9 +162,7 @@ async function downloadReport(term) {
           <div className="tabs w-100 pt-5 pt-lg-0 ">
             <div className="d-none mobile-tabs row">
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-             
                 current term
-    
                 <h5>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
@@ -179,9 +174,7 @@ async function downloadReport(term) {
                 </h5>
               </div>
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-              
                 current week
-              
                 <h5>
                   {lastWeek < 0 ? (
                     <div className="spinner-border" role="status">
@@ -193,9 +186,7 @@ async function downloadReport(term) {
                 </h5>
               </div>
               <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-              
                 current week
-              
                 <h5>
                   {lastWeek < 0 ? (
                     <div className="spinner-border" role="status">
@@ -231,11 +222,11 @@ async function downloadReport(term) {
                 </div>
               </div>
             </div>
-            <a
-              className=" tab d-flex flex-row"
-              onClick={() => downloadReport(termName)}
+            <Link
+              to={PATH_DASHBOARD.student.results}
+              className="tab d-flex flex-row"
             >
-              <div className="tab-right ">
+              <div className="tab-right">
                 <div className="icon-div">
                   <Icon
                     icon="icon-park-twotone:table-report"
@@ -243,8 +234,8 @@ async function downloadReport(term) {
                   />
                 </div>
                 <div className="text d-flex flex-column">
-                  <h6>REPORT</h6>
-                  <p>download report</p>
+                  <h6>RESULTS</h6>
+                  <p>View Results</p>
                 </div>
               </div>
               <div className="tab-left">
@@ -253,7 +244,7 @@ async function downloadReport(term) {
                   className="big-icon"
                 />
               </div>
-            </a>
+            </Link>
 
             <div className="tab ">
               <div className="tab-right">
@@ -262,7 +253,7 @@ async function downloadReport(term) {
                 </div>
                 <div className="text d-flex flex-column">
                   <h6>SCHEME</h6>
-                  <p>class scheme</p>
+                  <p>Class Scheme</p>
                 </div>
               </div>
               <div className="tab-left">
@@ -270,34 +261,33 @@ async function downloadReport(term) {
               </div>
             </div>
             <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
-          <div className="info">
-            current Term
-            <h5>
-              {termName === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                termName
-              )}
-            </h5>
-          </div>
-          <div className="info">
-            current week{" "}
-            <h5>
-              {lastWeek < 0 ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                lastWeek
-              )}
-            </h5>
+              <div className="info">
+                current Term
+                <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
+              </div>
+              <div className="info">
+                current week{" "}
+                <h5>
+                  {lastWeek < 0 ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    lastWeek
+                  )}
+                </h5>
+              </div>
+            </div>
           </div>
         </div>
-          </div>
-        </div>
-       
       </div>
     </Dashboard>
   );
@@ -348,10 +338,10 @@ const Dashboard = styled.div`
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding:7px;
-p{
-  font-weight: 500;
-}
+        padding: 7px;
+        p {
+          font-weight: 500;
+        }
         &:first-child {
           background-color: #8080ff;
           color: white;
@@ -359,7 +349,6 @@ p{
         &:nth-child(2) {
           background-color: #d9a26b;
           color: white;
-
         }
       }
     }
@@ -432,9 +421,9 @@ p{
     .tabs {
       gap: 30px;
       margin-left: 3px !important;
-    display: flex;
-    flex-direction: row ;
-    justify-content: space-between;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       .tab {
         border-radius: 30px;
         height: 200px;
@@ -446,6 +435,7 @@ p{
         align-items: center !important;
         padding: 15px;
         text-decoration: none !important;
+        cursor: pointer;
         .tab-right {
           display: flex;
           flex-direction: column;
@@ -542,7 +532,7 @@ p{
     }
   }
   @media screen and (max-width: 600px) {
-    .middle-div{
+    .middle-div {
       padding: 24px !important;
     }
     .details-wrapper {
@@ -568,12 +558,12 @@ p{
       .tab {
         height: 120px !important;
         text-align: center;
-       padding: 5px 10px !important;
-        h5{
-          font-size: 17px ;
+        padding: 5px 10px !important;
+        h5 {
+          font-size: 17px;
         }
-        p{
-font-size: 13px;
+        p {
+          font-size: 13px;
         }
         &:first-child {
           background-color: #65655d;
@@ -582,7 +572,6 @@ font-size: 13px;
         &:nth-child(2) {
           background-color: #d9a26b;
           color: white !important;
-
         }
       }
     }

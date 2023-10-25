@@ -13,18 +13,16 @@ export default function AdmissionForm() {
   }, []);
 
   return (
-    <div className="container">
-      {showGuidelines && (
-        <AdmissionGuideline
-          onToggle={handleToggleGuideline}
-          isShow={showGuidelines}
-        />
-      )}
-      <div className="row justify-content-between">
-        <div className="col-md-4"></div>
-        <div className="col-md-6">
-          <AdmissionFormSteps />
-        </div>
+    <div className="bg-light">
+      <div className="container">
+        {showGuidelines && (
+          <AdmissionGuideline
+            onToggle={handleToggleGuideline}
+            isShow={showGuidelines}
+          />
+        )}
+
+        <AdmissionFormSteps />
       </div>
     </div>
   );

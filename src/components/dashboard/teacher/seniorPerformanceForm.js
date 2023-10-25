@@ -76,7 +76,7 @@ const SeniorPerformanceForm = ({
   ]);
 
   return (
-    <Wrapper className=" py-4">
+    <Wrapper className=" py-2 px-2">
       <div className=" fields">
         <div className="field d-flex flex-column">
           <label>
@@ -85,7 +85,11 @@ const SeniorPerformanceForm = ({
 
           <Controller
             render={({ field }) => (
-              <select defaultValue="Select subject" {...field}>
+              <select
+                className="form-select"
+                defaultValue="Select subject"
+                {...field}
+              >
                 {seniorSchoolSubjects.map((item, index) => (
                   <option value={item.name} key={index}>
                     {item.name}
@@ -97,45 +101,47 @@ const SeniorPerformanceForm = ({
             control={control}
           />
         </div>
-<div className="d-flex flex-row align-items-center gap-1 no-wrap">
-<div className="field">
-          <label>
-            <small>C.A score</small>
-          </label>
-          <Controller
-            render={({ field }) => <Input placeholder="C.A score" {...field} />}
-            name={`performance.${index}.continuousAssessmentScore`}
-            control={control}
-          />
-        </div>
-        <div className="field">
-          <label>
-            <small>Exam score</small>
-          </label>
+        <div className="d-flex flex-row align-items-center gap-1 no-wrap">
+          <div className="field">
+            <label>
+              <small>C.A score</small>
+            </label>
+            <Controller
+              render={({ field }) => (
+                <Input placeholder="C.A score" {...field} />
+              )}
+              name={`performance.${index}.continuousAssessmentScore`}
+              control={control}
+            />
+          </div>
+          <div className="field">
+            <label>
+              <small>Exam score</small>
+            </label>
 
-          <Controller
-            render={({ field }) => (
-              <Input placeholder="Exam score" {...field} />
-            )}
-            name={`performance.${index}.examScore`}
-            control={control}
-          />
-        </div>
-        <div className="field">
-          <label>
-            <small>Total W.A </small>
-          </label>
+            <Controller
+              render={({ field }) => (
+                <Input placeholder="Exam score" {...field} />
+              )}
+              name={`performance.${index}.examScore`}
+              control={control}
+            />
+          </div>
+          <div className="field">
+            <label>
+              <small>Total W.A </small>
+            </label>
 
-          <Input placeholder="Total Weighted Average" value={getWA} />
-        </div>
-        <div className="field">
-          <label>
-            <small>Position G</small>
-          </label>
+            <Input placeholder="Total Weighted Average" value={getWA} />
+          </div>
+          <div className="field">
+            <label>
+              <small>Position G</small>
+            </label>
 
-          <Input placeholder="Position grade" value={getPositionGrade()} />
+            <Input placeholder="Position grade" value={getPositionGrade()} />
 
-          {/* <Controller
+            {/* <Controller
             name={`performance[${index}].positionGrade`}
             control={control}
             render={({ field }) => (
@@ -145,59 +151,50 @@ const SeniorPerformanceForm = ({
               />
             )}
           /> */}
-        </div>
-        <div className="field">
-          <label>
-            <small>Comment</small>
-          </label>
+          </div>
+          <div className="field">
+            <label>
+              <small>Comment</small>
+            </label>
 
-          <Input
-            placeholder="comment"
-            value={getComment()}
-            onChange={(e) =>
-              setValue(`performance.${index}.comment`, e.target.value)
-            }
-          />
+            <Input
+              placeholder="comment"
+              value={getComment()}
+              onChange={(e) =>
+                setValue(`performance.${index}.comment`, e.target.value)
+              }
+            />
+          </div>
         </div>
-        <div>
-        <button className="remove-btn" onClick={() => remove(index)}>
-          X
-        </button>
+        <div className="d-flex mt-3 justify-content-end">
+          <button
+            className="btn btn-outline-danger btn-sm"
+            onClick={() => remove(index)}
+          >
+            Remove
+          </button>
+        </div>
       </div>
-</div>
-
-      </div>
-     
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-border-bottom: 1px solid #f1f1f1;
   .fields {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
-    @media screen and (max-width:550px) {
-    flex-direction:column;
-    justify-content: left;
-    align-items: start;
+    @media screen and (max-width: 550px) {
+      flex-direction: column;
+      justify-content: left;
+      align-items: start;
     }
   }
   /* grid-template-columns: repeat(6, 1fr); */
 
   gap: 10px;
   .remove-btn {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: red;
-    font-size: 12px;
-    color: white;
-    border: 0;
   }
 `;
 

@@ -3,17 +3,29 @@ import { useSelector } from "react-redux";
 
 export default function StepFour({ setStep }) {
   const admissionData = useSelector((state) => state.admission);
-  const handleSubmit = () => {
-    console.log(admissionData);
-    setStep(1);
-  };
+
   return (
     <div>
-      <h1>Confirm details</h1>
+      <h4 className="py-3">Admission Confirmation</h4>
 
-      <button className="btn btn-primary w-100" onClick={handleSubmit}>
+      <p>
+        We've received your admission application and payment. Thank you for
+        choosing Firdaus Gate Model Schools. Your application is now under
+        review.
+      </p>
+      <ul>
+        <li>Application ID: [Your Application ID]</li>
+        <li>Payment Confirmation: [Payment Confirmation Number]</li>
+        <li>Program: [Program/Admission Type]</li>
+      </ul>
+
+      <p>Expect updates via email or phone. We're excited to have you apply.</p>
+      {/* <button className="btn btn-primary w-100" onClick={handleSubmit}>
         Submit{" "}
-      </button>
+      </button> */}
+      <div className="py-4">
+        <button>Download Receipt</button>
+      </div>
     </div>
   );
 }

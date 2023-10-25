@@ -13,8 +13,9 @@ import toast from "react-hot-toast";
 import { ControlButton } from "../../components/custom/Button";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import AddCSV from "../../components/AddCSV";
 export default function MyClass() {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
@@ -25,25 +26,28 @@ export default function MyClass() {
   const [searched, setSearched] = useState([]);
   const [deleteId, setDeleteId] = useState("");
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   //handle input on search form
   let inputHandler = (e) => {
     const inputValue = e.target.value.toLowerCase();
     setSearchQuery(inputValue);
   };
 
-
-
   //pagination of student lists
   const [offset, setOffset] = useState(0);
   const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+  const [CSVOpen, setCSVOpen] = useState(false);
+  const [csvData, setCsvData] = useState([]);
 
   useEffect(() => {
     const FetchStudents = async () => {
       try {
-        const res = await UserService.findUsers({ role: "student", classTeacher: user._id });
+        const res = await UserService.findUsers({
+          role: "student",
+          classTeacher: user._id,
+        });
         console.log(res);
         console.log(res.data);
         setPageData(res.data);
@@ -74,7 +78,7 @@ const dispatch = useDispatch()
     performSearch(searchQuery);
   }, [searchQuery]);
 
-  console.log(pageData);
+  // console.log(pageData);
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -93,8 +97,52 @@ const dispatch = useDispatch()
         toast.error("unable to delete student account");
       });
   };
+
+  async function createCsvUsers() {
+    if (csvData.length) {
+      let newStudents = csvData.slice(1);
+      setIsLoading(true);
+      Promise.all(
+        newStudents.map(async (item) => {
+          const data = {
+            firstName: item[0],
+            lastName: item[1],
+            middleName: item[2],
+            admissionNumber: item[3],
+            parentPhone: item[4],
+            email: item[5],
+            gender: item[6],
+            role: "student",
+            department: user.department,
+            classTeacher: user._id,
+            currentClass: user.classHandled,
+          };
+          const formData = new FormData();
+          formData.append("values", JSON.stringify(data));
+          await UserService.createUser(formData);
+        })
+      )
+        .then((res) => {
+          toast.success("Student account created successfully");
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Failure creating students from CSV");
+        });
+      setIsLoading(false);
+    }
+  }
   return (
     <Students className="d-flex flex-column">
+      {CSVOpen && (
+        <AddCSV
+          onClose={() => setCSVOpen(false)}
+          setData={setCsvData}
+          data={csvData}
+          handleSubmit={createCsvUsers}
+        />
+      )}
       <div className="d-flex p-5 header flex-column">
         <h4>My Students</h4>
         <p>see full list of your students</p>
@@ -102,7 +150,7 @@ const dispatch = useDispatch()
       {isLoading ? <CircularProgress /> : ""}
       {pageData.length > 0 ? (
         <>
-          <div className="d-flex p-5 justify-content-end">
+          <div className="d-flex p-5 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" />
               <input
@@ -114,6 +162,7 @@ const dispatch = useDispatch()
                 }}
               />
             </div>
+            <button onClick={() => setCSVOpen(true)}>Import CSV file</button>
           </div>
           {activeSearch ? (
             <>
@@ -163,15 +212,15 @@ const dispatch = useDispatch()
                             </td>
                             <td>
                               <Link to="">
-                              <button
-                          onClick={() => {
-                            setOverlay(true);
-                            setDeleteId(student._id);
-                          }}
-                          className="delete-button"
-                        >
-                          delete
-                        </button>
+                                <button
+                                  onClick={() => {
+                                    setOverlay(true);
+                                    setDeleteId(student._id);
+                                  }}
+                                  className="delete-button"
+                                >
+                                  delete
+                                </button>
                               </Link>
                             </td>
                           </tr>
@@ -251,15 +300,15 @@ const dispatch = useDispatch()
                         </td>
                         <td>
                           <Link to="">
-                          <button
-                          onClick={() => {
-                            setOverlay(true);
-                            setDeleteId(student._id);
-                          }}
-                          className="delete-button"
-                        >
-                          delete
-                        </button>
+                            <button
+                              onClick={() => {
+                                setOverlay(true);
+                                setDeleteId(student._id);
+                              }}
+                              className="delete-button"
+                            >
+                              delete
+                            </button>
                           </Link>
                         </td>
                       </tr>
@@ -293,43 +342,45 @@ const dispatch = useDispatch()
         </>
       ) : (
         <div className="d-flex justify-content-center center align-center px-5">
-            <p>
+          <p>
             No list to display... navigate to the{" "}
             <Link to={PATH_DASHBOARD.teacher.create}>
               register student(s) to create a student's profile
             </Link>
-            </p>
+            <br />
+            <button onClick={() => setCSVOpen(true)}>Import CSV file</button>
+          </p>
         </div>
       )}
 
       {overlay ? (
-       <div className="overlay-wrapper d-flex ">
-       <div
-         className={`d-flex flex-column p-3 overlay-options ${
-           overlay ? "open" : "close"
-         }`}
-       >
-         <p>Are you sure you want to delete this student profile?</p>
-         <div className=" buttons d-flex gap-3">
-           <button
-             className="left"
-             onClick={() => {
-               handleDeleteUser(deleteId);
-             }}
-           >
-             yes
-           </button>
-           <button
-             className="right"
-             onClick={() => {
-               setOverlay(false);
-             }}
-           >
-             no
-           </button>
-         </div>
-       </div>
-     </div>
+        <div className="overlay-wrapper d-flex ">
+          <div
+            className={`d-flex flex-column p-3 overlay-options ${
+              overlay ? "open" : "close"
+            }`}
+          >
+            <p>Are you sure you want to delete this student profile?</p>
+            <div className=" buttons d-flex gap-3">
+              <button
+                className="left"
+                onClick={() => {
+                  handleDeleteUser(deleteId);
+                }}
+              >
+                yes
+              </button>
+              <button
+                className="right"
+                onClick={() => {
+                  setOverlay(false);
+                }}
+              >
+                no
+              </button>
+            </div>
+          </div>
+        </div>
       ) : (
         ""
       )}
