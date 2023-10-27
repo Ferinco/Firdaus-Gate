@@ -5,6 +5,7 @@ import { Home } from "../pages";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
+import Settings from "../pages/settings";
 import {
   TeacherDashboard,
   CreateResult,
@@ -85,6 +86,7 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
+        {path:"account-settimgs", element: <Settings/>}
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -104,7 +106,7 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-
+        {path:"account-settimgs", element: <Settings/>}
         // {path: "/teacher/my-class", element: <MyClass/>},
         // {path: "/teacher/results", element: <Results/>}
       ],

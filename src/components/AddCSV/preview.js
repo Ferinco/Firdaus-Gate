@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 export default function Preview({ setStage, data, setData }) {
   console.log(data);
@@ -11,8 +12,8 @@ export default function Preview({ setStage, data, setData }) {
   }
 
   return (
-    <>
-      <>
+      <Wrapper className="mt-5">
+    <div>
         <table className="table">
           <thead>
             <tr>
@@ -45,7 +46,11 @@ export default function Preview({ setStage, data, setData }) {
             })}
           </tbody>
         </table>
-      </>
-    </>
+    </div>
+      </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+height: fit-content;
+`

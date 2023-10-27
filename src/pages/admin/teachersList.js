@@ -9,7 +9,8 @@ import ReactPaginate from "react-paginate";
 import { deleteUser, fetchUsers, editUser } from "../../redux/slices/users";
 import { Icon } from "@iconify/react";
 import { ControlButton } from "../../components/custom/Button";
-
+import AddCSV from "../../components/AddCSV";
+import { UserService } from "../../services/userService";
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [overlay, setOverlay] = useState(false);
@@ -44,11 +45,17 @@ export default function TeachersList() {
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(5);
   const [deleteId, setDeleteId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+//to manage csv file uplaod
+const [CSVOpen, setCSVOpen] = useState(false);
+const [csvData, setCsvData] = useState([]);
 
   useEffect(() => {
     dispatch(fetchUsers({ role: "teacher" }));
+    setIsLoading(false)
   }, []);
-  const { users, isLoading } = useSelector((state) => state.users);
+  const { users } = useSelector((state) => state.users);
 
   //handle navigation of pages to next || previous
   const handlePageClick = (e) => {
@@ -62,6 +69,8 @@ export default function TeachersList() {
     setPageCount(Math.ceil(users.length / perPage));
   }, [users, offset]);
 
+
+  //delete teacher
   const handleDeleteUser = async (id) => {
     dispatch(deleteUser({ id: id }))
       .unwrap()
@@ -74,6 +83,46 @@ export default function TeachersList() {
         console.log(error);
       });
   };
+
+
+  async function createCsvUsers(){
+    if(csvData.length){
+      let newTeachers = csvData.slice(1)
+      setIsLoading(true)
+      Promise.all(
+        newTeachers && newTeachers.map(async (item)=> {
+          const data = {
+            firstName: item[0],
+            middleName: item[1],
+            lastName: item[2],
+            teacherId: item[3],
+            classHandled: item[4],
+            tel: item[5],
+            email: item[6],
+            gender: item[7],
+            subjectTaught: item[8],
+            role: "teacher"
+          }
+          const formData = new FormData();
+          formData.append("values", JSON.stringify(data));
+          await UserService.createUser(formData);
+        })
+      )
+      .then((res) => {
+        toast.success("Teacher accounts created successfully");
+        console.log(res);
+        setCSVOpen(false)
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Failure creating teachers from CSV");
+        setCSVOpen(false)
+      });
+    setIsLoading(false);
+    }
+  }
+
+
   const handleEditUser = async (id) => {
     dispatch(editUser({ id: id }))
       .unwrap()
@@ -86,6 +135,14 @@ export default function TeachersList() {
   };
   return (
     <Wrapper className="d-flex flex-column">
+            {CSVOpen && (
+        <AddCSV
+          onClose={() => setCSVOpen(false)}
+          setData={setCsvData}
+          data={csvData}
+          handleSubmit={createCsvUsers}
+        />
+      )}
       <div className="header p-5">
         <h4>List of Teachers</h4>
         <p>View and edit details of teachers</p>
@@ -94,7 +151,7 @@ export default function TeachersList() {
       {isLoading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
         <>
-          <div className="d-flex p-5 justify-content-end">
+          <div className="d-flex p-5 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" />
               <input
@@ -106,6 +163,7 @@ export default function TeachersList() {
                 }}
               />
             </div>
+            <button onClick={() => setCSVOpen(true)}>Import CSV file</button>
           </div>
           {activeSearch ? (
             <>

@@ -71,8 +71,8 @@ export default function StudentSidebar() {
           </div>
         </div>
         <div className="log-out d-flex flex-column pl-4">
-          <Link to="" className="react-router-link nav-link pl-5 py-1">
-            <Icon icon="ic:baseline-settings" />
+          <Link to={PATH_DASHBOARD.student.accountSettings} className="react-router-link nav-link pl-5 py-1">
+            <Icon icon="ic:baseline-settings"  />
             Settings
           </Link>
           <div

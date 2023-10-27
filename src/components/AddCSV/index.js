@@ -54,7 +54,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
   }
   return (
     <>
-      <CsvWrapper>
+      <CsvWrapper className="py-5">
         <div className="card card-modal">
           <div className="card-header">
             <h5>{renderTitle()}</h5>
@@ -95,6 +95,9 @@ const CsvWrapper = styled.div`
   flex-flow: row;
   align-items: center;
   justify-content: center;
+  border: 1px solid black;
+  z-index: 999;
+  overflow: scroll;
   .card {
     width: auto;
     height: auto;
