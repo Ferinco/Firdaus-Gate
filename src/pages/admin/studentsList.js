@@ -11,12 +11,15 @@ import { ControlButton } from "../../components/custom/Button";
 import { deleteUser, fetchUsers } from "../../redux/slices/users";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import AddCSV from "../../components/AddCSV";
+import { useAuth } from "../../hooks/useAuth";
 //the whole component
 export default function StudentsList() {
+  const { user } = useAuth();
   const [students, setStudents] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   //states to manage pagination of studentlist
@@ -29,6 +32,9 @@ export default function StudentsList() {
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searched, setSearched] = useState([]);
+  const [CSVOpen, setCSVOpen] = useState(false);
+  const [csvData, setCsvData] = useState([]);
+
 
   //handle input on search form
   let inputHandler = (e) => {
@@ -52,10 +58,10 @@ export default function StudentsList() {
 
   //fetching student details
   useEffect(() => {
-    dispatch(fetchUsers({ role: "student" }));
+    dispatch(fetchUsers({ role: "student" , classTeacher: user._id}));
   }, []);
 
-  const { users, isLoading } = useSelector((state) => state.users);
+  const { users } = useSelector((state) => state.users);
   useEffect(() => {
     const slice = users.slice(offset, offset + perPage);
     setStudents(slice);
@@ -81,8 +87,49 @@ export default function StudentsList() {
         toast.error("unable to delete student account");
       });
   };
+  async function createCsvUsers() {
+    if (csvData.length) {
+      let newStudents = csvData.slice(1);
+      setIsLoading(true);
+      Promise.all(
+        newStudents.map(async (item) => {
+          const data = {
+            firstName: item[0],
+            lastName: item[1],
+            middleName: item[2],
+            admissionNumber: item[3],
+            parentPhone: item[4],
+            email: item[5],
+            gender: item[6],
+            role: "student",
+            currentClass: user.classHandled,
+          };
+          const formData = new FormData();
+          formData.append("values", JSON.stringify(data));
+          await UserService.createUser(formData);
+        })
+      )
+        .then((res) => {
+          toast.success("Student account created successfully");
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Failure creating students from CSV");
+        });
+      setIsLoading(false);
+    }
+  }
   return (
     <Wrapper className="d-flex flex-column">
+            {CSVOpen && (
+        <AddCSV
+          onClose={() => setCSVOpen(false)}
+          setData={setCsvData}
+          data={csvData}
+          handleSubmit={createCsvUsers}
+        />
+      )}
       <div className="header p-5">
         <h4>List of Students</h4>
         <p>view and edit student(s) details here...</p>
@@ -90,7 +137,7 @@ export default function StudentsList() {
       {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
         <>
-      <div className="d-flex p-5 justify-content-end">
+      <div className="d-flex p-5 justify-content-between">
         <div className="search-field d-flex gap-3 align-items-center">
           <Icon icon="circum:search" color="gray" />
           <input
@@ -102,6 +149,7 @@ export default function StudentsList() {
             }}
           />
         </div>
+        <button onClick={() => setCSVOpen(true)}>Import CSV file</button>
       </div>
       {activeSearch? (
         <>

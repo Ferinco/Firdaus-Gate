@@ -17,7 +17,7 @@ import AddCSV from "../../components/AddCSV";
 export default function MyClass() {
   const { user } = useAuth();
   const [students, setStudents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [overlay, setOverlay] = useState(false);
 
   //search students' list

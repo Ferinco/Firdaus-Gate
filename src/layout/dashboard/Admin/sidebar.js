@@ -115,6 +115,9 @@ const SIDEBAR = styled.div`
     align-items: center;
     position: fixed;
     background-color: black;
+    
+    padding-right: 0 !important;
+
   }
   .nav-container {
     width: 100%;
@@ -123,6 +126,7 @@ const SIDEBAR = styled.div`
     height: 60% !important;
     width: 100%;
     align-items: center;
+    padding-right: 0 !important;
   }
   .nav-links {
     gap: 30px;

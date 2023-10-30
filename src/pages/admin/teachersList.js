@@ -90,7 +90,7 @@ const [csvData, setCsvData] = useState([]);
       let newTeachers = csvData.slice(1)
       setIsLoading(true)
       Promise.all(
-        newTeachers && newTeachers.map(async (item)=> {
+       newTeachers.map(async (item)=> {
           const data = {
             firstName: item[0],
             middleName: item[1],

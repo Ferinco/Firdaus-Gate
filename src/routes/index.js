@@ -86,7 +86,7 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
-        {path:"account-settimgs", element: <Settings/>}
+        {path:"account-settings", element: <Settings/>}
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -106,11 +106,8 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-        {path:"account-settimgs", element: <Settings/>}
-        // {path: "/teacher/my-class", element: <MyClass/>},
-        // {path: "/teacher/results", element: <Results/>}
+        {path:"/student/account-settings", element: <Settings/>}
       ],
-      // children: [{ path: "/student", element: <ProgressPage /> }],
     },
 
     //PRIVATE ROUTES FOR ADMIN

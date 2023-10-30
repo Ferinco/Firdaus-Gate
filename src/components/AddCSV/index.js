@@ -91,11 +91,11 @@ const CsvWrapper = styled.div`
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   display: flex;
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   z-index: 999;
   overflow: scroll;
   .card {

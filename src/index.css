@@ -63,7 +63,7 @@ h6 {
 }
 .table-div,
 .not-found {
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   height: 360px !important;
 }
 .not-found {

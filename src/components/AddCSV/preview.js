@@ -12,7 +12,7 @@ export default function Preview({ setStage, data, setData }) {
   }
 
   return (
-      <Wrapper className="mt-5">
+      <Wrapper className="mt-5 d-flex justify-content-center">
     <div>
         <table className="table">
           <thead>
