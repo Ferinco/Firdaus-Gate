@@ -74,6 +74,7 @@ export default function TeacherSidebar() {
               className={`nav-link react-router-link ${
                 activeTab === "Log out" ? "active-tab" : ""
               }`}
+              to={PATH_DASHBOARD.teacher.accountSettings}
             > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
             <button
               to=""

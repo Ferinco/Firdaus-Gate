@@ -392,6 +392,7 @@ const Dashboard = styled.div`
       height: auto;
       border-radius: 10px;
       padding-top: 5px;
+   
       &:first-child {
         background-color: #b3b3b3;
         .icon-div {

@@ -56,7 +56,7 @@ export default function Settings() {
           }}
           className={activeNav === "Profile" ? "navigator active" : "navigator"}
         >
-          <Icon icon="icomoon-free:profile" /> Profile
+          <Icon icon="icomoon-free:profile" className="icon"/> Profile
         </div>
         <div
           onClick={() => {
@@ -66,7 +66,7 @@ export default function Settings() {
             activeNav === "Security" ? "navigator active" : "navigator"
           }
         >
-          <Icon icon="mdi:key" /> Security
+          <Icon icon="mdi:key" className="icon"/> Security
         </div>
       </div>
       {activeNav === "Profile" ? (
@@ -117,11 +117,13 @@ export default function Settings() {
               </div>
               <div className="d-flex flex-column col-md-6 class">
                 <label htmlFor="class" className="label">
-                  {user.role === "student"
-                    ? user.currentClass
-                    : user.classHandled}
+                {user.role === "student"
+                    ? "current class"
+                    : "class handled"}
                 </label>
-                <input readOnly value={user.currentClass} name="class" />
+                <input readOnly value=  {user.role === "student"
+                    ? user.currentClass
+                    : user.classHandled} name="class" />
               </div>
             </div>
             <div className="row mt-4">
@@ -173,7 +175,8 @@ export default function Settings() {
                 </p>
             </div>
             <div className="d-flex flex-column">
-              <input name="confirmPwd" {...register("confirmPwd")} />
+              <input name="confirmPwd" {...register("confirmPwd")} 
+              placeholder="Confirm new password"/>
               <p className="error-message">
                   {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
                 </p>
@@ -252,5 +255,8 @@ max-width: 500px;
     padding-left: 7px;
     font-size: 13px;
     font-weight: 500;
+  }
+  .icon{
+    font-size: 15px;
   }
 `;
