@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../contexts/Context";
@@ -33,15 +33,14 @@ const sidebarConfig = [
 
 export default function StudentSidebar() {
   const { logout } = useAuth();
-  const [activeTab, setActiveTab] = useState("Dashboard")
-  const { isSidebarOpen, setIsSidebarOpen ,setIsProfileOpen} =
-    useAppContext();
-    function handleNavClick(title){
-      setActiveTab(title)
-      console.log(activeTab)
-      setIsSidebarOpen(false)
-      setIsProfileOpen(false)
-        }
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
+  function handleNavClick(title) {
+    setActiveTab(title);
+    console.log(activeTab);
+    setIsSidebarOpen(false);
+    setIsProfileOpen(false);
+  }
   return (
     <SIDEBAR>
       <div
@@ -49,43 +48,51 @@ export default function StudentSidebar() {
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-<div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
-        <div className="wrapper d-flex flex-column justify-content-between">
-          <div className="logo">
-            <Link className="react-router-link" to={PATH_PAGE.home}>
-              <img src="/images/logo.png" />
-            </Link>
-          </div>
-          <div className="nav-links d-flex flex-column ">
-            {sidebarConfig.map(({ icon, link, title }, index) => (
-              <Link
-                to={link}
-                key={index}
-                className={`nav-link react-router-link px-5 py-2 ${activeTab === title ? "active-tab" : ""}`}
-                onClick={()=> handleNavClick(title)}
-              >
-                <Icon icon={icon} />
-                {title}
+        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
+          <div className="wrapper d-flex flex-column justify-content-between">
+            <div className="logo">
+              <Link className="react-router-link" to={PATH_PAGE.home}>
+                <img src="/images/logo.png" />
               </Link>
-            ))}
+            </div>
+            <div className="nav-links d-flex flex-column ">
+              {sidebarConfig.map(({ icon, link, title }, index) => (
+                <Link
+                  to={link}
+                  key={index}
+                  className={`nav-link react-router-link px-5 py-2 ${
+                    activeTab === title ? "active-tab" : ""
+                  }`}
+                  onClick={() => handleNavClick(title)}
+                >
+                  <Icon icon={icon} />
+                  {title}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="log-out d-flex flex-column pl-4">
-          <Link to={PATH_DASHBOARD.student.accountSettings} className="react-router-link nav-link pl-5 py-1">
-            <Icon icon="ic:baseline-settings"  />
-            Settings
-          </Link>
-          <div
-            className="react-router-link nav-link pl-5 py-1"
-            onClick={logout}
-          >
-            <Icon
-              icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
-              rotate={2}
-            />
-            Log out
+          <div className="log-out d-flex flex-column pl-4">
+            <Link
+              to={PATH_DASHBOARD.student.accountSettings}
+              className={`react-router-link nav-link pl-5 py-2 ${
+                activeTab === "Settings" ? "active-tab" : ""
+              }`}
+              onClick={() => handleNavClick("Settings")}
+            >
+              <Icon icon="ic:baseline-settings" />
+              Settings
+            </Link>
+            <div
+              className="react-router-link nav-link pl-5 py-1"
+              onClick={logout}
+            >
+              <Icon
+                icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
+                rotate={2}
+              />
+              Log out
+            </div>
           </div>
-        </div>
         </div>
         <Closer
           className="d-flex"
@@ -102,8 +109,9 @@ const SIDEBAR = styled.div`
   height: 100vh;
   width: 20%;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   .container {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     width: 20%;
     height: 100vh;
     align-items: center;
@@ -127,18 +135,17 @@ const SIDEBAR = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    &:hover{
+    &:hover {
       transition: 0.3s;
     }
-    @media screen and (max-width:1342px) {
+    @media screen and (max-width: 1342px) {
       padding-left: 24px !important;
       padding-right: 24px !important;
-
     }
   }
-  .active-tab{
-    color:  #9ea0e7 !important;
-    background-color: #e6ffff;
+  .active-tab {
+    color: blue !important;
+    background-color: #f5f5f5;
   }
   .logo {
     height: 70px;
@@ -153,7 +160,7 @@ const SIDEBAR = styled.div`
     }
   }
   .log-out {
-    gap: 30px;
+    gap: 10px;
     width: 100%;
   }
   @media screen and (max-width: 1100px) {
@@ -201,4 +208,3 @@ const Closer = styled.div`
     width: calc(100vw - 250px);
   }
 `;
-

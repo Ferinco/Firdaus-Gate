@@ -151,7 +151,7 @@ export default function Settings() {
         ) : (
       <div className="out mt-5 p-3">
           <form
-            className="security-div d-flex flex-column gap-4"
+            className="security-div d-flex flex-column gap-2"
             onSubmit={handleSubmit(onSubmitSecurity)}
           >
             <div className="d-flex flex-column">
