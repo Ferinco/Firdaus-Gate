@@ -6,3 +6,4 @@ export { default as CreateTerm } from "./createTerm";
 export { default as AdminLogin } from "./authentication/login";
 export { default as ActiveApplications } from "./activeApplications"
 export {default as CreateCalendar} from "./createCalendar"
+export {default as AdminSettings} from "./adminSettings"

@@ -40,13 +40,13 @@ export default function TeacherSidebar() {
     setIsProfileOpen(false);
   }
   return (
-    <SIDEBAR className="d-flex">
+    <SIDEBAR className="d-flex ">
       <div
-        className={`container d-flex flex-row ${
+        className={`container d-flex flex-row pr-0 ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
+        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0 ">
           <div className="wrapper d-flex flex-column justify-content-between">
             <div className="logo">
               <Link className="react-router-link" to={PATH_PAGE.home}>
@@ -72,9 +72,10 @@ export default function TeacherSidebar() {
           <div className="log-out nav-links d-flex flex-column pl-5">
           <Link
               className={`nav-link react-router-link ${
-                activeTab === "Log out" ? "active-tab" : ""
+                activeTab === "Settings" ? "active-tab" : ""
               }`}
               to={PATH_DASHBOARD.teacher.accountSettings}
+              onClick={() => handleNavClick("Settings")}
             > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
             <button
               to=""
@@ -114,7 +115,7 @@ const SIDEBAR = styled.div`
     background-color: black;
   }
   .nav-container {
-    width: 100%;
+    width: 100% ;
   }
   .wrapper {
     height: 60% !important;
@@ -124,6 +125,8 @@ const SIDEBAR = styled.div`
   .nav-links {
     gap: 30px;
     width: 100%;
+width: 100% !important;
+
   }
   .nav-link {
     font-weight: 700 !important;
@@ -132,7 +135,6 @@ const SIDEBAR = styled.div`
     justify-content: left !important;
     gap: 20px;
     align-items: center;
-
     &:hover {
       color: white !important;
       transition: 0.3s;

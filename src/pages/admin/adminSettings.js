@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { Button } from "../components/custom/Button";
+import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-export default function Settings() {
+export default function AccountSettings() {
   const [activeNav, setActiveNav] = useState("Profile");
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -19,6 +19,8 @@ export default function Settings() {
     console.log("data");
   };
   const schema = yup.object({
+    firstName: yup.string().required("first name is required"),
+    lastName: yup.string().required("last name is required"),
     oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
     newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
     tel: yup
@@ -39,7 +41,9 @@ export default function Settings() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      tel: user.role === "student" ? user.parentPhone : user.tel,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      tel: user.tel,
       oldPwd: "",
       confirmPwd: "",
       newPwd: "",
@@ -56,7 +60,7 @@ export default function Settings() {
           }}
           className={activeNav === "Profile" ? "navigator active" : "navigator"}
         >
-          <Icon icon="icomoon-free:profile" className="icon"/> Profile
+          <Icon icon="icomoon-free:profile" className="icon" /> Profile
         </div>
         <div
           onClick={() => {
@@ -66,11 +70,11 @@ export default function Settings() {
             activeNav === "Security" ? "navigator active" : "navigator"
           }
         >
-          <Icon icon="mdi:key" className="icon"/> Security
+          <Icon icon="mdi:key" className="icon" /> Security
         </div>
       </div>
       {activeNav === "Profile" ? (
-      <div className="div mt-5 p-3">
+        <div className="div mt-5 p-3">
           <form
             className="profile-div"
             onSubmit={handleSubmit(onSubmitProfile)}
@@ -81,49 +85,22 @@ export default function Settings() {
                   First name
                 </label>
                 <input
-                  value={user.firstName}
                   name="firstName"
                   type="text"
                   {...register("firstName")}
-                  readOnly
                 />
+                  <p className="error-message">
+                  {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
+                </p>
               </div>
               <div className="d-flex flex-column col-md-6 name">
                 <label htmlFor="lastName" className="label">
                   Last name
                 </label>
-                <input
-                  value={user.lastName}
-                  name="lastName"
-                  type="text"
-                  {...register("lastName")}
-                  readOnly
-                />
-              </div>
-            </div>
-            <div className="row mt-4">
-              <div className="d-flex flex-column col-md-6 id">
-                <label htmlFor="id" className="label">
-                  {user.role === "student" ? "admission number" : "teaacher id"}
-                </label>
-                <input
-                  name="id"
-                  value={
-                    user.role === "student"
-                      ? user.admissionNumber
-                      : user.teacherId
-                  }
-                />
-              </div>
-              <div className="d-flex flex-column col-md-6 class">
-                <label htmlFor="class" className="label">
-                {user.role === "student"
-                    ? "current class"
-                    : "class handled"}
-                </label>
-                <input readOnly value=  {user.role === "student"
-                    ? user.currentClass
-                    : user.classHandled} name="class" />
+                <input name="lastName" type="text" {...register("lastName")} />
+                <p className="error-message">
+                  {errors.lastName?.message ? `*${errors.lastName?.message}` : ""}
+                </p>
               </div>
             </div>
             <div className="row mt-4">
@@ -148,10 +125,9 @@ export default function Settings() {
               <Button blue>Save Changes</Button>
             </div>
           </form>
-      </div>
-
-        ) : (
-      <div className="out mt-5 p-3">
+        </div>
+      ) : (
+        <div className="out mt-5 p-3">
           <form
             className="security-div d-flex flex-column gap-2"
             onSubmit={handleSubmit(onSubmitSecurity)}
@@ -160,42 +136,48 @@ export default function Settings() {
               <label htmlFor="oldPwd" className="label">
                 Old Password
               </label>
-              <input name="oldPwd" {...register("oldPwd")}/>
+              <input name="oldPwd" {...register("oldPwd")} />
               <p className="error-message">
-                  {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-                </p>
+                {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
+              </p>
             </div>
             <div className="d-flex flex-column">
               <label htmlFor="newPwd" className="label">
-              New Password
+                New Password
               </label>
               <input name="newPwd" {...register("newPwd")} />
               <p className="error-message">
-                  {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
-                </p>
+                {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
+              </p>
             </div>
             <div className="d-flex flex-column">
-              <input name="confirmPwd" {...register("confirmPwd")} 
-              placeholder="Confirm new password"/>
+              <input
+                name="confirmPwd"
+                {...register("confirmPwd")}
+                placeholder="Confirm new password"
+              />
               <p className="error-message">
-                  {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
-                </p>
+                {errors.confirmPwd?.message
+                  ? `*${errors.confirmPwd?.message}`
+                  : ""}
+              </p>
             </div>
-           
+
             <div className="button-div d-flex justify-content-end mt-4">
               <Button blue>Save Changes</Button>
             </div>
           </form>
-      </div>
-        )}
+        </div>
+      )}
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
   .div {
     background-color: white;
     border-radius: 20px;
-max-width: 500px;
+    max-width: 500px;
   }
   .profile-div {
     max-width: 600px;
@@ -213,7 +195,7 @@ max-width: 500px;
     border-bottom: 2px solid transparent;
   }
   .out {
-    max-width: 400px ;
+    max-width: 400px;
     background-color: white;
     border-radius: 20px;
   }
@@ -256,7 +238,7 @@ max-width: 500px;
     font-size: 13px;
     font-weight: 500;
   }
-  .icon{
+  .icon {
     font-size: 15px;
   }
 `;

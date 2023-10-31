@@ -87,7 +87,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
 const CsvWrapper = styled.div`
   position: fixed;
   height: 100%;
-  width: 100%;
+  width:100%;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);

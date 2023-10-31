@@ -9,7 +9,7 @@ export default function AdminDashboardLayout() {
     <Wrapper className="d-flex flex-row">
       <AdminSidebar />
       <div
-        style={{ backgroundColor: "#f1f1f1", height: "100%" }}
+        style={{ backgroundColor: "#f1f1f1"}}
         className="outlet"
       >
         <AdminNavbar />
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   position: relative;
   .outlet {
     width: 80%;
-    min-height: 100vh !important;
+    height: 100vh;
     
   }
   @media screen and (max-width: 1100px) {

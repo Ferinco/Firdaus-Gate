@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   position: relative;
   .outlet {
     width: 80%;
-    height: calc(100vh + auto) !important;  
+   height: fit-content;
   }
   @media screen and (max-width: 1100px) {
     .outlet {

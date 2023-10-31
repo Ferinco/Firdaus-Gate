@@ -40,12 +40,14 @@ const [activeTab, setActiveTab] = useState("Dashboard")
   const { logout } = useAuth();
   const dispatch = useDispatch()
 
+
   function handleNavClick(title){
 setActiveTab(title)
-console.log(activeTab)
 setIsSidebarOpen(false)
 setIsProfileOpen(false)
   }
+
+
   return (
     <SIDEBAR>
       <div
@@ -77,9 +79,10 @@ setIsProfileOpen(false)
         <div className="log-out nav-links d-flex flex-column pl-5">
           <Link
               className={`nav-link react-router-link ${
-                activeTab === "Log out" ? "active-tab" : ""
+                activeTab === "Settings" ? "active-tab" : ""
               }`}
-            > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
+            to={PATH_DASHBOARD.admin.accountSettings}
+            onClick={()=> handleNavClick("Settings")}> <Icon icon="fluent:settings-20-regular" /> Settings</Link>
             <button
               to=""
               className="react-router-link nav-link"
@@ -109,13 +112,13 @@ const SIDEBAR = styled.div`
   height: 100vh;
   width: 20%;
   position: relative;
+  z-index: 9999;
   .container {
     width: 20%;
     height: 100vh;
     align-items: center;
     position: fixed;
     background-color: black;
-    
     padding-right: 0 !important;
 
   }
@@ -139,8 +142,8 @@ const SIDEBAR = styled.div`
     justify-content: left !important;
     gap: 20px;
     align-items: center;
-
     &:hover {
+      color: white !important;
       transition: 0.3s;
     }
   }

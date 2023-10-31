@@ -59,6 +59,7 @@ export default function StudentsList() {
   //fetching student details
   useEffect(() => {
     dispatch(fetchUsers({ role: "student" , classTeacher: user._id}));
+    setIsLoading(false)
   }, []);
 
   const { users } = useSelector((state) => state.users);
@@ -349,6 +350,7 @@ export default function StudentsList() {
 }
 
 const Wrapper = styled.div`
+background-color: #f1f1f1 !important;
   .buttons {
     justify-content: right;
     width: 100%;

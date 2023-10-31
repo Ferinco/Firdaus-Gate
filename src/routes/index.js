@@ -31,6 +31,7 @@ import {
   CreateTerm,
   ActiveApplications,
   CreateCalendar,
+  AdminSettings
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -128,7 +129,7 @@ export default function Routes() {
         { path: "/admin/create-term", element: <CreateTerm /> },
         { path: "/admin/applications", element: <ActiveApplications /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
-        { path: "/admin/notify", element: <Notify /> },
+        { path: "/admin/account-settings", element: <AdminSettings /> },
 
       ],
     },

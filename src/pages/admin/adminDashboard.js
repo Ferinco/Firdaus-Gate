@@ -193,6 +193,7 @@ export default function AdminDashboard() {
   );
 }
 const Wrapper = styled.div`
+background-color: #f1f1f1 !important;
   .middle-div {
     overflow: scroll !important;
     .overviews {
