@@ -17,9 +17,7 @@ import { useAuth } from "../../hooks/useAuth";
 export default function StudentsList() {
   const { user } = useAuth();
   const [students, setStudents] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   //states to manage pagination of studentlist
@@ -58,11 +56,10 @@ export default function StudentsList() {
 
   //fetching student details
   useEffect(() => {
-    dispatch(fetchUsers({ role: "student" , classTeacher: user._id}));
-    setIsLoading(false)
+    dispatch(fetchUsers({ role: "teacher" }));
   }, []);
 
-  const { users } = useSelector((state) => state.users);
+  const { users, isLoading } = useSelector((state) => state.users);
   useEffect(() => {
     const slice = users.slice(offset, offset + perPage);
     setStudents(slice);
@@ -91,7 +88,7 @@ export default function StudentsList() {
   async function createCsvUsers() {
     if (csvData.length) {
       let newStudents = csvData.slice(1);
-      setIsLoading(true);
+      isLoading(true);
       Promise.all(
         newStudents.map(async (item) => {
           const data = {
@@ -118,7 +115,7 @@ export default function StudentsList() {
           console.log(error);
           toast.error("Failure creating students from CSV");
         });
-      setIsLoading(false);
+      isLoading(false);
     }
   }
   return (
@@ -131,16 +128,16 @@ export default function StudentsList() {
           handleSubmit={createCsvUsers}
         />
       )}
-      <div className="header p-5">
+      {/* <div className="header px-3 py-3">
         <h4>List of Students</h4>
         <p>view and edit student(s) details here...</p>
-      </div>
+      </div> */}
       {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
         <>
-      <div className="d-flex p-5 justify-content-between">
+      <div className="d-flex px-3 py-3 justify-content-between">
         <div className="search-field d-flex gap-3 align-items-center">
-          <Icon icon="circum:search" color="gray" />
+          <Icon icon="circum:search" color="gray" className="icon" />
           <input
             type="text"
             placeholder="search for student"
@@ -156,21 +153,18 @@ export default function StudentsList() {
         <>
         {searched.length > 0 ? (
           <>
-            <div className="px-5 table-div" onClick={()=>{setActiveSearch(false)}}>
+            <div className="px-3 table-div" onClick={()=>{setActiveSearch(false)}}>
             <Table className="table table-bordered">
-              <thead className="">
-                <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Admission Number</th>
-                  <th>email</th>
-                  <th>gender</th>
-                  <th colSpan="3">Operations</th>
+                <tr className="head">
+                  <th className="table-head">#</th>
+                  <th className="table-head">First Name</th>
+                  <th className="table-head">Last Name</th>
+                  <th className="table-head">Admission Number</th>
+                  <th className="table-head">email</th>
+                  <th className="table-head">gender</th>
+                  <th colSpan="3" className="table-head">Operations</th>
                 </tr>
-              </thead>
               {searched.map((student) => (
-                <tbody>
                   <tr key={student.id}>
                     <td>{student.id}</td>
                     <td>{student.firstName}</td>
@@ -203,7 +197,6 @@ export default function StudentsList() {
                       </Link>
                     </td>
                   </tr>
-                </tbody>
               ))}
             </Table>
           </div>
@@ -234,29 +227,31 @@ export default function StudentsList() {
           />
         </>
       ): (
-       <>
-         <div className="px-5 table-div" onClick={()=>{setActiveSearch(false)}}>
-            <Table className="table table-bordered">
-              <thead className="">
-                <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Admission Number</th>
-                  <th>email</th>
-                  <th>gender</th>
-                  <th colSpan="3">Operations</th>
+       <div className="px-3">
+         <div className="p-3 table-div" onClick={()=>{setActiveSearch(false)}}>
+          <div className="navigators d-flex gap-2">
+            <div className="navigator ">All</div>
+            <div className="navigator ">Deactivated</div>
+            <div className="navigator">Something</div>
+          </div>
+            <Table className="table table-bordered mt-3">
+              <tr className="head">
+                  <th className="table-head"></th>
+                  <th className="table-head">First Name</th>
+                  <th className="table-head">Last Name</th>
+                  <th className="table-head">Admission Number</th>
+                  <th className="table-head">email</th>
+                  <th className="table-head">gender</th>
+                  <th className="table-head" colSpan="3">Operations</th>
                 </tr>
-              </thead>
               {students.map((student) => (
-                <tbody>
-                  <tr key={student.id}>
-                    <td>{student.id}</td>
-                    <td>{student.firstName}</td>
-                    <td>{student.lastName}</td>
-                    <td>{student.admissionNumber}</td>
-                    <td>{student.email}</td>
-                    <td>{student.gender}</td>
+                  <tr key={student.id} className="body">
+                    <td className="table-body">c</td>
+                    <td className="table-body">{student.firstName}</td>
+                    <td className="table-body">{student.lastName}</td>
+                    <td className="table-body">{student.admissionNumber}</td>
+                    <td className="table-body">{student.email}</td>
+                    <td className="table-body">{student.gender}</td>
 
                     <td>
                       <Link to="">
@@ -282,7 +277,6 @@ export default function StudentsList() {
                       </Link>
                     </td>
                   </tr>
-                </tbody>
               ))}
             </Table>
           </div>
@@ -307,7 +301,7 @@ export default function StudentsList() {
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
           />
-       </>
+       </div>
       )
     }
         </>
@@ -375,5 +369,37 @@ background-color: #f1f1f1 !important;
         color: white;
       }
     }
+  }
+  .table-div{
+    border-radius: 10px;
+    background-color: white;
+    .navigator{
+      border: 1px solid grey;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: grey;
+&:first-child{
+border: 1px solid blue;
+color:blue;
+background-color: #f1f1f1;
+}
+    }
+  }
+  .head{
+    background-color: #f1f1f1 !important;
+  }
+  .table-head{
+color: grey !important;
+font-size: 14px;
+padding: 10px !important;
+text-transform: capitalize;
+  }
+  .body{
+    padding: 0 !important;
+  }
+  .table-body{
+    font-size: 13px;
   }
 `;

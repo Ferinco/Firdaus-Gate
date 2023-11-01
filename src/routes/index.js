@@ -129,6 +129,7 @@ export default function Routes() {
         { path: "/admin/create-term", element: <CreateTerm /> },
         { path: "/admin/applications", element: <ActiveApplications /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
+        { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
 
       ],

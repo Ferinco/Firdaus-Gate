@@ -224,10 +224,7 @@ const Wrapper = styled.div`
     outline: none;
     width: 100%;
   }
-  .email,
-  .name,
-  .id,
-  .class {
+  .email{
     input {
       color: grey !important;
     }

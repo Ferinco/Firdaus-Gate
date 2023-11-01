@@ -64,7 +64,7 @@ h6 {
 .table-div,
 .not-found {
   /* overflow-x: scroll; */
-  height: 360px !important;
+  height: fit-content !important;
 }
 .not-found {
   display: flex;
@@ -116,10 +116,15 @@ h6 {
   font-weight: 600;
 }
 .search-field {
-  padding: 10px;
-  border-radius: 5px;
-  border: grey 1px solid;
+  padding: 7px 10px;
+  border-radius: 20px;
+  border: none;
   background-color: white;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+.search-field > .icon {
+font-size: 20px !important;
 }
 .search-field > input {
   outline: none;

@@ -45,17 +45,17 @@ export default function TeachersList() {
   const [pageCount, setPageCount] = useState(0);
   const [perPage] = useState(5);
   const [deleteId, setDeleteId] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
 //to manage csv file uplaod
 const [CSVOpen, setCSVOpen] = useState(false);
 const [csvData, setCsvData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchUsers({ role: "teacher" }));
-    setIsLoading(false)
+    dispatch(fetchUsers({ role: "teacher" }))
+    
   }, []);
-  const { users } = useSelector((state) => state.users);
+  const { users, isLoading } = useSelector((state) => state.users);
 
   //handle navigation of pages to next || previous
   const handlePageClick = (e) => {
@@ -88,7 +88,7 @@ const [csvData, setCsvData] = useState([]);
   async function createCsvUsers(){
     if(csvData.length){
       let newTeachers = csvData.slice(1)
-      setIsLoading(true)
+      isLoading(true)
       Promise.all(
        newTeachers.map(async (item)=> {
           const data = {
@@ -118,7 +118,7 @@ const [csvData, setCsvData] = useState([]);
         toast.error("Failure creating teachers from CSV");
         setCSVOpen(false)
       });
-    setIsLoading(false);
+    isLoading(false);
     }
   }
 

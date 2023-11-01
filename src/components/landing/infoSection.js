@@ -106,9 +106,9 @@ const ThreeDCarousel = () => {
               ))}
             </CarouselWrapper>
             <div className="buttons d-flex gap-3">
-              <button side="left" onClick={prevImage}>
+              {/* <button side="left" onClick={prevImage}>
                 <Icon icon="ic:outline-less-than" className="icon" />
-              </button>
+              </button> */}
               <button side="right" onClick={()=>{
                 nextImage()
               }}>
