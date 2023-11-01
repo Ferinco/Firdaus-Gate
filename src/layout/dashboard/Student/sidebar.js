@@ -42,25 +42,25 @@ export default function StudentSidebar() {
     setIsProfileOpen(false);
   }
   return (
-    <SIDEBAR>
+    <SIDEBAR className="d-flex">
       <div
         className={`container d-flex flex-row ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
+        <div className="nav-container container-fluid d-flex flex-column py-5 justify-content-between h-100 px-0">
           <div className="wrapper d-flex flex-column justify-content-between">
             <div className="logo">
               <Link className="react-router-link" to={PATH_PAGE.home}>
                 <img src="/images/logo.png" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column ">
+            <div className="nav-links d-flex flex-column pl-5">
               {sidebarConfig.map(({ icon, link, title }, index) => (
                 <Link
                   to={link}
                   key={index}
-                  className={`nav-link react-router-link px-5 py-2 ${
+                  className={`nav-link react-router-link py-2 ${
                     activeTab === title ? "active-tab" : ""
                   }`}
                   onClick={() => handleNavClick(title)}
@@ -71,10 +71,10 @@ export default function StudentSidebar() {
               ))}
             </div>
           </div>
-          <div className="log-out d-flex flex-column pl-4">
+          <div className="log-out d-flex flex-column pl-5">
             <Link
               to={PATH_DASHBOARD.student.accountSettings}
-              className={`react-router-link nav-link pl-5 py-2 ${
+              className={`react-router-link nav-link  py-2 ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
               onClick={() => handleNavClick("Settings")}
@@ -83,7 +83,7 @@ export default function StudentSidebar() {
               Settings
             </Link>
             <div
-              className="react-router-link nav-link pl-5 py-1"
+              className="react-router-link nav-link py-1"
               onClick={logout}
             >
               <Icon
@@ -116,18 +116,22 @@ const SIDEBAR = styled.div`
     height: 100vh;
     align-items: center;
     position: fixed;
+    padding: 0 !important;
+
   }
   .nav-container {
     width: 100%;
   }
+
   .wrapper {
     height: 60% !important;
     width: 100%;
     align-items: center;
+
   }
   .nav-links {
     gap: 10px !important;
-    width: 85%;
+    width: 100%;
   }
   .nav-link {
     color: #737373 !important;
@@ -145,7 +149,7 @@ const SIDEBAR = styled.div`
   }
   .active-tab {
     color: blue !important;
-    background-color: #f5f5f5;
+    border-right: 5px solid blue !important;
   }
   .logo {
     height: 70px;

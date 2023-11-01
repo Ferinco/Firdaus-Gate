@@ -181,6 +181,8 @@ export default function ResultsPage() {
 }
 
 const Wrapper = styled.div`
+  background: #f1f1f1 !important;
+  height: fit-content !important;
   .tabs-wrapper {
     background-color: white;
     border-radius: 30px;
