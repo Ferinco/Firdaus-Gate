@@ -23,16 +23,16 @@ export const Button = styled.button`
 `;
 export const ControlButton = styled.button`
 border: 0;
-padding: 10px;
-background-color: black;
+padding: 7px 10px;
+background: transparent;
 .icon{
-  color: white;
+  color: grey;
 }
 &:hover{
-  background-color: blue;
+  // background-color: #f1f1f1;
   transition: 0.3s;
   .icon{
-  color: white;
+  color: blue;
 }
 }
 `

@@ -47,13 +47,18 @@ export default function TeachersList() {
   const [deleteId, setDeleteId] = useState("");
   // const [isLoading, setIsLoading] = useState(true);
 
-//to manage csv file uplaod
-const [CSVOpen, setCSVOpen] = useState(false);
-const [csvData, setCsvData] = useState([]);
+  //to manage csv file uplaod
+  const [CSVOpen, setCSVOpen] = useState(false);
+  const [csvData, setCsvData] = useState([]);
 
+  //handle checked students
+  const [checkLength, setcheckLength] = useState(0);
+
+  function checkTeacher() {
+    setcheckLength(checkLength + 1);
+  }
   useEffect(() => {
-    dispatch(fetchUsers({ role: "teacher" }))
-    
+    dispatch(fetchUsers({ role: "teacher" }));
   }, []);
   const { users, isLoading } = useSelector((state) => state.users);
 
@@ -69,7 +74,6 @@ const [csvData, setCsvData] = useState([]);
     setPageCount(Math.ceil(users.length / perPage));
   }, [users, offset]);
 
-
   //delete teacher
   const handleDeleteUser = async (id) => {
     dispatch(deleteUser({ id: id }))
@@ -84,13 +88,12 @@ const [csvData, setCsvData] = useState([]);
       });
   };
 
-
-  async function createCsvUsers(){
-    if(csvData.length){
-      let newTeachers = csvData.slice(1)
-      isLoading(true)
+  async function createCsvUsers() {
+    if (csvData.length) {
+      let newTeachers = csvData.slice(1);
+      isLoading(true);
       Promise.all(
-       newTeachers.map(async (item)=> {
+        newTeachers.map(async (item) => {
           const data = {
             firstName: item[0],
             middleName: item[1],
@@ -101,27 +104,26 @@ const [csvData, setCsvData] = useState([]);
             email: item[6],
             gender: item[7],
             subjectTaught: item[8],
-            role: "teacher"
-          }
+            role: "teacher",
+          };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
           await UserService.createUser(formData);
         })
       )
-      .then((res) => {
-        toast.success("Teacher accounts created successfully");
-        console.log(res);
-        setCSVOpen(false)
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Failure creating teachers from CSV");
-        setCSVOpen(false)
-      });
-    isLoading(false);
+        .then((res) => {
+          toast.success("Teacher accounts created successfully");
+          console.log(res);
+          setCSVOpen(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Failure creating teachers from CSV");
+          setCSVOpen(false);
+        });
+      isLoading(false);
     }
   }
-
 
   const handleEditUser = async (id) => {
     dispatch(editUser({ id: id }))
@@ -135,7 +137,7 @@ const [csvData, setCsvData] = useState([]);
   };
   return (
     <Wrapper className="d-flex flex-column">
-            {CSVOpen && (
+      {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
           setData={setCsvData}
@@ -143,15 +145,15 @@ const [csvData, setCsvData] = useState([]);
           handleSubmit={createCsvUsers}
         />
       )}
-      <div className="header p-5">
+      {/* <div className="header p-5">
         <h4>List of Teachers</h4>
         <p>View and edit details of teachers</p>
-      </div>
+      </div> */}
 
       {isLoading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
-        <>
-          <div className="d-flex p-5 justify-content-between">
+        <div className="p-3">
+          <div className="d-flex py-3 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" />
               <input
@@ -163,71 +165,107 @@ const [csvData, setCsvData] = useState([]);
                 }}
               />
             </div>
-            <button onClick={() => setCSVOpen(true)}>Import CSV file</button>
+            <button onClick={() => setCSVOpen(true)} className="csv-button">
+              Import CSV file
+            </button>
           </div>
           {activeSearch ? (
             <>
               {searched.length > 0 ? (
-                <>
-                  <div
-                    className="table-div px-5"
-                    onClick={() => {
-                      setActiveSearch(false);
-                    }}
-                  >
-                    <Table className="table table-bordered">
-                      <thead>
-                        <tr >
-                          <th className="p-5">#</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Teacher ID</th>
-                          <th>email</th>
-                          <th>telephone</th>
-                          <th colSpan="2">Operations</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-transparent table-body">
-                        {searched.map((teacher) => (
-                          <tr key={teacher._id}>
-                            <td>{teacher.id}</td>
-                            <td>{teacher.firstName}</td>
-                            <td>{teacher.lastName}</td>
-                            <td>{teacher.teacherId}</td>
-                            <td>{teacher.email}</td>
-                            <td>{teacher.tel}</td>
+                <div className="div p-3 mt-4">
+                  <div className="d-flex justify-content-between bars">
+                    <div className="navigators d-flex gap-2">
+                      <div className="navigator ">All</div>
+                      <div className="navigator ">Deactivated</div>
+                      <div className="navigator"></div>
+                    </div>
 
-                            <td>
-                              {" "}
-                              <button
-                                onClick={() => {
-                                  handleEditUser(teacher._id);
-                                }}
-                                className="update-button"
-                              >
-                                Edit
-                              </button>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <button
-                                onClick={() => {
-                                  setOverlay(true);
-                                  setDeleteId(teacher._id);
-                                }}
-                                className="delete-button"
-                              >
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
+                    <div
+                      className={`actions d-flex gap-2 ${
+                        checkLength > 0 ? "open-action" : "closed-action"
+                      }`}
+                    >
+                      <div className="action ">transfer all</div>
+                      <div className="action ">deactivate all</div>
+                      <div className="action">delete all</div>
+                    </div>
+                  </div>
+                  <div className="table-div">
+                    <Table className="table table-bordered mt-5">
+                      <tr className="head">
+                        <th className="table-head">
+                          <input type="checkbox" className="check " />
+                        </th>
+                        <th className="table-head">First Name</th>
+                        <th className="table-head">Last Name</th>
+                        <th className="table-head">Teacher ID</th>
+                        <th className="table-head">gender</th>
+                        <th className="table-head">email</th>
+                        <th className="table-head">telephone</th>
+                        <th colSpan="2" className="table-head">
+                          Operations
+                        </th>
+                      </tr>
+
+                      {searched.map((teacher) => (
+                        <tr key={teacher._id} className="body">
+                          <td className="table-body">
+                            {" "}
+                            <input
+                              type="checkbox"
+                              className="check"
+                              checked="false"
+                              key={teacher._id}
+                              onChange={(e) => {
+                                checkTeacher();
+                              }}
+                            />
+                          </td>
+                          <td className="table-body">{teacher.firstName}</td>
+                          <td className="table-body">{teacher.lastName}</td>
+                          <td className="table-body table-id">
+                            {teacher.teacherId}
+                          </td>
+                          <td className="table-body">
+                            {teacher.gender === "male" ? "M" : "F"}
+                          </td>
+                          <td className="table-body email" email>
+                            {teacher.email}
+                          </td>
+                          <td className="table-body">{teacher.tel}</td>
+
+                          <td>
+                            {" "}
+                            <button
+                              onClick={() => {
+                                handleEditUser(teacher._id);
+                              }}
+                              className="update-button"
+                            >
+                              Edit
+                            </button>{" "}
+                          </td>
+                          <td>
+                            {" "}
+                            <button
+                              onClick={() => {
+                                setOverlay(true);
+                                setDeleteId(teacher._id);
+                              }}
+                              className="delete-button"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </Table>
                   </div>
-                </>
+                </div>
               ) : (
-                <div className="not-found">can't find "{searchQuery}" in students' list</div>
+                <div className="not-found">
+                  can't find "{searchQuery}" in teachers' list
+                </div>
               )}
               <ReactPaginate
                 previousLabel={
@@ -252,61 +290,89 @@ const [csvData, setCsvData] = useState([]);
               />
             </>
           ) : (
-            <>
-              <div
-                className="table-div px-5 "
-                onClick={() => {
-                  setActiveSearch(false);
-                }}
-              >
-                <Table className="table table-bordered ">
-                  <thead className="p-3">
-                    <tr >
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Teacher ID</th>
-                      <th>email</th>
-                      <th>telephone</th>
-                      <th colSpan="2">Operations</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-transparent table-body">
-                    {teachers.map((teacher) => (
-                      <tr key={teacher._id}>
-                        <td>{teacher.id}</td>
-                        <td>{teacher.firstName}</td>
-                        <td>{teacher.lastName}</td>
-                        <td>{teacher.teacherId}</td>
-                        <td>{teacher.email}</td>
-                        <td>{teacher.tel}</td>
+            <div className="div p-3 mt-4">
+              <div className="d-flex justify-content-between bars">
+                <div className="navigators d-flex gap-2">
+                  <div className="navigator ">All</div>
+                  <div className="navigator ">Deactivated</div>
+                  <div className="navigator"></div>
+                </div>
 
-                        <td>
-                          {" "}
-                          <button
-                            onClick={() => {
-                              handleEditUser(teacher._id);
-                            }}
-                            className="update-button"
-                          >
-                            Edit
-                          </button>{" "}
-                        </td>
-                        <td>
-                          {" "}
-                          <button
-                            onClick={() => {
-                              setOverlay(true);
-                              setDeleteId(teacher._id);
-                            }}
-                            className="delete-button"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
+                <div
+                  className={`actions d-flex gap-2 ${
+                    checkLength > 0 ? "open-action" : "closed-action"
+                  }`}
+                >
+                  <div className="action ">transfer all</div>
+                  <div className="action ">deactivate all</div>
+                  <div className="action">delete all</div>
+                </div>
+              </div>
+              <div className="table-div ">
+                <Table className="table table-bordered mt-5">
+                  <tr className="head">
+                    <th className="table-head">
+                      <input type="checkbox" className="check " />
+                    </th>
+                    <th className="table-head">First Name</th>
+                    <th className="table-head">Last Name</th>
+                    <th className="table-head">Teacher ID</th>
+                    <th className="table-head">email</th>
+                    <th className="table-head">telephone</th>
+                    <th className="table-head">gender</th>
+
+                    <th colSpan="2" className="table-head">
+                      Operations
+                    </th>
+                  </tr>
+                  {teachers.map((teacher) => (
+                    <tr key={teacher._id} className="body">
+                      <td className="table-body">
+                        <input
+                          type="checkbox"
+                          className="check"
+                          checked="false"
+                          key={teacher._id}
+                          onChange={(e) => {
+                            checkTeacher();
+                          }}
+                        />
+                      </td>
+                      <td className="table-body">{teacher.firstName}</td>
+                      <td className="table-body">{teacher.lastName}</td>
+                      <td className="table-body table-id">
+                        {teacher.teacherId}
+                      </td>
+                      <td className="table-body email">{teacher.email}</td>
+                      <td className="table-body">{teacher.tel}</td>
+                      <td className="table-body">
+                        {teacher.gender === "male" ? "M" : "F"}
+                      </td>
+                      <td>
+                        {" "}
+                        <button
+                          onClick={() => {
+                            handleEditUser(teacher._id);
+                          }}
+                          className="update-button"
+                        >
+                          Edit
+                        </button>{" "}
+                      </td>
+                      <td>
+                        {" "}
+                        <button
+                          onClick={() => {
+                            setOverlay(true);
+                            setDeleteId(teacher._id);
+                          }}
+                          className="delete-button"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </Table>
               </div>
               <ReactPaginate
@@ -330,9 +396,9 @@ const [csvData, setCsvData] = useState([]);
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
               />
-            </>
+            </div>
           )}
-        </>
+        </div>
       ) : (
         <div className="p-5">no details to display...</div>
       )}
@@ -370,17 +436,7 @@ const [csvData, setCsvData] = useState([]);
   );
 }
 const Wrapper = styled.div`
-background-color: #f1f1f1 !important;
-
-  .table {
-  }
-  .table-body {
-    background: transparent !important;
-  }
-  .close {
-  }
-  .open {
-  }
+  background-color: #f1f1f1 !important;
   .buttons {
     justify-content: right;
     width: 100%;
@@ -403,6 +459,134 @@ background-color: #f1f1f1 !important;
         background-color: red;
         transition: 0.3s;
         color: white;
+      }
+    }
+  }
+  .table-div {
+    overflow-x: scroll !important;
+  }
+  .pagination {
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  .head {
+    background-color: #f1f1f1 !important;
+  }
+  .table-head {
+    color: grey !important;
+    font-size: 14px;
+    padding: 10px !important;
+    text-transform: capitalize;
+    text-align:center ;
+  }
+  .body {
+    padding: 0 !important;
+    border: 1px solid #f1f1f1;
+  }
+  .table-body {
+    font-size: 13px;
+    border: 1px solid #f1f1f1;
+    text-align: center;
+  }
+  .table-id {
+    color: blue;
+  }
+  .email {
+    overflow: hidden;
+    max-width: 120px;
+    text-overflow: ellipsis !important;
+  }
+  .check {
+    cursor: pointer;
+  }
+  .div {
+    border-radius: 10px;
+    background-color: white;
+    overflow-x: hidden !important;
+
+    .bars {
+      @media screen and (max-width: 630px) {
+        flex-direction: column !important;
+      }
+    }
+    .navigators {
+      @media screen and (max-width: 630px) {
+        border-radius: 10px;
+        padding: 10px;
+        justify-content: space-between;
+      }
+      
+    }
+    .navigator {
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: grey;
+      border-bottom: 2px solid white;
+
+      cursor: pointer;
+      @media screen and (max-width: 630px) {
+        background-color: white !important;
+      }
+
+      &:first-child {
+        border-bottom: 2px solid blue;
+        color: blue;
+      }
+    }
+    .action {
+      border: 1px solid grey;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: grey;
+      text-transform: capitalize;
+      background-color: #f1f1f1;
+      cursor: pointer;
+      &:first-child {
+        border: 1px solid #8080ff;
+        color: #8080ff;
+        &:hover {
+          border: 1px solid #8080ff;
+          color: white;
+          background-color: #8080ff;
+          transition: 0.3s;
+        }
+      }
+      &:nth-child(2) {
+        border: 1px solid black;
+        color: black;
+        &:hover {
+          color: white;
+          background-color: black;
+          transition: 0.3s;
+        }
+      }
+      &:nth-child(3) {
+        color: red;
+        border: 1px solid red;
+        &:hover {
+          color: white;
+          background-color: red;
+          transition: 0.3s;
+        }
+      }
+    }
+    .closed-action {
+      /* margin-right: -100px !important; */
+      display: none !important;
+    }
+    .open-action {
+      /* margin-left: -100px !important; */
+      display: flex !important;
+      transition: 0.3s !important;
+      @media screen and (max-width: 630px) {
+        justify-content: flex-end;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        padding: 7px;
+        margin-top: 10px;
       }
     }
   }
