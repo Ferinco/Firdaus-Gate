@@ -7,6 +7,7 @@ const initialState = {
   isSuccess: false,
   error: null,
   users: [],
+  user: null
 };
 
 export const fetchUsers = createAsyncThunk(
@@ -21,6 +22,19 @@ export const fetchUsers = createAsyncThunk(
     }
   }
 );
+export const fetchUser = createAsyncThunk(
+  "users/fetchUser",
+  async (params, thunkApi) => {
+    const { id } = params;
+    try {
+      const res = await UserService.getUser(id);
+      return res;
+    } catch (error) {
+      console.log(error);
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+)
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async (params, thunkApi) => {
@@ -67,6 +81,22 @@ const userSlice = createSlice({
       state.error = action.payload;
     });
     //  end fetching users
+
+    //reducers for fetching single user
+    builder.addCase(fetchUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.user = action.payload.data;
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.error = action.payload;
+    });
+//end of fetchuser
 
     // reducers for deleting users
     builder.addCase(deleteUser.pending, (state) => {

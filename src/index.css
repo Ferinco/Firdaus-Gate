@@ -73,15 +73,13 @@ h6 {
 }
 
 
-.transfer-button {
-  color: black;
-  border: 1px solid green;
-  padding: 3px 5px;
-  border-radius: 10px;
-  background: green;
+.view-button {
+  color: green;
+  border: 0 !important;
+  border-bottom: 1px solid green !important;
+  background: transparent;
   font-size: 14px;
   font-weight: 600;
-  color: white;
 }
 /* .transfer-button:hover{
     border: 1px solid grey;
@@ -91,22 +89,24 @@ h6 {
 
   } */
 .update-button {
-  background-color: #8080ff !important;
+  background-color: transparent !important;
   font-size: 13px !important;
-  border: 1px solid #8080ff;
-  padding: 3px 5px !important;
-  border-radius: 10px;
+  border: 0 !important;
+  border-bottom: 1px solid #8080ff !important;
+  padding: 0 !important;
+  /* border-radius: 10px; */
   font-weight: 600 !important;
-  color: white !important;
+  color: #8080ff  !important;
 }
  .delete-button {
-  color: white !important;
-  border: 1px solid red;
-  padding: 3px 5px !important;
-  border-radius: 10px;
-  background: red !important;
+  color: red !important;
+  border: 0 !important;
+  padding: 0 !important;
+  /* border-radius: 10px; */
+  background: transparent !important;
   font-size: 13px !important;
   font-weight: 600 !important;
+  border-bottom: 1px solid red !important;
 }
 .search-field {
   padding: 7px 10px;
@@ -147,4 +147,7 @@ font-size: 20px !important;
   border: 1px solid green;
   padding: 5px 10px;
   font-weight: 600;
+}
+.table-button{
+  /* padding: 0 !important; */
 }

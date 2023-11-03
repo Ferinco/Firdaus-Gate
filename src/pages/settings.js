@@ -9,6 +9,7 @@ import * as yup from "yup";
 
 export default function Settings() {
   const [activeNav, setActiveNav] = useState("Profile");
+  const [previewImage, setPreviewImage] = useState(null);
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const { user } = useAuth();
@@ -21,6 +22,12 @@ export default function Settings() {
   const schema = yup.object({
     oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
     newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
+    signature: yup.mixed().required("signature is required").test('fileType', 'Unsupported file type', (value) => {
+      if (value && value.type) {
+        return value.type.includes('image');
+      }
+      return true;
+    }),
     tel: yup
       .string()
       .matches(phoneRegEx, "phone number is invalid")
@@ -43,8 +50,20 @@ export default function Settings() {
       oldPwd: "",
       confirmPwd: "",
       newPwd: "",
+      signature: ""
     },
   });
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <Wrapper className="d-flex flex-column p-5 container">
@@ -101,7 +120,7 @@ export default function Settings() {
                 />
               </div>
             </div>
-            <div className="row mt-4">
+            <div className="row mt-4 mt-3">
               <div className="d-flex flex-column col-md-6 id">
                 <label htmlFor="id" className="label">
                   {user.role === "student" ? "admission number" : "teaacher id"}
@@ -126,7 +145,21 @@ export default function Settings() {
                     : user.classHandled} name="class" />
               </div>
             </div>
-            <div className="row mt-4">
+       {
+        user.role === "teacher" &&
+        <div className="signature mt-3">
+              <label htmlFor="signature" className="label">Add Signature:</label>
+            <input type="file" name="signature" {...register("signature")} onChange={handleFileChange} accept="image/*"/>
+            {errors.photo && <p className="error">{errors.photo.message}</p>}
+            <div>
+        {previewImage && (
+          <img src={previewImage} alt="Preview" style={{ maxWidth: '200px' }} />
+        )}
+      </div>
+
+        </div>
+       }
+            <div className="row mt-4 mt-3">
               <div className="d-flex flex-column col-md-6 email">
                 <label htmlFor="email" className="label">
                   Email address

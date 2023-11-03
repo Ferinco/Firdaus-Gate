@@ -6,6 +6,7 @@ import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import Settings from "../pages/settings";
+import ProfileInfo from "../pages/profileInfo"
 import {
   TeacherDashboard,
   CreateResult,
@@ -131,6 +132,7 @@ export default function Routes() {
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
         { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
+        { path: "/admin/profile-info/:identity", element: <ProfileInfo/> }
 
       ],
     },

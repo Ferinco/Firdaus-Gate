@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import AddCSV from "../../components/AddCSV";
 import { useAuth } from "../../hooks/useAuth";
+import { PATH_DASHBOARD } from "../../routes/paths";
 //the whole component
 export default function StudentsList() {
   const { user } = useAuth();
@@ -63,7 +64,7 @@ export default function StudentsList() {
 
   //fetching student details
   useEffect(() => {
-    dispatch(fetchUsers({ role: "teacher" }));
+    dispatch(fetchUsers({ role: "student" }));
   }, []);
 
   const { users, isLoading } = useSelector((state) => state.users);
@@ -211,18 +212,24 @@ export default function StudentsList() {
                           </td>
                           <td className="table-body">{student.firstName}</td>
                           <td className="table-body">{student.lastName}</td>
-                          <td className="table-body teble-id">
+                          <td className="table-body table-id">
                             {student.admissionNumber}
                           </td>
                           <td className="table-body email">{student.email}</td>
-                          <td className="table-body">{student.gender}</td>
-
-                          <td>
+                          <td className="table-body">
+                        {student.gender === "male" ? "M" : "F"}
+                      </td>
+                          <td className="table-button">
+                          <Link to={`${PATH_DASHBOARD.admin.profileInfo}/${student._id}`}>
+                              <button className="view-button">view</button>
+                            </Link>
+                          </td>
+                          <td className="table-button">
                             <Link to="">
                               <button className="update-button">edit</button>
                             </Link>
                           </td>
-                          <td>
+                          <td className="table-button">
                             <Link to="">
                               <button
                                 onClick={() => {
@@ -323,13 +330,17 @@ export default function StudentsList() {
                       <td className="table-body">
                         {student.gender === "male" ? "M" : "F"}
                       </td>
-
-                      <td>
+                      <td className="table-button">
+                            <Link to={`${PATH_DASHBOARD.admin.profileInfo}/${student._id}`}>
+                              <button className="view-button">view</button>
+                            </Link>
+                          </td>
+                      <td className="table-button">
                         <Link to="">
                           <button className="update-button">edit</button>
                         </Link>
                       </td>
-                      <td>
+                      <td className="table-button">
                         <Link to="">
                           <button
                             onClick={() => {

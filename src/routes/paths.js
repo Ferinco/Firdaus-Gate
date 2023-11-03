@@ -49,7 +49,8 @@ export const PATH_DASHBOARD = {
     applications: JOIN(ROOT_ADMIN, "applications"),
     calendar: JOIN(ROOT_ADMIN, "create-calendar"),
     notify: JOIN(ROOT_ADMIN, "notify"),
-    accountSettings: JOIN(ROOT_ADMIN, "account-settings")
+    accountSettings: JOIN(ROOT_ADMIN, "account-settings"),
+    profileInfo: JOIN(ROOT_ADMIN, "profile-info")
 
   },
 };
