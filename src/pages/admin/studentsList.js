@@ -225,7 +225,7 @@ export default function StudentsList() {
                             </Link>
                           </td>
                           <td className="table-button">
-                            <Link to="">
+                          <Link to={`${PATH_DASHBOARD.admin.editStudent}/${student._id}`}>
                               <button className="update-button">edit</button>
                             </Link>
                           </td>
@@ -336,7 +336,7 @@ export default function StudentsList() {
                             </Link>
                           </td>
                       <td className="table-button">
-                        <Link to="">
+                      <Link to={`${PATH_DASHBOARD.admin.editStudent}/${student._id}`}>
                           <button className="update-button">edit</button>
                         </Link>
                       </td>
