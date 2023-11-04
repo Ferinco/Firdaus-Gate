@@ -220,7 +220,7 @@ export default function StudentsList() {
                         {student.gender === "male" ? "M" : "F"}
                       </td>
                           <td className="table-button">
-                          <Link to={`${PATH_DASHBOARD.admin.profileInfo}/${student._id}`}>
+                          <Link to={`${PATH_DASHBOARD.admin.studentInfo}/${student._id}`}>
                               <button className="view-button">view</button>
                             </Link>
                           </td>
@@ -331,7 +331,7 @@ export default function StudentsList() {
                         {student.gender === "male" ? "M" : "F"}
                       </td>
                       <td className="table-button">
-                            <Link to={`${PATH_DASHBOARD.admin.profileInfo}/${student._id}`}>
+                            <Link to={`${PATH_DASHBOARD.admin.studentInfo}/${student._id}`}>
                               <button className="view-button">view</button>
                             </Link>
                           </td>

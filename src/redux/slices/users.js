@@ -51,8 +51,9 @@ export const deleteUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "users/editUser",
   async (params, thunkApi) => {
+    const { id } = params;
     try {
-      const res = await UserService.updateUser(params);
+      const res = await UserService.updateUser(id);
       return res;
     } catch (error) {
       console.log(error);

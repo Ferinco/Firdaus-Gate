@@ -7,3 +7,8 @@ export { default as AdminLogin } from "./authentication/login";
 export { default as ActiveApplications } from "./activeApplications"
 export {default as CreateCalendar} from "./createCalendar"
 export {default as AdminSettings} from "./adminSettings"
+export { StudentInfo} from "./profileInfo"
+export { TeacherInfo} from "./profileInfo"
+export { EditStudent} from "./editUser"
+export { EditTeacher} from "./editUser"
+

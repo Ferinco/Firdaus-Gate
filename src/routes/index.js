@@ -6,7 +6,6 @@ import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import Settings from "../pages/settings";
-import ProfileInfo from "../pages/profileInfo"
 import {
   TeacherDashboard,
   CreateResult,
@@ -32,7 +31,9 @@ import {
   CreateTerm,
   ActiveApplications,
   CreateCalendar,
-  AdminSettings
+  AdminSettings,
+  EditStudent,
+  EditTeacher
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -42,6 +43,8 @@ import GuestGuard from "../guards/GuestGuard";
 import Calendar from "../pages/teacher/calendar";
 import Scheme from "../pages/teacher/scheme";
 import Notify from "../pages/admin/notify";
+import {StudentInfo} from "../pages/admin/profileInfo"
+import {TeacherInfo} from "../pages/admin/profileInfo"
 
 export default function Routes() {
   return useRoutes([
@@ -132,7 +135,13 @@ export default function Routes() {
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
         { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
-        { path: "/admin/profile-info/:identity", element: <ProfileInfo/> }
+        { path: "/admin/student-info/:identity", element: <StudentInfo/> },
+        { path: "/admin/teacher-info/:identity", element: <TeacherInfo/> },
+        { path: "/admin/edit-student/:identity", element: <EditStudent/> },
+        { path: "/admin/edit-teacher/:identity", element: <EditTeacher/> },
+
+
+
 
       ],
     },

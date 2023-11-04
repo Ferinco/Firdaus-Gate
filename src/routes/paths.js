@@ -50,7 +50,13 @@ export const PATH_DASHBOARD = {
     calendar: JOIN(ROOT_ADMIN, "create-calendar"),
     notify: JOIN(ROOT_ADMIN, "notify"),
     accountSettings: JOIN(ROOT_ADMIN, "account-settings"),
-    profileInfo: JOIN(ROOT_ADMIN, "profile-info")
+    studentInfo: JOIN(ROOT_ADMIN, "student-info"),
+    teacherInfo: JOIN(ROOT_ADMIN, "teacher-info"),
+    editStudent: JOIN(ROOT_ADMIN, "edit-student"),
+    editTeacher: JOIN(ROOT_ADMIN, "edit-teacher"),
+
+
+
 
   },
 };

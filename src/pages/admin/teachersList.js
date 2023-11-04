@@ -11,6 +11,8 @@ import { Icon } from "@iconify/react";
 import { ControlButton } from "../../components/custom/Button";
 import AddCSV from "../../components/AddCSV";
 import { UserService } from "../../services/userService";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { Link } from "react-router-dom";
 export default function TeachersList() {
   const [teachers, setTeachers] = useState([]);
   const [overlay, setOverlay] = useState(false);
@@ -210,7 +212,6 @@ export default function TeachersList() {
                       {searched.map((teacher) => (
                         <tr key={teacher._id} className="body">
                           <td className="table-body">
-                            {" "}
                             <input
                               type="checkbox"
                               className="check"
@@ -234,8 +235,14 @@ export default function TeachersList() {
                           </td>
                           <td className="table-body">{teacher.tel}</td>
 
+                          <td className="table-button">
+                            <Link
+                              to={`${PATH_DASHBOARD.admin.teacherInfo}/${teacher._id}`}
+                            >
+                              <button className="view-button">view</button>
+                            </Link>
+                          </td>
                           <td>
-                            {" "}
                             <button
                               onClick={() => {
                                 handleEditUser(teacher._id);
@@ -246,7 +253,6 @@ export default function TeachersList() {
                             </button>{" "}
                           </td>
                           <td>
-                            {" "}
                             <button
                               onClick={() => {
                                 setOverlay(true);
@@ -347,6 +353,13 @@ export default function TeachersList() {
                       <td className="table-body">{teacher.tel}</td>
                       <td className="table-body">
                         {teacher.gender === "male" ? "M" : "F"}
+                      </td>
+                      <td className="table-button">
+                        <Link
+                          to={`${PATH_DASHBOARD.admin.teacherInfo}/${teacher._id}`}
+                        >
+                          <button className="view-button">view</button>
+                        </Link>
                       </td>
                       <td>
                         {" "}
@@ -477,7 +490,7 @@ const Wrapper = styled.div`
     font-size: 14px;
     padding: 10px !important;
     text-transform: capitalize;
-    text-align:center ;
+    text-align: center;
   }
   .body {
     padding: 0 !important;
@@ -515,7 +528,6 @@ const Wrapper = styled.div`
         padding: 10px;
         justify-content: space-between;
       }
-      
     }
     .navigator {
       padding: 3px 10px;
