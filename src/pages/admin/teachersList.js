@@ -48,6 +48,7 @@ export default function TeachersList() {
   const [perPage] = useState(5);
   const [deleteId, setDeleteId] = useState("");
   // const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   //to manage csv file uplaod
   const [CSVOpen, setCSVOpen] = useState(false);
@@ -89,11 +90,29 @@ export default function TeachersList() {
         console.log(error);
       });
   };
+  console.log(csvData);
+  const newData = csvData.map((item) => {
+    const data = {
+      firstName: item[0],
+      middleName: item[1],
+      lastName: item[2],
+      teacherId: item[3],
+      classHandled: item[4],
+      tel: item[5],
+      email: item[6],
+      gender: item[7],
+      subjectTaught: item[8],
+      password: `${item[0].toLowerCase()}${item[3]}`,
+      role: "teacher",
+    };
+    return data;
+  });
 
+  console.log(newData);
   async function createCsvUsers() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
-      isLoading(true);
+      setLoading(true);
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
@@ -101,21 +120,32 @@ export default function TeachersList() {
             middleName: item[1],
             lastName: item[2],
             teacherId: item[3],
-            classHandled: item[4],
+            classHandled: item[4] === "none" ? "none" : item[4],
             tel: item[5],
             email: item[6],
             gender: item[7],
             subjectTaught: item[8],
+            password: `${item[0].toLowerCase()}${item[3]}`,
             role: "teacher",
+            teacherType:
+              item[4] === "none" ? "subject_teacher" : "class_teacher",
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
-          await UserService.createUser(formData);
+          await UserService.createUser(formData)
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          setLoading(false);
         })
       )
         .then((res) => {
           toast.success("Teacher accounts created successfully");
           console.log(res);
+          setLoading(false);
           setCSVOpen(false);
         })
         .catch((error) => {
@@ -123,7 +153,7 @@ export default function TeachersList() {
           toast.error("Failure creating teachers from CSV");
           setCSVOpen(false);
         });
-      isLoading(false);
+      setLoading(false);
     }
   }
 
@@ -131,6 +161,7 @@ export default function TeachersList() {
     dispatch(editUser({ id: id }))
       .unwrap()
       .then((res) => {
+        setLoading(false);
         console.log(res);
       })
       .catch((error) => {
@@ -153,6 +184,7 @@ export default function TeachersList() {
       </div> */}
 
       {isLoading ? <CircularProgress /> : ""}
+      {loading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
         <div className="p-3">
           <div className="d-flex py-3 justify-content-between">
