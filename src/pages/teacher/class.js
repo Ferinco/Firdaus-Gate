@@ -19,6 +19,7 @@ export default function MyClass() {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
+  const [multiSelect, setMultiSelect] = useState([]);
 
   //search students' list
   const [activeSearch, setActiveSearch] = useState(false);
@@ -91,6 +92,15 @@ export default function MyClass() {
     setOffset(selectedPage + 1);
   };
 
+  const multiSelectHandle = (id) => {
+    if (multiSelect.includes(id)) {
+      const newList = multiSelect.filter((item) => item !== id);
+      setMultiSelect(newList);
+      console.log(multiSelect);
+    } else {
+      setMultiSelect([...multiSelect, id]);
+    }
+  };
   //delete student
   const handleDeleteUser = async (id) => {
     dispatch(deleteUser({ id: id }))
@@ -122,6 +132,7 @@ export default function MyClass() {
             department: user.department,
             classTeacher: user._id,
             currentClass: user.classHandled,
+            password: `${item[0].toLowerCase()}${item[3]}`,
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
@@ -141,87 +152,189 @@ export default function MyClass() {
   }
   return (
     <Wrapper className="d-flex flex-column">
-    {CSVOpen && (
-      <AddCSV
-        onClose={() => setCSVOpen(false)}
-        setData={setCsvData}
-        data={csvData}
-        handleSubmit={createCsvUsers}
-      />
-    )}
-    {/* <div className="header px-3 py-3">
+      {CSVOpen && (
+        <AddCSV
+          onClose={() => setCSVOpen(false)}
+          setData={setCsvData}
+          data={csvData}
+          handleSubmit={createCsvUsers}
+        />
+      )}
+      {/* <div className="header px-3 py-3">
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-    {isLoading ? <CircularProgress /> : ""}
-    {students.length > 0 ? (
-      <div className="p-3">
-        <div className="d-flex py-3 justify-content-between">
-          <div className="search-field d-flex gap-3 align-items-center">
-            <Icon icon="circum:search" color="gray" className="icon" />
-            <input
-              type="text"
-              placeholder="search for student"
-              onChange={inputHandler}
-              onFocus={() => {
-                setActiveSearch(true);
-              }}
-            />
+      {isLoading ? <CircularProgress /> : ""}
+      {students.length > 0 ? (
+        <div className="p-3">
+          <div className="d-flex py-3 justify-content-between">
+            <div className="search-field d-flex gap-3 align-items-center">
+              <Icon icon="circum:search" color="gray" className="icon" />
+              <input
+                type="text"
+                placeholder="search for student"
+                onChange={inputHandler}
+                onFocus={() => {
+                  setActiveSearch(true);
+                }}
+              />
+            </div>
+            <button onClick={() => setCSVOpen(true)} className="csv-button">
+              Import CSV file
+            </button>
           </div>
-          <button onClick={() => setCSVOpen(true)} className="csv-button">Import CSV file</button>
-        </div>
-        {activeSearch ? (
-          <>
-            {searched.length > 0 ? (
-              <div
-                className="div p-3 mt-4"
-              >
-                <div className="d-flex justify-content-between bars">
-                  <div className="navigators d-flex gap-2">
-                    <div className="navigator ">All</div>
-                    <div className="navigator ">Deactivated</div>
-                    <div className="navigator"></div>
-                  </div>
+          {activeSearch ? (
+            <>
+              {searched.length > 0 ? (
+                <div className="div p-3 mt-4">
+                  <div className="d-flex justify-content-between bars">
+                    <div className="navigators d-flex gap-2">
+                      <div className="navigator ">All</div>
+                      <div className="navigator ">Deactivated</div>
+                      <div className="navigator"></div>
+                    </div>
 
-                  <div
-                    className={`actions d-flex gap-2 ${
-                      checkLength > 0 ? "open-action" : "closed-action"
-                    }`}
-                  >
-                    <div className="action ">transfer all</div>
-                    <div className="action ">deactivate all</div>
-                    <div className="action">delete all</div>
+                    <div className={`actions d-flex gap-2`}>
+                      <div className="action ">transfer all</div>
+                      <div className="action ">deactivate all</div>
+                      <div className="action">delete all</div>
+                    </div>
+                  </div>
+                  <div className="table-div">
+                    <Table className="table table-bordered mt-5">
+                      <tr className="head">
+                        <th className="table-head">
+                          <input type="checkbox" className="check " />
+                        </th>
+
+                        <th className="table-head">First Name</th>
+                        <th className="table-head">Last Name</th>
+                        <th className="table-head">Admission Number</th>
+                        <th className="table-head">email</th>
+                        <th className="table-head">parent phone</th>
+                        <th className="table-head">gender</th>
+                        <th colSpan="3" className="table-head">
+                          Operations
+                        </th>
+                      </tr>
+                      {searched.map((student) => (
+                        <tr key={student.id} className="body">
+                          <td className="table-body">
+                            {" "}
+                            <input
+                              type="checkbox"
+                              className="check"
+                              checked="false"
+                              key={student._id}
+                              onChange={(e) => {
+                                checkStudent();
+                              }}
+                            />
+                          </td>
+                          <td className="table-body">{student.firstName}</td>
+                          <td className="table-body">{student.lastName}</td>
+                          <td className="table-body table-id">
+                            {student.admissionNumber}
+                          </td>
+                          <td className="table-body email">{student.email}</td>
+                          <td className="table-body email">
+                            {student.parentPhone}
+                          </td>
+
+                          <td className="table-body">{student.gender}</td>
+
+                          <td>
+                            <Link to="">
+                              <button className="update-button">edit</button>
+                            </Link>
+                          </td>
+                          <td>
+                            <Link to="">
+                              <button
+                                onClick={() => {
+                                  setOverlay(true);
+                                  setDeleteId(student._id);
+                                }}
+                                className="delete-button"
+                              >
+                                delete
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </Table>
                   </div>
                 </div>
-                <div className="table-div">
-                  <Table className="table table-bordered mt-5">
-                    <tr className="head">
-                      <th className="table-head">
-                        <input type="checkbox" className="check " />
-                      </th>
+              ) : (
+                <div className="not-found">not found shii</div>
+              )}
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </>
+          ) : (
+            <div className="div p-3 mt-4">
+              <div className="d-flex justify-content-between bars">
+                <div className="navigators d-flex gap-2">
+                  <div className="navigator ">All</div>
+                  <div className="navigator ">Deactivated</div>
+                  <div className="navigator"></div>
+                </div>
 
-                      <th className="table-head">First Name</th>
-                      <th className="table-head">Last Name</th>
-                      <th className="table-head">Admission Number</th>
-                      <th className="table-head">email</th>
-                      <th className="table-head">parent phone</th>
-                      <th className="table-head">gender</th>
-                      <th colSpan="3" className="table-head">
-                        Operations
-                      </th>
-                    </tr>
-                    {searched.map((student) => (
-                      <tr key={student.id} className="body">
+                <div
+                  className={`actions d-flex gap-2 ${
+                    checkLength > 0 ? "open-action" : "closed-action"
+                  }`}
+                >
+                  <div className="action ">transfer all</div>
+                  <div className="action ">deactivate all</div>
+                  <div className="action">delete all</div>
+                </div>
+              </div>
+              <div className=" table-div">
+                <Table className="table table-bordered mt-5">
+                  <tr className="head">
+                    <th className="table-head">
+                      <input type="checkbox" className="check " />
+                    </th>
+                    <th className="table-head">First Name</th>
+                    <th className="table-head">Last Name</th>
+                    <th className="table-head">Admission Number</th>
+                    <th className="table-head">email</th>
+                    <th className="table-head">parent phone</th>
+                    <th className="table-head">gender</th>
+                    <th className="table-head" colSpan="3">
+                      Operations
+                    </th>
+                  </tr>
+                  {students.length > 0 &&
+                    students.map((student) => (
+                      <tr key={student._id} className="body">
                         <td className="table-body">
-                          {" "}
                           <input
                             type="checkbox"
-                            className="check"
-                            checked="false"
-                            key={student._id}
-                            onChange={(e) => {
-                              checkStudent();
-                            }}
+                            className=" cursor-pointer focus:outline-none focus:ring-0 "
+                            onChange={() => multiSelectHandle(student._id)}
+                            checked={multiSelect.includes(student._id)}
                           />
                         </td>
                         <td className="table-body">{student.firstName}</td>
@@ -230,8 +343,7 @@ export default function MyClass() {
                           {student.admissionNumber}
                         </td>
                         <td className="table-body email">{student.email}</td>
-                        <td className="table-body email">{student.parentPhone}</td>
-
+                        <td className="table-body">{student.parentPhone}</td>
                         <td className="table-body">{student.gender}</td>
 
                         <td>
@@ -254,174 +366,76 @@ export default function MyClass() {
                         </td>
                       </tr>
                     ))}
-                  </Table>
-                </div>
+                </Table>
               </div>
-            ) : (
-              <div className="not-found">not found shii</div>
-            )}
-            <ReactPaginate
-              previousLabel={
-                <ControlButton>
-                  <Icon icon="ooui:next-rtl" className="icon" />
-                </ControlButton>
-              }
-              nextLabel={
-                <ControlButton>
-                  <Icon icon="ooui:next-ltr" className="icon" />
-                </ControlButton>
-              }
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={2}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination pl-5 align-items-center gap-2"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-            />
-          </>
-        ) : (
-          <div className="div p-3 mt-4">
-            <div className="d-flex justify-content-between bars">
-              <div className="navigators d-flex gap-2">
-                <div className="navigator ">All</div>
-                <div className="navigator ">Deactivated</div>
-                <div className="navigator"></div>
-              </div>
-
-              <div
-                className={`actions d-flex gap-2 ${
-                  checkLength > 0 ? "open-action" : "closed-action"
-                }`}
-              >
-                <div className="action ">transfer all</div>
-                <div className="action ">deactivate all</div>
-                <div className="action">delete all</div>
-              </div>
+              <ReactPaginate
+                previousLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-rtl" className="icon" />
+                  </ControlButton>
+                }
+                nextLabel={
+                  <ControlButton>
+                    <Icon icon="ooui:next-ltr" className="icon" />
+                  </ControlButton>
+                }
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination pl-5 align-items-center gap-2"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
             </div>
-            <div className=" table-div">
-              <Table className="table table-bordered mt-5">
-                <tr className="head">
-                  <th className="table-head">
-                    <input type="checkbox" className="check " />
-                  </th>
-                  <th className="table-head">First Name</th>
-                  <th className="table-head">Last Name</th>
-                  <th className="table-head">Admission Number</th>
-                  <th className="table-head">email</th>
-                  <th className="table-head">parent phone</th>
-                  <th className="table-head">gender</th>
-                  <th className="table-head" colSpan="3">
-                    Operations
-                  </th>
-                </tr>
-                {students.map((student) => (
-                  <tr key={student.id} className="body">
-                    <td className="table-body">
-                      <input
-                        type="checkbox"
-                        className="check"
-                        checked="false"
-                        key={student._id}
-                        onChange={(e) => {
-                          checkStudent();
-                        }}
-                      />
-                    </td>
-                    <td className="table-body">{student.firstName}</td>
-                    <td className="table-body">{student.lastName}</td>
-                    <td className="table-body table-id">
-                      {student.teacherId}
-                    </td>
-                    <td className="table-body email">{student.email}</td>
-                    <td className="table-body">{student.tel}</td>
-                    <td className="table-body">
-                      {student.gender === "male" ? "M" : "F"}
-                    </td>
-
-                    <td>
-                      <Link to="">
-                        <button className="update-button">edit</button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to="">
-                        <button
-                          onClick={() => {
-                            setOverlay(true);
-                            setDeleteId(student._id);
-                          }}
-                          className="delete-button"
-                        >
-                          delete
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </Table>
+          )}
+        </div>
+      ) : (
+        <div className="px-3 d-flex justify-content-center align-items-center">
+          <div className="pt-5 h-100">
+            <p className="text-muted">No student to display...</p>
+            <div className="d-flex py-1 justify-content-between">
+              <button onClick={() => setCSVOpen(true)} className="csv-button">
+                Import CSV file
+              </button>
             </div>
-            <ReactPaginate
-              previousLabel={
-                <ControlButton>
-                  <Icon icon="ooui:next-rtl" className="icon" />
-                </ControlButton>
-              }
-              nextLabel={
-                <ControlButton>
-                  <Icon icon="ooui:next-ltr" className="icon" />
-                </ControlButton>
-              }
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={2}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination pl-5 align-items-center gap-2"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-            />
-          </div>
-        )}
-      </div>
-    ) : (
-      <div className="p-5">no details to display...</div>
-    )}
-    {overlay ? (
-      <div className="overlay-wrapper d-flex ">
-        <div
-          className={`d-flex flex-column p-3 overlay-options ${
-            overlay ? "open" : "close"
-          }`}
-        >
-          <p>Are you sure you want to delete this student profile?</p>
-          <div className=" buttons d-flex gap-3">
-            <button
-              className="left"
-              onClick={() => {
-                handleDeleteUser(deleteId);
-              }}
-            >
-              yes
-            </button>
-            <button
-              className="right"
-              onClick={() => {
-                setOverlay(false);
-              }}
-            >
-              no
-            </button>
           </div>
         </div>
-      </div>
-    ) : (
-      ""
-    )}
-  </Wrapper>
+      )}
+      {overlay ? (
+        <div className="overlay-wrapper d-flex ">
+          <div
+            className={`d-flex flex-column p-3 overlay-options ${
+              overlay ? "open" : "close"
+            }`}
+          >
+            <p>Are you sure you want to delete this student profile?</p>
+            <div className=" buttons d-flex gap-3">
+              <button
+                className="left"
+                onClick={() => {
+                  handleDeleteUser(deleteId);
+                }}
+              >
+                yes
+              </button>
+              <button
+                className="right"
+                onClick={() => {
+                  setOverlay(false);
+                }}
+              >
+                no
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </Wrapper>
   );
 }
 const Wrapper = styled.div`

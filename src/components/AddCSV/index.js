@@ -62,7 +62,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
               Close
             </button>
           </div>
-          <div className="card-body  text-center">{renderCSV()}</div>
+          <div className="card-body text-center">{renderCSV()}</div>
           <div className="card-footer d-flex justify-content-end">
             <div
               className="btn btn-secondary"
@@ -87,7 +87,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
 const CsvWrapper = styled.div`
   position: fixed;
   height: 100%;
-  width:100%;
+  width: 100%;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -96,12 +96,18 @@ const CsvWrapper = styled.div`
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 9999999;
   overflow: scroll;
   .card {
-    width: auto;
-    height: auto;
+    width: 768px;
+    height: 500px;
     max-width: 100%;
+    margin: 0 auto;
+    z-index: 999;
+    .card-body {
+      overflow-y: scroll;
+      width: 100%;
+    }
     .upload-area {
       border: 1px dashed lightblue;
       padding: 30px 8px;

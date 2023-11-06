@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -6,56 +6,72 @@ import { Button } from "../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { UserService } from "../services/userService";
+import { api } from "../api/axios";
+import toast from "react-hot-toast";
 
 export default function Settings() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [previewImage, setPreviewImage] = useState(null);
+  const [signatureFile, setSignatureFile] = useState("");
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const { user } = useAuth();
-  const onSubmitProfile = async (data) => {
-    console.log("data");
-  };
-  const onSubmitSecurity = async (data) => {
-    console.log("data");
-  };
+
   const schema = yup.object({
-    oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
-    newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
-    signature: yup.mixed().required("signature is required").test('fileType', 'Unsupported file type', (value) => {
-      if (value && value.type) {
-        return value.type.includes('image');
-      }
-      return true;
-    }),
+    // oldPassword: yup
+    //   .string()
+    //   .required("input old password")
+    //   .min(5, "old password is at least 5 characters")
+    //   .max(12, "old password is not more than 12 characters"),
+    // newPassword: yup
+    //   .string()
+    //   .required("set a password")
+    //   .min(5, "new password must be at least 5 characters")
+    //   .max(12, "new password must not be more than 12 characters"),
+    teacherSignature: yup
+      .mixed()
+      .required("signature is required")
+      .test("fileType", "Unsupported file type", (value) => {
+        if (value && value.type) {
+          return value.type.includes("image");
+        }
+        return true;
+      }),
     tel: yup
       .string()
       .matches(phoneRegEx, "phone number is invalid")
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-    confirmPwd: yup
-      .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
-      .required("confirm your password"),
   });
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       tel: user.role === "student" ? user.parentPhone : user.tel,
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
-      signature: ""
+      teacherSignature: user.teacherSignature,
     },
   });
-
+  console.log(errors);
+  const onSubmitProfile = async (data) => {
+    const formData = new FormData();
+    formData.append("values", JSON.stringify(data));
+    formData.append("teacherSignature", signatureFile);
+    try {
+      const data = await UserService.updateUser(user._id, formData);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    setSignatureFile(event.target.files[0]);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -75,7 +91,7 @@ export default function Settings() {
           }}
           className={activeNav === "Profile" ? "navigator active" : "navigator"}
         >
-          <Icon icon="icomoon-free:profile" className="icon"/> Profile
+          <Icon icon="icomoon-free:profile" className="icon" /> Profile
         </div>
         <div
           onClick={() => {
@@ -85,11 +101,11 @@ export default function Settings() {
             activeNav === "Security" ? "navigator active" : "navigator"
           }
         >
-          <Icon icon="mdi:key" className="icon"/> Security
+          <Icon icon="mdi:key" className="icon" /> Security
         </div>
       </div>
       {activeNav === "Profile" ? (
-      <div className="div mt-5 p-3">
+        <div className="div mt-5 p-3">
           <form
             className="profile-div"
             onSubmit={handleSubmit(onSubmitProfile)}
@@ -136,29 +152,51 @@ export default function Settings() {
               </div>
               <div className="d-flex flex-column col-md-6 class">
                 <label htmlFor="class" className="label">
-                {user.role === "student"
-                    ? "current class"
-                    : "class handled"}
+                  {user.role === "student" ? "current class" : "class handled"}
                 </label>
-                <input readOnly value=  {user.role === "student"
-                    ? user.currentClass
-                    : user.classHandled} name="class" />
+                <input
+                  readOnly
+                  value={
+                    user.role === "student"
+                      ? user.currentClass
+                      : user.classHandled
+                  }
+                  name="class"
+                />
               </div>
             </div>
-       {
-        user.role === "teacher" &&
-        <div className="signature mt-3">
-              <label htmlFor="signature" className="label">Add Signature:</label>
-            <input type="file" name="signature" {...register("signature")} onChange={handleFileChange} accept="image/*"/>
-            {errors.photo && <p className="error">{errors.photo.message}</p>}
-            <div>
-        {previewImage && (
-          <img src={previewImage} alt="Preview" style={{ maxWidth: '200px' }} />
-        )}
-      </div>
-
-        </div>
-       }
+            {user.role === "teacher" && (
+              <div className="teacherSignature mt-3">
+                <label htmlFor="teacherSignature" className="label">
+                  Add Signature:
+                </label>
+                <input
+                  type="file"
+                  name="teacherSignature"
+                  {...register("teacherSignature")}
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+                {errors.photo && (
+                  <p className="error">{errors.photo.message}</p>
+                )}
+                <div>
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt="Preview"
+                      style={{ maxWidth: "200px" }}
+                    />
+                  ) : (
+                    <img
+                      src={getValues().teacherSignature}
+                      alt="Preview"
+                      style={{ maxWidth: "200px" }}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
             <div className="row mt-4 mt-3">
               <div className="d-flex flex-column col-md-6 email">
                 <label htmlFor="email" className="label">
@@ -178,57 +216,126 @@ export default function Settings() {
             </div>
 
             <div className="button-div d-flex justify-content-end mt-4">
-              <Button blue>Save Changes</Button>
+              <Button blue type="submit">
+                Save Changes
+              </Button>
             </div>
           </form>
-      </div>
-
-        ) : (
-      <div className="out mt-5 p-3">
-          <form
-            className="security-div d-flex flex-column gap-2"
-            onSubmit={handleSubmit(onSubmitSecurity)}
-          >
-            <div className="d-flex flex-column">
-              <label htmlFor="oldPwd" className="label">
-                Old Password
-              </label>
-              <input name="oldPwd" {...register("oldPwd")}/>
-              <p className="error-message">
-                  {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-                </p>
-            </div>
-            <div className="d-flex flex-column">
-              <label htmlFor="newPwd" className="label">
-              New Password
-              </label>
-              <input name="newPwd" {...register("newPwd")} />
-              <p className="error-message">
-                  {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
-                </p>
-            </div>
-            <div className="d-flex flex-column">
-              <input name="confirmPwd" {...register("confirmPwd")} 
-              placeholder="Confirm new password"/>
-              <p className="error-message">
-                  {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
-                </p>
-            </div>
-           
-            <div className="button-div d-flex justify-content-end mt-4">
-              <Button blue>Save Changes</Button>
-            </div>
-          </form>
-      </div>
-        )}
+        </div>
+      ) : (
+        <ChangePassword />
+      )}
     </Wrapper>
   );
 }
+
+const ChangePassword = () => {
+  const passwordSchemaValidate = yup.object({
+    newPassword: yup.string().required("Please enter new password"),
+    oldPassword: yup.string().required("Please enter old password"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
+      .required("confirm your password"),
+  });
+  const [isLoading, setLoading] = useState(false);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { oldPassword: "", confirmNewPassword: "", newPassword: "" },
+    resolver: yupResolver(passwordSchemaValidate),
+  });
+
+  const onSubmitSecurity = async (data) => {
+    console.log(data);
+    try {
+      setLoading(true);
+      const response = await api.put("/users/change-password", {
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      });
+      toast.success("Password changed successfully");
+      setLoading(false);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, try again later");
+      }
+    }
+  };
+
+  return (
+    <div className="out mt-5 p-3">
+      <form
+        className="security-div d-flex flex-column gap-2"
+        onSubmit={handleSubmit(onSubmitSecurity)}
+      >
+        <div className="d-flex flex-column">
+          <label htmlFor="oldPassword" className="label">
+            Old Password
+          </label>
+          <input
+            type="password"
+            name="oldPassword"
+            {...register("oldPassword")}
+          />
+          <p className="error-message">
+            {errors.oldPassword?.message
+              ? `*${errors.oldPassword?.message}`
+              : ""}
+          </p>
+        </div>
+        <div className="d-flex flex-column">
+          <label htmlFor="newPassword" className="label">
+            New Password
+          </label>
+          <input
+            type="password"
+            name="newPassword"
+            {...register("newPassword")}
+          />
+          <p className="error-message">
+            {errors.newPassword?.message
+              ? `*${errors.newPassword?.message}`
+              : ""}
+          </p>
+        </div>
+        <div className="d-flex flex-column">
+          <input
+            type="password"
+            name="confirmNewPassword"
+            {...register("confirmNewPassword")}
+            placeholder="Confirm new password"
+          />
+          <p className="error-message">
+            {errors.confirmNewPassword?.message
+              ? `*${errors.confirmNewPassword?.message}`
+              : ""}
+          </p>
+        </div>
+
+        <div className="button-div d-flex justify-content-end mt-4">
+          <Button blue>Save Changes</Button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
 const Wrapper = styled.div`
+  height: auto;
+  background-color: #f1f1f1;
   .div {
     background-color: white;
     border-radius: 20px;
-max-width: 500px;
+    max-width: 500px;
   }
   .profile-div {
     max-width: 600px;
@@ -246,7 +353,7 @@ max-width: 500px;
     border-bottom: 2px solid transparent;
   }
   .out {
-    max-width: 400px ;
+    max-width: 400px;
     background-color: white;
     border-radius: 20px;
   }
@@ -289,7 +396,7 @@ max-width: 500px;
     font-size: 13px;
     font-weight: 500;
   }
-  .icon{
+  .icon {
     font-size: 15px;
   }
 `;
