@@ -18,7 +18,7 @@ export default function AboutSection() {
           <p>
          Firdaus-Gate model schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at makuing them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
           </p>
-          <Button blue>Learn more</Button>
+          <Button blue>Read more</Button>
         </div>
       </div>
     </Container>

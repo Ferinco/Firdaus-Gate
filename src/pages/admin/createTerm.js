@@ -69,7 +69,7 @@ export default function CreateTerm() {
 
 <div className="button mt-5">
         <Button blue type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create"}
+          {loading ? "Creating..." : "Set Term"}
         </Button>
 </div>
       </form>

@@ -54,7 +54,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
   }
   return (
     <>
-      <CsvWrapper>
+      <CsvWrapper className="py-5">
         <div className="card card-modal">
           <div className="card-header">
             <h5>{renderTitle()}</h5>
@@ -62,7 +62,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
               Close
             </button>
           </div>
-          <div className="card-body  text-center">{renderCSV()}</div>
+          <div className="card-body text-center">{renderCSV()}</div>
           <div className="card-footer d-flex justify-content-end">
             <div
               className="btn btn-secondary"
@@ -91,14 +91,23 @@ const CsvWrapper = styled.div`
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   display: flex;
   flex-flow: row;
   align-items: center;
   justify-content: center;
+  z-index: 9999999;
+  overflow: scroll;
   .card {
-    width: auto;
-    height: auto;
+    width: 768px;
+    height: 500px;
     max-width: 100%;
+    margin: 0 auto;
+    z-index: 999;
+    .card-body {
+      overflow-y: scroll;
+      width: 100%;
+    }
     .upload-area {
       border: 1px dashed lightblue;
       padding: 30px 8px;

@@ -293,9 +293,9 @@ export default function StudentDashboard() {
   );
 }
 const Dashboard = styled.div`
-  height: 100vh;
   background: #f1f1f1 !important;
   overflow-x: hidden !important;
+  height: fit-content !important;
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
@@ -392,6 +392,7 @@ const Dashboard = styled.div`
       height: auto;
       border-radius: 10px;
       padding-top: 5px;
+   
       &:first-child {
         background-color: #b3b3b3;
         .icon-div {

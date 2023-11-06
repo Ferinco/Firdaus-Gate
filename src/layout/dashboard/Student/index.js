@@ -9,7 +9,7 @@ export default function StudentDashboardLayout() {
     <Wrapper className="d-flex flex-row">
       <StudentSidebar />
       <div
-        style={{ backgroundColor: "#f1f1f1", height: "100%" }}
+        style={{ backgroundColor: "#f1f1f1"}}
         className="outlet "
       >
         <StudentNavbar />
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   position: relative !important;
   .outlet {
     width: 80%;
-    min-height: 100vh;
+    height: 100vh;
   }
   @media screen and (max-width: 1100px) {
     .outlet {

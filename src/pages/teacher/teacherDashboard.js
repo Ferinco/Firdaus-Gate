@@ -313,8 +313,9 @@ useEffect(()=>{
   );
 }
 const Dashboard = styled.div`
-  height: 100%;
+background-color: #f1f1f1 !important;
   margin: 0 !important;
+  height: fit-content !important;
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
@@ -325,7 +326,6 @@ const Dashboard = styled.div`
   }
   .middle-div {
     align-items: start;
-    height: auto;
     justify-content: space-between !important;
     margin: 0 !important;
     .tabs {

@@ -321,7 +321,7 @@ const Wrapper = styled.div`
   .error-message {
     color: orangered;
     padding-left: 7px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
   }
 `;

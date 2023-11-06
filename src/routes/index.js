@@ -5,6 +5,8 @@ import { Home } from "../pages";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
+import Settings from "../pages/settings";
+import ProfileInfo from "../pages/profileInfo"
 import {
   TeacherDashboard,
   CreateResult,
@@ -30,6 +32,7 @@ import {
   CreateTerm,
   ActiveApplications,
   CreateCalendar,
+  AdminSettings
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -85,6 +88,7 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
+        {path:"account-settings", element: <Settings/>}
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -104,11 +108,8 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-
-        // {path: "/teacher/my-class", element: <MyClass/>},
-        // {path: "/teacher/results", element: <Results/>}
+        {path:"/student/account-settings", element: <Settings/>}
       ],
-      // children: [{ path: "/student", element: <ProgressPage /> }],
     },
 
     //PRIVATE ROUTES FOR ADMIN
@@ -130,6 +131,8 @@ export default function Routes() {
         { path: "/admin/applications", element: <ActiveApplications /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
         { path: "/admin/notify", element: <Notify /> },
+        { path: "/admin/account-settings", element: <AdminSettings /> },
+        { path: "/admin/profile-info/:identity", element: <ProfileInfo/> }
 
       ],
     },

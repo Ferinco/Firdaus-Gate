@@ -31,6 +31,7 @@ export default function Upload({ onClose, setData, data, setStage }) {
         type="file"
         className="position-absolute h-100 w-100 opacity-0"
         onChange={handleChange}
+        accept=".csv"
         style={{ cursor: "pointer", left: 0, right: 0 }}
       />
       <h5>Select a CSV file to upload</h5>

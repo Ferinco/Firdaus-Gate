@@ -103,7 +103,7 @@ export default function LandingHero() {
         <div className="col-md-6 d-flex left">
           <div className="my-5 d-flex flex-column gap-3 text-div"> 
             <h1 className="display-3 fw-bolder">
-              Firdaus-Gate Group of Schools
+              Firdaus-Gate Model Schools
             </h1>
             <div className="">
               <p className="">

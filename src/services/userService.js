@@ -12,7 +12,9 @@ export const UserService = {
   },
   //   User role must be 'teacher'
   updateUser: async (userId, payload) => {
-    const { data } = await api.patch(`/users/edit/${userId}`, payload);
+    const { data } = await api.patch(`/users/edit/${userId}`, payload, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return data;
   },
 
