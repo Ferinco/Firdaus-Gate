@@ -203,3 +203,115 @@ export const PrimarySubjects = [
         id: "021",
     },
 ]
+
+export const ScienceSubjects = [
+    {
+        name: "English Langauage",
+        code: "FSS_001",
+        id: "001",
+    },
+    {
+        name: "Mathematics",
+        code: "FSS_002",
+        id: "002",
+    },
+]
+
+export const ArtsSubjects = [
+    {
+        name: "English Langauage",
+        code: "FSS_001",
+        id: "001",
+    },
+    {
+        name: "Mathematics",
+        code: "FSS_002",
+        id: "002",
+    },
+]
+
+export const CommercialSubjects = [
+    {
+        name: "English Langauage",
+        code: "FSS_001",
+        id: "001",
+    },
+    {
+        name: "Mathematics",
+        code: "FSS_002",
+        id: "002",
+    },
+]
+
+export const ElementarySubjects = [
+    {
+        name: "Number Work",
+        code: "FES_001",
+        id: "001",
+    },
+    {
+        name: "Letter Work",
+        code: "FES_002",
+        id: "002",
+    },
+    {
+        name: "Handwitting",
+        code: "FES_003",
+        id: "003",
+    },
+    {
+        name: "Communication Ability",
+        code: "FES_004",
+        id: "004",
+    },
+    {
+        name: "Rhymes and Poems",
+        code: "FES_005",
+        id: "005",
+    },
+    {
+        name: "Islamic Ethics/Arabic",
+        code: "FES_006",
+        id: "006",
+    },
+    {
+        name: "Social Norms: Manners / Morals",
+        code: "FES_007",
+        id: "007",
+    },
+    {
+        name: "Creative Activities / Ideas / Arts",
+        code: "FES_008",
+        id: "008",
+    },
+    {
+        name: "Physical Work",
+        code: "FES_009",
+        id: "009",
+    },
+    {
+        name: "DEEN",
+        code: "FES_010",
+        id: "010",
+    },
+    {
+        name: "COMPUTER",
+        code: "FES_011",
+        id: "011",
+    },
+    {
+        name: "Practical Life",
+        code: "FES_012",
+        id: "012",
+    },
+    {
+        name: "Health Habit",
+        code: "FES_013",
+        id: "013",
+    },
+    {
+        name: "Nature Study",
+        code: "FES_014",
+        id: "014",
+    },
+]
