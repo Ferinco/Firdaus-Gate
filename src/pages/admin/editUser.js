@@ -58,11 +58,19 @@ export const EditStudent = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
+        firstName: user.firstName,
+        lastName: user.lastName,
       tel: user.role === "student" ? user.parentPhone : user.tel,
       oldPwd: "",
       confirmPwd: "",
       newPwd: "",
-      signature: ""
+      signature: "",
+      class:  user.role === "student"
+      ? user.currentClass
+      : user.classHandled,
+      id: user.role === "student"
+      ? user.admissionNumber
+      : user.teacherId
     },
   });
 
@@ -70,7 +78,7 @@ export const EditStudent = () => {
   return (
     <>
       {isLoading && user === null && <CircularProgress />}
-      <StudentForm className="py-5 px-3">
+      <StudentForm className="p-5">
         <h4>EDIT STUDENT</h4>
         <div className="navigators d-flex flex-row gap-4 mt-4">
         <div
@@ -83,13 +91,13 @@ export const EditStudent = () => {
         </div>
         <div
           onClick={() => {
-            setActiveNav("Security");
+            setActiveNav("Password");
           }}
           className={
-            activeNav === "Security" ? "navigator active" : "navigator"
+            activeNav === "Password" ? "navigator active" : "navigator"
           }
         >
-          <Icon icon="mdi:key" className="icon"/> Security
+          <Icon icon="mdi:key" className="icon"/> Password
         </div>
       </div>
       {activeNav === "Profile" ? (
@@ -99,28 +107,28 @@ export const EditStudent = () => {
             onSubmit={handleSubmit(onSubmitProfile)}
           >
             <div className="row">
-              <div className="d-flex flex-column col-md-6 name">
+              <div className="d-flex flex-column col-md-6">
                 <label htmlFor="firstName" className="label">
                   First name
                 </label>
                 <input
-                  value={user.firstName}
                   name="firstName"
                   type="text"
                   {...register("firstName")}
-                  readOnly
+        
                 />
               </div>
-              <div className="d-flex flex-column col-md-6 name">
+                <p className="error-message">
+                {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
+              </p>
+              <div className="d-flex flex-column col-md-6">
                 <label htmlFor="lastName" className="label">
                   Last name
                 </label>
                 <input
-                  value={user.lastName}
                   name="lastName"
                   type="text"
                   {...register("lastName")}
-                  readOnly
                 />
               </div>
             </div>
@@ -131,38 +139,20 @@ export const EditStudent = () => {
                 </label>
                 <input
                   name="id"
-                  value={
-                    user.role === "student"
-                      ? user.admissionNumber
-                      : user.teacherId
-                  }
+                  {...register("id")}
                 />
               </div>
-              <div className="d-flex flex-column col-md-6 class">
+              <div className="d-flex flex-column col-md-6">
                 <label htmlFor="class" className="label">
                 {user.role === "student"
                     ? "current class"
                     : "class handled"}
                 </label>
-                <input readOnly value=  {user.role === "student"
-                    ? user.currentClass
-                    : user.classHandled} name="class" />
+                <input name="class" 
+                {...register("class")}/>
               </div>
             </div>
-       {/* {
-        user.role === "teacher" &&
-        <div className="signature mt-3">
-              <label htmlFor="signature" className="label">Add Signature:</label>
-            <input type="file" name="signature" {...register("signature")} onChange={handleFileChange} accept="image/*"/>
-            {errors.photo && <p className="error">{errors.photo.message}</p>}
-            <div>
-        {previewImage && (
-          <img src={previewImage} alt="Preview" style={{ maxWidth: '200px' }} />
-        )}
-      </div>
 
-        </div>
-       } */}
             <div className="row mt-4 mt-3">
               <div className="d-flex flex-column col-md-6 email">
                 <label htmlFor="email" className="label">
@@ -257,7 +247,7 @@ max-width: 500px;
     border-radius: 20px;
   }
   .active {
-    border-bottom: 2px solid blue;
+    border-bottom: 2px solid black;
     color: black;
     transition: 0.3s;
   }

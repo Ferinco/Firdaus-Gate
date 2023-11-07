@@ -321,13 +321,12 @@ export default function StudentsList() {
                         />
                       </td>
                       <td className="table-body">{student.firstName}</td>
-                      <td className="table-body">{student.lastName}</td>
-                      <td className="table-body table-id">
-                        {student.teacherId}
-                      </td>
-                      <td className="table-body email">{student.email}</td>
-                      <td className="table-body">{student.tel}</td>
-                      <td className="table-body">
+                          <td className="table-body">{student.lastName}</td>
+                          <td className="table-body table-id">
+                            {student.admissionNumber}
+                          </td>
+                          <td className="table-body email">{student.email}</td>
+                          <td className="table-body">
                         {student.gender === "male" ? "M" : "F"}
                       </td>
                       <td className="table-button">
