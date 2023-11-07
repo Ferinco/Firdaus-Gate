@@ -76,23 +76,14 @@ h6 {
 .view-button {
   color: green;
   border: 0 !important;
-  border-bottom: 1px solid green !important;
   background: transparent;
   font-size: 14px;
   font-weight: 600;
 }
-/* .transfer-button:hover{
-    border: 1px solid grey;
-    color: grey;
-    transition: 0.3s;
-    font-weight: 600;
-
-  } */
 .update-button {
   background-color: transparent !important;
   font-size: 13px !important;
   border: 0 !important;
-  border-bottom: 1px solid #8080ff !important;
   padding: 0 !important;
   /* border-radius: 10px; */
   font-weight: 600 !important;
@@ -106,7 +97,6 @@ h6 {
   background: transparent !important;
   font-size: 13px !important;
   font-weight: 600 !important;
-  border-bottom: 1px solid red !important;
 }
 .search-field {
   padding: 7px 10px;

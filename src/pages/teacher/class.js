@@ -21,18 +21,9 @@ export default function MyClass() {
   const [overlay, setOverlay] = useState(false);
   const [multiSelect, setMultiSelect] = useState([]);
 
-  //search students' list
-  const [activeSearch, setActiveSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searched, setSearched] = useState([]);
+
   const [deleteId, setDeleteId] = useState("");
-const [ allStudents, setAllStudents ] = useState(students)
   const dispatch = useDispatch();
-  //handle input on search form
-  let inputHandler = (e) => {
-    const inputValue = e.target.value.toLowerCase();
-    setSearchQuery(inputValue);
-  };
 
   //pagination of student lists
   const [offset, setOffset] = useState(0);
@@ -44,9 +35,6 @@ const [ allStudents, setAllStudents ] = useState(students)
   //handle checked students
   const [checkLength, setcheckLength] = useState(0);
 
-  function checkStudent() {
-    setcheckLength(checkLength + 1);
-  }
 
   useEffect(() => {
     const FetchStudents = async () => {
@@ -73,35 +61,21 @@ const [ allStudents, setAllStudents ] = useState(students)
     setPageCount(Math.ceil(pageData.length / perPage));
   }, [pageData, offset]);
 
-  useEffect(() => {
-    const performSearch = (query) => {
-      const filterBySearch = students.filter(
-        (student) =>
+    const performSearch = (event) => {
+      const query = event.target.value
+      console.log(query)
+      let updatedList = students.filter((student) => {
+        return (
           student.lastName.toLowerCase().includes(query.toLowerCase()) ||
           student.firstName.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearched(filterBySearch);
+        );
+      });
+      console.log(updatedList)
+     setStudents(updatedList)
     };
-    performSearch(searchQuery);
-  }, [searchQuery]);
 
 
-  //setting data of students during and before / after search
-useEffect(()=>{
-  function setStudentData(){
-    if(activeSearch === false){
-      setAllStudents(students)
-      console.log(allStudents)
-    }
-    else {
-      setAllStudents(searched)
-      
-    }
-  }
-  setStudentData()
-}, [])
-console.log(allStudents)
-  console.log(students);
+  // console.log(pageData);
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -166,6 +140,8 @@ console.log(allStudents)
       setIsLoading(false);
     }
   }
+console.log(students)
+
   return (
     <Wrapper className="d-flex flex-column">
       {CSVOpen && (
@@ -180,7 +156,7 @@ console.log(allStudents)
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-      { isLoading && !allStudents && <CircularProgress /> }
+      {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
         <div className="p-3">
           <div className="d-flex py-3 justify-content-between">
@@ -189,101 +165,89 @@ console.log(allStudents)
               <input
                 type="text"
                 placeholder="search for student"
-                onChange={inputHandler}
-                onFocus={() => {
-                  setActiveSearch(true);
-                }}
+                onChange={performSearch}
               />
             </div>
             <button onClick={() => setCSVOpen(true)} className="csv-button">
               Import CSV file
             </button>
           </div>
-            <>
-              {students.length > 0 ? (
-                <div className="div p-3 mt-4">
-                  <div className="d-flex justify-content-between bars">
-                    <div className="navigators d-flex gap-2">
-                      <div className="navigator ">All</div>
-                      <div className="navigator ">Deactivated</div>
-                      <div className="navigator"></div>
-                    </div>
-
-                    <div className={`actions d-flex gap-2`}>
-                      <div className="action ">transfer all</div>
-                      <div className="action ">deactivate all</div>
-                      <div className="action">delete all</div>
-                    </div>
-                  </div>
-                  <div className="table-div">
-                    <Table className="table table-bordered mt-5">
-                      <tr className="head">
-                        <th className="table-head">
-                          <input type="checkbox" className="check " />
-                        </th>
-
-                        <th className="table-head">First Name</th>
-                        <th className="table-head">Last Name</th>
-                        <th className="table-head">Admission Number</th>
-                        <th className="table-head">email</th>
-                        <th className="table-head">parent phone</th>
-                        <th className="table-head">gender</th>
-                        <th colSpan="3" className="table-head">
-                          Operations
-                        </th>
-                      </tr>
-                      {allStudents.map((student) => (
-                        <tr key={student.id} className="body">
-                          <td className="table-body">
-                            {" "}
-                            <input
-                              type="checkbox"
-                              className="check"
-                              checked="false"
-                              key={student._id}
-                              onChange={(e) => {
-                                checkStudent();
-                              }}
-                            />
-                          </td>
-                          <td className="table-body">{student.firstName}</td>
-                          <td className="table-body">{student.lastName}</td>
-                          <td className="table-body table-id">
-                            {student.admissionNumber}
-                          </td>
-                          <td className="table-body email">{student.email}</td>
-                          <td className="table-body email">
-                            {student.parentPhone}
-                          </td>
-
-                          <td className="table-body">{student.gender}</td>
-
-                          <td>
-                            <Link to="">
-                              <button className="update-button">edit</button>
-                            </Link>
-                          </td>
-                          <td>
-                            <Link to="">
-                              <button
-                                onClick={() => {
-                                  setOverlay(true);
-                                  setDeleteId(student._id);
-                                }}
-                                className="delete-button"
-                              >
-                                delete
-                              </button>
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </Table>
-                  </div>
+            <div className="div p-3 mt-4">
+              <div className="d-flex justify-content-between bars">
+                <div className="navigators d-flex gap-2">
+                  <div className="navigator ">All</div>
+                  <div className="navigator ">Deactivated</div>
+                  <div className="navigator"></div>
                 </div>
-              ) : (
-                <div className="not-found">not found shii</div>
-              )}
+
+                <div
+                  className={`actions d-flex gap-2 ${
+                    checkLength > 0 ? "open-action" : "closed-action"
+                  }`}
+                >
+                  <div className="action ">transfer all</div>
+                  <div className="action ">deactivate all</div>
+                  <div className="action">delete all</div>
+                </div>
+              </div>
+              <div className=" table-div">
+                <Table className="table table-bordered mt-5">
+                  <tr className="head">
+                    <th className="table-head">
+                      <input type="checkbox" className="check " />
+                    </th>
+                    <th className="table-head">First Name</th>
+                    <th className="table-head">Last Name</th>
+                    <th className="table-head">Admission Number</th>
+                    <th className="table-head">email</th>
+                    <th className="table-head">parent phone</th>
+                    <th className="table-head">gender</th>
+                    <th className="table-head" colSpan="3">
+                      Operations
+                    </th>
+                  </tr>
+                  {students.length > 0 &&
+                    students.map((student) => (
+                      <tr key={student._id} className="body">
+                        <td className="table-body">
+                          <input
+                            type="checkbox"
+                            className=" cursor-pointer focus:outline-none focus:ring-0 "
+                            onChange={() => multiSelectHandle(student._id)}
+                            checked={multiSelect.includes(student._id)}
+                          />
+                        </td>
+                        <td className="table-body">{student.firstName}</td>
+                        <td className="table-body">{student.lastName}</td>
+                        <td className="table-body table-id">
+                          {student.admissionNumber}
+                        </td>
+                        <td className="table-body email">{student.email}</td>
+                        <td className="table-body">{student.parentPhone}</td>
+                        <td className="table-body">{student.gender}</td>
+
+                        <td>
+                          <Link to="">
+                            <button className="update-button">edit</button>
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to="">
+                            <button
+                              onClick={() => {
+                                setOverlay(true);
+                                setDeleteId(student._id);
+                              }}
+                              className="delete-button"
+                            >
+                              delete
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                </Table>
+              </div>
               <ReactPaginate
                 previousLabel={
                   <ControlButton>
@@ -305,7 +269,7 @@ console.log(allStudents)
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
               />
-            </>
+            </div>
         </div>
       ) : (
         <div className="px-3 d-flex justify-content-center align-items-center">
