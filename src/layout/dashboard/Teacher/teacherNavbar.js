@@ -62,7 +62,7 @@ export default function TeacherNavbar() {
 const Wrapper = styled.div`
   align-items: center;
   background-color: white;
-height: 70px !important;
+height: 80px !important;
   .btns {
     display: flex !important;
     flex-direction: row;
@@ -83,7 +83,7 @@ height: 70px !important;
     height:40px ;
     width: 40px;
     border-radius: 50%;
-    background-color: purple;
+    background-color: blue;
     }
     .profile-text{
       line-height: 0.2;

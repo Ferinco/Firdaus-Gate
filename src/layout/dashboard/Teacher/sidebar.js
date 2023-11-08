@@ -8,12 +8,12 @@ import { PATH_PAGE } from "../../../routes/paths";
 import { useAuth } from "../../../hooks/useAuth";
 const sidebarConfig = [
   {
-    icon: "uil:create-dashboard",
+    icon: "bxs:dashboard",
     link: PATH_DASHBOARD.teacher.index,
     title: "Dashboard",
   },
   {
-    icon: "mdi:google-classroom",
+    icon: "fluent:people-team-16-filled",
     link: PATH_DASHBOARD.teacher.myStudents,
     title: "My students",
   },
@@ -42,36 +42,36 @@ export default function TeacherSidebar() {
   return (
     <SIDEBAR className="d-flex ">
       <div
-        className={`container d-flex flex-row pr-0 ${
+        className={`container d-flex flex-row px-0 ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0 ">
-          <div className="wrapper d-flex flex-column justify-content-between">
+        <div className="nav-container d-flex flex-column py-2 justify-content-between h-100 px-0 pb-3">
+          <div className="wrapper d-flex flex-column justify-content-between w-100">
             <div className="logo">
               <Link className="react-router-link" to={PATH_PAGE.home}>
                 <img src="/images/logo.png" alt="logo" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column pl-5">
+            <div className="nav-links d-flex flex-column pl-0">
               {sidebarConfig.map(({ link, icon, title }, index) => (
                 <Link
-                  className={`nav-link react-router-link ${
+                  className={`nav-link react-router-link px-5 py-3 ${
                     activeTab === title ? "active-tab" : ""
                   }`}
                   to={link}
                   key={index}
                   onClick={() => handleNavClick(title)}
                 >
-                  <Icon icon={icon} />
+                  <Icon icon={icon}  />
                   {title}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="log-out nav-links d-flex flex-column pl-5">
+          <div className="log-out nav-links d-flex flex-column ">
           <Link
-              className={`nav-link react-router-link ${
+              className={`nav-link react-router-link px-5 py-3 ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
               to={PATH_DASHBOARD.teacher.accountSettings}
@@ -79,7 +79,7 @@ export default function TeacherSidebar() {
             > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
             <button
               to=""
-              className="react-router-link nav-link"
+              className="react-router-link nav-link px-5 py-3"
               onClick={logout}
             >
               <Icon
@@ -105,12 +105,14 @@ export default function TeacherSidebar() {
 const SIDEBAR = styled.div`
   background-color: white;
   height: 100vh;
-  width: 20%;
+  width: 280px;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-  rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
   .container {
-    width: 20%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+    width: 280px;
     height: 100vh;
     align-items: center;
     position: fixed;
@@ -123,32 +125,37 @@ const SIDEBAR = styled.div`
     height: 60% !important;
     width: 100%;
     align-items: center;
+    margin-left: 0 !important;
   }
   .nav-links {
-    gap: 30px;
     width: 100%;
 width: 100% !important;
 
   }
   .nav-link {
-    font-weight: 700 !important;
     color: grey !important;
     display: flex;
     justify-content: left !important;
     gap: 20px;
     align-items: center;
     transition: ease-in-out 0.3s all;
+    font-weight: 500 !important;
+
+
     &:hover {
-      color: black !important;
-    }
+    font-weight: 700 !important;
+  }
   }
   .active-tab {
     border-right: 5px solid blue !important;
-    color: black !important;
+    background-color:#f3f3f3;
+    font-weight: 700 !important; 
+
+    /* color: black !important; */
   }
   .logo {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
     display: flex;
     border-radius: 50%;
     background-color: white;
@@ -164,14 +171,14 @@ width: 100% !important;
   @media screen and (max-width: 1100px) {
     width: 0 !important;
     .container {
-      background: black;
+      background: white;
     }
     .closed {
       margin-left: -1000px;
       transition: 0.3s;
     }
     .opened {
-      width: 250px;
+      width: 280px;
       margin-left: 0;
       transition: 0.3s;
       display: flex;
@@ -191,7 +198,7 @@ width: 100% !important;
     }
     .nav-container {
       width: 250px;
-      background-color: black;
+      background-color: white;
     }
   }
 `;
