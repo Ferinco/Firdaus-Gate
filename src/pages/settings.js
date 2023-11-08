@@ -331,7 +331,7 @@ const ChangePassword = () => {
 
 const Wrapper = styled.div`
   height: auto;
-  background-color: #f1f1f1;
+  background-color: #f5f5f5;
   .div {
     background-color: white;
     border-radius: 20px;
