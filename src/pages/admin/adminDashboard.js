@@ -218,10 +218,10 @@ background-color: #f1f1f1 !important;
           color: white;
         }
         &:first-child {
-          background-color: #8080ff;
+          background-color: #030c8a;
         }
         &:nth-child(2) {
-          background: #ffff66;
+          background: #feff37;
           p {
             color: black !important;
           }

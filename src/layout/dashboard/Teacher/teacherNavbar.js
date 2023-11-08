@@ -6,11 +6,11 @@ export default function TeacherNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen } = useAppContext();
   const { user } = useAuth();
   return (
-    <Wrapper className="head container-fluid d-flex flex-row p-5 justify-content-between w-100">
+    <Wrapper className="head container-fluid d-flex flex-row px-3 justify-content-between w-100">
       <div></div>
       <div className="btns">
         <div
-          className="profile-div"
+          className="profile-div d-flex flex-row justify-content-center align-items-center p-2"
           onClick={() => {
             setIsSidebarOpen
               ? setIsSidebarOpen(false)
@@ -18,7 +18,12 @@ export default function TeacherNavbar() {
             setIsProfileOpen((prevState) => !prevState);
           }}
         >
-          <Icon icon="mdi:account-tie" className="profile-btn" color="white" />
+          <div className="circle-profile"></div>
+          <div className="d-flex flex-column profile-text mb-2">
+            <h6>{user.firstName}&nbsp;{user.lastName}</h6>
+            <p className="mb-0">{user.email}</p>
+            </div>
+          {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
         </div>
         <div
           className={`profile flex-column align-center py-3 justify-content-between mr-4 ${
@@ -57,7 +62,7 @@ export default function TeacherNavbar() {
 const Wrapper = styled.div`
   align-items: center;
   background-color: white;
-  height: 80px;
+height: 70px !important;
   .btns {
     display: flex !important;
     flex-direction: row;
@@ -65,11 +70,30 @@ const Wrapper = styled.div`
     flex-direction: row;
     gap: 20px;
     .profile-div {
-      padding: 5px;
-      border: 1px solid black;
-      border-radius: 50%;
-      background-color: black;
       cursor: pointer;
+      border-radius: 10px;
+      gap: 7px;
+      transition:all ease-in-out 0.4s;
+      &:hover{
+        background-color: #f1f1f1;
+      }
+  
+    }
+    .circle-profile{
+    height:40px ;
+    width: 40px;
+    border-radius: 50%;
+    background-color: purple;
+    }
+    .profile-text{
+      line-height: 0.2;
+      h6{
+        font-size: 14px;
+      }
+      p{
+font-size: 12px;
+font-weight: 500 !important;
+      }
     }
     .profile-btn {
       display: flex !important;
