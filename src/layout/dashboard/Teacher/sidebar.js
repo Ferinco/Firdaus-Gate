@@ -103,16 +103,18 @@ export default function TeacherSidebar() {
 }
 
 const SIDEBAR = styled.div`
-  background-color: black;
+  background-color: white;
   height: 100vh;
   width: 20%;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+  rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   .container {
     width: 20%;
     height: 100vh;
     align-items: center;
     position: fixed;
-    background-color: black;
+    background-color: white;
   }
   .nav-container {
     width: 100% ;
@@ -130,19 +132,19 @@ width: 100% !important;
   }
   .nav-link {
     font-weight: 700 !important;
-    color: #b3b3b3 !important;
+    color: grey !important;
     display: flex;
     justify-content: left !important;
     gap: 20px;
     align-items: center;
+    transition: ease-in-out 0.3s all;
     &:hover {
-      color: white !important;
-      transition: 0.3s;
+      color: black !important;
     }
   }
   .active-tab {
-    border-right: 5px solid white !important;
-    color: white !important;
+    border-right: 5px solid blue !important;
+    color: black !important;
   }
   .logo {
     height: 80px;
