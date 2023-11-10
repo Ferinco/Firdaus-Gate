@@ -13,7 +13,9 @@ export default function AdminDashboardLayout() {
         className="outlet"
       >
         <AdminNavbar />
-        <Outlet />
+        <div className="div">
+        <Outlet/>
+        </div>
       </div>
     </Wrapper>
   );
@@ -24,6 +26,10 @@ const Wrapper = styled.div`
     width: 80%;
     height: 100vh;
     
+  }
+  .div{
+    background-color: #f5f5f5 !important;
+    margin-top: 80px !important;
   }
   @media screen and (max-width: 1100px) {
     .outlet {
