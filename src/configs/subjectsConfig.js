@@ -289,11 +289,6 @@ export const SeniorSubjects =[
         id: "002",
     }, 
     {
-        name: "Mathematics",
-        code: "FSS_002",
-        id: "002",
-    }, 
-    {
         name: "Biology",
         code: "FSS_003",
         id: "003",
@@ -390,6 +385,56 @@ export const ScienceSubjects = [
         name: "Mathematics",
         code: "FSS_002",
         id: "002",
+    }, 
+    {
+        name: "Biology",
+        code: "FSS_003",
+        id: "003",
+    }, 
+    {
+        name: "Physics",
+        code: "FSS_004",
+        id: "004",
+    },
+    {
+        name: "Chemistry",
+        code: "FSS_005",
+        id: "005",
+    },
+    {
+        name: "Further Mathematics",
+        code: "FSS_006",
+        id: "006",
+    },
+    {
+        name: "Computer Studies",
+        code: "FSS_009",
+        id: "009",
+    },
+    {
+        name: "Data Processing",
+        code: "FSS_010",
+        id: "010",
+    },
+    {
+        name: "Arabic",
+        code: "FSS_012",
+        id: "012",
+    },
+    {
+        name: "Economics",
+        code: "FSS_013",
+        id: "013",
+    },
+    {
+        name: "Geography",
+        code: "FSS_014",
+        id: "014",
+    },
+    {
+        name: "Agric. Science",
+        code: "FSS_015",
+        id: "015",
     },
 ]
 
@@ -404,6 +449,36 @@ export const ArtsSubjects = [
         code: "FSS_002",
         id: "002",
     },
+    {
+        name: "Government",
+        code: "FSS_016",
+        id: "016",
+    },
+    {
+        name: "Literature in English",
+        code: "FSS_017",
+        id: "017",
+    },
+    {
+        name: "Biology",
+        code: "FSS_003",
+        id: "003",
+    }, 
+    {
+        name: "Yoruba Language",
+        code: "FSS_007",
+        id: "007",
+    },
+    {
+        name: "Civic Education",
+        code: "FSS_008",
+        id: "008",
+    },
+    {
+        name: "I.R.S",
+        code: "FSS_011",
+        id: "011",
+    },
 ]
 
 export const CommercialSubjects = [
@@ -417,5 +492,29 @@ export const CommercialSubjects = [
         code: "FSS_002",
         id: "002",
     },
+    {
+        name: "Financial Accounting",
+        code: "FSS_018",
+        id: "018",
+    },
+    {
+        name: "Commerce",
+        code: "FSS_019",
+        id: "019",
+    },
+    {
+        name: "Biology",
+        code: "FSS_003",
+        id: "003",
+    }, 
+    {
+        name: "Civic Education",
+        code: "FSS_008",
+        id: "008",
+    },
+    {
+        name: "Arabic",
+        code: "FSS_012",
+        id: "012",
+    },
 ]
-
