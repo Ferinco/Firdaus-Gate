@@ -289,11 +289,11 @@ const Wrapper = styled.div`
     .label {
       font-weight: 500;
       margin-bottom: -10px !important;
-      background-color: #f1f1f1;
+      background-color: #f5f5f5;
       margin-left: 10px;
       padding-right: 5px;
       font-size: 14px;
-      z-index: 999;
+      z-index: 99 !important;
       color: grey;
       width: fit-content;
       text-transform: capitalize;

@@ -18,9 +18,10 @@ const sidebarConfig = [
     title: "My students",
   },
   {
-    icon: "fluent-mdl2:poll-results",
+    icon: "memory:poll",
     link: PATH_DASHBOARD.teacher.results,
     title: "Report",
+    rotate: 1
   },
   {
     icon: "solar:calendar-bold",
@@ -54,7 +55,7 @@ export default function TeacherSidebar() {
               </Link>
             </div>
             <div className="nav-links d-flex flex-column pl-0">
-              {sidebarConfig.map(({ link, icon, title }, index) => (
+              {sidebarConfig.map(({ link, icon, title, rotate }, index) => (
                 <Link
                   className={`nav-link react-router-link px-5 py-3 ${
                     activeTab === title ? "active-tab" : ""
@@ -63,7 +64,7 @@ export default function TeacherSidebar() {
                   key={index}
                   onClick={() => handleNavClick(title)}
                 >
-                  <Icon icon={icon}  />
+                  <Icon icon={icon} rotate={rotate} />
                   {title}
                 </Link>
               ))}
@@ -76,7 +77,7 @@ export default function TeacherSidebar() {
               }`}
               to={PATH_DASHBOARD.teacher.accountSettings}
               onClick={() => handleNavClick("Settings")}
-            > <Icon icon="fluent:settings-20-regular" /> Settings</Link>
+            > <Icon icon="ic:baseline-settings" /> Settings</Link>
             <button
               to=""
               className="react-router-link nav-link px-5 py-3"
@@ -107,6 +108,7 @@ const SIDEBAR = styled.div`
   height: 100vh;
   width: 280px;
   position: relative;
+  z-index: 9999 !important;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
   rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
   .container {

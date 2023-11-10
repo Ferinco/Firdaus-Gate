@@ -16,14 +16,14 @@ const TabsConfig = [
     title: "Create Profile",
     subTitle: "create a new student profile",
     icon: "typcn:user-add",
-    iconColor: "white",
+    iconColor: "black",
   },
   {
     link: PATH_DASHBOARD.teacher.addScheme,
     title: "Add Subject Scheme",
     subTitle: "Upload subject scheeme for the term",
     icon: "pepicons-pencil:list",
-    iconColor: "black",
+    iconColor: "white",
   },
   {
     link: PATH_DASHBOARD.teacher.createResult,
@@ -156,7 +156,7 @@ export default function TeacherDashboard() {
 
   return (
     <Dashboard className="p-5">
-      <div className="head d-flex flex-column container py-3 justify-content-center px-0">
+      <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
         <h4 className="mt-3">
           <span>{greeting} </span>
           {title} {user.firstName} <span></span>
@@ -224,71 +224,6 @@ export default function TeacherDashboard() {
           </Link>
         ))}
       </div>
-
-      {/* <div className="mobile-info flex-column p-3 mt-5">
-        <div className="div d-flex flex-row">
-          <h6 style={{ color: "white" }} className="mt-3">Catalog</h6>
-        </div>
-        <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
-          <p>Current Term:</p>
-          {currentTerm ? (
-            <h5>
-              {termName === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                termName
-              )}
-            </h5>
-          ) : (
-            <p>Term has ended! or yet to start</p>
-          )}
-        </div>
-        <div className="bottom-div">
-          <div className="div d-flex flex-column p-2 align-items-center justify-content-center">
-            <p>week:</p>
-            {currentTerm ? (
-              <h5>
-                {lastWeek < 0 ? (
-                  <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  lastWeek
-                )}
-              </h5>
-            ) : (
-              <h5>no record</h5>
-            )}
-          </div>
-          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>Term Begins:</p>
-            {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
-          </div>
-          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>Term Ends:</p>
-            {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
-          </div>
-        </div>
-        <div className="top-div">
-          <div className="long d-flex flex-column p-2 align-items-center justify-content-center">
-            <p>STUDENTS</p>
-            {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
-          </div>
-          <div className="small d-flex flex-column  align-items-center justify-content-center">
-            {" "}
-            <p>MALE</p>
-            {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
-          </div>
-          <div className="small d-flex flex-column  align-items-center justify-content-center">
-            <p>FEMALE</p>
-            {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
-          </div>
-        </div>
-      </div>
- */}
-      <div className="end-div  d-flex flex-row p-5 justify-content-between"></div>
     </Dashboard>
   );
 }
@@ -296,8 +231,7 @@ const Dashboard = styled.div`
   background-color: #f5f5f5 !important;
   margin: 0 !important;
   height: fit-content !important;
-  width: 70%;
-  height: fit-content;
+  /* height: fit-content; */
   .head {
     h4 {
       font-weight: 800 !important;
@@ -315,8 +249,8 @@ const Dashboard = styled.div`
   .infos {
     .info {
       width: 200px;
-      height: 200px;
-      border-radius: 10px;
+      height: 180px;
+      border-radius: 15px;
       overflow: hidden;
       background-color: white;
 .big-icon{
@@ -331,14 +265,13 @@ const Dashboard = styled.div`
   }
   .tabs {
     gap: 10px;
-    max-width: 400px !important;
+    width: 100% !important;
     .tab {
       max-width: 400px !important;
-      min-width: 100%;
-      height: auto;
+      height: 100px !important;
       border-radius: 10px;
       align-items: center;
-      border: 1px solid red;
+      overflow: hidden;
       .icon-div {
         padding: 10px;
         border-radius: 50%;
@@ -346,8 +279,12 @@ const Dashboard = styled.div`
       }
       .text {
         text-align: left;
+      overflow: hidden;
+p{
+  text-overflow: ellipsis;
+}
       }
-      &:first-child {
+      &:nth-child(4) {
         /* background: black; */
         .icon-div {
           background-color: #1c1c1c;
@@ -359,7 +296,7 @@ const Dashboard = styled.div`
           color: black;
         }
         p {
-          color: #b3b3b3;
+          /* color: #b3b3b3; */
         }
       }
       &:nth-child(2) {

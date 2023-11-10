@@ -13,7 +13,10 @@ export default function TeacherDashboardLayout() {
         className="outlet"
       >
         <TeacherNavbar />
-        <Outlet />
+        <div className="div">
+        <Outlet/>
+        </div>
+
       </div>
     </Wrapper>
   );
@@ -23,6 +26,9 @@ const Wrapper = styled.div`
   .outlet {
     width: calc(100vw - 280px);
    height: 100vh;
+  }
+  .div{
+    margin-top: 80px !important;
   }
   @media screen and (max-width: 1100px) {
     .outlet {
