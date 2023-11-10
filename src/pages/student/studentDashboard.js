@@ -114,9 +114,11 @@ export default function StudentDashboard() {
   }
 
   return (
-    <Dashboard>
+    <>
+
       {loading && <OverlayLoading />}
-      <div className="middle-div d-flex flex-row justify-content-between align-items-center p-5">
+    <Dashboard className="py-5">
+      <div className="middle-div d-flex flex-row justify-content-between align-items-center py-5">
         <div className="wrapper-div  justify-content-between gap-3">
           <div className="big-tab d-flex flex-row justify-content-between p-3">
             <div className="text">
@@ -290,19 +292,22 @@ export default function StudentDashboard() {
         </div>
       </div>
     </Dashboard>
+    </>
   );
 }
 const Dashboard = styled.div`
-  background: #f1f1f1 !important;
-  overflow-x: hidden !important;
+  background-color: #f5f5f5 !important;
+  margin: 0 !important;
   height: fit-content !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
     height: 12px !important;
   }
   .middle-div {
-    background-color: #f1f1f1;
+    background-color: #f5f5f5;
     align-items: center;
     height: auto;
     gap: 50px;
@@ -485,6 +490,8 @@ const Dashboard = styled.div`
   }
 
   @media screen and (max-width: 1100px) {
+    padding-left: 24px !important;
+  padding-right: 24px !important;
     .btns {
       display: flex !important;
       flex-direction: row;

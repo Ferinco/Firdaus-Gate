@@ -63,8 +63,8 @@ width: calc(100vw - 280px);
 backdrop-filter: blur(2px) !important;
 transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 z-index:999 !important;
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: 32px;
+    padding-right: 32px;
   .btns {
     .profile-div {
       cursor: pointer;
@@ -144,10 +144,13 @@ p{
     z-index: 999;
     transition: 0.3s;
     position: absolute;
-    right: 40px !important;
+    right: 32px !important;
     top: 80px !important;
     transition:all ease-in-out 0.4s;
     opacity: 1 !important;
+    @media screen and (max-width: 1100px) {
+right:24px !important;
+  }
 
   }
   .close {

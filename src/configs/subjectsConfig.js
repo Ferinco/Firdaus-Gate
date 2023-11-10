@@ -10,7 +10,7 @@ export const ElementarySubjects = [
         id: "002",
     },
     {
-        name: "Handwitting",
+        name: "Handwritting",
         code: "FES_003",
         id: "003",
     },
@@ -241,7 +241,7 @@ export const JuniorSubjects = [
         id: "012",
     },
     {
-        name: "Creatice and Cultural Arts",
+        name: "Creative and Cultural Arts",
         code: "FJS_013",
         id: "013",
     },
@@ -273,6 +273,109 @@ export const JuniorSubjects = [
     {
         name: "History",
         code: "FJS_019",
+        id: "019",
+    },
+]
+
+export const SeniorSubjects =[
+    {
+        name: "English Langauage",
+        code: "FSS_001",
+        id: "001",
+    },
+    {
+        name: "Mathematics",
+        code: "FSS_002",
+        id: "002",
+    }, 
+    {
+        name: "Mathematics",
+        code: "FSS_002",
+        id: "002",
+    }, 
+    {
+        name: "Biology",
+        code: "FSS_003",
+        id: "003",
+    }, 
+    {
+        name: "Physics",
+        code: "FSS_004",
+        id: "004",
+    },
+    {
+        name: "Chemistry",
+        code: "FSS_005",
+        id: "005",
+    },
+    {
+        name: "Further Mathematics",
+        code: "FSS_006",
+        id: "006",
+    },
+    {
+        name: "Yoruba Language",
+        code: "FSS_007",
+        id: "007",
+    },
+    {
+        name: "Civic Education",
+        code: "FSS_008",
+        id: "008",
+    },
+    {
+        name: "Computer Studies",
+        code: "FSS_009",
+        id: "009",
+    },
+    {
+        name: "Data Processing",
+        code: "FSS_010",
+        id: "010",
+    },
+    {
+        name: "I.R.S",
+        code: "FSS_011",
+        id: "011",
+    },
+    {
+        name: "Arabic",
+        code: "FSS_012",
+        id: "012",
+    },
+    {
+        name: "Economics",
+        code: "FSS_013",
+        id: "013",
+    },
+    {
+        name: "Geography",
+        code: "FSS_014",
+        id: "014",
+    },
+    {
+        name: "Agric. Science",
+        code: "FSS_015",
+        id: "015",
+    },
+    {
+        name: "Government",
+        code: "FSS_016",
+        id: "016",
+    },
+    {
+        name: "Literature in English",
+        code: "FSS_017",
+        id: "017",
+    },
+    {
+        name: "Financial Accounting",
+        code: "FSS_018",
+        id: "018",
+    },
+    {
+        name: "Commerce",
+        code: "FSS_019",
         id: "019",
     },
 ]
