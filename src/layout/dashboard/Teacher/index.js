@@ -28,6 +28,7 @@ const Wrapper = styled.div`
    height: 100vh;
   }
   .div{
+    background-color: #f5f5f5 !important;
     margin-top: 80px !important;
   }
   @media screen and (max-width: 1100px) {

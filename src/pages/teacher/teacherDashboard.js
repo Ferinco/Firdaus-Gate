@@ -155,7 +155,7 @@ export default function TeacherDashboard() {
   }, []);
 
   return (
-    <Dashboard className="p-5">
+    <Dashboard className="py-5">
       <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
         <h4 className="mt-3">
           <span>{greeting} </span>
@@ -231,6 +231,8 @@ const Dashboard = styled.div`
   background-color: #f5f5f5 !important;
   margin: 0 !important;
   height: fit-content !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   /* height: fit-content; */
   .head {
     h4 {
@@ -480,5 +482,9 @@ p{
         height: auto;
       }
     }
+  }
+  @media screen and (max-width: 1100px) {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 `;

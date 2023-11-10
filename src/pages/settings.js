@@ -82,7 +82,7 @@ export default function Settings() {
   };
 
   return (
-    <Wrapper className="d-flex flex-column p-5 container">
+    <Wrapper className="d-flex flex-column py-5 container">
       <h4>Account Settings</h4>
       <div className="navigators d-flex flex-row gap-4 mt-4">
         <div
@@ -332,8 +332,10 @@ const ChangePassword = () => {
 const Wrapper = styled.div`
   height: auto;
   background-color: #f5f5f5;
+  padding-left: 32px;
+  padding-right: 32px;
   .div {
-    background-color: white;
+    background-color: white !important;
     border-radius: 20px;
     max-width: 500px;
   }
@@ -354,7 +356,7 @@ const Wrapper = styled.div`
   }
   .out {
     max-width: 400px;
-    background-color: white;
+    background-color: white !important;
     border-radius: 20px;
   }
   .active {
@@ -369,7 +371,7 @@ const Wrapper = styled.div`
     margin-left: 10px;
     padding-right: 5px;
     font-size: 13px;
-    z-index: 999;
+    z-index: 99 !important;
     color: grey;
     width: fit-content;
     text-transform: capitalize;
@@ -398,5 +400,9 @@ const Wrapper = styled.div`
   }
   .icon {
     font-size: 15px;
+  }
+  @media (max-width:1100px){
+    padding-left: 24px;
+  padding-right: 24px;
   }
 `;

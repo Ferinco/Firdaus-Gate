@@ -143,7 +143,7 @@ export default function MyClass() {
 console.log(students)
 
   return (
-    <Wrapper className="d-flex flex-column">
+    <>
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -152,13 +152,14 @@ console.log(students)
           handleSubmit={createCsvUsers}
         />
       )}
+      {isLoading ? <CircularProgress /> : ""}
+    <Wrapper className="d-flex flex-column py-5">
       {/* <div className="header px-3 py-3">
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-      {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
-        <div className="p-3">
+        <div className="">
           <div className="d-flex py-3 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" className="icon" />
@@ -172,7 +173,7 @@ console.log(students)
               Import CSV file
             </button>
           </div>
-            <div className="div p-3 mt-4">
+            <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
@@ -191,7 +192,7 @@ console.log(students)
                 </div>
               </div>
               <div className=" table-div">
-                <Table className="table table-bordered mt-5">
+                <Table className="table table-bordered mt-3">
                   <tr className="head">
                     <th className="table-head">
                       <input type="checkbox" className="check " />
@@ -272,7 +273,7 @@ console.log(students)
             </div>
         </div>
       ) : (
-        <div className="px-3 d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center">
           <div className="pt-5 h-100">
             <p className="text-muted">No student to display...</p>
             <div className="d-flex py-1 justify-content-between">
@@ -286,7 +287,7 @@ console.log(students)
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
           <div
-            className={`d-flex flex-column p-3 overlay-options ${
+            className={`d-flex flex-column overlay-options ${
               overlay ? "open" : "close"
             }`}
           >
@@ -315,10 +316,13 @@ console.log(students)
         ""
       )}
     </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
-  background-color: #f1f1f1 !important;
+  padding-left: 32px ;
+  padding-right: 32px;
+  background-color: #f5f5f5 !important;
   .buttons {
     justify-content: right;
     width: 100%;
@@ -392,23 +396,15 @@ const Wrapper = styled.div`
       }
     }
     .navigators {
-      @media screen and (max-width: 630px) {
-        border-radius: 10px;
-        padding: 10px;
-        justify-content: space-between;
-      }
     }
     .navigator {
       padding: 3px 10px;
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid white;
+      border-bottom: 2px solid #f5f5f5;
 
       cursor: pointer;
-      @media screen and (max-width: 630px) {
-        background-color: white !important;
-      }
 
       &:first-child {
         border-bottom: 2px solid blue;
@@ -470,5 +466,9 @@ const Wrapper = styled.div`
         margin-top: 10px;
       }
     }
+  }
+  @media screen and (max-width:1100px){
+    padding-left: 24px ;
+    padding-right: 24px;
   }
 `;

@@ -8,8 +8,8 @@ export default function TeacherNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
   const { user } = useAuth();
   return (
-    <Wrapper className="head container-fluid d-flex flex-column justify-content-center px-3">
-      <div className="btns d-flex flex-row justify-content-between w-100 px-3 align-items-center">
+    <Wrapper className="head container-fluid d-flex flex-column justify-content-center">
+      <div className="btns d-flex flex-row justify-content-between w-100 align-items-center">
       <div
           onClick={() => {
             setIsSidebarOpen((prevState) => !prevState);
@@ -65,6 +65,8 @@ width: calc(100vw - 280px);
 backdrop-filter: blur(2px) !important;
 transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 z-index:999 !important;
+    padding-left: 48px;
+    padding-right: 48px;
   .btns {
     .profile-div {
       cursor: pointer;
@@ -77,8 +79,8 @@ z-index:999 !important;
   
     }
     .circle-profile{
-    height:40px ;
-    width: 40px;
+    height:32px ;
+    width: 32px;
     border-radius: 50%;
     background-color: blue;
     }
@@ -164,14 +166,12 @@ p{
   .animate-bar{
     margin-left: 290px !important;
     transition: 0.3s;
-    @media screen and (max-width:500px){
-      .nav-btn{
-        display:none !important;
-      }
-    }
+
   }
   @media screen and (max-width: 1100px) {
     width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
     .btns {
       .nav-btn {
         display: block !important;
@@ -180,4 +180,9 @@ p{
       }
     }
   }
+  @media screen and (max-width:500px){
+    .animate-bar{
+margin-left: 0 !important;
+    }
+    }
 `;

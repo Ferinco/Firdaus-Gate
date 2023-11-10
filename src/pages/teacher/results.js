@@ -17,8 +17,8 @@ export default function Results() {
 const {reports, isLoading} = useSelector((state)=> state.reports)
   return (
     <div>
-      <Wrapper>
       {isLoading ? <CircularProgress /> : ""}
+      <Wrapper className="py-5">
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -27,7 +27,7 @@ const {reports, isLoading} = useSelector((state)=> state.reports)
           // handleSubmit={createCsvUsers}
         />
       )}
-        <div className="container d-flex flex-column p-5">
+        <div className="d-flex flex-column">
 <div>
   <h4>Reports</h4>
 </div>
@@ -50,4 +50,11 @@ const {reports, isLoading} = useSelector((state)=> state.reports)
     </div>
   );
 }
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-left: 32px;
+  padding-right: 32px;
+  @media  (max-width: 1100px){
+    padding-left: 24px;
+  padding-right: 24px;
+  }
+  `;
