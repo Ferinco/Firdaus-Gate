@@ -106,7 +106,7 @@ export default function AdminDashboard() {
     }
   }
   return (
-    <Wrapper className="">
+    <Wrapper className="py-5">
       <div className="d-flex flex-column left">
         <h4>
           {greeting} Mr {user.lastName}
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
             to={link}
             key={index}
           >
-            <div className="d-flex flex-column mt-3 text">create
+            <div className="d-flex flex-column mt-3 text">
               <h6>{title}</h6>
               <p>{subTitle}</p>
             </div>
@@ -194,6 +194,8 @@ export default function AdminDashboard() {
 }
 const Wrapper = styled.div`
 background-color: #f5f5f5 !important;
+padding-left:32px !important;
+    padding-right:32px !important;
   .middle-div {
     overflow: scroll !important;
     .overviews {
@@ -312,9 +314,8 @@ background-color: #f5f5f5 !important;
     height: 14px !important;
   }
 
-  @media screen and (max-width: 500px) {
-.middle-div, .tabs{
-  padding:  24px !important;
-}    
+  @media screen and (max-width: 1100px){
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 `;
