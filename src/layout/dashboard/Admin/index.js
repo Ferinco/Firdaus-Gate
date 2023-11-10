@@ -9,11 +9,13 @@ export default function AdminDashboardLayout() {
     <Wrapper className="d-flex flex-row">
       <AdminSidebar />
       <div
-        style={{ backgroundColor: "#f1f1f1"}}
+        style={{ backgroundColor: "#f5f5f5"}}
         className="outlet"
       >
         <AdminNavbar />
-        <Outlet />
+        <div className="div py-5">
+        <Outlet/>
+        </div>
       </div>
     </Wrapper>
   );
@@ -25,7 +27,18 @@ const Wrapper = styled.div`
     height: 100vh;
     
   }
+  .div{
+    background-color: #f5f5f5 !important;
+    margin-top: 80px !important;
+    padding-left:32px;
+    padding-left:32px;
+
+  }
   @media screen and (max-width: 1100px) {
+    .div{
+      padding-left:24px;
+      padding-left:24px;
+    }
     .outlet {
       width: 100% !important;
     }

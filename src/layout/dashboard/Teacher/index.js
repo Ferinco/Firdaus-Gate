@@ -9,11 +9,14 @@ export default function TeacherDashboardLayout() {
     <Wrapper className="d-flex flex-row">
       <TeacherSidebar />
       <div
-        style={{ backgroundColor: "#f1f1f1"}}
+        style={{ backgroundColor: "#f5f5f5"}}
         className="outlet"
       >
         <TeacherNavbar />
-        <Outlet />
+        <div className="div">
+        <Outlet/>
+        </div>
+
       </div>
     </Wrapper>
   );
@@ -21,8 +24,12 @@ export default function TeacherDashboardLayout() {
 const Wrapper = styled.div`
   position: relative;
   .outlet {
-    width: 80%;
+    width: calc(100vw - 280px);
    height: 100vh;
+  }
+  .div{
+    background-color: #f5f5f5 !important;
+    margin-top: 80px !important;
   }
   @media screen and (max-width: 1100px) {
     .outlet {

@@ -16,14 +16,14 @@ const TabsConfig = [
     title: "Create Profile",
     subTitle: "create a new student profile",
     icon: "typcn:user-add",
-    iconColor: "white",
+    iconColor: "black",
   },
   {
     link: PATH_DASHBOARD.teacher.addScheme,
     title: "Add Subject Scheme",
     subTitle: "Upload subject scheeme for the term",
     icon: "pepicons-pencil:list",
-    iconColor: "black",
+    iconColor: "white",
   },
   {
     link: PATH_DASHBOARD.teacher.createResult,
@@ -109,7 +109,7 @@ export default function TeacherDashboard() {
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState("");
   const [students, setStudents] = useState();
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
@@ -145,32 +145,29 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-useEffect(()=>{
-  function getTitle(){
-    if(user.gender === "male"){
-    setTitle("Mr")
+  useEffect(() => {
+    function getTitle() {
+      if (user.gender === "male") {
+        setTitle("Mr");
+      } else setTitle("Mrs");
     }
-    else setTitle("Mrs")
-      }
-      getTitle()
-},[])
+    getTitle();
+  }, []);
 
   return (
-    <Dashboard className="p-5">
-      <div className="head d-flex flex-column left container m-0">
-        <h4>
-          <span>{greeting}{" "}</span>{title}{" "}{user.firstName} <span></span>
+    <Dashboard className="py-5">
+      <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
+        <h4 className="mt-3">
+          <span>{greeting} </span>
+          {title} {user.firstName} <span></span>
         </h4>
-        <p>Welcome to your dashboard.</p>
+        <p className="text-muted">Welcome to your dashboard.</p>
       </div>
-      <div className="mobile-info flex-column p-3 mt-5">
-        <div className="div d-flex flex-row">
-          <h6 style={{ color: "white" }} className="mt-3">Catalog</h6>
-        </div>
-        <div className="term-div d-flex flex-column justify-content-center align-items-center p-1">
-          <p>Current Term:</p>
-          {currentTerm ? (
-            <h5>
+      <div className="infos d-flex flex-row gap-3">
+        <div className="info p-3">
+          <div className="info-text">
+            <p className="mb-0">Current term</p>
+            <h6>
               {termName === "" ? (
                 <div className="spinner-border" role="status">
                   <span className="sr-only">Loading...</span>
@@ -178,148 +175,163 @@ useEffect(()=>{
               ) : (
                 termName
               )}
-            </h5>
-          ) : (
-            <p>Term has ended! or yet to start</p>
-          )}
-        </div>
-        <div className="bottom-div">
-          <div className="div d-flex flex-column p-2 align-items-center justify-content-center">
-            <p>week:</p>
-            {currentTerm ? (
-              <h5>
-                {lastWeek < 0 ? (
-                  <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  lastWeek
-                )}
-              </h5>
-            ) : (
-              <h5>no record</h5>
-            )}
-          </div>
-          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>Term Begins:</p>
-            {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
-          </div>
-          <div className="div d-flex flex-column  p-2 align-items-center justify-content-center">
-            <p>Term Ends:</p>
-            {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
+            </h6>
           </div>
         </div>
-        <div className="top-div">
-          <div className="long d-flex flex-column p-2 align-items-center justify-content-center">
-            <p>STUDENTS</p>
-            {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
-          </div>
-          <div className="small d-flex flex-column  align-items-center justify-content-center">
-            {" "}
-            <p>MALE</p>
-            {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
-          </div>
-          <div className="small d-flex flex-column  align-items-center justify-content-center">
-            <p>FEMALE</p>
-            {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
-          </div>
-        </div>
-      </div>
-      <div className="middle-div d-flex py-5">
-        <div className="tabs d-flex flex-column ">
-          {TabsConfig.map(
-            ({ icon, title, subTitle, iconColor, link }, index) => (
-              <Link
-                className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2 gap-1"
-                to={link}
-                key={index}
-              >
-                <div className="d-flex flex-column mt-3 text">
-                  <h6>{title}</h6>
-                  <p>{subTitle}</p>
-                </div>
-                <div className="icon-div">
-                  <Icon className="icon" icon={icon} color={iconColor} />
-                </div>
-              </Link>
-            )
-          )}
-        </div>
-        <div className="info-wrapper d-flex flex-column p-3">
-          <div className="div d-flex flex-row">
-            <h6 style={{ color: "white" }} className="mt-3">Catalog</h6>
-          </div>
-          <div className="term-div d-flex flex-column justify-content-center">
-            <p>Current Term:</p>
-            {currentTerm ? (
-              <h5>
-                {termName === "" ? (
-                  <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  termName
-                )}
-              </h5>
-            ) : (
-              <p>Term has ended! or yet to start</p>
-            )}
-          </div>
-          <div className="bottom-div">
-            <div className="div d-flex flex-column align-items-center justify-content-center">
-              <p>week:</p>
-              {currentTerm ? (
-                <h5>
-                  {lastWeek < 0 ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    lastWeek
-                  )}
-                </h5>
+        <div className="info p-3">
+          <div className="info-text">
+            <p className="mb-0">Class Handled</p>
+            <h5>
+              {user.classHandled? (
+<h6>{user.classHandled}</h6>
               ) : (
-                <h5>no record</h5>
+               "None"
               )}
-            </div>
-            <div className="div d-flex flex-column align-items-center justify-content-center">
-              <p>Term Begins:</p>
-              {currentTerm ? <h5>{begin}</h5> : <h5>no record</h5>}
-            </div>
-            <div className="div d-flex flex-column align-items-center justify-content-center">
-              <p>Term Ends:</p>
-              {currentTerm ? <h5>{end}</h5> : <h5>no record</h5>}
-            </div>
+            </h5>
           </div>
-          <div className="top-div">
-            <div className="long d-flex flex-column align-items-center justify-content-center">
-              <p>STUDENTS</p>
-              {students > 0 ? <h5>{students}</h5> : <h5>NIL</h5>}
-            </div>
-            <div className="small d-flex flex-column align-items-center justify-content-center">
-              {" "}
-              <p>MALE</p>
-              {students > 0 ? <h5>{maleGender}</h5> : <h5>NIL</h5>}
-            </div>
-            <div className="small d-flex flex-column align-items-center justify-content-center">
-              <p>FEMALE</p>
-              {students > 0 ? <h5>{femaleGender}</h5> : <h5>NIL</h5>}
-            </div>
+          <div className="icon-div">
+          </div>
+        </div>
+        <div className="info p-3">
+          <div className="info-text">
+            <p className="mb-0">Subject Taught</p>
+            <h5>
+              {user.subjectTaught? (
+<h6>{user.subjectTaught}</h6>
+              ) : (
+               "None"
+              )}
+            </h5>
           </div>
         </div>
       </div>
-      <div className="end-div  d-flex flex-row p-5 justify-content-between"></div>
+
+      <div className="tabs d-flex flex-column mt-5">
+        <h5>Tabs</h5>
+        {TabsConfig.map(({ icon, title, subTitle, iconColor, link }, index) => (
+          <Link
+            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2 gap-1"
+            to={link}
+            key={index}
+          >
+            <div className="d-flex flex-column mt-3 text">
+              <h6>{title}</h6>
+              <p>{subTitle}</p>
+            </div>
+            <div className="icon-div">
+              <Icon className="icon" icon={icon} color={iconColor} />
+            </div>
+          </Link>
+        ))}
+      </div>
     </Dashboard>
   );
 }
 const Dashboard = styled.div`
-background-color: #f1f1f1 !important;
+  background-color: #f5f5f5 !important;
   margin: 0 !important;
   height: fit-content !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+  /* height: fit-content; */
+  .head {
+    h4 {
+      font-weight: 800 !important;
+    }
+    p {
+      font-weight: 600;
+    }
+  }
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
     height: 12px !important;
+  }
+  
+  .infos {
+    .info {
+      width: 200px;
+      height: 180px;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: white;
+.big-icon{
+  font-size: 200px !important;
+}
+.icon-div{
+  background-color: #f1f1f1;
+  overflow: hidden;
+  border-radius: 10px;
+}
+    }
+  }
+  .tabs {
+    gap: 10px;
+    width: 100% !important;
+    .tab {
+      max-width: 400px !important;
+      height: 100px !important;
+      border-radius: 10px;
+      align-items: center;
+      overflow: hidden;
+      .icon-div {
+        padding: 10px;
+        border-radius: 50%;
+        /* border:1px solid black; */
+      }
+      .text {
+        text-align: left;
+      overflow: hidden;
+p{
+  text-overflow: ellipsis;
+}
+      }
+      &:nth-child(4) {
+        /* background: black; */
+        .icon-div {
+          background-color: #1c1c1c;
+        }
+        .icon {
+          font-size: 30px;
+        }
+        h6 {
+          color: black;
+        }
+        p {
+          /* color: #b3b3b3; */
+        }
+      }
+      &:nth-child(2) {
+        /* background: #ffff66; */
+        .icon-div {
+          background-color: #fbfb87;
+        }
+        .icon {
+          font-size: 30px;
+        }
+      }
+      &:nth-child(3) {
+        /* background: #ffb366; */
+        color: black !important;
+        .icon-div {
+          background-color: #d9a26b;
+        }
+        .icon {
+          font-size: 30px;
+        }
+      }
+      &:last-child {
+        /* background-color: #8080ff; */
+        color: black !important;
+        .icon-div {
+          background-color: #8c8ce1;
+        }
+        .icon {
+          font-size: 30px;
+          color: white !important;
+        }
+      }
+    }
   }
   .mobile-info {
     display: none;
@@ -328,69 +340,7 @@ background-color: #f1f1f1 !important;
     align-items: start;
     justify-content: space-between !important;
     margin: 0 !important;
-    .tabs {
-      gap: 10px;
-      .tab {
-        max-width: 400px;
-        min-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        align-items: center;
-        .icon-div {
-          padding: 10px;
-          border-radius: 50%;
-          /* border:1px solid black; */
-        }
-        .text {
-          text-align: left;
-        }
-        &:first-child {
-          background: black;
-          .icon-div {
-            background-color: #1c1c1c;
-          }
-          .icon {
-            font-size: 30px;
-          }
-          h6 {
-            color: white;
-          }
-          p {
-            color: #b3b3b3;
-          }
-        }
-        &:nth-child(2) {
-          background: #ffff66;
-          .icon-div {
-            background-color: #fbfb87;
-          }
-          .icon {
-            font-size: 30px;
-          }
-        }
-        &:nth-child(3) {
-          background: #ffb366;
-          color: white !important;
-          .icon-div {
-            background-color: #d9a26b;
-          }
-          .icon {
-            font-size: 30px;
-          }
-        }
-        &:last-child {
-          background-color: #8080ff;
-          color: white !important;
-          .icon-div {
-            background-color: #8c8ce1;
-          }
-          .icon {
-            font-size: 30px;
-            color: white !important;
-          }
-        }
-      }
-    }
+
     .info-wrapper {
       min-height: 460px;
       background-color: black;
@@ -529,9 +479,12 @@ background-color: #f1f1f1 !important;
     .mobile-info {
       height: 540px;
       .bottom-div {
-        height:auto;
+        height: auto;
       }
     }
   }
-`
-;
+  @media screen and (max-width: 1100px) {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+`;

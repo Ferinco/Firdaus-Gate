@@ -21,18 +21,9 @@ export default function MyClass() {
   const [overlay, setOverlay] = useState(false);
   const [multiSelect, setMultiSelect] = useState([]);
 
-  //search students' list
-  const [activeSearch, setActiveSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searched, setSearched] = useState([]);
-  const [deleteId, setDeleteId] = useState("");
 
+  const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch();
-  //handle input on search form
-  let inputHandler = (e) => {
-    const inputValue = e.target.value.toLowerCase();
-    setSearchQuery(inputValue);
-  };
 
   //pagination of students lists
   const [offset, setOffset] = useState(0);
@@ -44,9 +35,6 @@ export default function MyClass() {
   //handle checked students
   const [checkLength, setcheckLength] = useState(0);
 
-  function checkStudent() {
-    setcheckLength(checkLength + 1);
-  }
 
   useEffect(() => {
     const FetchStudents = async () => {
@@ -73,17 +61,19 @@ export default function MyClass() {
     setPageCount(Math.ceil(pageData.length / perPage));
   }, [pageData, offset]);
 
-  useEffect(() => {
-    const performSearch = (query) => {
-      const filterBySearch = students.filter(
-        (student) =>
+    const performSearch = (event) => {
+      const query = event.target.value
+      console.log(query)
+      let updatedList = students.filter((student) => {
+        return (
           student.lastName.toLowerCase().includes(query.toLowerCase()) ||
           student.firstName.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearched(filterBySearch);
+        );
+      });
+      console.log(updatedList)
+     setStudents(updatedList)
     };
-    performSearch(searchQuery);
-  }, [searchQuery]);
+
 
   // console.log(pageData);
 
@@ -150,8 +140,10 @@ export default function MyClass() {
       setIsLoading(false);
     }
   }
+console.log(students)
+
   return (
-    <Wrapper className="d-flex flex-column">
+    <>
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -160,139 +152,28 @@ export default function MyClass() {
           handleSubmit={createCsvUsers}
         />
       )}
+      {isLoading ? <CircularProgress /> : ""}
+    <Wrapper className="d-flex flex-column py-5">
       {/* <div className="header px-3 py-3">
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-      {isLoading ? <CircularProgress /> : ""}
       {students.length > 0 ? (
-        <div className="p-3">
+        <div className="">
           <div className="d-flex py-3 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" className="icon" />
               <input
                 type="text"
                 placeholder="search for student"
-                onChange={inputHandler}
-                onFocus={() => {
-                  setActiveSearch(true);
-                }}
+                onChange={performSearch}
               />
             </div>
             <button onClick={() => setCSVOpen(true)} className="csv-button">
               Import CSV file
             </button>
           </div>
-          {activeSearch ? (
-            <>
-              {searched.length > 0 ? (
-                <div className="div p-3 mt-4">
-                  <div className="d-flex justify-content-between bars">
-                    <div className="navigators d-flex gap-2">
-                      <div className="navigator ">All</div>
-                      <div className="navigator ">Deactivated</div>
-                      <div className="navigator"></div>
-                    </div>
-
-                    <div className={`actions d-flex gap-2`}>
-                      <div className="action ">transfer all</div>
-                      <div className="action ">deactivate all</div>
-                      <div className="action">delete all</div>
-                    </div>
-                  </div>
-                  <div className="table-div">
-                    <Table className="table table-bordered mt-5">
-                      <tr className="head">
-                        <th className="table-head">
-                          <input type="checkbox" className="check " />
-                        </th>
-
-                        <th className="table-head">First Name</th>
-                        <th className="table-head">Last Name</th>
-                        <th className="table-head">Admission Number</th>
-                        <th className="table-head">email</th>
-                        <th className="table-head">parent phone</th>
-                        <th className="table-head">gender</th>
-                        <th colSpan="3" className="table-head">
-                          Operations
-                        </th>
-                      </tr>
-                      {searched.map((student) => (
-                        <tr key={student.id} className="body">
-                          <td className="table-body">
-                            {" "}
-                            <input
-                              type="checkbox"
-                              className="check"
-                              checked="false"
-                              key={student._id}
-                              onChange={(e) => {
-                                checkStudent();
-                              }}
-                            />
-                          </td>
-                          <td className="table-body">{student.firstName}</td>
-                          <td className="table-body">{student.lastName}</td>
-                          <td className="table-body table-id">
-                            {student.admissionNumber}
-                          </td>
-                          <td className="table-body email">{student.email}</td>
-                          <td className="table-body email">
-                            {student.parentPhone}
-                          </td>
-
-                          <td className="table-body">{student.gender}</td>
-
-                          <td>
-                            <Link to="">
-                              <button className="update-button">edit</button>
-                            </Link>
-                          </td>
-                          <td>
-                            <Link to="">
-                              <button
-                                onClick={() => {
-                                  setOverlay(true);
-                                  setDeleteId(student._id);
-                                }}
-                                className="delete-button"
-                              >
-                                delete
-                              </button>
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </Table>
-                  </div>
-                </div>
-              ) : (
-                <div className="not-found">not found shii</div>
-              )}
-              <ReactPaginate
-                previousLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-rtl" className="icon" />
-                  </ControlButton>
-                }
-                nextLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-ltr" className="icon" />
-                  </ControlButton>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination pl-5 align-items-center gap-2"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-              />
-            </>
-          ) : (
-            <div className="div p-3 mt-4">
+            <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
@@ -311,7 +192,7 @@ export default function MyClass() {
                 </div>
               </div>
               <div className=" table-div">
-                <Table className="table table-bordered mt-5">
+                <Table className="table table-bordered mt-3">
                   <tr className="head">
                     <th className="table-head">
                       <input type="checkbox" className="check " />
@@ -390,10 +271,9 @@ export default function MyClass() {
                 activeClassName={"active"}
               />
             </div>
-          )}
         </div>
       ) : (
-        <div className="px-3 d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center">
           <div className="pt-5 h-100">
             <p className="text-muted">No student to display...</p>
             <div className="d-flex py-1 justify-content-between">
@@ -407,7 +287,7 @@ export default function MyClass() {
       {overlay ? (
         <div className="overlay-wrapper d-flex ">
           <div
-            className={`d-flex flex-column p-3 overlay-options ${
+            className={`d-flex flex-column overlay-options ${
               overlay ? "open" : "close"
             }`}
           >
@@ -436,10 +316,13 @@ export default function MyClass() {
         ""
       )}
     </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
-  background-color: #f1f1f1 !important;
+  padding-left: 32px ;
+  padding-right: 32px;
+  background-color: #f5f5f5 !important;
   .buttons {
     justify-content: right;
     width: 100%;
@@ -513,23 +396,15 @@ const Wrapper = styled.div`
       }
     }
     .navigators {
-      @media screen and (max-width: 630px) {
-        border-radius: 10px;
-        padding: 10px;
-        justify-content: space-between;
-      }
     }
     .navigator {
       padding: 3px 10px;
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid white;
+      border-bottom: 2px solid #f5f5f5;
 
       cursor: pointer;
-      @media screen and (max-width: 630px) {
-        background-color: white !important;
-      }
 
       &:first-child {
         border-bottom: 2px solid blue;
@@ -591,5 +466,9 @@ const Wrapper = styled.div`
         margin-top: 10px;
       }
     }
+  }
+  @media screen and (max-width:1100px){
+    padding-left: 24px ;
+    padding-right: 24px;
   }
 `;

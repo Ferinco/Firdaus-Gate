@@ -107,14 +107,14 @@ export default function AdminDashboard() {
   }
   return (
     <Wrapper className="">
-      <div className="d-flex flex-column left p-5">
+      <div className="d-flex flex-column left">
         <h4>
           {greeting} Mr {user.lastName}
         </h4>
         <p>welcome to your dashboard</p>
       </div>
 
-      <div className="middle-div px-5">
+      <div className="middle-div">
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
@@ -172,14 +172,14 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-      <div className="tabs d-flex flex-column py-4 px-5">
+      <div className="tabs d-flex flex-column py-4">
         {TabsConfig.map(({ link, title, subTitle, iconColor, icon }, index) => (
           <Link
             className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
             to={link}
             key={index}
           >
-            <div className="d-flex flex-column mt-3 text">
+            <div className="d-flex flex-column mt-3 text">create
               <h6>{title}</h6>
               <p>{subTitle}</p>
             </div>
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
   );
 }
 const Wrapper = styled.div`
-background-color: #f1f1f1 !important;
+background-color: #f5f5f5 !important;
   .middle-div {
     overflow: scroll !important;
     .overviews {
@@ -218,10 +218,10 @@ background-color: #f1f1f1 !important;
           color: white;
         }
         &:first-child {
-          background-color: #8080ff;
+          background-color: #030c8a;
         }
         &:nth-child(2) {
-          background: #ffff66;
+          background: #feff37;
           p {
             color: black !important;
           }
@@ -315,7 +315,6 @@ background-color: #f1f1f1 !important;
   @media screen and (max-width: 500px) {
 .middle-div, .tabs{
   padding:  24px !important;
-
 }    
   }
 `;

@@ -84,7 +84,7 @@ export default function CreateTeachers() {
 
   return (
     <div>
-      <Wrapper className="p-5">
+      <Wrapper className="">
         <div className="head d-flex flex-column py-3">
           <h4>Create Teacher Profile</h4>
           <p>enter teacher's details to create his/her profile</p>
@@ -382,7 +382,7 @@ const Wrapper = styled.div`
     .label {
       font-weight: 500;
       margin-bottom: -10px !important;
-      background-color: #f1f1f1;
+      background-color: #f5f5f5;
       margin-left: 10px;
       padding-right: 5px;
       font-size: 14px;
