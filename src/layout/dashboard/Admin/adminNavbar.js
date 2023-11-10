@@ -80,7 +80,7 @@ z-index:999 !important;
     height:32px ;
     width: 32px;
     border-radius: 50%;
-    background-color: blue;
+    background-color: black;
     }
     .profile-text{
       line-height: 0.2;
