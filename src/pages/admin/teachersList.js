@@ -169,7 +169,8 @@ export default function TeachersList() {
       });
   };
   return (
-    <Wrapper className="d-flex flex-column">
+    <>
+
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -178,15 +179,11 @@ export default function TeachersList() {
           handleSubmit={createCsvUsers}
         />
       )}
-      {/* <div className="header p-5">
-        <h4>List of Teachers</h4>
-        <p>View and edit details of teachers</p>
-      </div> */}
-
+    <Wrapper className="d-flex flex-column py-5">
       {isLoading ? <CircularProgress /> : ""}
       {loading ? <CircularProgress /> : ""}
       {users.length > 0 ? (
-        <div className="p-3">
+        <div className="">
           <div className="d-flex py-3 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" />
@@ -206,7 +203,7 @@ export default function TeachersList() {
           {activeSearch ? (
             <>
               {searched.length > 0 ? (
-                <div className="div p-3 mt-4">
+                <div className="div p-3 mt-3">
                   <div className="d-flex justify-content-between bars">
                     <div className="navigators d-flex gap-2">
                       <div className="navigator ">All</div>
@@ -225,7 +222,7 @@ export default function TeachersList() {
                     </div>
                   </div>
                   <div className="table-div">
-                    <Table className="table table-bordered mt-5">
+                    <Table className="table table-bordered">
                       <tr className="head">
                         <th className="table-head">
                           <input type="checkbox" className="check " />
@@ -478,10 +475,14 @@ export default function TeachersList() {
         ""
       )}
     </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
-  background-color: #f1f1f1 !important;
+  background-color: #f5f5f5 !important;
+  padding-right: 32px !important;
+  padding-left: 32px !important;
+
   .buttons {
     justify-content: right;
     width: 100%;
@@ -566,7 +567,7 @@ const Wrapper = styled.div`
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid white;
+      border-bottom: 2px solid #f5f5f5;
 
       cursor: pointer;
       @media screen and (max-width: 630px) {
@@ -633,5 +634,9 @@ const Wrapper = styled.div`
         margin-top: 10px;
       }
     }
+  }
+  @media (max-width: 1100px){
+    padding-right: 24px !important;
+  padding-left: 24px !important;
   }
 `;

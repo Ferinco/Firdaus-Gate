@@ -127,7 +127,7 @@ export default function StudentsList() {
     }
   }
   return (
-    <Wrapper className="d-flex flex-column">
+    <>
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -136,13 +136,10 @@ export default function StudentsList() {
           handleSubmit={createCsvUsers}
         />
       )}
-      {/* <div className="header px-3 py-3">
-        <h4>List of Students</h4>
-        <p>view and edit student(s) details here...</p>
-      </div> */}
       {isLoading ? <CircularProgress /> : ""}
+    <Wrapper className="d-flex flex-column">
       {students.length > 0 ? (
-        <div className="p-3">
+        <div className="">
           <div className="d-flex py-3 justify-content-between">
             <div className="search-field d-flex gap-3 align-items-center">
               <Icon icon="circum:search" color="gray" className="icon" />
@@ -415,11 +412,14 @@ export default function StudentsList() {
         ""
       )}
     </Wrapper>
+    </>
   );
 }
 
 const Wrapper = styled.div`
   background-color: #f1f1f1 !important;
+  padding-right: 32px !important;
+  padding-left: 32px !important;
   .buttons {
     justify-content: right;
     width: 100%;
@@ -571,5 +571,9 @@ const Wrapper = styled.div`
         margin-top: 10px;
       }
     }
+  }
+  @media (max-width: 1100px){
+    padding-right: 24px !important;
+  padding-left: 24px !important;
   }
 `;

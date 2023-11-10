@@ -86,6 +86,7 @@ z-index:999 !important;
       line-height: 0.2;
       h6{
         font-size: 14px;
+        text-transform: capitalize;
       }
       p{
 font-size: 12px;
@@ -162,14 +163,20 @@ p{
     }
   }
   .animate-bar{
-    margin-left: 290px !important;
+    margin-left: 250px !important;
     transition: 0.3s;
 
   }
-  @media screen and (max-width: 1100px) {
+
+  @media screen and (max-width:500px){
+    .animate-bar{
+margin-left: 0 !important;
+    }
+    }
+    @media screen and (max-width: 1100px) {
     width: 100%;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
     .btns {
       .nav-btn {
         display: block !important;
@@ -178,9 +185,4 @@ p{
       }
     }
   }
-  @media screen and (max-width:500px){
-    .animate-bar{
-margin-left: 0 !important;
-    }
-    }
 `;

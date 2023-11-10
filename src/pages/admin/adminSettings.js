@@ -51,7 +51,7 @@ export default function AccountSettings() {
   });
 
   return (
-    <Wrapper className="d-flex flex-column p-5 container">
+    <Wrapper className="d-flex flex-column py-5">
       <h4>Account Settings</h4>
       <div className="navigators d-flex flex-row gap-4 mt-4">
         <div
@@ -80,7 +80,7 @@ export default function AccountSettings() {
             onSubmit={handleSubmit(onSubmitProfile)}
           >
             <div className="row">
-              <div className="d-flex flex-column col-md-6 name">
+              <div className="d-flex flex-column col-md-6 name mt-3">
                 <label htmlFor="firstName" className="label">
                   First name
                 </label>
@@ -93,7 +93,7 @@ export default function AccountSettings() {
                   {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
                 </p>
               </div>
-              <div className="d-flex flex-column col-md-6 name">
+              <div className="d-flex flex-column col-md-6 name mt-3">
                 <label htmlFor="lastName" className="label">
                   Last name
                 </label>
@@ -103,14 +103,14 @@ export default function AccountSettings() {
                 </p>
               </div>
             </div>
-            <div className="row mt-4">
-              <div className="d-flex flex-column col-md-6 email">
+            <div className="row">
+              <div className="d-flex flex-column col-md-6 email mt-3">
                 <label htmlFor="email" className="label">
                   Email address
                 </label>
                 <input readOnly value={user.email} name="email" />
               </div>
-              <div className="d-flex flex-column col-md-6">
+              <div className="d-flex flex-column col-md-6 mt-3">
                 <label htmlFor="tel" className="label">
                   {user.role === "student" ? "Parent phone" : "Phone number"}
                 </label>
@@ -132,7 +132,7 @@ export default function AccountSettings() {
             className="security-div d-flex flex-column gap-2"
             onSubmit={handleSubmit(onSubmitSecurity)}
           >
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column mt-3">
               <label htmlFor="oldPwd" className="label">
                 Old Password
               </label>
@@ -141,7 +141,7 @@ export default function AccountSettings() {
                 {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
               </p>
             </div>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column mt-3">
               <label htmlFor="newPwd" className="label">
                 New Password
               </label>
@@ -150,7 +150,7 @@ export default function AccountSettings() {
                 {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
               </p>
             </div>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column mt-3">
               <input
                 name="confirmPwd"
                 {...register("confirmPwd")}
@@ -174,8 +174,10 @@ export default function AccountSettings() {
 }
 
 const Wrapper = styled.div`
+  padding-right: 32px !important;
+  padding-left: 32px !important;
   .div {
-    background-color: white;
+    background-color: white !important;
     border-radius: 20px;
     max-width: 500px;
   }
@@ -211,7 +213,7 @@ const Wrapper = styled.div`
     margin-left: 10px;
     padding-right: 5px;
     font-size: 13px;
-    z-index: 999;
+    z-index: 99;
     color: grey;
     width: fit-content;
     text-transform: capitalize;
@@ -237,5 +239,9 @@ const Wrapper = styled.div`
   }
   .icon {
     font-size: 15px;
+  }
+  @media screen and (max-width: 1100px) {
+    padding-right: 24px !important;
+  padding-left: 24px !important;
   }
 `;

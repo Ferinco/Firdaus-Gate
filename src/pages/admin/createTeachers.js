@@ -84,7 +84,7 @@ export default function CreateTeachers() {
 
   return (
     <div>
-      <Wrapper className="">
+      <Wrapper className="py-5">
         <div className="head d-flex flex-column py-3">
           <h4>Create Teacher Profile</h4>
           <p>enter teacher's details to create his/her profile</p>
@@ -371,6 +371,8 @@ export default function CreateTeachers() {
 }
 
 const Wrapper = styled.div`
+padding-left: 32px !important;
+padding-right: 32px !important;
   .form-wrapper {
     max-width: 420px;
     .button {
@@ -416,5 +418,9 @@ const Wrapper = styled.div`
     padding-left: 7px;
     font-size: 14px;
     font-weight: 500;
+  }
+  @media screen and (max-width: 1100px){
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 `;

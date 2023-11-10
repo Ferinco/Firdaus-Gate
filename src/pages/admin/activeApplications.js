@@ -17,7 +17,7 @@ export default function ActiveApplications() {
     <>
       {isLoading ? <CircularProgress /> : ""}
 
-      <Container className="p-5">
+      <Container className="py-5">
         <div>
           <h4>Active Applications</h4>
           <p>view pending and succesful applications from outsiders.</p>
@@ -29,4 +29,11 @@ export default function ActiveApplications() {
     </>
   );
 }
-const Container = styled.div``;
+const Container = styled.div`
+  padding-right: 32px !important;
+  padding-left: 32px !important;
+  @media screen and (max-width: 1100px) {
+    padding-right: 24px !important;
+  padding-left: 24px !important;
+  }
+  `;
