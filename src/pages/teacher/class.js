@@ -34,7 +34,7 @@ export default function MyClass() {
     setSearchQuery(inputValue);
   };
 
-  //pagination of student lists
+  //pagination of students lists
   const [offset, setOffset] = useState(0);
   const [perPage] = useState(5);
   const [pageData, setPageData] = useState([]);
