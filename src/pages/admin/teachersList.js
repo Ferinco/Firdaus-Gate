@@ -179,9 +179,8 @@ export default function TeachersList() {
           handleSubmit={createCsvUsers}
         />
       )}
-    <Wrapper className="d-flex flex-column py-5">
       {isLoading ? <CircularProgress /> : ""}
-      {loading ? <CircularProgress /> : ""}
+    <Wrapper className="d-flex flex-column py-5">
       {users.length > 0 ? (
         <div className="">
           <div className="d-flex py-3 justify-content-between">

@@ -137,7 +137,7 @@ export default function StudentsList() {
         />
       )}
       {isLoading ? <CircularProgress /> : ""}
-    <Wrapper className="d-flex flex-column">
+    <Wrapper className="d-flex flex-column py-5">
       {students.length > 0 ? (
         <div className="">
           <div className="d-flex py-3 justify-content-between">

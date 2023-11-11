@@ -164,8 +164,11 @@ export default function TeacherDashboard() {
         <p className="text-muted">Welcome to your dashboard.</p>
       </div>
       <div className="infos d-flex flex-row gap-3">
-        <div className="info p-3">
-          <div className="info-text">
+        <div className="info p-4">
+        <div className="icon-div p-2">
+            <Icon icon="basil:calendar-outline" className="icon" color="blue"/>
+            </div>
+          <div className="info-text mt-3">
             <p className="mb-0">Current term</p>
             <h6>
               {termName === "" ? (
@@ -179,7 +182,10 @@ export default function TeacherDashboard() {
           </div>
         </div>
         <div className="info p-3">
-          <div className="info-text">
+        <div className="icon-div p-2">
+        <Icon icon="streamline:class-lesson" color="blue" className="icon"/>
+  </div>
+          <div className="info-text mt-3">
             <p className="mb-0">Class Handled</p>
             <h5>
               {user.classHandled? (
@@ -189,15 +195,17 @@ export default function TeacherDashboard() {
               )}
             </h5>
           </div>
-          <div className="icon-div">
-          </div>
         </div>
         <div className="info p-3">
-          <div className="info-text">
+          <div className="icon-div p-2">
+
+        <Icon icon="tabler:books" color="blue" className="icon"/>
+          </div>
+          <div className="info-text mt-3">
             <p className="mb-0">Subject Taught</p>
             <h5>
               {user.subjectTaught? (
-<h6>{user.subjectTaught}</h6>
+<h6>{user.subjectTaught.length}</h6>
               ) : (
                "None"
               )}
@@ -255,6 +263,7 @@ const Dashboard = styled.div`
       border-radius: 15px;
       overflow: hidden;
       background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 .big-icon{
   font-size: 200px !important;
 }
@@ -262,6 +271,9 @@ const Dashboard = styled.div`
   background-color: #f1f1f1;
   overflow: hidden;
   border-radius: 10px;
+  .icon{
+    font-size: 35px;
+  }
 }
     }
   }
@@ -271,9 +283,12 @@ const Dashboard = styled.div`
     .tab {
       max-width: 400px !important;
       height: 100px !important;
-      border-radius: 10px;
+      border-radius: 15px;
       align-items: center;
       overflow: hidden;
+      background-color: white ;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
       .icon-div {
         padding: 10px;
         border-radius: 50%;
@@ -284,6 +299,7 @@ const Dashboard = styled.div`
       overflow: hidden;
 p{
   text-overflow: ellipsis;
+  font-size: 14px;
 }
       }
       &:nth-child(4) {
