@@ -257,6 +257,7 @@ padding-left:32px !important;
       border-radius: 10px;
       align-items: center;
       background-color: white !important;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .icon-div {
         padding: 10px;
         border-radius: 50%;

@@ -114,6 +114,7 @@ font-weight: 500 !important;
     color: black;
     transition:all ease-in-out 0.4s;
     opacity: 0.1 !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .image {
       height: 50px;
       width: 50px;
