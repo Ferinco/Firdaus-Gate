@@ -355,7 +355,7 @@ export default function TeachersList() {
                     <th className="table-head">telephone</th>
                     <th className="table-head">gender</th>
 
-                    <th colSpan="2" className="table-head">
+                    <th colSpan="3" className="table-head">
                       Operations
                     </th>
                   </tr>
@@ -475,7 +475,7 @@ export default function TeachersList() {
         ""
       )}
     </Wrapper>
-    </>
+    </> 
   );
 }
 const Wrapper = styled.div`
@@ -547,7 +547,7 @@ const Wrapper = styled.div`
   }
   .div {
     border-radius: 10px;
-    background-color: white;
+    background-color: white !important;
     overflow-x: hidden !important;
 
     .bars {

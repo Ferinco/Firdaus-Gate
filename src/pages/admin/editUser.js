@@ -78,7 +78,7 @@ export const EditStudent = () => {
   return (
     <>
       {isLoading && user === null && <CircularProgress />}
-      <StudentForm className="p-5">
+      <StudentForm className="py-5">
         <h4>EDIT STUDENT</h4>
         <div className="navigators d-flex flex-row gap-4 mt-4">
         <div
@@ -117,10 +117,10 @@ export const EditStudent = () => {
                   {...register("firstName")}
         
                 />
-              </div>
                 <p className="error-message">
                 {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
               </p>
+              </div>
               <div className="d-flex flex-column col-md-6">
                 <label htmlFor="lastName" className="label">
                   Last name
@@ -221,8 +221,10 @@ export const EditStudent = () => {
   )
 }
 const StudentForm = styled.div`
+  padding-right: 32px !important;
+  padding-left: 32px !important;
   .div {
-    background-color: white;
+    background-color: white !important;
     border-radius: 20px;
 max-width: 500px;
   }
@@ -243,7 +245,7 @@ max-width: 500px;
   }
   .out {
     max-width: 400px ;
-    background-color: white;
+    background-color: white !important;
     border-radius: 20px;
   }
   .active {
@@ -258,7 +260,7 @@ max-width: 500px;
     margin-left: 10px;
     padding-right: 5px;
     font-size: 13px;
-    z-index: 999;
+    z-index: 99;
     color: grey;
     width: fit-content;
     text-transform: capitalize;
@@ -287,6 +289,10 @@ max-width: 500px;
   }
   .icon{
     font-size: 15px;
+  }
+    @media (max-width: 1100px){
+    padding-right: 24px !important;
+  padding-left: 24px !important;
   }
 `;
 

@@ -323,6 +323,8 @@ export default function StudentsList() {
                             {student.admissionNumber}
                           </td>
                           <td className="table-body email">{student.email}</td>
+                          <td className="table-body email">{student.parentPhone}</td>
+
                           <td className="table-body">
                         {student.gender === "male" ? "M" : "F"}
                       </td>
@@ -484,7 +486,7 @@ const Wrapper = styled.div`
   }
   .div {
     border-radius: 10px;
-    background-color: white;
+    background-color: white !important;
     overflow-x: hidden !important;
 
     .bars {

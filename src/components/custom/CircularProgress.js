@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 top:0;
   height: 100%;
   width: 80%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -27,7 +27,7 @@ export default function MyClass() {
 
   //pagination of student lists
   const [offset, setOffset] = useState(0);
-  const [perPage] = useState(5);
+  const [perPage] = useState(10);
   const [pageData, setPageData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
@@ -173,7 +173,7 @@ console.log(students)
               Import CSV file
             </button>
           </div>
-            <div className="div mt-3">
+            <div className="div mt-3 p-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
@@ -387,7 +387,7 @@ const Wrapper = styled.div`
   }
   .div {
     border-radius: 10px;
-    background-color: white;
+    background-color: white !important;
     overflow-x: hidden !important;
 
     .bars {

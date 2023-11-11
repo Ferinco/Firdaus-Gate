@@ -27,7 +27,7 @@ export default function AdminNavbar() {
           }}
         >
           <div className="circle-profile"></div>
-          <div className={`d-flex flex-column profile-text mb-2`}>
+          <div className={`d-flex flex-column profile-text mb-1`}>
             <h6>{user.firstName}&nbsp;{user.lastName}</h6>
             <p className="mb-0">{user.email}</p>
             </div>
