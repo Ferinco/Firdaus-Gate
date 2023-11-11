@@ -24,7 +24,7 @@ export default function StudentsList() {
   //states to manage pagination of studentlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(5);
+  const [perPage] = useState(10);
   const [deleteId, setDeleteId] = useState("");
 
   //serach teachers' list
@@ -327,17 +327,17 @@ export default function StudentsList() {
                         {student.gender === "male" ? "M" : "F"}
                       </td>
                       <td className="table-button">
-                            <Link to={`${PATH_DASHBOARD.admin.studentInfo}/${student._id}`}>
+                            <Link to={`${PATH_DASHBOARD.admin.studentInfo}/${student._id}`} className="view-button">
                               <button className="view-button">view</button>
                             </Link>
                           </td>
                       <td className="table-button">
-                      <Link to={`${PATH_DASHBOARD.admin.editStudent}/${student._id}`}>
+                      <Link to={`${PATH_DASHBOARD.admin.editStudent}/${student._id}`} className="update-button">
                           <button className="update-button">edit</button>
                         </Link>
                       </td>
                       <td className="table-button">
-                        <Link to="">
+                        <Link to="" className="delete-button">
                           <button
                             onClick={() => {
                               setOverlay(true);
@@ -417,7 +417,7 @@ export default function StudentsList() {
 }
 
 const Wrapper = styled.div`
-  background-color: #f1f1f1 !important;
+  background-color: #f5f5f5;
   padding-right: 32px !important;
   padding-left: 32px !important;
   .buttons {
@@ -453,7 +453,7 @@ const Wrapper = styled.div`
     margin-top: 10px;
   }
   .head {
-    background-color: #f1f1f1 !important;
+    background-color: #f5f5f5 !important;
   }
   .table-head {
     color: grey !important;
@@ -493,11 +493,6 @@ const Wrapper = styled.div`
       }
     }
     .navigators {
-      @media screen and (max-width: 630px) {
-        border-radius: 10px;
-        padding: 10px;
-        justify-content: space-between;
-      }
     }
     .navigator {
       padding: 3px 10px;
@@ -505,11 +500,7 @@ const Wrapper = styled.div`
       font-weight: 600;
       color: grey;
       border-bottom: 2px solid white;
-
       cursor: pointer;
-      @media screen and (max-width: 630px) {
-        background-color: white !important;
-      }
 
       &:first-child {
         border-bottom: 2px solid blue;

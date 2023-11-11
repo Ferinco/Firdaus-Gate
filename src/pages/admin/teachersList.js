@@ -45,7 +45,7 @@ export default function TeachersList() {
   //states to manage pagination of teacherlist
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(5);
+  const [perPage] = useState(10);
   const [deleteId, setDeleteId] = useState("");
   // const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -385,6 +385,7 @@ export default function TeachersList() {
                       <td className="table-button">
                         <Link
                           to={`${PATH_DASHBOARD.admin.teacherInfo}/${teacher._id}`}
+                          className="react-router-link view-button"
                         >
                           <button className="view-button">view</button>
                         </Link>
@@ -478,7 +479,7 @@ export default function TeachersList() {
   );
 }
 const Wrapper = styled.div`
-  background-color: #f5f5f5 !important;
+  background-color: #f5f5f5;
   padding-right: 32px !important;
   padding-left: 32px !important;
 
@@ -494,7 +495,7 @@ const Wrapper = styled.div`
       background-color: blue;
     }
     .right {
-      background-color: #f1f1f1;
+      background-color: #f5f5f5;
       width: 50px;
       border: 0;
       border-radius: 10px;
@@ -515,7 +516,7 @@ const Wrapper = styled.div`
     margin-top: 10px;
   }
   .head {
-    background-color: #f1f1f1 !important;
+    background-color: #f5f5f5 !important;
   }
   .table-head {
     color: grey !important;
@@ -526,11 +527,11 @@ const Wrapper = styled.div`
   }
   .body {
     padding: 0 !important;
-    border: 1px solid #f1f1f1;
+    border: 1px solid #f5f5f5;
   }
   .table-body {
     font-size: 13px;
-    border: 1px solid #f1f1f1;
+    border: 1px solid #f5f5f5;
     text-align: center;
   }
   .table-id {
@@ -555,24 +556,16 @@ const Wrapper = styled.div`
       }
     }
     .navigators {
-      @media screen and (max-width: 630px) {
-        border-radius: 10px;
-        padding: 10px;
-        justify-content: space-between;
-      }
     }
     .navigator {
       padding: 3px 10px;
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid #f5f5f5;
+      border-bottom: 2px solid white;
+      background-color: transparent !important;
 
       cursor: pointer;
-      @media screen and (max-width: 630px) {
-        background-color: white !important;
-      }
-
       &:first-child {
         border-bottom: 2px solid blue;
         color: blue;
@@ -586,7 +579,7 @@ const Wrapper = styled.div`
       font-weight: 600;
       color: grey;
       text-transform: capitalize;
-      background-color: #f1f1f1;
+      background-color:transparent;
       cursor: pointer;
       &:first-child {
         border: 1px solid #8080ff;

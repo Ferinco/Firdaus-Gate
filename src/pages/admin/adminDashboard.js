@@ -106,7 +106,7 @@ export default function AdminDashboard() {
     }
   }
   return (
-    <Wrapper className="py-5">
+    <Wrapper className="py-5 mt-5">
       <div className="d-flex flex-column left">
         <h4>
           {greeting} Mr {user.lastName}
@@ -211,6 +211,7 @@ padding-left:32px !important;
         height: 150px;
         border-radius: 50%;
         display: flex;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
         p {
           font-weight: 600;
           font-size: 13px;

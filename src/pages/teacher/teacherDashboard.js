@@ -163,6 +163,7 @@ export default function TeacherDashboard() {
         </h4>
         <p className="text-muted">Welcome to your dashboard.</p>
       </div>
+      <div className="divs py-4">
       <div className="infos d-flex flex-row gap-3">
         <div className="info p-4">
         <div className="icon-div p-2">
@@ -170,7 +171,7 @@ export default function TeacherDashboard() {
             </div>
           <div className="info-text mt-3">
             <p className="mb-0">Current term</p>
-            <h6>
+            <h6 className="">
               {termName === "" ? (
                 <div className="spinner-border" role="status">
                   <span className="sr-only">Loading...</span>
@@ -181,7 +182,7 @@ export default function TeacherDashboard() {
             </h6>
           </div>
         </div>
-        <div className="info p-3">
+        <div className="info p-4">
         <div className="icon-div p-2">
         <Icon icon="streamline:class-lesson" color="blue" className="icon"/>
   </div>
@@ -196,13 +197,13 @@ export default function TeacherDashboard() {
             </h5>
           </div>
         </div>
-        <div className="info p-3">
+        <div className="info p-4">
           <div className="icon-div p-2">
 
         <Icon icon="tabler:books" color="blue" className="icon"/>
           </div>
           <div className="info-text mt-3">
-            <p className="mb-0">Subject Taught</p>
+            <p className="mb-0">Subjects Taught</p>
             <h5>
               {user.subjectTaught? (
 <h6>{user.subjectTaught.length}</h6>
@@ -212,6 +213,7 @@ export default function TeacherDashboard() {
             </h5>
           </div>
         </div>
+      </div>
       </div>
 
       <div className="tabs d-flex flex-column mt-5">
@@ -255,18 +257,20 @@ const Dashboard = styled.div`
     width: 12px !important;
     height: 12px !important;
   }
-  
+  .divs{
+    overflow-x: scroll;
+    
+  }
   .infos {
+    width: fit-content;
     .info {
-      width: 200px;
+      width: 200px !important;
       height: 180px;
       border-radius: 15px;
       overflow: hidden;
       background-color: white;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-.big-icon{
-  font-size: 200px !important;
-}
+
 .icon-div{
   background-color: #f1f1f1;
   overflow: hidden;
@@ -297,9 +301,9 @@ const Dashboard = styled.div`
       .text {
         text-align: left;
       overflow: hidden;
+  text-overflow: ellipsis;
 p{
   text-overflow: ellipsis;
-  font-size: 14px;
 }
       }
       &:nth-child(4) {
