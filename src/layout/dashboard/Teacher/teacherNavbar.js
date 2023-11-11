@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 export default function TeacherNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
   const { user } = useAuth();
+  const firstLetter = user.firstName.charAt(0);
+
   return (
     <Wrapper className="head container-fluid d-flex flex-column justify-content-center">
       <div className="btns d-flex flex-row justify-content-between w-100 align-items-center">
@@ -28,7 +30,7 @@ export default function TeacherNavbar() {
             setIsProfileOpen((prevState) => !prevState);
           }}
         >
-          <div className="circle-profile"></div>
+          <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="mb-0">{firstLetter}</p></div>
           <div className={`d-flex flex-column profile-text mb-1`}>
             <h6>{user.firstName}&nbsp;{user.lastName}</h6>
             <p className="mb-0">{user.email}</p>
@@ -83,6 +85,10 @@ z-index:999 !important;
     width: 32px;
     border-radius: 50%;
     background-color: blue;
+    p{
+      color: white;
+      font-weight: 600;
+    }
     }
     .profile-text{
       line-height: 0.2;
@@ -115,6 +121,7 @@ font-weight: 500 !important;
     color: black;
     transition:all ease-in-out 0.4s;
     opacity: 0.1 !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .image {
       height: 50px;
       width: 50px;

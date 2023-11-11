@@ -114,7 +114,7 @@ export default function AdminDashboard() {
         <p>welcome to your dashboard</p>
       </div>
 
-      <div className="middle-div">
+      <div className="middle-div py-3">
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
@@ -197,7 +197,7 @@ background-color: #f5f5f5 !important;
 padding-left:32px !important;
     padding-right:32px !important;
   .middle-div {
-    overflow: scroll !important;
+    overflow-x: scroll !important;
     .overviews {
       display: flex;
       flex-direction: row;
@@ -206,6 +206,7 @@ padding-left:32px !important;
       width: fit-content;
       background: white;
       border-radius: 30px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .circle-div {
         width: 150px !important;
         height: 150px;
@@ -266,6 +267,9 @@ padding-left:32px !important;
       .text {
         text-align: left;
       }
+      h6 {
+         margin-bottom: 0;
+        }
       &:first-child {
         background: black;
         .icon-div {
