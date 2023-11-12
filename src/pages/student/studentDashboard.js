@@ -140,7 +140,9 @@ export default function StudentDashboard() {
           </div>
         </div>
         <div className="middle-div row mt-5 mr-0 ml-0">
-          <div className="infos col-md-8 p-0 d-flex flex-row gap-3">
+          <div className="left-div col-md-8 p-0 m-0">
+            <div className="div p-0 m-0">
+          <div className="infos d-flex flex-row gap-3 m-0 p-3">
           <div className="info">
             <div className="icon-div"></div>
             <h5></h5>
@@ -156,6 +158,8 @@ export default function StudentDashboard() {
             <h5></h5>
             <p></p>
           </div>
+          </div>
+            </div>
           </div>
           <div className="right-div col-md-4"></div>
         </div>
@@ -204,18 +208,26 @@ const Dashboard = styled.div`
     }
   }
   .middle-div{
-    border: 1px solid black;
+  }
+  .div{
+    overflow-x: auto !important;
+    margin-top: 0 !important;
+  }
+  .left-div{
   }
   .infos{
-    border: 1px solid red;
+    width: 634px !important;
+    overflow-x: auto !important;
+
     .info{
-      height: 150px;
-      width: 200px;
-      border: 1px solid red;
-    }
+      height: 150px !important;
+      width: 200px !important;
+      border-radius: 20px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;    }
   }
   .right-div{
     border: 1px solid green;
+    height: 400px;
   }
 
   @media screen and (max-width: 1100px) {
