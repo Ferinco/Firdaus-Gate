@@ -111,37 +111,55 @@ export default function StudentDashboard() {
       }
     }
   }
-//get time for welcome message
+  //get time for welcome message
   const currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
-function getGreeting(currentTime){
-  switch (true) {
-    case currentTime >= 0 && currentTime < 12:
-      return "Good morning,";
-    case currentTime >= 12 && currentTime < 18:
-      return "Good afternoon,";
-    default:
-      return "Good evening,";
+  function getGreeting(currentTime) {
+    switch (true) {
+      case currentTime >= 0 && currentTime < 12:
+        return "Good morning,";
+      case currentTime >= 12 && currentTime < 18:
+        return "Good afternoon,";
+      default:
+        return "Good evening,";
+    }
   }
-}
   return (
     <>
-
       {loading && <OverlayLoading />}
-    <Dashboard className="py-5">
-          <div className="big-tab d-flex flex-row justify-content-between p-3">
-            <div className="text d-flex flex-column justify-content-center gap-2">
-              <h4 className="mb-0">{greeting} {user.firstName}</h4>
-              <p className="mb-0">
-                This is your personal dashboard which only you have access to.
-                Navigate through diferrent paths to complete any desired action.
-              </p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="streamline-emojis:graduation-cap" />
-            </div>
+      <Dashboard className="py-5">
+        <div className="big-tab d-flex flex-row justify-content-between p-3">
+          <div className="text d-flex flex-column justify-content-center gap-2">
+            <h4 className="mb-0">
+              {greeting} {user.firstName}
+            </h4>
+            <p className="mb-0">Welcome back to your dashboard.</p>
           </div>
-    </Dashboard>
+          <div className="icon-div">
+            <Icon className="icon" icon="streamline-emojis:graduation-cap" />
+          </div>
+        </div>
+        <div className="middle-div row mt-5 mr-0 ml-0">
+          <div className="infos col-md-8 p-0 d-flex flex-row gap-3">
+          <div className="info">
+            <div className="icon-div"></div>
+            <h5></h5>
+            <p></p>
+          </div>
+          <div className="info">
+            <div className="icon-div"></div>
+            <h5></h5>
+            <p></p>
+          </div>
+          <div className="info">
+            <div className="icon-div"></div>
+            <h5></h5>
+            <p></p>
+          </div>
+          </div>
+          <div className="right-div col-md-4"></div>
+        </div>
+      </Dashboard>
     </>
   );
 }
@@ -156,39 +174,52 @@ const Dashboard = styled.div`
     width: 12px !important;
     height: 12px !important;
   }
-    .big-tab {
-      border-radius: 30px;
-      z-index: 99;
-      background-color: rgba(158, 160, 231, 0.7);
-      border: 1px solid #9ea0e7;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
-      height: 180px;
-      .text {
-        color: white;
-      }
-      .icon-div {
-        .icon {
-          font-size: 200px;
-          @media (max-width: 558px){
-            font-size: 150px;
-          }
-          @media (max-width: 506px){
-            font-size: 130px;
-          }
-          @media (max-width: 485px){
-            font-size: 100px;
-          }
-          @media (max-width: 455px){
-            font-size: 70px;
-          }
+  .big-tab {
+    border-radius: 30px;
+    z-index: 99;
+    background-color: rgba(158, 160, 231, 0.7);
+    border: 1px solid #9ea0e7;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
+    height: 180px;
+    .text {
+      color: white;
+    }
+    .icon-div {
+      .icon {
+        font-size: 200px;
+        @media (max-width: 558px) {
+          font-size: 150px;
+        }
+        @media (max-width: 506px) {
+          font-size: 130px;
+        }
+        @media (max-width: 485px) {
+          font-size: 100px;
+        }
+        @media (max-width: 455px) {
+          font-size: 70px;
         }
       }
     }
-
+  }
+  .middle-div{
+    border: 1px solid black;
+  }
+  .infos{
+    border: 1px solid red;
+    .info{
+      height: 150px;
+      width: 200px;
+      border: 1px solid red;
+    }
+  }
+  .right-div{
+    border: 1px solid green;
+  }
 
   @media screen and (max-width: 1100px) {
     padding-left: 24px !important;
-  padding-right: 24px !important;
+    padding-right: 24px !important;
   }
 `;
