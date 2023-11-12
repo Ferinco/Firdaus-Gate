@@ -379,17 +379,17 @@ export const ScienceSubjects = [
     {
         name: "English Langauage",
         code: "FSS_001",
-        id: "001",
+        id: "101",
     },
     {
         name: "Mathematics",
         code: "FSS_002",
-        id: "002",
+        id: "102",
     }, 
     {
         name: "Biology",
         code: "FSS_003",
-        id: "003",
+        id: "103",
     }, 
     {
         name: "Physics",
@@ -419,7 +419,7 @@ export const ScienceSubjects = [
     {
         name: "Arabic",
         code: "FSS_012",
-        id: "012",
+        id: "112",
     },
     {
         name: "Economics",
@@ -441,13 +441,13 @@ export const ScienceSubjects = [
 export const ArtsSubjects = [
     {
         name: "English Langauage",
-        code: "FSS_001",
-        id: "001",
+        code: "FSS_0021",
+        id: "201",
     },
     {
         name: "Mathematics",
         code: "FSS_002",
-        id: "002",
+        id: "202",
     },
     {
         name: "Government",
@@ -462,7 +462,7 @@ export const ArtsSubjects = [
     {
         name: "Biology",
         code: "FSS_003",
-        id: "003",
+        id: "203",
     }, 
     {
         name: "Yoruba Language",
@@ -472,7 +472,7 @@ export const ArtsSubjects = [
     {
         name: "Civic Education",
         code: "FSS_008",
-        id: "008",
+        id: "208",
     },
     {
         name: "I.R.S",
@@ -485,12 +485,12 @@ export const CommercialSubjects = [
     {
         name: "English Langauage",
         code: "FSS_001",
-        id: "001",
+        id: "301",
     },
     {
         name: "Mathematics",
         code: "FSS_002",
-        id: "002",
+        id: "302",
     },
     {
         name: "Financial Accounting",
@@ -509,12 +509,12 @@ export const CommercialSubjects = [
     }, 
     {
         name: "Civic Education",
-        code: "FSS_008",
+        code: "FSS_0038",
         id: "008",
     },
     {
         name: "Arabic",
         code: "FSS_012",
-        id: "012",
+        id: "312",
     },
 ]
