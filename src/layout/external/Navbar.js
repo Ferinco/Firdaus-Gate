@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 import Logo from "../logo";
@@ -11,6 +11,20 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSticky, setSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setSticky(window.scrollY > 156);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <NavigationBar className="navigation-bar">
       <div className=" first-navbar d-none d-lg-block d-xl-flex ">
@@ -23,7 +37,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className="second-navbar">
+      <div className={`second-navbar`}>
         <div className=" container d-flex justify-content-between py-3 px-0">
           <div className=" d-flex flex-row align-center header">
             <div className="d-lg-none pl-3">
@@ -61,7 +75,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`third-navbar d-flex ${isOpen ? "opened" : "closed"}`}>
+      <div className={`third-navbar d-flex ${isOpen ? "opened" : "closed"} ${isSticky ? 'sticky' : ''}`}>
         <div className="d-flex flex-row justify-content-between container py-0 px-0">
           <div className="d-flex flex-row dropdowns desktop-dropdowns d-none d-lg-flex">
             <li className="px-2">
@@ -331,6 +345,12 @@ const NavigationBar = styled.div`
         color: grey;
       }
     }
+  }
+  .sticky{
+    position: fixed !important;
+    margin-top: -156px !important;
+    width:100% !important;
+    z-index:9999;
   }
   .third-navbar {
     align-items: center;

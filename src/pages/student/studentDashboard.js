@@ -165,7 +165,7 @@ console.log(user)
               </div>
             </div>
             <div className="small-div d-flex flex-row align-items-center py-1 px-2">
-            <Icon icon="basil:calendar-solid" color="rgba(158, 160, 231, 0.7)" width="30" height="30" />
+            <Icon icon="carbon:report" color="rgba(158, 160, 231, 0.7)" width="30" height="30" />
               <div className="text-div d-flex flex-row">
                 <p className="mb-0 available-reports">Available reports</p>
                 <h6 className="mb-0">{user.reports.length}</h6>
