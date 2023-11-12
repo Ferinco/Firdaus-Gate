@@ -85,20 +85,33 @@ const CarouselSlide = styled.div`
 export default function LandingHero() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
-    // Automatically change the active image every 3 seconds
+    const handleScroll = () => {
+      setSticky(window.scrollY > 156);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  useEffect(() => {
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
+    }, 3000);
 
     return () => {
       clearInterval(interval);
     };
   }, []);
   return (
-    <Wrapper className="">
-     <div className="container py-2">
+    <Wrapper >
+     <div className={`container py-2 ${isSticky ? 'sticky' : ''}`}>
      <div className="row">
         <div className="col-md-6 d-flex left">
           <div className="my-5 d-flex flex-column gap-3 text-div"> 
@@ -142,8 +155,10 @@ this part should contain a short intro on the school's mission and some other re
   );
 }
 const Wrapper = styled.div`
-
-height: 90vh;
+margin-top:70px;
+.sticky{
+  margin-top:140px !important;
+}
 .row{
   justify-content: space-between;
 align-items: center;
