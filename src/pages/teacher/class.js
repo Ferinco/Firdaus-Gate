@@ -1,86 +1,136 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
-import { deleteUser, fetchUsers } from "../../redux/slices/users";
+import { deleteUser } from "../../redux/slices/users";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { PATH_DASHBOARD } from "../../routes/paths";
-import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
-import { ControlButton } from "../../components/custom/Button";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import AddCSV from "../../components/AddCSV";
+import { PaginationBar } from "../../components/PaginationBar";
+import { useForm } from "react-hook-form";
+import { getNonNullValue } from "../../utils/utils";
+import { api } from "../../api/axios";
+
+const columns = [
+  { header: "Select", accessor: "select" },
+  {
+    header: "First Name",
+    accessor: "firstName",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Last Name",
+    accessor: "lastName",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Date Added",
+    accessor: "createdAt",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Admission Number",
+    accessor: "admissionNumber",
+    isSorted: true,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Email",
+    accessor: "email",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+
+  {
+    header: "Gender",
+    accessor: "gender",
+    isSorted: false,
+    isSortedDesc: false,
+  },
+
+  {
+    header: "Status",
+    accessor: "status",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+
+  {
+    header: "Action",
+    accessor: "",
+    device: "large",
+  },
+];
+
 export default function MyClass() {
   const { user } = useAuth();
-  const [students, setStudents] = useState([]);
+  console.log(user);
+  const [currentTableData, setCurrentTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
   const [multiSelect, setMultiSelect] = useState([]);
-
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [canNextPage, setCanNextPage] = useState(false);
+  const [canPreviousPage, setCanPreviousPage] = useState(false);
+  const [dataTotal, setDataTotal] = useState(0);
 
   const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch();
 
-  //pagination of student lists
-  const [offset, setOffset] = useState(0);
-  const [perPage] = useState(10);
-  const [pageData, setPageData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
   //handle checked students
   const [checkLength, setcheckLength] = useState(0);
 
-
-  useEffect(() => {
-    const FetchStudents = async () => {
-      try {
-        const res = await UserService.findUsers({
-          role: "student",
-          classTeacher: user._id,
-        });
-        console.log(res);
-        console.log(res.data);
-        setPageData(res.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
-    };
-    FetchStudents();
-  }, []);
-
-  useEffect(() => {
-    const slice = pageData.slice(offset, offset + perPage);
-    setStudents(slice);
-    setPageCount(Math.ceil(pageData.length / perPage));
-  }, [pageData, offset]);
-
-    const performSearch = (event) => {
-      const query = event.target.value
-      console.log(query)
-      let updatedList = students.filter((student) => {
-        return (
-          student.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          student.firstName.toLowerCase().includes(query.toLowerCase())
-        );
+  const getData = async (pageNum, limitNum, filter) => {
+    try {
+      setIsLoading(true);
+      const result = await UserService.findUsers({
+        role: "student",
+        classTeacher: user?._id,
+        limit: limitNum,
+        page: pageNum,
+        ...filter,
       });
-      console.log(updatedList)
-     setStudents(updatedList)
-    };
-
-
-  // console.log(pageData);
-
-  const handlePageClick = (e) => {
-    const selectedPage = e.selected;
-    setOffset(selectedPage + 1);
+      console.log(result);
+      const { list, totalPages, currentPage, total, limit } = result.data;
+      setCanPreviousPage(currentPage > 1);
+      setCanNextPage(currentPage + 1 <= totalPages);
+      setIsLoading(false);
+      setCurrentTableData(list);
+      setDataTotal(total);
+      setPageSize(limit);
+      setPageCount(totalPages);
+      setPage(currentPage);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  useEffect(() => {
+    (async () => await getData(page, pageSize))();
+  }, []);
 
   const multiSelectHandle = (id) => {
     if (multiSelect.includes(id)) {
@@ -104,6 +154,51 @@ export default function MyClass() {
       });
   };
 
+  function onSort(columnIndex) {
+    console.log(columns[columnIndex]);
+    if (columns[columnIndex].isSorted) {
+      columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
+    } else {
+      columns.map((i) => (i.isSorted = false));
+      columns.map((i) => (i.isSortedDesc = false));
+      columns[columnIndex].isSorted = true;
+    }
+
+    // (async function () {
+    //   await getData(0, pageSize, { user_id, status: 0 });
+    // })();
+  }
+  function updatePageSize(limit) {
+    (async function () {
+      setPageSize(limit);
+      await getData(0, limit);
+    })();
+  }
+  function previousPage() {
+    (async function () {
+      await getData(page - 1 > 0 ? page - 1 : 0, pageSize);
+    })();
+  }
+
+  function nextPage() {
+    (async function () {
+      await getData(page + 1 <= pageCount ? page + 1 : 0, pageSize);
+    })();
+  }
+  const handleSearch = async (value) => {
+    const firstName = getNonNullValue(value.firstName);
+    const lastName = getNonNullValue(value.lastName);
+    await getData(page, pageSize, {
+      firstName: firstName,
+      lastName: lastName,
+    });
+  };
+
+  const resetSearch = async () => {
+    reset();
+    await getData(page, pageSize);
+  };
+  const { register, handleSubmit, reset } = useForm();
   async function createCsvUsers() {
     if (csvData.length) {
       let newStudents = csvData.slice(1);
@@ -140,7 +235,19 @@ export default function MyClass() {
       setIsLoading(false);
     }
   }
-console.log(students)
+
+  const handleMultiTransfer = () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (studentId) => {
+          await api.post("/class/transfer", {
+            currentClass: user.classHandled,
+            studentId,
+          });
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -153,27 +260,51 @@ console.log(students)
         />
       )}
       {isLoading ? <CircularProgress /> : ""}
-    <Wrapper className="d-flex flex-column py-5">
-      {/* <div className="header px-3 py-3">
+      <Wrapper className="d-flex flex-column py-5">
+        {/* <div className="header px-3 py-3">
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-      {students.length > 0 ? (
-        <div className="">
-          <div className="d-flex py-3 justify-content-between">
-            <div className="search-field d-flex gap-3 align-items-center">
-              <Icon icon="circum:search" color="gray" className="icon" />
-              <input
-                type="text"
-                placeholder="search for student"
-                onChange={performSearch}
-              />
+        {currentTableData.length > 0 ? (
+          <div className="">
+            <div className="d-flex py-3 justify-content-between">
+              <form onSubmit={handleSubmit(handleSearch)}>
+                <p>Search students</p>
+                <div className="d-flex gap-2 py-2">
+                  <input
+                    type="text"
+                    placeholder="First name"
+                    {...register("firstName")}
+                  />
+
+                  {/* <Icon icon="circum:search" color="gray" className="icon" /> */}
+
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    {...register("lastName")}
+                  />
+                </div>
+                <button type="submit" onClick={handleSearch}>
+                  Search
+                </button>
+                <button type="button" onClick={resetSearch}>
+                  Reset
+                </button>
+              </form>
+
+              <button onClick={() => setCSVOpen(true)} className="csv-button">
+                Import CSV file
+              </button>
             </div>
-            <button onClick={() => setCSVOpen(true)} className="csv-button">
-              Import CSV file
-            </button>
-          </div>
-            <div className="div mt-3 p-3">
+            <div>
+              <button onClick={handleMultiTransfer}>
+                Transfer &nbsp;{" "}
+                {multiSelect.length ? `(${multiSelect.length})` : "all"} &nbsp;
+                students
+              </button>
+            </div>
+            <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
@@ -193,7 +324,28 @@ console.log(students)
               </div>
               <div className=" table-div">
                 <Table className="table table-bordered mt-3">
-                  <tr className="head">
+                  <thead className="">
+                    <tr className="head">
+                      {columns.map((column, i) => (
+                        <th
+                          key={i}
+                          scope="col"
+                          className="table-head"
+                          onClick={() => onSort(i)}
+                        >
+                          {column.header}
+                          <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? " ▼"
+                                : " ▲"
+                              : ""}
+                          </span>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  {/* <tr className="head">
                     <th className="table-head">
                       <input type="checkbox" className="check " />
                     </th>
@@ -206,50 +358,80 @@ console.log(students)
                     <th className="table-head" colSpan="3">
                       Operations
                     </th>
-                  </tr>
-                  {students.length > 0 &&
-                    students.map((student) => (
-                      <tr key={student._id} className="body">
-                        <td className="table-body">
-                          <input
-                            type="checkbox"
-                            className=" cursor-pointer focus:outline-none focus:ring-0 "
-                            onChange={() => multiSelectHandle(student._id)}
-                            checked={multiSelect.includes(student._id)}
-                          />
-                        </td>
-                        <td className="table-body">{student.firstName}</td>
-                        <td className="table-body">{student.lastName}</td>
-                        <td className="table-body table-id">
-                          {student.admissionNumber}
-                        </td>
-                        <td className="table-body email">{student.email}</td>
-                        <td className="table-body">{student.parentPhone}</td>
-                        <td className="table-body">{student.gender}</td>
+                  </tr> */}
+                  {currentTableData.length > 0 &&
+                    currentTableData.map((row, i) => (
+                      <tr key={i} className="body">
+                        {columns.map((cell, index) => {
+                          if (cell.accessor.indexOf("image") > -1) {
+                            return (
+                              <td key={index} className="">
+                                <img src={row[cell.accessor]} />
+                              </td>
+                            );
+                          }
 
-                        <td>
-                          <Link to="">
-                            <button className="update-button">edit</button>
-                          </Link>
-                        </td>
-                        <td>
-                          <Link to="">
-                            <button
-                              onClick={() => {
-                                setOverlay(true);
-                                setDeleteId(student._id);
-                              }}
-                              className="delete-button"
-                            >
-                              delete
-                            </button>
-                          </Link>
-                        </td>
+                          if (cell.accessor == "select") {
+                            return (
+                              <td className="table-body">
+                                <input
+                                  type="checkbox"
+                                  className=" cursor-pointer focus:outline-none focus:ring-0 "
+                                  onChange={() => multiSelectHandle(row._id)}
+                                  checked={multiSelect.includes(row._id)}
+                                />
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "createdAt") {
+                            return (
+                              <td className="table-body">
+                                {new Date(row.createdAt).toLocaleDateString()}
+                              </td>
+                            );
+                          }
+
+                          if (cell.accessor == "") {
+                            return (
+                              <td key={index} className="table-body">
+                                <td>
+                                  <button className="update-button">
+                                    Edit
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    onClick={() => {
+                                      setOverlay(true);
+                                      setDeleteId(row._id);
+                                    }}
+                                    className="delete-button"
+                                  >
+                                    Delete
+                                  </button>
+                                </td>
+                              </td>
+                            );
+                          }
+
+                          if (cell.mappingExist) {
+                            return (
+                              <td key={index} className="table-body">
+                                {cell.mappings[row[cell.accessor]]}
+                              </td>
+                            );
+                          }
+                          return (
+                            <td key={index} className="table-body">
+                              {row[cell.accessor]}
+                            </td>
+                          );
+                        })}
                       </tr>
                     ))}
                 </Table>
               </div>
-              <ReactPaginate
+              {/* <ReactPaginate
                 previousLabel={
                   <ControlButton>
                     <Icon icon="ooui:next-rtl" className="icon" />
@@ -269,58 +451,69 @@ console.log(students)
                 containerClassName={"pagination pl-5 align-items-center gap-2"}
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
+              /> */}
+
+              <PaginationBar
+                canNextPage={canNextPage}
+                canPreviousPage={canPreviousPage}
+                currentPage={page}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                pageCount={pageCount}
+                pageSize={pageSize}
+                updatePageSize={updatePageSize}
               />
             </div>
-        </div>
-      ) : (
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="pt-5 h-100">
-            <p className="text-muted">No student to display...</p>
-            <div className="d-flex py-1 justify-content-between">
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
-              </button>
+          </div>
+        ) : (
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="pt-5 h-100">
+              <p className="text-muted">No student to display...</p>
+              <div className="d-flex py-1 justify-content-between">
+                <button onClick={() => setCSVOpen(true)} className="csv-button">
+                  Import CSV file
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {overlay ? (
-        <div className="overlay-wrapper d-flex ">
-          <div
-            className={`d-flex flex-column overlay-options ${
-              overlay ? "open" : "close"
-            }`}
-          >
-            <p>Are you sure you want to delete this student profile?</p>
-            <div className=" buttons d-flex gap-3">
-              <button
-                className="left"
-                onClick={() => {
-                  handleDeleteUser(deleteId);
-                }}
-              >
-                yes
-              </button>
-              <button
-                className="right"
-                onClick={() => {
-                  setOverlay(false);
-                }}
-              >
-                no
-              </button>
+        )}
+        {overlay ? (
+          <div className="overlay-wrapper d-flex ">
+            <div
+              className={`d-flex flex-column overlay-options ${
+                overlay ? "open" : "close"
+              }`}
+            >
+              <p>Are you sure you want to delete this student profile?</p>
+              <div className=" buttons d-flex gap-3">
+                <button
+                  className="left"
+                  onClick={() => {
+                    handleDeleteUser(deleteId);
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  className="right"
+                  onClick={() => {
+                    setOverlay(false);
+                  }}
+                >
+                  no
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
-    </Wrapper>
+        ) : (
+          ""
+        )}
+      </Wrapper>
     </>
   );
 }
 const Wrapper = styled.div`
-  padding-left: 32px ;
+  padding-left: 32px;
   padding-right: 32px;
   background-color: #f5f5f5 !important;
   .buttons {
@@ -467,8 +660,8 @@ const Wrapper = styled.div`
       }
     }
   }
-  @media screen and (max-width:1100px){
-    padding-left: 24px ;
+  @media screen and (max-width: 1100px) {
+    padding-left: 24px;
     padding-right: 24px;
   }
 `;

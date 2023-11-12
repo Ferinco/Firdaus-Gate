@@ -26,6 +26,15 @@ export default function Upload({ onClose, setData, data, setStage }) {
     }
   };
   return (
+    <div>
+<div>
+  <div>
+
+  <h5>Don't have the template? Click Here* </h5>
+  <button>Download Template</button>
+  </div>
+  <div><small>Make sure you are using</small></div>
+</div>
     <div className="upload-area position-relative">
       <input
         type="file"
@@ -33,11 +42,12 @@ export default function Upload({ onClose, setData, data, setStage }) {
         onChange={handleChange}
         accept=".csv"
         style={{ cursor: "pointer", left: 0, right: 0 }}
-      />
+        />
       <h5>Select a CSV file to upload</h5>
 
       <p className="text-muted">or drag and drop it here</p>
       <small>{file.name}</small>
+        </div>
     </div>
   );
 }

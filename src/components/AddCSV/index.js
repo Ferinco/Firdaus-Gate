@@ -62,6 +62,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
               Close
             </button>
           </div>
+          
           <div className="card-body text-center">{renderCSV()}</div>
           <div className="card-footer d-flex justify-content-end">
             <div
