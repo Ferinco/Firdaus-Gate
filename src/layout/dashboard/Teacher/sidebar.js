@@ -21,8 +21,9 @@ const sidebarConfig = [
     icon: "memory:poll",
     link: PATH_DASHBOARD.teacher.results,
     title: "Report",
-    rotate: 1
+    rotate: 1,
   },
+
   {
     icon: "solar:calendar-bold",
     link: PATH_DASHBOARD.teacher.viewCalendar,
@@ -71,13 +72,16 @@ export default function TeacherSidebar() {
             </div>
           </div>
           <div className="log-out nav-links d-flex flex-column ">
-          <Link
+            <Link
               className={`nav-link react-router-link px-5 py-3 ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
               to={PATH_DASHBOARD.teacher.accountSettings}
               onClick={() => handleNavClick("Settings")}
-            > <Icon icon="ic:baseline-settings" /> Settings</Link>
+            >
+              {" "}
+              <Icon icon="ic:baseline-settings" /> Settings
+            </Link>
             <button
               to=""
               className="react-router-link nav-link px-5 py-3"
@@ -89,7 +93,6 @@ export default function TeacherSidebar() {
               />
               Log out
             </button>
-
           </div>
         </div>
         <Closer
@@ -110,10 +113,10 @@ const SIDEBAR = styled.div`
   position: relative;
   z-index: 9999 !important;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-  rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
   .container {
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
     width: 280px;
     height: 100vh;
     align-items: center;
@@ -121,7 +124,7 @@ const SIDEBAR = styled.div`
     background-color: white;
   }
   .nav-container {
-    width: 100% ;
+    width: 100%;
   }
   .wrapper {
     height: 60% !important;
@@ -131,8 +134,7 @@ const SIDEBAR = styled.div`
   }
   .nav-links {
     width: 100%;
-width: 100% !important;
-
+    width: 100% !important;
   }
   .nav-link {
     color: grey !important;
@@ -143,15 +145,14 @@ width: 100% !important;
     transition: ease-in-out 0.3s all;
     font-weight: 500 !important;
 
-
     &:hover {
-    font-weight: 700 !important;
-  }
+      font-weight: 700 !important;
+    }
   }
   .active-tab {
     border-right: 5px solid blue !important;
-    background-color:#f3f3f3;
-    font-weight: 700 !important; 
+    background-color: #f3f3f3;
+    font-weight: 700 !important;
 
     /* color: black !important; */
   }
