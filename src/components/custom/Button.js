@@ -26,7 +26,7 @@ border: 0;
 padding: 7px 10px;
 background: transparent;
 .icon{
-  color: grey;
+  color: black;
 }
 &:hover{
   // background-color: #f1f1f1;

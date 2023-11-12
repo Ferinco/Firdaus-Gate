@@ -22,10 +22,8 @@ export default function StudentDashboard() {
   const [currentTerm, setCurrentTerm] = useState({});
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
-
   //fetch current term
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchCurrentTerm())
       .unwrap()
@@ -57,7 +55,7 @@ export default function StudentDashboard() {
     }
   }, [startDate]);
   const lastWeek = weeks.length - 1;
-
+console.log(user)
   //downloading current report
   async function downloadReport(term) {
     try {
@@ -112,469 +110,159 @@ export default function StudentDashboard() {
       }
     }
   }
-
+  //get time for welcome message
+  const currentTime = new Date().getHours();
+  const [greeting, setGreeting] = useState(getGreeting(currentTime));
+  function getGreeting(currentTime) {
+    switch (true) {
+      case currentTime >= 0 && currentTime < 12:
+        return "Good morning,";
+      case currentTime >= 12 && currentTime < 18:
+        return "Good afternoon,";
+      default:
+        return "Good evening,";
+    }
+  }
   return (
-    <Dashboard>
+    <>
       {loading && <OverlayLoading />}
-      <div className="middle-div d-flex flex-row justify-content-between align-items-center p-5">
-        <div className="wrapper-div  justify-content-between gap-3">
-          <div className="big-tab d-flex flex-row justify-content-between p-3">
-            <div className="text">
-              <h5>Hi, welcome</h5>
-              <p>
-                This is your personal dashboard which only you have access to.
-                Navigate through diferrent paths to complete any desired action.
-              </p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon="streamline-emojis:graduation-cap" />
-            </div>
+      <Dashboard className="py-5">
+        <div className="big-tab d-flex flex-row justify-content-between p-3">
+          <div className="text d-flex flex-column justify-content-center gap-2">
+            <h4 className="mb-0">
+              {greeting} {user.firstName}
+            </h4>
+            <p className="mb-0">Welcome back to your dashboard.</p>
           </div>
-          <div className="details-wrapper mt-5">
-            <div className="mobile-details d-flex d-lg-none flex-row py-2 gap-2 px-4 justify-content-between">
-              <div className="info">
-                current term{" "}
-                <h5>
-                  {termName === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    termName
-                  )}
-                </h5>
-              </div>
-              <div className="info">
-                current week{" "}
-                <h5>
-                  {lastWeek < 0 ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    lastWeek
-                  )}
-                </h5>
-              </div>
-              <div className="info"></div>
-            </div>
-          </div>
-          <div className="tabs w-100 pt-5 pt-lg-0 ">
-            <div className="d-none mobile-tabs row">
-              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-                current term
-                <h5>
-                  {termName === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    termName
-                  )}
-                </h5>
-              </div>
-              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-                current week
-                <h5>
-                  {lastWeek < 0 ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    lastWeek
-                  )}
-                </h5>
-              </div>
-              <div className="tab col-4 d-flex flex-column justify-content-center align-items-center p-1">
-                current week
-                <h5>
-                  {lastWeek < 0 ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    lastWeek
-                  )}
-                </h5>
-              </div>
-            </div>
-            <div className="sub-tabs d-flex flex-column gap-2 justify-content-center">
-              <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
-                <div>
-                  <p>number of subjects offered</p>
-                  <h6>15</h6>
-                </div>
-                <div className="icon-div">
-                  <Icon icon="mdi:bookshelf" className="icon" />
-                </div>
-              </div>
-              <div className="sub-tab px-3 d-flex justify-content-between align-items-center">
-                <div>
-                  <p>current department</p>
-                  <h6>Science</h6>
-                </div>
-                <div className="icon-div">
-                  <Icon
-                    icon="material-symbols:label-rounded"
-                    rotate={1}
-                    className="icon"
-                  />
-                </div>
-              </div>
-            </div>
-            <Link
-              to={PATH_DASHBOARD.student.results}
-              className="tab d-flex flex-row"
-            >
-              <div className="tab-right">
-                <div className="icon-div">
-                  <Icon
-                    icon="icon-park-twotone:table-report"
-                    className="icon"
-                  />
-                </div>
-                <div className="text d-flex flex-column">
-                  <h6>RESULTS</h6>
-                  <p>View Results</p>
-                </div>
-              </div>
-              <div className="tab-left">
-                <Icon
-                  icon="icon-park-twotone:table-report"
-                  className="big-icon"
-                />
-              </div>
-            </Link>
-
-            <div className="tab ">
-              <div className="tab-right">
-                <div className="icon-div">
-                  <Icon icon="ion:calendar" className="icon" />
-                </div>
-                <div className="text d-flex flex-column">
-                  <h6>SCHEME</h6>
-                  <p>Class Scheme</p>
-                </div>
-              </div>
-              <div className="tab-left">
-                <Icon icon="ion:calendar" className="big-icon" />
-              </div>
-            </div>
-            <div className="details d-none d-lg-flex flex-lg-column p-2 gap-2">
-              <div className="info">
-                current Term
-                <h5>
-                  {termName === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    termName
-                  )}
-                </h5>
-              </div>
-              <div className="info">
-                current week{" "}
-                <h5>
-                  {lastWeek < 0 ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    lastWeek
-                  )}
-                </h5>
-              </div>
-            </div>
+          <div className="icon-div">
+            <Icon className="icon" icon="streamline-emojis:graduation-cap" />
           </div>
         </div>
-      </div>
-    </Dashboard>
+        <div className="middle-div row mt-5 mr-0 ml-0">
+          <div className="left-div col-md-8 p-0 m-0">
+            <div className="div p-0 m-0">
+          <div className="infos d-flex flex-row gap-3 m-0 p-3">
+          <div className="info p-3">
+            <div className="icon-div p-2">
+            <Icon icon="entypo:graduation-cap" color="rgba(158, 160, 231, 0.7)" className="icon" />
+            </div>
+            <h5 className="mb-0">{user.currentClass}</h5>
+            <p>current class</p>
+          </div>
+          <div className="info p-3">
+            <div className="icon-div p-2">
+            <Icon icon="emojione-monotone:books"  color="rgba(158, 160, 231, 0.7)" className="icon" />
+            </div>
+            <h5 className="mb-0">16</h5>
+            <p>subjects offered</p>
+          </div>
+          <div className="info d-flex flex-column justify-content-between p-3">
+            <div className="small-div d-flex flex-row align-items-center py-1 px-2">
+            <Icon icon="basil:calendar-solid" color="rgba(158, 160, 231, 0.7)" width="24" height="24" />
+              <div className="text-div d-flex flex-column">
+                <p className="mb-0">Current Term</p>
+                <h6 className="mb-0">{termName}</h6>
+              </div>
+            </div>
+            <div className="small-div d-flex flex-row align-items-center py-1 px-2">
+            <Icon icon="carbon:report" color="rgba(158, 160, 231, 0.7)" width="30" height="30" />
+              <div className="text-div d-flex flex-row">
+                <p className="mb-0 available-reports">Available reports</p>
+                <h6 className="mb-0">{user.reports.length}</h6>
+              </div>
+            </div>
+          </div>
+          </div>
+            </div>
+          </div>
+          <div className="right-div col-md-4"></div>
+        </div>
+      </Dashboard>
+    </>
   );
 }
 const Dashboard = styled.div`
-  background: #f1f1f1 !important;
-  overflow-x: hidden !important;
+  background-color: #f5f5f5 !important;
+  margin: 0 !important;
   height: fit-content !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
     height: 12px !important;
   }
-  .middle-div {
-    background-color: #f1f1f1;
-    align-items: center;
-    height: auto;
-    gap: 50px;
-    overflow: hidden !important;
-    justify-content: center !important;
-    .big-tab {
-      border-radius: 30px;
-      z-index: 99;
-      background-color: rgba(158, 160, 231, 0.7);
-      border: 1px solid #9ea0e7;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
-      height: 180px;
-      .text {
-        color: white;
-        margin-top: 20px;
-      }
-      .icon-div {
-        .icon {
-          font-size: 200px;
-        }
-      }
+  .big-tab {
+    border-radius: 30px;
+    z-index: 99;
+    background-color: rgba(158, 160, 231, 0.7);
+    backdrop-filter: blur(10px);
+    height: 180px;
+    .text {
+      color: white;
     }
-    .details {
-      width: fit-content;
-      border-radius: 30px;
-      .info {
-        width: 120px;
-        height: 90px;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 7px;
-        p {
-          font-weight: 500;
-        }
-        &:first-child {
-          background-color: #8080ff;
-          color: white;
-        }
-        &:nth-child(2) {
-          background-color: #d9a26b;
-          color: white;
-        }
-      }
-    }
-    .details-wrapper {
-      width: 100% !important;
-      overflow: hidden !important;
-    }
-    .mobile-details {
-      width: fit-content;
-      width: 100% !important;
-      overflow: hidden !important;
-      box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
-      .info {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        &:first-child {
-          background-color: #8080ff;
-          color: white;
-        }
-        &:nth-child(2) {
-          background-color: #d9a26b;
-          color: white;
-        }
-        &:nth-child(3) {
-          background-color: #65655d;
-          color: white;
-        }
-      }
-    }
-    .sub-tabs {
-      height: 200px;
-    }
-    .sub-tab {
-      width: 250px;
-      height: auto;
-      border-radius: 10px;
-      padding-top: 5px;
-   
-      &:first-child {
-        background-color: #b3b3b3;
-        .icon-div {
-          background-color: #9ea0e7;
-          .icon {
-            color: black;
-          }
-        }
-      }
-      &:nth-child(2) {
-        background-color: #d9a26b;
-        .icon-div {
-          background-color: #e98f35;
-        }
-      }
-      p {
-        font-size: 13px;
-      }
+    .icon-div {
       .icon {
-        font-size: 30px;
-      }
-      .icon-div {
-        padding: 7px;
-        border-radius: 50%;
-      }
-    }
-    .tabs {
-      gap: 30px;
-      margin-left: 3px !important;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      .tab {
-        border-radius: 30px;
-        height: 200px;
-        /* width: 200px; */
-        overflow: hidden;
-        justify-content: space-between;
-        display: flex;
-        flex-direction: row;
-        align-items: center !important;
-        padding: 15px;
-        text-decoration: none !important;
-        cursor: pointer;
-        .tab-right {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-evenly;
-          gap: 20px;
+        font-size: 200px;
+        @media (max-width: 558px) {
+          font-size: 150px;
         }
-        .tab-left {
-          margin-right: -50% !important;
+        @media (max-width: 506px) {
+          font-size: 130px;
         }
-        .icon-div {
-          padding: 10px;
-          background-color: white;
-          border-radius: 30px;
-          width: 50px;
+        @media (max-width: 485px) {
+          font-size: 100px;
         }
-        .icon {
-          font-size: 30px;
-        }
-        &:nth-child(4) {
-          background-color: #65655d;
-          color: white;
-          &:hover {
-            transform: scale(1.05);
-          }
-          .big-icon {
-            font-size: 150px !important;
-            color: grey;
-          }
-          .icon {
-            color: #65655d;
-          }
-        }
-        &:nth-child(3) {
-          background-color: #9ea0e7;
-          color: white;
-          .big-icon {
-            font-size: 150px !important;
-            color: #d2d3e9;
-          }
-          .icon {
-            color: #9ea0e7;
-          }
+        @media (max-width: 455px) {
+          font-size: 70px;
         }
       }
     }
+  }
+  .middle-div{
+  }
+  .div{
+    overflow-x: auto !important;
+    margin-top: 0 !important;
+  }
+  .left-div{
+  }
+  .infos{
+    width: 634px !important;
+    overflow-x: auto !important;
+
+    .info{
+      height: 150px !important;
+      width: 200px !important;
+      border-radius: 20px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+      .icon-div{
+        border-radius: 10px;
+        background-color: #f0f0f0;
+      }
+      .icon{
+        font-size:50px !important;
+      }  
+      &:last-child{
+        .small-div{
+          border-radius: 10px;
+          height:55px;
+          gap: 10px;
+          background-color: #f0f0f0;
+          .available-reports{
+            line-height: 0.8 !important;
+        }
+      }
+    }
+  }
+}
+  .right-div{
+    border: 1px solid green;
+    height: 400px;
   }
 
   @media screen and (max-width: 1100px) {
-    .btns {
-      display: flex !important;
-      flex-direction: row;
-      align-items: center;
-      flex-direction: row;
-      gap: 40px;
-      .profile-btn,
-      .nav-btn {
-        font-weight: 600 !important;
-        font-size: 30px;
-      }
-    }
-    .middle-div {
-      .wrapper {
-        width: 100%;
-      }
-      .big-tab {
-        z-index: 0;
-      }
-    }
-  }
-  @media screen and (max-width: 767px) {
-    .middle-div {
-      .big-tab {
-        height: auto;
-        .text {
-          color: white;
-          margin-top: 10px;
-        }
-        .icon-div {
-          margin-right: -50px;
-          .icon {
-            font-size: 70px;
-          }
-        }
-      }
-      .tabs {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        .tab {
-          .tab-left {
-            margin-right: -20% !important;
-          }
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 600px) {
-    .middle-div {
-      padding: 24px !important;
-    }
-    .details-wrapper {
-      display: none !important;
-    }
-    .sub-tabs {
-      width: 100% !important;
-      /* background-color: white; */
-      border-radius: 20px;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-    }
-    .mobile-tabs {
-      margin-top: 50px !important;
-      display: flex !important;
-      align-items: center;
-      justify-content: center !important;
-      gap: 5px;
-      flex-wrap: nowrap;
-      margin-right: 0 !important;
-      margin-left: 0 !important;
-      .tab {
-        height: 120px !important;
-        text-align: center;
-        padding: 5px 10px !important;
-        h5 {
-          font-size: 17px;
-        }
-        p {
-          font-size: 13px;
-        }
-        &:first-child {
-          background-color: #65655d;
-          color: white !important;
-        }
-        &:nth-child(2) {
-          background-color: #d9a26b;
-          color: white !important;
-        }
-      }
-    }
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 `;

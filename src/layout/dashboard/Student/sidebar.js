@@ -31,10 +31,10 @@ const sidebarConfig = [
   },
 ];
 
-export default function StudentSidebar() {
+export default function TeacherSidebar() {
+  const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
   const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard");
-  const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
   function handleNavClick(title) {
     setActiveTab(title);
     console.log(activeTab);
@@ -42,48 +42,46 @@ export default function StudentSidebar() {
     setIsProfileOpen(false);
   }
   return (
-    <SIDEBAR className="d-flex">
+    <SIDEBAR className="d-flex ">
       <div
-        className={`container d-flex flex-row ${
+        className={`container d-flex flex-row px-0 ${
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="nav-container container-fluid d-flex flex-column py-5 justify-content-between h-100 px-0">
-          <div className="wrapper d-flex flex-column justify-content-between">
+        <div className="nav-container d-flex flex-column py-2 justify-content-between h-100 px-0 pb-3">
+          <div className="wrapper d-flex flex-column justify-content-between w-100">
             <div className="logo">
               <Link className="react-router-link" to={PATH_PAGE.home}>
-                <img src="/images/logo.png" />
+                <img src="/images/logo.png" alt="logo" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column pl-5">
-              {sidebarConfig.map(({ icon, link, title }, index) => (
+            <div className="nav-links d-flex flex-column pl-0">
+              {sidebarConfig.map(({ link, icon, title, rotate }, index) => (
                 <Link
-                  to={link}
-                  key={index}
-                  className={`nav-link react-router-link py-2 ${
+                  className={`nav-link react-router-link px-5 py-3 ${
                     activeTab === title ? "active-tab" : ""
                   }`}
+                  to={link}
+                  key={index}
                   onClick={() => handleNavClick(title)}
                 >
-                  <Icon icon={icon} />
+                  <Icon icon={icon} rotate={rotate} />
                   {title}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="log-out d-flex flex-column pl-5">
-            <Link
-              to={PATH_DASHBOARD.student.accountSettings}
-              className={`react-router-link nav-link  py-2 ${
+          <div className="log-out nav-links d-flex flex-column ">
+          <Link
+              className={`nav-link react-router-link px-5 py-3 ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
+              to={PATH_DASHBOARD.teacher.accountSettings}
               onClick={() => handleNavClick("Settings")}
-            >
-              <Icon icon="ic:baseline-settings" />
-              Settings
-            </Link>
-            <div
-              className="react-router-link nav-link py-1"
+            > <Icon icon="ic:baseline-settings" /> Settings</Link>
+            <button
+              to=""
+              className="react-router-link nav-link px-5 py-3"
               onClick={logout}
             >
               <Icon
@@ -91,7 +89,8 @@ export default function StudentSidebar() {
                 rotate={2}
               />
               Log out
-            </div>
+            </button>
+
           </div>
         </div>
         <Closer
@@ -104,68 +103,73 @@ export default function StudentSidebar() {
     </SIDEBAR>
   );
 }
+
 const SIDEBAR = styled.div`
   background-color: white;
   height: 100vh;
-  width: 20%;
+  width: 280px;
   position: relative;
+  z-index: 9999 !important;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
   .container {
-    width: 20%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+    width: 280px;
     height: 100vh;
     align-items: center;
     position: fixed;
-    padding: 0 !important;
-
+    background-color: white;
   }
   .nav-container {
-    width: 100%;
+    width: 100% ;
   }
-
   .wrapper {
     height: 60% !important;
     width: 100%;
     align-items: center;
-
+    margin-left: 0 !important;
   }
   .nav-links {
-    gap: 10px !important;
     width: 100%;
+width: 100% !important;
+
   }
   .nav-link {
-    color: #737373 !important;
-    font-weight: 700 !important;
+    color: grey !important;
     display: flex;
-    align-items: center;
+    justify-content: left !important;
     gap: 20px;
+    align-items: center;
+    transition: ease-in-out 0.3s all;
+    font-weight: 500 !important;
+
+
     &:hover {
-      transition: 0.3s;
-    }
-    @media screen and (max-width: 1342px) {
-      padding-left: 24px !important;
-      padding-right: 24px !important;
-    }
+    font-weight: 700 !important;
+  }
   }
   .active-tab {
-    color: blue !important;
     border-right: 5px solid blue !important;
+    background-color:#f3f3f3;
+    font-weight: 700 !important; 
+
+    /* color: black !important; */
   }
   .logo {
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     display: flex;
+    border-radius: 50%;
+    background-color: white;
     img {
       display: block;
       height: 100%;
       width: 100%;
-      object-fit: cover;
+      object-fit: contain;
       overflow: hidden;
+      border-radius: 50%;
     }
-  }
-  .log-out {
-    gap: 10px;
-    width: 100%;
   }
   @media screen and (max-width: 1100px) {
     width: 0 !important;
@@ -177,12 +181,12 @@ const SIDEBAR = styled.div`
       transition: 0.3s;
     }
     .opened {
-      width: 250px;
+      width: 280px;
       margin-left: 0;
       transition: 0.3s;
       display: flex;
       position: fixed !important;
-      z-index: 999;
+      z-index: 9999;
     }
   }
   @media screen and (max-width: 550px) {
@@ -212,3 +216,4 @@ const Closer = styled.div`
     width: calc(100vw - 250px);
   }
 `;
+

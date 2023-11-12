@@ -28,14 +28,14 @@ const TabsConfig = [
     title: "Term Calendar",
     subTitle: "Set calendar for current term",
     icon: "solar:calendar-bold",
-    iconColor: "black",
+    iconColor: "white",
   },
   {
     link: PATH_DASHBOARD.admin.notify,
     title: "Notify",
     subTitle: "Send message to your staff",
     icon: "tabler:bell-filled",
-    iconColor: "black",
+    iconColor: "white",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
     }
   }
   return (
-    <Wrapper className="py-5">
+    <Wrapper className="py-5 mt-5">
       <div className="d-flex flex-column left">
         <h4>
           {greeting} Mr {user.lastName}
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
         <p>welcome to your dashboard</p>
       </div>
 
-      <div className="middle-div">
+      <div className="middle-div py-3">
         <div className="overviews p-3 py-5">
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
@@ -197,7 +197,7 @@ background-color: #f5f5f5 !important;
 padding-left:32px !important;
     padding-right:32px !important;
   .middle-div {
-    overflow: scroll !important;
+    overflow-x: auto !important;
     .overviews {
       display: flex;
       flex-direction: row;
@@ -206,11 +206,13 @@ padding-left:32px !important;
       width: fit-content;
       background: white;
       border-radius: 30px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .circle-div {
         width: 150px !important;
         height: 150px;
         border-radius: 50%;
         display: flex;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
         p {
           font-weight: 600;
           font-size: 13px;
@@ -256,6 +258,7 @@ padding-left:32px !important;
       border-radius: 10px;
       align-items: center;
       background-color: white !important;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .icon-div {
         padding: 10px;
         border-radius: 50%;
@@ -264,8 +267,10 @@ padding-left:32px !important;
       .text {
         text-align: left;
       }
+      h6 {
+         margin-bottom: 0;
+        }
       &:first-child {
-        background: black;
         .icon-div {
           background-color: #1c1c1c;
         }
@@ -280,27 +285,24 @@ padding-left:32px !important;
         }
       }
       &:nth-child(2) {
-        background: #ffff66;
         .icon-div {
-          background-color: #fbfb87;
+          background-color: #feff37;
         }
         .icon {
           font-size: 30px;
         }
       }
       &:nth-child(3) {
-        background: #ffb366;
         .icon-div {
-          background-color: #d9a26b;
+          background-color: #ffb366;
         }
         .icon {
           font-size: 30px;
         }
       }
       &:last-child {
-        background-color: #8080ff;
         .icon-div {
-          background-color: #8c8ce1;
+          background-color:  #030c8a;
         }
         .icon {
           font-size: 30px;

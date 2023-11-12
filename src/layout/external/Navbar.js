@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 import Logo from "../logo";
@@ -11,6 +11,20 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSticky, setSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setSticky(window.scrollY > 156);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <NavigationBar className="navigation-bar">
       <div className=" first-navbar d-none d-lg-block d-xl-flex ">
@@ -23,7 +37,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className="second-navbar">
+      <div className={`second-navbar`}>
         <div className=" container d-flex justify-content-between py-3 px-0">
           <div className=" d-flex flex-row align-center header">
             <div className="d-lg-none pl-3">
@@ -38,22 +52,22 @@ export default function Navbar() {
             </div>
             <Logo />
           </div>
-          <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-1" icon="carbon:phone-filled" color="blue" />
+          <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-center">
+            <Icon className="icon mr-2" icon="carbon:phone-filled" color="blue" />
             <div className="info d-flex flex-column">
               <h6>+2349055512553</h6>
               <p>Give Us A Call</p>
             </div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-1" icon="fa6-solid:envelope-open-text" color="blue"  />
+            <Icon className="icon mr-2" icon="fa6-solid:envelope-open-text" color="blue"  />
             <div className="info d-flex flex-column">
               <h6>firdausgateschools@gmail.com</h6>
               <p>Mail Us</p>
             </div>
           </div>
           <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-1" icon="game-icons:world" color="blue" />
+            <Icon className="icon mr-2" icon="game-icons:world" color="blue" />
             <div className="info d-flex flex-column">
               <h6>6/8 Balogun Street, Off Igodo Road,</h6>
               <p>Omo-Olope Area, Magbooro, Ogun State.</p>
@@ -61,7 +75,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`third-navbar d-flex ${isOpen ? "opened" : "closed"}`}>
+      <div className={`third-navbar d-flex ${isOpen ? "opened" : "closed"} ${isSticky ? 'sticky' : ''}`}>
         <div className="d-flex flex-row justify-content-between container py-0 px-0">
           <div className="d-flex flex-row dropdowns desktop-dropdowns d-none d-lg-flex">
             <li className="px-2">
@@ -320,17 +334,25 @@ const NavigationBar = styled.div`
       }
     }
     .info {
-      line-height: 0.7;
+      /* line-height: 0.7; */
       h6 {
         font-weight: 600;
         font-size: 16px;
+        margin: 0 !important;
       }
       p{
         font-size: 14px !important;
         font-weight: 600;
         color: grey;
+        margin: 0 !important;
       }
     }
+  }
+  .sticky{
+    position: fixed !important;
+    margin-top: -156px !important;
+    width:100% !important;
+    z-index:9999;
   }
   .third-navbar {
     align-items: center;
@@ -496,6 +518,10 @@ const NavigationBar = styled.div`
         }
       }
     }
+    .sticky{
+    margin-top: 0 !important;
+    z-index:9999;
+  }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
     .second-navbar {

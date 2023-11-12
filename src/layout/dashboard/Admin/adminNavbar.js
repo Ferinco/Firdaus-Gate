@@ -5,6 +5,8 @@ import { useAuth } from "../../../hooks/useAuth";
 export default function AdminNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
   const { user } = useAuth();
+  const firstLetter = user.firstName.charAt(0);
+  console.log(firstLetter)
   return (
     <Wrapper className="head container-fluid d-flex flex-column justify-content-center">
       <div className="btns d-flex flex-row justify-content-between w-100 align-items-center">
@@ -26,8 +28,8 @@ export default function AdminNavbar() {
             setIsProfileOpen((prevState) => !prevState);
           }}
         >
-          <div className="circle-profile"></div>
-          <div className={`d-flex flex-column profile-text mb-2`}>
+          <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="m-0">{firstLetter}</p></div>
+          <div className={`d-flex flex-column profile-text mb-1`}>
             <h6>{user.firstName}&nbsp;{user.lastName}</h6>
             <p className="mb-0">{user.email}</p>
             </div>
@@ -44,6 +46,7 @@ export default function AdminNavbar() {
           <div className="name p-0 w-100">
 <p className="mb-0 px-3">{user.firstName}{" "}{user.lastName}</p>
 <p className="mb-0 px-3 text-muted">{user.email}</p>
+
           </div>
           {/* <div className="div p-0 w-100">
             <p className="mb-0 px-3 text-transform-capitalize">{user.role}</p>
@@ -60,11 +63,9 @@ const Wrapper = styled.div`
 height: 80px !important;
 position: fixed;
 width: calc(100vw - 280px);
-backdrop-filter: blur(2px) !important;
-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 z-index:999 !important;
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: 32px;
+    padding-right: 32px;
   .btns {
     .profile-div {
       cursor: pointer;
@@ -81,6 +82,11 @@ z-index:999 !important;
     width: 32px;
     border-radius: 50%;
     background-color: black;
+    p{
+      color: white;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
     }
     .profile-text{
       line-height: 0.2;
@@ -114,6 +120,7 @@ font-weight: 500 !important;
     color: black;
     transition:all ease-in-out 0.4s;
     opacity: 0.1 !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .image {
       height: 50px;
       width: 50px;
@@ -144,10 +151,13 @@ p{
     z-index: 999;
     transition: 0.3s;
     position: absolute;
-    right: 40px !important;
+    right: 32px !important;
     top: 80px !important;
     transition:all ease-in-out 0.4s;
     opacity: 1 !important;
+    @media screen and (max-width: 1100px) {
+right:24px !important;
+  }
 
   }
   .close {

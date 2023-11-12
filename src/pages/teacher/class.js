@@ -580,7 +580,7 @@ const Wrapper = styled.div`
   }
   .div {
     border-radius: 10px;
-    background-color: white;
+    background-color: white !important;
     overflow-x: hidden !important;
 
     .bars {

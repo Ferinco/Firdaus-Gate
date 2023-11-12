@@ -17,10 +17,10 @@ export const StudentInfo = ()=>{
     return(
 <div>
 {isLoading && user === null && <CircularProgress /> }
-<div className=" d-flex flex-column py-5 px-3">
+    <StudentWrapper className="div d-flex flex-column py-5 w-50">
     <h4>STUDENT INFO</h4>
+<div className=" d-flex flex-column mt-4">
 
-    <StudentWrapper className="div d-flex flex-column mt-4 w-50">
         <div className="info d-flex justify-content-between">
            <p className="text-capitalize">first name:</p>  <h6 className="text-capitalize w-50">{user?.firstName}</h6></div>
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">middle name:</p> <h6 className="text-capitalize w-50">{user?.middleName}</h6></div>
@@ -33,10 +33,10 @@ export const StudentInfo = ()=>{
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">parent phone :</p> <h6 className="text-capitalize w-50">{user?.parentPhone}</h6></div>
 
 
+</div>
     </StudentWrapper>
 
 
-</div>
 </div>
     )
 }
@@ -53,10 +53,10 @@ export const TeacherInfo = ()=>{
     return(
 <div>
 {isLoading && user === null && <CircularProgress /> }
-<div className=" d-flex flex-column py-5 px-3">
+    <TeacherWrapper className="div d-flex flex-column py-5 w-50">
     <h4>TEACHER INFO</h4>
 
-    <TeacherWrapper className="div d-flex flex-column mt-4 w-50">
+<div className=" d-flex flex-column mt-4">
         <div className="info d-flex align-items-center ">
            <p className="text-capitalize w-50">first name:</p>  <h6 className="text-capitalize w-50">{user?.firstName}</h6></div>
         <div className="info d-flex align-items-center"><p className="text-capitalize w-50">middle name:</p> <h6 className="text-capitalize w-50">{user?.middleName}</h6></div>
@@ -69,14 +69,20 @@ export const TeacherInfo = ()=>{
         <div className="info d-flex align-items-center"><p className="text-capitalize w-50"> phone :</p> <h6 className="text-capitalize w-50">{user?.tel}</h6></div>
 
 
+</div>
     </TeacherWrapper>
 
-</div>
 </div>
     )
 }
 
 const StudentWrapper = styled.div`
+    padding-right: 32px !important;
+  padding-left: 32px !important;
+  @media (max-width: 1100px){
+    padding-right: 24px !important;
+  padding-left: 24px !important;
+  }
 @media screen and (max-width:820px){
     width:75% !important;
   
@@ -88,6 +94,12 @@ const StudentWrapper = styled.div`
 `
 
 const TeacherWrapper = styled.div`
+    padding-right: 32px !important;
+  padding-left: 32px !important;
+  @media (max-width: 1100px){
+    padding-right: 24px !important;
+  padding-left: 24px !important;
+  }
 @media screen and (max-width:820px){
     width:75% !important;
   
