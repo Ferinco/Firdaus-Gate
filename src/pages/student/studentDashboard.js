@@ -22,7 +22,6 @@ export default function StudentDashboard() {
   const [currentTerm, setCurrentTerm] = useState({});
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
-
   //fetch current term
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function StudentDashboard() {
     }
   }, [startDate]);
   const lastWeek = weeks.length - 1;
-
+console.log(user)
   //downloading current report
   async function downloadReport(term) {
     try {
@@ -143,20 +142,35 @@ export default function StudentDashboard() {
           <div className="left-div col-md-8 p-0 m-0">
             <div className="div p-0 m-0">
           <div className="infos d-flex flex-row gap-3 m-0 p-3">
-          <div className="info">
-            <div className="icon-div"></div>
-            <h5></h5>
-            <p></p>
+          <div className="info p-3">
+            <div className="icon-div p-2">
+            <Icon icon="entypo:graduation-cap" color="rgba(158, 160, 231, 0.7)" className="icon" />
+            </div>
+            <h5 className="mb-0">{user.currentClass}</h5>
+            <p>current class</p>
           </div>
-          <div className="info">
-            <div className="icon-div"></div>
-            <h5></h5>
-            <p></p>
+          <div className="info p-3">
+            <div className="icon-div p-2">
+            <Icon icon="emojione-monotone:books"  color="rgba(158, 160, 231, 0.7)" className="icon" />
+            </div>
+            <h5 className="mb-0">16</h5>
+            <p>subjects offered</p>
           </div>
-          <div className="info">
-            <div className="icon-div"></div>
-            <h5></h5>
-            <p></p>
+          <div className="info d-flex flex-column justify-content-between p-3">
+            <div className="small-div d-flex flex-row align-items-center py-1 px-2">
+            <Icon icon="basil:calendar-solid" color="rgba(158, 160, 231, 0.7)" width="24" height="24" />
+              <div className="text-div d-flex flex-column">
+                <p className="mb-0">Current Term</p>
+                <h6 className="mb-0">{termName}</h6>
+              </div>
+            </div>
+            <div className="small-div d-flex flex-row align-items-center py-1 px-2">
+            <Icon icon="basil:calendar-solid" color="rgba(158, 160, 231, 0.7)" width="30" height="30" />
+              <div className="text-div d-flex flex-row">
+                <p className="mb-0 available-reports">Available reports</p>
+                <h6 className="mb-0">{user.reports.length}</h6>
+              </div>
+            </div>
           </div>
           </div>
             </div>
@@ -221,8 +235,27 @@ const Dashboard = styled.div`
       height: 150px !important;
       width: 200px !important;
       border-radius: 20px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;    }
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+      .icon-div{
+        border-radius: 10px;
+        background-color: #f0f0f0;
+      }
+      .icon{
+        font-size:50px !important;
+      }  
+      &:last-child{
+        .small-div{
+          border-radius: 10px;
+          height:55px;
+          gap: 10px;
+          background-color: #f0f0f0;
+          .available-reports{
+            line-height: 0.8 !important;
+        }
+      }
+    }
   }
+}
   .right-div{
     border: 1px solid green;
     height: 400px;
