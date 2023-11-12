@@ -28,14 +28,14 @@ const TabsConfig = [
     title: "Term Calendar",
     subTitle: "Set calendar for current term",
     icon: "solar:calendar-bold",
-    iconColor: "black",
+    iconColor: "white",
   },
   {
     link: PATH_DASHBOARD.admin.notify,
     title: "Notify",
     subTitle: "Send message to your staff",
     icon: "tabler:bell-filled",
-    iconColor: "black",
+    iconColor: "white",
   },
 ];
 
@@ -197,7 +197,7 @@ background-color: #f5f5f5 !important;
 padding-left:32px !important;
     padding-right:32px !important;
   .middle-div {
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
     .overviews {
       display: flex;
       flex-direction: row;
@@ -271,7 +271,6 @@ padding-left:32px !important;
          margin-bottom: 0;
         }
       &:first-child {
-        background: black;
         .icon-div {
           background-color: #1c1c1c;
         }
@@ -286,27 +285,24 @@ padding-left:32px !important;
         }
       }
       &:nth-child(2) {
-        background: #ffff66;
         .icon-div {
-          background-color: #fbfb87;
+          background-color: #feff37;
         }
         .icon {
           font-size: 30px;
         }
       }
       &:nth-child(3) {
-        background: #ffb366;
         .icon-div {
-          background-color: #d9a26b;
+          background-color: #ffb366;
         }
         .icon {
           font-size: 30px;
         }
       }
       &:last-child {
-        background-color: #8080ff;
         .icon-div {
-          background-color: #8c8ce1;
+          background-color:  #030c8a;
         }
         .icon {
           font-size: 30px;

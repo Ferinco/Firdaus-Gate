@@ -258,7 +258,7 @@ const Dashboard = styled.div`
     height: 12px !important;
   }
   .divs{
-    overflow-x: scroll;
+    overflow-x: auto;
     
   }
   .infos {
