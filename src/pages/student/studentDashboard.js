@@ -182,9 +182,7 @@ const Dashboard = styled.div`
     border-radius: 30px;
     z-index: 99;
     background-color: rgba(158, 160, 231, 0.7);
-    border: 1px solid #9ea0e7;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 10px rgba(158, 160, 231, 0.5);
     height: 180px;
     .text {
       color: white;
