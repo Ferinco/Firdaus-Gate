@@ -9,6 +9,7 @@ import { useAppContext } from "../../../contexts/Context";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../../hooks/useAuth";
 import { PATH_PAGE } from "../../../routes/paths";
+import { Helmet } from "react-helmet";
 
 export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
@@ -51,6 +52,9 @@ export default function TeacherLogin() {
   };
   return (
     <Wrapper>
+                   <Helmet>
+        <title>Login | FGMS</title>
+      </Helmet>
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8 left">

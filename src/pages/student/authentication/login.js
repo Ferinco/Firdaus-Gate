@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../../routes/paths";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../../hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 export default function StudentLogin() {
   const [success, setSuccess] = useState(false);
@@ -53,6 +54,12 @@ export default function StudentLogin() {
 
   return (
     <Wrapper>
+                   <Helmet>
+        <title>Login | FGMS</title>
+        <meta name="description" content="FGMS Student Portal - Firdaus-Gate Model Schools student portal is available to all newly admitted (fresh) and returning students. Kindly follow the link to sign in to your portal." />
+
+        <meta name="keywords" content="student, pupil, portal, login, sign im, sign, firdaus login, firdaus-gate" />
+      </Helmet>
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8 left">

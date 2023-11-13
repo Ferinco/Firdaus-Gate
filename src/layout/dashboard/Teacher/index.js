@@ -3,10 +3,14 @@ import React from "react";
 import TeacherSidebar from "./sidebar";
 import styled from "styled-components";
 import TeacherNavbar from "./teacherNavbar";
+import { Helmet } from "react-helmet";
 
 export default function TeacherDashboardLayout() {
   return (
     <Wrapper className="d-flex flex-row">
+             <Helmet>
+        <title>Teacher Dashboard | FGMS</title>
+      </Helmet>
       <TeacherSidebar />
       <div
         style={{ backgroundColor: "#f5f5f5"}}

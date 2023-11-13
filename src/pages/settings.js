@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { UserService } from "../services/userService";
 import { api } from "../api/axios";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 export default function Settings() {
   const [activeNav, setActiveNav] = useState("Profile");
@@ -83,6 +84,10 @@ export default function Settings() {
 
   return (
     <Wrapper className="d-flex flex-column py-5 container">
+             <Helmet>
+        <title>Settings | FGMS</title>
+                <meta name="keywords" content="change password, profile" />
+      </Helmet>
       <h4>Account Settings</h4>
       <div className="navigators d-flex flex-row gap-4 mt-4">
         <div

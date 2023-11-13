@@ -3,10 +3,16 @@ import styled from "styled-components";
 import {
   LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro
 } from "../components/landing";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   return (
     <Wrapper>
+             <Helmet>
+        <title>Firdaus Gate Model Schools.</title>
+        <meta name="description" content="Welcome to Firdaus Gate Model Schools where knowledge meets faith." />
+        <meta name="keywords" content="landing page, firdaus gate model schools, welcome" />
+      </Helmet>
       <LandingHero />
       <AboutSection/>
       <Intro/>

@@ -3,10 +3,17 @@ import { Outlet } from "react-router-dom";
 import StudentSidebar from "./sidebar";
 import styled from "styled-components";
 import StudentNavbar from "./studentNavbar";
+import { Helmet } from "react-helmet";
 
 export default function StudentDashboardLayout() {
   return (
     <Wrapper className="d-flex flex-row">
+             <Helmet>
+        <title>Student Dashboard | FGMS</title>
+        <meta name="description" content="welcome back to your dashboard, check results, view assignments and do many more." />
+
+        <meta name="keywords" content="student, pupil, dashboard" />
+      </Helmet>
       <StudentSidebar />
       <div
         style={{ backgroundColor: "#f5f5f5"}}

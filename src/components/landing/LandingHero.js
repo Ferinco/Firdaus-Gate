@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import styled from "styled-components";
 import { Button } from "../custom/Button";
-
+import {Helmet} from "react-helmet"
 
 const images = [
   {
@@ -111,6 +111,7 @@ export default function LandingHero() {
   }, []);
   return (
     <Wrapper >
+
      <div className={`container py-2 ${isSticky ? 'sticky' : ''}`}>
      <div className="row">
         <div className="col-md-6 d-flex left">
@@ -120,8 +121,7 @@ export default function LandingHero() {
             </h1>
             <div className="">
               <p className="">
-Stiil in progress we will update the about and the school's info later...
-this part should contain a short intro on the school's mission and some other related things.....
+              Assalamu Alaikum! Welcome to Firdaus Gate Model Schools, where education meets faith. In our school, we nurture minds, hearts, and character. Explore the enriching blend of academics and Islamic values...
               </p>
             </div>
             <div className="button-group d-flex flex-row">

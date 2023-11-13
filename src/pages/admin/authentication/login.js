@@ -7,6 +7,7 @@ import { PATH_DASHBOARD, PATH_PAGE } from "../../../routes/paths";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/custom/Button";
+import { Helmet } from "react-helmet";
 export default function AdminLogin() {
   const { login } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,6 +39,9 @@ export default function AdminLogin() {
   };
   return (
     <Wrapper className="d-flex justify-content-center">
+                   <Helmet>
+        <title>Login | FGMS</title>
+      </Helmet>
       <div className="d-flex flex-column form-wrapper p-5">
         <div className="header d-flex flex-column">
           <div className="logo-img mb-2">

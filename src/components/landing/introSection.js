@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 export default function IntroSection() {
   return (
     <Container className="py-5">
-      <div className="d-flex align-items-center flex-column gap-5 container">
+      <div className="container d-flex align-items-center flex-column gap-5">
         <div className="header d-flex flex-column justify-content-center align-items-center">
           <h6 className="pre-header">what we offer</h6>
           <h2>Some of our core services that make us the best</h2>
         </div>
-        <div className="div d-flex gap-3 justify-content-between">
+        <div className="div d-flex gap-3 justify-content-between p-0 m-0">
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="ion:bed" />

@@ -118,8 +118,8 @@ export default function MyClass() {
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
-      setIsLoading(false);
       setCurrentTableData(list);
+      setIsLoading(false);
       setDataTotal(total);
       setPageSize(limit);
       setPageCount(totalPages);
@@ -259,13 +259,13 @@ export default function MyClass() {
           handleSubmit={createCsvUsers}
         />
       )}
-      {isLoading ? <CircularProgress /> : ""}
+      {currentTableData.length = 0 && isLoading && <CircularProgress /> }
       <Wrapper className="d-flex flex-column py-5">
         {/* <div className="header px-3 py-3">
       <h4>List of Students</h4>
       <p>view and edit student(s) details here...</p>
     </div> */}
-        {currentTableData.length > 0 ? (
+        {currentTableData?.length > 0 ? (
           <div className="">
             <div className="d-flex py-3 justify-content-between">
               <form onSubmit={handleSubmit(handleSearch)}>

@@ -16,7 +16,7 @@ export default function AboutSection() {
           <h6 className="pre-header">about us</h6>
           <h2>The place where you grow and learn</h2>
           <p>
-         Firdaus-Gate model schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at makuing them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
+         Firdaus-Gate model schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at making them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
           </p>
           <Button blue>Read more</Button>
         </div>
@@ -25,13 +25,22 @@ export default function AboutSection() {
   );
 }
 const Container = styled.div`
+margin-top: 100px;
     .container{
-        gap: 50px;
+        gap: 100px;
         justify-content: space-between !important;
+        @media screen and (max-width: 991px){
+          flex-direction: column !important;
+        }
     }
     .left{
-        h6{
-            display: none;
+      h6{
+              display: none;
+          }
+      @media screen and (max-width: 991px){
+          h6{
+              display: flex;
+          }
         }
     }
   .image-wrapper {
@@ -57,7 +66,22 @@ border-radius: 30px;
   }
   .right {
     padding-right: 10px;
-    max-width: 450px;
+    @media screen and (max-width: 991px){
+      text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    h2{
+        font-size: 36px;
+    }
+    p {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+          h6{
+              display: none;
+          }
+        }
     h2{
         font-size: 45px;
         font-weight: 800;
@@ -68,6 +92,7 @@ border-radius: 30px;
   }
 
 @media (max-width: 768px) {
+margin-top: 30px;
   .container {
     flex-direction: column;
     align-items: center;
@@ -94,22 +119,6 @@ border-radius: 30px;
     }
   }
 
-  .right {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    max-width: 90%;
-    h6{
-        display: none;
-    }
-    h2{
-        font-size: 36px;
-    }
-    p {
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-  }
 }
 
 `;
