@@ -15,6 +15,7 @@ import { PaginationBar } from "../../components/PaginationBar";
 import { useForm } from "react-hook-form";
 import { getNonNullValue } from "../../utils/utils";
 import { api } from "../../api/axios";
+import { Icon } from "@iconify/react";
 
 const columns = [
   { header: "Select", accessor: "select" },
@@ -118,8 +119,8 @@ export default function MyClass() {
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
-      setCurrentTableData(list);
       setIsLoading(false);
+      setCurrentTableData(list);
       setDataTotal(total);
       setPageSize(limit);
       setPageCount(totalPages);
@@ -259,35 +260,28 @@ export default function MyClass() {
           handleSubmit={createCsvUsers}
         />
       )}
-      {currentTableData.length = 0 && isLoading && <CircularProgress /> }
+      {isLoading ? <CircularProgress /> : ""}
       <Wrapper className="d-flex flex-column py-5">
-        {/* <div className="header px-3 py-3">
-      <h4>List of Students</h4>
-      <p>view and edit student(s) details here...</p>
-    </div> */}
-        {currentTableData?.length > 0 ? (
+        {currentTableData.length > 0 ? (
           <div className="">
             <div className="d-flex py-3 justify-content-between">
               <form onSubmit={handleSubmit(handleSearch)}>
                 <p>Search students</p>
-                <div className="d-flex gap-2 py-2">
+                <div className="d-flex gap-2">
                   <input
                     type="text"
                     placeholder="First name"
                     {...register("firstName")}
                   />
-
-                  {/* <Icon icon="circum:search" color="gray" className="icon" /> */}
-
                   <input
                     type="text"
                     placeholder="Last name"
                     {...register("lastName")}
                   />
-                </div>
                 <button type="submit" onClick={handleSearch}>
-                  Search
+                  <Icon icon="circum:search" color="gray" className="icon" />
                 </button>
+                </div>
                 <button type="button" onClick={resetSearch}>
                   Reset
                 </button>
@@ -297,29 +291,26 @@ export default function MyClass() {
                 Import CSV file
               </button>
             </div>
-            <div>
-              <button onClick={handleMultiTransfer}>
-                Transfer &nbsp;{" "}
-                {multiSelect.length ? `(${multiSelect.length})` : "all"} &nbsp;
-                students
-              </button>
-            </div>
-            <div className="div mt-3">
+            <div className="div mt-3 p-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
                   <div className="navigator ">Deactivated</div>
                   <div className="navigator"></div>
                 </div>
-
-                <div
-                  className={`actions d-flex gap-2 ${
-                    checkLength > 0 ? "open-action" : "closed-action"
-                  }`}
-                >
-                  <div className="action ">transfer all</div>
-                  <div className="action ">deactivate all</div>
-                  <div className="action">delete all</div>
+                <div className="d-flex gap-1">
+              <button onClick={handleMultiTransfer} className="action-bar">
+                Transfer &nbsp;{" "}
+                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
+              </button>
+              <button onClick={handleMultiTransfer} className="action-bar">
+                Deactivate &nbsp;{" "}
+                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
+              </button>
+              <button onClick={handleMultiTransfer} className="action-bar">
+                Delete &nbsp;{" "}
+                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
+              </button>
                 </div>
               </div>
               <div className=" table-div">
@@ -394,12 +385,12 @@ export default function MyClass() {
                           if (cell.accessor == "") {
                             return (
                               <td key={index} className="table-body">
-                                <td>
+                      <td className="table-button">
                                   <button className="update-button">
                                     Edit
                                   </button>
                                 </td>
-                                <td>
+                                <td className="table-button">
                                   <button
                                     onClick={() => {
                                       setOverlay(true);
@@ -469,11 +460,9 @@ export default function MyClass() {
           <div className="d-flex justify-content-center align-items-center">
             <div className="pt-5 h-100">
               <p className="text-muted">No student to display...</p>
-              <div className="d-flex py-1 justify-content-between">
                 <button onClick={() => setCSVOpen(true)} className="csv-button">
                   Import CSV file
                 </button>
-              </div>
             </div>
           </div>
         )}
@@ -604,7 +593,7 @@ const Wrapper = styled.div`
         color: blue;
       }
     }
-    .action {
+    .action-bar {
       border: 1px solid grey;
       border-radius: 20px;
       padding: 3px 10px;

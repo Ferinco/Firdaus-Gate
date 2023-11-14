@@ -10,7 +10,7 @@ export default function Home() {
     <Wrapper>
              <Helmet>
         <title>Firdaus Gate Model Schools.</title>
-        <meta name="description" content="Welcome to Firdaus Gate Model Schools where knowledge meets faith." />
+        <meta name="description" content="Welcome to Firdaus-Gate Model Schools where knowledge meets faith." />
         <meta name="keywords" content="landing page, firdaus gate model schools, welcome" />
       </Helmet>
       <LandingHero />
