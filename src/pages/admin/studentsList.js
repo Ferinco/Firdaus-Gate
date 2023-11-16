@@ -566,6 +566,7 @@ const Wrapper = styled.div`
   }
   .table-div {
     overflow-x: auto !important;
+    background-color: white !important;
   }
   .head {
     background-color: #f1f1f1 !important;

@@ -8,6 +8,7 @@ import { fetchCurrentTerm } from "../../redux/slices/term";
 import { fetchUsers } from "../../redux/slices/users";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import { Helmet } from "react-helmet";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.admin.createTerm,
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
   // const { users } = useSelector((state) => state.users);
   const [Teachers, setTeachers] = useState("");
   const [Students, setStudents] = useState("");
-  const [termName, setTermName] = useState("")
+  const [termName, setTermName] = useState("");
 
   //current term
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function AdminDashboard() {
       .unwrap()
       .then((res) => {
         console.log(res);
-        setTermName(res.data.name)
+        setTermName(res.data.name);
       });
   }, []);
   console.log(currentTerm);
@@ -107,6 +108,9 @@ export default function AdminDashboard() {
   }
   return (
     <Wrapper className="py-5 mt-5">
+      <Helmet>
+        <title>Admin Dashboard | FGMS</title>
+      </Helmet>
       <div className="d-flex flex-column left">
         <h4>
           {greeting} Mr {user.lastName}
@@ -120,7 +124,7 @@ export default function AdminDashboard() {
             <p>current term</p>
             <h5>
               {currentTerm ? (
-                  <h5>
+                <h5>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
                       <span className="sr-only">Loading...</span>
@@ -145,26 +149,26 @@ export default function AdminDashboard() {
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active teachers</p>
             <h5>
-                  {Teachers === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    Teachers
-                  )}
-                </h5>
+              {Teachers === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                Teachers
+              )}
+            </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active students</p>
             <h5>
-                  {Students === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    Students
-                  )}
-                </h5>
+              {Students === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                Students
+              )}
+            </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
@@ -193,9 +197,9 @@ export default function AdminDashboard() {
   );
 }
 const Wrapper = styled.div`
-background-color: #f5f5f5 !important;
-padding-left:32px !important;
-    padding-right:32px !important;
+  background-color: #f5f5f5 !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   .middle-div {
     overflow-x: auto !important;
     .overviews {
@@ -212,7 +216,8 @@ padding-left:32px !important;
         height: 150px;
         border-radius: 50%;
         display: flex;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+          rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
         p {
           font-weight: 600;
           font-size: 13px;
@@ -268,8 +273,8 @@ padding-left:32px !important;
         text-align: left;
       }
       h6 {
-         margin-bottom: 0;
-        }
+        margin-bottom: 0;
+      }
       &:first-child {
         .icon-div {
           background-color: #1c1c1c;
@@ -302,7 +307,7 @@ padding-left:32px !important;
       }
       &:last-child {
         .icon-div {
-          background-color:  #030c8a;
+          background-color: #030c8a;
         }
         .icon {
           font-size: 30px;
@@ -316,7 +321,7 @@ padding-left:32px !important;
     height: 14px !important;
   }
 
-  @media screen and (max-width: 1100px){
+  @media screen and (max-width: 1100px) {
     padding-left: 24px !important;
     padding-right: 24px !important;
   }
