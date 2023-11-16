@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 
 export default function Settings() {
+  const [isLoading, setLoading] = useState(false);
   const [activeNav, setActiveNav] = useState("Profile");
   const [previewImage, setPreviewImage] = useState(null);
   const [signatureFile, setSignatureFile] = useState("");
@@ -20,16 +21,6 @@ export default function Settings() {
   const { user } = useAuth();
 
   const schema = yup.object({
-    // oldPassword: yup
-    //   .string()
-    //   .required("input old password")
-    //   .min(5, "old password is at least 5 characters")
-    //   .max(12, "old password is not more than 12 characters"),
-    // newPassword: yup
-    //   .string()
-    //   .required("set a password")
-    //   .min(5, "new password must be at least 5 characters")
-    //   .max(12, "new password must not be more than 12 characters"),
     teacherSignature: yup
       .mixed()
       .required("signature is required")
@@ -64,10 +55,18 @@ export default function Settings() {
     formData.append("values", JSON.stringify(data));
     formData.append("teacherSignature", signatureFile);
     try {
+      setLoading(true)
       const data = await UserService.updateUser(user._id, formData);
-      console.log(data);
-    } catch (error) {
+      toast.success("Profile edited successfully");
+      setLoading(false)
+    }catch (error) {
       console.log(error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, try again later");
+      }
     }
   };
   const handleFileChange = (event) => {
@@ -221,9 +220,22 @@ export default function Settings() {
             </div>
 
             <div className="button-div d-flex justify-content-end mt-4">
-              <Button blue type="submit">
-                Save Changes
-              </Button>
+            <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={isLoading === true}
+                  >
+                    {isLoading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Save Changes"
+                    )}
+                  </Button>
             </div>
           </form>
         </div>
@@ -327,7 +339,22 @@ const ChangePassword = () => {
         </div>
 
         <div className="button-div d-flex justify-content-end mt-4">
-          <Button blue>Save Changes</Button>
+        <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={isLoading === true}
+                  >
+                    {isLoading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Change Password"
+                    )}
+                  </Button>
         </div>
       </form>
     </div>
@@ -361,7 +388,7 @@ const Wrapper = styled.div`
   }
   .out {
     max-width: 400px;
-    background-color: white !important;
+    background: white !important;
     border-radius: 20px;
   }
   .active {
@@ -410,4 +437,11 @@ const Wrapper = styled.div`
     padding-left: 24px;
   padding-right: 24px;
   }
+  button{
+    width:183.5px !important;
+  }
+  .spinner-border {
+          width: 25px;
+          height: 25px;
+        }
 `;

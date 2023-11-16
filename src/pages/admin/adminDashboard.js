@@ -66,8 +66,7 @@ export default function AdminDashboard() {
       try {
         const results = await dispatch(fetchUsers({ role: "student" }));
         const users = unwrapResult(results);
-        const Length = users.data.length;
-        console.log(Length);
+        const Length = users.data.list.length;
         setStudents(Length);
       } catch (error) {
         console.log(error);
@@ -83,7 +82,7 @@ export default function AdminDashboard() {
         const results = await dispatch(fetchUsers({ role: "teacher" }));
         console.log(results);
         const users = unwrapResult(results);
-        const Length = users.data.length;
+        const Length = users.data.list.length;
         console.log(Length);
         setTeachers(Length);
       } catch (error) {

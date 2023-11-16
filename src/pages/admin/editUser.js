@@ -224,7 +224,7 @@ const StudentForm = styled.div`
   padding-right: 32px !important;
   padding-left: 32px !important;
   .div {
-    background-color: white !important;
+    background: white !important;
     border-radius: 20px;
 max-width: 500px;
   }

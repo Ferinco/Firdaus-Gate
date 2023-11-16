@@ -6,33 +6,28 @@ import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { UserService } from "../../services/userService";
+import { api } from "../../api/axios";
+import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
+
 
 export default function AccountSettings() {
   const [activeNav, setActiveNav] = useState("Profile");
+  const [isLoading, setLoading] = useState(false)
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const { user } = useAuth();
-  const onSubmitProfile = async (data) => {
-    console.log("data");
-  };
-  const onSubmitSecurity = async (data) => {
-    console.log("data");
-  };
+
   const schema = yup.object({
     firstName: yup.string().required("first name is required"),
     lastName: yup.string().required("last name is required"),
-    oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
-    newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
     tel: yup
       .string()
       .matches(phoneRegEx, "phone number is invalid")
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-    confirmPwd: yup
-      .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
-      .required("confirm your password"),
   });
   const {
     register,
@@ -44,11 +39,29 @@ export default function AccountSettings() {
       firstName: user.firstName,
       lastName: user.lastName,
       tel: user.tel,
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
     },
   });
+
+  const onSubmitProfile = async (data) => {
+    const formData = new FormData();
+    formData.append("values", JSON.stringify(data));
+    try {
+      setLoading(true);
+      const data = await UserService.updateUser(user._id, formData);
+      toast.success("Profile edited successfully");
+      setLoading(false);
+
+    }catch (error) {
+      console.log(error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, try again later");
+      }
+    }
+  };
+
 
   return (
     <Wrapper className="d-flex flex-column py-5">
@@ -122,54 +135,150 @@ export default function AccountSettings() {
             </div>
 
             <div className="button-div d-flex justify-content-end mt-4">
-              <Button blue>Save Changes</Button>
+            <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={isLoading === true}
+                  >
+                    {isLoading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Save Changes"
+                    )}
+                  </Button>
             </div>
           </form>
         </div>
       ) : (
-        <div className="out mt-5 p-3">
-          <form
-            className="security-div d-flex flex-column gap-2"
-            onSubmit={handleSubmit(onSubmitSecurity)}
-          >
-            <div className="d-flex flex-column mt-3">
-              <label htmlFor="oldPwd" className="label">
-                Old Password
-              </label>
-              <input name="oldPwd" {...register("oldPwd")} />
-              <p className="error-message">
-                {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-              </p>
-            </div>
-            <div className="d-flex flex-column mt-3">
-              <label htmlFor="newPwd" className="label">
-                New Password
-              </label>
-              <input name="newPwd" {...register("newPwd")} />
-              <p className="error-message">
-                {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
-              </p>
-            </div>
-            <div className="d-flex flex-column mt-3">
-              <input
-                name="confirmPwd"
-                {...register("confirmPwd")}
-                placeholder="Confirm new password"
-              />
-              <p className="error-message">
-                {errors.confirmPwd?.message
-                  ? `*${errors.confirmPwd?.message}`
-                  : ""}
-              </p>
-            </div>
-
-            <div className="button-div d-flex justify-content-end mt-4">
-              <Button blue>Save Changes</Button>
-            </div>
-          </form>
-        </div>
+<ChangePassword/>
       )}
     </Wrapper>
+  );
+}
+
+
+
+const ChangePassword = () => {
+  const passwordSchemaValidate = yup.object({
+    newPassword: yup.string().required("Please enter new password"),
+    oldPassword: yup.string().required("Please enter old password"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
+      .required("confirm your password"),
+  });
+  const [isLoading, setLoading] = useState(false);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { oldPassword: "", confirmNewPassword: "", newPassword: "" },
+    resolver: yupResolver(passwordSchemaValidate),
+  });
+
+  const onSubmitSecurity = async (data) => {
+    console.log(data);
+    try {
+      setLoading(true);
+      const response = await api.put("/users/change-password", {
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      });
+      toast.success("Password changed successfully");
+      setLoading(false);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, try again later");
+      }
+    }
+  };
+
+
+  return (
+    <div className="out mt-5 p-3">
+      <form
+        className="security-div d-flex flex-column gap-2"
+        onSubmit={handleSubmit(onSubmitSecurity)}
+      >
+        <div className="d-flex flex-column">
+          <label htmlFor="oldPassword" className="label">
+            Old Password
+          </label>
+          <input
+            type="password"
+            name="oldPassword"
+            placeholder="Input old password"
+
+            {...register("oldPassword")}
+          />
+          <p className="error-message">
+            {errors.oldPassword?.message
+              ? `*${errors.oldPassword?.message}`
+              : ""}
+          </p>
+        </div>
+        <div className="d-flex flex-column">
+          <label htmlFor="newPassword" className="label">
+            New Password
+          </label>
+          <input
+            type="password"
+            name="newPassword"
+            placeholder="New password"
+            {...register("newPassword")}
+          />
+          <p className="error-message">
+            {errors.newPassword?.message
+              ? `*${errors.newPassword?.message}`
+              : ""}
+          </p>
+        </div>
+        <div className="d-flex flex-column">
+          <input
+            type="password"
+            name="confirmNewPassword"
+            {...register("confirmNewPassword")}
+            placeholder="Confirm new password"
+          />
+          <p className="error-message">
+            {errors.confirmNewPassword?.message
+              ? `*${errors.confirmNewPassword?.message}`
+              : ""}
+          </p>
+        </div>
+
+        <div className="button-div d-flex justify-content-end mt-4">
+        <Button
+                    blue
+                    type="submit"
+                    className="button"
+                    disabled={isLoading === true}
+                  >
+                    {isLoading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Change Password"
+                    )}
+                  </Button>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -244,4 +353,11 @@ const Wrapper = styled.div`
     padding-right: 24px !important;
   padding-left: 24px !important;
   }
+  button{
+    width:183.5px !important;
+  }
+  .spinner-border {
+          width: 25px;
+          height: 25px;
+        }
 `;
