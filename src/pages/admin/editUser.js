@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 export const EditStudent = () => {
-    const [activeNav, setActiveNav] = useState("Profile");
-    const [previewImage, setPreviewImage] = useState(null);
+const [activeNav, setActiveNav] = useState("Profile");
+const [previewImage, setPreviewImage] = useState(null);
 
   const { identity } = useParams();
   const dispatch = useDispatch();
@@ -139,6 +139,7 @@ export const EditStudent = () => {
                 </label>
                 <input
                   name="id"
+                  readOnly
                   {...register("id")}
                 />
               </div>
@@ -149,6 +150,7 @@ export const EditStudent = () => {
                     : "class handled"}
                 </label>
                 <input name="class" 
+                  readOnly
                 {...register("class")}/>
               </div>
             </div>
@@ -187,7 +189,8 @@ export const EditStudent = () => {
       <label htmlFor="oldPwd" className="label">
         Old Password
       </label>
-      <input name="oldPwd" {...register("oldPwd")}/>
+      <input name="oldPwd" {...register("oldPwd")}
+      placeholder="Input old password"/>
       <p className="error-message">
           {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
         </p>
@@ -196,7 +199,8 @@ export const EditStudent = () => {
       <label htmlFor="newPwd" className="label">
       New Password
       </label>
-      <input name="newPwd" {...register("newPwd")} />
+      <input name="newPwd" {...register("newPwd")} 
+      placeholder="New password"/>
       <p className="error-message">
           {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
         </p>

@@ -1,35 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { Button } from "../components/custom/Button";
+import { Button } from "../../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { UserService } from "../services/userService";
-import { api } from "../api/axios";
+import { UserService } from "../../services/userService";
+import { api } from "../../api/axios";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 
-export default function Settings() {
+export default function StudentSettings() {
   const [isLoading, setLoading] = useState(false);
   const [activeNav, setActiveNav] = useState("Profile");
   const [previewImage, setPreviewImage] = useState(null);
-  const [signatureFile, setSignatureFile] = useState("");
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const { user } = useAuth();
 
   const schema = yup.object({
-    teacherSignature: yup
-      .mixed()
-      .required("signature is required")
-      .test("fileType", "Unsupported file type", (value) => {
-        if (value && value.type) {
-          return value.type.includes("image");
-        }
-        return true;
-      }),
     tel: yup
       .string()
       .matches(phoneRegEx, "phone number is invalid")
@@ -45,15 +35,13 @@ export default function Settings() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      tel: user.role === "student" ? user.parentPhone : user.tel,
-      teacherSignature: user.teacherSignature,
+      tel: user.parentPhone,
     },
   });
   console.log(errors);
   const onSubmitProfile = async (data) => {
     const formData = new FormData();
     formData.append("values", JSON.stringify(data));
-    formData.append("teacherSignature", signatureFile);
     try {
       setLoading(true)
       const data = await UserService.updateUser(user._id, formData);
@@ -67,17 +55,6 @@ export default function Settings() {
       } else {
         toast.error("Something went wrong, try again later");
       }
-    }
-  };
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSignatureFile(event.target.files[0]);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -169,38 +146,6 @@ export default function Settings() {
                 />
               </div>
             </div>
-            {user.role === "teacher" && (
-              <div className="teacherSignature mt-3">
-                <label htmlFor="teacherSignature" className="label">
-                  Add Signature:
-                </label>
-                <input
-                  type="file"
-                  name="teacherSignature"
-                  {...register("teacherSignature")}
-                  onChange={handleFileChange}
-                  accept="image/*"
-                />
-                {errors.photo && (
-                  <p className="error">{errors.photo.message}</p>
-                )}
-                <div>
-                  {previewImage ? (
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      style={{ maxWidth: "200px" }}
-                    />
-                  ) : (
-                    <img
-                      src={getValues().teacherSignature}
-                      alt="Preview"
-                      style={{ maxWidth: "200px" }}
-                    />
-                  )}
-                </div>
-              </div>
-            )}
             <div className="row ">
               <div className="d-flex flex-column col-md-6 email mt-3">
                 <label htmlFor="email" className="label">
@@ -302,7 +247,6 @@ const ChangePassword = () => {
             type="password"
             name="oldPassword"
             {...register("oldPassword")}
-            placeholder="Input old password"
           />
           <p className="error-message">
             {errors.oldPassword?.message
@@ -317,7 +261,6 @@ const ChangePassword = () => {
           <input
             type="password"
             name="newPassword"
-            placeholder="New password"
             {...register("newPassword")}
           />
           <p className="error-message">
@@ -447,3 +390,4 @@ const Wrapper = styled.div`
           height: 25px;
         }
 `;
+

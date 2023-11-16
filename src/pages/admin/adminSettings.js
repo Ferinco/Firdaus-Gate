@@ -359,5 +359,5 @@ const Wrapper = styled.div`
   .spinner-border {
           width: 25px;
           height: 25px;
-        }
+ }
 `;

@@ -76,7 +76,7 @@ export default function TeacherSidebar() {
               className={`nav-link react-router-link px-5 py-3 ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
-              to={PATH_DASHBOARD.teacher.accountSettings}
+              to={PATH_DASHBOARD.student.accountSettings}
               onClick={() => handleNavClick("Settings")}
             > <Icon icon="ic:baseline-settings" /> Settings</Link>
             <button
