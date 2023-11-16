@@ -14,12 +14,16 @@ const PaginationBar = ({
 }) => {
   return (
     <Container>
-      <div className="d-flex justify-between w-100 align-items-center">
-        <div className="mt-2 d-flex">
-          <span>
+      <div className="d-flex flex-row justify-content-between w-100 align-items-baseline">
+        <div className="mt-2 d-flex align-items-baseline gap-2">
+          <span className="d-flex flex-row gap-1">
             Page{" "}
             <strong>
-              {+currentPage} of {pageCount}
+              {+currentPage} 
+            </strong>{" "}
+              of 
+              <strong>{" "}
+              {pageCount} 
             </strong>{" "}
           </span>
           <select
@@ -37,12 +41,12 @@ const PaginationBar = ({
           </select>
         </div>
         {/*  */}
-        <div>
-          <button onClick={previousPage} disabled={!canPreviousPage}>
+        <div className="controls">
+          <button onClick={previousPage} disabled={!canPreviousPage} className="control">
             <Icon icon="ooui:next-rtl" className="icon" />
           </button>
 
-          <button onClick={nextPage} disabled={!canNextPage}>
+          <button onClick={nextPage} disabled={!canNextPage} className="control">
             <Icon icon="ooui:next-ltr" className="icon" />
           </button>
         </div>
@@ -52,5 +56,28 @@ const PaginationBar = ({
 };
 export default PaginationBar;
 const Container = styled.div`
+.form-select, .control{
+  cursor: pointer;
+  .icon{
+    color: grey;
+  }
+}
+  span{
+    font-size: 14px !important;
+}
+select{
+  padding: 5px 25px;
+  width: fit-content;
+  font-size: 14px !important;
+}
+option{
+  font-size: 14px !important;
+}
+.controls{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
+}
 `

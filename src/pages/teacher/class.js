@@ -85,7 +85,6 @@ const columns = [
 
 export default function MyClass() {
   const { user } = useAuth();
-  console.log(user);
   const [currentTableData, setCurrentTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
@@ -628,7 +627,7 @@ const Wrapper = styled.div`
       font-weight: 600;
       color: grey;
       text-transform: capitalize;
-      background-color: #f1f1f1;
+      background-color: white;
       cursor: pointer;
       height: fit-content !important;
       &:first-child {
@@ -686,6 +685,7 @@ const Wrapper = styled.div`
     padding: 5px 10px;
     font-weight: 600;
     height: fit-content !important;
+    border-radius: 10px;
   }
   @media screen and (max-width: 1100px) {
     padding-left: 24px;
