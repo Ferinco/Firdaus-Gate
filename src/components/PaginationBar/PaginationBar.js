@@ -1,6 +1,7 @@
 import React from "react";
 import { ControlButton } from "../custom/Button";
 import { Icon } from "@iconify/react";
+import styled from "styled-components";
 const PaginationBar = ({
   currentPage,
   pageCount,
@@ -12,7 +13,7 @@ const PaginationBar = ({
   nextPage,
 }) => {
   return (
-    <>
+    <Container>
       <div className="d-flex justify-between w-100 align-items-center">
         <div className="mt-2 d-flex">
           <span>
@@ -46,8 +47,10 @@ const PaginationBar = ({
           </button>
         </div>
       </div>
-    </>
+    </Container>
   );
 };
-
 export default PaginationBar;
+const Container = styled.div`
+
+`

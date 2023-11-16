@@ -18,7 +18,7 @@ import { api } from "../../api/axios";
 import { Icon } from "@iconify/react";
 
 const columns = [
-  { header: "Select", accessor: "select" },
+  { header: "", accessor: "select" },
   {
     header: "First Name",
     accessor: "firstName",
@@ -263,11 +263,11 @@ export default function MyClass() {
       {isLoading ? <CircularProgress /> : ""}
       <Wrapper className="d-flex flex-column py-5">
         {currentTableData.length > 0 ? (
-          <div className="">
-            <div className="d-flex py-3 justify-content-between">
+          <div className="content-wrapper p-3 mt-5">
+            <div className="d-flex py-3 justify-content-between align-items-center search-div">
               <form onSubmit={handleSubmit(handleSearch)}>
-                <p>Search students</p>
-                <div className="d-flex gap-2">
+                <p className="mb-1 search-p">Search students</p>
+                <div className="d-flex flex-row gap-2 search-field">
                   <input
                     type="text"
                     placeholder="First name"
@@ -278,11 +278,19 @@ export default function MyClass() {
                     placeholder="Last name"
                     {...register("lastName")}
                   />
-                <button type="submit" onClick={handleSearch}>
-                  <Icon icon="circum:search" color="gray" className="icon" />
-                </button>
+                  <button
+                    type="submit"
+                    onClick={handleSearch}
+                    className="search-button"
+                  >
+                    <Icon icon="circum:search" color="gray" className="icon" />
+                  </button>
                 </div>
-                <button type="button" onClick={resetSearch}>
+                <button
+                  type="button"
+                  onClick={resetSearch}
+                  className="reset-button mt-1"
+                >
                   Reset
                 </button>
               </form>
@@ -291,101 +299,119 @@ export default function MyClass() {
                 Import CSV file
               </button>
             </div>
-            <div className="div mt-3 p-3">
+            <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
                   <div className="navigator ">Deactivated</div>
                   <div className="navigator"></div>
                 </div>
-                <div className="d-flex gap-1">
-              <button onClick={handleMultiTransfer} className="action-bar">
-                Transfer &nbsp;{" "}
-                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
-              </button>
-              <button onClick={handleMultiTransfer} className="action-bar">
-                Deactivate &nbsp;{" "}
-                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
-              </button>
-              <button onClick={handleMultiTransfer} className="action-bar">
-                Delete &nbsp;{" "}
-                {multiSelect.length ? `(${multiSelect.length})` : "All"} &nbsp;
-              </button>
+                <div className="d-flex gap-1 actions">
+                  <button onClick={handleMultiTransfer} className="action-bar">
+                    Transfer &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button>
+                  <button onClick={handleMultiTransfer} className="action-bar">
+                    Deactivate &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button>
+                  <button onClick={handleMultiTransfer} className="action-bar">
+                    Delete &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button>
                 </div>
               </div>
               <div className=" table-div">
                 <Table className="table table-bordered mt-3">
-                  <thead className="">
-                    <tr className="head">
-                      {columns.map((column, i) => (
-                        <th
-                          key={i}
-                          scope="col"
-                          className="table-head"
-                          onClick={() => onSort(i)}
+                  <tr className="head">
+                    {columns.map((column, i) => (
+                      <th
+                        key={i}
+                        scope="col"
+                        className="table-head p-0 m-0"
+                        onClick={() => onSort(i)}
+                      >
+                        <p
+                          className="mb-0 p-0 text-muted"
+                          style={{ background: "transparent" }}
                         >
                           {column.header}
-                          <span>
+                        </p>
+                        {/* <span>
                             {column.isSorted
                               ? column.isSortedDesc
                                 ? " ▼"
                                 : " ▲"
                               : ""}
-                          </span>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  {/* <tr className="head">
-                    <th className="table-head">
-                      <input type="checkbox" className="check " />
-                    </th>
-                    <th className="table-head">First Name</th>
-                    <th className="table-head">Last Name</th>
-                    <th className="table-head">Admission Number</th>
-                    <th className="table-head">email</th>
-                    <th className="table-head">parent phone</th>
-                    <th className="table-head">gender</th>
-                    <th className="table-head" colSpan="3">
-                      Operations
-                    </th>
-                  </tr> */}
+                          </span> */}
+                      </th>
+                    ))}
+                  </tr>
                   {currentTableData.length > 0 &&
                     currentTableData.map((row, i) => (
                       <tr key={i} className="body">
                         {columns.map((cell, index) => {
                           if (cell.accessor.indexOf("image") > -1) {
                             return (
-                              <td key={index} className="">
-                                <img src={row[cell.accessor]} />
-                              </td>
+                              <th key={index} className="table-body">
+                                <td className="table-button">
+                                  <img src={row[cell.accessor]} />
+                                </td>
+                              </th>
                             );
                           }
 
                           if (cell.accessor == "select") {
                             return (
                               <td className="table-body">
-                                <input
-                                  type="checkbox"
-                                  className=" cursor-pointer focus:outline-none focus:ring-0 "
-                                  onChange={() => multiSelectHandle(row._id)}
-                                  checked={multiSelect.includes(row._id)}
-                                />
+                                <td className="table-button">
+                                  <input
+                                    type="checkbox"
+                                    className=" cursor-pointer focus:outline-none focus:ring-0 "
+                                    onChange={() => multiSelectHandle(row._id)}
+                                    checked={multiSelect.includes(row._id)}
+                                  />
+                                </td>
                               </td>
                             );
                           }
                           if (cell.accessor == "createdAt") {
                             return (
                               <td className="table-body">
-                                {new Date(row.createdAt).toLocaleDateString()}
+                                <td className="table-button">
+                                  {new Date(row.createdAt).toLocaleDateString()}
+                                </td>
                               </td>
                             );
                           }
-
+                          if (cell.accessor == "email") {
+                            return (
+                              <td className="table-body">
+                                <td className="email table-button">
+                                  {row.email}
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "admissionNumber") {
+                            return (
+                              <td className="table-body">
+                                <td className="id table-button">
+                                  <p className="mb-0">{row.admissionNumber}</p>
+                                </td>
+                              </td>
+                            );
+                          }
                           if (cell.accessor == "") {
                             return (
                               <td key={index} className="table-body">
-                      <td className="table-button">
+                                <td className="table-button">
+                                  <button className="view-button">View</button>
+                                </td>
+                                <td className="table-button">
                                   <button className="update-button">
                                     Edit
                                   </button>
@@ -408,13 +434,17 @@ export default function MyClass() {
                           if (cell.mappingExist) {
                             return (
                               <td key={index} className="table-body">
-                                {cell.mappings[row[cell.accessor]]}
+                                <td className="table-button">
+                                  {cell.mappings[row[cell.accessor]]}
+                                </td>
                               </td>
                             );
                           }
                           return (
                             <td key={index} className="table-body">
-                              {row[cell.accessor]}
+                              <td className="table-button others">
+                                {row[cell.accessor]}
+                              </td>
                             </td>
                           );
                         })}
@@ -422,28 +452,6 @@ export default function MyClass() {
                     ))}
                 </Table>
               </div>
-              {/* <ReactPaginate
-                previousLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-rtl" className="icon" />
-                  </ControlButton>
-                }
-                nextLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-ltr" className="icon" />
-                  </ControlButton>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination pl-5 align-items-center gap-2"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-              /> */}
-
               <PaginationBar
                 canNextPage={canNextPage}
                 canPreviousPage={canPreviousPage}
@@ -460,16 +468,16 @@ export default function MyClass() {
           <div className="d-flex justify-content-center align-items-center">
             <div className="pt-5 h-100">
               <p className="text-muted">No student to display...</p>
-                <button onClick={() => setCSVOpen(true)} className="csv-button">
-                  Import CSV file
-                </button>
+              <button onClick={() => setCSVOpen(true)} className="csv-button">
+                Import CSV file
+              </button>
             </div>
           </div>
         )}
         {overlay ? (
           <div className="overlay-wrapper d-flex ">
             <div
-              className={`d-flex flex-column overlay-options ${
+              className={`d-flex flex-column p-3 overlay-options ${
                 overlay ? "open" : "close"
               }`}
             >
@@ -517,7 +525,7 @@ const Wrapper = styled.div`
       background-color: blue;
     }
     .right {
-      background-color: #f1f1f1;
+      background-color: #f5f5f5;
       width: 50px;
       border: 0;
       border-radius: 10px;
@@ -530,22 +538,49 @@ const Wrapper = styled.div`
       }
     }
   }
-  .table-div {
-    overflow-x: scroll !important;
+  .content-wrapper {
+    background-color: white;
+    border-radius: 15px;
   }
-  .pagination {
-    justify-content: flex-end;
-    margin-top: 10px;
+  .search-p {
+    font-weight: 500;
+  }
+  .search-button {
+    border: none;
+    background: #f3f3f3;
+    padding: 5px;
+    border-radius: 10px;
+    .icon {
+      color: black !important;
+      font-size: 30px !important;
+    }
+  }
+  .table-div {
+    overflow-x: auto !important;
   }
   .head {
     background-color: #f1f1f1 !important;
+    height: auto !important;
   }
   .table-head {
     color: grey !important;
     font-size: 14px;
     padding: 10px !important;
     text-transform: capitalize;
-    text-align: center;
+    text-align: start;
+    padding: 5px !important;
+    p {
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .bars {
+    @media screen and (max-width: 567px) {
+      flex-direction: column !important;
+      .actions {
+        margin-top: 15px;
+      }
+    }
   }
   .body {
     padding: 0 !important;
@@ -555,36 +590,28 @@ const Wrapper = styled.div`
     font-size: 13px;
     border: 1px solid #f1f1f1;
     text-align: center;
+    padding: 5px !important;
   }
-  .table-id {
-    color: blue;
-  }
+
   .email {
     overflow: hidden;
     max-width: 120px;
     text-overflow: ellipsis !important;
   }
-  .check {
-    cursor: pointer;
+  .id {
+    font-weight: 600 !important;
+    display: flex !important;
+    justify-content: center !important;
   }
   .div {
-    border-radius: 10px;
     background-color: white !important;
     overflow-x: hidden !important;
-
-    .bars {
-      @media screen and (max-width: 630px) {
-        flex-direction: column !important;
-      }
-    }
-    .navigators {
-    }
     .navigator {
       padding: 3px 10px;
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid #f5f5f5;
+      border-bottom: 2px solid white;
 
       cursor: pointer;
 
@@ -603,6 +630,7 @@ const Wrapper = styled.div`
       text-transform: capitalize;
       background-color: #f1f1f1;
       cursor: pointer;
+      height: fit-content !important;
       &:first-child {
         border: 1px solid #8080ff;
         color: #8080ff;
@@ -632,25 +660,45 @@ const Wrapper = styled.div`
         }
       }
     }
-    .closed-action {
-      /* margin-right: -100px !important; */
-      display: none !important;
+  }
+  .search-div {
+    @media screen and (max-width: 690px) {
+      flex-direction: column !important;
     }
-    .open-action {
-      /* margin-left: -100px !important; */
-      display: flex !important;
-      transition: 0.3s !important;
-      @media screen and (max-width: 630px) {
-        justify-content: flex-end;
-        background-color: #f1f1f1;
-        border-radius: 10px;
-        padding: 7px;
-        margin-top: 10px;
+  }
+  .search-field {
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid grey;
+      @media screen and (max-width: 519px) {
+        width: 130px !important;
+      }
+      &::placeholder {
+        color: grey !important;
       }
     }
+  }
+  .reset-button {
+    background-color: #f3f3f3;
+    color: black;
+    border: 1px solid #f5f5f5;
+    padding: 5px 10px;
+    font-weight: 600;
+    height: fit-content !important;
   }
   @media screen and (max-width: 1100px) {
     padding-left: 24px;
     padding-right: 24px;
+  }
+  span {
+    background-color: transparent !important;
+  }
+  .table-button {
+    border: 0 !important;
+  }
+  .others {
+    display: flex;
+    justify-content: center;
   }
 `;

@@ -128,7 +128,7 @@ export default function TeacherDashboard() {
         setFemaleGender(female.length);
         setStudents(Data.length);
       } catch (error) {
-        console(error);
+        console.log(error);
       }
     };
     FetchStudents();
