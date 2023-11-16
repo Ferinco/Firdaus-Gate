@@ -64,8 +64,8 @@ height: 80px !important;
 position: fixed;
 width: calc(100vw - 280px);
 z-index:999 !important;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
   .btns {
     .profile-div {
       cursor: pointer;

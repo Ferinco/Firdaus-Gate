@@ -53,6 +53,14 @@ const columns = [
     mappings: {},
   },
   {
+    header: "Current Class",
+    accessor: "currentClass",
+    isSorted: true,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
     header: "Email",
     accessor: "email",
     isSorted: false,

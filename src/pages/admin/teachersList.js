@@ -1,176 +1,255 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { UserService } from "../../services/userService";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { CircularProgress } from "../../components/custom";
-import ReactPaginate from "react-paginate";
-import { deleteUser, fetchUsers, editUser } from "../../redux/slices/users";
+import { PaginationBar } from "../../components/PaginationBar";
 import { Icon } from "@iconify/react";
 import { ControlButton } from "../../components/custom/Button";
+import { deleteUser, fetchUsers } from "../../redux/slices/users";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import AddCSV from "../../components/AddCSV";
-import { UserService } from "../../services/userService";
+import { useAuth } from "../../hooks/useAuth";
 import { PATH_DASHBOARD } from "../../routes/paths";
-import { Link } from "react-router-dom";
+import { api } from "../../api/axios";
+import { useForm } from "react-hook-form";
+import { getNonNullValue } from "../../utils/utils";
+
+
+const columns = [
+  { header: "", accessor: "select" },
+  {
+    header: "First Name",
+    accessor: "firstName",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Last Name",
+    accessor: "lastName",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Date Added",
+    accessor: "createdAt",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Teacher Id",
+    accessor: "teacherId",
+    isSorted: true,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
+    header: "Email",
+    accessor: "email",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+
+  {
+    header: "Gender",
+    accessor: "gender",
+    isSorted: false,
+    isSortedDesc: false,
+  },
+
+  {
+    header: "Status",
+    accessor: "status",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+
+  {
+    header: "Action",
+    accessor: "",
+    device: "large",
+  },
+];
+
+
+//the whole component
 export default function TeachersList() {
-  const [teachers, setTeachers] = useState([]);
+  const { user } = useAuth();
+  const [currentTableData, setCurrentTableData] = useState([]);
+  const [multiSelect, setMultiSelect] = useState([]);
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [canNextPage, setCanNextPage] = useState(false);
+  const [canPreviousPage, setCanPreviousPage] = useState(false);
+  const [dataTotal, setDataTotal] = useState(0);
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
-
-  //serach teachers' list
-  const [activeSearch, setActiveSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searched, setSearched] = useState([]);
-
-  //handle input on search form
-  let inputHandler = (e) => {
-    const inputValue = e.target.value.toLowerCase();
-    setSearchQuery(inputValue);
-  };
-
-  useEffect(() => {
-    const performSearch = (query) => {
-      const filterBySearch = teachers.filter(
-        (teacher) =>
-          teacher.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          teacher.firstName.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearched(filterBySearch);
-    };
-    performSearch(searchQuery);
-  }, [searchQuery]);
-
-  console.log(activeSearch);
-  //states to manage pagination of teacherlist
-  const [offset, setOffset] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
-  const [perPage] = useState(10);
   const [deleteId, setDeleteId] = useState("");
-  // const [isLoading, setIsLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  //to manage csv file uplaod
+
+  const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
 
-  //handle checked students
-  const [checkLength, setcheckLength] = useState(0);
 
-  function checkTeacher() {
-    setcheckLength(checkLength + 1);
-  }
+  //fetching teacher details
+  const getData = async (pageNum, limitNum, filter) => {
+    try {
+      setIsLoading(true);
+      const result = await UserService.findUsers({
+        role: "teacher",
+        limit: limitNum,
+        page: pageNum,
+        ...filter,
+      });
+      console.log(result);
+      const { list, totalPages, currentPage, total, limit } = result.data;
+      setCanPreviousPage(currentPage > 1);
+      setCanNextPage(currentPage + 1 <= totalPages);
+      setIsLoading(false);
+      setCurrentTableData(list);
+      setDataTotal(total);
+      setPageSize(limit);
+      setPageCount(totalPages);
+      setPage(currentPage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    dispatch(fetchUsers({ role: "teacher" }));
+    (async () => await getData(page, pageSize))();
   }, []);
-  const { users, isLoading } = useSelector((state) => state.users);
 
-  //handle navigation of pages to next || previous
-  const handlePageClick = (e) => {
-    const selectedPage = e.selected;
-    setOffset(selectedPage + 1);
+  const multiSelectHandle = (id) => {
+    if (multiSelect.includes(id)) {
+      const newList = multiSelect.filter((item) => item !== id);
+      setMultiSelect(newList);
+      console.log(multiSelect);
+    } else {
+      setMultiSelect([...multiSelect, id]);
+    }
   };
 
-  useEffect(() => {
-    const slice = users.slice(offset, offset + perPage);
-    setTeachers(slice);
-    setPageCount(Math.ceil(users.length / perPage));
-  }, [users, offset]);
-
-  //delete teacher
   const handleDeleteUser = async (id) => {
     dispatch(deleteUser({ id: id }))
       .unwrap()
       .then((res) => {
-        console.log(res);
         setOverlay(false);
-        toast.success("teacher profile has been deleted successfully");
+        toast.success("teacher account has been deleted successfully");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("unable to delete teacher account");
       });
   };
-  console.log(csvData);
-  const newData = csvData.map((item) => {
-    const data = {
-      firstName: item[0],
-      middleName: item[1],
-      lastName: item[2],
-      teacherId: item[3],
-      classHandled: item[4],
-      tel: item[5],
-      email: item[6],
-      gender: item[7],
-      subjectTaught: item[8],
-      password: `${item[0].toLowerCase()}${item[3]}`,
-      role: "teacher",
-    };
-    return data;
-  });
 
-  console.log(newData);
+  function onSort(columnIndex) {
+    console.log(columns[columnIndex]);
+    if (columns[columnIndex].isSorted) {
+      columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
+    } else {
+      columns.map((i) => (i.isSorted = false));
+      columns.map((i) => (i.isSortedDesc = false));
+      columns[columnIndex].isSorted = true;
+    }
+
+    // (async function () {
+    //   await getData(0, pageSize, { user_id, status: 0 });
+    // })();
+  }
+  function updatePageSize(limit) {
+    (async function () {
+      setPageSize(limit);
+      await getData(0, limit);
+    })();
+  }
+  function previousPage() {
+    (async function () {
+      await getData(page - 1 > 0 ? page - 1 : 0, pageSize);
+    })();
+  }
+
+  function nextPage() {
+    (async function () {
+      await getData(page + 1 <= pageCount ? page + 1 : 0, pageSize);
+    })();
+  }
+  const handleSearch = async (value) => {
+    const firstName = getNonNullValue(value.firstName);
+    const lastName = getNonNullValue(value.lastName);
+    await getData(page, pageSize, {
+      firstName: firstName,
+      lastName: lastName,
+    });
+  };
+
+  const resetSearch = async () => {
+    reset();
+    await getData(page, pageSize);
+  };
+  const { register, handleSubmit, reset } = useForm();
   async function createCsvUsers() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
-      setLoading(true);
+      isLoading(true);
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
             firstName: item[0],
-            middleName: item[1],
-            lastName: item[2],
-            teacherId: item[3],
-            classHandled: item[4] === "none" ? "none" : item[4],
-            tel: item[5],
-            email: item[6],
-            gender: item[7],
-            subjectTaught: item[8],
-            password: `${item[0].toLowerCase()}${item[3]}`,
+            lastName: item[1],
+            middleName: item[2],
+            admissionNumber: item[3],
+            parentPhone: item[4],
+            email: item[5],
+            gender: item[6],
             role: "teacher",
-            teacherType:
-              item[4] === "none" ? "subject_teacher" : "class_teacher",
+            currentClass: user.classHandled,
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
-          await UserService.createUser(formData)
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          setLoading(false);
+          await UserService.createUser(formData);
         })
       )
         .then((res) => {
-          toast.success("Teacher accounts created successfully");
+          toast.success("Teacher account created successfully");
           console.log(res);
-          setLoading(false);
-          setCSVOpen(false);
         })
         .catch((error) => {
           console.log(error);
           toast.error("Failure creating teachers from CSV");
-          setCSVOpen(false);
         });
-      setLoading(false);
+      isLoading(false);
     }
   }
-
-  const handleEditUser = async (id) => {
-    dispatch(editUser({ id: id }))
-      .unwrap()
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleMultiTransfer = () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (teacherId) => {
+          await api.post("/class/transfer", {
+            currentClass: user.classHandled,
+            teacherId,
+          });
+        })
+      );
+    }
   };
+
+
   return (
     <>
-
       {CSVOpen && (
         <AddCSV
           onClose={() => setCSVOpen(false)}
@@ -180,309 +259,256 @@ export default function TeachersList() {
         />
       )}
       {isLoading ? <CircularProgress /> : ""}
-    <Wrapper className="d-flex flex-column py-5">
-      {users.length > 0 ? (
-        <div className="">
-          <div className="d-flex py-3 justify-content-between">
-            <div className="search-field d-flex gap-3 align-items-center">
-              <Icon icon="circum:search" color="gray" />
-              <input
-                type="text"
-                placeholder="search for teacher"
-                onChange={inputHandler}
-                onFocus={() => {
-                  setActiveSearch(true);
-                }}
-              />
+      <Wrapper className="d-flex flex-column py-5">
+        {currentTableData.length > 0 ? (
+          <div className="content-wrapper p-3 mt-5">
+            <div className="d-flex py-3 justify-content-between align-items-center search-div">
+              <form onSubmit={handleSubmit(handleSearch)}>
+                <p className="mb-1 search-p">Search Teachers</p>
+                <div className="d-flex flex-row gap-2 search-field">
+                  <input
+                    type="text"
+                    placeholder="First name"
+                    {...register("firstName")}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    {...register("lastName")}
+                  />
+                  <button
+                    type="submit"
+                    onClick={handleSearch}
+                    className="search-button"
+                  >
+                    <Icon icon="circum:search" color="gray" className="icon" />
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={resetSearch}
+                  className="reset-button mt-1"
+                >
+                  Reset
+                </button>
+              </form>
+
+              <button onClick={() => setCSVOpen(true)} className="csv-button">
+                Import CSV file
+              </button>
             </div>
-            <button onClick={() => setCSVOpen(true)} className="csv-button">
-              Import CSV file
-            </button>
-          </div>
-          {activeSearch ? (
-            <>
-              {searched.length > 0 ? (
-                <div className="div p-3 mt-3">
-                  <div className="d-flex justify-content-between bars">
-                    <div className="navigators d-flex gap-2">
-                      <div className="navigator ">All</div>
-                      <div className="navigator ">Deactivated</div>
-                      <div className="navigator"></div>
-                    </div>
-
-                    <div
-                      className={`actions d-flex gap-2 ${
-                        checkLength > 0 ? "open-action" : "closed-action"
-                      }`}
-                    >
-                      <div className="action ">transfer all</div>
-                      <div className="action ">deactivate all</div>
-                      <div className="action">delete all</div>
-                    </div>
-                  </div>
-                  <div className="table-div">
-                    <Table className="table table-bordered">
-                      <tr className="head">
-                        <th className="table-head">
-                          <input type="checkbox" className="check " />
-                        </th>
-                        <th className="table-head">First Name</th>
-                        <th className="table-head">Last Name</th>
-                        <th className="table-head">Teacher ID</th>
-                        <th className="table-head">gender</th>
-                        <th className="table-head">email</th>
-                        <th className="table-head">telephone</th>
-                        <th colSpan="2" className="table-head">
-                          Operations
-                        </th>
-                      </tr>
-
-                      {searched.map((teacher) => (
-                        <tr key={teacher._id} className="body">
-                          <td className="table-body">
-                            <input
-                              type="checkbox"
-                              className="check"
-                              checked="false"
-                              key={teacher._id}
-                              onChange={(e) => {
-                                checkTeacher();
-                              }}
-                            />
-                          </td>
-                          <td className="table-body">{teacher.firstName}</td>
-                          <td className="table-body">{teacher.lastName}</td>
-                          <td className="table-body table-id">
-                            {teacher.teacherId}
-                          </td>
-                          <td className="table-body">
-                            {teacher.gender === "male" ? "M" : "F"}
-                          </td>
-                          <td className="table-body email" email>
-                            {teacher.email}
-                          </td>
-                          <td className="table-body">{teacher.tel}</td>
-
-                          <td className="table-button">
-                            <Link
-                              to={`${PATH_DASHBOARD.admin.teacherInfo}/${teacher._id}`}
-                            >
-                              <button className="view-button">view</button>
-                            </Link>
-                          </td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                handleEditUser(teacher._id);
-                              }}
-                              className="update-button"
-                            >
-                              Edit
-                            </button>{" "}
-                          </td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                setOverlay(true);
-                                setDeleteId(teacher._id);
-                              }}
-                              className="delete-button"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </Table>
-                  </div>
-                </div>
-              ) : (
-                <div className="not-found">
-                  can't find "{searchQuery}" in teachers' list
-                </div>
-              )}
-              <ReactPaginate
-                previousLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-rtl" className="icon" />
-                  </ControlButton>
-                }
-                nextLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-ltr" className="icon" />
-                  </ControlButton>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination pl-5 align-items-center gap-2"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-              />
-            </>
-          ) : (
-            <div className="div p-3 mt-4">
+            <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
                   <div className="navigator ">All</div>
                   <div className="navigator ">Deactivated</div>
                   <div className="navigator"></div>
                 </div>
-
-                <div
-                  className={`actions d-flex gap-2 ${
-                    checkLength > 0 ? "open-action" : "closed-action"
-                  }`}
-                >
-                  <div className="action ">transfer all</div>
-                  <div className="action ">deactivate all</div>
-                  <div className="action">delete all</div>
+                <div className="d-flex gap-1 actions">
+                  <button onClick={handleMultiTransfer} className="action-bar">
+                    Deactivate &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button>
+                  <button onClick={handleMultiTransfer} className="action-bar">
+                    Delete &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button>
                 </div>
               </div>
-              <div className="table-div ">
-                <Table className="table table-bordered mt-5">
+              <div className=" table-div">
+                <Table className="table table-bordered mt-3">
                   <tr className="head">
-                    <th className="table-head">
-                      <input type="checkbox" className="check " />
-                    </th>
-                    <th className="table-head">First Name</th>
-                    <th className="table-head">Last Name</th>
-                    <th className="table-head">Teacher ID</th>
-                    <th className="table-head">email</th>
-                    <th className="table-head">telephone</th>
-                    <th className="table-head">gender</th>
-
-                    <th colSpan="3" className="table-head">
-                      Operations
-                    </th>
+                    {columns.map((column, i) => (
+                      <th
+                        key={i}
+                        scope="col"
+                        className="table-head p-0 m-0"
+                        onClick={() => onSort(i)}
+                      >
+                        <p
+                          className="mb-0 p-0 text-muted"
+                          style={{ background: "transparent" }}
+                        >
+                          {column.header}
+                        </p>
+                        {/* <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? " ▼"
+                                : " ▲"
+                              : ""}
+                          </span> */}
+                      </th>
+                    ))}
                   </tr>
-                  {teachers.map((teacher) => (
-                    <tr key={teacher._id} className="body">
-                      <td className="table-body">
-                        <input
-                          type="checkbox"
-                          className="check"
-                          checked="false"
-                          key={teacher._id}
-                          onChange={(e) => {
-                            checkTeacher();
-                          }}
-                        />
-                      </td>
-                      <td className="table-body">{teacher.firstName}</td>
-                      <td className="table-body">{teacher.lastName}</td>
-                      <td className="table-body table-id">
-                        {teacher.teacherId}
-                      </td>
-                      <td className="table-body email">{teacher.email}</td>
-                      <td className="table-body">{teacher.tel}</td>
-                      <td className="table-body">
-                        {teacher.gender === "male" ? "M" : "F"}
-                      </td>
-                      <td className="table-button">
-                        <Link
-                          to={`${PATH_DASHBOARD.admin.teacherInfo}/${teacher._id}`}
-                          className="react-router-link view-button"
-                        >
-                          <button className="view-button">view</button>
-                        </Link>
-                      </td>
-                      <td>
-                        {" "}
-                        <button
-                          onClick={() => {
-                            handleEditUser(teacher._id);
-                          }}
-                          className="update-button"
-                        >
-                          Edit
-                        </button>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <button
-                          onClick={() => {
-                            setOverlay(true);
-                            setDeleteId(teacher._id);
-                          }}
-                          className="delete-button"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {currentTableData.length > 0 &&
+                    currentTableData.map((row, i) => (
+                      <tr key={i} className="body">
+                        {columns.map((cell, index) => {
+                          if (cell.accessor.indexOf("image") > -1) {
+                            return (
+                              <th key={index} className="table-body">
+                                <td className="table-button">
+                                  <img src={row[cell.accessor]} />
+                                </td>
+                              </th>
+                            );
+                          }
+
+                          if (cell.accessor == "select") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button">
+                                  <input
+                                    type="checkbox"
+                                    className=" cursor-pointer focus:outline-none focus:ring-0 "
+                                    onChange={() => multiSelectHandle(row._id)}
+                                    checked={multiSelect.includes(row._id)}
+                                  />
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "createdAt") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button">
+                                  {new Date(row.createdAt).toLocaleDateString()}
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "email") {
+                            return (
+                              <td className="table-body">
+                                <td className="email table-button">
+                                  {row.email}
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "teacherId") {
+                            return (
+                              <td className="table-body">
+                                <td className="id table-button">
+                                  <p className="mb-0">{row.teacherId}</p>
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "") {
+                            return (
+                              <td key={index} className="table-body">
+                                <td className="table-button">
+                                <Link to={`${PATH_DASHBOARD.admin.teacherInfo}/${row._id}`}>
+                              <button className="view-button">View</button>
+                            </Link>
+                                </td>
+                                <td className="table-button">
+                                <Link to={`${PATH_DASHBOARD.admin.editTeacher}/${row._id}`}>
+                              <button className="update-button">Edit</button>
+                            </Link>
+                                </td>
+                                <td className="table-button">
+                                  <button
+                                    onClick={() => {
+                                      setOverlay(true);
+                                      setDeleteId(row._id);
+                                    }}
+                                    className="delete-button"
+                                  >
+                                    Delete
+                                  </button>
+                                </td>
+                              </td>
+                            );
+                          }
+
+                          if (cell.mappingExist) {
+                            return (
+                              <td key={index} className="table-body">
+                                <td className="table-button">
+                                  {cell.mappings[row[cell.accessor]]}
+                                </td>
+                              </td>
+                            );
+                          }
+                          return (
+                            <td key={index} className="table-body">
+                              <td className="table-button others">
+                                {row[cell.accessor]}
+                              </td>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
                 </Table>
               </div>
-              <ReactPaginate
-                previousLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-rtl" className="icon" />
-                  </ControlButton>
-                }
-                nextLabel={
-                  <ControlButton>
-                    <Icon icon="ooui:next-ltr" className="icon" />
-                  </ControlButton>
-                }
-                breakLabel={"..."}
-                breakClassName={"break-me"}
+              <PaginationBar
+                canNextPage={canNextPage}
+                canPreviousPage={canPreviousPage}
+                currentPage={page}
+                nextPage={nextPage}
+                previousPage={previousPage}
                 pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination pl-5 align-items-center gap-2"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
+                pageSize={pageSize}
+                updatePageSize={updatePageSize}
               />
             </div>
-          )}
-        </div>
-      ) : (
-        <div className="p-5">no details to display...</div>
-      )}
-
-      {overlay ? (
-        <div className="overlay-wrapper d-flex ">
-          <div
-            className={`d-flex flex-column p-3 overlay-options ${
-              overlay ? "open" : "close"
-            }`}
-          >
-            <p>Are you sure you want to delete this teacher profile?</p>
-            <div className=" buttons d-flex gap-3">
-              <button
-                className="left"
-                onClick={() => handleDeleteUser(deleteId)}
-              >
-                yes
-              </button>
-              <button
-                className="right"
-                onClick={() => {
-                  setOverlay(false);
-                }}
-              >
-                no
+          </div>
+        ) : (
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="pt-5 h-100">
+              <p className="text-muted">No teacher to display...</p>
+              <button onClick={() => setCSVOpen(true)} className="csv-button">
+                Import CSV file
               </button>
             </div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
-    </Wrapper>
-    </> 
+        )}
+        {overlay ? (
+          <div className="overlay-wrapper d-flex ">
+            <div
+              className={`d-flex flex-column p-3 overlay-options ${
+                overlay ? "open" : "close"
+              }`}
+            >
+              <p>Are you sure you want to delete this teacher profile?</p>
+              <div className=" buttons d-flex gap-3">
+                <button
+                  className="left"
+                  onClick={() => {
+                    handleDeleteUser(deleteId);
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  className="right"
+                  onClick={() => {
+                    setOverlay(false);
+                  }}
+                >
+                  no
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </Wrapper>
+    </>
   );
 }
-const Wrapper = styled.div`
-  background-color: #f5f5f5;
-  padding-right: 32px !important;
-  padding-left: 32px !important;
 
+const Wrapper = styled.div`
+  padding-left: 32px;
+  padding-right: 32px;
+  background-color: #f5f5f5 !important;
   .buttons {
     justify-content: right;
     width: 100%;
@@ -508,70 +534,89 @@ const Wrapper = styled.div`
       }
     }
   }
-  .table-div {
-    overflow-x: scroll !important;
+  .content-wrapper {
+    background-color: white;
+    border-radius: 15px;
   }
-  .pagination {
-    justify-content: flex-end;
-    margin-top: 10px;
+  .search-p {
+    font-weight: 500;
+  }
+  .search-button {
+    border: none;
+    background: #f3f3f3;
+    padding: 5px;
+    border-radius: 10px;
+    .icon {
+      color: black !important;
+      font-size: 30px !important;
+    }
+  }
+  .table-div {
+    overflow-x: auto !important;
   }
   .head {
-    background-color: #f5f5f5 !important;
+    background-color: #f1f1f1 !important;
+    height: auto !important;
   }
   .table-head {
     color: grey !important;
     font-size: 14px;
     padding: 10px !important;
     text-transform: capitalize;
-    text-align: center;
+    text-align: start;
+    padding: 5px !important;
+    p {
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .bars {
+    @media screen and (max-width: 567px) {
+      flex-direction: column !important;
+      .actions {
+        margin-top: 15px;
+      }
+    }
   }
   .body {
     padding: 0 !important;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #f1f1f1;
   }
   .table-body {
     font-size: 13px;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #f1f1f1;
     text-align: center;
+    padding: 5px !important;
   }
-  .table-id {
-    color: blue;
-  }
+
   .email {
     overflow: hidden;
     max-width: 120px;
     text-overflow: ellipsis !important;
   }
-  .check {
-    cursor: pointer;
+  .id {
+    font-weight: 600 !important;
+    display: flex !important;
+    justify-content: center !important;
   }
   .div {
-    border-radius: 10px;
     background-color: white !important;
     overflow-x: hidden !important;
-
-    .bars {
-      @media screen and (max-width: 630px) {
-        flex-direction: column !important;
-      }
-    }
-    .navigators {
-    }
     .navigator {
       padding: 3px 10px;
       font-size: 13px;
       font-weight: 600;
       color: grey;
       border-bottom: 2px solid white;
-      background-color: transparent !important;
 
       cursor: pointer;
+
       &:first-child {
         border-bottom: 2px solid blue;
         color: blue;
       }
     }
-    .action {
+    .action-bar {
       border: 1px solid grey;
       border-radius: 20px;
       padding: 3px 10px;
@@ -579,19 +624,10 @@ const Wrapper = styled.div`
       font-weight: 600;
       color: grey;
       text-transform: capitalize;
-      background-color:transparent;
+      background-color: white;
       cursor: pointer;
+      height: fit-content !important;
       &:first-child {
-        border: 1px solid #8080ff;
-        color: #8080ff;
-        &:hover {
-          border: 1px solid #8080ff;
-          color: white;
-          background-color: #8080ff;
-          transition: 0.3s;
-        }
-      }
-      &:nth-child(2) {
         border: 1px solid black;
         color: black;
         &:hover {
@@ -600,7 +636,7 @@ const Wrapper = styled.div`
           transition: 0.3s;
         }
       }
-      &:nth-child(3) {
+      &:nth-child(2) {
         color: red;
         border: 1px solid red;
         &:hover {
@@ -610,25 +646,46 @@ const Wrapper = styled.div`
         }
       }
     }
-    .closed-action {
-      /* margin-right: -100px !important; */
-      display: none !important;
+  }
+  .search-div {
+    @media screen and (max-width: 690px) {
+      flex-direction: column !important;
     }
-    .open-action {
-      /* margin-left: -100px !important; */
-      display: flex !important;
-      transition: 0.3s !important;
-      @media screen and (max-width: 630px) {
-        justify-content: flex-end;
-        background-color: #f1f1f1;
-        border-radius: 10px;
-        padding: 7px;
-        margin-top: 10px;
+  }
+  .search-field {
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid grey;
+      @media screen and (max-width: 519px) {
+        width: 130px !important;
+      }
+      &::placeholder {
+        color: grey !important;
       }
     }
   }
-  @media (max-width: 1100px){
-    padding-right: 24px !important;
-  padding-left: 24px !important;
+  .reset-button {
+    background-color: #f3f3f3;
+    color: black;
+    border: 1px solid #f5f5f5;
+    padding: 5px 10px;
+    font-weight: 600;
+    height: fit-content !important;
+    border-radius: 10px;
+  }
+  @media screen and (max-width: 1100px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  span {
+    background-color: transparent !important;
+  }
+  .table-button {
+    border: 0 !important;
+  }
+  .others {
+    display: flex;
+    justify-content: center;
   }
 `;
