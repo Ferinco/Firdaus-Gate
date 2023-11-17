@@ -93,7 +93,7 @@ export default function EditTeacher() {
   return (
     <>
       {isLoading && user === null && <CircularProgress />}
-      <Wrapper className="py-5">
+      <Wrapper className="py-5 mt-4">
         <div className="navigators d-flex flex-row gap-3">
           <div
             onClick={() => {
@@ -134,7 +134,6 @@ export default function EditTeacher() {
 }
 
 const ChangeProfile = () => {
-  const [previewImage, setPreviewImage] = useState(null);
   const { identity } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -262,10 +261,93 @@ const ChangeProfile = () => {
   );
 };
 const ChangePassword = () => {
-  return <div className="pwd-div">edit password</div>;
+    const { identity } = useParams();
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const { user } = useSelector((state) => state.users || {});
+    useEffect(() => {
+      dispatch(fetchUser({ id: identity }));
+    }, [identity, dispatch]);
+    const schema = yup.object({
+        oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
+        newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
+        signature: yup.mixed().required("signature is required").test('fileType', 'Unsupported file type', (value) => {
+          if (value && value.type) {
+            return value.type.includes('image');
+          }
+          return true;
+        }),
+        confirmPwd: yup
+          .string()
+          .oneOf([yup.ref("newPwd"), null], "passwords must match")
+          .required("confirm your password"),
+      });
+      const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+          oldPwd: "",
+          confirmPwd: "",
+          newPwd: "",
+          signature: "",
+          class:  user.role === "student"
+          ? user.currentClass
+          : user.classHandled,
+          id: user.role === "student"
+          ? user.admissionNumber
+          : user.teacherId
+        },
+      });
+      const onSubmitSecurity = async (data) => {
+        console.log("data");
+      };
+  return (
+    <div className="div p-3">
+        <form
+        className="security-div d-flex flex-column gap-2"
+        onSubmit={handleSubmit(onSubmitSecurity)}
+      >
+        <div className="d-flex flex-column">
+          <label htmlFor="oldPwd" className="label">
+            Old Password
+          </label>
+          <input name="oldPwd" {...register("oldPwd")}
+          placeholder="Input old password"/>
+          <p className="error-message">
+              {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
+            </p>
+        </div>
+        <div className="d-flex flex-column">
+          <label htmlFor="newPwd" className="label">
+          New Password
+          </label>
+          <input name="newPwd" {...register("newPwd")} 
+          placeholder="New password"/>
+          <p className="error-message">
+              {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
+            </p>
+        </div>
+        <div className="d-flex flex-column">
+          <input name="confirmPwd" {...register("confirmPwd")} 
+          placeholder="Confirm new password"/>
+          <p className="error-message">
+              {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
+            </p>
+        </div>
+       
+        <div className="button-div d-flex justify-content-end mt-4">
+          <Button blue>Save Changes</Button>
+        </div>
+      </form>
+    </div>
+  )
 };
 const ChangePortfolio = () => {
-  return <div className="pwd-div">edit portfolio</div>;
+
+  return <div className="div mt-5 p-3">edit portfolio, add and delete subject, change teacher class etc</div>;
 };
 
 const Wrapper = styled.div`
