@@ -8,10 +8,12 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
-export const EditStudent = () => {
+
+
+
+export default function EditStudent(){
 const [activeNav, setActiveNav] = useState("Profile");
 const [previewImage, setPreviewImage] = useState(null);
-
   const { identity } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);

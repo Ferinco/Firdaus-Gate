@@ -58,15 +58,15 @@ export const TeacherInfo = ()=>{
 
 <div className=" d-flex flex-column mt-4">
         <div className="info d-flex align-items-center ">
-           <p className="text-capitalize w-50">first name:</p>  <h6 className="text-capitalize w-50">{user?.firstName}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">middle name:</p> <h6 className="text-capitalize w-50">{user?.middleName}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">last name:</p> <h6 className="text-capitalize w-50">{user?.lastName}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">teacher id:</p> <h6 className="text-capitalize w-50">{user?.teacherId}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">class handled:</p> <h6 className="text-capitalize w-50">{user?.classHandled}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">gender:</p> <h6 className="text-capitalize w-50">{user?.gender}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">subject(s) taught :</p> <h6 className="text-capitalize w-50">{user?.subjectTaught}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">email :</p> <h6 className="">{user?.email}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50"> phone :</p> <h6 className="text-capitalize w-50">{user?.tel}</h6></div>
+           <p className="text-capitalize w-50">First name:</p>  <h6 className="text-capitalize w-50">{user?.firstName}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Middle name:</p> <h6 className="text-capitalize w-50">{user?.middleName}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Last name:</p> <h6 className="text-capitalize w-50">{user?.lastName}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Teacher id:</p> <h6 className="text-capitalize w-50">{user?.teacherId}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Class handled:</p> <h6 className="text-capitalize w-50">{user?.classHandled}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Gender:</p> <h6 className="text-capitalize w-50">{user?.gender}</h6></div>
+        <div className="info d-flex align-items-center"><p className="w-50">Subject(s) taught :</p> <h6 className="text-capitalize w-50">{user?.subjectTaught}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Email :</p> <h6 className="">{user?.email}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50"> Phone :</p> <h6 className="text-capitalize w-50">{user?.tel}</h6></div>
 
 
 </div>
