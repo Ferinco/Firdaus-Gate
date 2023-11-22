@@ -137,6 +137,8 @@ const ChangeProfile = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [signatureFile, setSignatureFile] = useState("");
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
@@ -151,17 +153,7 @@ const ChangeProfile = () => {
   const schema = yup.object({
     firstName: yup.string().required("input first name"),
     lastName: yup.string().required("input last name"),
-    oldPwd: yup
-      .string()
-      .required("input old password")
-      .min(5, "old password is at least 5 characters")
-      .max(12, "old password is not more than 12 characters"),
-    newPwd: yup
-      .string()
-      .required("set a password")
-      .min(5, "new password must be at least 5 characters")
-      .max(12, "new password must not be more than 12 characters"),
-    signature: yup
+    teacherSignature: yup
       .mixed()
       .required("signature is required")
       .test("fileType", "Unsupported file type", (value) => {
@@ -176,29 +168,35 @@ const ChangeProfile = () => {
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-    confirmPwd: yup
-      .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
-      .required("confirm your password"),
   });
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      tel: user.role === "student" ? user.parentPhone : user.tel,
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
-      signature: "",
-      class: user.role === "student" ? user.currentClass : user.classHandled,
-      id: user.role === "student" ? user.admissionNumber : user.teacherId,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      tel: user?.role === "student" ? user?.parentPhone : user?.tel,
+      teacherSignature: user?.teacherSignature,
+      class: user?.role === "student" ? user?.currentClass : user?.classHandled,
+      id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
   });
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSignatureFile(event.target.files[0]);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="div p-3">
@@ -220,31 +218,62 @@ const ChangeProfile = () => {
             <input name="lastName" type="text" {...register("lastName")} />
           </div>
         </div>
-        <div className="row mt-4 mt-3">
-          <div className="d-flex flex-column col-md-6 id">
+        <div className="row">
+          <div className="d-flex flex-column col-md-6 id mt-3">
             <label htmlFor="id" className="label">
-              {user.role === "student" ? "admission number" : "teaacher id"}
+              {user?.role === "student" ? "admission number" : "teaacher id"}
             </label>
-            <input name="id" readOnly {...register("id")} />
+            <input name="id" readOnly {...register("id")} className="id"/>
           </div>
-          <div className="d-flex flex-column col-md-6">
+          <div className="d-flex flex-column col-md-6 class mt-3">
             <label htmlFor="class" className="label">
-              {user.role === "student" ? "current class" : "class handled"}
+              {user?.role === "student" ? "current class" : "class handled"}
             </label>
-            <input name="class" readOnly {...register("class")} />
+            <input name="class" readOnly {...register("class")}/>
           </div>
         </div>
-
-        <div className="row mt-4 mt-3">
-          <div className="d-flex flex-column col-md-6 email">
+        {user?.role === "teacher" && (
+              <div className="teacherSignature mt-3">
+                <label htmlFor="teacherSignature" className="label">
+                  Add Signature:
+                </label>
+                <input
+                  type="file"
+                  name="teacherSignature"
+                  {...register("teacherSignature")}
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+                {errors.photo && (
+                  <p className="error">{errors.photo.message}</p>
+                )}
+                <div>
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt="Preview"
+                      style={{ maxWidth: "200px" }}
+                    />
+                  ) : (
+                    <img
+                      src={getValues().teacherSignature}
+                      alt="Preview"
+                      style={{ maxWidth: "200px" }}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+        <div className="row">
+          <div className="d-flex flex-column col-md-6 email mt-3">
             <label htmlFor="email" className="label">
               Email address
             </label>
-            <input readOnly value={user.email} name="email" />
+            <input readOnly value={user?.email} name="email" className="email" />
           </div>
-          <div className="d-flex flex-column col-md-6">
+          <div className="d-flex flex-column col-md-6 mt-3">
             <label htmlFor="tel" className="label">
-              {user.role === "student" ? "Parent phone" : "Phone number"}
+              {user?.role === "student" ? "Parent phone" : "Phone number"}
             </label>
             <input name="tel" {...register("tel")} />
             <p className="error-message">
@@ -399,5 +428,12 @@ const Wrapper = styled.div`
     border: 1px solid grey !important;
     outline: none;
     width: 100%;
+  }
+  .email,
+  .id,
+  .class {
+    input {
+      color: grey !important;
+    }
   }
 `;

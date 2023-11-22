@@ -343,7 +343,6 @@ const NavigationBar = styled.div`
       p{
         font-size: 14px !important;
         font-weight: 600;
-        color: grey;
         margin: 0 !important;
       }
     }

@@ -37,7 +37,8 @@ export default function OfferSection(){
     )
 }
 const Container = styled.div`
-margin-top: 100px;
+background: white !important;
+
 
 h5{
     font-size: 21px;

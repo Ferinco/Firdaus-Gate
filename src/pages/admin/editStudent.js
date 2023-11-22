@@ -302,7 +302,4 @@ max-width: 500px;
   }
 `;
 
-export const EditTeacher = () => {
-  return <div>hey</div>;
-};
 

@@ -9,34 +9,34 @@ export default function IntroSection() {
           <h6 className="pre-header">what we offer</h6>
           <h2>Some of our core services that make us the best</h2>
         </div>
-        <div className="div d-flex gap-3 justify-content-between p-0 m-0">
+        <div className="div d-flex justify-content-between p-0 m-0">
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="ion:bed" />
             </div>
             <h6>Day and Boarding</h6>
-            <p>we guotyqwd gpdiuqetq goyfgrew rogfuyfdeo gpyfore3w ruitp</p>
+            <p>We offer the best day and boarding services to our students</p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:wan" />
             </div>
             <h6>Tech Driven</h6>
-            <p>we guotyqwd gpdiuqetq goyfgrew rogfuyfdeo gpyfore3w ruitp</p>
+            <p>We promote </p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:islam" />
             </div>
             <h6>Islam Studies</h6>
-            <p>we guotyqwd gpdiuqetq goyfgrew rogfuyfdeo gpyfore3w ruitp</p>
+            <p>Our faith is not left out! We proomotoe believe in our students</p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:islam" />
             </div>
             <h6>Social</h6>
-            <p>we guotyqwd gpdiuqetq goyfgrew rogfuyfdeo gpyfore3w ruitp</p>
+            <p>We offer services that build students' confidence and make them socially acceptable.</p>
           </div>
         </div>
         <Link className="link mt-4">
@@ -78,7 +78,7 @@ const Container = styled.div`
     font-weight: 700;
     color: white;
     border: 1px solid blue;
-    padding: 10px 25px;
+    padding: 10px 30px;
     border-radius: 10px;
     background-color: blue;
   }

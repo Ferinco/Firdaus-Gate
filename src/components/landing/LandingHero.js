@@ -116,7 +116,7 @@ export default function LandingHero() {
      <div className="row">
         <div className="col-md-6 d-flex left">
           <div className="my-5 d-flex flex-column gap-3 text-div"> 
-            <h1 className="display-3 fw-bolder">
+            <h1 className="">
               Firdaus-Gate Model Schools
             </h1>
             <div className="">
@@ -194,6 +194,7 @@ text-align: left;
     height: auto !important;
     h1{
         font-size: 48px;
+        font-weight:800 !important;
     }
     p{
       font-size: 16px;
