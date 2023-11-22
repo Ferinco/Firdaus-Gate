@@ -33,7 +33,7 @@ export default function IntroSection() {
           </div>
           <div>
             <div className="icon-div">
-              <Icon className="icon" icon="mdi:islam" />
+              <Icon className="icon" icon="fa6-solid:people-line"/>
             </div>
             <h6>Social</h6>
             <p>Cultivating a vibrant community through diverse extracurricular and social initiatives.</p>

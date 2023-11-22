@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro
+  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection
 } from "../components/landing";
 import { Helmet } from "react-helmet";
+import ContactUs from "../components/landing/contactSection";
 
 export default function Home() {
   return (
@@ -17,9 +18,10 @@ export default function Home() {
       <AboutSection/>
       <Intro/>
       <OfferSection/>
+      <Gallery/>
+      <AdmissionSection/>
       <Services/>
       <Info/>
-      <Gallery/>
     </Wrapper>
   );
 }

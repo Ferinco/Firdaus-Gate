@@ -289,6 +289,7 @@ export default function Navbar() {
   );
 }
 const NavigationBar = styled.div`
+display: none !important;
   .closing-div {
     display: none;
   }

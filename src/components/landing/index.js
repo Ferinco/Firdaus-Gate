@@ -5,3 +5,5 @@ export { default as Services } from "./services";
 export { default as Gallery } from "./gallery";
 export {default as Info} from "./infoSection"
 export {default as Intro} from "./introSection"
+export {default as ContactUS} from "./contactSection"
+export {default as AdmissionSection} from "./admission"
