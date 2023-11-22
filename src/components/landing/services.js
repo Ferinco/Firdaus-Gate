@@ -30,7 +30,6 @@ export default function Services() {
 
 const Container = styled.div`
   background-image: linear-gradient(to right, #00008b, #000000) !important;
-  margin-top: 100px;
   .container {
     flex-direction: row-reverse !important;
     gap: 100px;

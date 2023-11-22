@@ -9,34 +9,34 @@ export default function IntroSection() {
           <h6 className="pre-header">what we offer</h6>
           <h2>Some of our core services that make us the best</h2>
         </div>
-        <div className="div d-flex justify-content-between p-0 m-0">
+        <div className="div d-flex justify-content-between p-0 m-0 gap-3">
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="ion:bed" />
             </div>
             <h6>Day and Boarding</h6>
-            <p>We offer the best day and boarding services to our students</p>
+            <p> Providing a nurturing environment for both day students and boarders.</p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:wan" />
             </div>
             <h6>Tech Driven</h6>
-            <p>We promote </p>
+            <p> Integrating cutting-edge technology to enhance learning experiences and innovation.</p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:islam" />
             </div>
             <h6>Islam Studies</h6>
-            <p>Our faith is not left out! We proomotoe believe in our students</p>
+            <p>Fostering religious growth through comprehensive Islamic education programs.</p>
           </div>
           <div>
             <div className="icon-div">
               <Icon className="icon" icon="mdi:islam" />
             </div>
             <h6>Social</h6>
-            <p>We offer services that build students' confidence and make them socially acceptable.</p>
+            <p>Cultivating a vibrant community through diverse extracurricular and social initiatives.</p>
           </div>
         </div>
         <Link className="link mt-4">

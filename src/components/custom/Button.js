@@ -5,7 +5,7 @@ export const Button = styled.button`
     (props.blue && "blue") || (props.white && "white")};
   color: ${(props) => (props.blue && "white") || (props.white && "black")};
   font-weight: 600 !important;
-  border: 1px solid blue;
+  border: ${(props) => (props.blue && "1px solid blue") || (props.white && "1px solid black")};
   padding: 10px 25px;
   font-weight: 700 !important;
   font-size: 15px;
@@ -16,6 +16,7 @@ export const Button = styled.button`
       (props.blue && "#04048d") || (props.white && "blue")};
     color: ${(props) => (props.blue && "white") || (props.white && "white")};
     transition: 0.5s;
+    border: ${(props) => (props.blue && "1px solid 04048d") || (props.white && "1px solid blue")};
   }
   &:disabled {
     opacity: 0.6;

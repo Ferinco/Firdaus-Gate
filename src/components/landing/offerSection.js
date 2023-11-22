@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 export default function OfferSection(){
     return(
         <Container>
-            <div className="container">
+            <div className="container py-5">
 <div className="header d-flex flex-column justify-content-center align-items-center">
 <h6 className="pre-header">Why choose us</h6>
 <h2>Why you can should trust us with your ward(s)</h2>
@@ -11,23 +11,15 @@ export default function OfferSection(){
 <div className="body row">
 <div className="col-md-4 d-flex flex-column">
     <h5>20+ years experience</h5>
-    <div className="icon-div">    <Icon className="icon" icon="svg-spinners:clock" color="blue"/>
-</div>
 
     <p>wuhhdiuher eifgieugriew gpiugreaw rjguksuewgptriuegwr w; yurtewr  </p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Compitent workers</h5>
-<div className="icon-div"><Icon className="icon" icon="mingcute:necktie-fill" color="blue" />
-</div>
-
 <p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Accredited and certified</h5>
-<div className="icon-div"><Icon className="icon" icon="mingcute:certificate-2-fill" color="blue"/>
-</div>
-
 <p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
 </div>
 
@@ -37,7 +29,7 @@ export default function OfferSection(){
     )
 }
 const Container = styled.div`
-background: white !important;
+background: #f5f5f5 !important;
 
 
 h5{

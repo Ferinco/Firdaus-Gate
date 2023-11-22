@@ -49,7 +49,7 @@ background: linear-gradient(1turn, hsla(0, 0%, 100%, 0.01), #fff 85%),
       transparent 50%
     );
     p {
-  font-size: 19px !important;
+  font-size: 16px !important;
 }
 @media (max-width: 768px) {
   p {

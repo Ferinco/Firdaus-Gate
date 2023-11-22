@@ -116,7 +116,7 @@ export default function LandingHero() {
      <div className="row">
         <div className="col-md-6 d-flex left">
           <div className="my-5 d-flex flex-column gap-3 text-div"> 
-            <h1 className="">
+            <h1 className="display-3">
               Firdaus-Gate Model Schools
             </h1>
             <div className="">
@@ -156,6 +156,9 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
 margin-top:70px;
+h1{
+        font-weight: 800 !important;
+    }
 .sticky{
   margin-top:140px !important;
 }
@@ -194,7 +197,6 @@ text-align: left;
     height: auto !important;
     h1{
         font-size: 48px;
-        font-weight:800 !important;
     }
     p{
       font-size: 16px;

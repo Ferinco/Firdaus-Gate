@@ -78,7 +78,7 @@ const ThreeDCarousel = () => {
   
 
   return (
-    <Info className=" p-0">
+    <Info className=" py-5">
       <div className="row m-auto align-items-center p-0 container">
         <div className="col-lg-6 py-5 d-flex flex-column gap-4">
           <h2>Take a peak at our world class facilities</h2>
