@@ -19,9 +19,9 @@ export default function Home() {
       <Intro/>
       <OfferSection/>
       <Gallery/>
-      <AdmissionSection/>
       <Services/>
       <Info/>
+      <AdmissionSection/>
     </Wrapper>
   );
 }

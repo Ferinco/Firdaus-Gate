@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import Marquee from "react-fast-marquee";
+import { Button } from "../custom/Button";
 export default function Gallery (){
     const marqueImages = ["image1", "image2", "image3", "image4", "image5", "image6","image1", "image2", "image3", "image4", "image5", "image6"];
     return (
         <Container className="py-5">
 <div className="header d-flex flex-column justify-content-center align-items-center">
-    {/* <h6>Gallery</h6> */}
+    <h6>GALLERY</h6>
     <h2>
         View multiple photos that say alot about us and our top notch services
     </h2>
@@ -57,7 +58,10 @@ export default function Gallery (){
     </div>
 </Marquee>
 </div>
+<div className="d-flex justify-content-center">
 
+<Button blue>View More</Button>
+</div>
         </Container>
     )
 }
@@ -66,6 +70,9 @@ const Container = styled.div`
 overflow: hidden !important;
 background-image: linear-gradient(to right, #00008b, #000000) !important;
 color: white;
+h6{
+    color:blue;
+}
 .image{
     width: 200px;
     height: 200px;

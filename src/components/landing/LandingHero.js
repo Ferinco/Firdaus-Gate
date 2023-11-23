@@ -33,13 +33,7 @@ const CarouselContainer = styled.div`
 }
 `;
 
-const CarouselWrapper = styled.div`
-  width: 400px;
-  height: 300px;
-  position: relative;
-  transform-style: preserve-3d;
-  margin-left: 100px !important;
-`;
+
 
 const MobileImage = styled.div`
 display: none;
@@ -51,37 +45,6 @@ display: none;
   
 }
 `
-const CarouselSlide = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  transition: transform 1s; /* Adjust the duration as needed */
-  transform: rotateY(${(props) => props.rotation}deg) translateZ(200px);
-  &.active {
-    transform: rotateY(0deg) translateZ(200px);
-  }
-  .image {
-    width: 200px;
-    margin-left: -100px;
-    border-radius: 30px;
-    height:250px;
-    border-radius: 30px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-.image-1{
-  background-image: url('/images/photo-1.png');
-}  
-.image-2{
-  background-image:url(/images/photo-2.png);
-}
-.image-2{
-  background-image:url(/images/photo-3.png);
-}
-`;
 export default function LandingHero() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -112,11 +75,11 @@ export default function LandingHero() {
   return (
     <Wrapper >
 
-     <div className={`container py-2 ${isSticky ? 'sticky' : ''}`}>
-     <div className="row">
-        <div className="col-md-6 d-flex left">
-          <div className="my-5 d-flex flex-column gap-3 text-div"> 
-            <h1 className="display-3">
+     <div className={` h-100 ${isSticky ? 'sticky' : ''}`}>
+     <div className="row h-100">
+        <div className="col-md-4 d-flex left flex-row h-100 p-5">
+          <div className="my-5 d-flex flex-column gap-3 text-div justify-content-center"> 
+            <h1 className="display-3 fw-bolder">
               Firdaus-Gate Model Schools
             </h1>
             <div className="">
@@ -131,20 +94,8 @@ export default function LandingHero() {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-8 right h-100">
         <CarouselContainer>
-      <CarouselWrapper>
-        {images.map((image, index) => (
-          <CarouselSlide
-            key={index}
-            rotation={(index - currentIndex) * 45}
-            className={index === currentIndex ? 'active' : ''}
-          >
-            <div className={image.className}></div>
-            
-          </CarouselSlide>
-        ))}
-      </CarouselWrapper>
     </CarouselContainer>
         </div>
       </div>
@@ -156,9 +107,9 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
 margin-top:70px;
-h1{
-        font-weight: 800 !important;
-    }
+
+                  height: 100vh;
+                  color:white;
 .sticky{
   margin-top:140px !important;
 }
@@ -166,6 +117,21 @@ h1{
   justify-content: space-between;
 align-items: center;
 
+}
+.left{
+  background-image: linear-gradient(to right, #00008b, #000000) !important;
+}
+.right{
+  background:  url('https://res.cloudinary.com/duvwweuhj/image/upload/v1700698715/Firdaus/IMG-20230901-WA0005_wsy9ri.jpg') !important;
+                  background-size: cover !important;
+                  background-repeat: no-repeat !important;
+                  background-position:center !important;
+}
+.text-div{
+  z-index: 99;
+h1{
+  width: 600px !important;
+}
 }
 .container{
   height: 100%;

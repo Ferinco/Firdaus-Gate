@@ -29,7 +29,7 @@ export default function Services() {
 }
 
 const Container = styled.div`
-  background-image: linear-gradient(to right, #00008b, #000000) !important;
+background: white !important;
   .container {
     flex-direction: row-reverse !important;
     gap: 100px;
@@ -64,7 +64,7 @@ const Container = styled.div`
   .right {
     padding-right: 10px;
     max-width: 450px;
-    color: white !important;
+    color: black !important;
     h2 {
       font-size: 45px !important;
       font-weight: 800;

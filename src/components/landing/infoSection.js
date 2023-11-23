@@ -130,7 +130,7 @@ else {
 };
 
 const Info = styled.div`
-background: black;
+background-image: linear-gradient(to right, #00008b, #000000) !important;
 height: 600px;
 .right{
   background: white !important;
