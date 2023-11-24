@@ -92,12 +92,9 @@ export default function LandingHero() {
   );
 }
 const Wrapper = styled.div`
-  margin-top: 70px;
-
   height: calc(100vh - 70px);
   color: white;
   .sticky {
-    margin-top: 140px !important;
   }
   .row {
     justify-content: space-between;

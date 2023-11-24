@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <NavigationBar className="navigation-bar">
       <div className=" first-navbar d-none d-lg-block d-xl-flex ">
-        <div className="container d-flex justify-content-between px-0">
+        <div className="div d-flex justify-content-between px-0 w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
           </div>
@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className={`second-navbar`}>
-        <div className=" container d-flex justify-content-between py-3 px-0">
+        <div className=" div d-flex justify-content-between py-3 px-5">
           <div className=" d-flex flex-row align-center header">
             <div className="d-lg-none pl-3">
               <Icon
@@ -52,7 +52,33 @@ export default function Navbar() {
             </div>
             <Logo />
           </div>
-          <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-center">
+          <ul>
+          <li><a>about</a></li>
+
+        <li>
+            <a>admission &#9662;</a>
+            <ul class="dropdown">
+                <Link className="react-router-link">Student admission portal</Link>
+                <Link className="react-router-link">admission into JSS1</Link>
+                <Link className="react-router-link">continue admission</Link>
+                <Link className="react-router-link">admission letter</Link>
+            </ul>
+        </li>
+        <li>
+            <a>portal &#9662;</a>
+            <ul class="dropdown">
+                <Link className="react-router-link">student portal</Link>
+                <Link className="react-router-link">teacher portal</Link>
+                <Link className="react-router-link">school fees payment<br/>(existing students)</Link>
+                <Link className="react-router-link">school fees payment<br/>(new students)</Link>
+
+            </ul>
+        </li>
+        <li><a >news</a></li>
+        <li><a >contact</a></li>
+
+    </ul>
+          {/* <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-center">
             <Icon className="icon mr-2" icon="carbon:phone-filled" color="blue" />
             <div className="info d-flex flex-column">
               <h6>+2349055512553</h6>
@@ -72,230 +98,27 @@ export default function Navbar() {
               <h6>6/8 Balogun Street, Off Igodo Road,</h6>
               <p>Omo-Olope Area, Magbooro, Ogun State.</p>
             </div>
-          </div>
+          </div> */}
         </div>
-      </div>
-      <div className={`third-navbar d-flex ${isOpen ? "opened" : "closed"} ${isSticky ? 'sticky' : ''}`}>
-        <div className="d-flex flex-row justify-content-between container py-0 px-0">
-          <div className="d-flex flex-row dropdowns desktop-dropdowns d-none d-lg-flex">
-            <li className="px-2">
-              <Icon icon="ic:round-home" color="blue" className="home-icon" />
-              <div className="logo">
-                <Logo />
-              </div>
-            </li>
-            <div className="dropdown show">
-              <a
-                className="nav-link"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                ABOUT
-              </a>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a className="dropdown-item" href="#">
-                  About Us
-                </a>
-                <a className="dropdown-item" href="#">
-                  Our Mission
-                </a>
-                <a className="dropdown-item" href="#">
-                  Our vision
-                </a>
-              </div>
-            </div>
-
-            <div className="dropdown show">
-              <a
-                className="nav-link"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                ADMISSION
-              </a>
-
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <Link className="dropdown-item" to={PATH_PAGE.admissionForm}>
-                  Student Admission Portal
-                </Link>
-                <Link className="dropdown-item" to={PATH_PAGE.jss1Admission}>
-                  Admssion Into JSS1
-                </Link>
-                <Link className="dropdown-item" onMouseOver={()=>{
-                  console.log("correct")
-                }}>
-                  Continue Admission
-                </Link>
-                  <Link className="dropdown-item" >
-                  Admssion Letter
-                </Link>
-              </div>
-            </div>
-
-            <div className="dropdown show">
-              <a
-                className="nav-link"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                PORTAL
-              </a>
-
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <Link className="dropdown-item" to={PATH_AUTH.login}>
-                  Student Portal
-                </Link>
-                <Link className="dropdown-item" to={PATH_AUTH.teacher}>
-                  Teacher Portal
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  // to={PATH_DASHBOARD.admin.index}
-                >
-                 School Fees Payment <br/>
-                 (Exsisting Students)
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  // to={PATH_DASHBOARD.admin.index}
-                >
-                 School Fees Payment <br/>
-                 (New Students)
-                </Link>
-              </div>
-            </div>
-
-            <div className="dropdown show">
-              <a className="nav-link" href="#">
-                GALLERY
-              </a>
-            </div>
-            <div className="dropdown show">
-              <a className="nav-link" href="#">
-                NEWS
-              </a>
-            </div>
-          </div>
-          <div className="mobile-dropdown d-flex d-lg-none flex-column">
-            <div>
-              <a
-                class="drop-btn"
-                data-toggle="collapse"
-                href="#multiCollapseExample2"
-                role="button"
-                aria-expanded="false"
-                aria-controls="multiCollapseExample1"
-              >
-                ABOUT
-              </a>
-              <div
-                class="collapse multi-collapse mobile-links"
-                id="multiCollapseExample2"
-              >
-                <a className="dropdown-item mobile-link" href="#">
-                  About Us
-                </a>
-                <a className="dropdown-item mobile-link" href="#">
-                  Our Mission
-                </a>
-                <a className="dropdown-item mobile-link" href="#">
-                  Our vision
-                </a>
-                <a className="dropdown-item mobile-link" href="#">
-                  Our founder
-                </a>
-              </div>
-            </div>
-            <div>
-              <a
-                class="drop-btn"
-                data-toggle="collapse"
-                href="#admission"
-                role="button"
-                aria-expanded="false"
-                aria-controls="multiCollapseExample1"
-              >
-                Admission
-              </a>
-              <div class="collapse multi-collapse mobile-links" id="admission">
-                <a className="dropdown-item mobile-link" href="#">
-                  Start Admssion
-                </a>
-                <a className="dropdown-item mobile-link" href="#">
-                  Continue Admission
-                </a>
-                <a className="dropdown-item mobile-link" href="#">
-                  Admssion Letter
-                </a>
-              </div>
-            </div>
-            <div>
-              <a
-                class="drop-btn"
-                data-toggle="collapse"
-                href="#portal"
-                role="button"
-                aria-expanded="false"
-                aria-controls="multiCollapseExample1"
-              >
-                Portal
-              </a>
-              <div class="collapse multi-collapse mobile-links" id="portal">
-                <Link
-                  className="dropdown-item mobile-link"
-                  to={PATH_AUTH.login}
-                >
-                  Student Login
-                </Link>
-                <Link
-                  className="dropdown-item mobile-link"
-                  to={PATH_AUTH.teacher}
-                >
-                  Teacher Login
-                </Link>
-              </div>
-            </div>
-            <div>
-              <Link className="react-router-link drop-btn">Gallery</Link>
-            </div>
-            <div>
-              <Link className="react-router-link drop-btn">News</Link>
-            </div>
-          </div>
-          <div className="d-flex flex-row contact">
-            <a> CONTACT</a>
-          </div>
-        </div>
-        <div
-          className="closing-div"
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        ></div>
-      </div>
+      </div> 
     </NavigationBar>
   );
 }
 const NavigationBar = styled.div`
-display: none !important;
+/* display: none !important; */
   .closing-div {
     display: none;
   }
   .react-router-link {
     text-decoration: none !important;
     color: inherit !important;
+    text-transform: capitalize !important;
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+    &:hover{
+      background-color: blue;
+      color: white !important;
+    }
   }
   .icon {
     font-size: 40px;
@@ -317,9 +140,9 @@ display: none !important;
     }
   }
   .second-navbar {
-    height: 100px !important;
+    height: 90px !important;
     align-items: center;
-    .container {
+    .div {
       align-items: center;
       height: 100px;
       .icon{
@@ -329,23 +152,48 @@ display: none !important;
         .icon {
           margin-top: 10px;
         }
-        @media screen and (max-width: 600px) {
-          gap: 50px !important;
-        }
       }
     }
-    .info {
-      /* line-height: 0.7; */
-      h6 {
-        font-weight: 600;
-        font-size: 16px;
-        margin: 0 !important;
-      }
-      p{
-        font-size: 14px !important;
-        font-weight: 600;
-        margin: 0 !important;
-      }
+    .dropdown{
+     border-radius: 10px;
+     padding-top: 30px;
+    }
+    ul{
+        padding: 0;
+        list-style: none;
+    }
+    ul li{
+        display: inline-block;
+        position: relative;
+        /* line-height: 21px; */
+        text-align: left;
+    }
+    ul li a{
+        display: block;
+        padding: 8px 25px;
+        text-decoration: none;
+    }
+    a{
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    ul li a:hover{
+cursor: pointer;
+    }
+    ul li ul.dropdown{
+        width: 180px; /* Set width of the dropdown */
+        background: white;
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+    }
+    ul li:hover ul.dropdown{
+        display: block;	/* Display the dropdown */
+    }
+    ul li ul.dropdown li{
+        display: block;
     }
   }
   .sticky{
@@ -353,71 +201,6 @@ display: none !important;
     margin-top: -156px !important;
     width:100% !important;
     z-index:9999;
-  }
-  .third-navbar {
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(27, 26, 26);
-    height: 60px;
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-left: 1px solid grey;
-      height: 100% !important;
-      .desktop-dropdowns {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        list-style: none;
-        align-items: center;
-        .logo {
-          display: none;
-        }
-        .dropdown {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 60px;
-          border-left: 1px solid gray;
-          display: flex;
-          justify-content: center;
-          .nav-link {
-            padding: 0 30px !important;
-            color: white !important;
-            text-decoration: none;
-          }
-        }
-        .dropdown-menu {
-          margin-top: 17px;
-          border-top: 3px solid blue;
-          transition: linear 0.5s;
-          border-radius: 0;
-          background-color: #f5f5f5;
-          .dropdown-item {
-            &:hover {
-              background-color: blue;
-              color: white;
-            }
-          }
-        }
-      }
-      .contact {
-        display: flex;
-        height: 100%;
-        justify-content: center !important;
-        align-items: center !important;
-        padding: 0 30px !important;
-        background-color: blue;
-        a {
-          display: flex;
-          justify-content: center;
-          color: white;
-          text-decoration: none;
-        }
-      }
-    }
   }
 
   @media screen and (max-width: 991px) {
@@ -469,54 +252,6 @@ display: none !important;
       transition: 0.3s;
       display: flex;
       position: fixed !important;
-    }
-    .third-navbar {
-      width: 100%;
-      align-items: start;
-      justify-content: start !important;
-      position: fixed !important;
-      z-index: 999 !important;
-      height: calc(100vh - 80px);
-      background-color: rgba(0.3, 0.3, 0.3, 0.7);
-      .container {
-        background-color: white;
-        width: 70% !important;
-        display: flex;
-        margin-left: -9px !important;
-        justify-content: center !important;
-        align-items: start !important;
-        height: 100%;
-        .contact {
-          display: none !important;
-        }
-        .mobile-dropdown {
-          padding-top: 50px;
-
-          flex-direction: column !important;
-          height: 50%;
-          justify-content: space-between;
-          width: 70%;
-          align-items: start !important;
-          .drop-btn {
-            text-decoration: none !important;
-            font-weight: 700;
-            color: black;
-            font-size: 19px !important;
-          }
-          .mobile-links {
-            border-top: 1px solid blue;
-            background-color: #f5f5f5;
-            width: 200px;
-            .mobile-link {
-              padding: 7px !important;
-              &:hover {
-                background-color: blue;
-                color: white;
-              }
-            }
-          }
-        }
-      }
     }
     .sticky{
     margin-top: 0 !important;

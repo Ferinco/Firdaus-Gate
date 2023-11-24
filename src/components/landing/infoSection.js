@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 const images = [
   {
-    image: "",
+    image: "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg",
     id: 0
   },
   {
@@ -15,7 +15,7 @@ const images = [
     id: 2
   },
   {
-    image: "",
+    image: "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698087/Firdaus/Screenshot_20220823-083433_2_poesu0.jpg",
     id: 3
   },
   {
@@ -57,45 +57,45 @@ const CarouselWrapper = styled.div`
 const ThreeDCarousel = () => {
   const [ActiveID, setActiveID] = useState(0)
   const [facilityName, setFacilityName] = useState("Laboratories, FGMS.")
-  const [quote, setQuote] = useState("Our standard and well equipped science, economics and computer laboratories")
-  const [activeImage, setActiveImage] = useState("image0.png")
+  const [quote, setQuote] = useState("Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students.")
+  const [activeImage, setActiveImage] = useState("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg")
 
 
 useEffect(()=>{
   const timeOut = setInterval(()=>{
 setActiveID((prevID)=> (prevID + 1) % 5)
-  }, 4000)
+  }, 5000)
   return () => clearInterval(timeOut)
 }, [])
 
 useEffect(()=>{
   if (ActiveID === 1) {
     setFacilityName("Library, FGMS.");
-    setQuote("Spacious and well equipped multipurpose library")
-    setActiveImage("image1.png");
+    setQuote("The library, a haven of knowledge, boasts an extensive collection, fostering intellectual growth and academic excellence for all.")
+    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698723/Firdaus/IMG-20230901-WA0013_esps5y.jpg");
 
   } else if (ActiveID === 2) {
     setFacilityName("Hostel Facilities, FGMS.");
-    setQuote("Healthy hostel facilities...")
-    setActiveImage("image2.png");
+    setQuote("Our modern hostels provide a comfortable and secure living environment, promoting a sense of community and well-being.")
+    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213241_1_lxseka.jpg");
 
   }
 else if (ActiveID === 3) {
   setFacilityName("Sports' Facilities, FGMS.");
-  setQuote("Standard sports facilities")
-  setActiveImage("image3.png");
+  setQuote("Our top-notch sports facilities offer a dynamic space for physical activity, fostering teamwork, fitness, and skill development.")
+  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698087/Firdaus/Screenshot_20220823-083433_2_poesu0.jpg");
 
 } 
 else if (ActiveID === 4) {
   setFacilityName("School Mosque, FGMS.");
-  setQuote("Standard mosque")
-  setActiveImage("image3.png");
+  setQuote("The school's mosque stands as a sacred space devoted to Islamic teachings, nurturing faith, knowledge, and religious devotion among students, fostering a strong connection to Islam.")
+  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg");
 
 }
 else {
     setFacilityName("Laboratories, FGMS.");
-    setQuote("Our standard and well equipped science, economics and computer laboratories")
-    setActiveImage("image0.png");
+    setQuote("Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students.")
+    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg");
 
   }
 })
@@ -105,7 +105,7 @@ else {
 <div className="row">
 <div className="col-md-6 left p-5 d-flex flex-column align-items-start justify-content-center">
 <h6>Our Facilities</h6>
-  <h2 className="display-5">Take a peak at some of our top class facilities</h2>
+  <h2 className="">Take a peak at some of our top class facilities</h2>
   <p>
    {quote}
   </p>
@@ -133,13 +133,24 @@ const Info = styled.div`
 background-image: linear-gradient(to right, #00008b, #000000) !important;
 height: 600px;
 .right{
-  background: white !important;
   height: 600px;
+  overflow: hidden;
+  img{
+    width:100% ;
+    height: 100%;
+    object-fit:cover;
+    display:block;
+    margin:0 !important;
+  }
 }
 .left{
 color:white;
 h6{
   color:blue;
+}
+h2{
+  font-size: 45px;
+  font-weight: 800;
 }
 .indicator{
   font-size:48px !important;
@@ -154,6 +165,12 @@ h6{
   .buttons {
       margin-right: -250px !important;
     }
+}
+@media screen and (max-width: 991px){
+    h2{
+        font-size: 36px;
+    }
+
 }
 `;
 

@@ -108,7 +108,7 @@ const Container = styled.div`
   }
   .header {
     h2 {
-      font-size: 50px;
+      font-size: 45px;
       font-weight: 900;
       text-align: center;
       max-width: 700px;

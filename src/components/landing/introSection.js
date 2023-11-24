@@ -55,7 +55,7 @@ export default function IntroSection() {
 const Container = styled.div`
   h2 {
     max-width: 600px;
-    font-size: 50px;
+    font-size: 45px;
     text-align: center;
     font-weight: 800;
   }

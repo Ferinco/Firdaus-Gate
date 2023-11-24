@@ -25,7 +25,7 @@ export default function AboutSection() {
   );
 }
 const Container = styled.div`
-margin-top: 100px;
+/* margin-top: 100px; */
     .container{
         gap: 100px;
         justify-content: space-between !important;
