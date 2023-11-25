@@ -64,7 +64,7 @@ export default function LandingHero() {
     <Wrapper>
       <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
         <div className="row h-100">
-          <div className="col-md-4 d-flex left flex-row h-100 p-5">
+          <div className="col-md-4 d-flex left flex-row h-100 py-5">
             <div className="my-5 d-flex flex-column gap-3 text-div justify-content-center">
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
               <div className="">
@@ -102,6 +102,9 @@ const Wrapper = styled.div`
   }
   .left {
     background-image: linear-gradient(to left, #00008b, #000000) !important;
+    padding-right: 48px;
+    padding-left: 48px;
+
   }
   .right {
     background-image: url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;

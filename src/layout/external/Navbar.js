@@ -12,19 +12,32 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
+  const [closer, setCloser] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setSticky(window.scrollY > 156);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(()=>{
+    if(isOpen === "true"){
+      const timeOut = setTimeout(()=>{
+      }, 5000)
+      setCloser(true)
+    return () => clearTimeout(timeOut)
+    }
+    else setCloser(false)
+    
+    }, [])
+
   return (
     <NavigationBar className="navigation-bar">
       <div className=" first-navbar d-none d-lg-block d-xl-flex ">
@@ -37,77 +50,112 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar`}>
-        <div className=" div d-flex justify-content-between py-3 px-5">
+      <div className={`second-navbar p-0`}>
+        <div className=" div d-flex justify-content-between p-5 align-items-center">
           <div className=" d-flex flex-row align-center header">
-            <div className="d-lg-none pl-3">
+            <div className="d-lg-none icon-div">
               <Icon
                 icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
                 color="black"
                 className="icon"
                 onClick={() => {
-                  setIsOpen(!isOpen);
+                  setIsOpen((prev) => (!prev));
                 }}
               />
             </div>
             <Logo />
           </div>
-          <ul>
-          <li><a>about</a></li>
+          <ul className="menu-links d-none d-lg-flex align-items-center">
+            <li>
+              <a className="nav-link">about</a>
+            </li>
 
-        <li>
-            <a>admission &#9662;</a>
-            <ul class="dropdown">
-                <Link className="react-router-link">Student admission portal</Link>
-                <Link className="react-router-link">admission into JSS1</Link>
+            <li>
+              <a className="nav-link">admission &#9662;</a>
+              <ul class="dropdown">
+                <Link
+                  className="react-router-link"
+                  to={PATH_PAGE.admissionForm}
+                >
+                  Student admission portal
+                </Link>
+                <Link
+                  className="react-router-link"
+                  to={PATH_PAGE.jss1Admission}
+                >
+                  admission into JSS1
+                </Link>
                 <Link className="react-router-link">continue admission</Link>
                 <Link className="react-router-link">admission letter</Link>
-            </ul>
-        </li>
-        <li>
-            <a>portal &#9662;</a>
-            <ul class="dropdown">
-                <Link className="react-router-link">student portal</Link>
-                <Link className="react-router-link">teacher portal</Link>
-                <Link className="react-router-link">school fees payment<br/>(existing students)</Link>
-                <Link className="react-router-link">school fees payment<br/>(new students)</Link>
-
-            </ul>
-        </li>
-        <li><a >news</a></li>
-        <li><a >contact</a></li>
-
-    </ul>
-          {/* <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-center">
-            <Icon className="icon mr-2" icon="carbon:phone-filled" color="blue" />
-            <div className="info d-flex flex-column">
-              <h6>+2349055512553</h6>
-              <p>Give Us A Call</p>
-            </div>
-          </div>
-          <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-2" icon="fa6-solid:envelope-open-text" color="blue"  />
-            <div className="info d-flex flex-column">
-              <h6>firdausgateschools@gmail.com</h6>
-              <p>Mail Us</p>
-            </div>
-          </div>
-          <div className=" d-none d-lg-flex d-xl-flex  flex-row align-items-start">
-            <Icon className="icon mr-2" icon="game-icons:world" color="blue" />
-            <div className="info d-flex flex-column">
-              <h6>6/8 Balogun Street, Off Igodo Road,</h6>
-              <p>Omo-Olope Area, Magbooro, Ogun State.</p>
-            </div>
-          </div> */}
+              </ul>
+            </li>
+            <li>
+              <a className="nav-link">portal &#9662;</a>
+              <ul class="dropdown">
+                <Link
+                  className="react-router-link"
+                  to={PATH_DASHBOARD.student.index}
+                >
+                  student portal
+                </Link>
+                <Link
+                  className="react-router-link"
+                  to={PATH_DASHBOARD.teacher.index}
+                >
+                  teacher portal
+                </Link>
+                <Link className="react-router-link">
+                  school fees payment
+                  <br />
+                  (existing students)
+                </Link>
+                <Link className="react-router-link">
+                  school fees payment
+                  <br />
+                  (new students)
+                </Link>
+              </ul>
+            </li>
+            <li>
+              <a className="nav-link">news</a>
+            </li>
+            <li>
+              <a className="nav-link">contact</a>
+            </li>
+          </ul>
         </div>
-      </div> 
+      </div>
+      <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
+        <div className="links p-3">
+          <div className="logo-div">
+            <Logo/>
+          </div>
+          <div className="nav-links"></div>
+        </div>
+        <div className={`closing-div p-3 ${closer ? "active-closer" : "unactive-closer"}`}>
+        <div className="d-flex icon-div">
+              <Icon
+                icon={ "iconamoon:sign-times"}
+                color="black"
+                className="icon"
+                onClick={() => {
+                  setIsOpen((prev) => (!prev));
+                }}
+              />
+            </div>
+        </div>
+
+      </div>
     </NavigationBar>
   );
 }
 const NavigationBar = styled.div`
-/* display: none !important; */
+  /* display: none !important; */
   .closing-div {
     display: none;
+    .icon-div{
+      justify-content: right;
+    }
   }
   .react-router-link {
     text-decoration: none !important;
@@ -115,7 +163,7 @@ const NavigationBar = styled.div`
     text-transform: capitalize !important;
     font-size: 14px !important;
     padding: 5px 10px !important;
-    &:hover{
+    &:hover {
       background-color: blue;
       color: white !important;
     }
@@ -142,11 +190,14 @@ const NavigationBar = styled.div`
   .second-navbar {
     height: 90px !important;
     align-items: center;
+    background:white !important;
+    z-index:999;
+    width: 100%;
     .div {
       align-items: center;
       height: 100px;
-      .icon{
-       font-size: 30px;
+      .icon {
+        font-size: 30px;
       }
       .header {
         .icon {
@@ -154,142 +205,108 @@ const NavigationBar = styled.div`
         }
       }
     }
-    .dropdown{
-     border-radius: 10px;
-     padding-top: 30px;
+    .dropdown {
+      border-radius: 10px;
+      padding-top: 30px;
     }
-    ul{
-        padding: 0;
-        list-style: none;
+    ul {
+      padding: 0;
+      list-style: none;
     }
-    ul li{
-        display: inline-block;
-        position: relative;
-        /* line-height: 21px; */
-        text-align: left;
+    ul li {
+      display: inline-block;
+      position: relative;
+      /* line-height: 21px; */
+      text-align: left;
     }
-    ul li a{
-        display: block;
-        padding: 8px 25px;
-        text-decoration: none;
+    ul li a {
+      display: block;
+      padding: 8px 25px;
+      text-decoration: none;
     }
-    a{
+    .nav-link {
       text-transform: uppercase;
-      font-weight: 500;
-      font-size: 15px;
+      font-weight: 600;
+      font-size: 14px !important;
     }
-    ul li a:hover{
-cursor: pointer;
+    ul li a:hover {
+      cursor: pointer;
     }
-    ul li ul.dropdown{
-        width: 180px; /* Set width of the dropdown */
-        background: white;
-        display: none;
-        position: absolute;
-        z-index: 999;
-        left: 0;
+    ul li ul.dropdown {
+      width: 180px; /* Set width of the dropdown */
+      background: white;
+      display: none;
+      position: absolute;
+      z-index: 999;
+      left: 0;
     }
-    ul li:hover ul.dropdown{
-        display: block;	/* Display the dropdown */
+    ul li:hover ul.dropdown {
+      display: block; /* Display the dropdown */
     }
-    ul li ul.dropdown li{
-        display: block;
+    ul li ul.dropdown li {
+      display: block;
     }
   }
-  .sticky{
+  .sticky {
     position: fixed !important;
     margin-top: -156px !important;
-    width:100% !important;
-    z-index:9999;
+    width: 100% !important;
+    z-index: 9999;
   }
+.mobile-nav{
+  display:none;
 
+}
   @media screen and (max-width: 991px) {
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
     align-items: left !important;
+    .second-navbar{
+      position: fixed;
+    }
     .closing-div {
       display: block;
       height: 100%;
       width: 30%;
+      backdrop-filter: blur(3px);
     }
     .home-icon {
       display: none;
     }
-    .second-navbar {
-      height: 70px !important;
-      position: relative !important;
-      overflow: hidden !important;
-      .container {
-        z-index: 999;
-        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
-        position: fixed !important;
-        height: 70px !important;
-        z-index: 999 !important;
-        padding: auto !important;
-        background: white;
-        width: 100% !important;
-        align-items: center !important;
-        .header {
-          padding: 0 !important;
-          margin-top: 7px !important;
-          gap: 30vw;
-          .info {
-            line-height: 0.5 !important;
-          }
-        }
-        .icon {
-          font-size: 30px;
-        }
-      }
-    }
+    .mobile-nav{
+      width:100%;
+  z-index:999;
+position: fixed;
+justify-content: start;
+height: calc(100vh - 90px);
+background-color: rgba(0, 0, 0, 0.1);
+.links{
+  background: white !important;
+  width: 70%;
+}
+
+}
     .closed {
       margin-left: -1000px;
       transition: 0.3s;
+      /* display:none; */
     }
     .opened {
       margin-left: 0;
       transition: 0.3s;
-      display: flex;
+      display: flex !important;
       position: fixed !important;
+
     }
-    .sticky{
-    margin-top: 0 !important;
-    z-index:9999;
-  }
+    .sticky {
+      margin-top: 0 !important;
+      z-index: 9999;
+    }
+    .icon-div{
+      margin-left: -12px !important;
+    }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
-    .second-navbar {
-      background-color: rgb(27, 26, 26);
-      .icon {
-        color: white !important;
-      }
-      .header {
-        display: none !important;
-      }
-      .info {
-        color: white !important;
-      }
-    }
-    .third-navbar {
-      background-color: white;
-      height: 70px;
-      .home-icon {
-        display: none;
-      }
-      .container {
-        .desktop-dropdowns {
-          .logo {
-            display: flex !important;
-          }
-          .dropdown {
-            border-left: 1px solid gray;
-            .nav-link {
-              color: black !important;
-            }
-          }
-        }
-      }
-    }
   }
 `;

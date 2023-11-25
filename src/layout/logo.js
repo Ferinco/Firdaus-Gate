@@ -6,7 +6,7 @@ export default function Logo(){
             <img src="/images/logo.png"/>
             </div>
             <div className="text d-flex flex-column">
-                <h6>FIRDAUS GATE <br/>MODEL SCHOOLS</h6>
+                <h6 className='m-0'>FIRDAUS GATE <br/>MODEL SCHOOLS</h6>
               
             </div>
         </LOGO>
@@ -39,7 +39,7 @@ height:100%;
         margin:0  !important;
     }
   .text{
-    display:none !important;
+    /* display:none !important; */
   }
     }
 `
