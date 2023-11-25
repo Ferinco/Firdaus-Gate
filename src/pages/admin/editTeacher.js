@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
-
+import { fetchSubjects } from "../../redux/slices/subjects";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -375,7 +375,14 @@ const ChangePassword = () => {
   )
 };
 const ChangePortfolio = () => {
-
+  const { identity } = useParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useSelector((state) => state.users || {});
+  useEffect(() => {
+    dispatch(fetchSubjects({ id: identity }));
+  }, [identity, dispatch]);
+  console.log(user.subjectTaught)
   return <div className="div mt-5 p-3">edit portfolio, add and delete subject, change teacher class etc</div>;
 };
 
