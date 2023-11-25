@@ -123,7 +123,7 @@ export default function EditTeacher() {
               activeNav === "Portfolio" ? "navigator active" : "navigator"
             }
           >
-            <Icon icon="mdi:key" className="icon" /> Portfolio
+            <Icon icon="zondicons:portfolio" className="icon" /> Portfolio
           </div>
         </div>
 

@@ -50,9 +50,9 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0`}>
-        <div className=" div d-flex justify-content-between p-5 align-items-center">
-          <div className=" d-flex flex-row align-center header">
+      <div className={`second-navbar p-0 `}>
+        <div className=" container d-flex justify-content-between p-5 align-items-center">
+          <div className=" d-flex flex-row gap-3 header">
             <div className="d-lg-none icon-div">
               <Icon
                 icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
@@ -152,7 +152,6 @@ export default function Navbar() {
 const NavigationBar = styled.div`
   /* display: none !important; */
   .closing-div {
-    display: none;
     .icon-div{
       justify-content: right;
     }
@@ -193,7 +192,7 @@ const NavigationBar = styled.div`
     background:white !important;
     z-index:999;
     width: 100%;
-    .div {
+    .container {
       align-items: center;
       height: 100px;
       .icon {
@@ -254,7 +253,7 @@ const NavigationBar = styled.div`
     z-index: 9999;
   }
 .mobile-nav{
-  display:none;
+  display: none !important;
 
 }
   @media screen and (max-width: 991px) {
@@ -279,7 +278,7 @@ const NavigationBar = styled.div`
   z-index:999;
 position: fixed;
 justify-content: start;
-height: calc(100vh - 90px);
+height: 100vh;
 background-color: rgba(0, 0, 0, 0.1);
 .links{
   background: white !important;

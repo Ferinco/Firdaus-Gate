@@ -156,9 +156,18 @@ h2{
   font-size:48px !important;
 }
 }
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 767px){
+    height: auto !important;
+    .left{
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+
+    }
     h2{
         font-size: 36px !important;
+    }
+    .right{
+      height: 400px ;
     }
 }
 @media screen and (max-width: 390px) {
