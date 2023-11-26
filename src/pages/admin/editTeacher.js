@@ -14,7 +14,7 @@ export default function EditTeacher() {
   const [currentPage, setCurrentPage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.users || {});
-
+  console.log(user);
   useEffect(() => {
     setCurrentPage(changePageContent(activeNav));
   }, [activeNav]);
@@ -65,15 +65,15 @@ export default function EditTeacher() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      tel: user.role === "student" ? user.parentPhone : user.tel,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      tel: user?.role === "student" ? user?.parentPhone : user?.tel,
       oldPwd: "",
       confirmPwd: "",
       newPwd: "",
       signature: "",
-      class: user.role === "student" ? user.currentClass : user.classHandled,
-      id: user.role === "student" ? user.admissionNumber : user.teacherId,
+      class: user?.role === "student" ? user?.currentClass : user?.classHandled,
+      id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
   });
 
@@ -206,7 +206,12 @@ const ChangeProfile = () => {
             <label htmlFor="firstName" className="label">
               First name
             </label>
-            <input name="firstName" type="text" {...register("firstName")} />
+            <input
+              name="firstName"
+              defaultValue={user?.firstName}
+              type="text"
+              {...register("firstName")}
+            />
             <p className="error-message">
               {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
             </p>
@@ -215,7 +220,12 @@ const ChangeProfile = () => {
             <label htmlFor="lastName" className="label">
               Last name
             </label>
-            <input name="lastName" type="text" {...register("lastName")} />
+            <input
+              name="lastName"
+              defaultValue={user?.lastName}
+              type="text"
+              {...register("lastName")}
+            />
           </div>
         </div>
         <div className="row">
@@ -223,59 +233,79 @@ const ChangeProfile = () => {
             <label htmlFor="id" className="label">
               {user?.role === "student" ? "admission number" : "teaacher id"}
             </label>
-            <input name="id" readOnly {...register("id")} className="id"/>
+            <input
+              name="id"
+              defaultValue={user?.teacherId}
+              readOnly
+              {...register("id")}
+              className="id"
+            />
           </div>
           <div className="d-flex flex-column col-md-6 class mt-3">
             <label htmlFor="class" className="label">
               {user?.role === "student" ? "current class" : "class handled"}
             </label>
-            <input name="class" readOnly {...register("class")}/>
+            <input
+              defaultValue={user?.classHandled}
+              name="class"
+              readOnly
+              {...register("class")}
+            />
           </div>
         </div>
         {user?.role === "teacher" && (
-              <div className="teacherSignature mt-3">
-                <label htmlFor="teacherSignature" className="label">
-                  Add Signature:
-                </label>
-                <input
-                  type="file"
-                  name="teacherSignature"
-                  {...register("teacherSignature")}
-                  onChange={handleFileChange}
-                  accept="image/*"
+          <div className="teacherSignature mt-3">
+            <label htmlFor="teacherSignature" className="label">
+              Add Signature:
+            </label>
+            <input
+              type="file"
+              name="teacherSignature"
+              {...register("teacherSignature")}
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+            {errors.photo && <p className="error">{errors.photo.message}</p>}
+            <div>
+              {previewImage ? (
+                <img
+                  src={previewImage}
+                  alt="Preview"
+                  style={{ maxWidth: "200px" }}
                 />
-                {errors.photo && (
-                  <p className="error">{errors.photo.message}</p>
-                )}
-                <div>
-                  {previewImage ? (
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      style={{ maxWidth: "200px" }}
-                    />
-                  ) : (
-                    <img
-                      src={getValues().teacherSignature}
-                      alt="Preview"
-                      style={{ maxWidth: "200px" }}
-                    />
-                  )}
-                </div>
-              </div>
-            )}
+              ) : (
+                <img
+                  src={getValues().teacherSignature}
+                  alt="Preview"
+                  style={{ maxWidth: "200px" }}
+                />
+              )}
+            </div>
+          </div>
+        )}
         <div className="row">
           <div className="d-flex flex-column col-md-6 email mt-3">
             <label htmlFor="email" className="label">
               Email address
             </label>
-            <input readOnly value={user?.email} name="email" className="email" />
+            <input
+              readOnly
+              value={user?.email}
+              name="email"
+              className="email"
+            />
           </div>
           <div className="d-flex flex-column col-md-6 mt-3">
             <label htmlFor="tel" className="label">
               {user?.role === "student" ? "Parent phone" : "Phone number"}
             </label>
-            <input name="tel" {...register("tel")} />
+            <input
+              defaultValue={
+                user?.role === "teacher" ? user?.tel : user?.parentPhone
+              }
+              name="tel"
+              {...register("tel")}
+            />
             <p className="error-message">
               {errors.tel?.message ? `*${errors.tel?.message}` : ""}
             </p>
@@ -290,52 +320,59 @@ const ChangeProfile = () => {
   );
 };
 const ChangePassword = () => {
-    const { identity } = useParams();
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(true);
-    const { user } = useSelector((state) => state.users || {});
-    useEffect(() => {
-      dispatch(fetchUser({ id: identity }));
-    }, [identity, dispatch]);
-    const schema = yup.object({
-        oldPwd: yup.string().required("input old password").min(5, "old password is at least 5 characters").max(12, "old password is not more than 12 characters"),
-        newPwd: yup.string().required("set a password").min(5, "new password must be at least 5 characters").max(12 , "new password must not be more than 12 characters"),
-        signature: yup.mixed().required("signature is required").test('fileType', 'Unsupported file type', (value) => {
-          if (value && value.type) {
-            return value.type.includes('image');
-          }
-          return true;
-        }),
-        confirmPwd: yup
-          .string()
-          .oneOf([yup.ref("newPwd"), null], "passwords must match")
-          .required("confirm your password"),
-      });
-      const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-          oldPwd: "",
-          confirmPwd: "",
-          newPwd: "",
-          signature: "",
-          class:  user.role === "student"
-          ? user.currentClass
-          : user.classHandled,
-          id: user.role === "student"
-          ? user.admissionNumber
-          : user.teacherId
-        },
-      });
-      const onSubmitSecurity = async (data) => {
-        console.log("data");
-      };
+  const { identity } = useParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useSelector((state) => state.users || {});
+  useEffect(() => {
+    dispatch(fetchUser({ id: identity }));
+  }, [identity, dispatch]);
+  const schema = yup.object({
+    oldPwd: yup
+      .string()
+      .required("input old password")
+      .min(5, "old password is at least 5 characters")
+      .max(12, "old password is not more than 12 characters"),
+    newPwd: yup
+      .string()
+      .required("set a password")
+      .min(5, "new password must be at least 5 characters")
+      .max(12, "new password must not be more than 12 characters"),
+    signature: yup
+      .mixed()
+      .required("signature is required")
+      .test("fileType", "Unsupported file type", (value) => {
+        if (value && value.type) {
+          return value.type.includes("image");
+        }
+        return true;
+      }),
+    confirmPwd: yup
+      .string()
+      .oneOf([yup.ref("newPwd"), null], "passwords must match")
+      .required("confirm your password"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      oldPwd: "",
+      confirmPwd: "",
+      newPwd: "",
+      signature: "",
+      class: user.role === "student" ? user.currentClass : user.classHandled,
+      id: user.role === "student" ? user.admissionNumber : user.teacherId,
+    },
+  });
+  const onSubmitSecurity = async (data) => {
+    console.log("data");
+  };
   return (
     <div className="div p-3">
-        <form
+      <form
         className="security-div d-flex flex-column gap-2"
         onSubmit={handleSubmit(onSubmitSecurity)}
       >
@@ -343,36 +380,45 @@ const ChangePassword = () => {
           <label htmlFor="oldPwd" className="label">
             Old Password
           </label>
-          <input name="oldPwd" {...register("oldPwd")}
-          placeholder="Input old password"/>
+          <input
+            name="oldPwd"
+            {...register("oldPwd")}
+            placeholder="Input old password"
+          />
           <p className="error-message">
-              {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-            </p>
+            {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
+          </p>
         </div>
         <div className="d-flex flex-column">
           <label htmlFor="newPwd" className="label">
-          New Password
+            New Password
           </label>
-          <input name="newPwd" {...register("newPwd")} 
-          placeholder="New password"/>
+          <input
+            name="newPwd"
+            {...register("newPwd")}
+            placeholder="New password"
+          />
           <p className="error-message">
-              {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
-            </p>
+            {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
+          </p>
         </div>
         <div className="d-flex flex-column">
-          <input name="confirmPwd" {...register("confirmPwd")} 
-          placeholder="Confirm new password"/>
+          <input
+            name="confirmPwd"
+            {...register("confirmPwd")}
+            placeholder="Confirm new password"
+          />
           <p className="error-message">
-              {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
-            </p>
+            {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
+          </p>
         </div>
-       
+
         <div className="button-div d-flex justify-content-end mt-4">
           <Button blue>Save Changes</Button>
         </div>
       </form>
     </div>
-  )
+  );
 };
 const ChangePortfolio = () => {
   const { identity } = useParams();
@@ -382,8 +428,12 @@ const ChangePortfolio = () => {
   useEffect(() => {
     dispatch(fetchSubjects({ id: identity }));
   }, [identity, dispatch]);
-  console.log(user.subjectTaught)
-  return <div className="div mt-5 p-3">edit portfolio, add and delete subject, change teacher class etc</div>;
+  console.log(user.subjectTaught);
+  return (
+    <div className="div mt-5 p-3">
+      edit portfolio, add and delete subject, change teacher class etc
+    </div>
+  );
 };
 
 const Wrapper = styled.div`
@@ -411,7 +461,7 @@ const Wrapper = styled.div`
     width: 400px !important;
     border: 1px solid red;
   }
-  .div{
+  .div {
     background: white !important;
     border-radius: 20px;
     max-width: 500px;
