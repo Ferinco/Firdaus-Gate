@@ -26,7 +26,7 @@ export default function Gallery() {
       <div className="header d-flex flex-column justify-content-center align-items-center">
         <h6>GALLERY</h6>
         <h2>
-          View multiple photos that say alot about us and our top notch services
+          View Multiple Photos of our Students
         </h2>
       </div>
       <div className="d-flex flex-column body py-5 gap-4">

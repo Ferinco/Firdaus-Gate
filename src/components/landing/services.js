@@ -15,7 +15,7 @@ export default function Services() {
         </div>
         <div className="right d-flex flex-column gap-3">
         <h6 className="pre-header">join us</h6>
-          <h2 className="">The school for everyone.</h2>
+          <h2 className="">The School for Everyone.</h2>
           <p>
             lets see how this hows will i ne able to ryoe yhis that maje sense?
             i dony know bugt gbhw us ghkyfkhg ifyf f oyufouyfo ytoy7f ftiyd yufo

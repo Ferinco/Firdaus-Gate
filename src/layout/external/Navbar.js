@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <NavigationBar className="navigation-bar">
       <div className=" first-navbar d-none d-lg-block d-xl-flex ">
-        <div className="div d-flex justify-content-between px-0 w-100 px-5">
+        <div className="div d-flex justify-content-between w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
           </div>
@@ -51,8 +51,8 @@ export default function Navbar() {
         </div>
       </div>
       <div className={`second-navbar p-0 `}>
-        <div className=" container d-flex justify-content-between p-5 align-items-center">
-          <div className=" d-flex flex-row gap-3 header">
+        <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
+          <div className=" d-flex flex-row gap-3 header ">
             <div className="d-lg-none icon-div">
               <Icon
                 icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
@@ -65,7 +65,7 @@ export default function Navbar() {
             </div>
             <Logo />
           </div>
-          <ul className="menu-links d-none d-lg-flex align-items-center">
+          <ul className="menu-links d-none d-lg-flex align-items-center h-100 mb-0">
             <li>
               <a className="nav-link">about</a>
             </li>
@@ -120,7 +120,7 @@ export default function Navbar() {
               <a className="nav-link">news</a>
             </li>
             <li>
-              <a className="nav-link">contact</a>
+              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">contact us</a>
             </li>
           </ul>
         </div>
@@ -178,6 +178,7 @@ const NavigationBar = styled.div`
     &-div {
       border-right: 1px solid gray;
       border-left: 1px solid gray;
+
     }
     p {
       display: flex;
@@ -192,9 +193,17 @@ const NavigationBar = styled.div`
     background:white !important;
     z-index:999;
     width: 100%;
-    .container {
+    .div {
       align-items: center;
       height: 100px;
+      .header{
+        
+      }
+      .contact-btn{
+       color: white;
+       background-color: blue;
+       border-radius: 10px;
+      }
       .icon {
         font-size: 30px;
       }

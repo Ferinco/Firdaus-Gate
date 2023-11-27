@@ -6,7 +6,7 @@ export default function AdmissionSection(){
         <Wrapper>
             <div className="container py-5 d-flex flex-column justify-content-center align-items-center gap-4">
             <h2 className="display-4">
-                Have you started your admission process already?
+                Have you Started your Admission process Already?
             </h2>
             <div className="buttons d-flex flex-row gap-2">
             <Button blue> Start Admssion</Button>

@@ -7,7 +7,7 @@ export default function IntroSection() {
       <div className="container d-flex align-items-center flex-column gap-5">
         <div className="header d-flex flex-column justify-content-center align-items-center">
           <h6 className="pre-header">what we offer</h6>
-          <h2>Some of our core services that make us the best</h2>
+          <h2>Some of Our Core Services That Make us The Best</h2>
         </div>
         <div className="div d-flex justify-content-between p-0 m-0 gap-3">
           <div>
