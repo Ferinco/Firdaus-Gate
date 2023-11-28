@@ -100,7 +100,7 @@ const Container = styled.div`
     padding: 10px;
     background-color: #ffff;
     color: black;
-    font-weight: 700;
+    font-weight: 400;
     border-radius: 10px;
   }
   .body {
@@ -109,7 +109,7 @@ const Container = styled.div`
   .header {
     h2 {
       font-size: 45px;
-      font-weight: 900;
+      font-weight: 700;
       text-align: center;
       max-width: 700px;
     }
