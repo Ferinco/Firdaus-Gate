@@ -17,7 +17,6 @@ import { api } from "../../api/axios";
 import { useForm } from "react-hook-form";
 import { getNonNullValue } from "../../utils/utils";
 
-
 const columns = [
   { header: "", accessor: "select" },
   {
@@ -92,7 +91,6 @@ const columns = [
   },
 ];
 
-
 //the whole component
 export default function StudentsList() {
   const { user } = useAuth();
@@ -108,11 +106,9 @@ export default function StudentsList() {
   const [deleteId, setDeleteId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
-
 
   //fetching student details
   const getData = async (pageNum, limitNum, filter) => {
@@ -246,15 +242,45 @@ export default function StudentsList() {
     if (multiSelect.length) {
       Promise.all(
         multiSelect.map(async (studentId) => {
+          setIsLoading(true);
           await api.post("/class/transfer", {
             currentClass: user.classHandled,
             studentId,
           });
         })
-      );
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     }
   };
-
+  const handleDeactivate = () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (studentId) => {
+          setIsLoading(true);
+          const formData = new FormData();
+          formData.append("values", JSON.stringify({ status: "inactive" }));
+          await UserService.updateUser(studentId, formData);
+        })
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
+  };
 
   return (
     <>
@@ -318,7 +344,7 @@ export default function StudentsList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  <button onClick={handleMultiTransfer} className="action-bar">
+                  <button onClick={handleDeactivate} className="action-bar">
                     Deactivate &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -415,14 +441,22 @@ export default function StudentsList() {
                             return (
                               <td key={index} className="table-body">
                                 <td className="table-button">
-                                <Link to={`${PATH_DASHBOARD.admin.studentInfo}/${row._id}`}>
-                              <button className="view-button">view</button>
-                            </Link>
+                                  <Link
+                                    to={`${PATH_DASHBOARD.admin.studentInfo}/${row._id}`}
+                                  >
+                                    <button className="view-button">
+                                      view
+                                    </button>
+                                  </Link>
                                 </td>
                                 <td className="table-button">
-                                <Link to={`${PATH_DASHBOARD.admin.editStudent}/${row._id}`}>
-                              <button className="update-button">edit</button>
-                            </Link>
+                                  <Link
+                                    to={`${PATH_DASHBOARD.admin.editStudent}/${row._id}`}
+                                  >
+                                    <button className="update-button">
+                                      edit
+                                    </button>
+                                  </Link>
                                 </td>
                                 <td className="table-button">
                                   <button

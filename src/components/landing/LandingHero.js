@@ -63,7 +63,7 @@ export default function LandingHero() {
   return (
     <Wrapper>
       <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
-        <div className="row h-100">
+        <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
             <div className="my-5 d-flex flex-column gap-3 text-div justify-content-center">
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
@@ -101,13 +101,17 @@ const Wrapper = styled.div`
     align-items: center;
   }
   .left {
-    background-image: linear-gradient(to left, #00008b, #000000) !important;
+    /* background-image: linear-gradient(to left, #00008b, #000000) !important; */
     padding-right: 48px;
     padding-left: 48px;
-
   }
-  .right {
-    background-image: url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;
+  .hero-bg {
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.1)
+      ),
+      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -119,7 +123,7 @@ const Wrapper = styled.div`
       text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4),
         0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
     }
-    p{
+    p {
       max-width: 400px !important;
     }
   }
@@ -150,20 +154,18 @@ const Wrapper = styled.div`
 
   @media (max-width: 768px) {
     height: auto !important;
-      .left {
-background: transparent !important;
-color: black;
-
-}
-h1 {
-  width: auto !important;
+    .left {
+      background: transparent !important;
+      color: black;
+    }
+    h1 {
+      width: auto !important;
       text-shadow: none !important;
       font-size: 50px;
     }
     p {
       /* font-size: 16px; */
       color: black;
-
     }
 
     .text-div {
