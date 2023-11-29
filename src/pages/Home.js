@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection
+  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection, Testimonials
 } from "../components/landing";
 import { Helmet } from "react-helmet";
-import ContactUs from "../components/landing/contactSection";
 
 export default function Home() {
   return (
@@ -22,6 +21,7 @@ export default function Home() {
       <Services/>
       <Info/>
       <AdmissionSection/>
+      <Testimonials/>
     </Wrapper>
   );
 }
@@ -29,27 +29,6 @@ export default function Home() {
 const Wrapper = styled.section`
 width:100vw !important;
 overflow-x:hidden !important;
-background: linear-gradient(1turn, hsla(0, 0%, 100%, 0.01), #fff 85%),
-    radial-gradient(
-      ellipse at top left,
-      rgba(13, 110, 253, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at top right,
-      rgba(255, 228, 132, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at center right,
-      rgba(113, 44, 249, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at center left,
-      rgba(254, 51, 132, 0.5),
-      transparent 50%
-    );
     p {
   font-size: 16px !important;
 }

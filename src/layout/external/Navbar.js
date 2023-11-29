@@ -8,7 +8,7 @@ import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import { PATH_AUTH, PATH_PAGE } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
-
+import { Button } from "../../components/custom";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
@@ -120,7 +120,7 @@ export default function Navbar() {
               <a className="nav-link">news</a>
             </li>
             <li>
-              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">contact us</a>
+              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center"><Button blue>CONTACT US</Button> </a>
             </li>
           </ul>
         </div>
@@ -200,9 +200,7 @@ const NavigationBar = styled.div`
         
       }
       .contact-btn{
-       color: white;
-       background-color: blue;
-       border-radius: 10px;
+       text-transform: uppercase !important;
       }
       .icon {
         font-size: 30px;
@@ -233,9 +231,9 @@ const NavigationBar = styled.div`
       text-decoration: none;
     }
     .nav-link {
-      text-transform: uppercase;
-      font-weight: 600;
+      text-transform: capitalize;
       font-size: 14px !important;
+      font-weight:500 !important;
     }
     ul li a:hover {
       cursor: pointer;
@@ -288,6 +286,7 @@ const NavigationBar = styled.div`
 position: fixed;
 justify-content: start;
 height: 100vh;
+display: flex !important;
 background-color: rgba(0, 0, 0, 0.1);
 .links{
   background: white !important;
@@ -296,12 +295,12 @@ background-color: rgba(0, 0, 0, 0.1);
 
 }
     .closed {
-      margin-left: -1000px;
+      margin-left: -1000px !important;
       transition: 0.3s;
       /* display:none; */
     }
     .opened {
-      margin-left: 0;
+      margin-left: 0 !important;
       transition: 0.3s;
       display: flex !important;
       position: fixed !important;

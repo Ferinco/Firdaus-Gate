@@ -17,9 +17,7 @@ export default function Services() {
         <h6 className="pre-header">join us</h6>
           <h2 className="">The School for Everyone.</h2>
           <p>
-            lets see how this hows will i ne able to ryoe yhis that maje sense?
-            i dony know bugt gbhw us ghkyfkhg ifyf f oyufouyfo ytoy7f ftiyd yufo
-            yf
+Firdaus-Gate Model Schools is an institution for all, we offer admission for students of different age amd classes. Enroll your child(ren) now and join this gret citadel of learning
           </p>
           <Button blue>Enroll Now</Button>
         </div>

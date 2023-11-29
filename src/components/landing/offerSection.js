@@ -29,7 +29,7 @@ export default function OfferSection(){
     )
 }
 const Container = styled.div`
-background: #f5f5f5 !important;
+background: white !important;
 
 
 h5{

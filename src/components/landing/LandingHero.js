@@ -153,7 +153,11 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 768px) {
+    margin-top: 80px;
     height: auto !important;
+    .hero-bg{
+      background: transparent !important;
+    }
     .left {
       background: transparent !important;
       color: black;
