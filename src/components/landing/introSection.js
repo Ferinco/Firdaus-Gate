@@ -59,7 +59,7 @@ const Container = styled.div`
     text-align: center;
     font-weight: 800;
   }
-  background-color: white;
+  background-color: #f5f5f5;
   h6 {
     margin-top: 20px;
   }

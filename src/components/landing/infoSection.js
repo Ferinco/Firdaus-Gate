@@ -130,10 +130,10 @@ else {
 };
 
 const Info = styled.div`
-background-image: linear-gradient(to right, #00008b, #000000) !important;
-height: 600px;
+background:black !important;
+height: 500px;
 .right{
-  height: 600px;
+  height: 500px;
   overflow: hidden;
   img{
     width:100% ;

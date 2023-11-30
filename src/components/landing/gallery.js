@@ -78,8 +78,8 @@ export default function Gallery() {
 
 const Container = styled.div`
   overflow: hidden !important;
-  background-image: linear-gradient(to right, #00008b, #000000) !important;
-  color: white;
+background: #f5f5f5;
+  color: black;
   h6 {
     color: blue;
   }
@@ -98,9 +98,9 @@ const Container = styled.div`
   }
   .text {
     padding: 10px;
-    background-color: #ffff;
-    color: black;
-    font-weight: 400;
+    background-color: black;
+    color: white;
+    font-weight: 600 ;
     border-radius: 10px;
   }
   .body {

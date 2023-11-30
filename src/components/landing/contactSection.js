@@ -2,7 +2,7 @@ import styled from "styled-components";
 export default function ContactUs() {
   return (
     <Contact>
-      <div className="container d-flex w-100 justify-content-between">
+      <div className="container d-flex w-100 justify-content-between py-4">
         <div>
           <h6>Find Our School</h6>
         </div>
@@ -19,6 +19,6 @@ export default function ContactUs() {
   );
 }
 const Contact = styled.div`
-background:black;
-
+background:#f5f5f5;
+color: black;
 `;
