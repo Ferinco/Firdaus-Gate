@@ -4,6 +4,7 @@ import {
   LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection, Testimonials
 } from "../components/landing";
 import { Helmet } from "react-helmet";
+import ContactUs from "../components/landing/contactSection";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Info/>
       <AdmissionSection/>
       <Testimonials/>
+      <ContactUs/>
     </Wrapper>
   );
 }

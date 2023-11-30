@@ -1,38 +1,24 @@
-import styled from "styled-components"
-export default function ContactUs (){
-    return(
-<Contact>
-<div className="header row">
-    <h2 className="display-5 col-md-6">
-        Always Be In Touch With Us!
-    </h2>
-    <div className="d-flex flex-column col-md-6 right">
-        <div className="media d-flex flex-row gap-3">
-<div className="medium"></div>
-<div className="medium"></div>
-<div className="medium"></div>
-<div className="medium"></div>
-
+import styled from "styled-components";
+export default function ContactUs() {
+  return (
+    <Contact>
+      <div className="container d-flex w-100 justify-content-between">
+        <div>
+          <h6>Find Our School</h6>
         </div>
         <div>
-
-        <p>We are alwsys available to take your calls and messages at all times. we take out clients/ parents/ students as our number one priorities</p>
+          <h6>Call Us On</h6>
+          <h6>09134786486</h6>
         </div>
-    </div>
-</div>
-</Contact>
-    )
+        <div>
+          <h6>Email Us</h6>
+          <h6>firdausuibdnehriy</h6>
+        </div>
+      </div>
+    </Contact>
+  );
 }
 const Contact = styled.div`
-height: 400px;
-border: 1px solid red;
-.medium{
-    background-color: red;
-    height: 50px;
-    width:50px;
-    border-radius: 50%;
-}
-.right{
-    max-width: 400px;
-}
-`
+background:black;
+
+`;

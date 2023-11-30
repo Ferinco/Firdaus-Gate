@@ -5,7 +5,9 @@ function Footer() {
   return (
     <Container >
         <div className='container py-5'>
-        Footer
+       <div>
+        
+       </div>
         </div>
     </Container>
   )
