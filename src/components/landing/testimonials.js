@@ -67,12 +67,13 @@ const Testimonials = () => {
   ];
 
   return (
-    <Container className="container py-5">
+    <Container className=" py-5">
+      <div className="div container">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
     <h2 className="">What our Clients say About us.</h2>
     </div>
-    <div className="py-5">
+    <div className=" pt-3">
       <Slider {...sliderSettings} className="">
         {testimonials.map((testimonial, index) => (
           <div key={index} className="pr-4">
@@ -89,14 +90,28 @@ const Testimonials = () => {
         ))}
       </Slider>
     </div>
+      </div>
     </Container>
   );
 };
 const Container = styled.div`
+background: #f5f5f5;
+.client-info{
+font-weight: 600;
+}
     h2 {
-      font-size: 45px ;
+      font-size: 45px;
       font-weight: 800;
+      text-align: center;
+      @media (max-width: 768px) {
+            font-size: 36px !important;
+          }
     }
-    
+    @media screen and (max-width: 768px) {
+      .testimonial-card{
+      justify-content: center;
+      text-align: center;
+    }
+    }
 `
 export default Testimonials;

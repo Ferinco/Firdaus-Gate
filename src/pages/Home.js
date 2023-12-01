@@ -21,8 +21,8 @@ export default function Home() {
       <Gallery/>
       <Services/>
       <Info/>
-      <AdmissionSection/>
       <Testimonials/>
+      <AdmissionSection/>
       <ContactUs/>
     </Wrapper>
   );

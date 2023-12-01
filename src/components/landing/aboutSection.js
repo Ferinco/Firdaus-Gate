@@ -39,7 +39,7 @@ const Container = styled.div`
           }
       @media screen and (max-width: 991px){
           h6{
-              display: flex;
+              display: flex !important;
           }
         }
     }
@@ -98,6 +98,9 @@ margin-top: 30px;
     align-items: center;
     gap: 50px !important;
   }
+h2 {
+          font-size: 36px !important;
+        }
   .left{
     gap: 20px;
         h6{

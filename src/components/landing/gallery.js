@@ -97,10 +97,10 @@ background: #f5f5f5;
     }
   }
   .text {
-    padding: 10px;
+    padding: 5px 10px;
     background-color: black;
     color: white;
-    font-weight: 600 ;
+    font-weight: 400;
     border-radius: 10px;
   }
   .body {
