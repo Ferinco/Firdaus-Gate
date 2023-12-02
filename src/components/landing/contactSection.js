@@ -15,7 +15,7 @@ export default function ContactUs() {
         </div>
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center div">
           <Icon icon="cil:envelope-letter" className="icon"/>
-          <Link className="m-0 react-router-link ">Email Us {" "} </Link>
+          <Link className="m-0 react-router-link ">Send Us an Email {" "} </Link>
         </div>
       </div>
     </Contact>
@@ -25,7 +25,12 @@ const Contact = styled.div`
 background:#f5f5f5;
 color: black;
 .container{
-
+@media screen and (max-width: 767px){
+  .col-md-4{
+justify-content:center !important;
+padding:7px 0px;
+  }
+}
 }
 .div{
 
@@ -36,6 +41,6 @@ color: black;
     font-size: 40px;
 }
 .react-router-link{
-    font-size: 25px;
+    font-size: 20px;
 }
 `;
