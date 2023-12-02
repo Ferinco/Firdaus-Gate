@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../routes/paths";
+import { PATH_DASHBOARD } from "../../routes/paths";
 function Footer() {
   const Year = new Date().getFullYear();
   console.log(Year);
@@ -27,19 +29,18 @@ function Footer() {
             <Link className="react-router-link py-2">Our Mission</Link>
             <Link className="react-router-link py-2">Our Vision</Link>
             <Link className="react-router-link py-2">Gallery</Link>
-            <Link className="react-router-link py-2">News</Link>
           </div>
           <div className="d-flex flex-column">
             <p className="header ">Admission</p>
-            <Link className="react-router-link py-2">Admission Into JSS1</Link>
-            <Link className="react-router-link py-2">Admssion Portal</Link>
+            <Link className="react-router-link py-2" to={PATH_PAGE.jss1Admission}>Admission Into JSS1</Link>
+            <Link className="react-router-link py-2" to={PATH_PAGE.admissionForm}>Admssion Portal</Link>
             <Link className="react-router-link py-2">Continue Admission</Link>
             <Link className="react-router-link py-2">Admission Letter</Link>
           </div>
           <div className="d-flex flex-column">
             <p className="header ">Portal</p>
-            <Link className="react-router-link py-2">Student</Link>
-            <Link className="react-router-link py-2">Teacher</Link>
+            <Link className="react-router-link py-2" to={PATH_DASHBOARD.student.index}>Student</Link>
+            <Link className="react-router-link py-2" to={PATH_DASHBOARD.teacher.index}>Teacher</Link>
             <Link className="react-router-link py-2">School Fees</Link>
           </div>
           <div className="reach ">
