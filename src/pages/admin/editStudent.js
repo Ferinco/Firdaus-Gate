@@ -9,6 +9,9 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 import { fetchSubjects } from "../../redux/slices/subjects";
+import AddAndDeleteSubject from "../../components/AddAndDeleteSubject";
+import { api } from "../../api/axios";
+import toast from "react-hot-toast";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -28,7 +31,7 @@ export default function EditTeacher() {
   const schema = yup.object({
     firstName: yup.string().required("input first name"),
     lastName: yup.string().required("input last name"),
-    newPwd: yup
+    newPassword: yup
       .string()
       .required("set a password")
       .min(5, "new password must be at least 5 characters")
@@ -39,9 +42,9 @@ export default function EditTeacher() {
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-    confirmPwd: yup
+    confirmNewPassword: yup
       .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
       .required("confirm your password"),
   });
   const {
@@ -54,9 +57,8 @@ export default function EditTeacher() {
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
       tel: user?.role === "student" ? user?.parentPhone : user?.tel,
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
+
+      newPassword: "",
       signature: "",
       class: user?.role === "student" ? user?.currentClass : user?.classHandled,
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
@@ -73,7 +75,7 @@ export default function EditTeacher() {
       case "Profile":
         return <ChangeProfile />;
       default:
-        return null; 
+        return null;
     }
   }
   return (
@@ -161,8 +163,7 @@ const ChangeProfile = () => {
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
   });
-
-
+  console.log(user);
   return (
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
@@ -257,20 +258,20 @@ const ChangeProfile = () => {
 const ChangePassword = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
   }, [identity, dispatch]);
   const schema = yup.object({
-    newPwd: yup
+    newPassword: yup
       .string()
       .required("set a password")
       .min(5, "new password must be at least 5 characters")
       .max(12, "new password must not be more than 12 characters"),
-    confirmPwd: yup
+    confirmNewPassword: yup
       .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
       .required("confirm your password"),
   });
   const {
@@ -280,14 +281,23 @@ const ChangePassword = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      confirmPwd: "",
-      newPwd: "",
-      class: user.role === "student" ? user.currentClass : user.classHandled,
-      id: user.role === "student" ? user.admissionNumber : user.teacherId,
+      newPassword: "",
     },
   });
   const onSubmitSecurity = async (data) => {
-    console.log("data");
+    setIsLoading(true);
+    await api
+      .put(`/users/change-password-for-student/${identity}`, {
+        newPassword: data.newPassword,
+      })
+      .then((res) => {
+        toast.success("Password changed successfully");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong, try again");
+        setIsLoading(false);
+      });
   };
   return (
     <div className="div p-3">
@@ -296,39 +306,45 @@ const ChangePassword = () => {
         onSubmit={handleSubmit(onSubmitSecurity)}
       >
         <div className="d-flex flex-column">
-          <label htmlFor="newPwd" className="label">
+          <label htmlFor="newPassword" className="label">
             New Password
           </label>
           <input
-            name="newPwd"
-            {...register("newPwd")}
+            name="newPassword"
+            {...register("newPassword")}
             placeholder="New password"
           />
           <p className="error-message">
-            {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
+            {errors.newPassword?.message
+              ? `*${errors.newPassword?.message}`
+              : ""}
           </p>
         </div>
         <div className="d-flex flex-column">
           <input
-            name="confirmPwd"
-            {...register("confirmPwd")}
+            name="confirmNewPassword"
+            {...register("confirmNewPassword")}
             placeholder="Confirm new password"
           />
           <p className="error-message">
-            {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
+            {errors.confirmNewPassword?.message
+              ? `*${errors.confirmNewPassword?.message}`
+              : ""}
           </p>
         </div>
 
         <div className="button-div d-flex justify-content-end mt-4">
-          <Button blue>Save Changes</Button>
+          <Button disabled={isLoading} blue>
+            Save Changes
+          </Button>
         </div>
       </form>
     </div>
   );
 };
 const ChangePortfolio = () => {
-  const { identity } = useParams();
   const dispatch = useDispatch();
+  const { identity } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
@@ -337,7 +353,8 @@ const ChangePortfolio = () => {
   console.log(user.subjectTaught);
   return (
     <div className="div mt-5 p-3">
-      edit portfolio, add and delete subject, change teacher class etc
+      <h6> Edit portfolio, add and delete subject, change teacher class etc</h6>
+      <AddAndDeleteSubject studentId={identity} />
     </div>
   );
 };

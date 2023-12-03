@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 import { fetchSubjects } from "../../redux/slices/subjects";
+import { api } from "../../api/axios";
+import toast from "react-hot-toast";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -33,7 +35,7 @@ export default function EditTeacher() {
       .required("input old password")
       .min(5, "old password is at least 5 characters")
       .max(12, "old password is not more than 12 characters"),
-    newPwd: yup
+    newPassword: yup
       .string()
       .required("set a password")
       .min(5, "new password must be at least 5 characters")
@@ -53,9 +55,9 @@ export default function EditTeacher() {
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-    confirmPwd: yup
+    oldPassword: yup
       .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
       .required("confirm your password"),
   });
   const {
@@ -69,8 +71,8 @@ export default function EditTeacher() {
       lastName: user?.lastName || "",
       tel: user?.role === "student" ? user?.parentPhone : user?.tel,
       oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
+      oldPassword: "",
+      newPassword: "",
       signature: "",
       class: user?.role === "student" ? user?.currentClass : user?.classHandled,
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
@@ -366,28 +368,14 @@ const ChangePassword = () => {
     dispatch(fetchUser({ id: identity }));
   }, [identity, dispatch]);
   const schema = yup.object({
-    oldPwd: yup
-      .string()
-      .required("input old password")
-      .min(5, "old password is at least 5 characters")
-      .max(12, "old password is not more than 12 characters"),
-    newPwd: yup
+    newPassword: yup
       .string()
       .required("set a password")
       .min(5, "new password must be at least 5 characters")
       .max(12, "new password must not be more than 12 characters"),
-    signature: yup
-      .mixed()
-      .required("signature is required")
-      .test("fileType", "Unsupported file type", (value) => {
-        if (value && value.type) {
-          return value.type.includes("image");
-        }
-        return true;
-      }),
-    confirmPwd: yup
+    confirmNewPassword: yup
       .string()
-      .oneOf([yup.ref("newPwd"), null], "passwords must match")
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
       .required("confirm your password"),
   });
   const {
@@ -397,16 +385,24 @@ const ChangePassword = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
-      signature: "",
-      class: user.role === "student" ? user.currentClass : user.classHandled,
-      id: user.role === "student" ? user.admissionNumber : user.teacherId,
+      newPassword: "",
+      confirmNewPassword: "",
     },
   });
   const onSubmitSecurity = async (data) => {
-    console.log("data");
+    setIsLoading(true);
+    await api
+      .put(`/users/change-password-for-student/${identity}`, {
+        newPassword: data.newPassword,
+      })
+      .then((res) => {
+        toast.success("Password changed successfully");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong, try again");
+        setIsLoading(false);
+      });
   };
   return (
     <div className="div p-3">
@@ -415,44 +411,37 @@ const ChangePassword = () => {
         onSubmit={handleSubmit(onSubmitSecurity)}
       >
         <div className="d-flex flex-column">
-          <label htmlFor="oldPwd" className="label">
-            Old Password
-          </label>
-          <input
-            name="oldPwd"
-            {...register("oldPwd")}
-            placeholder="Input old password"
-          />
-          <p className="error-message">
-            {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-          </p>
-        </div>
-        <div className="d-flex flex-column">
-          <label htmlFor="newPwd" className="label">
+          <label htmlFor="newPassword" className="label">
             New Password
           </label>
           <input
-            name="newPwd"
-            {...register("newPwd")}
+            name="newPassword"
+            {...register("newPassword")}
             placeholder="New password"
           />
           <p className="error-message">
-            {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
+            {errors.newPassword?.message
+              ? `*${errors.newPassword?.message}`
+              : ""}
           </p>
         </div>
         <div className="d-flex flex-column">
           <input
-            name="confirmPwd"
-            {...register("confirmPwd")}
+            name="confirmNewPassword"
+            {...register("confirmNewPassword")}
             placeholder="Confirm new password"
           />
           <p className="error-message">
-            {errors.confirmPwd?.message ? `*${errors.confirmPwd?.message}` : ""}
+            {errors.confirmNewPassword?.message
+              ? `*${errors.confirmNewPassword?.message}`
+              : ""}
           </p>
         </div>
 
         <div className="button-div d-flex justify-content-end mt-4">
-          <Button blue>Save Changes</Button>
+          <Button disabled={isLoading} type="submit" blue>
+            Save Changes
+          </Button>
         </div>
       </form>
     </div>

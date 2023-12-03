@@ -20,7 +20,7 @@ export const Button = styled.button`
       (props.blue && "1px solid 04048d") || (props.white && "1px solid blue")};
   }
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.4;
   }
 `;
 export const ControlButton = styled.button`

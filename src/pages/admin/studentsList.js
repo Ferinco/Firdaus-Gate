@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { UserService } from "../../services/userService";
 import { Table } from "react-bootstrap";
 import styled from "styled-components";
@@ -205,39 +205,42 @@ export default function StudentsList() {
     await getData(page, pageSize);
   };
   const { register, handleSubmit, reset } = useForm();
-  async function createCsvUsers() {
+  const createCsvUsers = useCallback(async () => {
     if (csvData.length) {
       let newStudents = csvData.slice(1);
-      isLoading(true);
-      Promise.all(
-        newStudents.map(async (item) => {
+      setIsLoading(true);
+      console.log(newStudents);
+      try {
+        setIsLoading(true);
+        for (const student of newStudents) {
           const data = {
-            firstName: item[0],
-            lastName: item[1],
-            middleName: item[2],
-            admissionNumber: item[3],
-            parentPhone: item[4],
-            email: item[5],
-            gender: item[6],
+            firstName: student[0],
+            lastName: student[1],
+            middleName: student[2],
+            currentClass: student[3],
+            admissionNumber: student[4],
+            parentPhone: student[5],
+            email: student[6],
+            gender: student[7],
             role: "student",
-            currentClass: user.classHandled,
+            password: `${student[1]}${student[4]}`,
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
           await UserService.createUser(formData);
-        })
-      )
-        .then((res) => {
-          toast.success("Student account created successfully");
-          console.log(res);
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Failure creating students from CSV");
-        });
-      isLoading(false);
+          setIsLoading(false);
+          setCSVOpen(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        setCSVOpen(false);
+      }
+
+      getData(page, pageSize);
     }
-  }
+  }, [csvData, getData, page, pageSize, setCSVOpen, setIsLoading]);
+
   const handleMultiTransfer = () => {
     if (multiSelect.length) {
       Promise.all(
@@ -247,6 +250,7 @@ export default function StudentsList() {
             currentClass: user.classHandled,
             studentId,
           });
+          setMultiSelect([]);
         })
       )
         .then((res) => {
@@ -268,6 +272,7 @@ export default function StudentsList() {
           const formData = new FormData();
           formData.append("values", JSON.stringify({ status: "inactive" }));
           await UserService.updateUser(studentId, formData);
+          setMultiSelect([]);
         })
       )
         .then((res) => {
@@ -279,6 +284,31 @@ export default function StudentsList() {
           console.log(error);
           setIsLoading(false);
         });
+
+      // toast.success()
+    }
+  };
+
+  const deleteMultiple = async () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (teacherId) => {
+          setIsLoading(true);
+          api
+            .delete(`/users/delete/${teacherId}`)
+            .then((res) => {
+              setIsLoading(false);
+              setMultiSelect([]);
+              getData(page, pageSize);
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+              toast.error("Unable to delete teachers account");
+            });
+        })
+      );
+      toast.success(`${multiSelect.length} students deleted successfully`);
     }
   };
 
@@ -294,43 +324,43 @@ export default function StudentsList() {
       )}
       {isLoading ? <CircularProgress /> : ""}
       <Wrapper className="d-flex flex-column py-5">
-        {currentTableData.length > 0 ? (
-          <div className="content-wrapper p-3 mt-5">
-            <div className="d-flex py-3 justify-content-between align-items-center search-div">
-              <form onSubmit={handleSubmit(handleSearch)}>
-                <p className="mb-1 search-p">Search students</p>
-                <div className="d-flex flex-row gap-2 search-field">
-                  <input
-                    type="text"
-                    placeholder="First name"
-                    {...register("firstName")}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last name"
-                    {...register("lastName")}
-                  />
-                  <button
-                    type="submit"
-                    onClick={handleSearch}
-                    className="search-button"
-                  >
-                    <Icon icon="circum:search" color="gray" className="icon" />
-                  </button>
-                </div>
+        <div className="content-wrapper p-3 mt-5">
+          <div className="d-flex py-3 justify-content-between align-items-center search-div">
+            <form onSubmit={handleSubmit(handleSearch)}>
+              <p className="mb-1 search-p">Search students</p>
+              <div className="d-flex flex-row gap-2 search-field">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  {...register("firstName")}
+                />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  {...register("lastName")}
+                />
                 <button
-                  type="button"
-                  onClick={resetSearch}
-                  className="reset-button mt-1"
+                  type="submit"
+                  onClick={handleSearch}
+                  className="search-button"
                 >
-                  Reset
+                  <Icon icon="circum:search" color="gray" className="icon" />
                 </button>
-              </form>
-
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
+              </div>
+              <button
+                type="button"
+                onClick={resetSearch}
+                className="reset-button mt-1"
+              >
+                Reset
               </button>
-            </div>
+            </form>
+
+            <button onClick={() => setCSVOpen(true)} className="csv-button">
+              Import CSV file
+            </button>
+          </div>
+          {currentTableData.length ? (
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
@@ -349,7 +379,7 @@ export default function StudentsList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  <button onClick={handleMultiTransfer} className="action-bar">
+                  <button onClick={deleteMultiple} className="action-bar">
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -505,17 +535,18 @@ export default function StudentsList() {
                 updatePageSize={updatePageSize}
               />
             </div>
-          </div>
-        ) : (
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="pt-5 h-100">
-              <p className="text-muted">No student to display...</p>
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
-              </button>
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="pt-5 h-100">
+                <p className="text-muted">No student to display...</p>
+                <button onClick={() => setCSVOpen(true)} className="csv-button">
+                  Import CSV file
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
         {overlay ? (
           <div className="overlay-wrapper d-flex ">
             <div

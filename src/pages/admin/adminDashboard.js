@@ -56,6 +56,9 @@ export default function AdminDashboard() {
       .then((res) => {
         console.log(res);
         setTermName(res.data.name);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
   console.log(currentTerm);
