@@ -6,6 +6,7 @@ import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import Settings from "../pages/settings";
+import { Receipt } from "../components/custom";
 import {
   TeacherDashboard,
   CreateResult,
@@ -61,6 +62,7 @@ export default function Routes() {
       children: [
         { path: "admission-into-jss1", element: <JSS1Admission /> },
         { path: "admission-form", element: <AdmissionForm /> },
+        { path: "admission-form/payment-success", element: <Receipt /> },
       ],
     },
     {
