@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
+import { Icon } from "@iconify/react";
 function Footer() {
   const Year = new Date().getFullYear();
   console.log(Year);
@@ -45,22 +46,31 @@ function Footer() {
           </div>
           <div className="reach ">
             <p className="header ">Reach Us</p>
-            <div>
-              <p className="not-link">
+            <div className="d-flex flex-row gap-1 align-items-center" >
+            <Icon icon="system-uicons:location" className="icon"/>
+              <p className="not-link m-0 pl-2">
                 our loaction huirtewir rgb guirewyufgerb
               </p>
             </div>
-            <div>
-              <Link className="react-router-link">
-                <p className="not-link">
+            <div className="mt-1">
+              <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
+              <Icon icon="iconamoon:phone-thin" rotate={1} className="icon"/>
+                <p className="not-link m-0 pl-2">
                   our loaction huirtewir rgb guirewyufgerb
                 </p>
               </Link>
             </div>
-            <div>
-              <Link className="react-router-link">firdausgatemail.com</Link>
+            <div className="mt-1">
+              <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
+              <Icon icon="la:envelope-solid" className="icon" />
+                <p className="m-0 pl-2">
+                firdausgatemail.com
+                </p>
+                </Link>
             </div>
-            <div className="social-media"></div>
+            <div className="social-media">
+                
+            </div>
           </div>
         </div>
       </div>
@@ -103,6 +113,9 @@ gap: 20px !important;
   }
   .react-router-link{
     font-size:16px !important;
+  }
+  .icon{
+    font-size: 19px !important;
   }
 `;
 export default Footer;

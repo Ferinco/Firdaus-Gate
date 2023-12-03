@@ -95,7 +95,7 @@ const Testimonials = () => {
   );
 };
 const Container = styled.div`
-background: #f5f5f5;
+background: white;
 .client-info{
 font-weight: 600;
 }

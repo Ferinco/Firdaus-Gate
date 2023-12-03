@@ -67,7 +67,7 @@ export default function Navbar() {
           </div>
           <ul className="menu-links d-none d-lg-flex align-items-center h-100 mb-0">
             <li>
-              <a className="nav-link">about</a>
+              <Link className="nav-link" to={PATH_PAGE.about}>about</Link>
             </li>
 
             <li>

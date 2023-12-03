@@ -14,6 +14,7 @@ export const PATH_AUTH = {
 // for  external pages
 export const PATH_PAGE = {
   home: "/",
+  about: "/about-us",
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
 };
