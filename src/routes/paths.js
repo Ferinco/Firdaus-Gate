@@ -17,6 +17,8 @@ export const PATH_PAGE = {
   about: "/about-us",
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
+  receipt: "/admission/admission-form/payment-success",
+
 };
 
 // for teacher dashboard pages

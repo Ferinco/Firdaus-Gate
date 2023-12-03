@@ -138,6 +138,8 @@ const ChangeProfile = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
+  const [previewProfile, setPreviewProfile] = useState(null);
+
   const [signatureFile, setSignatureFile] = useState("");
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
@@ -181,6 +183,7 @@ const ChangeProfile = () => {
       lastName: user?.lastName,
       tel: user?.role === "student" ? user?.parentPhone : user?.tel,
       teacherSignature: user?.teacherSignature,
+      profilePhoto: user?.profilePhoto,
       class: user?.role === "student" ? user?.currentClass : user?.classHandled,
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
@@ -197,10 +200,45 @@ const ChangeProfile = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  const handleProfilePhotoChange = () => {
+console.log("photo upload successful")
+  };
   return (
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
+      <div className="profilePhoto mt-3">
+            <label htmlFor="profilePhoto" className="label">
+              Teacher Photo:
+            </label>
+            <input
+              type="image"
+              name="profilePhoto"
+              {...register("profilePhoto")}
+              onChange={handleProfilePhotoChange}
+              accept="image/*"
+              className="photo-input d-flex justify-content-center"
+              placeholder={
+                <div className="photo-div">
+                {previewProfile ? (
+                  <img
+                    src={previewProfile}
+                    alt="Preview"
+                    style={{ maxWidth: "70px" }}
+                    className="photo"
+                  />
+                ) : (
+                  <img
+                    src={getValues().profilePhoto}
+                    alt="Preview"
+                    style={{ maxWidth: "70px" }}
+                  />
+                )}
+              </div>
+              }
+            />
+            {errors.photo && <p className="error">{errors.photo.message}</p>}
+         
+          </div>
         <div className="row">
           <div className="d-flex flex-column col-md-6">
             <label htmlFor="firstName" className="label">
@@ -439,6 +477,18 @@ const ChangePortfolio = () => {
 const Wrapper = styled.div`
   padding-left: 32px !important;
   padding-right: 32px !important;
+  .photo-input{
+    width:70px !important;
+    height:70px !important;
+    border-radius:50% !important;
+
+    &::placeholder{
+      background:blue !important;
+    }
+  }
+  .photo-div, .photo{
+      border:1px solid red !important;
+    }
   .navigator {
     padding-bottom: 10px;
     cursor: pointer;
