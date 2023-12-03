@@ -18,9 +18,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setSticky(window.scrollY > 156);
     };
-
     window.addEventListener("scroll", handleScroll);
-
     // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -72,7 +70,7 @@ export default function Navbar() {
 
             <li>
               <a className="nav-link">admission &#9662;</a>
-              <ul class="dropdown">
+              <ul class="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
                   to={PATH_PAGE.admissionForm}
@@ -91,7 +89,7 @@ export default function Navbar() {
             </li>
             <li>
               <a className="nav-link">portal &#9662;</a>
-              <ul class="dropdown">
+              <ul class="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
                   to={PATH_DASHBOARD.student.index}
@@ -115,6 +113,9 @@ export default function Navbar() {
                   (new students)
                 </Link>
               </ul>
+            </li>
+            <li>
+              <a className="nav-link">gallery</a>
             </li>
             <li>
               <a className="nav-link">news</a>
@@ -161,10 +162,11 @@ const NavigationBar = styled.div`
     color: inherit !important;
     text-transform: capitalize !important;
     font-size: 14px !important;
-    padding: 5px 10px !important;
+    padding: 7px 10px !important;
     &:hover {
       background-color: blue;
       color: white !important;
+      border-radius: 5px;
     }
   }
   .icon {
@@ -239,7 +241,7 @@ const NavigationBar = styled.div`
       cursor: pointer;
     }
     ul li ul.dropdown {
-      width: 180px; /* Set width of the dropdown */
+      width: 200px; /* Set width of the dropdown */
       background: white;
       display: none;
       position: absolute;
