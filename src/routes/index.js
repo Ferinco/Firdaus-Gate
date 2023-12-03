@@ -25,6 +25,7 @@ import {
 import {
   StudentsList,
   CreateTeachers,
+  CreateStudents,
   AdminDashboard,
   TeachersList,
   AdminLogin,
@@ -127,7 +128,8 @@ export default function Routes() {
       ),
       children: [
         { path: "/admin", element: <AdminDashboard /> },
-        { path: "/admin/create", element: <CreateTeachers /> },
+        { path: "/admin/create-teacher", element: <CreateTeachers /> },
+        { path: "/admin/create-student", element: <CreateStudents /> },
         { path: "/admin/teachers-list", element: <TeachersList /> },
         { path: "/admin/students-list", element: <StudentsList /> },
         { path: "/admin/create-term", element: <CreateTerm /> },

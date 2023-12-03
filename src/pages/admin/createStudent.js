@@ -8,7 +8,7 @@ import { Button } from "../../components/custom/Button";
 import { UserService } from "../../services/userService";
 import { useAuth } from "../../hooks/useAuth";
 
-export default function Create() {
+export default function CreateStudents() {
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const { user } = useAuth();
@@ -32,6 +32,7 @@ export default function Create() {
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -49,12 +50,14 @@ export default function Create() {
       currentClass: "",
     },
   });
+  const selectedCurrentClass = watch("currentClass");
+//   const selectedClass = watch("classHandled");
   //submission of the form
   const onSubmit = async (data) => {
     console.log(data);
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("values", JSON.stringify(data));
+    formData.append("values", JSON.stringify({...data, password:`${data.firstName}${data.admissionNumber}`}));
     await UserService.createUser(formData)
       .then((res) => {
         console.log(res);
@@ -151,7 +154,7 @@ export default function Create() {
                 </label>
                 <select name="gender" {...register("gender")}>
                   <option value="" disabled>
-                    gender
+                    Gender
                   </option>
                   <option value="male">male</option>
                   <option value="female">female</option>
@@ -180,13 +183,31 @@ export default function Create() {
                   <option value="FGJSC_002">JSS 2</option>
                   <option value="FGJSC_003">JSS 3</option>
                   <option value="FGSSC_001">SSS 1</option>
-                  <option value="FGSSC_003">SSS 2</option>
+                  <option value="FGSSC_002">SSS 2</option>
                   <option value="FGSSC_003">SSS 3</option>
                 </select>
               </div>
             </div>
-            <div className="my-2 d-flex flex-column">
-              <label htmlFor="email" className="label">
+            {
+                selectedCurrentClass.startsWith("FGSSC") && (
+                    <div className="d-flex flex-column mt-4">
+                    <label htmlFor="department" className="label">
+                     Department
+                    </label>
+                    <select name="department" {...register("department")}>
+                      <option value="" disabled>
+                        Dept.
+                      </option>
+                      <option value="GEN">General</option>
+                      <option value="SCI">Science</option>
+                      <option value="ART">Art</option>
+                      <option value="COM">commercial</option>
+                    </select>
+                  </div>
+                )
+            }
+            <div className="mt-4 d-flex flex-column">
+              <label htmlFor="parentPhone" className="label">
                 Parent phone number
               </label>
 
