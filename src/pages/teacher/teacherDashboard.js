@@ -121,12 +121,15 @@ export default function TeacherDashboard() {
     const FetchStudents = async () => {
       try {
         const res = await UserService.findUsers({ role: "student" });
-        const Data = res.data;
-        const male = Data.filter((user) => user.gender === "male");
-        setMaleGender(male.length);
-        const female = Data.filter((user) => user.gender === "female");
-        setFemaleGender(female.length);
-        setStudents(Data.length);
+        console.log(res);
+        if (res.success) {
+          const { list } = res.data;
+          const male = list.filter((user) => user.gender === "male");
+          setMaleGender(male.length);
+          const female = list.filter((user) => user.gender === "female");
+          setFemaleGender(female.length);
+          setStudents(list.length);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -147,7 +150,7 @@ export default function TeacherDashboard() {
   }
   useEffect(() => {
     function getTitle() {
-      if (user.gender === "male") {
+      if (user?.gender === "male") {
         setTitle("Mr");
       } else setTitle("Mrs");
     }
@@ -164,56 +167,59 @@ export default function TeacherDashboard() {
         <p className="text-muted">Welcome to your dashboard.</p>
       </div>
       <div className="divs py-4">
-      <div className="infos d-flex flex-row gap-3">
-        <div className="info p-4">
-        <div className="icon-div p-2">
-            <Icon icon="basil:calendar-outline" className="icon" color="blue"/>
+        <div className="infos d-flex flex-row gap-3">
+          <div className="info p-4">
+            <div className="icon-div p-2">
+              <Icon
+                icon="basil:calendar-outline"
+                className="icon"
+                color="blue"
+              />
             </div>
-          <div className="info-text mt-3">
-            <p className="mb-0">Current term</p>
-            <h6 className="">
-              {termName === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                termName
-              )}
-            </h6>
+            <div className="info-text mt-3">
+              <p className="mb-0">Current term</p>
+              <h6 className="">
+                {termName === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  termName
+                )}
+              </h6>
+            </div>
+          </div>
+          <div className="info p-4">
+            <div className="icon-div p-2">
+              <Icon
+                icon="streamline:class-lesson"
+                color="blue"
+                className="icon"
+              />
+            </div>
+            <div className="info-text mt-3">
+              <p className="mb-0">Class Handled</p>
+              <h5>
+                {user.classHandled ? <h6>{user.classHandled}</h6> : "None"}
+              </h5>
+            </div>
+          </div>
+          <div className="info p-4">
+            <div className="icon-div p-2">
+              <Icon icon="tabler:books" color="blue" className="icon" />
+            </div>
+            <div className="info-text mt-3">
+              <p className="mb-0">Subjects Taught</p>
+              <h5>
+                {user.subjectTaught ? (
+                  <h6>{user.subjectTaught.length}</h6>
+                ) : (
+                  "None"
+                )}
+              </h5>
+            </div>
           </div>
         </div>
-        <div className="info p-4">
-        <div className="icon-div p-2">
-        <Icon icon="streamline:class-lesson" color="blue" className="icon"/>
-  </div>
-          <div className="info-text mt-3">
-            <p className="mb-0">Class Handled</p>
-            <h5>
-              {user.classHandled? (
-<h6>{user.classHandled}</h6>
-              ) : (
-               "None"
-              )}
-            </h5>
-          </div>
-        </div>
-        <div className="info p-4">
-          <div className="icon-div p-2">
-
-        <Icon icon="tabler:books" color="blue" className="icon"/>
-          </div>
-          <div className="info-text mt-3">
-            <p className="mb-0">Subjects Taught</p>
-            <h5>
-              {user.subjectTaught? (
-<h6>{user.subjectTaught.length}</h6>
-              ) : (
-               "None"
-              )}
-            </h5>
-          </div>
-        </div>
-      </div>
       </div>
 
       <div className="tabs d-flex flex-column mt-5">
@@ -257,9 +263,8 @@ const Dashboard = styled.div`
     width: 12px !important;
     height: 12px !important;
   }
-  .divs{
+  .divs {
     overflow-x: auto;
-    
   }
   .infos {
     width: fit-content;
@@ -269,16 +274,17 @@ const Dashboard = styled.div`
       border-radius: 15px;
       overflow: hidden;
       background-color: white;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 
-.icon-div{
-  background-color: #f1f1f1;
-  overflow: hidden;
-  border-radius: 10px;
-  .icon{
-    font-size: 35px;
-  }
-}
+      .icon-div {
+        background-color: #f1f1f1;
+        overflow: hidden;
+        border-radius: 10px;
+        .icon {
+          font-size: 35px;
+        }
+      }
     }
   }
   .tabs {
@@ -290,7 +296,7 @@ const Dashboard = styled.div`
       border-radius: 15px;
       align-items: center;
       overflow: hidden;
-      background-color: white ;
+      background-color: white;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .icon-div {
         padding: 10px;
@@ -299,11 +305,11 @@ const Dashboard = styled.div`
       }
       .text {
         text-align: left;
-      overflow: hidden;
-  text-overflow: ellipsis;
-p{
-  text-overflow: ellipsis;
-}
+        overflow: hidden;
+        text-overflow: ellipsis;
+        p {
+          text-overflow: ellipsis;
+        }
       }
       &:nth-child(4) {
         /* background: black; */

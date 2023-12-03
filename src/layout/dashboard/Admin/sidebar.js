@@ -28,6 +28,12 @@ const sidebarConfig = [
   },
   {
     id: 4,
+    icon: "fluent-mdl2:poll-results",
+    link: PATH_DASHBOARD.admin.studentsList,
+    title: "Reports",
+  },
+  {
+    id: 5,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
@@ -35,18 +41,16 @@ const sidebarConfig = [
 ];
 
 export default function AdminSidebar() {
-const [activeTab, setActiveTab] = useState("Dashboard")
-  const { isSidebarOpen, setIsSidebarOpen,  setIsProfileOpen } = useAppContext();
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
   const { logout } = useAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-
-  function handleNavClick(title){
-setActiveTab(title)
-setIsSidebarOpen(false)
-setIsProfileOpen(false)
+  function handleNavClick(title) {
+    setActiveTab(title);
+    setIsSidebarOpen(false);
+    setIsProfileOpen(false);
   }
-
 
   return (
     <SIDEBAR>
@@ -56,33 +60,39 @@ setIsProfileOpen(false)
         }`}
       >
         <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
-        <div className="wrapper d-flex flex-column justify-content-between">
-          <div className="logo">
-            <Link className="react-router-link" to={PATH_PAGE.home}>
-              <img src="/images/logo.png" alt="logo" />
-            </Link>
-          </div>
-          <div className="nav-links d-flex flex-column pl-5">
-            {sidebarConfig.map(({ link, icon, title }, index) => (
-              <Link
-                className={`nav-link react-router-link ${activeTab === title ? "active-tab" : ""}`}
-                to={link}
-                key={index}
-                onClick={()=> handleNavClick(title)}
-              >
-                <Icon icon={icon} />
-                {title}
+          <div className="wrapper d-flex flex-column justify-content-between">
+            <div className="logo">
+              <Link className="react-router-link" to={PATH_PAGE.home}>
+                <img src="/images/logo.png" alt="logo" />
               </Link>
-            ))}
+            </div>
+            <div className="nav-links d-flex flex-column pl-5">
+              {sidebarConfig.map(({ link, icon, title }, index) => (
+                <Link
+                  className={`nav-link react-router-link ${
+                    activeTab === title ? "active-tab" : ""
+                  }`}
+                  to={link}
+                  key={index}
+                  onClick={() => handleNavClick(title)}
+                >
+                  <Icon icon={icon} />
+                  {title}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="log-out nav-links d-flex flex-column pl-5">
-          <Link
+          <div className="log-out nav-links d-flex flex-column pl-5">
+            <Link
               className={`nav-link react-router-link ${
                 activeTab === "Settings" ? "active-tab" : ""
               }`}
-            to={PATH_DASHBOARD.admin.accountSettings}
-            onClick={()=> handleNavClick("Settings")}> <Icon icon="fluent:settings-20-regular" /> Settings</Link>
+              to={PATH_DASHBOARD.admin.accountSettings}
+              onClick={() => handleNavClick("Settings")}
+            >
+              {" "}
+              <Icon icon="fluent:settings-20-regular" /> Settings
+            </Link>
             <button
               to=""
               className="react-router-link nav-link"
@@ -94,7 +104,6 @@ setIsProfileOpen(false)
               />
               Log out
             </button>
-
           </div>
         </div>
         <Closer
@@ -120,7 +129,6 @@ const SIDEBAR = styled.div`
     position: fixed;
     background-color: black;
     padding-right: 0 !important;
-
   }
   .nav-container {
     width: 100%;
@@ -133,7 +141,7 @@ const SIDEBAR = styled.div`
   }
   .nav-links {
     gap: 30px;
-  width: 100% !important;
+    width: 100% !important;
   }
   .nav-link {
     font-weight: 700 !important;
@@ -147,9 +155,9 @@ const SIDEBAR = styled.div`
       transition: 0.3s;
     }
   }
-  .active-tab{
+  .active-tab {
     border-right: 5px solid white !important;
-color: white !important;
+    color: white !important;
   }
   .logo {
     height: 80px;

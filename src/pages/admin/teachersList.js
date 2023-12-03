@@ -17,7 +17,6 @@ import { api } from "../../api/axios";
 import { useForm } from "react-hook-form";
 import { getNonNullValue } from "../../utils/utils";
 
-
 const columns = [
   { header: "", accessor: "select" },
   {
@@ -84,7 +83,6 @@ const columns = [
   },
 ];
 
-
 //the whole component
 export default function TeachersList() {
   const { user } = useAuth();
@@ -100,11 +98,9 @@ export default function TeachersList() {
   const [deleteId, setDeleteId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
-
 
   //fetching teacher details
   const getData = async (pageNum, limitNum, filter) => {
@@ -247,6 +243,28 @@ export default function TeachersList() {
     }
   };
 
+  const deleteMultiple = async () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (teacherId) => {
+          setIsLoading(true);
+          api
+            .delete(`/users/delete/${teacherId}`)
+            .then((res) => {
+              setIsLoading(false);
+              setMultiSelect([]);
+              getData(page, pageSize);
+              toast.success("Teachers account deleted successfully");
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+              toast.error("Unable to delete teachers account");
+            });
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -260,43 +278,43 @@ export default function TeachersList() {
       )}
       {isLoading ? <CircularProgress /> : ""}
       <Wrapper className="d-flex flex-column py-5">
-        {currentTableData.length > 0 ? (
-          <div className="content-wrapper p-3 mt-5">
-            <div className="d-flex py-3 justify-content-between align-items-center search-div">
-              <form onSubmit={handleSubmit(handleSearch)}>
-                <p className="mb-1 search-p">Search Teachers</p>
-                <div className="d-flex flex-row gap-2 search-field">
-                  <input
-                    type="text"
-                    placeholder="First name"
-                    {...register("firstName")}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last name"
-                    {...register("lastName")}
-                  />
-                  <button
-                    type="submit"
-                    onClick={handleSearch}
-                    className="search-button"
-                  >
-                    <Icon icon="circum:search" color="gray" className="icon" />
-                  </button>
-                </div>
+        <div className="content-wrapper p-3 mt-5">
+          <div className="d-flex py-3 justify-content-between align-items-center search-div">
+            <form onSubmit={handleSubmit(handleSearch)}>
+              <p className="mb-1 search-p">Search Teachers</p>
+              <div className="d-flex flex-row gap-2 search-field">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  {...register("firstName")}
+                />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  {...register("lastName")}
+                />
                 <button
-                  type="button"
-                  onClick={resetSearch}
-                  className="reset-button mt-1"
+                  type="submit"
+                  onClick={handleSearch}
+                  className="search-button"
                 >
-                  Reset
+                  <Icon icon="circum:search" color="gray" className="icon" />
                 </button>
-              </form>
-
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
+              </div>
+              <button
+                type="button"
+                onClick={resetSearch}
+                className="reset-button mt-1"
+              >
+                Reset
               </button>
-            </div>
+            </form>
+
+            <button onClick={() => setCSVOpen(true)} className="csv-button">
+              Import CSV file
+            </button>
+          </div>
+          {currentTableData.length > 0 ? (
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
@@ -305,12 +323,12 @@ export default function TeachersList() {
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
-                  <button onClick={handleMultiTransfer} className="action-bar">
+                  {/* <button onClick={handleMultiTransfer} className="action-bar">
                     Deactivate &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
-                  </button>
-                  <button onClick={handleMultiTransfer} className="action-bar">
+                  </button> */}
+                  <button onClick={deleteMultiple} className="action-bar">
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -402,14 +420,22 @@ export default function TeachersList() {
                             return (
                               <td key={index} className="table-body">
                                 <td className="table-button">
-                                <Link to={`${PATH_DASHBOARD.admin.teacherInfo}/${row._id}`}>
-                              <button className="view-button">View</button>
-                            </Link>
+                                  <Link
+                                    to={`${PATH_DASHBOARD.admin.teacherInfo}/${row._id}`}
+                                  >
+                                    <button className="view-button">
+                                      View
+                                    </button>
+                                  </Link>
                                 </td>
                                 <td className="table-button">
-                                <Link to={`${PATH_DASHBOARD.admin.editTeacher}/${row._id}`}>
-                              <button className="update-button">Edit</button>
-                            </Link>
+                                  <Link
+                                    to={`${PATH_DASHBOARD.admin.editTeacher}/${row._id}`}
+                                  >
+                                    <button className="update-button">
+                                      Edit
+                                    </button>
+                                  </Link>
                                 </td>
                                 <td className="table-button">
                                   <button
@@ -458,17 +484,18 @@ export default function TeachersList() {
                 updatePageSize={updatePageSize}
               />
             </div>
-          </div>
-        ) : (
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="pt-5 h-100">
-              <p className="text-muted">No teacher to display...</p>
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
-              </button>
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="pt-5 h-100">
+                <p className="text-muted">No teacher to display...</p>
+                <button onClick={() => setCSVOpen(true)} className="csv-button">
+                  Import CSV file
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
         {overlay ? (
           <div className="overlay-wrapper d-flex ">
             <div
@@ -554,7 +581,6 @@ const Wrapper = styled.div`
   .table-div {
     overflow-x: auto !important;
     background-color: white !important;
-
   }
   .head {
     background-color: #f1f1f1 !important;
