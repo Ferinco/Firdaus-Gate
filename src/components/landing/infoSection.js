@@ -117,7 +117,7 @@ else {
     ))
   }
   </div>
-  <div><h5>{facilityName}</h5></div>
+  <div><p className="facility-name">-{" "}{facilityName}</p></div>
 </div>
 <div className="col-md-6 right">
 <img src={activeImage}/>
@@ -132,6 +132,9 @@ else {
 const Info = styled.div`
 background:black !important;
 height: 500px;
+.facility-name{
+  font-style: italic;
+}
 .right{
   height: 500px;
   overflow: hidden;
@@ -161,10 +164,10 @@ h2{
     .left{
       padding-left: 20px !important;
       padding-right: 20px !important;
+      h2{
+          font-size: 36px !important;
+      }
 
-    }
-    h2{
-        font-size: 36px !important;
     }
     .right{
       height: 400px ;

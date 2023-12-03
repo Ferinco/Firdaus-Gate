@@ -8,63 +8,45 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
+import { fetchSubjects } from "../../redux/slices/subjects";
 import AddAndDeleteSubject from "../../components/AddAndDeleteSubject";
-
-const phoneRegEx =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-const schema = yup.object({
-  firstName: yup.string().required("input first name"),
-  lastName: yup.string().required("input last name"),
-  oldPwd: yup
-    .string()
-    .required("input old password")
-    .min(5, "old password is at least 5 characters")
-    .max(12, "old password is not more than 12 characters"),
-  newPwd: yup
-    .string()
-    .required("set a password")
-    .min(5, "new password must be at least 5 characters")
-    .max(12, "new password must not be more than 12 characters"),
-  signature: yup
-    .mixed()
-    .required("signature is required")
-    .test("fileType", "Unsupported file type", (value) => {
-      if (value && value.type) {
-        return value.type.includes("image");
-      }
-      return true;
-    }),
-  tel: yup
-    .string()
-    .matches(phoneRegEx, "phone number is invalid")
-    .required("phone number is required")
-    .min(10, "phone number is invalid")
-    .max(11, "phone number is invalid"),
-  confirmPwd: yup
-    .string()
-    .oneOf([yup.ref("newPwd"), null], "passwords must match")
-    .required("confirm your password"),
-});
-export default function EditStudent() {
+import { api } from "../../api/axios";
+import toast from "react-hot-toast";
+export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
-  const [previewImage, setPreviewImage] = useState(null);
-  const { identity } = useParams();
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.users || {});
+  console.log(user);
   useEffect(() => {
-    dispatch(fetchUser({ id: identity }));
-  }, [identity, dispatch]);
-
-  const onSubmitProfile = async (data) => {
-    console.log("data");
-  };
+    setCurrentPage(changePageContent(activeNav));
+  }, [activeNav]);
   const onSubmitSecurity = async (data) => {
     console.log("data");
   };
 
+  const phoneRegEx =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   //validations for edit form
-
+  const schema = yup.object({
+    firstName: yup.string().required("input first name"),
+    lastName: yup.string().required("input last name"),
+    newPassword: yup
+      .string()
+      .required("set a password")
+      .min(5, "new password must be at least 5 characters")
+      .max(12, "new password must not be more than 12 characters"),
+    tel: yup
+      .string()
+      .matches(phoneRegEx, "phone number is invalid")
+      .required("phone number is required")
+      .min(10, "phone number is invalid")
+      .max(11, "phone number is invalid"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
+      .required("confirm your password"),
+  });
   const {
     register,
     handleSubmit,
@@ -75,21 +57,32 @@ export default function EditStudent() {
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
       tel: user?.role === "student" ? user?.parentPhone : user?.tel,
-      oldPwd: "",
-      confirmPwd: "",
-      newPwd: "",
+
+      newPassword: "",
       signature: "",
       class: user?.role === "student" ? user?.currentClass : user?.classHandled,
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
   });
-  console.log(user);
+
+  console.log(currentPage);
+  function changePageContent(activeNav) {
+    switch (activeNav) {
+      case "Password":
+        return <ChangePassword />;
+      case "Portfolio":
+        return <ChangePortfolio />;
+      case "Profile":
+        return <ChangeProfile />;
+      default:
+        return null;
+    }
+  }
   return (
     <>
       {isLoading && user === null && <CircularProgress />}
-      <StudentForm className="py-5">
-        <h4>EDIT STUDENT</h4>
-        <div className="navigators d-flex flex-row gap-4 mt-4">
+      <Wrapper className="py-5 mt-4">
+        <div className="navigators d-flex flex-row gap-3">
           <div
             onClick={() => {
               setActiveNav("Profile");
@@ -110,157 +103,265 @@ export default function EditStudent() {
           >
             <Icon icon="mdi:key" className="icon" /> Password
           </div>
+          <div
+            onClick={() => {
+              setActiveNav("Portfolio");
+            }}
+            className={
+              activeNav === "Portfolio" ? "navigator active" : "navigator"
+            }
+          >
+            <Icon icon="zondicons:portfolio" className="icon" /> Portfolio
+          </div>
         </div>
-        {activeNav === "Profile" ? (
-          <div className="div mt-5 p-3">
-            <form
-              className="profile-div"
-              onSubmit={handleSubmit(onSubmitProfile)}
-            >
-              <div className="row">
-                <div className="d-flex flex-column col-md-6">
-                  <label htmlFor="firstName" className="label">
-                    First name
-                  </label>
-                  <input
-                    name="firstName"
-                    defaultValue={user?.firstName}
-                    type="text"
-                    {...register("firstName")}
-                  />
-                  <p className="error-message">
-                    {errors.firstName?.message
-                      ? `*${errors.firstName?.message}`
-                      : ""}
-                  </p>
-                </div>
-                <div className="d-flex flex-column col-md-6">
-                  <label htmlFor="lastName" className="label">
-                    Last name
-                  </label>
-                  <input
-                    name="lastName"
-                    defaultValue={user?.lastName}
-                    type="text"
-                    {...register("lastName")}
-                  />
-                </div>
-              </div>
-              <div className="row mt-4 mt-3">
-                <div className="d-flex flex-column col-md-6 id">
-                  <label htmlFor="id" className="label">
-                    {user?.role === "student"
-                      ? "admission number"
-                      : "teaacher id"}
-                  </label>
-                  <input name="id" readOnly {...register("id")} />
-                </div>
-                <div className="d-flex flex-column col-md-6">
-                  <label htmlFor="class" className="label">
-                    {user?.role === "student"
-                      ? "current class"
-                      : "class handled"}
-                  </label>
-                  <input name="class" readOnly {...register("class")} />
-                </div>
-              </div>
 
-              <div className="row mt-4 mt-3">
-                <div className="d-flex flex-column col-md-6 email">
-                  <label htmlFor="email" className="label">
-                    Email address
-                  </label>
-                  <input readOnly value={user?.email} name="email" />
-                </div>
-                <div className="d-flex flex-column col-md-6">
-                  <label htmlFor="tel" className="label">
-                    {user?.role === "student" ? "Parent phone" : "Phone number"}
-                  </label>
-                  <input
-                    defaultChecked={
-                      user?.role === "student" ? user?.parentPhone : user?.tel
-                    }
-                    name="tel"
-                    {...register("tel")}
-                  />
-                  <p className="error-message">
-                    {errors.tel?.message ? `*${errors.tel?.message}` : ""}
-                  </p>
-                </div>
-              </div>
-
-              <div className="button-div d-flex justify-content-end mt-4">
-                <Button blue>Save Changes</Button>
-              </div>
-            </form>
-          </div>
-        ) : (
-          <div className="out mt-5 p-3">
-            <form
-              className="security-div d-flex flex-column gap-2"
-              onSubmit={handleSubmit(onSubmitSecurity)}
-            >
-              <div className="d-flex flex-column">
-                <label htmlFor="oldPwd" className="label">
-                  Old Password
-                </label>
-                <input
-                  name="oldPwd"
-                  {...register("oldPwd")}
-                  placeholder="Input old password"
-                />
-                <p className="error-message">
-                  {errors.oldPwd?.message ? `*${errors.oldPwd?.message}` : ""}
-                </p>
-              </div>
-              <div className="d-flex flex-column">
-                <label htmlFor="newPwd" className="label">
-                  New Password
-                </label>
-                <input
-                  name="newPwd"
-                  {...register("newPwd")}
-                  placeholder="New password"
-                />
-                <p className="error-message">
-                  {errors.newPwd?.message ? `*${errors.newPwd?.message}` : ""}
-                </p>
-              </div>
-              <div className="d-flex flex-column">
-                <input
-                  name="confirmPwd"
-                  {...register("confirmPwd")}
-                  placeholder="Confirm new password"
-                />
-                <p className="error-message">
-                  {errors.confirmPwd?.message
-                    ? `*${errors.confirmPwd?.message}`
-                    : ""}
-                </p>
-              </div>
-              <AddAndDeleteSubject studentId={identity} />
-
-              <div className="button-div d-flex justify-content-end mt-4">
-                <Button blue>Save Changes</Button>
-              </div>
-            </form>
-          </div>
-        )}
-      </StudentForm>
+        <div>{currentPage}</div>
+      </Wrapper>
     </>
   );
 }
-const StudentForm = styled.div`
-  padding-right: 32px !important;
+
+const ChangeProfile = () => {
+  const { identity } = useParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [signatureFile, setSignatureFile] = useState("");
+  const { user } = useSelector((state) => state.users || {});
+  useEffect(() => {
+    dispatch(fetchUser({ id: identity }));
+  }, [identity, dispatch]);
+
+  const onSubmitProfile = async (data) => {
+    console.log("data");
+  };
+  const phoneRegEx =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  //validations for edit form
+  const schema = yup.object({
+    firstName: yup.string().required("input first name"),
+    lastName: yup.string().required("input last name"),
+    tel: yup
+      .string()
+      .matches(phoneRegEx, "phone number is invalid")
+      .required("phone number is required")
+      .min(10, "phone number is invalid")
+      .max(11, "phone number is invalid"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      tel: user?.role === "student" ? user?.parentPhone : user?.tel,
+      class: user?.role === "student" ? user?.currentClass : user?.classHandled,
+      id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
+    },
+  });
+  console.log(user);
+  return (
+    <div className="div p-3">
+      <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
+        <div className="row">
+          <div className="d-flex flex-column col-md-6">
+            <label htmlFor="firstName" className="label">
+              First name
+            </label>
+            <input
+              name="firstName"
+              defaultValue={user?.firstName}
+              type="text"
+              {...register("firstName")}
+            />
+            <p className="error-message">
+              {errors.firstName?.message ? `*${errors.firstName?.message}` : ""}
+            </p>
+          </div>
+          <div className="d-flex flex-column col-md-6">
+            <label htmlFor="lastName" className="label">
+              Last name
+            </label>
+            <input
+              name="lastName"
+              defaultValue={user?.lastName}
+              type="text"
+              {...register("lastName")}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="d-flex flex-column col-md-6 id mt-3">
+            <label htmlFor="id" className="label">
+              {user?.role === "student" ? "admission number" : "teaacher id"}
+            </label>
+            <input
+              name="id"
+              defaultValue={user?.admissionNumber}
+              readOnly
+              {...register("id")}
+              className="id"
+            />
+          </div>
+          <div className="d-flex flex-column col-md-6 class mt-3">
+            <label htmlFor="class" className="label">
+              {user?.role === "student" ? "current class" : "class handled"}
+            </label>
+            <input
+              defaultValue={user?.currentClass}
+              name="class"
+              readOnly
+              {...register("class")}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="d-flex flex-column col-md-6 email mt-3">
+            <label htmlFor="email" className="label">
+              Email address
+            </label>
+            <input
+              readOnly
+              value={user?.email}
+              name="email"
+              className="email"
+            />
+          </div>
+          <div className="d-flex flex-column col-md-6 mt-3">
+            <label htmlFor="tel" className="label">
+              {user?.role === "student" ? "Parent phone" : "Phone number"}
+            </label>
+            <input
+              defaultValue={
+                user?.role === "teacher" ? user?.tel : user?.parentPhone
+              }
+              name="tel"
+              {...register("tel")}
+            />
+            <p className="error-message">
+              {errors.tel?.message ? `*${errors.tel?.message}` : ""}
+            </p>
+          </div>
+        </div>
+
+        <div className="button-div d-flex justify-content-end mt-4">
+          <Button blue>Save Changes</Button>
+        </div>
+      </form>
+    </div>
+  );
+};
+const ChangePassword = () => {
+  const { identity } = useParams();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useSelector((state) => state.users || {});
+  useEffect(() => {
+    dispatch(fetchUser({ id: identity }));
+  }, [identity, dispatch]);
+  const schema = yup.object({
+    newPassword: yup
+      .string()
+      .required("set a password")
+      .min(5, "new password must be at least 5 characters")
+      .max(12, "new password must not be more than 12 characters"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "passwords must match")
+      .required("confirm your password"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      newPassword: "",
+    },
+  });
+  const onSubmitSecurity = async (data) => {
+    setIsLoading(true);
+    await api
+      .put(`/users/change-password-for-student/${identity}`, {
+        newPassword: data.newPassword,
+      })
+      .then((res) => {
+        toast.success("Password changed successfully");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong, try again");
+        setIsLoading(false);
+      });
+  };
+  return (
+    <div className="div p-3">
+      <form
+        className="security-div d-flex flex-column gap-2"
+        onSubmit={handleSubmit(onSubmitSecurity)}
+      >
+        <div className="d-flex flex-column">
+          <label htmlFor="newPassword" className="label">
+            New Password
+          </label>
+          <input
+            name="newPassword"
+            {...register("newPassword")}
+            placeholder="New password"
+          />
+          <p className="error-message">
+            {errors.newPassword?.message
+              ? `*${errors.newPassword?.message}`
+              : ""}
+          </p>
+        </div>
+        <div className="d-flex flex-column">
+          <input
+            name="confirmNewPassword"
+            {...register("confirmNewPassword")}
+            placeholder="Confirm new password"
+          />
+          <p className="error-message">
+            {errors.confirmNewPassword?.message
+              ? `*${errors.confirmNewPassword?.message}`
+              : ""}
+          </p>
+        </div>
+
+        <div className="button-div d-flex justify-content-end mt-4">
+          <Button disabled={isLoading} blue>
+            Save Changes
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+};
+const ChangePortfolio = () => {
+  const dispatch = useDispatch();
+  const { identity } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useSelector((state) => state.users || {});
+  useEffect(() => {
+    dispatch(fetchSubjects({ id: identity }));
+  }, [identity, dispatch]);
+  console.log(user.subjectTaught);
+  return (
+    <div className="div mt-5 p-3">
+      <h6> Edit portfolio, add and delete subject, change teacher class etc</h6>
+      <AddAndDeleteSubject studentId={identity} />
+    </div>
+  );
+};
+
+const Wrapper = styled.div`
   padding-left: 32px !important;
-  .div {
-    background: white !important;
-    border-radius: 20px;
-    max-width: 500px;
-  }
-  .profile-div {
-    max-width: 600px;
-  }
+  padding-right: 32px !important;
   .navigator {
     padding-bottom: 10px;
     cursor: pointer;
@@ -273,15 +374,20 @@ const StudentForm = styled.div`
     align-items: center;
     border-bottom: 2px solid transparent;
   }
-  .out {
-    max-width: 400px;
-    background-color: white !important;
-    border-radius: 20px;
-  }
   .active {
     border-bottom: 2px solid black;
     color: black;
     transition: 0.3s;
+  }
+  .port {
+    height: 400px !important;
+    width: 400px !important;
+    border: 1px solid red;
+  }
+  .div {
+    background: white !important;
+    border-radius: 20px;
+    max-width: 500px;
   }
   .label {
     font-weight: 600;
@@ -304,24 +410,10 @@ const StudentForm = styled.div`
     width: 100%;
   }
   .email,
-  .name,
   .id,
   .class {
     input {
       color: grey !important;
     }
-  }
-  .error-message {
-    color: orangered;
-    padding-left: 7px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .icon {
-    font-size: 15px;
-  }
-  @media (max-width: 1100px) {
-    padding-right: 24px !important;
-    padding-left: 24px !important;
   }
 `;

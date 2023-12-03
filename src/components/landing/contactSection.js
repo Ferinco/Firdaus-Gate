@@ -1,24 +1,46 @@
+import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 export default function ContactUs() {
   return (
-    <Contact>
-      <div className="container d-flex w-100 justify-content-between py-4">
-        <div>
-          <h6>Find Our School</h6>
+    <Contact className="d-flex justify-content-center">
+      <div className="container row d-flex w-100 justify-content-between py-4 w-100 p-0">
+        <div className="col-md-4 d-flex flex-row gap-3 align-items-center">
+        <Link className="m-0 react-router-link ">Find Our School {" "} </Link>
+          <Icon icon="teenyicons:school-outline" className="icon"/>
         </div>
-        <div>
-          <h6>Call Us On</h6>
-          <h6>09134786486</h6>
+        <div className="col-md-4 d-flex flex-column gap-0 align-items-center ">
+        <Link className="m-0 react-router-link">Call Us On</Link>
+          <Link className="m-0 react-router-link">09134786486</Link>
         </div>
-        <div>
-          <h6>Email Us</h6>
-          <h6>firdausuibdnehriy</h6>
+        <div className="col-md-4 d-flex flex-row gap-3 align-items-center div">
+          <Icon icon="cil:envelope-letter" className="icon"/>
+          <Link className="m-0 react-router-link ">Send Us an Email {" "} </Link>
         </div>
       </div>
     </Contact>
   );
-}
+} 
 const Contact = styled.div`
 background:#f5f5f5;
 color: black;
+.container{
+@media screen and (max-width: 767px){
+  .col-md-4{
+justify-content:center !important;
+padding:7px 0px;
+  }
+}
+}
+.div{
+
+    justify-content: flex-end;
+}
+.icon{
+    color:blue !important;
+    font-size: 40px;
+}
+.react-router-link{
+    font-size: 20px;
+}
 `;

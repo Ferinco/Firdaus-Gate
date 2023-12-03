@@ -1,7 +1,7 @@
 import { api } from "../api/axios";
 export const SubjectService = {
   getSubjects: async (userId) => {
-    const { data } = await api.get(`/subject/get${userId}`);
+    const { data } = await api.get(`/subjects/get/${userId}`);
     return data;
   },
   addSubjects: async (payload) => {
@@ -17,8 +17,10 @@ export const SubjectService = {
     });
     return data;
   },
-  deleteSubjects: async (subject_code, userId)=>{
-    const {data} = await api.delete(`/subject/remove/${subject_code}/${userId}`)
-    return data
+  deleteSubjects: async (subject_code, userId) => {
+    const { data } = await api.delete(
+      `/subject/remove/${subject_code}/${userId}`
+    );
+    return data;
   },
 };

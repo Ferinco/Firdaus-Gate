@@ -19,16 +19,16 @@ const TabsConfig = [
   },
   {
     link: PATH_DASHBOARD.admin.createTeachers,
-    title: "Create Account",
+    title: "Create Teacher",
     subTitle: "create a new teacher account",
-    icon: "typcn:user-add",
+    icon: "mingcute:necktie-fill",
     iconColor: "black",
   },
   {
-    link: PATH_DASHBOARD.admin.calendar,
-    title: "Term Calendar",
-    subTitle: "Set calendar for current term",
-    icon: "solar:calendar-bold",
+    link: PATH_DASHBOARD.admin.createStudents,
+    title: "Create Student",
+    subTitle: "create a new teacher account",
+    icon: "bxs:graduation",
     iconColor: "white",
   },
   {

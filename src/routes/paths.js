@@ -14,6 +14,7 @@ export const PATH_AUTH = {
 // for  external pages
 export const PATH_PAGE = {
   home: "/",
+  about: "/about-us",
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
 };
@@ -42,7 +43,8 @@ export const PATH_DASHBOARD = {
   },
   admin: {
     index: ROOT_ADMIN,
-    createTeachers: JOIN(ROOT_ADMIN, "create"),
+    createTeachers: JOIN(ROOT_ADMIN, "create-teacher"),
+    createStudents: JOIN(ROOT_ADMIN, "create-student"),
     teachersList: JOIN(ROOT_ADMIN, "teachers-list"),
     studentsList: JOIN(ROOT_ADMIN, "students-list"),
     createTerm: JOIN(ROOT_ADMIN, "create-term"),
