@@ -18,6 +18,8 @@ export const PATH_PAGE = {
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
   receipt: "/admission/admission-form/payment-success",
+admission: "/admission/index",
+continue: "/admission/continue-admission",
 
 };
 

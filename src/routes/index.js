@@ -7,6 +7,8 @@ import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import Settings from "../pages/settings";
 import { Receipt } from "../components/custom";
+import AdmissionHome from "../pages/admission/home";
+import ContinueAdmission from "../pages/admission/continue";
 import {
   TeacherDashboard,
   CreateResult,
@@ -47,7 +49,7 @@ import Scheme from "../pages/teacher/scheme";
 import Notify from "../pages/admin/notify";
 import {StudentInfo} from "../pages/admin/profileInfo"
 import {TeacherInfo} from "../pages/admin/profileInfo"
-
+import AdmissionLayout from "../pages/admission/layout";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -59,10 +61,15 @@ export default function Routes() {
     },
     {
       path: "/admission",
+      element: 
+      <AdmissionLayout/>,
       children: [
+        { path: "index", element: <AdmissionHome /> },
         { path: "admission-into-jss1", element: <JSS1Admission /> },
         { path: "admission-form", element: <AdmissionForm /> },
         { path: "admission-form/payment-success", element: <Receipt /> },
+        { path: "continue-admission", element: <ContinueAdmission /> },
+
       ],
     },
     {

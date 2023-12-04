@@ -73,7 +73,7 @@ export default function Navbar() {
               <ul class="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
-                  to={PATH_PAGE.admissionForm}
+                  to={PATH_PAGE.admission}
                 >
                   Student admission portal
                 </Link>
