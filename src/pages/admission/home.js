@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PATH_PAGE } from "../../routes/paths";
+import { PATH_DASHBOARD, PATH_PAGE } from "../../routes/paths";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/custom";
 export default function AdmissionHome(){
@@ -14,7 +14,7 @@ Purchase Admission Form</Link>
     <Button blue>
         <Link to={PATH_PAGE.continue} className="react-router-link">Continue Application</Link>
     </Button>
-    <Button blue>Login to Dashboard</Button>
+    <Button blue> <Link className="react=-router-link" to={PATH_DASHBOARD.student}></Link> Already a Student?</Button>
 </div>
         </Container>
     )

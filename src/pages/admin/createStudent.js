@@ -12,8 +12,7 @@ export default function CreateStudents() {
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const { user } = useAuth();
-  const phoneRegEx =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   //yup resolvers
   const schema = yup.object({
