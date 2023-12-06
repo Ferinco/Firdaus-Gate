@@ -35,6 +35,18 @@ export default function AdmissionFormSteps() {
         return "Student Information";
     }
   };
+  const renderSubTitle = () => {
+    switch (step) {
+      case 1:
+        return "Inputs with * are required";
+      case 2:
+        return "Inputs with * are required";
+      case 3:
+        return "h;hiorhwo'rweo";
+      default:
+        return "Student Information";
+    }
+  };
   const [overlay, setOverlay] = useState(false);
   function ConfirmExit() {
     setOverlay(true);
@@ -53,7 +65,10 @@ export default function AdmissionFormSteps() {
       </div>
       <div className="container ">
         <div className="step-indicator d-flex justify-content-between align-items-center py-5">
+          <div className="d-flex flex-column">
           <h3 className="m-0 pl-2">{renderTitle()}</h3>
+          <p className="m-0 pl-2">{renderSubTitle()}</p>
+          </div>
           <div>
             <span className="display-4">{step}</span>
             <span className="display-6" style={{ opacity: 0.4 }}>
@@ -105,6 +120,11 @@ export default function AdmissionFormSteps() {
 }
 
 const Wrapper = styled.div`
+.step-indicator{
+p{
+color:red;
+}
+}
   .header {
     height: 50px !important;
     color: blue;
