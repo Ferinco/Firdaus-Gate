@@ -28,7 +28,7 @@ const columns = [
     mappings: {},
   },
   {
-    header: "Last Name",
+    header: "Surname",
     accessor: "lastName",
     isSorted: false,
     isSortedDesc: false,
@@ -44,7 +44,7 @@ const columns = [
     mappings: {},
   },
   {
-    header: "Admission Number",
+    header: "Admission No.",
     accessor: "admissionNumber",
     isSorted: true,
     isSortedDesc: false,
@@ -52,7 +52,7 @@ const columns = [
     mappings: {},
   },
   {
-    header: "Current Class",
+    header: "Class",
     accessor: "currentClass",
     isSorted: true,
     isSortedDesc: false,
@@ -102,6 +102,7 @@ export default function StudentsList() {
   const [canPreviousPage, setCanPreviousPage] = useState(false);
   const [dataTotal, setDataTotal] = useState(0);
   const [overlay, setOverlay] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
   const dispatch = useDispatch();
   const [deleteId, setDeleteId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -311,7 +312,6 @@ export default function StudentsList() {
       toast.success(`${multiSelect.length} students deleted successfully`);
     }
   };
-
   return (
     <>
       {CSVOpen && (
@@ -379,7 +379,7 @@ export default function StudentsList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  <button onClick={deleteMultiple} className="action-bar">
+                  <button onClick={()=>{setConfirmation(true)}} className="action-bar">
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -546,7 +546,6 @@ export default function StudentsList() {
             </div>
           )}
         </div>
-
         {overlay ? (
           <div className="overlay-wrapper d-flex ">
             <div
@@ -578,6 +577,39 @@ export default function StudentsList() {
         ) : (
           ""
         )}
+        {
+          confirmation ? (
+            <div className="overlay-wrapper d-flex ">
+              <div
+                className={`d-flex flex-column p-3 overlay-options ${
+                  confirmation ? "open" : "close"
+                }`}
+              >
+                <p>Are you sure you want to delete {multiSelect.length} {multiSelect.length > 1 ? "students'" : "student's"} profile?</p>
+                <div className=" buttons d-flex gap-3">
+                  <button
+                    className="left"
+                    onClick={() => {
+                     deleteMultiple()
+                     setConfirmation(false)
+                    }}
+                  >
+                    yes
+                  </button>
+                  <button
+                    className="right"
+                    onClick={() => {
+                      setConfirmation(false);
+                    }}
+                  >
+                    no
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
       </Wrapper>
     </>
   );
