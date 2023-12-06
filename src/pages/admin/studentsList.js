@@ -106,7 +106,6 @@ export default function StudentsList() {
   const dispatch = useDispatch();
   const [deleteId, setDeleteId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
