@@ -47,6 +47,7 @@ export default function StepOne({ setStep }) {
   const dispatch = useDispatch();
   const { register, handleSubmit, watch, formState: {errors} } = useForm({
     resolver: yupResolver(schema),
+    shouldUnregister: true,
     defaultValues: {
       firstName: "",
       surname: "",
@@ -75,7 +76,7 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
   };
 
   const onSave = (values) => {
-    dispatch(studentInformation(values));
+    dispatch(studentInformation({...values, dateOfBirth: values.dateOfBirth.toISOString(),}));
     setStep(2);
   };
   return (
@@ -437,6 +438,7 @@ p{
   color: grey;
   text-transform: capitalize;
   color: black;
+  margin-bottom: -7px;
   span{
   color:red !important;
 }
