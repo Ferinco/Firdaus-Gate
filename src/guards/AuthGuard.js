@@ -15,10 +15,11 @@ export default function AuthGuard({ children }) {
 const { logout } = useAuth()
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
-// if(isAuthenticated){
-//   if(logout){
-//     window.history.replaceState(null, "", PATH_PAGE.home)
-//   }
+
+  // const {user} = useAuth()
+// if(user.status === inactive){
+  // return <Navigate to={requestedLocation} />; //not-found page shii
+
 // }
 
   if (!isAuthenticated) {

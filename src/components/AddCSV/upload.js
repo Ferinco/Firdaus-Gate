@@ -26,16 +26,16 @@ export default function Upload({ onClose, setData, data, setStage }) {
     }
   };
   return (
-    <div>
+    <Wrapper className="d-flex flex-column justify-content-between">
 <div>
-  <div>
+  <div className="d-flex flex-row justify-content-between align-items-center">
 
-  <h5>Don't have the template? Click Here* </h5>
+  <h5 className="m-0">Don't have the template? Click Here* </h5>
   <button>Download Template</button>
   </div>
   <div><small>Make sure you are using</small></div>
 </div>
-    <div className="upload-area position-relative">
+    <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center">
       <input
         type="file"
         className="position-absolute h-100 w-100 opacity-0"
@@ -48,6 +48,13 @@ export default function Upload({ onClose, setData, data, setStage }) {
       <p className="text-muted">or drag and drop it here</p>
       <small>{file.name}</small>
         </div>
-    </div>
+    </Wrapper>
   );
 }
+const Wrapper = styled.div`
+height: 100%;
+.upload-area{
+  height: 300px;
+}
+
+`
