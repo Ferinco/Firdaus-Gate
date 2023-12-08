@@ -2,6 +2,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import Papa from "papaparse";
+import { Icon } from "@iconify/react";
 
 export default function Upload({ onClose, setData, data, setStage }) {
   const [file, setFile] = React.useState("");
@@ -28,14 +29,14 @@ export default function Upload({ onClose, setData, data, setStage }) {
   return (
     <Wrapper className="d-flex flex-column justify-content-between">
 <div>
-  <div className="d-flex flex-row justify-content-between align-items-center">
+  <div className="d-flex flex-row justify-content-center align-items-center gap-3 flex-wrap">
 
-  <h5 className="m-0">Don't have the template? Click Here* </h5>
-  <button>Download Template</button>
+  <p className="m-0 intro">Don't have the template? Click Here* </p>
+  <button className="download-btn">Download Template</button>
   </div>
   <div><small>Make sure you are using</small></div>
 </div>
-    <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center">
+    <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center gap-2">
       <input
         type="file"
         className="position-absolute h-100 w-100 opacity-0"
@@ -43,9 +44,8 @@ export default function Upload({ onClose, setData, data, setStage }) {
         accept=".csv"
         style={{ cursor: "pointer", left: 0, right: 0 }}
         />
-      <h5>Select a CSV file to upload</h5>
-
-      <p className="text-muted">or drag and drop it here</p>
+        <Icon className="icon" icon="fa6-solid:cloud-arrow-up" />
+      <p className="text-muted"> Drag file here or browse for file.</p>
       <small>{file.name}</small>
         </div>
     </Wrapper>
@@ -54,7 +54,19 @@ export default function Upload({ onClose, setData, data, setStage }) {
 const Wrapper = styled.div`
 height: 100%;
 .upload-area{
-  height: 300px;
+  height: 270px;
 }
-
+.icon{
+  font-size: 60px !important;
+}
+.intro{
+  font-size: 20px;
+}
+.download-btn{
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: grey;
+  border: 1px solid grey;
+}
 `
