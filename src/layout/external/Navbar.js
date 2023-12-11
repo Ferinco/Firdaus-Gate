@@ -201,6 +201,7 @@ const NavigationBar = styled.div`
     background: white !important;
     z-index: 999;
     width: 100%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     .div {
       align-items: center;
       height: 100px;
@@ -265,6 +266,8 @@ const NavigationBar = styled.div`
     margin-top: -53px !important;
     width: 100% !important;
     z-index: 9999;
+    background-color: #fff; /* Change to your desired background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   .mobile-nav {
     display: none !important;
@@ -300,7 +303,7 @@ const NavigationBar = styled.div`
       }
     }
     .closed {
-      margin-left: -1000px !important;
+      margin-left: -2000px !important;
       transition: 0.3s;
       /* display:none; */
     }
