@@ -41,7 +41,7 @@ export default function LandingHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 156);
+      setSticky(window.scrollY > 200);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -95,6 +95,7 @@ const Wrapper = styled.div`
   height: calc(100vh - 70px);
   color: white;
   .sticky {
+    margin-top: 70px;
   }
   .row {
     justify-content: space-between;

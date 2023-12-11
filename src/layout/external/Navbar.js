@@ -16,10 +16,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 156);
+      setSticky(window.scrollY > 200);
     };
     window.addEventListener("scroll", handleScroll);
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -35,7 +34,7 @@ export default function Navbar() {
 
   return (
     <NavigationBar className="navigation-bar">
-      <div className=" first-navbar d-none d-lg-block d-xl-flex ">
+      <div className=" first-navbar d-flex ">
         <div className="div d-flex justify-content-between w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
@@ -45,14 +44,14 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0 `}>
+      <div className={`second-navbar p-0 ${isSticky ? "sticky" : "" }`}>
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
-            <div className="d-lg-none icon-div">
+            <div className="d-none icon-div align-items-center m-0">
               <Icon
                 icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
                 color="black"
-                className="icon"
+                className="icon m-0"
                 onClick={() => {
                   setIsOpen((prev) => !prev);
                 }}
@@ -60,7 +59,7 @@ export default function Navbar() {
             </div>
             <Logo />
           </div>
-          <ul className="menu-links d-none d-lg-flex align-items-center h-100 mb-0">
+          <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
               <a className="nav-link">about &#9662;</a>
               <ul class="dropdown px-1 pb-1">
@@ -184,6 +183,7 @@ const NavigationBar = styled.div`
     background-color: #f5f5f5;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
     &-div {
       border-right: 1px solid gray;
       border-left: 1px solid gray;
@@ -262,14 +262,14 @@ const NavigationBar = styled.div`
   }
   .sticky {
     position: fixed !important;
-    margin-top: -156px !important;
+    margin-top: -53px !important;
     width: 100% !important;
     z-index: 9999;
   }
   .mobile-nav {
     display: none !important;
   }
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: 1057px) {
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
@@ -319,5 +319,16 @@ const NavigationBar = styled.div`
     }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 1057px){
+  .first-navbar{
+  display: none !important;
+  }
+  .menu-links{
+  display: none !important;
+  }
+  .icon-div{
+  display: flex !important;
+  }
   }
 `;
