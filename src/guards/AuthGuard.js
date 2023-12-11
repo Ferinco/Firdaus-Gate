@@ -16,11 +16,6 @@ const { logout } = useAuth()
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
 
-  // const {user} = useAuth()
-// if(user.status === inactive){
-  // return <Navigate to={requestedLocation} />; //not-found page shii
-
-// }
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
