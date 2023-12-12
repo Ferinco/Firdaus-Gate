@@ -12,15 +12,15 @@ export default function OfferSection(){
 <div className="col-md-4 d-flex flex-column">
     <h5>20+ years experience</h5>
 
-    <p>wuhhdiuher eifgieugriew gpiugreaw rjguksuewgptriuegwr w; yurtewr  </p>
+    <p>For over 20 years, we have been in operation and have delivered well!</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Compitent workers</h5>
-<p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
+<p>Our workers are well trained and experienced in their respective fields.</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Accredited and certified</h5>
-<p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
+<p>Our school is government screened, accredited and certified.</p>
 </div>
 
 </div>

@@ -35,7 +35,7 @@ export default function About() {
   ];
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center pt-5">
-      <div className="p-5 row">
+      <div className="p-5 row body">
         <div className="col-md-6">
           <h2>The Great Citadel of Knowledge and Faith</h2>
         </div>
@@ -54,7 +54,7 @@ export default function About() {
         </div>
       </div>
       <div className="image-div w-100"></div>
-      <div className="row p-5 w-100">
+      <div className="row p-5 w-100 body">
         <div className="col-md-6">
           <h2>Our Mission</h2>
         </div>
@@ -73,7 +73,7 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="vision-div w-100 p-5 d-flex flex-column gap-2">
+      <div className="vision-div w-100 p-5 d-flex flex-column gap-2 body">
         <h6 className="pre-header">our vision</h6>
         <h3>
           "Our vision is to equip students to be able to compete with their
@@ -89,8 +89,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className="objectives d-flex flex-column justify-content-start align-items-start text-left"></div>
-      <div className=" why-div d-flex flex-row justify-content-between w-100 p-5 gap-5">
+      <div className=" why-div d-flex flex-row justify-content-between w-100 p-5 gap-5 body">
         <div className="white-div d-flex flex-column gap-3 w-50">
           <h6 className="m-0 pb-2">WHY FIRDAUS-GATE ?</h6>
           <h2>We are here to offer the best services to you and your wards.</h2>
@@ -118,11 +117,11 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className="objectives d-flex flex-column p-5">
+      <div className="objectives d-flex flex-column p-5 body">
         <div className="header d-flex justify-content-left text-left">
           <h2>Our Objectives</h2>
         </div>
-        <div className="body d-flex flex-row nowrap justify-content-between w-100 gap-4 align-items-center">
+        <div className="content d-flex flex-row nowrap justify-content-between w-100 gap-4 align-items-center">
           <div className="left d-flex flex-column">
             <ul className="m-0 p-0 d-flex flex-column flex-wrap gap-2">
               <li>To build proper Iman in students.</li>
@@ -252,7 +251,7 @@ padding-top: 0 ;
     }
   }
   .objectives {
-    .body {
+    .content {
       @media screen and (max-width: 1009px) {
         display: flex;
         flex-direction: column-reverse !important;
@@ -261,10 +260,13 @@ padding-top: 0 ;
     .right {
       .image {
         height: 150px;
-        max-width: 400px;
+        width: 400px;
         overflow: hidden;
         border-radius: 20px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        @media screen and (max-width:500px) {
+          width:300px !important;
+        }
         &:first-child {
           background-color: purple;
           margin-top: 10px;
@@ -296,6 +298,12 @@ padding-top: 0 ;
     }
 
   @media screen and (max-width: 768px) {
+    margin-top: 80px !important;
+    .body{
+    padding-right: 32px !important; 
+    padding-left: 32px !important; 
+
+    }
     h2 {
       font-size: 36px !important;
     }
@@ -303,8 +311,11 @@ padding-top: 0 ;
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
     }
-    .reason{
-     width: fit-content !important;
+  }
+  @media screen and (max-width:382px) {
+    .reasons{
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 `;

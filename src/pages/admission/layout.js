@@ -24,7 +24,7 @@ flex-direction: row ;
   @media screen and (max-width: 1100px) {
     flex-direction: column !important;
     .outlet{
-        width:100%;
+        width:100% !important;
         margin-top: 220px;
     }
   }
