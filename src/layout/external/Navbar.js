@@ -116,7 +116,7 @@ export default function Navbar() {
               </ul>
             </li>
             <li>
-              <a className="nav-link">gallery</a>
+              <Link className="nav-link" to={PATH_PAGE.gallery}>gallery</Link>
             </li>
             <li>
               <a className="nav-link">news</a>

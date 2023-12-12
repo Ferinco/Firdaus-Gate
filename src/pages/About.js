@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { Button } from "../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { Gallery } from "../components/landing";
+import { useEffect } from "react";
 export default function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const Reasons = [
     {
       name: "Govt. Approved",
@@ -185,7 +189,7 @@ const Container = styled.div`
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.1)
       ),
-      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;
+      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1702391876/Firdaus/Screenshot_20220822-213149_1_fyehx3.jpg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;

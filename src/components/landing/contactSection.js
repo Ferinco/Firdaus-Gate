@@ -6,7 +6,7 @@ export default function ContactUs() {
     <Contact className="d-flex justify-content-center">
       <div className="py-0 container row d-flex w-100 justify-content-between py-4 w-100 p-0">
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center">
-        <Link className="m-0 react-router-link ">Find Our School {" "} </Link>
+        <Link className="m-0 react-router-link ">&#8592; Find Our School {" "} </Link>
           <Icon icon="teenyicons:school-outline" className="icon"/>
         </div>
         <div className="col-md-4 d-flex flex-column gap-0 align-items-center middle h-100 ">
@@ -15,7 +15,7 @@ export default function ContactUs() {
         </div>
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center div">
           <Icon icon="cil:envelope-letter" className="icon"/>
-          <Link className="m-0 react-router-link ">Send Us an Email {" "} </Link>
+          <Link className="m-0 react-router-link ">Send Us an Email {" "} &#8594;</Link>
         </div>
       </div>
     </Contact>

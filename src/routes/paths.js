@@ -20,6 +20,7 @@ export const PATH_PAGE = {
   receipt: "/admission/admission-form/payment-success",
 admission: "/admission/index",
 continue: "/admission/continue-admission",
+gallery: "/gallery"
 
 };
 
