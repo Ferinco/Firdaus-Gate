@@ -319,6 +319,7 @@ export default function StudentsList() {
           setData={setCsvData}
           data={csvData}
           handleSubmit={createCsvUsers}
+          type = "results"
         />
       )}
       {isLoading ? <CircularProgress /> : ""}
@@ -490,12 +491,11 @@ export default function StudentsList() {
                                 <td className="table-button">
                                   <button
                                     onClick={() => {
-                                      setOverlay(true);
-                                      setDeleteId(row._id);
+                                     console.log(row.status)
                                     }}
-                                    className="delete-button"
+                                    className={row.status === "inactive" ? "activate-button" : "deactivate-button" }
                                   >
-                                    Delete
+                                    {row.status === "active" ? "Deactivate" : "Activate" }
                                   </button>
                                 </td>
                               </td>

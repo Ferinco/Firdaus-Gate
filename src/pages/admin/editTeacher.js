@@ -362,7 +362,7 @@ console.log("photo upload successful")
 const ChangePassword = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));

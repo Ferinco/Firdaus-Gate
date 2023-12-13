@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Papa from "papaparse";
 import { Icon } from "@iconify/react";
 
-export default function Upload({ onClose, setData, data, setStage }) {
+export default function Upload({ onClose, setData, data, setStage }, props) {
   const [file, setFile] = React.useState("");
   const allowedExtension = ["csv"];
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ export default function Upload({ onClose, setData, data, setStage }) {
   <p className="m-0 intro">Don't have the template? Click Here* </p>
   <button className="download-btn">Download Template</button>
   </div>
-  <div><small>Make sure you are using</small></div>
+  <div><small>Make sure you are using</small> <p>{props.type}</p></div>
 </div>
     <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center gap-2">
       <input

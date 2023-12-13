@@ -104,7 +104,10 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
-        {path:"account-settings", element: <Settings/>}
+        {path:"account-settings", element: <Settings/>},
+        { path: "edit-student/:identity", element: <EditStudent/> },
+        { path: "student-info/:identity", element: <StudentInfo/> },
+
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },

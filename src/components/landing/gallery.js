@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Marquee from "react-fast-marquee";
 import { Button } from "../custom/Button";
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../routes/paths";
 export default function Gallery() {
   const marqueImages1 = [
     "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698717/Firdaus/IMG-20230901-WA0010_wpqd5y.jpg",
@@ -70,7 +72,11 @@ export default function Gallery() {
         </Marquee>
       </div>
       <div className="d-flex justify-content-center">
-        <Button blue>View More</Button>
+        <Button blue>
+          <Link className="react-router-link" to={PATH_PAGE.gallery}>
+          View More
+          </Link>
+        </Button>
       </div>
     </Container>
   );

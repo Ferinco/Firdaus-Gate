@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import ContactUs from "../components/landing/contactSection";
 
 export default function GalleryPage() {
   useEffect(() => {
@@ -78,7 +79,8 @@ export default function GalleryPage() {
 ];
 
   return (
-  <Container className="container py-5 d-flex flex-column gap-5">
+  <Container>
+    <div className="container py-5 d-flex flex-column gap-5">
   <div>
     <div><h2>Excursions</h2></div>
     <div className="d-flex flex-row flex-wrap gap-3">
@@ -127,6 +129,8 @@ export default function GalleryPage() {
     }
     </div>
   </div>
+  </div>
+  <ContactUs/>
   </Container>
   )
   

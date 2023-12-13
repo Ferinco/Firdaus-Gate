@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 export default function AddCSV({ onClose, setData, data, handleSubmit }) {
   const [stage, setStage] = useState(1);
-  const renderCSV = () => {
+  const renderCSV = (props) => {
     switch (stage) {
       case 1:
         return (
@@ -15,6 +15,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
             setData={setData}
             data={data}
             setStage={setStage}
+
           />
         );
       case 2:

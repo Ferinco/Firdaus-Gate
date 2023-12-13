@@ -123,7 +123,7 @@ export default function Navbar() {
             </li>
             <li>
               <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
-                <Button blue>CONTACT US</Button>{" "}
+                <Button blue> <a className="p-0" href="#contactUs" style={{color: "white"}}>CONTACT US</a></Button>{" "}
               </a>
             </li>
           </ul>

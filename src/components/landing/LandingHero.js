@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "../custom/Button";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../routes/paths";
 
 const images = [
   {
@@ -76,9 +78,11 @@ export default function LandingHero() {
                 </p>
               </div>
               <div className="button-group d-flex flex-row">
-                <Button blue>Get started</Button>
+                {/* <Button blue>Get started</Button> */}
                 <span> </span>
-                <Button white>About us</Button>
+                <Button blue>
+                  <Link className="react-router-link" to={PATH_PAGE.about}>About Us</Link>
+                </Button>
               </div>
             </div>
           </div>

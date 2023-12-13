@@ -120,6 +120,7 @@ gap: 20px !important;
   }
   .header{
   font-size:20px;
+  font-weight: 600;
   margin-bottom: 10px !important;
   }
   .end {

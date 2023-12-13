@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 export default function ContactUs() {
   return (
-    <Contact className="d-flex justify-content-center">
+    <Contact className="d-flex justify-content-center" id="contactUs">
       <div className="py-0 container row d-flex w-100 justify-content-between py-4 w-100 p-0">
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center">
         <Link className="m-0 react-router-link ">&#8592; Find Our School {" "} </Link>
@@ -11,11 +11,11 @@ export default function ContactUs() {
         </div>
         <div className="col-md-4 d-flex flex-column gap-0 align-items-center middle h-100 ">
         <Link className="m-0 react-router-link span">Call Us On</Link>
-          <Link className="m-0 react-router-link">09134786486</Link>
+          <a className="m-0 react-router-link" href="tel:+2349055512553">09055512553</a>
         </div>
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center div">
           <Icon icon="cil:envelope-letter" className="icon"/>
-          <Link className="m-0 react-router-link ">Send Us an Email {" "} &#8594;</Link>
+          <a className="m-0 react-router-link " href="mailto:firdausgateschools@gmail.com">Send Us an Email {" "} &#8594;</a>
         </div>
       </div>
     </Contact>

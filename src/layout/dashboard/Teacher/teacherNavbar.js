@@ -33,7 +33,9 @@ export default function TeacherNavbar() {
           <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="mb-0">{firstLetter}</p></div>
           <div className={`d-flex flex-column profile-text mb-1`}>
             <h6>{user.firstName}&nbsp;{user.lastName}</h6>
-            <p className="mb-0">{user.email}</p>
+            <p className="mb-0">
+      {user.email.length > 20 ? `${user.email.slice(0, 20)}...` : user.email}
+              </p>
             </div>
           {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
         </div>

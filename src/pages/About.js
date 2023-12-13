@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Button } from "../components/custom/Button";
 import { Icon } from "@iconify/react";
-import { Gallery } from "../components/landing";
 import { useEffect } from "react";
+import ContactUs from "../components/landing/contactSection";
 export default function About() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,6 +38,7 @@ export default function About() {
     },
   ];
   return (
+    <div>
     <Container className="d-flex flex-column justify-content-center align-items-center pt-5">
       <div className="p-5 row body">
         <div className="col-md-6">
@@ -175,6 +176,8 @@ export default function About() {
         </div>
       </div>
     </Container>
+    <ContactUs/>
+    </div>
   );
 }
 

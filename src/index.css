@@ -72,7 +72,7 @@ h6 {
 
 
 .view-button {
-  color: green;
+  color: blue;
   border: 0 !important;
   background: white !important;
   font-size: 13px;
@@ -89,6 +89,24 @@ h6 {
   color: #8080ff  !important;
 }
  .delete-button {
+  color: red !important;
+  border: 0 !important;
+  padding: 0 !important;
+  /* border-radius: 10px; */
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+.activate-button{
+  color: green !important;
+  border: 0 !important;
+  padding: 0 !important;
+  /* border-radius: 10px; */
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+.deactivate-button{
   color: red !important;
   border: 0 !important;
   padding: 0 !important;
