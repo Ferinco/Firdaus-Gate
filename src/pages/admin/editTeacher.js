@@ -140,9 +140,11 @@ const ChangeProfile = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [previewImage, setPreviewImage] = useState(null);
-  const [previewProfile, setPreviewProfile] = useState(null);
+  const [previewProfilePhoto, setPreviewProfilePhoto] = useState(null);
 
   const [signatureFile, setSignatureFile] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
@@ -202,45 +204,40 @@ const ChangeProfile = () => {
       reader.readAsDataURL(file);
     }
   };
-  const handleProfilePhotoChange = () => {
-console.log("photo upload successful")
+
+  //hadling profile photo of teacher
+  const handlePhotoChange = (event) => {
+    const file = event.target.files[0];
+    setProfilePhoto(event.target.files[0]);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewProfilePhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
-      <div className="profilePhoto mt-3">
-            <label htmlFor="profilePhoto" className="label">
-              Teacher Photo:
-            </label>
-            <input
-              type="image"
-              name="profilePhoto"
-              {...register("profilePhoto")}
-              onChange={handleProfilePhotoChange}
-              accept="image/*"
-              className="photo-input d-flex justify-content-center"
-              placeholder={
-                <div className="photo-div">
-                {previewProfile ? (
-                  <img
-                    src={previewProfile}
-                    alt="Preview"
-                    style={{ maxWidth: "70px" }}
-                    className="photo"
-                  />
-                ) : (
-                  <img
-                    src={getValues().profilePhoto}
-                    alt="Preview"
-                    style={{ maxWidth: "70px" }}
-                  />
-                )}
-              </div>
-              }
-            />
-            {errors.photo && <p className="error">{errors.photo.message}</p>}
-         
-          </div>
+      <div className="photo-upload-container">
+        <label htmlFor="photo" className="rounded-input">
+          {previewProfilePhoto ? (
+            <div className="profile-image">
+            <img src={previewProfilePhoto} alt="Preview" className="rounded-preview" />
+            </div>
+          ) : (
+            <span>Upload Photo</span>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            id="photo"
+            {...register('photo')}
+            onChange={handlePhotoChange}
+          />
+        </label>
+      </div>
         <div className="row">
           <div className="d-flex flex-column col-md-6">
             <label htmlFor="firstName" className="label">
@@ -466,18 +463,44 @@ const ChangePortfolio = () => {
 const Wrapper = styled.div`
   padding-left: 32px !important;
   padding-right: 32px !important;
-  .photo-input{
-    width:70px !important;
-    height:70px !important;
-    border-radius:50% !important;
+  .photo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-    &::placeholder{
-      background:blue !important;
-    }
+.rounded-input {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+
+  span {
+    display: block;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
   }
-  .photo-div, .photo{
-      border:1px solid red !important;
-    }
+
+  img.rounded-preview {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  input[type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
   .navigator {
     padding-bottom: 10px;
     cursor: pointer;
@@ -530,6 +553,19 @@ const Wrapper = styled.div`
   .class {
     input {
       color: grey !important;
+    }
+  }
+  .profile-image{
+    width:100px;
+    height:100px;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+
     }
   }
 `;

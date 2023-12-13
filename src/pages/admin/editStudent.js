@@ -125,8 +125,8 @@ const ChangeProfile = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const [previewImage, setPreviewImage] = useState(null);
-  const [signatureFile, setSignatureFile] = useState("");
+  const [previewProfilePhoto, setPreviewProfilePhoto] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState("");
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
@@ -163,10 +163,40 @@ const ChangeProfile = () => {
       id: user?.role === "student" ? user?.admissionNumber : user?.teacherId,
     },
   });
+
+  const handlePhotoChange = (event) => {
+    const file = event.target.files[0];
+    setProfilePhoto(event.target.files[0]);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewProfilePhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   console.log(user);
   return (
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
+      <div className="photo-upload-container">
+        <label htmlFor="photo" className="rounded-input">
+          {previewProfilePhoto ? (
+            <div className="profile-image">
+            <img src={previewProfilePhoto} alt="Preview" className="rounded-preview" />
+            </div>
+          ) : (
+            <span>Upload Photo</span>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            id="photo"
+            {...register('photo')}
+            onChange={handlePhotoChange}
+          />
+        </label>
+      </div>
         <div className="row">
           <div className="d-flex flex-column col-md-6">
             <label htmlFor="firstName" className="label">
@@ -414,6 +444,56 @@ const Wrapper = styled.div`
   .class {
     input {
       color: grey !important;
+    }
+  }
+  .photo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rounded-input {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+
+  span {
+    display: block;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  img.rounded-preview {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  input[type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+.profile-image{
+    width:100px;
+    height:100px;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+
     }
   }
 `;
