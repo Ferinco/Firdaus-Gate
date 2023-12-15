@@ -24,6 +24,7 @@ import {
   StudentDashboard,
   ResultsPage,
   StudentLogin,
+  Assignments
 } from "../pages/student";
 import {
   StudentsList,
@@ -127,7 +128,9 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-        {path:"/student/account-settings", element: <Settings/>}
+        {path:"/student/account-settings", element: <Settings/>},
+        {path:"/student/submit-assignments", element: <Assignments/>},
+
       ],
     },
 

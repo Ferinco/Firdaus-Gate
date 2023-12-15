@@ -22,17 +22,12 @@ export default function Create() {
     middleName: yup.string().optional(),
     admissionNumber: yup.string().required("enter admission number"),
     email: yup.string().email().required("email is required"),
-    password: yup.string().min(5).max(12).required("set a password"),
     parentPhone: yup
       .string()
       .matches(phoneRegEx, "phone number is invalid")
       .required("phone number is required")
       .min(10, "phone number is invalid")
       .max(11, "phone number is invalid"),
-      confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "passwords must match")
-      .required("confirm your password"),
   });
   const {
     register,
@@ -43,12 +38,10 @@ export default function Create() {
     resolver: yupResolver(schema),
     defaultValues: {
       admissionNumber: "",
-      confirmPassword: "",
       email: "",
       firstName: "",
       lastName: "",
       middleName: "",
-      password: "",
       role: "student",
       parentPhone: "",
       gender: "",
@@ -62,7 +55,7 @@ export default function Create() {
     console.log(data);
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("values", JSON.stringify(data));
+    formData.append("values", JSON.stringify({...data, password:`${data.firstName}${data.admissionNumber}`}));
     await UserService.createUser(formData)
       .then((res) => {
         console.log(res);
@@ -210,43 +203,6 @@ export default function Create() {
               <p className="error-message">
                 {errors.email?.message ? `*${errors.email?.message}` : ""}
               </p>
-            </div>
-            <div className="d-flex flex-row input-div my-2">
-              <div className="d-flex flex-column">
-                <label htmlFor="password" className="label">
-                  password
-                </label>
-
-                <input
-                  placeholder="
-                Password"
-                  name="password"
-                  type="password"
-                  {...register("password")}
-                />
-                <p className="error-message">
-                  {errors.password?.message
-                    ? `*${errors.password?.message}`
-                    : ""}
-                </p>
-              </div>
-              <div className="d-flex flex-column">
-                <label htmlFor="confirmPassword" className="label">
-                  confirm passowrd
-                </label>
-                <input
-                  placeholder="Confirm 
-                Password"
-                  name="confirmPassword"
-                  type="password"
-                  {...register("confirmPassword")}
-                />
-                <p className="error-message">
-                  {errors.confirmPassword?.message
-                    ? `*${errors.confirmPassword?.message}`
-                    : ""}
-                </p>
-              </div>
             </div>
             <div className="mt-4">
               <Button

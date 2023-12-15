@@ -25,9 +25,14 @@ const sidebarConfig = [
     title: "Teachers",
   },
   {
-    icon: "la:chalkboard-teacher",
+    icon: "fluent-mdl2:poll-results",
     link: PATH_DASHBOARD.student.results,
     title: "Results",
+  },
+  {
+    icon: "la:chalkboard-teacher",
+    link: PATH_DASHBOARD.student.assignments,
+    title: "Assignments",
   },
 ];
 

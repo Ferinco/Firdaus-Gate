@@ -8,7 +8,7 @@ import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CLASS } from "../../constants/class";
 import { allSubjects } from "../../constants/subjects";
-
+import { ElementarySubjects,BasicSubjects, JuniorSubjects, SeniorSubjects, ScienceSubjects, ArtsSubjects, CommercialSubjects } from "../../configs/subjectsConfig";
 export default function CreateTeachers() {
   //  yup resolvers
   const schema = yup.object({
@@ -19,15 +19,11 @@ export default function CreateTeachers() {
     email: yup.string().email().required("email is required"),
     mobileNumber: yup.string().required("mobile number is required"),
     teacherType: yup.string().required("select teacher type"),
-    password: yup.string().min(5).max(12).required("set a password"),
     // classHandled: yup.string().required("select class managed"),
     // department: yup.string().required("select department"),
     subjectTaught: yup.string().required("select subject taught"),
     gender: yup.string().required("select teacher's gender"),
-    confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "passwords must match")
-    .required("passwords must match!"),  });
+  });
   const {
     handleSubmit,
     register,
@@ -38,12 +34,10 @@ export default function CreateTeachers() {
     resolver: yupResolver(schema),
     defaultValues: {
       teacherId: "",
-      confirmPassword: "",
       email: "",
       firstName: "",
       lastName: "",
       middleName: "",
-      password: "",
       role: "teacher",
       mobileNumber: "",
       gender: "",
@@ -56,6 +50,7 @@ export default function CreateTeachers() {
   });
   const selectedTeacherType = watch("teacherType");
   const selectedClass = watch("classHandled");
+  const selectedDept = watch("department");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (values) => {
@@ -63,11 +58,10 @@ export default function CreateTeachers() {
     const formData = new FormData();
     formData.append(
       "values",
-      JSON.stringify({ ...values, tel: values.mobileNumber })
-    );
+      JSON.stringify({ ...values, tel: values.mobileNumber, password:`${values.firstName}${values.teacherId}` }));
     formData.append("teacherSignature", values.teacherSignature[0]);
     try {
-      setIsSubmitting(true);
+      setIsSubmitting(true); 
       const response = await UserService.createUser(formData);
       reset();
       console.log(response);
@@ -220,11 +214,22 @@ export default function CreateTeachers() {
                 <option value="" disabled>
                       Class Managed
                     </option>
-                  {CLASS.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  <option value="FGKGC_001">KG 1</option>
+                  <option value="FGKGC_002">KG 2</option>
+                  <option value="FGNSC_001">NURSERY 1</option>
+                  <option value="FGNSC_002">NURSERY 2</option>
+                  <option value="FGBSC_001">BASIC 1</option>
+                  <option value="FGBSC_002">BASIC 2</option>
+                  <option value="FGBSC_003">BASIC 3</option>
+                  <option value="FGBSC_004">BASIC 4</option>
+                  <option value="FGBSC_005">BASIC 5</option>
+                  <option value="FGBSC_006">BASIC 6</option>
+                  <option value="FGJSC_001">JSS 1</option>
+                  <option value="FGJSC_002">JSS 2</option>
+                  <option value="FGJSC_003">JSS 3</option>
+                  <option value="FGSSC_001">SSS 1</option>
+                  <option value="FGSSC_002">SSS 2</option>
+                  <option value="FGSSC_003">SSS 3</option>
                 </select>
                 <p className="error-message">
                   {errors.classHandled?.message
@@ -234,15 +239,13 @@ export default function CreateTeachers() {
               </div>
             )}
             {selectedTeacherType === "classTeacher" &&
-              selectedClass?.startsWith("SSS") && (
+              selectedClass?.startsWith("FGSSC") && (
                 <div className="my-2 d-flex flex-column">
                   <label htmlFor="department" className="label">
                     Department
                   </label>
                   <select name="department" {...register("department")}>
-                    <option value="" disabled>
-                      Select Department
-                    </option>
+                  <option value="science">general</option>
                     <option value="science">science</option>
                     <option value="commercial">commercial</option>
                     <option value="art">art</option>
@@ -262,9 +265,47 @@ export default function CreateTeachers() {
               <option value="" disabled>
                       Subject Taught
                     </option>
-                {allSubjects.map((option, index) => (
-                  <option key={index}>{option}</option>
-                ))}
+{
+  selectedClass.startsWith("FGKGC") ? ElementarySubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedClass.startsWith("FGNSC") ? ElementarySubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedClass.startsWith("FGBSC") ? BasicSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedClass.startsWith("FGJSC") ? JuniorSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedDept === "general" ? SeniorSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedDept === "science" ? ScienceSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedDept === "art" ? ArtsSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+{
+  selectedDept === "commercial" ? CommercialSubjects.map((subject)=>(
+    <option value={subject.code}>{subject.name}</option>
+  )) : ""
+}
+
               </select>
               <p className="error-message">
                   {errors.subjectTaught?.message
@@ -306,44 +347,6 @@ export default function CreateTeachers() {
                   ? `*${errors.teacherSignature?.message}`
                   : ""}
               </p>
-            </div>
-
-            <div className="d-flex flex-row input-div my-2">
-              <div className="d-flex flex-column">
-                <label htmlFor="password" className="label">
-                  password
-                </label>
-
-                <input
-                  placeholder="
-            Password"
-                  name="password"
-                  type="password"
-                  {...register("password")}
-                />
-                <p className="error-message">
-                  {errors.password?.message
-                    ? `*${errors.password?.message}`
-                    : ""}
-                </p>
-              </div>
-              <div className="d-flex flex-column">
-                <label htmlFor="confirmPassword" className="label">
-                  confirm passowrd
-                </label>
-                <input
-                  placeholder="Confirm 
-            Password"
-                  name="confirmPassword"
-                  type="password"
-                  {...register("confirmPassword")}
-                />
-                <p className="error-message">
-                  {errors.confirmPassword?.message
-                    ? `*${errors.confirmPassword?.message}`
-                    : ""}
-                </p>
-              </div>
             </div>
             <div className="mt-4">
               <Button

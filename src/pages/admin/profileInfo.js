@@ -32,7 +32,7 @@ export const StudentInfo = ()=>{
             </div>
         <div className="buttons d-flex flex-row gap-2">
             <button className="transfer-btn">Transfer</button>
-            <button className="deactivate-btn">Deactivate</button>
+            <button className={user?.status ==="inactive" ? "deactivate-btn" : "activate-btn"}>{user?.status ==="inactive" ? "Deactivate" : "Activate"}</button>
 
         </div>
 
@@ -48,7 +48,7 @@ export const StudentInfo = ()=>{
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">current class:</p> <h6 className="text-capitalize w-50">{user?.currentClass}</h6></div>
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">gender:</p> <h6 className="text-capitalize w-50">{user?.gender}</h6></div>
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">department :</p> <h6 className="text-capitalize w-50">{user?.department}</h6></div>
-        <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">email :</p> <h6 className="w-50">      {user.email.length > 15 ? `${user?.email.slice(0, 15)}...` : user.email}
+        <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">email :</p> <h6 className="w-50">      {user?.email.length > 15 ? `${user?.email.slice(0, 15)}...` : user?.email}
 </h6></div>
         <div className="info d-flex justify-content-between"><p className="text-capitalize w-50">parent phone :</p> <h6 className="text-capitalize w-50">{user?.parentPhone}</h6></div>
 
@@ -148,11 +148,34 @@ const StudentWrapper = styled.div`
             border-radius: 10px;
             border:1px solid blue;
             color:blue;
+            &:hover{
+            border:1px solid blue;
+            color:white;
+            background-color:blue;
+
+            }
         }
         .deactivate-btn{
             border-radius: 10px;
             border:1px solid black;
             color:black;
+            &:hover{
+            border:1px solid black;
+            color:white;
+            background-color:black;
+
+            }
+        }
+        .activate-btn{
+            border-radius: 10px;
+            border:1px solid green;
+            color:green;  
+            &:hover{
+            border:1px solid green;
+            color:white;
+            background-color:green;
+
+            } 
         }
         button{
             height: fit-content;

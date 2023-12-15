@@ -45,7 +45,9 @@ export const PATH_DASHBOARD = {
     results: JOIN(ROOT_STUDENT, "reports"),
     subjects: JOIN(ROOT_STUDENT, "subjects"),
     teachers: JOIN(ROOT_STUDENT, "teachers"),
-    accountSettings: JOIN(ROOT_STUDENT, "account-settings")
+    accountSettings: JOIN(ROOT_STUDENT, "account-settings"),
+    assignments: JOIN(ROOT_STUDENT, "submit-assignments"),
+
 
   },
   admin: {
