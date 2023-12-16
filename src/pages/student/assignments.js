@@ -267,7 +267,7 @@ span{
   }
   .input{
   width:600px ;
-  padding: 5px 7px;
+  padding: 10px 7px;
   border: 1px solid grey;
   border-radius: 10px;
   font-size: 15px;
