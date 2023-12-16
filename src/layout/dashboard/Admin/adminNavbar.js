@@ -48,7 +48,7 @@ export default function AdminNavbar() {
           </div> */}
           <div className="name p-0 w-100">
 <p className="mb-0 px-3">{user.firstName}{" "}{user.lastName}</p>
-<p className="mb-0 px-3 text-muted">{user.email}</p>
+<p className="mb-0 px-3 text-muted">{user.email.length > 20 ? `${user.email.slice(0, 20)}...` : user.email}</p>
 
           </div>
           {/* <div className="div p-0 w-100">

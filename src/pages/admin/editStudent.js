@@ -17,7 +17,7 @@ export default function EditTeacher() {
   const [currentPage, setCurrentPage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.users || {});
-  console.log(user);
+
   useEffect(() => {
     setCurrentPage(changePageContent(activeNav));
   }, [activeNav]);
