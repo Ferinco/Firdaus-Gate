@@ -107,7 +107,7 @@ export const TeacherInfo = ()=>{
         <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Class handled:</p> <h6 className="text-capitalize w-50">{user?.classHandled}</h6></div>
         <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Gender:</p> <h6 className="text-capitalize w-50">{user?.gender}</h6></div>
         <div className="info d-flex align-items-center"><p className="w-50">Subject(s) taught :</p> <h6 className="text-capitalize w-50">{user?.subjectTaught}</h6></div>
-        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Email :</p> <h6 className=""> {user.email.length > 15 ? `${user?.email.slice(0, 15)}...` : user.email}</h6></div>
+        <div className="info d-flex align-items-center"><p className="text-capitalize w-50">Email :</p> <h6 className=""> {user?.email.length > 15 ? `${user?.email.slice(0, 15)}...` : user?.email}</h6></div>
         <div className="info d-flex align-items-center"><p className="text-capitalize w-50"> Phone :</p> <h6 className="text-capitalize w-50">{user?.tel}</h6></div>
 </div>
 
