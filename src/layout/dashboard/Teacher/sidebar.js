@@ -23,14 +23,17 @@ const sidebarConfig = [
     title: "Report",
     rotate: 1,
   },
-
+  {
+    icon: "mdi:pen",
+    link: PATH_DASHBOARD.teacher.assignments,
+    title: "Assignments",
+  },
   {
     icon: "solar:calendar-bold",
     link: PATH_DASHBOARD.teacher.viewCalendar,
-    title: "Term calendar",
+    title: "Work Scheme",
   },
 ];
-
 export default function TeacherSidebar() {
   const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();
   const { logout } = useAuth();
@@ -55,7 +58,7 @@ export default function TeacherSidebar() {
                 <img src="/images/logo.png" alt="logo" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column pl-0">
+            <div className="nav-links d-flex flex-column pl-0 mt-5">
               {sidebarConfig.map(({ link, icon, title, rotate }, index) => (
                 <Link
                   className={`nav-link react-router-link px-5 py-3 ${
@@ -127,7 +130,7 @@ const SIDEBAR = styled.div`
     width: 100%;
   }
   .wrapper {
-    height: 60% !important;
+    height: 70% !important;
     width: 100%;
     align-items: center;
     margin-left: 0 !important;

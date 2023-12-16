@@ -16,6 +16,7 @@ import {
   Results,
   MyClass,
   TeacherLogin,
+  Assign
 } from "../pages/teacher";
 
 import {
@@ -106,6 +107,7 @@ export default function Routes() {
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
         {path:"account-settings", element: <Settings/>},
+        {path:"assign", element: <Assign/>},
         { path: "edit-student/:identity", element: <EditStudent/> },
         { path: "student-info/:identity", element: <StudentInfo/> },
 

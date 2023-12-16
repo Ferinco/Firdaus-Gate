@@ -36,7 +36,9 @@ export const PATH_DASHBOARD = {
     addScheme: JOIN(ROOT_TEACHER, "add-scheme"),
     accountSettings: JOIN(ROOT_TEACHER, "account-settings"),
     editStudent: JOIN(ROOT_TEACHER, "edit-student"),
-    studentInfo: JOIN(ROOT_TEACHER, "student-info")
+    studentInfo: JOIN(ROOT_TEACHER, "student-info"),
+    assignments: JOIN(ROOT_TEACHER, "assign"),
+
   },
   student: {
     index: ROOT_STUDENT,
