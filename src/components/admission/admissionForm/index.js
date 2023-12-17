@@ -42,7 +42,7 @@ export default function AdmissionFormSteps() {
       case 2:
         return "Inputs with * are required";
       case 3:
-        return "h;hiorhwo'rweo";
+        return "confirm your details and proceed to make payment.";
       default:
         return "Student Information";
     }

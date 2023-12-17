@@ -148,10 +148,6 @@ width: 100% !important;
     transition: ease-in-out 0.3s all;
     font-weight: 500 !important;
 
-
-    &:hover {
-    font-weight: 700 !important;
-  }
   }
   .active-tab {
     border-right: 5px solid blue !important;

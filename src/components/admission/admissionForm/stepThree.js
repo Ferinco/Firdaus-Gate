@@ -52,7 +52,7 @@ export default function StepThree({ setStep }) {
     <Wrapper>
       <div className="header-section pb-2 d-flex flex-column justify-content-center align-items-center">
         <h4 className="title p-0 m-0">CONFIRM & PAY</h4>
-        <p className="m-0">Payment of Admission fee for {studentInformation?.surname}{" "}{studentInformation?.surname}</p>
+        <p className="m-0">Payment of Admission fee for <b> {studentInformation?.surname}{" "}{studentInformation?.surname} </b></p>
       </div>
       <div className="section">
         <h5 className="sub-header">Student Information</h5>

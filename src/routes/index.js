@@ -25,7 +25,8 @@ import {
   StudentDashboard,
   ResultsPage,
   StudentLogin,
-  Assignments
+  Assignments,
+  Scheme
 } from "../pages/student";
 import {
   StudentsList,
@@ -47,7 +48,6 @@ import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
 import Calendar from "../pages/teacher/calendar";
-import Scheme from "../pages/teacher/scheme";
 import Notify from "../pages/admin/notify";
 import {StudentInfo} from "../pages/admin/profileInfo"
 import {TeacherInfo} from "../pages/admin/profileInfo"
@@ -132,6 +132,8 @@ export default function Routes() {
         { path: "/student/teachers", element: <MyTeachers /> },
         {path:"/student/account-settings", element: <Settings/>},
         {path:"/student/submit-assignments", element: <Assignments/>},
+        { path: "work-scheme/:identity", element: <Scheme/> },
+
 
       ],
     },
