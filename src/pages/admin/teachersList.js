@@ -200,7 +200,7 @@ export default function TeachersList() {
   async function createCsvUsers() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
-      isLoading(true);
+      setIsLoading(true);
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
@@ -227,7 +227,7 @@ export default function TeachersList() {
           console.log(error);
           toast.error("Failure creating teachers from CSV");
         });
-      isLoading(false);
+      setIsLoading(false);
     }
   }
   const handleMultiTransfer = () => {
