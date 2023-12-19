@@ -1,29 +1,28 @@
-import React, {useEffect, useState} from 'react'
-import styled from "styled-components"
-import { SubjectService } from '../../services/subjectService'
-import { useAuth } from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import { CircularProgress } from '../../components/custom';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { SubjectService } from "../../services/subjectService";
+import { useAuth } from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { CircularProgress } from "../../components/custom";
 export default function Subjects() {
-  const {user} = useAuth()
-  const [loading, setLoading] = useState(true)
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    const userId = user._id; 
+    const userId = user._id;
     fetchSubjects(userId);
   }, []);
 
   const fetchSubjects = async (userId) => {
     try {
-      const {data} = await SubjectService.getSubjects(userId);
-      setSubjects(data.subjects.slice(1))
-      setLoading(false)
+      const { data } = await SubjectService.getSubjects(userId);
+      setSubjects(data.subjects.slice(1));
+      setLoading(false);
     } catch (error) {
-      console.error( error);
-      setLoading(false)
-
+      console.error(error);
+      setLoading(false);
     }
   };
 

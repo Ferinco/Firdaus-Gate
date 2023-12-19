@@ -207,15 +207,23 @@ export default function TeachersList() {
             firstName: item[0],
             lastName: item[1],
             middleName: item[2],
-            admissionNumber: item[3],
-            parentPhone: item[4],
-            email: item[5],
-            gender: item[6],
+            classHandled: item[3],
+            teacherId: item[4],
+            tel: item[5],
+            email: item[6],
+            gender: item[7],
+            subjectTaught: item[8],
             role: "teacher",
-            currentClass: user.classHandled,
           };
+          console.log(data);
           const formData = new FormData();
-          formData.append("values", JSON.stringify(data));
+          formData.append(
+            "values",
+            JSON.stringify({
+              ...data,
+              password: `${data.teacherId}${data.lastName}`.toLowerCase(),
+            })
+          );
           await UserService.createUser(formData);
         })
       )
@@ -274,6 +282,9 @@ export default function TeachersList() {
           setData={setCsvData}
           data={csvData}
           handleSubmit={createCsvUsers}
+          nbMessage={
+            "Please check your column header. The first row must contain First name, last name, middle name, phone number"
+          }
         />
       )}
       {isLoading ? <CircularProgress /> : ""}

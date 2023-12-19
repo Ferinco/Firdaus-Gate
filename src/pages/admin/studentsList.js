@@ -223,7 +223,7 @@ export default function StudentsList() {
             email: student[6],
             gender: student[7],
             role: "student",
-            password: `${student[1]}${student[4]}`,
+            password: `${student[1]}${student[4]}`.toLowerCase(),
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
@@ -319,7 +319,10 @@ export default function StudentsList() {
           setData={setCsvData}
           data={csvData}
           handleSubmit={createCsvUsers}
-          type = "results"
+          nbMessage={
+            "Please check your column header. The first row must contain First name, Surname, middle name, class code, admission number, parent phone, email, gender."
+          }
+          type="results"
         />
       )}
       {isLoading ? <CircularProgress /> : ""}
@@ -379,7 +382,12 @@ export default function StudentsList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  <button onClick={()=>{setConfirmation(true)}} className="action-bar">
+                  <button
+                    onClick={() => {
+                      setConfirmation(true);
+                    }}
+                    className="action-bar"
+                  >
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -491,11 +499,17 @@ export default function StudentsList() {
                                 <td className="table-button">
                                   <button
                                     onClick={() => {
-                                     console.log(row.status)
+                                      console.log(row.status);
                                     }}
-                                    className={row.status === "inactive" ? "activate-button" : "deactivate-button" }
+                                    className={
+                                      row.status === "inactive"
+                                        ? "activate-button"
+                                        : "deactivate-button"
+                                    }
                                   >
-                                    {row.status === "active" ? "Deactivate" : "Activate" }
+                                    {row.status === "active"
+                                      ? "Deactivate"
+                                      : "Activate"}
                                   </button>
                                 </td>
                               </td>
@@ -576,39 +590,41 @@ export default function StudentsList() {
         ) : (
           ""
         )}
-        {
-          confirmation ? (
-            <div className="overlay-wrapper d-flex ">
-              <div
-                className={`d-flex flex-column p-3 overlay-options ${
-                  confirmation ? "open" : "close"
-                }`}
-              >
-                <p>Are you sure you want to delete {multiSelect.length} {multiSelect.length > 1 ? "students'" : "student's"} profile?</p>
-                <div className=" buttons d-flex gap-3">
-                  <button
-                    className="left"
-                    onClick={() => {
-                     deleteMultiple()
-                     setConfirmation(false)
-                    }}
-                  >
-                    yes
-                  </button>
-                  <button
-                    className="right"
-                    onClick={() => {
-                      setConfirmation(false);
-                    }}
-                  >
-                    no
-                  </button>
-                </div>
+        {confirmation ? (
+          <div className="overlay-wrapper d-flex ">
+            <div
+              className={`d-flex flex-column p-3 overlay-options ${
+                confirmation ? "open" : "close"
+              }`}
+            >
+              <p>
+                Are you sure you want to delete {multiSelect.length}{" "}
+                {multiSelect.length > 1 ? "students'" : "student's"} profile?
+              </p>
+              <div className=" buttons d-flex gap-3">
+                <button
+                  className="left"
+                  onClick={() => {
+                    deleteMultiple();
+                    setConfirmation(false);
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  className="right"
+                  onClick={() => {
+                    setConfirmation(false);
+                  }}
+                >
+                  no
+                </button>
               </div>
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+        ) : (
+          ""
+        )}
       </Wrapper>
     </>
   );
