@@ -240,12 +240,23 @@ export default function MyClass() {
     if (multiSelect.length) {
       Promise.all(
         multiSelect.map(async (studentId) => {
+          setIsLoading(true);
           await api.post("/class/transfer", {
             currentClass: user.classHandled,
             studentId,
           });
+          setMultiSelect([]);
         })
-      );
+      )
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+        getData(page, pageSize);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
     }
   };
 
@@ -308,16 +319,6 @@ export default function MyClass() {
                 <div className="d-flex gap-1 actions">
                   <button onClick={handleMultiTransfer} className="action-bar">
                     Transfer &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button>
-                  <button onClick={handleMultiTransfer} className="action-bar">
-                    Deactivate &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button>
-                  <button onClick={handleMultiTransfer} className="action-bar">
-                    Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
@@ -408,23 +409,22 @@ export default function MyClass() {
                             return (
                               <td key={index} className="table-body">
                                 <td className="table-button">
-                                  <button className="view-button">View</button>
-                                </td>
-                                <td className="table-button">
-                                  <button className="update-button">
-                                    Edit
-                                  </button>
-                                </td>
-                                <td className="table-button">
-                                  <button
-                                    onClick={() => {
-                                      setOverlay(true);
-                                      setDeleteId(row._id);
-                                    }}
-                                    className="delete-button"
+                                <Link
+                                    to={`${PATH_DASHBOARD.teacher.studentInfo}/${row._id}`}
                                   >
-                                    Delete
-                                  </button>
+                                    <button className="view-button">
+                                      view
+                                    </button>
+                                  </Link>
+                                </td>
+                                <td className="table-button">
+                                  <Link
+                                    to={`${PATH_DASHBOARD.teacher.editStudent}/${row._id}`}
+                                  >
+                                    <button className="update-button">
+                                      edit
+                                    </button>
+                                  </Link>
                                 </td>
                               </td>
                             );

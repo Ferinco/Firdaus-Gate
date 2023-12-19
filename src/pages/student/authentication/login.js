@@ -8,8 +8,13 @@ import { PATH_PAGE } from "../../../routes/paths";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../../hooks/useAuth";
 import { Helmet } from "react-helmet";
+import { useAppContext } from "../../../contexts/Context";
+import { Icon } from "@iconify/react";
+
+
 
 export default function StudentLogin() {
+  const { setPasswordVisibility, passwordVisibility } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -86,16 +91,35 @@ export default function StudentLogin() {
                   />
                 </div>
                 <div className="my-3">
-                  <div className="my-3">
+                  <div className="my-3 password-field">
                     <input
                       placeholder="Password"
                       name="password"
-                      type= "password"
+                      type={passwordVisibility === true ? "text" : "password"}
                       {...register("password")}
                     />
+                    <i
+                      onClick={() => {
+                        setPasswordVisibility(!passwordVisibility);
+                      }}
+                      className="eye-icon"
+                    >
+                      <Icon
+                        icon={
+                          passwordVisibility === false
+                            ? "fluent:eye-off-24-filled"
+                            : "iconoir:eye-solid"
+                        }
+                        className="icon"
+                      />
+                    </i>
+                    <p className="error-message">{errors.password?.message}</p>
+                  </div>
+                  <div className="action d-flex flex-row justify-content-end">
+                    <Link className="m-0" >Forgot password?</Link>
                   </div>
                 </div>
-                <div className="mt-4">
+                <div className="">
                   <Button
                     blue
                     type="submit"
@@ -127,6 +151,17 @@ const Wrapper = styled.div`
   .row {
     height: 95% !important;
     align-items: center;
+    .password-field {
+      align-items: center;
+      .eye-icon {
+        margin-left: -30px;
+        font-size: 15px;
+        cursor:pointer;
+        .icon{
+          font-size: 20px !important;
+        }
+      }
+    }
   }
   .container-fluid,
   .left {

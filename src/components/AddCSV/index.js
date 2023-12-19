@@ -12,7 +12,7 @@ export default function AddCSV({
   nbMessage,
 }) {
   const [stage, setStage] = useState(1);
-  const renderCSV = () => {
+  const renderCSV = (props) => {
     switch (stage) {
       case 1:
         return (
@@ -22,6 +22,7 @@ export default function AddCSV({
             setData={setData}
             data={data}
             setStage={setStage}
+
           />
         );
       case 2:

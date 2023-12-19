@@ -38,7 +38,7 @@ const Testimonials = () => {
       name: "Mr Rahman",
       role: "Parent",
       image: "",
-      content: "As a parent, I appreciate the school's commitment to academic excellence and Islamic values. The inclusive and supportive community has created a holistic learning environment that goes beyond textbooks, ensuring our children thrive academically and morally.",
+      content: "I appreciate the school's commitment to academic excellence and Islamic values. The school has created a holistic learning environment that goes beyond textbooks, ensuring our children thrive academically and morally.",
     },
     {
       name: "Isma'il Abdullah",
@@ -61,7 +61,7 @@ const Testimonials = () => {
     {
       role: "Parent",
       image: "",
-      content: "Mr. and Mrs. Khan express their gratitude to the school for fostering an environment where their child thrives academically and morally. The commitment to Islamic values is truly commendable.",
+      content: "Mr. and Mrs. Dejo express their gratitude to Firdaus-Gate for fostering an environment where their children thrive academically and morally. They also commended our strong commitment to Islamic values.",
     },
     {
       image: "",

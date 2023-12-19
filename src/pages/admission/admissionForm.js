@@ -13,8 +13,8 @@ export default function AdmissionForm() {
   }, []);
 
   return (
-    <div className="bg-light">
-      <div className="container">
+    <div className="bg-light ">
+      <div className="">
         {showGuidelines && (
           <AdmissionGuideline
             onToggle={handleToggleGuideline}

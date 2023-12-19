@@ -1,12 +1,14 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
-import { Home, About } from "../pages";
+import { Home, About, Gallery } from "../pages";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
 import TeacherDashboardLayout from "../layout/dashboard/Teacher";
 import StudentDashboardLayout from "../layout/dashboard/Student";
 import Settings from "../pages/settings";
 import { Receipt } from "../components/custom";
+import AdmissionHome from "../pages/admission/home";
+import ContinueAdmission from "../pages/admission/continue";
 import {
   TeacherDashboard,
   CreateResult,
@@ -14,6 +16,7 @@ import {
   Results,
   MyClass,
   TeacherLogin,
+  Assign
 } from "../pages/teacher";
 
 import {
@@ -22,6 +25,8 @@ import {
   StudentDashboard,
   ResultsPage,
   StudentLogin,
+  Assignments,
+  Scheme
 } from "../pages/student";
 import {
   StudentsList,
@@ -43,11 +48,10 @@ import RoleBasedGuard from "../guards/RoleBasedGuard";
 import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
 import Calendar from "../pages/teacher/calendar";
-import Scheme from "../pages/teacher/scheme";
 import Notify from "../pages/admin/notify";
 import {StudentInfo} from "../pages/admin/profileInfo"
 import {TeacherInfo} from "../pages/admin/profileInfo"
-
+import AdmissionLayout from "../pages/admission/layout";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -55,14 +59,22 @@ export default function Routes() {
       path: "/",
       element: <Layout />,
       children: [{ path: "/", element: <Home /> },
-      { path: "/about-us", element: <About /> }],
+      { path: "/about-us", element: <About /> },
+      { path: "/gallery", element: <Gallery /> },
+    
+    ],
     },
     {
       path: "/admission",
+      element: 
+      <AdmissionLayout/>,
       children: [
+        { path: "index", element: <AdmissionHome /> },
         { path: "admission-into-jss1", element: <JSS1Admission /> },
         { path: "admission-form", element: <AdmissionForm /> },
         { path: "admission-form/payment-success", element: <Receipt /> },
+        { path: "continue-admission", element: <ContinueAdmission /> },
+
       ],
     },
     {
@@ -94,7 +106,11 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
-        {path:"account-settings", element: <Settings/>}
+        {path:"account-settings", element: <Settings/>},
+        {path:"assign", element: <Assign/>},
+        { path: "edit-student/:identity", element: <EditStudent/> },
+        { path: "student-info/:identity", element: <StudentInfo/> },
+
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -114,7 +130,11 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-        {path:"/student/account-settings", element: <Settings/>}
+        {path:"/student/account-settings", element: <Settings/>},
+        {path:"/student/submit-assignments", element: <Assignments/>},
+        { path: "work-scheme/:identity", element: <Scheme/> },
+
+
       ],
     },
 

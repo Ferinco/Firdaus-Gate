@@ -20,21 +20,24 @@ export default function AdminNavbar() {
           <Icon icon="ri:menu-3-fill" className="nav-btn" />
         </div>
         <div
-          className={`profile-div d-flex flex-row justify-content-center align-items-center p-2 ${isProfileOpen ? "animate-profile" : ""}`}
-          onClick={() => {
-            setIsSidebarOpen
-              ? setIsSidebarOpen(false)
-              : setIsSidebarOpen(false);
-            setIsProfileOpen((prevState) => !prevState);
-          }}
-        >
-          <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="m-0">{firstLetter}</p></div>
-          <div className={`d-flex flex-column profile-text mb-1`}>
-            <h6>{user.firstName}&nbsp;{user.lastName}</h6>
-            <p className="mb-0">{user.email}</p>
-            </div>
-          {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
-        </div>
+  className={`profile-div d-flex flex-row justify-content-center align-items-center p-2 ${isProfileOpen ? "animate-profile" : ""}`}
+  onClick={() => {
+    setIsSidebarOpen
+      ? setIsSidebarOpen(false)
+      : setIsSidebarOpen(false);
+    setIsProfileOpen((prevState) => !prevState);
+  }}
+>
+  <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="m-0">{firstLetter}</p></div>
+  <div className={`d-flex flex-column profile-text mb-1`}>
+    <h6 className="">{user.firstName}&nbsp;{user.lastName}</h6>
+    <p className="mb-0 email">
+      {user.email.length > 20 ? `${user.email.slice(0, 20)}...` : user.email}
+    </p>
+  </div>
+  {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
+</div>
+
         <div
           className={`profile flex-column align-center justify-content-between align-items-start py-3 ${
             isProfileOpen ? "open" : "close"
@@ -45,7 +48,7 @@ export default function AdminNavbar() {
           </div> */}
           <div className="name p-0 w-100">
 <p className="mb-0 px-3">{user.firstName}{" "}{user.lastName}</p>
-<p className="mb-0 px-3 text-muted">{user.email}</p>
+<p className="mb-0 px-3 text-muted">{user.email.length > 20 ? `${user.email.slice(0, 20)}...` : user.email}</p>
 
           </div>
           {/* <div className="div p-0 w-100">
@@ -77,6 +80,8 @@ z-index:999 !important;
       }
   
     }
+
+
     .circle-profile{
     height:32px ;
     width: 32px;

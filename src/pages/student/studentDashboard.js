@@ -32,6 +32,10 @@ export default function StudentDashboard() {
   const classes = [...JuniorClasses];
   const currentClass = classes.filter((item) => item.code === selectedClass);
 
+console.log(
+  user
+)
+
   //fetch current term
   const dispatch = useDispatch();
   useEffect(() => {

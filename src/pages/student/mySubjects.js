@@ -1,24 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { SubjectService } from "../../services/subjectService";
 import { useAuth } from "../../hooks/useAuth";
-import { api } from "../../api/axios";
-
+import { Link } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import { CircularProgress } from "../../components/custom";
 export default function Subjects() {
   const { user } = useAuth();
-  const [isLoading, setLoading] = useState(false);
-  const [subjectData, setSubjectData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [subjects, setSubjects] = useState([]);
 
-  const getData = async () => {
-    try {
-      const { data } = await api.get(`/subjects/get/${user._id}`);
-      setSubjectData(data.data.subjects);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  console.log(subjectData);
-  React.useEffect(() => {
-    getData();
+  useEffect(() => {
+    const userId = user._id;
+    fetchSubjects(userId);
   }, []);
 
-  return <div>S</div>;
+  const fetchSubjects = async (userId) => {
+    try {
+      const { data } = await SubjectService.getSubjects(userId);
+      setSubjects(data.subjects.slice(1));
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Container className="container py-5">
+        <div className="header">
+          <h3>SUBJECTS OFFERED</h3>
+        </div>
+        <div className="divs d-flex flex-row flex-wrap gap-5 mt-5">
+          {subjects.map((subject) => (
+            <Link
+              className="subject-div d-flex flex-row align-items-center react-router-link"
+              key={subject._id}
+              to={`${PATH_DASHBOARD.student.scheme}/${subject._id}`}
+            >
+              <div className="initial h-100 d-flex justify-content-center align-items-center">
+                <p className="m-0">{subject.name.charAt(0)}</p>
+              </div>
+              <div className=" pl-3">
+                <h6 className="m-0">{subject.name}</h6>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Container>
+      {loading ? <CircularProgress /> : ""}
+    </>
+  );
 }
+const Container = styled.div`
+  .subject-div {
+    height: 70px;
+    width: 300px;
+    background: white;
+    .initial {
+      width: 90px;
+      background-color: black;
+      color: white;
+      p {
+        font-size: 25px;
+        font-weight: 600;
+      }
+    }
+  }
+`;

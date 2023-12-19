@@ -22,7 +22,7 @@ const sidebarConfig = [
   },
   {
     id: 3,
-    icon: "fluent-mdl2:poll-results",
+    icon: "fluent:people-team-16-filled",
     link: PATH_DASHBOARD.admin.studentsList,
     title: "Students",
   },

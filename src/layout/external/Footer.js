@@ -20,7 +20,7 @@ function Footer() {
             </p>
           </div>
           <div className="news-link d-flex flex-row ">
-            <Link className="react-router-link"> latest news</Link>
+            <Link className="react-router-link"> latest news &#8594;</Link>
           </div>
         </div>
         <div className="links d-flex flex-row w-100 justify-content-between mt-4 flex-wrap">
@@ -47,36 +47,47 @@ function Footer() {
           <div className="reach ">
             <p className="header ">Reach Us</p>
             <div className="d-flex flex-row gap-1 align-items-center" >
-            <Icon icon="system-uicons:location" className="icon"/>
-              <p className="not-link m-0 pl-2">
-                our loaction huirtewir rgb guirewyufgerb
+            <Icon icon="system-uicons:location" className="icon" width={30} height={30}/>
+              <p className="not-link m-0 pl-2 d-flex flex-row flex-wrap">
+                6/8 Balogun Street, off Igodo Road, Omo-Olope Area, Magboro, Ogun State.
               </p>
             </div>
-            <div className="mt-1">
+            <div className="mt-2">
               <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
               <Icon icon="iconamoon:phone-thin" rotate={1} className="icon"/>
                 <p className="not-link m-0 pl-2">
-                  our loaction huirtewir rgb guirewyufgerb
+                  0905512553
                 </p>
               </Link>
             </div>
-            <div className="mt-1">
+            <div className="mt-2">
               <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
               <Icon icon="la:envelope-solid" className="icon" />
                 <p className="m-0 pl-2">
-                firdausgatemail.com
+                firdausgateschools@gmail.com
                 </p>
                 </Link>
             </div>
-            <div className="social-media">
-                
+            <div className="social-media d-flex flex-row gap-2 mt-4">
+                <Link className="react-router-link">
+                <Icon className="social-icon" icon="ic:baseline-whatsapp" />
+                </Link>
+                <Link className="react-router-link">
+                <Icon className="social-icon" icon="ei:sc-facebook" />
+                </Link>
+                <Link className="react-router-link">
+                <Icon className="social-icon" icon="ri:instagram-line" />
+                </Link>
+                <Link className="react-router-link">
+                <Icon className="social-icon" icon="prime:linkedin" />
+                </Link>
             </div>
           </div>
         </div>
       </div>
       <div className="end py-3">
         <p className="m-0">
-          Copyright {Year} <b>Firdaus-Gate Model Schools</b>
+          Copyright &#169; {Year} <b>Firdaus-Gate Model Schools</b>
         </p>
       </div>
     </Container>
@@ -89,6 +100,10 @@ const Container = styled.div`
   padding-right:48px ;
   padding-left:48px ;
 
+  }
+  .social-icon{
+    font-size: 20px;
+    color:white;
   }
   .not-link {
     /* color: grey !important; */
@@ -105,6 +120,7 @@ gap: 20px !important;
   }
   .header{
   font-size:20px;
+  font-weight: 600;
   margin-bottom: 10px !important;
   }
   .end {
@@ -115,7 +131,14 @@ gap: 20px !important;
     font-size:16px !important;
   }
   .icon{
-    font-size: 19px !important;
+    font-size: 30px !important;
+    color: white;
+  }
+  .reach{
+    max-width:540px !important;
+    @media screen and (max-width:982px){
+      margin-top: 10px;
+    }
   }
 `;
 export default Footer;

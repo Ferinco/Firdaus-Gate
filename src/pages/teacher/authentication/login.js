@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../../hooks/useAuth";
 import { PATH_PAGE } from "../../../routes/paths";
 import { Helmet } from "react-helmet";
+import { Icon } from "@iconify/react";
 
 export default function TeacherLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
@@ -52,7 +53,7 @@ export default function TeacherLogin() {
   };
   return (
     <Wrapper>
-                   <Helmet>
+      <Helmet>
         <title>Login | FGMS</title>
       </Helmet>
       <div className="container-fluid">
@@ -82,25 +83,35 @@ export default function TeacherLogin() {
                   <p className="error-message">{errors.teacherId?.message}</p>
                 </div>
                 <div className="my-3">
-                  <div className="my-3">
+                  <div className="my-3 password-field">
                     <input
                       placeholder="Password"
                       name="password"
-                      type="password"
+                      type={passwordVisibility === true ? "text" : "password"}
                       {...register("password")}
                     />
-                    {/* <i
+                    <i
                       onClick={() => {
                         setPasswordVisibility(!passwordVisibility);
                       }}
                       className="eye-icon"
                     >
-                      <Icon icon="ph:eye-light" />
-                    </i> */}
+                      <Icon
+                        icon={
+                          passwordVisibility === false
+                            ? "fluent:eye-off-24-filled"
+                            : "iconoir:eye-solid"
+                        }
+                        className="icon"
+                      />
+                    </i>
                     <p className="error-message">{errors.password?.message}</p>
                   </div>
+                  <div className="action d-flex flex-row justify-content-end">
+                    <Link className="m-0" >Forgot password?</Link>
+                  </div>
                 </div>
-                <div className="mt-4">
+                <div className="">
                   <Button
                     blue
                     type="submit"
@@ -138,8 +149,12 @@ const Wrapper = styled.div`
     .password-field {
       align-items: center;
       .eye-icon {
-        margin-left: -25px;
+        margin-left: -30px;
         font-size: 15px;
+        cursor:pointer;
+        .icon{
+          font-size: 20px !important;
+        }
       }
     }
   }

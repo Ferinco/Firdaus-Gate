@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "../custom/Button";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../routes/paths";
 
 const images = [
   {
@@ -41,7 +43,7 @@ export default function LandingHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 156);
+      setSticky(window.scrollY > 200);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -76,9 +78,11 @@ export default function LandingHero() {
                 </p>
               </div>
               <div className="button-group d-flex flex-row">
-                <Button blue>Get started</Button>
+                {/* <Button blue>Get started</Button> */}
                 <span> </span>
-                <Button white>About us</Button>
+                <Button blue>
+                  <Link className="react-router-link" to={PATH_PAGE.about}>About Us</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -95,6 +99,7 @@ const Wrapper = styled.div`
   height: calc(100vh - 70px);
   color: white;
   .sticky {
+    margin-top: 70px;
   }
   .row {
     justify-content: space-between;

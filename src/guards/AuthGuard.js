@@ -15,11 +15,7 @@ export default function AuthGuard({ children }) {
 const { logout } = useAuth()
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
-// if(isAuthenticated){
-//   if(logout){
-//     window.history.replaceState(null, "", PATH_PAGE.home)
-//   }
-// }
+
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {

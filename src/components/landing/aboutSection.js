@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../custom/Button";
+import { PATH_PAGE } from "../../routes/paths";
+import { Link } from "react-router-dom";
 export default function AboutSection() {
   return (
     <Container className="py-5">
@@ -18,7 +20,9 @@ export default function AboutSection() {
           <p>
          Firdaus-Gate Model Schools, established in 1999 has dedicated her resources to raise future leaders. We have since then provided students with skills, resources and enlightment to harness their potential and talents, aimed at making them the best they can be. Over the years, we have remained committed to the pursuit of our vision: to nuture students and build in them, proper <b>Iman(faith)</b>, making them responsible and be of good impact to the society.
           </p>
-          <Button blue>Read more</Button>
+          <Button blue>
+            <Link className="react-router-link" to={PATH_PAGE.about}>Read More</Link>
+            </Button>
         </div>
       </div>
     </Container>

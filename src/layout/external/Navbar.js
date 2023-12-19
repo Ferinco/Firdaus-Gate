@@ -16,29 +16,25 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 156);
+      setSticky(window.scrollY > 200);
     };
     window.addEventListener("scroll", handleScroll);
-    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  useEffect(()=>{
-    if(isOpen === "true"){
-      const timeOut = setTimeout(()=>{
-      }, 5000)
-      setCloser(true)
-    return () => clearTimeout(timeOut)
-    }
-    else setCloser(false)
-    
-    }, [])
+  useEffect(() => {
+    if (isOpen === "true") {
+      const timeOut = setTimeout(() => {}, 5000);
+      setCloser(true);
+      return () => clearTimeout(timeOut);
+    } else setCloser(false);
+  }, []);
 
   return (
     <NavigationBar className="navigation-bar">
-      <div className=" first-navbar d-none d-lg-block d-xl-flex ">
+      <div className=" first-navbar d-flex ">
         <div className="div d-flex justify-content-between w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
@@ -48,33 +44,38 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0 `}>
+      <div className={`second-navbar p-0 ${isSticky ? "sticky" : "" }`}>
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
-            <div className="d-lg-none icon-div">
+            <div className="d-none icon-div align-items-center m-0">
               <Icon
                 icon={isOpen ? "iconamoon:sign-times" : "eva:menu-2-fill"}
                 color="black"
-                className="icon"
+                className="icon m-0"
                 onClick={() => {
-                  setIsOpen((prev) => (!prev));
+                  setIsOpen((prev) => !prev);
                 }}
               />
             </div>
             <Logo />
           </div>
-          <ul className="menu-links d-none d-lg-flex align-items-center h-100 mb-0">
+          <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
-              <Link className="nav-link" to={PATH_PAGE.about}>about</Link>
+              <a className="nav-link">about &#9662;</a>
+              <ul class="dropdown px-1 pb-1">
+                <Link className="react-router-link" to={PATH_PAGE.about}>
+                  about us
+                </Link>
+                <Link className="react-router-link">founder's profile</Link>
+                <Link className="react-router-link">principal's profile</Link>
+                <Link className="react-router-link">Managemnet and staff</Link>
+              </ul>{" "}
             </li>
 
             <li>
               <a className="nav-link">admission &#9662;</a>
               <ul class="dropdown px-1 pb-1">
-                <Link
-                  className="react-router-link"
-                  to={PATH_PAGE.admissionForm}
-                >
+                <Link className="react-router-link" to={PATH_PAGE.admission}>
                   Student admission portal
                 </Link>
                 <Link
@@ -115,13 +116,15 @@ export default function Navbar() {
               </ul>
             </li>
             <li>
-              <a className="nav-link">gallery</a>
+              <Link className="nav-link" to={PATH_PAGE.gallery}>gallery</Link>
             </li>
             <li>
               <a className="nav-link">news</a>
             </li>
             <li>
-              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center"><Button blue>CONTACT US</Button> </a>
+              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
+                <Button blue> <a className="p-0" href="#contactUs" style={{color: "white"}}>CONTACT US</a></Button>{" "}
+              </a>
             </li>
           </ul>
         </div>
@@ -129,23 +132,26 @@ export default function Navbar() {
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links p-3">
           <div className="logo-div">
-            <Logo/>
+            <Logo />
           </div>
           <div className="nav-links"></div>
         </div>
-        <div className={`closing-div p-3 ${closer ? "active-closer" : "unactive-closer"}`}>
-        <div className="d-flex icon-div">
-              <Icon
-                icon={ "iconamoon:sign-times"}
-                color="black"
-                className="icon"
-                onClick={() => {
-                  setIsOpen((prev) => (!prev));
-                }}
-              />
-            </div>
+        <div
+          className={`closing-div p-3 ${
+            closer ? "active-closer" : "unactive-closer"
+          }`}
+        >
+          <div className="d-flex icon-div">
+            <Icon
+              icon={"iconamoon:sign-times"}
+              color="black"
+              className="icon"
+              onClick={() => {
+                setIsOpen((prev) => !prev);
+              }}
+            />
+          </div>
         </div>
-
       </div>
     </NavigationBar>
   );
@@ -153,7 +159,7 @@ export default function Navbar() {
 const NavigationBar = styled.div`
   /* display: none !important; */
   .closing-div {
-    .icon-div{
+    .icon-div {
       justify-content: right;
     }
   }
@@ -177,10 +183,10 @@ const NavigationBar = styled.div`
     background-color: #f5f5f5;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
     &-div {
       border-right: 1px solid gray;
       border-left: 1px solid gray;
-
     }
     p {
       display: flex;
@@ -192,17 +198,17 @@ const NavigationBar = styled.div`
   .second-navbar {
     height: 90px !important;
     align-items: center;
-    background:white !important;
-    z-index:999;
+    background: white !important;
+    z-index: 999;
     width: 100%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     .div {
       align-items: center;
       height: 100px;
-      .header{
-        
+      .header {
       }
-      .contact-btn{
-       text-transform: uppercase !important;
+      .contact-btn {
+        text-transform: uppercase !important;
       }
       .icon {
         font-size: 30px;
@@ -235,7 +241,7 @@ const NavigationBar = styled.div`
     .nav-link {
       text-transform: capitalize;
       font-size: 14px !important;
-      font-weight:500 !important;
+      font-weight: 500 !important;
     }
     ul li a:hover {
       cursor: pointer;
@@ -257,20 +263,21 @@ const NavigationBar = styled.div`
   }
   .sticky {
     position: fixed !important;
-    margin-top: -156px !important;
+    margin-top: -53px !important;
     width: 100% !important;
     z-index: 9999;
+    background-color: #fff; /* Change to your desired background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-.mobile-nav{
-  display: none !important;
-
-}
-  @media screen and (max-width: 991px) {
+  .mobile-nav {
+    display: none !important;
+  }
+  @media screen and (max-width: 1057px) {
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
     align-items: left !important;
-    .second-navbar{
+    .second-navbar {
       position: fixed;
     }
     .closing-div {
@@ -282,22 +289,21 @@ const NavigationBar = styled.div`
     .home-icon {
       display: none;
     }
-    .mobile-nav{
-      width:100%;
-  z-index:999;
-position: fixed;
-justify-content: start;
-height: 100vh;
-display: flex !important;
-background-color: rgba(0, 0, 0, 0.1);
-.links{
-  background: white !important;
-  width: 70%;
-}
-
-}
+    .mobile-nav {
+      width: 100%;
+      z-index: 999;
+      position: fixed;
+      justify-content: start;
+      height: 100vh;
+      display: flex !important;
+      background-color: rgba(0, 0, 0, 0.1);
+      .links {
+        background: white !important;
+        width: 70%;
+      }
+    }
     .closed {
-      margin-left: -1000px !important;
+      margin-left: -2000px !important;
       transition: 0.3s;
       /* display:none; */
     }
@@ -306,16 +312,26 @@ background-color: rgba(0, 0, 0, 0.1);
       transition: 0.3s;
       display: flex !important;
       position: fixed !important;
-
     }
     .sticky {
       margin-top: 0 !important;
       z-index: 9999;
     }
-    .icon-div{
+    .icon-div {
       margin-left: -12px !important;
     }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 1057px){
+  .first-navbar{
+  display: none !important;
+  }
+  .menu-links{
+  display: none !important;
+  }
+  .icon-div{
+  display: flex !important;
+  }
   }
 `;

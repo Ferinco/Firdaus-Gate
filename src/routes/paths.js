@@ -18,6 +18,9 @@ export const PATH_PAGE = {
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
   receipt: "/admission/admission-form/payment-success",
+admission: "/admission/index",
+continue: "/admission/continue-admission",
+gallery: "/gallery"
 
 };
 
@@ -31,7 +34,11 @@ export const PATH_DASHBOARD = {
     createResult: JOIN(ROOT_TEACHER, "create-result"),
     viewCalendar: JOIN(ROOT_TEACHER, "view-calendar"),
     addScheme: JOIN(ROOT_TEACHER, "add-scheme"),
-    accountSettings: JOIN(ROOT_TEACHER, "account-settings")
+    accountSettings: JOIN(ROOT_TEACHER, "account-settings"),
+    editStudent: JOIN(ROOT_TEACHER, "edit-student"),
+    studentInfo: JOIN(ROOT_TEACHER, "student-info"),
+    assignments: JOIN(ROOT_TEACHER, "assign"),
+
   },
   student: {
     index: ROOT_STUDENT,
@@ -40,7 +47,11 @@ export const PATH_DASHBOARD = {
     results: JOIN(ROOT_STUDENT, "reports"),
     subjects: JOIN(ROOT_STUDENT, "subjects"),
     teachers: JOIN(ROOT_STUDENT, "teachers"),
-    accountSettings: JOIN(ROOT_STUDENT, "account-settings")
+    accountSettings: JOIN(ROOT_STUDENT, "account-settings"),
+    assignments: JOIN(ROOT_STUDENT, "submit-assignments"),
+    scheme: JOIN(ROOT_STUDENT, "work-scheme"),
+
+
 
   },
   admin: {

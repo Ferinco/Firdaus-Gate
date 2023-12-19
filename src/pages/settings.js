@@ -388,7 +388,7 @@ const Wrapper = styled.div`
     border-bottom: 2px solid transparent;
   }
   .out {
-    max-width: 400px;
+    max-width: 450px;
     background: white !important;
     border-radius: 20px;
   }
@@ -439,7 +439,7 @@ const Wrapper = styled.div`
   padding-right: 24px;
   }
   button{
-    width:183.5px !important;
+  
   }
   .spinner-border {
           width: 25px;

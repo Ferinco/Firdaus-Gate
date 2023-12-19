@@ -42,7 +42,7 @@ export default function AdmissionGuideline({ isShow, onToggle }) {
                   <li>
                     <p>
                       a). A mail containing a reference code will drop in the
-                      email address filled in the parent details. (please note
+                      email address filled in the parents' details. (please note
                       that you will only get this mail when you have filled step
                       1 & 2 of the admission form).
                     </p>
@@ -58,25 +58,17 @@ export default function AdmissionGuideline({ isShow, onToggle }) {
                   </li>
 
                   <li>
-                    <p>
-                      {" "}
-                      d) Un-check "Use Login Credentials" to use the reference
-                      code.
-                    </p>
+                    <p>d). Input reference code.</p>
                   </li>
 
                   <li>
-                    <p>e). Input reference code.</p>
-                  </li>
-
-                  <li>
-                    <p>f). Click on Continue.</p>
+                    <p>e). Click on Continue.</p>
                   </li>
                   <li>
-                    <p>g). Complete Registration.</p>
+                    <p>f). Complete Registration.</p>
                   </li>
                 </ul>
-                Thank you for choosing Firdaus gate model college.
+                Thank you for choosing Firdaus-Gate Model School.
               </small>
             </div>
 
@@ -97,7 +89,7 @@ export default function AdmissionGuideline({ isShow, onToggle }) {
   );
 }
 const Wrapper = styled.div`
-  .modal {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+z-index: 9999;
+background: rgba(0, 0, 0, 0.6);
+
 `;

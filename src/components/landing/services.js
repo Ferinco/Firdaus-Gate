@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../custom/Button";
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../routes/paths";
 
 export default function Services() {
   return (
@@ -19,7 +21,10 @@ export default function Services() {
           <p>
 Firdaus-Gate Model Schools is an institution for all, we offer admission for students of different age amd classes. Enroll your child(ren) now and join this gret citadel of learning
           </p>
+          <Link className="react-router-link" to={PATH_PAGE.admission}>
           <Button blue>Enroll Now</Button>
+
+          </Link>
         </div>
       </div>
     </Container>

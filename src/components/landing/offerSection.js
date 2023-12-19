@@ -11,16 +11,20 @@ export default function OfferSection(){
 <div className="body row">
 <div className="col-md-4 d-flex flex-column">
     <h5>20+ years experience</h5>
-
-    <p>wuhhdiuher eifgieugriew gpiugreaw rjguksuewgptriuegwr w; yurtewr  </p>
+<div className="image"></div>
+    <p>For over 20 years, we have been in operation and have delivered well!</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Compitent workers</h5>
-<p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
+<div className="image"></div>
+
+<p>Our workers are well trained and experienced in their respective fields.</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Accredited and certified</h5>
-<p>jkhuir ghpitd3 upgt879tre ugpitgEew iur[ewry[uiewgriuier uiyiuperweui</p>
+<div className="image"></div>
+
+<p>Our school is government screened, accredited and certified.</p>
 </div>
 
 </div>
@@ -41,6 +45,11 @@ h5{
         max-width: 600px;
         text-align: center;
     }
+}
+.image{
+    border:1px solid red;
+    width:250px;
+    height:200px;
 }
 .body{
     .d-flex{

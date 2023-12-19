@@ -25,9 +25,14 @@ const sidebarConfig = [
     title: "Teachers",
   },
   {
-    icon: "la:chalkboard-teacher",
+    icon: "fluent-mdl2:poll-results",
     link: PATH_DASHBOARD.student.results,
     title: "Results",
+  },
+  {
+    icon: "la:chalkboard-teacher",
+    link: PATH_DASHBOARD.student.assignments,
+    title: "Assignments",
   },
 ];
 
@@ -55,7 +60,7 @@ export default function TeacherSidebar() {
                 <img src="/images/logo.png" alt="logo" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column pl-0">
+            <div className="nav-links d-flex flex-column pl-0 mt-5">
               {sidebarConfig.map(({ link, icon, title, rotate }, index) => (
                 <Link
                   className={`nav-link react-router-link px-5 py-3 ${
@@ -125,13 +130,12 @@ const SIDEBAR = styled.div`
     width: 100% ;
   }
   .wrapper {
-    height: 60% !important;
+    height: 70% !important;
     width: 100%;
     align-items: center;
     margin-left: 0 !important;
   }
   .nav-links {
-    width: 100%;
 width: 100% !important;
 
   }
@@ -144,10 +148,6 @@ width: 100% !important;
     transition: ease-in-out 0.3s all;
     font-weight: 500 !important;
 
-
-    &:hover {
-    font-weight: 700 !important;
-  }
   }
   .active-tab {
     border-right: 5px solid blue !important;
