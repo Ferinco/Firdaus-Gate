@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { api } from "../../../api/axios";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { usePaystackPayment } from "react-paystack";
 import admission from "../../../redux/slices/admission";
 import styled from "styled-components";
@@ -13,6 +14,7 @@ StepThree.propTypes = {
 };
 
 export default function StepThree({ setStep }) {
+  const navigate = useNavigate();
   const { handleSubmit, register } = useForm({
     defaultValues: {},
   });
@@ -20,6 +22,7 @@ export default function StepThree({ setStep }) {
   const { studentInformation, parentInformation } = useSelector(
     (state) => state.admission
   );
+  console.log(studentInformation);
 
   const config = {
     reference: new Date().getTime().toString(),
@@ -30,17 +33,18 @@ export default function StepThree({ setStep }) {
   const initializePayment = usePaystackPayment(config);
   const onSuccess = (reference) => {
     console.log(reference);
+    navigate("/admission/admission-form/payment-success", { state: reference });
 
-    api
-      .post("/admission/create", { payment: reference })
-      .then(({ data }) => {
-        console.log(data);
-        setStep(4);
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Something went wrong, try again later");
-      });
+    // api
+    //   .post("/admission/create", { payment: reference })
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     // setStep(4);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     toast.error("Something went wrong, try again later");
+    //   });
   };
 
   const onClose = () => {
@@ -52,7 +56,13 @@ export default function StepThree({ setStep }) {
     <Wrapper>
       <div className="header-section pb-2 d-flex flex-column justify-content-center align-items-center">
         <h4 className="title p-0 m-0">CONFIRM & PAY</h4>
-        <p className="m-0">Payment of Admission fee for <b> {studentInformation?.surname}{" "}{studentInformation?.surname} </b></p>
+        <p className="m-0">
+          Payment of Admission fee for{" "}
+          <b>
+            {" "}
+            {studentInformation?.surname} {studentInformation?.surname}{" "}
+          </b>
+        </p>
       </div>
       <div className="section">
         <h5 className="sub-header">Student Information</h5>
@@ -211,46 +221,49 @@ export default function StepThree({ setStep }) {
   );
 }
 const Wrapper = styled.div`
-background-image: url(/images/logo.png);
-background-repeat: no-repeat;
-background-position: center;
-background-size: contain;
-/* filter: blur(10px); */
-position:relative;
-&:before {
-    content: '';
+  background-image: url(/images/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* filter: blur(10px); */
+  position: relative;
+  &:before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value for transparency */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Adjust the alpha value for transparency */
   }
-.header-section{
-border-bottom: 1px solid grey;
-position: relative;
-}
-.sub-header{
-  background-color: grey;
-  color: white;
-  padding: 10px;
-  position: relative;
-  span{
-    color:blue !important;
+  .header-section {
+    border-bottom: 1px solid grey;
+    position: relative;
   }
-  text-transform: uppercase;
-}
-.row{
-  p{
-    color:grey;
-    strong{
-      color: black !important;
+  .sub-header {
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    position: relative;
+    span {
+      color: blue !important;
+    }
+    text-transform: uppercase;
+  }
+  .row {
+    p {
+      color: grey;
+      strong {
+        color: black !important;
+      }
     }
   }
-}
-button{
-  position: relative;
-}
-`
-
-
+  button {
+    position: relative;
+  }
+`;

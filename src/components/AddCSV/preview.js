@@ -31,7 +31,7 @@ export default function Preview({ setStage, data, setData }) {
             </tr>
           </thead>
           <tbody>
-            {tableData.map((row, index) => {
+            {tableData?.map((row, index) => {
               return (
                 <tr>
                   {Object.values(row).map((value, idx) => (
@@ -72,6 +72,7 @@ export default function Preview({ setStage, data, setData }) {
 
 const Wrapper = styled.div`
   height: auto;
+  width: 100%;
 
   input {
     width: fit-content;
