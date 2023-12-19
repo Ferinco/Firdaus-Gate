@@ -51,13 +51,19 @@ export default function CreateStudents() {
     },
   });
   const selectedCurrentClass = watch("currentClass");
-//   const selectedClass = watch("classHandled");
+  //   const selectedClass = watch("classHandled");
   //submission of the form
   const onSubmit = async (data) => {
     console.log(data);
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("values", JSON.stringify({...data, password:`${data.firstName}${data.admissionNumber}`}));
+    formData.append(
+      "values",
+      JSON.stringify({
+        ...data,
+        password: `${data.firstName}${data.admissionNumber}`.toLowerCase(),
+      })
+    );
     await UserService.createUser(formData)
       .then((res) => {
         console.log(res);
@@ -188,24 +194,22 @@ export default function CreateStudents() {
                 </select>
               </div>
             </div>
-            {
-                selectedCurrentClass.startsWith("FGSSC") && (
-                    <div className="d-flex flex-column mt-4">
-                    <label htmlFor="department" className="label">
-                     Department
-                    </label>
-                    <select name="department" {...register("department")}>
-                      <option value="" disabled>
-                        Dept.
-                      </option>
-                      <option value="GEN">General</option>
-                      <option value="SCI">Science</option>
-                      <option value="ART">Art</option>
-                      <option value="COM">commercial</option>
-                    </select>
-                  </div>
-                )
-            }
+            {selectedCurrentClass.startsWith("FGSSC") && (
+              <div className="d-flex flex-column mt-4">
+                <label htmlFor="department" className="label">
+                  Department
+                </label>
+                <select name="department" {...register("department")}>
+                  <option value="" disabled>
+                    Dept.
+                  </option>
+                  <option value="GEN">General</option>
+                  <option value="SCI">Science</option>
+                  <option value="ART">Art</option>
+                  <option value="COM">commercial</option>
+                </select>
+              </div>
+            )}
             <div className="mt-4 d-flex flex-column">
               <label htmlFor="parentPhone" className="label">
                 Parent phone number

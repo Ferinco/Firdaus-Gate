@@ -223,7 +223,7 @@ export default function StudentsList() {
             email: student[6],
             gender: student[7],
             role: "student",
-            password: `${student[1]}${student[4]}`,
+            password: `${student[1]}${student[4]}`.toLowerCase(),
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
@@ -320,6 +320,9 @@ export default function StudentsList() {
           setData={setCsvData}
           data={csvData}
           handleSubmit={createCsvUsers}
+          nbMessage={
+            "Please check your column header. The first row must contain First name, Surname, middle name, class code, admission number, parent phone, email, gender."
+          }
         />
       )}
       {isLoading ? <CircularProgress /> : ""}

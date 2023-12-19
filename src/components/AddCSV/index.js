@@ -4,13 +4,20 @@ import Preview from "./preview";
 import Import from "./import";
 import styled from "styled-components";
 
-export default function AddCSV({ onClose, setData, data, handleSubmit }) {
+export default function AddCSV({
+  onClose,
+  setData,
+  data,
+  handleSubmit,
+  nbMessage,
+}) {
   const [stage, setStage] = useState(1);
   const renderCSV = () => {
     switch (stage) {
       case 1:
         return (
           <Upload
+            nbMessage={nbMessage}
             onClose={onClose}
             setData={setData}
             data={data}
@@ -31,6 +38,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
       default:
         return (
           <Upload
+            nbMessage={nbMessage}
             data={data}
             onClose={onClose}
             setData={setData}
@@ -62,7 +70,7 @@ export default function AddCSV({ onClose, setData, data, handleSubmit }) {
               Close
             </button>
           </div>
-          
+
           <div className="card-body text-center">{renderCSV()}</div>
           <div className="card-footer d-flex justify-content-end">
             <div

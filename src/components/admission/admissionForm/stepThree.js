@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { api } from "../../../api/axios";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { usePaystackPayment } from "react-paystack";
 import admission from "../../../redux/slices/admission";
 
@@ -12,6 +13,7 @@ StepThree.propTypes = {
 };
 
 export default function StepThree({ setStep }) {
+  const navigate = useNavigate();
   const { handleSubmit, register } = useForm({
     defaultValues: {},
   });
@@ -19,6 +21,7 @@ export default function StepThree({ setStep }) {
   const { studentInformation, parentInformation } = useSelector(
     (state) => state.admission
   );
+  console.log(studentInformation);
 
   const config = {
     reference: new Date().getTime().toString(),
@@ -29,17 +32,18 @@ export default function StepThree({ setStep }) {
   const initializePayment = usePaystackPayment(config);
   const onSuccess = (reference) => {
     console.log(reference);
+    navigate("/admission/admission-form/payment-success", { state: reference });
 
-    api
-      .post("/admission/create", { payment: reference })
-      .then(({ data }) => {
-        console.log(data);
-        setStep(4);
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Something went wrong, try again later");
-      });
+    // api
+    //   .post("/admission/create", { payment: reference })
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     // setStep(4);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     toast.error("Something went wrong, try again later");
+    //   });
   };
 
   const onClose = () => {
@@ -51,7 +55,10 @@ export default function StepThree({ setStep }) {
     <div>
       <div className="">
         <h4>Confirm & pay</h4>
-        <p>Payment of Admission fee for Ifeanyi Lucky</p>
+        <p>
+          Payment of Admission fee for {studentInformation.surname}{" "}
+          {studentInformation.firstName} {studentInformation.otherNames}{" "}
+        </p>
       </div>
       <div>
         <h5>Student Information</h5>

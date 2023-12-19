@@ -279,7 +279,7 @@ export const JuniorSubjects = [
 
 export const SeniorSubjects = [
   {
-    name: "English Langauage",
+    name: "English Language",
     code: "FSS_001",
     id: "001",
   },

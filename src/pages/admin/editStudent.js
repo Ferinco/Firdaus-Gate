@@ -354,7 +354,11 @@ const ChangePortfolio = () => {
   return (
     <div className="div mt-5 p-3">
       <h6> Edit portfolio, add and delete subject, change teacher class etc</h6>
-      <AddAndDeleteSubject studentId={identity} />
+      {["FGSSC_002", "FGSSC_003"].includes(user.currentClass) ? (
+        <AddAndDeleteSubject studentId={identity} />
+      ) : (
+        <h3>Cannot change subject for this student</h3>
+      )}
     </div>
   );
 };

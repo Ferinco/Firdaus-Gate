@@ -3,7 +3,13 @@ import toast from "react-hot-toast";
 import styled from "styled-components";
 import Papa from "papaparse";
 
-export default function Upload({ onClose, setData, data, setStage }) {
+export default function Upload({
+  onClose,
+  setData,
+  data,
+  setStage,
+  nbMessage,
+}) {
   const [file, setFile] = React.useState("");
   const allowedExtension = ["csv"];
   const handleChange = (e) => {
@@ -27,27 +33,28 @@ export default function Upload({ onClose, setData, data, setStage }) {
   };
   return (
     <div>
-<div>
-  <div>
-
-  <h5>Don't have the template? Click Here* </h5>
-  <button>Download Template</button>
-  </div>
-  <div><small>Make sure you are using</small></div>
-</div>
-    <div className="upload-area position-relative">
-      <input
-        type="file"
-        className="position-absolute h-100 w-100 opacity-0"
-        onChange={handleChange}
-        accept=".csv"
-        style={{ cursor: "pointer", left: 0, right: 0 }}
-        />
-      <h5>Select a CSV file to upload</h5>
-
-      <p className="text-muted">or drag and drop it here</p>
-      <small>{file.name}</small>
+      <div>
+        <div>
+          <h5>Don't have the template? Click Here* </h5>
+          <button>Download Template</button>
         </div>
+        <div>
+          <small className="text-danger w-75">{nbMessage}</small>
+        </div>
+      </div>
+      <div className="upload-area position-relative">
+        <input
+          type="file"
+          className="position-absolute h-100 w-100 opacity-0"
+          onChange={handleChange}
+          accept=".csv"
+          style={{ cursor: "pointer", left: 0, right: 0 }}
+        />
+        <h5>Select a CSV file to upload</h5>
+
+        <p className="text-muted">or drag and drop it here</p>
+        <small>{file.name}</small>
+      </div>
     </div>
   );
 }

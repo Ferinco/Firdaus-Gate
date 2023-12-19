@@ -66,7 +66,7 @@ export default function AdminSidebar() {
                 <img src="/images/logo.png" alt="logo" />
               </Link>
             </div>
-            <div className="nav-links d-flex flex-column pl-5">
+            <div className="nav-links d-flex flex-column pl-5 mt-5">
               {sidebarConfig.map(({ link, icon, title }, index) => (
                 <Link
                   className={`nav-link react-router-link ${
@@ -140,7 +140,7 @@ const SIDEBAR = styled.div`
     padding-right: 0 !important;
   }
   .nav-links {
-    gap: 30px;
+    gap: 20px;
     width: 100% !important;
   }
   .nav-link {

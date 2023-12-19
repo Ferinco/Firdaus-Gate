@@ -91,7 +91,7 @@ export default function StepOne({ setStep }) {
                 type="text"
                 className="form-control"
                 placeholder="First Name"
-                {...register("surname")}
+                {...register("firstName")}
               />
             </div>
           </div>
