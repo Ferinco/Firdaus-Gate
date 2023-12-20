@@ -201,6 +201,7 @@ export default function TeachersList() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
       setIsLoading(true);
+      console.log(newTeachers);
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
@@ -299,6 +300,7 @@ export default function TeachersList() {
                   placeholder="First name"
                   {...register("firstName")}
                 />
+
                 <input
                   type="text"
                   placeholder="Last name"

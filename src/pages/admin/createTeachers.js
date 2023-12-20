@@ -58,7 +58,7 @@ export default function CreateTeachers() {
     const formData = new FormData();
     formData.append(
       "values",
-      JSON.stringify({ ...values, tel: values.mobileNumber, password:`${values.firstName}${values.teacherId}` }));
+      JSON.stringify({ ...values, tel: values.mobileNumber, password:`${values.lastName}${values.teacherId}`.toLowerCase() }));
     formData.append("teacherSignature", values.teacherSignature[0]);
     try {
       setIsSubmitting(true); 
@@ -194,8 +194,8 @@ export default function CreateTeachers() {
                   <option value="" disabled>
                     Select Teacher Type
                   </option>
-                  <option value="subjectTeacher">Subject Teacher</option>
-                  <option value="classTeacher">Class Teacher</option>
+                  <option value="subject_teacher">Subject Teacher</option>
+                  <option value="class_teacher">Class Teacher</option>
                 </select>
                 <p className="error-message">
                   {errors.teacherType?.message
@@ -205,7 +205,7 @@ export default function CreateTeachers() {
               </div>
             </div>
 
-            {selectedTeacherType === "classTeacher" && (
+            {selectedTeacherType === "class_teacher" && (
               <div className="my-2 d-flex flex-column">
                 <label htmlFor="classHandled" className="label">
                   Class Managed
@@ -238,7 +238,7 @@ export default function CreateTeachers() {
                 </p>
               </div>
             )}
-            {selectedTeacherType === "classTeacher" &&
+            {selectedTeacherType === "class_teacher" &&
               selectedClass?.startsWith("FGSSC") && (
                 <div className="my-2 d-flex flex-column">
                   <label htmlFor="department" className="label">
@@ -266,22 +266,22 @@ export default function CreateTeachers() {
                       Subject Taught
                     </option>
 {
-  selectedClass.startsWith("FGKGC") ? ElementarySubjects.map((subject)=>(
+  selectedClass?.startsWith("FGKGC") ? ElementarySubjects.map((subject)=>(
     <option value={subject.code}>{subject.name}</option>
   )) : ""
 }
 {
-  selectedClass.startsWith("FGNSC") ? ElementarySubjects.map((subject)=>(
+  selectedClass?.startsWith("FGNSC") ? ElementarySubjects.map((subject)=>(
     <option value={subject.code}>{subject.name}</option>
   )) : ""
 }
 {
-  selectedClass.startsWith("FGBSC") ? BasicSubjects.map((subject)=>(
+  selectedClass?.startsWith("FGBSC") ? BasicSubjects.map((subject)=>(
     <option value={subject.code}>{subject.name}</option>
   )) : ""
 }
 {
-  selectedClass.startsWith("FGJSC") ? JuniorSubjects.map((subject)=>(
+  selectedClass?.startsWith("FGJSC") ? JuniorSubjects.map((subject)=>(
     <option value={subject.code}>{subject.name}</option>
   )) : ""
 }

@@ -129,7 +129,7 @@ export default function AdminDashboard() {
                 <h5>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
+                      <span className="sr-only"></span>
                     </div>
                   ) : (
                     termName
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
             <h5>
               {Teachers === "" ? (
                 <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 Teachers
@@ -165,7 +165,7 @@ export default function AdminDashboard() {
             <h5>
               {Students === "" ? (
                 <div className="spinner-border" role="status">
-                  <span className="sr-only">Loading...</span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 Students

@@ -59,7 +59,7 @@ export default function AdminSidebar() {
           isSidebarOpen ? "opened" : "closed"
         }`}
       >
-        <div className="nav-container d-flex flex-column py-5 justify-content-between h-100 px-0">
+        <div className="nav-container d-flex flex-column py-3 justify-content-between h-100 px-0">
           <div className="wrapper d-flex flex-column justify-content-between">
             <div className="logo">
               <Link className="react-router-link" to={PATH_PAGE.home}>

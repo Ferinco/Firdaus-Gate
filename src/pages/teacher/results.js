@@ -21,6 +21,7 @@ import { getNonNullValue } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { ReportService } from "../../services/reportService";
 import axios from "axios";
+import { Icon } from "@iconify/react";
 
 const columns = [
   { header: "", accessor: "select" },
@@ -291,7 +292,7 @@ export default function Results() {
   return (
     <div>
       {isLoading ? <CircularProgress /> : ""}
-      <Wrapper className="py-5">
+      <Wrapper className="py-5 container">
         {CSVOpen && (
           <AddCSV
             onClose={() => setCSVOpen(false)}
@@ -300,211 +301,11 @@ export default function Results() {
             handleSubmit={handleCsvReportUpload}
           />
         )}
-        <div className="d-flex flex-column">
-          <div>
-            <h4>Reports</h4>
-          </div>
-          {reports.length > 0 ? (
-            <>
-              {reports.map((result) => (
-                <div key={result._id}>{result}</div>
-              ))}
-            </>
-          ) : (
-            <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-              <p className="text-muted">No reports created yet</p>
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
-                Import CSV file
-              </button>
-            </div>
-          )}
-        </div>
-        <div className="table-div">
-          <Table className="table table-bordered mt-3">
-            <tr className="head">
-              {columns.map((column, i) => (
-                <th
-                  key={i}
-                  scope="col"
-                  className="table-head p-0 m-0"
-                  onClick={() => onSort(i)}
-                >
-                  <p
-                    className="mb-0 p-0 text-muted"
-                    style={{ background: "transparent" }}
-                  >
-                    {column.header}
-                  </p>
-                  {/* <span>
-                            {column.isSorted
-                              ? column.isSortedDesc
-                                ? " ▼"
-                                : " ▲"
-                              : ""}
-                          </span> */}
-                </th>
-              ))}
-            </tr>
-            {reportData.length > 0 &&
-              reportData.map((row, i) => (
-                <tr key={i} className="body">
-                  {columns.map((cell, index) => {
-                    if (cell.accessor.indexOf("image") > -1) {
-                      return (
-                        <th key={index} className="table-body">
-                          <td className="table-button">
-                            <img src={row[cell.accessor]} />
-                          </td>
-                        </th>
-                      );
-                    }
-
-                    if (cell.accessor == "select") {
-                      return (
-                        <td className="table-body">
-                          <td className="table-button">
-                            <input
-                              type="checkbox"
-                              className=" cursor-pointer focus:outline-none focus:ring-0 "
-                              onChange={() => multiSelectHandle(row._id)}
-                              checked={multiSelect.includes(row._id)}
-                            />
-                          </td>
-                        </td>
-                      );
-                    }
-                    if (cell.accessor == "createdAt") {
-                      return (
-                        <td className="table-body">
-                          <td className="table-button">
-                            {new Date(row.createdAt).toLocaleDateString()}
-                          </td>
-                        </td>
-                      );
-                    }
-                    if (cell.accessor == "admissionNumber") {
-                      return (
-                        <td className="table-body">
-                          <td className="table-button">
-                            {row.student.admissionNumber}
-                          </td>
-                        </td>
-                      );
-                    }
-                    if (cell.accessor == "lastName") {
-                      return (
-                        <td className="table-body">
-                          <td className="table-button">
-                            {row.student.lastName}
-                          </td>
-                        </td>
-                      );
-                    }
-                    if (cell.accessor == "firstName") {
-                      return (
-                        <td className="table-body">
-                          <td className="table-button">
-                            {row.student.firstName}
-                          </td>
-                        </td>
-                      );
-                    }
-                    // if (cell.accessor == "stemail") {
-                    //   return (
-                    //     <td className="table-body">
-                    //       <td className="email table-button">{row.email}</td>
-                    //     </td>
-                    //   );
-                    // }
-                    if (cell.accessor == "student.admissionNumber") {
-                      return (
-                        <td className="table-body">
-                          <td className="id table-button">
-                            <p className="mb-0">{row.admissionNumber}</p>
-                          </td>
-                        </td>
-                      );
-                    }
-                    if (cell.accessor == "") {
-                      return (
-                        <td key={index} className="table-body">
-                          <td className="table-button">
-                            <button
-                              className="view-button"
-                              type="button"
-                              onClick={() =>
-                                downloadReport(
-                                  row.student.admissionNumber,
-                                  row.reportTerm,
-                                  row.reportClass,
-                                  row.classSection,
-                                  row.student._id
-                                )
-                              }
-                            >
-                              Download
-                            </button>
-                          </td>
-                          {/* <td className="table-button">
-                            <Link
-                              to={`${PATH_DASHBOARD.admin.editStudent}/${row._id}`}
-                            >
-                              <button className="update-button">edit</button>
-                            </Link>
-                          </td> */}
-                          <td className="table-button">
-                            <button
-                              onClick={() => {
-                                // setOverlay(true);
-                                // setDeleteId(row._id);
-                              }}
-                              className="delete-button"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </td>
-                      );
-                    }
-
-                    if (cell.mappingExist) {
-                      return (
-                        <td key={index} className="table-body">
-                          <td className="table-button">
-                            {cell.mappings[row[cell.accessor]]}
-                          </td>
-                        </td>
-                      );
-                    }
-                    return (
-                      <td key={index} className="table-body">
-                        <td className="table-button others">
-                          {row[cell.accessor]}
-                        </td>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-          </Table>
-        </div>
-        <PaginationBar
-          canNextPage={canNextPage}
-          canPreviousPage={canPreviousPage}
-          currentPage={page}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          pageCount={pageCount}
-          pageSize={pageSize}
-          updatePageSize={updatePageSize}
-          // handleSubmit={createCsvUsers}
-        />
-        {/* /> */}
-        )}
+        <div><h4>Results</h4></div>
         {user.classHandled === "none" ? (
           <div>
             <div>
-              <h3>REPORTS</h3>
+              <h4>Reports</h4>
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center mt-5">
               <div className="icon-div p-3">
@@ -524,25 +325,201 @@ export default function Results() {
             </div>
           </div>
         ) : (
-          <div className="d-flex flex-column">
-            <div>
-              <h4>REPORTS</h4>
-            </div>
-            {reports > 0 ? (
-              <>
-                {reports.map((result) => (
-                  <div key={result._id}>{result}</div>
-                ))}
-              </>
-            ) : (
-              <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-                <p className="text-muted">No reports created yet</p>
-                <button onClick={() => setCSVOpen(true)} className="csv-button">
-                  Import CSV file
-                </button>
-              </div>
-            )}
-          </div>
+ <>
+ {
+  reportData.length > 0 ? (
+    <div className="table-div">
+    <Table className="table table-bordered mt-3">
+      <tr className="head">
+        {columns.map((column, i) => (
+          <th
+            key={i}
+            scope="col"
+            className="table-head p-0 m-0"
+            onClick={() => onSort(i)}
+          >
+            <p
+              className="mb-0 p-0 text-muted"
+              style={{ background: "transparent" }}
+            >
+              {column.header}
+            </p>
+            {/* <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " ▼"
+                          : " ▲"
+                        : ""}
+                    </span> */}
+          </th>
+        ))}
+      </tr>
+      {reportData.length > 0 &&
+        reportData.map((row, i) => (
+          <tr key={i} className="body">
+            {columns.map((cell, index) => {
+              if (cell.accessor.indexOf("image") > -1) {
+                return (
+                  <th key={index} className="table-body">
+                    <td className="table-button">
+                      <img src={row[cell.accessor]} />
+                    </td>
+                  </th>
+                );
+              }
+
+              if (cell.accessor == "select") {
+                return (
+                  <td className="table-body">
+                    <td className="table-button">
+                      <input
+                        type="checkbox"
+                        className=" cursor-pointer focus:outline-none focus:ring-0 "
+                        onChange={() => multiSelectHandle(row._id)}
+                        checked={multiSelect.includes(row._id)}
+                      />
+                    </td>
+                  </td>
+                );
+              }
+              if (cell.accessor == "createdAt") {
+                return (
+                  <td className="table-body">
+                    <td className="table-button">
+                      {new Date(row.createdAt).toLocaleDateString()}
+                    </td>
+                  </td>
+                );
+              }
+              if (cell.accessor == "admissionNumber") {
+                return (
+                  <td className="table-body">
+                    <td className="table-button">
+                      {row.student.admissionNumber}
+                    </td>
+                  </td>
+                );
+              }
+              if (cell.accessor == "lastName") {
+                return (
+                  <td className="table-body">
+                    <td className="table-button">
+                      {row.student.lastName}
+                    </td>
+                  </td>
+                );
+              }
+              if (cell.accessor == "firstName") {
+                return (
+                  <td className="table-body">
+                    <td className="table-button">
+                      {row.student.firstName}
+                    </td>
+                  </td>
+                );
+              }
+              // if (cell.accessor == "stemail") {
+              //   return (
+              //     <td className="table-body">
+              //       <td className="email table-button">{row.email}</td>
+              //     </td>
+              //   );
+              // }
+              if (cell.accessor == "student.admissionNumber") {
+                return (
+                  <td className="table-body">
+                    <td className="id table-button">
+                      <p className="mb-0">{row.admissionNumber}</p>
+                    </td>
+                  </td>
+                );
+              }
+              if (cell.accessor == "") {
+                return (
+                  <td key={index} className="table-body">
+                    <td className="table-button">
+                      <button
+                        className="view-button"
+                        type="button"
+                        onClick={() =>
+                          downloadReport(
+                            row.student.admissionNumber,
+                            row.reportTerm,
+                            row.reportClass,
+                            row.classSection,
+                            row.student._id
+                          )
+                        }
+                      >
+                        Download
+                      </button>
+                    </td>
+                    {/* <td className="table-button">
+                      <Link
+                        to={`${PATH_DASHBOARD.admin.editStudent}/${row._id}`}
+                      >
+                        <button className="update-button">edit</button>
+                      </Link>
+                    </td> */}
+                    <td className="table-button">
+                      <button
+                        onClick={() => {
+                          // setOverlay(true);
+                          // setDeleteId(row._id);
+                        }}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </td>
+                );
+              }
+
+              if (cell.mappingExist) {
+                return (
+                  <td key={index} className="table-body">
+                    <td className="table-button">
+                      {cell.mappings[row[cell.accessor]]}
+                    </td>
+                  </td>
+                );
+              }
+              return (
+                <td key={index} className="table-body">
+                  <td className="table-button others">
+                    {row[cell.accessor]}
+                  </td>
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+    </Table>
+    <PaginationBar
+          canNextPage={canNextPage}
+          canPreviousPage={canPreviousPage}
+          currentPage={page}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          updatePageSize={updatePageSize}
+          // handleSubmit={createCsvUsers}
+        />
+  </div>
+  
+  ) :
+  (
+    <div className="d-flex flex-column justify-content-center align-items-center mt-5">
+    <p className="text-muted">No reports uploaded yet</p>
+    <button onClick={() => setCSVOpen(true)} className="csv-button">
+      Import CSV file
+    </button>
+  </div> 
+  )
+ }
+ </>
         )}
       </Wrapper>
     </div>

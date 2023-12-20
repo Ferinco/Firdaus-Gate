@@ -103,13 +103,13 @@ export default function MyClass() {
   const [csvData, setCsvData] = useState([]);
   //handle checked students
   const [checkLength, setcheckLength] = useState(0);
-
+console.log(user)
   const getData = async (pageNum, limitNum, filter) => {
     try {
       setIsLoading(true);
       const result = await UserService.findUsers({
         role: "student",
-        classTeacher: user?._id,
+        currentClass: user?.classHandled,
         limit: limitNum,
         page: pageNum,
         ...filter,
