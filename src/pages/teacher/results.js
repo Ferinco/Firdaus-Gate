@@ -21,6 +21,7 @@ import { getNonNullValue } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { ReportService } from "../../services/reportService";
 import axios from "axios";
+import { Icon } from "@iconify/react";
 
 const columns = [
   { header: "", accessor: "select" },
@@ -500,7 +501,7 @@ export default function Results() {
           // handleSubmit={createCsvUsers}
         />
         {/* /> */}
-        )}
+
         {user.classHandled === "none" ? (
           <div>
             <div>
