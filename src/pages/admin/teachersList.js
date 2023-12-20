@@ -52,6 +52,14 @@ const columns = [
     mappings: {},
   },
   {
+    header: "Class Handled",
+    accessor: "classHandled",
+    isSorted: true,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
     header: "Email",
     accessor: "email",
     isSorted: false,
@@ -146,6 +154,7 @@ export default function TeachersList() {
       .then((res) => {
         setOverlay(false);
         toast.success("teacher account has been deleted successfully");
+        getData(page, pageSize);
       })
       .catch((error) => {
         toast.error("unable to delete teacher account");
@@ -222,7 +231,7 @@ export default function TeachersList() {
             "values",
             JSON.stringify({
               ...data,
-              password: `${data.teacherId}${data.lastName}`.toLowerCase(),
+              password: `${data.lastName}${data.teacherId}`.toLowerCase(),
             })
           );
           await UserService.createUser(formData);
@@ -234,10 +243,17 @@ export default function TeachersList() {
         })
         .catch((error) => {
           console.log(error);
-          toast.error("Failure creating teachers from CSV");
+          if (error?.response?.data?.message) {
+            toast.error(error.response.data.message);
+          } else {
+            toast.error("Failure creating teachers from CSV");
+          }
         });
       setIsLoading(false);
     }
+
+    getData(page, pageSize);
+    setCSVOpen(false);
   }
   const handleMultiTransfer = () => {
     if (multiSelect.length) {
@@ -273,6 +289,7 @@ export default function TeachersList() {
         })
       );
     }
+    getData(page, pageSize);
   };
 
   return (
@@ -341,7 +358,12 @@ export default function TeachersList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button> */}
-                   <button onClick={()=>{setConfirmation(true)}} className="action-bar">
+                  <button
+                    onClick={() => {
+                      setConfirmation(true);
+                    }}
+                    className="action-bar"
+                  >
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -540,39 +562,41 @@ export default function TeachersList() {
         ) : (
           ""
         )}
-                {
-          confirmation ? (
-            <div className="overlay-wrapper d-flex ">
-              <div
-                className={`d-flex flex-column p-3 overlay-options ${
-                  confirmation ? "open" : "close"
-                }`}
-              >
-                <p>Are you sure you want to delete {multiSelect.length} {multiSelect.length > 1 ? "teachers'" : "teacher's"} profile?</p>
-                <div className=" buttons d-flex gap-3">
-                  <button
-                    className="left"
-                    onClick={() => {
-                     deleteMultiple()
-                     setConfirmation(false)
-                    }}
-                  >
-                    yes
-                  </button>
-                  <button
-                    className="right"
-                    onClick={() => {
-                      setConfirmation(false);
-                    }}
-                  >
-                    no
-                  </button>
-                </div>
+        {confirmation ? (
+          <div className="overlay-wrapper d-flex ">
+            <div
+              className={`d-flex flex-column p-3 overlay-options ${
+                confirmation ? "open" : "close"
+              }`}
+            >
+              <p>
+                Are you sure you want to delete {multiSelect.length}{" "}
+                {multiSelect.length > 1 ? "teachers'" : "teacher's"} profile?
+              </p>
+              <div className=" buttons d-flex gap-3">
+                <button
+                  className="left"
+                  onClick={() => {
+                    deleteMultiple();
+                    setConfirmation(false);
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  className="right"
+                  onClick={() => {
+                    setConfirmation(false);
+                  }}
+                >
+                  no
+                </button>
               </div>
             </div>
-          ) : (
-            ""
-          )}
+          </div>
+        ) : (
+          ""
+        )}
       </Wrapper>
     </>
   );
@@ -701,12 +725,12 @@ const Wrapper = styled.div`
       background-color: white;
       cursor: pointer;
       height: fit-content !important;
-        color: red;
-        border: 1px solid red;
-        &:hover {
-          color: white;
-          background-color: red;
-          transition: 0.3s;
+      color: red;
+      border: 1px solid red;
+      &:hover {
+        color: white;
+        background-color: red;
+        transition: 0.3s;
       }
     }
   }
