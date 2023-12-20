@@ -22,7 +22,6 @@ import { Link } from "react-router-dom";
 import { ReportService } from "../../services/reportService";
 import axios from "axios";
 import { Icon } from "@iconify/react";
-import { Icon } from "@iconify/react";
 
 const columns = [
   { header: "", accessor: "select" },
