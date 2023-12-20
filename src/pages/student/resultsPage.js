@@ -40,15 +40,24 @@ export default function ResultsPage() {
   ];
 
   // Download handler for report card
-  async function downloadReport(term) {
+  async function downloadReport( 
+    admissionNumber,
+    term,
+    selectedClass,
+    classSection,
+    studentId
+    ) 
+    {
+    console.log(admissionNumber, term, selectedClass, classSection, studentId);
     try {
       setLoading(true);
       const data = await ReportService.downloadReport({
-        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
-        selectedTerm: term,
+        admissionNumber : user?.admissionNumber,
+        term: currentTerm.name,
         selectedClass,
-        student: user._id,
-      });
+        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
+          studentId: user?._id,
+        });
 
       if (data?.success) {
         await axios
@@ -127,7 +136,15 @@ export default function ResultsPage() {
           {reportsItem.map((report) => (
             <div
               className="tab "
-              onClick={() => downloadReport(report.reportTerm)}
+              onClick={() =>
+                downloadReport(
+                 user?.admissionNumber,
+                 report.reportTerm,
+                 selectedClass,
+                 selectedClass?.startsWith("JSS") ? "senior" : "junior",
+                  user?._id,
+                )
+              }
               key={report._id}
             >
               <div className="tab-right">
