@@ -329,7 +329,13 @@ export default function Results() {
  {
   reportData.length > 0 ? (
     <div className="table-div">
-    <Table className="table table-bordered mt-3">
+    <div className="d-flex flex-row justify-content-center align-items-center mt-3 gap-2">
+    <p className="text-muted m-0">Add more results/upload corrections?</p>
+    <button onClick={() => setCSVOpen(true)} className="csv-button">
+      Import CSV file
+    </button>
+  </div> 
+    <Table className="table table-bordered mt-5">
       <tr className="head">
         {columns.map((column, i) => (
           <th
