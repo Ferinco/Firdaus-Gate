@@ -328,13 +328,15 @@ export default function Results() {
  <>
  {
   reportData.length > 0 ? (
-    <div className="table-div">
-    <div className="d-flex flex-row justify-content-center align-items-center mt-3 gap-2">
-    <p className="text-muted m-0">Add more results/upload corrections?</p>
+    <div className="content-wrapper p-3 mt-5">
+
+    <div className="d-flex flex-column justify-content-end align-items-end mt-3 gap-2">
+    <p className=" m-0">Upload more results/upload corrections?</p>
     <button onClick={() => setCSVOpen(true)} className="csv-button">
       Import CSV file
     </button>
   </div> 
+    <div className="table-div">
     <Table className="table table-bordered mt-5">
       <tr className="head">
         {columns.map((column, i) => (
@@ -377,7 +379,7 @@ export default function Results() {
               if (cell.accessor == "select") {
                 return (
                   <td className="table-body">
-                    <td className="table-button">
+                    <td className="table-button id">
                       <input
                         type="checkbox"
                         className=" cursor-pointer focus:outline-none focus:ring-0 "
@@ -391,7 +393,7 @@ export default function Results() {
               if (cell.accessor == "createdAt") {
                 return (
                   <td className="table-body">
-                    <td className="table-button">
+                    <td className="table-button id">
                       {new Date(row.createdAt).toLocaleDateString()}
                     </td>
                   </td>
@@ -400,7 +402,7 @@ export default function Results() {
               if (cell.accessor == "admissionNumber") {
                 return (
                   <td className="table-body">
-                    <td className="table-button">
+                    <td className="table-button id">
                       {row.student.admissionNumber}
                     </td>
                   </td>
@@ -409,7 +411,7 @@ export default function Results() {
               if (cell.accessor == "lastName") {
                 return (
                   <td className="table-body">
-                    <td className="table-button">
+                    <td className="table-button id">
                       {row.student.lastName}
                     </td>
                   </td>
@@ -418,23 +420,16 @@ export default function Results() {
               if (cell.accessor == "firstName") {
                 return (
                   <td className="table-body">
-                    <td className="table-button">
+                    <td className="table-button id">
                       {row.student.firstName}
                     </td>
                   </td>
                 );
               }
-              // if (cell.accessor == "stemail") {
-              //   return (
-              //     <td className="table-body">
-              //       <td className="email table-button">{row.email}</td>
-              //     </td>
-              //   );
-              // }
               if (cell.accessor == "student.admissionNumber") {
                 return (
                   <td className="table-body">
-                    <td className="id table-button">
+                    <td className="real-id table-button">
                       <p className="mb-0">{row.admissionNumber}</p>
                     </td>
                   </td>
@@ -443,7 +438,6 @@ export default function Results() {
               if (cell.accessor == "") {
                 return (
                   <td key={index} className="table-body">
-                    <td className="table-button">
                       <button
                         className="view-button"
                         type="button"
@@ -459,15 +453,6 @@ export default function Results() {
                       >
                         Download
                       </button>
-                    </td>
-                    {/* <td className="table-button">
-                      <Link
-                        to={`${PATH_DASHBOARD.admin.editStudent}/${row._id}`}
-                      >
-                        <button className="update-button">edit</button>
-                      </Link>
-                    </td> */}
-                    <td className="table-button">
                       <button
                         onClick={() => {
                           // setOverlay(true);
@@ -477,7 +462,7 @@ export default function Results() {
                       >
                         Delete
                       </button>
-                    </td>
+                    
                   </td>
                 );
               }
@@ -514,6 +499,7 @@ export default function Results() {
           // handleSubmit={createCsvUsers}
         />
   </div>
+  </div>
   
   ) :
   (
@@ -532,6 +518,22 @@ export default function Results() {
   );
 }
 const Wrapper = styled.div`
+  .table-head {
+    color: grey !important;
+    font-size: 14px;
+    padding: 10px !important;
+    text-transform: capitalize;
+    text-align: start;
+    padding: 5px !important;
+    p {
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .head {
+    background-color: #f1f1f1 !important;
+    height: auto !important;
+  }
   .icon-div {
     border: 1px dashed grey;
     border-radius: 50%;
@@ -542,4 +544,48 @@ const Wrapper = styled.div`
   .p-1 {
     font-size: 25px;
   }
+  .body {
+    padding: 0 !important;
+    border: 1px solid #f1f1f1;
+    background-color: white;
+  }
+  .table-body {
+    font-size: 13px;
+    border: 1px solid #f1f1f1;
+    text-align: center;
+    padding: 5px !important;
+    width: fit-content !important;
+  }
+  .table-button {
+    border: 0 !important;
+    
+  }
+
+  .table-div {
+    overflow-x: auto !important;
+    background-color: white !important;
+
+
+  }
+  .content-wrapper {
+    background-color: white;
+    border-radius: 15px;
+  }
+  .real-id {
+    font-weight: 600 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .id {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .view-button {
+  color: blue !important;
+  border: 0 !important;
+  background: white !important;
+  font-size: 13px;
+  font-weight: 600;
+
+}
 `;
