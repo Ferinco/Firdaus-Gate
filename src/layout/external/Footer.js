@@ -47,23 +47,23 @@ function Footer() {
           <div className="reach ">
             <p className="header ">Reach Us</p>
             <div className="d-flex flex-row gap-1 align-items-center" >
-            <Icon icon="system-uicons:location" className="icon" width={30} height={30}/>
-              <p className="not-link m-0 pl-2 d-flex flex-row flex-wrap">
+            <Icon icon="system-uicons:location" className="icon"/>
+              <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap">
                 6/8 Balogun Street, off Igodo Road, Omo-Olope Area, Magboro, Ogun State.
               </p>
             </div>
             <div className="mt-2">
               <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
               <Icon icon="iconamoon:phone-thin" rotate={1} className="icon"/>
-                <p className="not-link m-0 pl-2">
+                <p className="no-link m-0 pl-2">
                   0905512553
                 </p>
               </Link>
             </div>
             <div className="mt-2">
               <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
-              <Icon icon="la:envelope-solid" className="icon" />
-                <p className="m-0 pl-2">
+              <Icon icon="material-symbols-light:mail-outline" className="icon" />
+                <p className="m-0 pl-2 no-link">
                 firdausgateschools@gmail.com
                 </p>
                 </Link>
@@ -105,8 +105,8 @@ const Container = styled.div`
     font-size: 20px;
     color:white;
   }
-  .not-link {
-    /* color: grey !important; */
+  .no-link {
+    font-size:16px !important;
   }
   .brief {
     p {
@@ -131,7 +131,7 @@ gap: 20px !important;
     font-size:16px !important;
   }
   .icon{
-    font-size: 30px !important;
+    font-size: 20px !important;
     color: white;
   }
   .reach{
