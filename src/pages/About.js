@@ -182,6 +182,7 @@ export default function About() {
 }
 
 const Container = styled.div`
+
   .container,
   .row {
   }

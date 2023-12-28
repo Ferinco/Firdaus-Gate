@@ -149,7 +149,7 @@ const SIDEBAR = styled.div`
     font-weight: 500 !important;
 
     &:hover {
-      font-weight: 700 !important;
+      /* font-weight: 700 !important; */
     }
   }
   .active-tab {

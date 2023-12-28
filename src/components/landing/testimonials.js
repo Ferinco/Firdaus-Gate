@@ -107,7 +107,9 @@ const Testimonials = () => {
   );
 };
 const Container = styled.div`
-background: white;
+    background-color: linear-gradient(to right, #ffff, #ebffff, #f5f5f5);
+
+
 .client-info{
 font-weight: 600;
 }

@@ -5,9 +5,12 @@ export default function Assign(){
     
     return (
         <Container className="container py-5">
-            hey
+            <p>currently on build, check back later.</p>
             </Container>
     )
 }
 const Container = styled.div`
+p{
+    color: red;
+}
 `

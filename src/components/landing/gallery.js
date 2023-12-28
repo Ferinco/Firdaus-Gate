@@ -84,7 +84,7 @@ export default function Gallery() {
 
 const Container = styled.div`
   overflow: hidden !important;
-background: #f5f5f5;
+  background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
   color: black;
   h6 {
     color: blue;

@@ -77,13 +77,13 @@ useEffect(()=>{
   } else if (ActiveID === 2) {
     setFacilityName("Hostel Facilities, FGMS.");
     setQuote("Our modern hostels provide a comfortable and secure living environment, promoting a sense of community and well-being.")
-    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213241_1_lxseka.jpg");
+    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1703759457/xsmagszb_rk8unj.png");
 
   }
 else if (ActiveID === 3) {
   setFacilityName("Sports' Facilities, FGMS.");
   setQuote("Our top-notch sports facilities offer a dynamic space for physical activity, fostering teamwork, fitness, and skill development.")
-  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698087/Firdaus/Screenshot_20220823-083433_2_poesu0.jpg");
+  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1703758950/hdao4a7l_lmpgbb.png");
 
 } 
 else if (ActiveID === 4) {

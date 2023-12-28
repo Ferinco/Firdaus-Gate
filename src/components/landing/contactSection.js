@@ -22,10 +22,17 @@ export default function ContactUs() {
   );
 } 
 const Contact = styled.div`
-background:#0f0f0f;
+height: auto;
+background-color:#0f0f0f;
 color: white;
+@media screen and (max-width: 767px){
+  background-color:black;
+
+}
 .col-md-4{
   padding:15px 0px;
+background-color:#0f0f0f;
+
     }
   .span{
     color:blue !important;
@@ -33,9 +40,16 @@ color: white;
 .container{
   padding: 0 !important;
 @media screen and (max-width: 767px){
+gap: 10px;
+padding-bottom: 20px !important;
+padding-top: 20px !important;
+
   .col-md-4{
 justify-content:center !important;
 padding:7px 0px;
+background-color:black !important;
+height: auto !important;
+
   }
 }
 }

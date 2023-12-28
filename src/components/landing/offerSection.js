@@ -11,18 +11,24 @@ export default function OfferSection(){
 <div className="body row">
 <div className="col-md-4 d-flex flex-column">
     <h5>20+ years experience</h5>
-<div className="image"></div>
+<div className="image">
+    <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703762440/experience_fs8rhc.jpg"/>
+</div>
     <p>For over 20 years, we have been in operation and have delivered well!</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Compitent workers</h5>
-<div className="image"></div>
+<div className="image">
+<img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703761195/muslim_teacher_evh4im.jpg"/>
+</div>
 
 <p>Our workers are well trained and experienced in their respective fields.</p>
 </div>
 <div className="col-md-4 d-flex flex-column">
 <h5>Accredited and certified</h5>
-<div className="image"></div>
+<div className="image">
+    <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703761550/certified_gfkovk.jpg"/>
+</div>
 
 <p>Our school is government screened, accredited and certified.</p>
 </div>
@@ -47,9 +53,15 @@ h5{
     }
 }
 .image{
-    border:1px solid red;
-    width:250px;
-    height:200px;
+    width:300px;
+    height:300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
 }
 .body{
     .d-flex{

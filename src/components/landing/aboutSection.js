@@ -9,9 +9,15 @@ export default function AboutSection() {
         <div className="left d-flex flex-column align-items-center">
         <h6 className="pre-header">about us</h6>
         <div className="image-wrapper d-flex gap-2 ">
-          <div className=" image"></div>
-          <div className=" image"></div>
-          <div className=" image"></div>
+          <div className=" image">
+            <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755254/c3cp84kq_q4ge6r.png"/>
+          </div>
+          <div className=" image">
+            <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755836/p0pqpzge_jqjqmj.png"/>
+          </div>
+          <div className=" image">
+            <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703756027/Firdaus/jvjhcvtq_vhz2qg.png"/>
+          </div>
         </div>
         </div>
         <div className="right d-flex flex-column gap-3">
@@ -29,7 +35,8 @@ export default function AboutSection() {
   );
 }
 const Container = styled.div`
-/* margin-top: 100px; */
+    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+
     .container{
         gap: 100px;
         justify-content: space-between !important;
@@ -55,12 +62,18 @@ const Container = styled.div`
       width: 150px;
       height: 100%;
 border-radius: 30px;
+box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+border-radius: 30px;
+}
       &:first-child {
-        background-color: purple;
         margin-top: 10px;
       }
       &:nth-child(2) {
-        background-color: blue;
         margin-top: 40px;
       }
       &:nth-child(3) {
@@ -115,7 +128,7 @@ h2 {
     height: fit-content;
     .image {
       width: 150px;
-      height: 150px;
+      height: 300px;
       &:first-child {
         background-color: purple;
         margin-top: 0px;

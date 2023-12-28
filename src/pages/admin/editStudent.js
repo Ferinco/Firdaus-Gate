@@ -383,11 +383,11 @@ const ChangePortfolio = () => {
   console.log(user.subjectTaught);
   return (
     <div className="div mt-5 p-3">
-      <h6> Edit portfolio, add and delete subject, change teacher class etc</h6>
-      {["FGSSC_002", "FGSSC_003"].includes(user.currentClass) ? (
+      <p> Edit portfolio, add and delete subject, change student department etc</p>
+      {["FGSSC_002", "FGSSC_003", "FGSSC_001"].includes(user.currentClass) ? (
         <AddAndDeleteSubject studentId={identity} />
       ) : (
-        <h3>Cannot change subject for this student</h3>
+        <h4>Cannot change subject for this student</h4>
       )}
     </div>
   );

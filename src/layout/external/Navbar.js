@@ -198,7 +198,6 @@ const NavigationBar = styled.div`
   .second-navbar {
     height: 90px !important;
     align-items: center;
-    background: white !important;
     z-index: 999;
     width: 100%;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -266,8 +265,7 @@ const NavigationBar = styled.div`
     margin-top: -53px !important;
     width: 100% !important;
     z-index: 9999;
-    background-color: #fff; /* Change to your desired background color */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
   }
   .mobile-nav {
     display: none !important;
