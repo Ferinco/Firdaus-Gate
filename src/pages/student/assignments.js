@@ -91,7 +91,7 @@ export default function Assignments() {
       <div className="form-div col-lg-8 p-3 mt-5">
         <form className="form " onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0" htmlFor="subject"><span>*</span>Subject :</label>
+            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="subject"><span>*</span>Subject :</label>
             <select name="subject" {...register("subject")} className="input">
               <option value="" disabled>
                 Select Subject
@@ -104,7 +104,7 @@ export default function Assignments() {
             </select>
           </div>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0" htmlFor="subject"><span>*</span>Topic :</label>
+            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="subject"><span>*</span>Topic :</label>
             <select name="subject" {...register("topic")} className="input">
               <option value="" disabled>
                 Select Topic
@@ -117,7 +117,7 @@ export default function Assignments() {
             </select>
           </div>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0" htmlFor="name"><span>*</span>Name :</label>
+            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="name"><span>*</span>Name :</label>
 
             <input
               placeholder="Name of Assignment"

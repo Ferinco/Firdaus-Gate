@@ -19,6 +19,8 @@ import {
   NurseryClasses,
   SeniorClasses,
 } from "../../configs/classConfig";
+import { SubjectService } from "../../services/subjectService";
+import { UserService } from "../../services/userService";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -31,10 +33,47 @@ export default function StudentDashboard() {
   const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
   const classes = [...JuniorClasses];
   const currentClass = classes.filter((item) => item.code === selectedClass);
+  const [subjects, setSubjects] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
-console.log(
-  user
-)
+  const [visibleSubjects, setVisibleSubjects] = useState(5);
+
+
+
+
+
+  const getTeachers = async ( filter) => {
+    try {
+      setLoading(true);
+      const result = await UserService.findUsers({
+        role: "teacher",
+        subjectTaught: subjects,
+        ...filter,
+      });
+      console.log(result);
+      const { list, totalPages, currentPage, total, limit } = result.data;
+      setLoading(false);
+      setTeachers(list);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const userId = user._id;
+    fetchSubjects(userId);
+    getTeachers();
+  }, []);
+  const fetchSubjects = async (userId) => {
+    try {
+      const { data } = await SubjectService.getSubjects(userId);
+      setSubjects(data.subjects.slice(1));
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
 
   //fetch current term
   const dispatch = useDispatch();
@@ -70,7 +109,6 @@ console.log(
   }, [startDate]);
   const lastWeek = weeks.length - 1;
 
-  console.log(user);
   //downloading current report
   async function downloadReport(term) {
     try {
@@ -165,7 +203,7 @@ console.log(
                       className="icon"
                     />
                   </div>
-                  <h5 className="mb-0">{currentClass?.name}</h5>
+                  <h5 className="mb-0">{user.currentClass}</h5>
                   <p>current class</p>
                 </div>
                 <div className="info p-3">
@@ -176,8 +214,8 @@ console.log(
                       className="icon"
                     />
                   </div>
-                  <h5 className="mb-0">16</h5>
-                  <p>subjects offered</p>
+                  <h5 className="mb-0">{subjects.length}</h5>
+                  <p>Subjects offered</p>
                 </div>
                 <div className="info d-flex flex-column justify-content-between p-3">
                   <div className="small-div d-flex flex-row align-items-center py-1 px-2">
@@ -209,8 +247,57 @@ console.log(
                 </div>
               </div>
             </div>
+            <div className="pr-4">
+            <div  className="bottom-div"> 
+
+            </div>
+            </div>
           </div>
-          <div className="right-div col-md-4"></div>
+          <div className="right-div col-md-4 d-flex flex-column juatify-content-between py-3 gap-5">
+<div className=" d-flex flex-column">
+  <h5>Teachers</h5>
+  <div className="d-flex flex-wrap gap-1 align-items-center">
+  {teachers.slice(0, visibleSubjects).map((teacher, index) => (
+        <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
+    <div className="initial h-100 d-flex justify-content-center align-items-center">
+      <p className='m-0'>
+
+      </p>
+    </div>
+        <p className="m-0">{teacher.gender === "male" ? "Mr." : "Mrs."}
+        {teacher.lastName.length > 4 ? `${teacher.lastName.slice(0, 4)}...` : teacher.lastName}
+        </p>
+         </div>
+      ))}
+
+      {visibleSubjects < teachers.length && (
+        <Link to={PATH_DASHBOARD.student.myTeachers}>View More></Link>
+      )}
+  </div>
+</div>
+<div className=" d-flex flex-column">
+  <h5>Subjects</h5>
+  <div className="d-flex flex-wrap gap-1 align-items-center">
+  {subjects.slice(0, visibleSubjects).map((subject, index) => (
+        <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
+    <div className="initial h-100 d-flex justify-content-center align-items-center">
+      <p className='m-0'>
+    {subject.name.charAt(0)}
+      </p>
+    </div>
+        <p className="m-0">
+        {subject.name.length > 6 ? `${subject.name.slice(0, 6)}...` : subject.name}
+        </p>
+         </div>
+      ))}
+
+      {visibleSubjects < subjects.length && (
+        <Link to={PATH_DASHBOARD.student.mySubjects}>View More></Link>
+      )}
+  </div>
+</div>
+            
+          </div>
         </div>
       </Dashboard>
     </>
@@ -222,6 +309,22 @@ const Dashboard = styled.div`
   height: fit-content !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
+  .bottom-div{
+    height: 300px;
+    border-radius: 30px;
+    border: 1px solid red;
+  }
+  .initial{
+    width:70px;
+    height: 70px !important;
+    border-radius: 50%;
+    background-color: rgba(158, 160, 231, 0.7);
+    color:blue;
+    p{
+      /* font-size: 25px; */
+      /* font-weight: 600; */
+    }
+  }
   .spinner-border {
     font-size: 9px !important;
     width: 12px !important;
@@ -255,12 +358,18 @@ const Dashboard = styled.div`
     }
   }
   .middle-div {
+
   }
   .div {
     overflow-x: auto !important;
     margin-top: 0 !important;
   }
   .left-div {
+    
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-between;
   }
   .infos {
     width: 634px !important;
@@ -292,8 +401,10 @@ const Dashboard = styled.div`
     }
   }
   .right-div {
-    border: 1px solid green;
-    height: 400px;
+    p{
+      font-size: 13px;
+    }
+    height: auto;
   }
 
   @media screen and (max-width: 1100px) {

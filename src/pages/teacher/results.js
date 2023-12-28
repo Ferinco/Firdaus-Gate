@@ -101,7 +101,7 @@ export default function Results() {
   const dispatch = useDispatch();
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
   const [canNextPage, setCanNextPage] = useState(false);
@@ -117,6 +117,7 @@ export default function Results() {
         params: { teacher: user._id },
       });
       setReportData(data.data);
+      setLoading(false)
     } catch (error) {
       throw new Error("Something went wrong, try again later");
     }
@@ -291,7 +292,7 @@ export default function Results() {
   }
   return (
     <div>
-      {isLoading ? <CircularProgress /> : ""}
+      {loading ? <CircularProgress /> : ""}
       <Wrapper className="py-5 container">
         {CSVOpen && (
           <AddCSV

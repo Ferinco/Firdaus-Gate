@@ -3,10 +3,12 @@ import styled from "styled-components"
 import { UserService } from '../../services/userService';
 import { useAuth } from '../../hooks/useAuth';
 import { api } from '../../api/axios';
+import { CircularProgress } from '../../components/custom';
 export default function MyTeachers() {
   const [classTeacher, setClassTeacher] = React.useState([])
   const [subjectTeachers, setSubjectTeachers] = React.useState([])
   const [subjects, setSubjects] = React.useState([])
+  const [isLoading, setLoading] = React.useState(true)
   const {user} = useAuth()
   const getClassTeacher = async()=>{
     try{
@@ -33,6 +35,7 @@ const result = await UserService.findUsers({
   role: "teacher",
 })
 setSubjectTeachers(result.data.list)
+setLoading(false)
 console.log(subjects)
   }
   catch(error){
@@ -45,6 +48,7 @@ React.useEffect(()=>{
 
   console.log(user.currentClass)
   return (
+    <>
     <Container className="container py-5">
 
             <div className='big-div col-md-8 d-flex flex-row align-items-center gap-3 flex-wrap p-3'>
@@ -81,6 +85,11 @@ React.useEffect(()=>{
         </div>
 
     </Container>
+    {
+      isLoading ? <CircularProgress/> : ""
+    }
+    </>
+
   )
 }
 const Container = styled.div`

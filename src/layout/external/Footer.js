@@ -46,14 +46,14 @@ function Footer() {
           </div>
           <div className="reach ">
             <p className="header ">Reach Us</p>
-            <div className="d-flex flex-row gap-1 align-items-center" >
+            <div className="d-flex flex-row gap-1 align-items-end" >
             <Icon icon="system-uicons:location" className="icon"/>
               <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap">
                 6/8 Balogun Street, off Igodo Road, Omo-Olope Area, Magboro, Ogun State.
               </p>
             </div>
             <div className="mt-2">
-              <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
+              <Link className="react-router-link d-flex flex-row gap-1 align-items-end">
               <Icon icon="iconamoon:phone-thin" rotate={1} className="icon"/>
                 <p className="no-link m-0 pl-2">
                   0905512553
@@ -61,7 +61,7 @@ function Footer() {
               </Link>
             </div>
             <div className="mt-2">
-              <Link className="react-router-link d-flex flex-row gap-1 align-items-center">
+              <Link className="react-router-link d-flex flex-row gap-1 align-items-end">
               <Icon icon="material-symbols-light:mail-outline" className="icon" />
                 <p className="m-0 pl-2 no-link">
                 firdausgateschools@gmail.com
@@ -131,7 +131,7 @@ gap: 20px !important;
     font-size:16px !important;
   }
   .icon{
-    font-size: 20px !important;
+    font-size: 25px !important;
     color: white;
   }
   .reach{
