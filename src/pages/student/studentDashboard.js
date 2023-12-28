@@ -192,7 +192,7 @@ export default function StudentDashboard() {
           </div>
         </div>
         <div className="middle-div row mt-5 mr-0 ml-0">
-          <div className="left-div col-md-8 p-0 m-0">
+          <div className="left-div col-lg-8 p-0 m-0">
             <div className="div p-0 m-0">
               <div className="infos d-flex flex-row gap-3 m-0 p-3">
                 <div className="info p-3">
@@ -247,16 +247,21 @@ export default function StudentDashboard() {
                 </div>
               </div>
             </div>
-            <div className="pr-4">
-            <div  className="bottom-div"> 
+            <div className="bottom-wrapper ">
+            <div  className="bottom-div p-3 row gap-1"> 
+<div className="inner col-md-6">
 
+</div>
+<div className="inner col-md-6">
+
+</div>
             </div>
             </div>
           </div>
-          <div className="right-div col-md-4 d-flex flex-column juatify-content-between py-3 gap-5">
+          <div className="right-div col-lg-4 d-flex flex-column juatify-content-between py-3 gap-5">
 <div className=" d-flex flex-column">
   <h5>Teachers</h5>
-  <div className="d-flex flex-wrap gap-1 align-items-center">
+  <div className=" d-flex flex-wrap gap-1 align-items-center justify-content-between">
   {teachers.slice(0, visibleSubjects).map((teacher, index) => (
         <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
     <div className="initial h-100 d-flex justify-content-center align-items-center">
@@ -277,7 +282,7 @@ export default function StudentDashboard() {
 </div>
 <div className=" d-flex flex-column">
   <h5>Subjects</h5>
-  <div className="d-flex flex-wrap gap-1 align-items-center">
+  <div className="d-flex flex-wrap gap-1 align-items-center justify-content-between">
   {subjects.slice(0, visibleSubjects).map((subject, index) => (
         <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
     <div className="initial h-100 d-flex justify-content-center align-items-center">
@@ -309,10 +314,22 @@ const Dashboard = styled.div`
   height: fit-content !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
+  .bottom-wrapper{
+    padding-right: 50px;
+    @media screen and (max-width: 768px){
+    padding-right: 0 !important;
+      
+    }
+  }
   .bottom-div{
     height: 300px;
     border-radius: 30px;
-    border: 1px solid red;
+    background-color: white;
+    flex-wrap: nowrap !important;
+    .inner{
+      border: 1px solid red;
+    }
+
   }
   .initial{
     width:70px;
@@ -401,6 +418,7 @@ const Dashboard = styled.div`
     }
   }
   .right-div {
+
     p{
       font-size: 13px;
     }
