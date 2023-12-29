@@ -249,8 +249,10 @@ export default function StudentDashboard() {
             </div>
             <div className="bottom-wrapper ">
             <div  className="bottom-div p-3 row gap-1"> 
-<div className="inner col-md-6">
+<div className="inner col-md-6 d-flex flex-column">
 
+<Link className="scheme-link">Check Scheme</Link>
+<Link className="download-link">Download Result</Link>
 </div>
 <div className="inner col-md-6">
 

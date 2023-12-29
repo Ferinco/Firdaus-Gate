@@ -4,7 +4,7 @@ import { Button } from "../custom/Button";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
-
+import { motion } from "framer-motion";
 const images = [
   {
     className: "image image-1",
@@ -67,7 +67,17 @@ export default function LandingHero() {
       <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
         <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
-            <div className="my-5 d-flex flex-column gap-3 text-div justify-content-center">
+            <motion.div className="my-5 d-flex flex-column gap-3 text-div justify-content-center"
+            animate={{
+x: 0
+            }}
+            initial={{
+              x: -1000
+            }}
+            transition={{
+              duration: 1
+            }}
+            >
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
               <div className="">
                 <p className="">
@@ -84,7 +94,7 @@ export default function LandingHero() {
                   <Link className="react-router-link" to={PATH_PAGE.about}>About Us</Link>
                 </Button>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="col-md-8 right h-100">
             <CarouselContainer></CarouselContainer>

@@ -2,12 +2,25 @@ import styled from "styled-components";
 import { Button } from "../custom/Button";
 import { PATH_PAGE } from "../../routes/paths";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 export default function AboutSection() {
   return (
     <Container className="py-5">
       <div className="container d-flex py-5 align-items-center">
         <div className="left d-flex flex-column align-items-center">
-        <h6 className="pre-header">about us</h6>
+        <motion.h6 className="pre-header"
+        animate={
+          {
+            opacity: 1
+          }
+        }
+        initial={{
+opacity: 0.1
+        }}
+        transition={{
+          
+        }}
+        >about us</motion.h6>
         <div className="image-wrapper d-flex gap-2 ">
           <div className=" image">
             <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755254/c3cp84kq_q4ge6r.png"/>
