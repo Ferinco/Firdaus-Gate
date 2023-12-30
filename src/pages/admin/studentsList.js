@@ -290,11 +290,12 @@ export default function StudentsList() {
       // toast.success()
     }
   };
-  const deactivateUser = async (studentId) => {
+  const deactivateUser = async (studentId, currentStatus) => {
     try {
       setIsLoading(true);
       const formData = new FormData();
-      formData.append("values", JSON.stringify({ status: "inactive" }));
+      const newStatus = currentStatus === "active" ? "inactive" : "active";
+      formData.append("values", JSON.stringify({ status: newStatus }));
       await UserService.updateUser(studentId, formData);
       // Move setIsLoading(false) inside the try block to ensure it gets called even if there is an error
       setIsLoading(false);
