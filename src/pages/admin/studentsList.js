@@ -129,10 +129,15 @@ const [currentTab, setCurrentTab] = useState("All")
         setIsLoading(false);
       }
     } else {
-getData()
+      getData(page, pageSize);
     }
   }
   
+useEffect(()=>{
+setCurrentTab("All")
+getData(page, pageSize);
+}, [])
+
   const getData = async (pageNum, limitNum, filter) => {
     try {
       setIsLoading(true);
@@ -706,12 +711,31 @@ getData()
             </div>
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-              <div className="pt-5 h-100">
-                <p className="text-muted">No student to display...</p>
-                <button onClick={() => setCSVOpen(true)} className="csv-button">
-                  Import CSV file
-                </button>
-              </div>
+              {
+               !currentTableData.length && currentTab === "deactivated" ? (
+                  <div className="pt-5 h-100 mt-5">
+                  <p className="text-muted">No deactivated students</p>
+                  <button onClick={
+                    ()=>{
+                      toggleTabs()
+                      setCurrentTab("All")
+                      getData()
+                    }
+                  } className="csv-button">
+                  Display All Students
+                  </button>
+                </div>
+
+                ) : (
+                  <div className="pt-5 h-100">
+                  <p className="text-muted">No student to display...</p>
+                  <button onClick={() => setCSVOpen(true)} className="csv-button">
+                    Import CSV file
+                  </button>
+                </div>
+                )
+              }
+
             </div>
           )}
         </div>
