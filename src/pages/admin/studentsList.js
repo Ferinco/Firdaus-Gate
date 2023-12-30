@@ -116,6 +116,7 @@ export default function StudentsList() {
       setIsLoading(true);
       const result = await UserService.findUsers({
         role: "student",
+        // status: "inactive",
         limit: limitNum,
         page: pageNum,
         ...filter,
@@ -267,10 +268,11 @@ export default function StudentsList() {
   const handleDeactivate = () => {
     if (multiSelect.length) {
       Promise.all(
-        multiSelect.map(async (studentId) => {
+        multiSelect.map(async (studentId, currentStatus) => {
+          const newStatus = currentStatus === "active" ? "inactive" : "active";
           setIsLoading(true);
           const formData = new FormData();
-          formData.append("values", JSON.stringify({ status: "inactive" }));
+          formData.append("values", JSON.stringify({ status: newStatus}));
           await UserService.updateUser(studentId, formData);
           setMultiSelect([]);
         })
@@ -288,6 +290,22 @@ export default function StudentsList() {
       // toast.success()
     }
   };
+  const deactivateUser = async (studentId) => {
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("values", JSON.stringify({ status: "inactive" }));
+      await UserService.updateUser(studentId, formData);
+      // Move setIsLoading(false) inside the try block to ensure it gets called even if there is an error
+      setIsLoading(false);
+      getData(page, pageSize);
+
+    } catch (error) {
+      console.log(error);
+      // Handle error or notify the user about the failure
+    }
+  };
+  
 
   const deleteMultiple = async () => {
     if (multiSelect.length) {
@@ -499,7 +517,7 @@ export default function StudentsList() {
                                 <td className="table-button">
                                   <button
                                     onClick={() => {
-                                      console.log(row.status);
+                                      deactivateUser(row._id)
                                     }}
                                     className={
                                       row.status === "inactive"

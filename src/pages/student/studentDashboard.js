@@ -36,7 +36,7 @@ export default function StudentDashboard() {
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
 
-  const [visibleSubjects, setVisibleSubjects] = useState(5);
+  const [visibleSubjects, setVisibleSubjects] = useState(4);
 
 
 
@@ -248,21 +248,18 @@ export default function StudentDashboard() {
               </div>
             </div>
             <div className="bottom-wrapper ">
-            <div  className="bottom-div p-3 row gap-1"> 
-<div className="inner col-md-6 d-flex flex-column">
+            <div  className="bottom-div py-4 px-5 d-flex flex-row flex-wrap gap-1"> 
 
 <Link className="scheme-link">Check Scheme</Link>
-<Link className="download-link">Download Result</Link>
-</div>
-<div className="inner col-md-6">
+<Link className="download-link react-router-link">Download Result</Link>
 
-</div>
+
             </div>
             </div>
           </div>
           <div className="right-div col-lg-4 d-flex flex-column juatify-content-between py-3 gap-5">
 <div className=" d-flex flex-column">
-  <h5>Teachers</h5>
+  <h6>Teachers</h6>
   <div className=" d-flex flex-wrap gap-1 align-items-center justify-content-between">
   {teachers.slice(0, visibleSubjects).map((teacher, index) => (
         <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
@@ -283,7 +280,7 @@ export default function StudentDashboard() {
   </div>
 </div>
 <div className=" d-flex flex-column">
-  <h5>Subjects</h5>
+  <h6>Subjects</h6>
   <div className="d-flex flex-wrap gap-1 align-items-center justify-content-between">
   {subjects.slice(0, visibleSubjects).map((subject, index) => (
         <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
@@ -324,12 +321,17 @@ const Dashboard = styled.div`
     }
   }
   .bottom-div{
-    height: 300px;
+    height: 200px;
     border-radius: 30px;
     background-color: white;
     flex-wrap: nowrap !important;
-    .inner{
-      border: 1px solid red;
+    .download-link{
+      padding: 10px;
+      background-color: green;
+      color: white !important;
+      width: fit-content;
+      border-radius: 5px;
+      height: fit-content;
     }
 
   }
@@ -420,11 +422,16 @@ const Dashboard = styled.div`
     }
   }
   .right-div {
-
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 20px;
+    background-color: white;
     p{
       font-size: 13px;
+      color: grey;
     }
     height: auto;
+    h6{
+    }
   }
 
   @media screen and (max-width: 1100px) {
