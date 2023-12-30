@@ -272,8 +272,8 @@ getData()
         multiSelect.map(async (studentId) => {
           setIsLoading(true);
           await api.post("/class/transfer", {
-            currentClass: user.classHandled,
             studentId,
+            currentClass: user.classHandled
           });
           setMultiSelect([]);
         })
@@ -289,8 +289,6 @@ getData()
         });
     }
   };
-
-
 
   //multiple deactivation
   const handleDeactivate = () => {
@@ -310,6 +308,7 @@ getData()
         .then((res) => {
           console.log(res);
           setIsLoading(false);
+          setCurrentTab("deactivated")
           getData(page, pageSize);
         })
         .catch((error) => {
@@ -401,6 +400,7 @@ getData()
       // Move setIsLoading(false) inside the try block to ensure it gets called even if there is an error
       setIsLoading(false);
       getData(page, pageSize);
+      setCurrentTab("All")
 
     } catch (error) {
       console.log(error);
@@ -412,23 +412,44 @@ getData()
   const deleteMultiple = async () => {
     if (multiSelect.length) {
       Promise.all(
-        multiSelect.map(async (teacherId) => {
+        multiSelect.map(async (studentId) => {
           setIsLoading(true);
           api
-            .delete(`/users/delete/${teacherId}`)
+            .delete(`/users/delete/${studentId}`)
             .then((res) => {
               setIsLoading(false);
               setMultiSelect([]);
               getData(page, pageSize);
+              toast.success(`${multiSelect.length} ${multiSelect.length > 1 ? "students" : "student's"} deleted successfully`);
             })
             .catch((error) => {
               setIsLoading(false);
               console.log(error);
-              toast.error("Unable to delete teachers account");
+              toast.error(`Unable to delete ${multiSelect.length > 1 ? "students'" : "student's"}`);
             });
         })
       );
-      toast.success(`${multiSelect.length} students deleted successfully`);
+    }
+    else if(multiSelect.length === 0){
+      Promise.all(
+        currentTableData.map(async (student) => {
+          setIsLoading(true);
+          api
+            .delete(`/users/delete/${student._id}`)
+            .then((res) => {
+              setIsLoading(false);
+              setMultiSelect([]);
+              getData(page, pageSize);
+              toast.success("successfully deleted all students' account");
+
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+              toast.error("unable to delte students' accounts");
+            });
+        })
+      );
     }
   };
   return (
@@ -487,18 +508,20 @@ getData()
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
-                  <div className="navigator " onClick={()=>{
+                  <div className={`${currentTab === "All" ? "active-tab navigator" : "navigator"}`} onClick={()=>{
                     setCurrentTab("All")
                     toggleTabs()
                   }}>All</div>
-                  <div className="navigator " onClick={()=>{
+                  <div className={`${currentTab === "deactivated" ? "active-tab navigator" : "navigator"}`} onClick={()=>{
                     toggleTabs()
                     setCurrentTab("deactivated")
                   }}>Deactivated</div>
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
-                  <button onClick={handleMultiTransfer} className="action-bar">
+                  <button onClick={()=>{
+                    handleMultiTransfer()
+                  }} className="action-bar">
                     Transfer &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
@@ -731,7 +754,7 @@ getData()
               }`}
             >
               <p>
-                Are you sure you want to delete {multiSelect.length}{" "}
+                Are you sure you want to delete {multiSelect.length > 1 ? (multiSelect.length) : "all"}{" "}
                 {multiSelect.length > 1 ? "students'" : "student's"} profile?
               </p>
               <div className=" buttons d-flex gap-3">
@@ -867,13 +890,11 @@ const Wrapper = styled.div`
       font-weight: 600;
       color: grey;
       border-bottom: 2px solid white;
-
       cursor: pointer;
-
-      &:first-child {
-        border-bottom: 2px solid blue;
-        color: blue;
-      }
+    }
+    .active-tab{
+      border-bottom: 2px solid blue;
+      color: blue;
     }
     .action-bar {
       border: 1px solid grey;
