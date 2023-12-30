@@ -109,8 +109,30 @@ export default function StudentsList() {
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
-
+const[deactivated, setDeactivated] = useState(false)
+const [currentTab, setCurrentTab] = useState("All")
   //fetching student details
+  async function toggleTabs() {
+    if (currentTab === "deactivated") {
+      try {
+        setIsLoading(true);
+        const result = await UserService.findUsers({
+          role: "student",
+          status: "inactive",
+        });
+        console.log(result);
+        const { list } = result.data;
+        setCurrentTableData(list);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+getData()
+    }
+  }
+  
   const getData = async (pageNum, limitNum, filter) => {
     try {
       setIsLoading(true);
@@ -289,6 +311,32 @@ export default function StudentsList() {
 
       // toast.success()
     }
+    // else{
+    //   Promise.all(
+    //     currentTableData.map(async (student, currentStatus) => {
+    //       try {
+    //         setIsLoading(true);
+    //         const newStatus = currentStatus === "active" ? "inactive" : "active";
+  
+    //         const formData = new FormData();
+    //         formData.append("values", JSON.stringify({ status: newStatus }));
+  
+    //         await UserService.updateUser(student.id, formData);
+    //       } catch (error) {
+    //         console.log(error);
+    //       } finally {
+    //         setIsLoading(false);
+    //       }
+    //     })
+    //   )
+    //     .then(() => {
+    //       console.log("Success");
+    //       getData(page, pageSize);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   };
   const deactivateUser = async (studentId, currentStatus) => {
     try {
@@ -386,8 +434,14 @@ export default function StudentsList() {
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
-                  <div className="navigator ">All</div>
-                  <div className="navigator ">Deactivated</div>
+                  <div className="navigator " onClick={()=>{
+                    setCurrentTab("All")
+                    toggleTabs()
+                  }}>All</div>
+                  <div className="navigator " onClick={()=>{
+                    setCurrentTab("deactivated")
+                    toggleTabs()
+                  }}>Deactivated</div>
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
@@ -518,7 +572,7 @@ export default function StudentsList() {
                                 <td className="table-button">
                                   <button
                                     onClick={() => {
-                                      deactivateUser(row._id)
+                                      deactivateUser(row._id, row.status)
                                     }}
                                     className={
                                       row.status === "inactive"
