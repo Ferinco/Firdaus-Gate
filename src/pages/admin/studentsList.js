@@ -264,6 +264,8 @@ getData()
     }
   }, [csvData, getData, page, pageSize, setCSVOpen, setIsLoading]);
 
+
+  //multiple transfer
   const handleMultiTransfer = () => {
     if (multiSelect.length) {
       Promise.all(
@@ -287,15 +289,21 @@ getData()
         });
     }
   };
+
+
+
+  //multiple deactivation
   const handleDeactivate = () => {
     if (multiSelect.length) {
       Promise.all(
         multiSelect.map(async (studentId, currentStatus) => {
-          const newStatus = currentStatus === "active" ? "inactive" : "active";
+          const newStatus = currentStatus === "inactive" ? "active" : "inactive";
           setIsLoading(true);
           const formData = new FormData();
           formData.append("values", JSON.stringify({ status: newStatus}));
           await UserService.updateUser(studentId, formData);
+      // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+
           setMultiSelect([]);
         })
       )
@@ -309,35 +317,80 @@ getData()
           setIsLoading(false);
         });
 
-      // toast.success()
     }
-    // else{
-    //   Promise.all(
-    //     currentTableData.map(async (student, currentStatus) => {
-    //       try {
-    //         setIsLoading(true);
-    //         const newStatus = currentStatus === "active" ? "inactive" : "active";
-  
-    //         const formData = new FormData();
-    //         formData.append("values", JSON.stringify({ status: newStatus }));
-  
-    //         await UserService.updateUser(student.id, formData);
-    //       } catch (error) {
-    //         console.log(error);
-    //       } finally {
-    //         setIsLoading(false);
-    //       }
-    //     })
-    //   )
-    //     .then(() => {
-    //       console.log("Success");
-    //       getData(page, pageSize);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
+    else if(multiSelect.length === 0){
+      Promise.all(
+        currentTableData.map(async (student) => {
+          setIsLoading(true);
+          const formData = new FormData();
+          formData.append("values", JSON.stringify({ status: "inactive"}));
+          await UserService.updateUser(student._id, formData);
+      // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+
+          setMultiSelect([]);
+        })
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
   };
+
+    //multiple activation
+    const handleActivation = () => {
+      if (multiSelect.length) {
+        Promise.all(
+          multiSelect.map(async (studentId) => {
+            setIsLoading(true);
+            const formData = new FormData();
+            formData.append("values", JSON.stringify({ status: "active"}));
+            await UserService.updateUser(studentId, formData);  
+            setMultiSelect([]);
+          })
+        )
+          .then((res) => {
+            console.log(res);
+            setIsLoading(false);
+            getData(page, pageSize);
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+          });
+  
+      }
+      else if(multiSelect.length === 0){
+        Promise.all(
+          currentTableData.map(async (student) => {
+            setIsLoading(true);
+            const formData = new FormData();
+            formData.append("values", JSON.stringify({ status: "active"}));
+            await UserService.updateUser(student._id, formData);
+        // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+  
+            setMultiSelect([]);
+          })
+        )
+          .then((res) => {
+            console.log(res);
+            setIsLoading(false);
+            getData(page, pageSize);
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+          });
+      }
+    };
+  
+
+  //single deactivation
   const deactivateUser = async (studentId, currentStatus) => {
     try {
       setIsLoading(true);
@@ -355,7 +408,7 @@ getData()
     }
   };
   
-
+//multiple delete
   const deleteMultiple = async () => {
     if (multiSelect.length) {
       Promise.all(
@@ -439,8 +492,8 @@ getData()
                     toggleTabs()
                   }}>All</div>
                   <div className="navigator " onClick={()=>{
-                    setCurrentTab("deactivated")
                     toggleTabs()
+                    setCurrentTab("deactivated")
                   }}>Deactivated</div>
                   <div className="navigator"></div>
                 </div>
@@ -450,11 +503,18 @@ getData()
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  <button onClick={handleDeactivate} className="action-bar">
+                  {
+                    currentTab === "All" ? 
+                  <button onClick={()=>{ handleDeactivate()}} className="action-bar">
                     Deactivate &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
-                  </button>
+                  </button> : <button onClick={()=>{ handleActivation()}} className="activate-btn">
+                    Activate &nbsp;{" "}
+                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                    &nbsp;
+                  </button> 
+                  }
                   <button
                     onClick={() => {
                       setConfirmation(true);
@@ -855,6 +915,21 @@ const Wrapper = styled.div`
         }
       }
     }
+  }
+  .activate-btn{
+    border: 1px solid green;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: green;
+      text-transform: capitalize;
+      background-color: white;
+      &:hover {
+          color: white;
+          background-color: green;
+          transition: 0.3s;
+        }
   }
   .search-div {
     @media screen and (max-width: 690px) {
