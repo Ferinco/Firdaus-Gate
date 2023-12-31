@@ -17,7 +17,8 @@ import {
   MyClass,
   TeacherLogin,
   Assign,
-  GiveAssignments
+  GiveAssignments,
+  AssignmentSettings
 } from "../pages/teacher";
 
 import {
@@ -112,6 +113,7 @@ export default function Routes() {
         { path: "edit-student/:identity", element: <EditStudent/> },
         { path: "student-info/:identity", element: <StudentInfo/> },
         { path: "new-assignment", element: <GiveAssignments/> },
+        { path: "set-assignment/:identity", element: <AssignmentSettings/> },
 
 
       ],
