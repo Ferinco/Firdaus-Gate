@@ -16,7 +16,8 @@ import {
   Results,
   MyClass,
   TeacherLogin,
-  Assign
+  Assign,
+  GiveAssignments
 } from "../pages/teacher";
 
 import {
@@ -110,6 +111,8 @@ export default function Routes() {
         {path:"assign", element: <Assign/>},
         { path: "edit-student/:identity", element: <EditStudent/> },
         { path: "student-info/:identity", element: <StudentInfo/> },
+        { path: "new-assignment", element: <GiveAssignments/> },
+
 
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],

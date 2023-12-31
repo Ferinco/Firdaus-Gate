@@ -128,7 +128,7 @@ const [currentTab, setCurrentTab] = useState("All")
       } finally {
         setIsLoading(false);
       }
-    } else {
+    } else if (currentTab === "All") {
       getData(page, pageSize);
     }
   }
@@ -711,31 +711,13 @@ getData(page, pageSize);
             </div>
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-              {
-               !currentTableData.length && currentTab === "deactivated" ? (
-                  <div className="pt-5 h-100 mt-5">
-                  <p className="text-muted">No deactivated students</p>
-                  <button onClick={
-                    ()=>{
-                      toggleTabs()
-                      setCurrentTab("All")
-                      getData()
-                    }
-                  } className="csv-button">
-                  Display All Students
-                  </button>
-                </div>
 
-                ) : (
                   <div className="pt-5 h-100">
                   <p className="text-muted">No student to display...</p>
                   <button onClick={() => setCSVOpen(true)} className="csv-button">
                     Import CSV file
                   </button>
                 </div>
-                )
-              }
-
             </div>
           )}
         </div>

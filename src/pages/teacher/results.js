@@ -404,7 +404,7 @@ export default function Results() {
                 return (
                   <td className="table-body">
                     <td className="table-button id">
-                      {row.student.admissionNumber}
+                      {row.student?.admissionNumber}
                     </td>
                   </td>
                 );
@@ -413,7 +413,7 @@ export default function Results() {
                 return (
                   <td className="table-body">
                     <td className="table-button id">
-                      {row.student.lastName}
+                      {row.student?.lastName}
                     </td>
                   </td>
                 );
@@ -422,7 +422,7 @@ export default function Results() {
                 return (
                   <td className="table-body">
                     <td className="table-button id">
-                      {row.student.firstName}
+                      {row.student?.firstName}
                     </td>
                   </td>
                 );
@@ -444,11 +444,11 @@ export default function Results() {
                         type="button"
                         onClick={() =>
                           downloadReport(
-                            row.student.admissionNumber,
+                            row.student?.admissionNumber,
                             row.reportTerm,
                             row.reportClass,
                             row.classSection,
-                            row.student._id
+                            row.student?._id
                           )
                         }
                       >
