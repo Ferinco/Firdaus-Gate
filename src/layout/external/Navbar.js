@@ -141,28 +141,28 @@ export default function Navbar() {
         </div>
       </div>
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
-        <div className="links p-3">
+        <div className="links py-3 px-2">
           <div className="logo-div">
             <Logo />
           </div>
-          <div className="nav-links">
+          <div className="nav-links mt-5">
             <nav
               id="sidebar"
               className="col-md-3 col-lg-2 d-md-block bg-light sidebar"
             >
               <div className="position-sticky">
                 {/* Section 1 */}
-                <div className="accordion" id="section1">
+                <div className="accordion drop-link" id="section1">
                   <div className="accordion-item">
                     <h2 className="accordion-header" id="heading1">
                       <button
                         className="accordion-button"
-                        type="button"
+                        // type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#collapse1"
-                        aria-expanded="true" 
+                        aria-expanded="true"
                       >
-                        Section 1
+                        About
                       </button>
                     </h2>
                     <div
@@ -171,26 +171,33 @@ export default function Navbar() {
                       aria-labelledby="heading1"
                       data-bs-parent="#section1"
                     >
-                      <div className="accordion-body">
-                        <Link to="/link1">Link 1</Link>
-                        <Link to="/link2">Link 2</Link>
+                      <div className="accordion-body d-flex flex-column">
+                        <Link className="react-router-link">
+                          founder's profile
+                        </Link>
+                        <Link className="react-router-link">
+                          principal's profile
+                        </Link>
+                        <Link className="react-router-link">
+                          Managemnet and staff
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Section 2 */}
-                <div className="accordion" id="section2">
+                <div className="accordion drop-link" id="section2">
                   <div className="accordion-item">
                     <h2 className="accordion-header" id="heading2">
                       <button
                         className="accordion-button"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#collapse1"
-                        aria-expanded="true" 
+                        data-bs-target="#collapse2"
+                        aria-expanded="true"
                       >
-                        Section 2
+                        Admission
                       </button>
                     </h2>
                     <div
@@ -199,13 +206,84 @@ export default function Navbar() {
                       aria-labelledby="heading2"
                       data-bs-parent="#section2"
                     >
-                      <div className="accordion-body">
-                        <Link to="/link3">Link 3</Link>
-                        <Link to="/link4">Link 4</Link>
+                      <div className="accordion-body d-flex flex-column">
+                        <Link
+                          className="react-router-link"
+                          to={PATH_PAGE.admission}
+                        >
+                          Student admission portal
+                        </Link>
+                        <Link
+                          className="react-router-link"
+                          to={PATH_PAGE.jss1Admission}
+                        >
+                          admission into JSS1
+                        </Link>
+                        <Link className="react-router-link">
+                          continue admission
+                        </Link>
+                        <Link className="react-router-link">
+                          admission letter
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div className="accordion drop-link" id="section3">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header" id="heading3">
+                      <button
+                        className="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse3"
+                        aria-expanded="true"
+                      >
+                        Portal
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse3"
+                      className="accordion-collapse collapse"
+                      aria-labelledby="heading3"
+                      data-bs-parent="#section3"
+                    >
+                      <div className="accordion-body d-flex flex-column">
+                        <Link
+                          className="react-router-link"
+                          to={PATH_DASHBOARD.student.index}
+                        >
+                          student portal
+                        </Link>
+                        <Link
+                          className="react-router-link"
+                          to={PATH_DASHBOARD.teacher.index}
+                        >
+                          teacher portal
+                        </Link>
+                        <Link className="react-router-link">
+                          school fees payment
+                          <br />
+                          (existing students)
+                        </Link>
+                        <Link className="react-router-link">
+                          school fees payment
+                          <br />
+                          (new students)
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <Link className="nav-link" to={PATH_PAGE.gallery}>
+                  Gallery
+                </Link>
+
+                <li>
+                  <a className="nav-link">News</a>
+                </li>
               </div>
             </nav>
           </div>
@@ -232,6 +310,9 @@ export default function Navbar() {
 }
 const NavigationBar = styled.div`
   /* display: none !important; */
+  .sidebar {
+    background-color: white !important;
+  }
   .closing-div {
     .icon-div {
       justify-content: right;
@@ -345,6 +426,9 @@ const NavigationBar = styled.div`
     display: none !important;
   }
   @media screen and (max-width: 1057px) {
+    .sticky {
+      display: none;
+    }
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
@@ -372,6 +456,28 @@ const NavigationBar = styled.div`
       .links {
         background: white !important;
         width: 70%;
+        overflow-y: auto !important;
+        a {
+          padding: 16px 20px;
+        }
+      }
+    }
+    .drop-link {
+      border-bottom: 1px solid #f1f1f1;
+      background-color: white !important;
+
+      button,
+      .accordion-header {
+        background: transparent !important;
+        border: 0 !important;
+        &:hover {
+          outline: 0 !important;
+          border: 0 !important;
+        }
+      }
+      .accordion-item {
+        border: 0 !important;
+        background-color: white !important;
       }
     }
     .closed {
@@ -384,6 +490,7 @@ const NavigationBar = styled.div`
       transition: 0.3s;
       display: flex !important;
       position: fixed !important;
+      /* overflow-y: auto !important; */
     }
     .sticky {
       margin-top: 0 !important;
@@ -392,6 +499,12 @@ const NavigationBar = styled.div`
     .icon-div {
       margin-left: -12px !important;
     }
+    .react-router-link {
+    &:hover {
+      background-color: white;
+      color: blue !important;
+    }
+  }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
   }
