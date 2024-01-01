@@ -44,7 +44,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0 ${isSticky ? "sticky" : "" }`}>
+      <div className={`second-navbar p-0 ${isSticky ? "sticky" : ""}`}>
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
@@ -116,14 +116,25 @@ export default function Navbar() {
               </ul>
             </li>
             <li>
-              <Link className="nav-link" to={PATH_PAGE.gallery}>gallery</Link>
+              <Link className="nav-link" to={PATH_PAGE.gallery}>
+                gallery
+              </Link>
             </li>
             <li>
               <a className="nav-link">news</a>
             </li>
             <li>
               <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
-                <Button blue> <a className="p-0" href="#contactUs" style={{color: "white"}}>CONTACT US</a></Button>{" "}
+                <Button blue>
+                  {" "}
+                  <a
+                    className="p-0"
+                    href="#contactUs"
+                    style={{ color: "white" }}
+                  >
+                    CONTACT US
+                  </a>
+                </Button>{" "}
               </a>
             </li>
           </ul>
@@ -135,86 +146,68 @@ export default function Navbar() {
             <Logo />
           </div>
           <div className="nav-links">
-            <nav>
+            <nav
+              id="sidebar"
+              className="col-md-3 col-lg-2 d-md-block bg-light sidebar"
+            >
+              <div className="position-sticky">
+                {/* Section 1 */}
+                <div className="accordion" id="section1">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header" id="heading1">
+                      <button
+                        className="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse1"
+                        aria-expanded="true" 
+                      >
+                        Section 1
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse1"
+                      className="accordion-collapse collapse"
+                      aria-labelledby="heading1"
+                      data-bs-parent="#section1"
+                    >
+                      <div className="accordion-body">
+                        <Link to="/link1">Link 1</Link>
+                        <Link to="/link2">Link 2</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-           
-          <ul class="dropdown">
-                                           <li class="active"><a href="index"><i class="fa fa-home"></i></a></li>
-
-                                            <li class="has-submenu hover"><a href="#" class="active">About</a>
-                                                <ul class="sub-menu active">
-                                                    <li><a href="about">About Us</a></li>
-                                                    <li><a href="awards">Awards &amp; Laurels</a></li>
-                                                    <li><a href="facilities">Facilities</a></li>
-                                                    <li><a href="founder">Founder's Profile</a></li>
-                                                    <li><a href="principal">Principal's Profile</a></li>
-                                                    <li><a href="management">Management &amp; Staff</a></li>
-                                                     <li><a href="#">Career Opportunities</a></li>
-                                                     <li><a href="schoolBill.pdf">School Bill</a></li>
-                                                   
-                                                </ul>
-                                            </li>
-
-                                            <li class="has-submenu"><a href="#" class="">Entrepreneurship</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="https://broadconcepthub.org">About Entrepreneurship</a></li>
-                                                   
-                                                     <li><a href="enterpreneurBill.pdf">Entrepreneurship Bill</a></li>
-                                                     <li><a href="https://broadconcepthub.org/register" target="_blank">Register</a></li>
-                                                   
-                                                </ul>
-                                            </li>
-                                            <li class="has-submenu"><a href="#">Download</a>
-                                                <ul class="sub-menu">
-                                                     <li><a href="termlyBulletin.pdf">Termly Bulletin</a></li>
-                                                   
-                                                    <li><a href="academicCalender.pdf">Academic Calender</a></li>
-                                                     <li><a href="https://task.taidobcollege.org/">SS3 WASSCE <br/>Preparatory Assessments</a></li>
-                                                    <li><a href="college_operational_guideline.pdf">Operational Guidelines</a></li>
-                                                      <li><a href="entrepreneuship-assignment">Mid Term Entrepreneuship Assignment</a></li>
-                                                        <li><a href="pre-wassce-assignment">WASSCE Preparatory Assessment</a></li>
-                                                            <li><a href="jamb-assignment">JAMB Preparatory Assessment</a></li>
-                                                         <li><a href="newsletter.pdf" download="">Newsletter</a></li>
-                                                            
-                                                     <li><a href="holiday-assignment">Holiday Assignment</a></li>
-                                                </ul>
-                                            </li>
-                                             <li class="has-submenu"><a href="#">Portal</a>
-                                                <ul class="sub-menu">
-
-                                                     <li><a href="https://taidobcollegecbt.org.ng/graduation-register">2023 Graduation</a></li>
-                                                    <li><a href="https://taidobcollege.educare.school/login">Portal Login</a></li>
-                                                    <li><a href="https://taidobcollege.educare.school/admission-form">School fees payment<br/>(Existing Students)</a></li>
-                                                    <li><a href="https://taidobcollege.educare.school/admission-form">School fees payment<br/>(New Students)</a></li>
-                                                    <li><a href="https://paystack.com/pay/taidobcollege-lesson">Online Class Payment</a></li>
-                                                     <li ><a href="input_reg_num.php">SUMMER 2021 CBT RESULTS</a></li>
-                                                    
-                                                </ul>
-                                            </li>
-
-                                             <li class="has-submenu"><a href="#">Admission</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="https://taidobcollege.educare.school/admission-form">Student Admission Portal</a></li>
-                                                     <li><a href="https://taidobcollege.educare.school/admission-form" >Admission into JS1</a></li>
-                                                    <li><a href="https://taidobcollege.educare.school/admission-form" >Admission into<br/> Mid Stream</a></li>
-                                                    <li><a href="https://taidobcollege.educare.school/admission-form" >Online Admission</a></li>
-
-                                                     <li><a href="admission-into-js1">Admission into JS1</a></li>
-                                                    <li><a href="admission-into-other-classes">Admission into<br/> Mid Stream</a></li>
-                                                    <li><a href="online-admission">Online Admission</a></li>
-                                                    
-                                                </ul>
-                                            </li>
-                                              <li class="has-submenu"><a href="#">Gallery</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="gallery">Gallery</a></li>
-                                                    <li><a href="facilities">Facilities</a></li>
-                                                    <li><a href="videos">Event Videos</a></li>
-                                                </ul>
-                                            </li>   
-                                             <li><a href="news">News</a></li>
-                                        </ul>
-                                        </nav>
+                {/* Section 2 */}
+                <div className="accordion" id="section2">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header" id="heading2">
+                      <button
+                        className="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse1"
+                        aria-expanded="true" 
+                      >
+                        Section 2
+                      </button>
+                    </h2>
+                    <div
+                      id="collapse2"
+                      className="accordion-collapse collapse"
+                      aria-labelledby="heading2"
+                      data-bs-parent="#section2"
+                    >
+                      <div className="accordion-body">
+                        <Link to="/link3">Link 3</Link>
+                        <Link to="/link4">Link 4</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
           </div>
         </div>
         <div
@@ -402,15 +395,15 @@ const NavigationBar = styled.div`
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
   }
-  @media screen and (max-width: 1057px){
-  .first-navbar{
-  display: none !important;
-  }
-  .menu-links{
-  display: none !important;
-  }
-  .icon-div{
-  display: flex !important;
-  }
+  @media screen and (max-width: 1057px) {
+    .first-navbar {
+      display: none !important;
+    }
+    .menu-links {
+      display: none !important;
+    }
+    .icon-div {
+      display: flex !important;
+    }
   }
 `;
