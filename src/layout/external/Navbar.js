@@ -134,7 +134,88 @@ export default function Navbar() {
           <div className="logo-div">
             <Logo />
           </div>
-          <div className="nav-links"></div>
+          <div className="nav-links">
+            <nav>
+
+           
+          <ul class="dropdown">
+                                           <li class="active"><a href="index"><i class="fa fa-home"></i></a></li>
+
+                                            <li class="has-submenu hover"><a href="#" class="active">About</a>
+                                                <ul class="sub-menu active">
+                                                    <li><a href="about">About Us</a></li>
+                                                    <li><a href="awards">Awards &amp; Laurels</a></li>
+                                                    <li><a href="facilities">Facilities</a></li>
+                                                    <li><a href="founder">Founder's Profile</a></li>
+                                                    <li><a href="principal">Principal's Profile</a></li>
+                                                    <li><a href="management">Management &amp; Staff</a></li>
+                                                     <li><a href="#">Career Opportunities</a></li>
+                                                     <li><a href="schoolBill.pdf">School Bill</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+
+                                            <li class="has-submenu"><a href="#" class="">Entrepreneurship</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="https://broadconcepthub.org">About Entrepreneurship</a></li>
+                                                   
+                                                     <li><a href="enterpreneurBill.pdf">Entrepreneurship Bill</a></li>
+                                                     <li><a href="https://broadconcepthub.org/register" target="_blank">Register</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+                                            <li class="has-submenu"><a href="#">Download</a>
+                                                <ul class="sub-menu">
+                                                     <li><a href="termlyBulletin.pdf">Termly Bulletin</a></li>
+                                                   
+                                                    <li><a href="academicCalender.pdf">Academic Calender</a></li>
+                                                     <li><a href="https://task.taidobcollege.org/">SS3 WASSCE <br/>Preparatory Assessments</a></li>
+                                                    <li><a href="college_operational_guideline.pdf">Operational Guidelines</a></li>
+                                                      <li><a href="entrepreneuship-assignment">Mid Term Entrepreneuship Assignment</a></li>
+                                                        <li><a href="pre-wassce-assignment">WASSCE Preparatory Assessment</a></li>
+                                                            <li><a href="jamb-assignment">JAMB Preparatory Assessment</a></li>
+                                                         <li><a href="newsletter.pdf" download="">Newsletter</a></li>
+                                                            
+                                                     <li><a href="holiday-assignment">Holiday Assignment</a></li>
+                                                </ul>
+                                            </li>
+                                             <li class="has-submenu"><a href="#">Portal</a>
+                                                <ul class="sub-menu">
+
+                                                     <li><a href="https://taidobcollegecbt.org.ng/graduation-register">2023 Graduation</a></li>
+                                                    <li><a href="https://taidobcollege.educare.school/login">Portal Login</a></li>
+                                                    <li><a href="https://taidobcollege.educare.school/admission-form">School fees payment<br/>(Existing Students)</a></li>
+                                                    <li><a href="https://taidobcollege.educare.school/admission-form">School fees payment<br/>(New Students)</a></li>
+                                                    <li><a href="https://paystack.com/pay/taidobcollege-lesson">Online Class Payment</a></li>
+                                                     <li ><a href="input_reg_num.php">SUMMER 2021 CBT RESULTS</a></li>
+                                                    
+                                                </ul>
+                                            </li>
+
+                                             <li class="has-submenu"><a href="#">Admission</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="https://taidobcollege.educare.school/admission-form">Student Admission Portal</a></li>
+                                                     <li><a href="https://taidobcollege.educare.school/admission-form" >Admission into JS1</a></li>
+                                                    <li><a href="https://taidobcollege.educare.school/admission-form" >Admission into<br/> Mid Stream</a></li>
+                                                    <li><a href="https://taidobcollege.educare.school/admission-form" >Online Admission</a></li>
+
+                                                     <li><a href="admission-into-js1">Admission into JS1</a></li>
+                                                    <li><a href="admission-into-other-classes">Admission into<br/> Mid Stream</a></li>
+                                                    <li><a href="online-admission">Online Admission</a></li>
+                                                    
+                                                </ul>
+                                            </li>
+                                              <li class="has-submenu"><a href="#">Gallery</a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="gallery">Gallery</a></li>
+                                                    <li><a href="facilities">Facilities</a></li>
+                                                    <li><a href="videos">Event Videos</a></li>
+                                                </ul>
+                                            </li>   
+                                             <li><a href="news">News</a></li>
+                                        </ul>
+                                        </nav>
+          </div>
         </div>
         <div
           className={`closing-div p-3 ${
