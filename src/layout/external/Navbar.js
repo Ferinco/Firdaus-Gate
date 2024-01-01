@@ -44,7 +44,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0 ${isSticky ? "sticky" : ""}`}>
+      <div className={`second-navbar p-0 ${isSticky ? "sticky" : ""} ${isOpen ? "unsticky": ""}`}>
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
@@ -426,16 +426,19 @@ const NavigationBar = styled.div`
     display: none !important;
   }
   @media screen and (max-width: 1057px) {
-    .sticky {
-      display: none;
-    }
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
     align-items: left !important;
     .second-navbar {
       position: fixed;
+    /* z-index: 9999 !important; */
+background-color: white !important;
     }
+    .sticky {
+    margin-top: 0px !important;
+    background: white;
+  }
     .closing-div {
       display: block;
       height: 100%;
@@ -492,10 +495,9 @@ const NavigationBar = styled.div`
       position: fixed !important;
       /* overflow-y: auto !important; */
     }
-    .sticky {
-      margin-top: 0 !important;
-      z-index: 9999;
-    }
+    .unsticky {
+display: none !important;
+  }
     .icon-div {
       margin-left: -12px !important;
     }
