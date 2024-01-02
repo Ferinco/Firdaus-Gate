@@ -49,7 +49,7 @@ opacity: 0.1
 }
 const Container = styled.div`
     background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
-
+    margin-top: 0 !important;
     .container{
         gap: 100px;
         justify-content: space-between !important;

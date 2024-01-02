@@ -33,8 +33,15 @@ const MobileImage = styled.div`
   @media screen and (max-width: 768px) {
     display: block;
     width: 100%;
-    height: 300px;
+    height: 320px;
     background-color: purple;
+    img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    object-position: center;
+    
+    }
   }
 `;
 export default function LandingHero() {
@@ -96,12 +103,11 @@ x: 0
               </div>
             </motion.div>
           </div>
-          <div className="col-md-8 right h-100">
-            <CarouselContainer></CarouselContainer>
-          </div>
         </div>
       </div>
-      <MobileImage></MobileImage>
+      <MobileImage>
+<img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg"/>
+      </MobileImage>
     </Wrapper>
   );
 }
@@ -170,11 +176,14 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     margin-top: 80px;
     height: auto !important;
+
+
     .hero-bg{
       background: transparent !important;
     }
     .left {
       background: transparent !important;
+      padding-bottom: 0 !important;
       color: black;
     }
     h1 {

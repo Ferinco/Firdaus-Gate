@@ -141,8 +141,8 @@ export default function Navbar() {
         </div>
       </div>
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
-        <div className="links py-3 px-2">
-          <div className="logo-div">
+        <div className="links py-0 px-2">
+          <div className="logo-div py-3">
             <Logo />
           </div>
           <div className="nav-links mt-5">
@@ -448,6 +448,9 @@ background-color: white !important;
     .home-icon {
       display: none;
     }
+    .nav-links{
+      margin-top: 120px !important;
+    }
     .mobile-nav {
       width: 100%;
       z-index: 999;
@@ -456,6 +459,13 @@ background-color: white !important;
       height: 100vh;
       display: flex !important;
       background-color: rgba(0, 0, 0, 0.1);
+      .logo-div{
+        position: fixed !important;
+        z-index: 99;
+        background-color: white !important;
+        width: 65%;
+
+      }
       .links {
         background: white !important;
         width: 70%;

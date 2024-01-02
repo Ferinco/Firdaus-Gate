@@ -11,16 +11,21 @@ const Testimonials = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
+    autoplay: true,
+    autoplaySpeed: 7000,
     responsive: [
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 9,
+          slidesToScroll: 1,  
+          autoplaySpeed: 3000, 
         },
       },
     ],
   };
+  
+  
   const testimonials = [
     {
       name: "Mrs Fatima Ahmed",
@@ -85,12 +90,9 @@ const Testimonials = () => {
     <div className=" pt-3">
       <Slider {...sliderSettings} className="">
         {testimonials.map((testimonial, index) => (
-          <div key={index} className="pr-4">
-            {/* Testimonial Card */}
-            <div className="testimonial-card">
-              {/* Testimonial Content */}
+          <div key={index} className="pr-4 testimony ">
+            <div className="testimonial-card text-center d-flex flex-column justify-content-center align-items-center">
               <p>{testimonial.content}</p>
-              {/* Client Information */}
               <div className="client-info d-flex flex-row gap-2 align-items-center">
                 <div className="author-image"></div>
                 <p className="m-0">
@@ -107,9 +109,10 @@ const Testimonials = () => {
   );
 };
 const Container = styled.div`
-    background-color: linear-gradient(to right, #ffff, #ebffff, #f5f5f5);
-
-
+background-color: linear-gradient(to right, #ffff, #ebffff, #f5f5f5);
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
 .client-info{
 font-weight: 600;
 }
@@ -127,6 +130,9 @@ font-weight: 600;
       background: purple;
       border-radius: 50%;
     }
+    .slick-dots {
+  margin-top: 20px;
+}
     @media screen and (max-width: 768px) {
       .testimonial-card{
       justify-content: center;
