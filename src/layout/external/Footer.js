@@ -49,7 +49,7 @@ function Footer() {
             <div className="d-flex flex-row gap-1 align-items-end" >
             <Icon icon="system-uicons:location" className="icon"/>
               <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap">
-                6/8 Balogun Street, off Igodo Road, Omo-Olope Area, Magboro, Ogun State.
+                6/8 Balogun Street, off Igodo Road,<br/> Omo-Olope Area, Magboro, Ogun State.
               </p>
             </div>
             <div className="mt-2">
