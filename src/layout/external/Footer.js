@@ -13,14 +13,14 @@ function Footer() {
         <div className="d-flex flex-row justify-content-between w-100 align-items-center flex-wrap">
           <div className="brief">
             <p className="header ">Firdaus Gate Model Schools</p>
-            <p className="not-link">
+            <p className="not-link react-router-link">
               Establised in 1999, we have since dedicated our resources to
               raising future leaders; making them responsible, confident and be
               of good impact to the society without neglect to proper FAITH.
             </p>
           </div>
           <div className="news-link d-flex flex-row ">
-            <Link className="react-router-link"> latest news &#8594;</Link>
+            <Link className="news-link"> latest news &#8594;</Link>
           </div>
         </div>
         <div className="links d-flex flex-row w-100 justify-content-between mt-4 flex-wrap">
@@ -46,9 +46,9 @@ function Footer() {
           </div>
           <div className="reach ">
             <p className="header ">Reach Us</p>
-            <div className="d-flex flex-row gap-1 align-items-end" >
+            <div className="d-flex flex-row gap-1 align-items-center" >
             <Icon icon="system-uicons:location" className="icon"/>
-              <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap">
+              <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap react-router-link">
                 6/8 Balogun Street, off Igodo Road,<br/> Omo-Olope Area, Magboro, Ogun State.
               </p>
             </div>
@@ -139,6 +139,13 @@ gap: 20px !important;
     @media screen and (max-width:982px){
       margin-top: 10px;
     }
+  }
+  .react-router-link{
+color: #a3a3a3 !important;
+  }
+  .news-link{
+    text-decoration: none !important;
+
   }
 `;
 export default Footer;

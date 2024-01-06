@@ -85,7 +85,7 @@ const Testimonials = () => {
       <div className="div container">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
-    <h2 className="">What our Clients say About us.</h2>
+    <h2 className="mt-4">What our Clients say About us.</h2>
     </div>
     <div className=" pt-3">
       <Slider {...sliderSettings} className="">
@@ -93,7 +93,7 @@ const Testimonials = () => {
           <div key={index} className="pr-4 testimony ">
             <div className="testimonial-card text-center d-flex flex-column justify-content-center align-items-center">
               <p>{testimonial.content}</p>
-              <div className="client-info d-flex flex-row gap-2 align-items-center">
+              <div className="client-info d-flex flex-row gap-2 align-items-center mt-2">
                 <div className="author-image"></div>
                 <p className="m-0">
                 - {testimonial.name}, {testimonial.role}
@@ -131,7 +131,7 @@ font-weight: 600;
       border-radius: 50%;
     }
     .slick-dots {
-  margin-top: 20px;
+  margin-top: 50px;
 }
     @media screen and (max-width: 768px) {
       .testimonial-card{

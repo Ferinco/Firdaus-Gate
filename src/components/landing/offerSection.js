@@ -6,7 +6,7 @@ export default function OfferSection(){
             <div className="container py-5">
 <div className="header d-flex flex-column justify-content-center align-items-center">
 <h6 className="pre-header">Why choose us?</h6>
-<h2>Why you Should Trust us With your Ward(s)</h2>
+<h2 className="mt-2">Why you Should Trust us With your Ward(s)</h2>
 </div>
 <div className="body row">
 <div className="col-md-4 d-flex flex-column">

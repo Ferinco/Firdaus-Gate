@@ -128,6 +128,8 @@ export const TeacherInfo = () => {
 
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users || {});
+  const [teacherClass, setTeacherClass] = useState("")
+  
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
     setCurrentTeacher(user);

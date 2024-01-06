@@ -120,6 +120,7 @@ export default function Results() {
       setLoading(false)
     } catch (error) {
       throw new Error("Something went wrong, try again later");
+      setLoading(false)
     }
   }
 
@@ -127,9 +128,7 @@ export default function Results() {
     (async () => await getData(page, pageSize))();
   }, []);
   console.log(reportData);
-  // useEffect(() => {
-  //   dispatch(getReports({ teacher: user._id }));
-  // }, [dispatch, user._id]);
+
 
   const { reports, isLoading } = useSelector((state) => state.reports);
   const multiSelectHandle = () => {};
@@ -306,7 +305,6 @@ export default function Results() {
         {user.classHandled === "none" ? (
           <div>
             <div>
-              <h4>Reports</h4>
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center mt-5">
               <div className="icon-div p-3">

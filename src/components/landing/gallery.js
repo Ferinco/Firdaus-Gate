@@ -26,8 +26,8 @@ export default function Gallery() {
   return (
     <Container className="py-5">
       <div className="header d-flex flex-column justify-content-center align-items-center">
-        <h6>GALLERY</h6>
-        <h2>
+      <h6 className="">GALLERY</h6>
+        <h2 className="mt-2">
           View Multiple Photos of our Students
         </h2>
       </div>
@@ -87,7 +87,8 @@ const Container = styled.div`
   background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
   color: black;
   h6 {
-    color: blue;
+   color: #4299e1;
+  font-size: 13px !important;
   }
   .image {
     width: 200px;

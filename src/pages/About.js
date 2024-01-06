@@ -202,7 +202,7 @@ const Container = styled.div`
     height: auto;
     background-color: black;
     color: white;
-    gap:10px !important;
+    gap:50px !important;
     @media screen and (max-width: 1009px) {
       display: flex;
       flex-direction: column !important;

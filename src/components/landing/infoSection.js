@@ -104,7 +104,7 @@ else {
     <Info className=" p-0">
 <div className="row">
 <div className="col-md-6 left p-5 d-flex flex-column align-items-start justify-content-center">
-<h6>Our Facilities</h6>
+
   <h2 className="">Take a Look at our World Class Facilities.</h2>
   <p>
    {quote}

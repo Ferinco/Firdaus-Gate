@@ -4,7 +4,6 @@ export const AllSubjects =[
         name: "Number Work",
         code: "FES_001",
         id: "001",
-        id: uuidv4(),
       },
       {
         name: "Letter Work",
@@ -15,11 +14,13 @@ export const AllSubjects =[
         name: "Handwritting",
         code: "FES_003",
         id: "003",
+
       },
       {
         name: "Communication Ability",
         code: "FES_004",
         id: "004",
+
       },
       {
         name: "Rhymes and Poems",

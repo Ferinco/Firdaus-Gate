@@ -90,7 +90,7 @@ export default function Navbar() {
             </li>
             <li>
               <a className="nav-link">portal &#9662;</a>
-              <ul class="dropdown px-1 pb-1">
+              <ul className="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
                   to={PATH_DASHBOARD.student.index}
@@ -421,6 +421,9 @@ const NavigationBar = styled.div`
     width: 100% !important;
     z-index: 9999;
     background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+    ul li ul.dropdown {
+      background: linear-gradient(to top, #ffff, #f5f5f5, #f5f5f5);
+    }
   }
   .mobile-nav {
     display: none !important;

@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { fetchSubjects } from "../../redux/slices/subjects";
 import { api } from "../../api/axios";
 import toast from "react-hot-toast";
+import AddAndDeleteSubject from "../../components/AddAndDeleteSubject";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -455,7 +456,12 @@ const ChangePortfolio = () => {
   console.log(user.subjectTaught);
   return (
     <div className="div mt-5 p-3">
-      edit portfolio, add and delete subject, change teacher class etc
+      <p> Edit portfolio, add and delete subject, change student department etc</p>
+      {["FGSSC_002", "FGSSC_003", "FGSSC_001", "FGJSC_001","FGJSC_002", "FGJSC_003"].includes(user.classHandled) ? (
+        <AddAndDeleteSubject studentId={identity} />
+      ) : (
+        <h4>Cannot change subject for this teacher</h4>
+      )}
     </div>
   );
 };

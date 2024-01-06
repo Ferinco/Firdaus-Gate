@@ -102,7 +102,7 @@ export default function TeacherDashboard() {
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
-  const [subjects, setSubjects] = useState([])
+  const [subjects, setSubjects] = useState([]);
   const [title, setTitle] = useState("");
   const [students, setStudents] = useState();
   const [maleGender, setMaleGender] = useState();
@@ -114,12 +114,13 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const FetchStudents = async () => {
       try {
-        const res = await UserService.findUsers({ role: "student",
-        currentClass: user?.classHandled,
-      });
+        const res = await UserService.findUsers({
+          role: "student",
+          currentClass: user?.classHandled,
+        });
         console.log(res.data.list.length);
-        
-        setSubjects([user.subjectTaught])
+
+        setSubjects([user.subjectTaught]);
 
         if (res.success) {
           const { list } = res.data;
@@ -128,7 +129,7 @@ export default function TeacherDashboard() {
           const female = list.filter((user) => user.gender === "female");
           setFemaleGender(female.length);
           setStudents(list.length);
-          console.log(students)
+          console.log(students);
         }
       } catch (error) {
         console.log(error);
@@ -148,7 +149,7 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-  console.log(subjects)
+  console.log(subjects);
   useEffect(() => {
     function getTitle() {
       if (user?.gender === "male") {
@@ -201,23 +202,27 @@ export default function TeacherDashboard() {
             <div className="info-text mt-3">
               <p className="mb-0">Class Handled</p>
               <h5>
-                {user.classHandled ? <h6>{user.classHandled}</h6> : "None"}
+                {user.classHandled ? (
+                  <h6>
+                    {user.classHandled === "none" ? "None" : user.classHandled}
+                  </h6>
+                ) : (
+                  "None"
+                )}
               </h5>
             </div>
           </div>
           <div className="info p-4">
             <div className="icon-div p-2">
-              <Icon icon="fluent:people-team-20-filled" color="blue" className="icon" />
+              <Icon
+                icon="fluent:people-team-20-filled"
+                color="blue"
+                className="icon"
+              />
             </div>
             <div className="info-text mt-3">
               <p className="mb-0">Students handled</p>
-              <h5>
-                {students ? (
-                  <h6>{students}</h6>
-                ) : (
-                  "None"
-                )}
-              </h5>
+              <h5>{students ? <h6>{students}</h6> : <h6>None</h6>}</h5>
             </div>
           </div>
           <div className="info p-4">
@@ -227,16 +232,10 @@ export default function TeacherDashboard() {
             <div className="info-text mt-3">
               <p className="mb-0">Subjects Taught</p>
               <h5>
-                {user.subjectTaught ? (
-                  <h6>{subjects.length}</h6>
-                ) : (
-                  "None"
-                )}
+                {user.subjectTaught ? <h6>{subjects.length}</h6> : "None"}
               </h5>
             </div>
           </div>
-         
-
         </div>
       </div>
 
@@ -482,7 +481,6 @@ const Dashboard = styled.div`
           grid-row-end: span 2;
           width: calc(90% * 400px);
           height: 100%;
-
           background-color: #8080ff;
           color: white;
         }
