@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { fetchUser } from "../../redux/slices/users";
 import styled from "styled-components";
 import { UserService } from "../../services/userService";
-
+import { useAppContext } from "../../contexts/Context";
+import { GetTeacherClass } from "../../components/custom/teacherClass";
 export const StudentInfo = () => {
 
     const [isLoading, setIsLoading] = useState(true);
@@ -125,14 +126,16 @@ const deactivateUser = async (studentId, currentStatus)=>{
 export const TeacherInfo = () => {
   const { identity } = useParams();
   const [currentTeacher, setCurrentTeacher] = useState("");
-
+  const { teacherClass, setTeacherClass } = useAppContext();
+const [loading, setLoading] = useState(true)
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users || {});
-  const [teacherClass, setTeacherClass] = useState("")
   
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
+    GetTeacherClass()
     setCurrentTeacher(user);
+    setLoading(false)
   }, [identity, dispatch]);
   return (
     <div>
@@ -175,7 +178,7 @@ export const TeacherInfo = () => {
               </div>
               <div className="info d-flex align-items-center">
                 <p className="text-capitalize w-50">Class handled:</p>{" "}
-                <h6 className="text-capitalize w-50">{user?.classHandled}</h6>
+                <h6 className="text-capitalize w-50">{teacherClass}</h6>
               </div>
               <div className="info d-flex align-items-center">
                 <p className="text-capitalize w-50">Gender:</p>{" "}

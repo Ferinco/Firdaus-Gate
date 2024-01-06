@@ -6,6 +6,7 @@ export function AppProvider({ children }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [currentUser, setCurrentUser] = useState();
+  const [teacherClass, setTeacherClass] = useState("")
   return (
     <AppContext.Provider
       value={{
@@ -17,6 +18,8 @@ export function AppProvider({ children }) {
         setPasswordVisibility,
         currentUser,
         setCurrentUser,
+        teacherClass,
+        setTeacherClass
       }}
     >
       {children}
