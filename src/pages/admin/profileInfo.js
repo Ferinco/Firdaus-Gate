@@ -15,12 +15,18 @@ export const StudentInfo = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.users || {});
+  const { studentClass, setStudentClass } = useAppContext();
+
   // const state = useSelector(state=> state)
   console.log(user);
+  
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
+    GetStudentClass(user, setStudentClass)
     setIsLoading(false)
-  }, [identity, dispatch]);
+  }, [identity, dispatch, user, setStudentClass]);
+
+console.log(studentClass)
 
 //to deactiveate users
 const deactivateUser = async (studentId, currentStatus)=>{
@@ -91,7 +97,7 @@ const deactivateUser = async (studentId, currentStatus)=>{
               </div>
               <div className="info d-flex justify-content-between">
                 <p className="text-capitalize w-50">current class:</p>{" "}
-                <h6 className="text-capitalize w-50">{user?.currentClass}</h6>
+                <h6 className="text-capitalize w-50">{studentClass}</h6>
               </div>
               <div className="info d-flex justify-content-between">
                 <p className="text-capitalize w-50">gender:</p>{" "}

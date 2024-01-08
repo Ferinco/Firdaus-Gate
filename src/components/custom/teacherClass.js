@@ -1,7 +1,7 @@
 import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
 
-export function GetTeacherClass(user, setTeacherClass) {
+export const GetTeacherClass = (user, setTeacherClass) => {
   switch (user?.classHandled) {
     case "FGJSC_001":
       setTeacherClass("JSS 1");
@@ -49,11 +49,11 @@ export function GetTeacherClass(user, setTeacherClass) {
       setTeacherClass("Nursery 2");
       break;
     default:
-      setTeacherClass("Default Class"); // Provide a default value if none of the cases match
+      setTeacherClass("None"); // Provide a default value if none of the cases match
   }
 }
-export function GetStudentClass(user, setStudentClass) {
-    switch (user?.classHandled) {
+export const GetStudentClass = (user, setStudentClass) => {
+    switch (user?.currentClass) {
       case "FGJSC_001":
         setStudentClass("JSS 1");
         break;
@@ -100,7 +100,7 @@ export function GetStudentClass(user, setStudentClass) {
         setStudentClass("Nursery 2");
         break;
       default:
-        setStudentClass("Default Class"); // Provide a default value if none of the cases match
+        setStudentClass("None"); // Provide a default value if none of the cases match
     }
   }
 
