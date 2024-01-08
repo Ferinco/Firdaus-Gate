@@ -6,7 +6,7 @@ import { fetchUser } from "../../redux/slices/users";
 import styled from "styled-components";
 import { UserService } from "../../services/userService";
 import { useAppContext } from "../../contexts/Context";
-import  GetTeacherClass  from "../../components/custom/teacherClass";
+import  {GetTeacherClass, GetStudentClass}  from "../../components/custom/teacherClass";
 export const StudentInfo = () => {
 
     const [isLoading, setIsLoading] = useState(true);
@@ -130,14 +130,16 @@ export const TeacherInfo = () => {
 const [loading, setLoading] = useState(true)
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users || {});
-  useEffect(() => {
-    GetTeacherClass(user, setTeacherClass);
-  }, [user, setTeacherClass]);
+
+
+
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
     setCurrentTeacher(user);
     setLoading(false)
-  }, [identity, dispatch]);
+    GetTeacherClass(user, setTeacherClass);
+
+  }, [identity, dispatch, user, setTeacherClass]);
   return (
     <div>
       {isLoading && user === null && <CircularProgress />}

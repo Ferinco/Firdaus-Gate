@@ -1,7 +1,7 @@
 import { useAppContext } from "../../contexts/Context";
 import { useAuth } from "../../hooks/useAuth";
 
-export default function GetTeacherClass(user, setTeacherClass) {
+export function GetTeacherClass(user, setTeacherClass) {
   switch (user?.classHandled) {
     case "FGJSC_001":
       setTeacherClass("JSS 1");
@@ -52,4 +52,55 @@ export default function GetTeacherClass(user, setTeacherClass) {
       setTeacherClass("Default Class"); // Provide a default value if none of the cases match
   }
 }
+export function GetStudentClass(user, setStudentClass) {
+    switch (user?.classHandled) {
+      case "FGJSC_001":
+        setStudentClass("JSS 1");
+        break;
+      case "FGJSC_002":
+        setStudentClass("JSS 2");
+        break;
+      case "FGJSC_003":
+        setStudentClass("JSS 3");
+        break;
+      case "FGSSC_001":
+        setStudentClass("SSS 1");
+        break;
+      case "FGSSC_002":
+        setStudentClass("SSS 2");
+        break;
+      case "FGSSC_003":
+        setStudentClass("SSS 3");
+        break;
+      case "FGBSC_001":
+        setStudentClass("Basic 1");
+        break;
+      case "FGBSC_002":
+        setStudentClass("Basic 2");
+        break;
+      case "FGBSC_003":
+        setStudentClass("Basic 3");
+        break;
+      case "FGBSC_004":
+        setStudentClass("Basic 4");
+        break;
+      case "FGBSC_005":
+        setStudentClass("Basic 5");
+        break;
+      case "FGKGC_001":
+        setStudentClass("K.G 1");
+        break;
+      case "FGKGC_003":
+        setStudentClass("K.G 2");
+        break;
+      case "FGNSC_001":
+        setStudentClass("Nursery 1");
+        break;
+      case "FGNSC_002":
+        setStudentClass("Nursery 2");
+        break;
+      default:
+        setStudentClass("Default Class"); // Provide a default value if none of the cases match
+    }
+  }
 
