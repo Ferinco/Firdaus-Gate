@@ -263,7 +263,7 @@ const ChangePassword = () => {
         <Button
                     blue
                     type="submit"
-                    className="button"
+                    className="button py-1"
                     disabled={isLoading === true}
                   >
                     {isLoading ? (
