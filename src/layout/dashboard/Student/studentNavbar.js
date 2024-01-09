@@ -2,7 +2,12 @@ import { styled } from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../../hooks/useAuth";
+import { PATH_DASHBOARD } from "../../../routes/paths";
+import { Link } from "react-router-dom";
+
+
 export default function StudentNavbar() {
+  const {logout} = useAuth()
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } =
     useAppContext();
   const { user } = useAuth();
@@ -43,7 +48,6 @@ export default function StudentNavbar() {
                 : user.email}
             </p>
           </div>
-          {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
         </div>
         <div
           className={`profile flex-column align-center justify-content-between align-items-start py-3 ${
@@ -64,13 +68,13 @@ export default function StudentNavbar() {
                 : user.email}
             </p>
           </div>
-           <div className="div p-0 w-100">
-            <p className="mb-0 px-3">
+           <div className="div p-0 w-100 ">
+            <Link className="mb-0 px-3 react-router-link" to={PATH_DASHBOARD.student.aboutMe}>
               About Me
-            </p>
-            <p className="mb-0 px-3">
+            </Link>
+            <Link className="mb-0 px-3 react-router-link red" onClick={logout}>
              Log Out
-            </p>
+            </Link>
           </div> 
         </div>
       </div>
@@ -88,6 +92,9 @@ const Wrapper = styled.div`
   z-index: 999 !important;
   padding-left: 48px;
   padding-right: 48px;
+  .red{
+    color: red !important;
+  }
   .btns {
     .profile-div {
       cursor: pointer;
@@ -130,7 +137,7 @@ const Wrapper = styled.div`
     }
   }
   .profile {
-    height: 200px;
+    height: auto;
     width: 200px;
     display: none;
     border-radius: 20px;
@@ -153,14 +160,16 @@ const Wrapper = styled.div`
         color: black;
       }
     }
-    .name,
-    .div {
+    .name{
       border-bottom: 1px solid #f1f1f1;
+      background-color: white !important;
       p {
         font-size: 14px;
       }
     }
     .div {
+      border-top: 1px solid #f1f1f1;
+      background-color: white !important;
       p {
         text-transform: capitalize !important;
       }
@@ -190,6 +199,9 @@ const Wrapper = styled.div`
   .animate-bar {
     margin-left: 290px !important;
     transition: 0.3s;
+  }
+  .react-router-link{
+    font-size: 14px !important;
   }
   @media screen and (max-width: 1100px) {
     width: 100%;

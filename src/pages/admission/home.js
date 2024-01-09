@@ -14,7 +14,7 @@ Purchase Admission Form</Link>
     <Button blue>
         <Link to={PATH_PAGE.continue} className="react-router-link">Continue Application</Link>
     </Button>
-    <Button blue> <Link className="react=-router-link" to={PATH_AUTH.login}></Link> Already a Student?</Button>
+    <Button blue> <Link className="react-router-link" to={PATH_AUTH.login}> Already a Student?</Link></Button>
 </div>
         </Container>
     )

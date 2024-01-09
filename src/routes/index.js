@@ -9,6 +9,7 @@ import Settings from "../pages/settings";
 import { Receipt } from "../components/custom";
 import AdmissionHome from "../pages/admission/home";
 import ContinueAdmission from "../pages/admission/continue";
+import AboutMe from "../layout/dashboard/AboutMe";
 import {
   TeacherDashboard,
   CreateResult,
@@ -114,6 +115,8 @@ export default function Routes() {
         { path: "student-info/:identity", element: <StudentInfo/> },
         { path: "new-assignment", element: <GiveAssignments/> },
         { path: "set-assignment/:identity", element: <AssignmentSettings/> },
+        { path: "about-me", element: <AboutMe/> },
+
 
 
       ],
@@ -138,6 +141,8 @@ export default function Routes() {
         {path:"/student/account-settings", element: <Settings/>},
         {path:"/student/submit-assignments", element: <Assignments/>},
         { path: "work-scheme/:identity", element: <Scheme/> },
+        { path: "about-me", element: <AboutMe/> },
+
 
 
       ],

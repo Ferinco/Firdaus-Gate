@@ -36,13 +36,9 @@ export default function StudentDashboard() {
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
 
-  const [visibleSubjects, setVisibleSubjects] = useState(4);
+  const [visibleSubjects, setVisibleSubjects] = useState(5);
 
-
-
-
-
-  const getTeachers = async ( filter) => {
+  const getTeachers = async (filter) => {
     try {
       setLoading(true);
       const result = await UserService.findUsers({
@@ -248,59 +244,61 @@ export default function StudentDashboard() {
               </div>
             </div>
             <div className="bottom-wrapper ">
-            <div  className="bottom-div py-4 px-5 d-flex flex-row flex-wrap gap-1"> 
-
-<Link className="scheme-link">Check Scheme</Link>
-<Link className="download-link react-router-link">Download Result</Link>
-
-
-            </div>
+              <div className="bottom-div py-4 px-5 d-flex flex-row flex-wrap gap-1">
+                <Link className="scheme-link">Check Scheme</Link>
+                <Link className="download-link react-router-link">
+                  Download Result
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="right-div col-lg-4 d-flex flex-column juatify-content-between py-3 gap-5">
-<div className=" d-flex flex-column">
-  <h6>Teachers</h6>
-  <div className=" d-flex flex-wrap gap-1 align-items-center justify-content-between">
-  {teachers.slice(0, visibleSubjects).map((teacher, index) => (
-        <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
-    <div className="initial h-100 d-flex justify-content-center align-items-center">
-      <p className='m-0'>
+          <div className="right-div col-lg-4 d-flex flex-column justify-content-center py-4 gap-5">
+            <div className=" d-flex flex-column">
+              <h6>Teachers</h6>
+              <div className=" d-flex flex-wrap gap-1 align-items-center justify-content-between">
+                {teachers.slice(0, visibleSubjects).map((teacher, index) => (
+                  <div
+                    key={index}
+                    className={`d-flex flex-column align-items-center justify-content-center ${index === 0 ? "" : "margined"}`}
+                  >
+                    <div className="initial h-100 d-flex justify-content-center align-items-center">
+                      <p className="m-0"></p>
+                    </div>
+                    <p className="m-0">
+                      {teacher.gender === "male" ? "Mr." : "Mrs."}
+                      {teacher.lastName.length > 4
+                        ? `${teacher.lastName.slice(0, 4)}...`
+                        : teacher.lastName}
+                    </p>
+                  </div>
+                ))}
 
-      </p>
-    </div>
-        <p className="m-0">{teacher.gender === "male" ? "Mr." : "Mrs."}
-        {teacher.lastName.length > 4 ? `${teacher.lastName.slice(0, 4)}...` : teacher.lastName}
-        </p>
-         </div>
-      ))}
+                {visibleSubjects < teachers.length && (
+                  <Link to={PATH_DASHBOARD.student.myTeachers} className="view-more">View More></Link>
+                )}
+              </div>
+            </div>
+            <div className=" d-flex flex-column">
+              <h6>Subjects</h6>
+              <div className="d-flex flex-wrap gap-1 align-items-center justify-content-between">
+                {subjects.slice(0, visibleSubjects).map((subject, index) => (
+                  <div
+                    key={index}
+                    className={`d-flex flex-column align-items-center justify-content-center ${index === 0 ? "" : "margined"}`}
+                  >
+                    <div className={`initial h-100 d-flex justify-content-center align-items-center `}>
+                      <p className="m-0">{subject.name.length > 3
+                        ? `${subject.name.slice(0, 3)}...`
+                        : subject.name}</p>
+                    </div>
+                  </div>
+                ))}
 
-      {visibleSubjects < teachers.length && (
-        <Link to={PATH_DASHBOARD.student.myTeachers}>View More></Link>
-      )}
-  </div>
-</div>
-<div className=" d-flex flex-column">
-  <h6>Subjects</h6>
-  <div className="d-flex flex-wrap gap-1 align-items-center justify-content-between">
-  {subjects.slice(0, visibleSubjects).map((subject, index) => (
-        <div key={index} className="d-flex flex-column align-items-center justify-content-center"> 
-    <div className="initial h-100 d-flex justify-content-center align-items-center">
-      <p className='m-0'>
-    {subject.name.charAt(0)}
-      </p>
-    </div>
-        <p className="m-0">
-        {subject.name.length > 6 ? `${subject.name.slice(0, 6)}...` : subject.name}
-        </p>
-         </div>
-      ))}
-
-      {visibleSubjects < subjects.length && (
-        <Link to={PATH_DASHBOARD.student.mySubjects}>View More></Link>
-      )}
-  </div>
-</div>
-            
+                {visibleSubjects < subjects.length && (
+                  <Link to={PATH_DASHBOARD.student.mySubjects} className="view-more">View More></Link>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </Dashboard>
@@ -313,19 +311,21 @@ const Dashboard = styled.div`
   height: fit-content !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
-  .bottom-wrapper{
+  .view-more{
+    font-size: 14px !important;
+  }
+  .bottom-wrapper {
     padding-right: 50px;
-    @media screen and (max-width: 768px){
-    padding-right: 0 !important;
-      
+    @media screen and (max-width: 768px) {
+      padding-right: 0 !important;
     }
   }
-  .bottom-div{
+  .bottom-div {
     height: 200px;
     border-radius: 30px;
     background-color: white;
     flex-wrap: nowrap !important;
-    .download-link{
+    .download-link {
       padding: 10px;
       background-color: green;
       color: white !important;
@@ -333,15 +333,16 @@ const Dashboard = styled.div`
       border-radius: 5px;
       height: fit-content;
     }
-
   }
-  .initial{
-    width:70px;
+  .initial {
+    width: 70px;
     height: 70px !important;
     border-radius: 50%;
     background-color: rgba(158, 160, 231, 0.7);
-    color:blue;
-    p{
+    color: blue;
+    border: 3px solid white;
+
+    p {
       /* font-size: 25px; */
       /* font-weight: 600; */
     }
@@ -378,15 +379,17 @@ const Dashboard = styled.div`
       }
     }
   }
-  .middle-div {
-
+.margined{
+  margin-left: -30px !important;
+  .initial{
+    border: 3px solid white;
   }
+}
   .div {
     overflow-x: auto !important;
     margin-top: 0 !important;
   }
   .left-div {
-    
     display: flex;
 
     flex-direction: column;
@@ -425,12 +428,12 @@ const Dashboard = styled.div`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 20px;
     background-color: white;
-    p{
+    p {
       font-size: 13px;
       color: grey;
     }
     height: auto;
-    h6{
+    h6 {
     }
   }
 
