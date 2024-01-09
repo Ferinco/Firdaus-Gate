@@ -10,7 +10,6 @@ import {
   GetTeacherClass,
   GetStudentClass,
 } from "../../components/custom/teacherClass";
-import { ElementarySubjects, BasicSubjects, JuniorSubjects, SeniorSubjects } from "../../configs/subjectsConfig";
 
 export const StudentInfo = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -131,41 +130,17 @@ export const StudentInfo = () => {
 export const TeacherInfo = () => {
   const { identity } = useParams();
   const [currentTeacher, setCurrentTeacher] = useState("");
-  const [teacherSubjects, setTeacherSubjects] = useState([]);
   const { teacherClass, setTeacherClass } = useAppContext();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users || {});
 
-  function getSubjects() {
-    if (user?.subjectTaught.startsWith("FJS") || user?.subjectTaught.startsWith("FSS")) {
-      setTeacherSubjects([...JuniorSubjects, ...SeniorSubjects]);
-    } else if (user?.subjectTaught.startsWith("FES")) {
-      setTeacherSubjects(ElementarySubjects);
-    } else if (user?.subjectTaught.startsWith("FBS")) {
-      setTeacherSubjects(BasicSubjects);
-    } else {
-      setTeacherSubjects(SeniorSubjects);
-    }
-  }
-
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
     setCurrentTeacher(user);
-    getSubjects()
     setLoading(false);
     GetTeacherClass(user, setTeacherClass);
   }, [identity, dispatch, user, setTeacherClass]);
-
-  //make the teachers' subjects taught strings into an array
-  const subjectsArray = user?.subjectTaught
-    .split(",")
-    .map((subject) => subject.trim());
-
-    const filteredSubjects = teacherSubjects.filter((subject) =>
-    subjectsArray.includes(subject.code)
-  );
-
   return (
     <div>
       {isLoading && user === null && <CircularProgress />}
@@ -215,13 +190,7 @@ export const TeacherInfo = () => {
               </div>
               <div className="info d-flex align-items-center">
                 <p className="w-50">Subject(s) taught :</p>{" "}
-                {
-                  filteredSubjects.map((subject)=>(
-<h6 className="text-capitalize w-50">
-  {subject.name}
-</h6>
-                  ))
-                }
+                <h6 className="text-capitalize w-50">{user?.subjectTaught}</h6>
               </div>
               <div className="info d-flex align-items-center">
                 <p className="text-capitalize w-50">Email :</p>{" "}
