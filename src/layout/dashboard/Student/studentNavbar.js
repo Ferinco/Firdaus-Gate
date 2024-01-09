@@ -1,25 +1,28 @@
-import { styled } from "styled-components"
+import { styled } from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../../hooks/useAuth";
-export default function StudentNavbar(){
-  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
+export default function StudentNavbar() {
+  const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } =
+    useAppContext();
   const { user } = useAuth();
   const firstLetter = user.firstName.charAt(0);
   return (
     <Wrapper className="head container-fluid d-flex flex-column justify-content-center">
       <div className="btns d-flex flex-row justify-content-between w-100 align-items-center">
-      <div
+        <div
           onClick={() => {
             setIsSidebarOpen((prevState) => !prevState);
             setIsProfileOpen(false);
           }}
-          className={ isSidebarOpen? "animate-bar" : ""}
+          className={isSidebarOpen ? "animate-bar" : ""}
         >
           <Icon icon="ri:menu-3-fill" className="nav-btn" />
         </div>
         <div
-          className={`profile-div d-flex flex-row justify-content-center align-items-center p-2 ${isProfileOpen ? "animate-profile" : ""}`}
+          className={`profile-div d-flex flex-row justify-content-center align-items-center p-2 ${
+            isProfileOpen ? "animate-profile" : ""
+          }`}
           onClick={() => {
             setIsSidebarOpen
               ? setIsSidebarOpen(false)
@@ -27,14 +30,19 @@ export default function StudentNavbar(){
             setIsProfileOpen((prevState) => !prevState);
           }}
         >
-          <div className="circle-profile d-flex justify-content-center align-items-center text-align-center"><p className="mb-0">{firstLetter}</p></div>
+          <div className="circle-profile d-flex justify-content-center align-items-center text-align-center">
+            <p className="mb-0">{firstLetter}</p>
+          </div>
           <div className={`d-flex flex-column profile-text mb-1`}>
-            <h6>{user.firstName}&nbsp;{user.lastName}</h6>
+            <h6>
+              {user.firstName}&nbsp;{user.lastName}
+            </h6>
             <p className="mb-0">
-      {user.email.length > 20 ? `${user.email.slice(0, 20)}...` : user.email}
-
+              {user.email.length > 20
+                ? `${user.email.slice(0, 20)}...`
+                : user.email}
             </p>
-            </div>
+          </div>
           {/* <Icon icon="mdi:account-tie" className="profile-btn" color="white" /> */}
         </div>
         <div
@@ -42,19 +50,29 @@ export default function StudentNavbar(){
             isProfileOpen ? "open" : "close"
           }`}
         >
-           {/* <div className="image">
+          {/* <div className="image">
             <Icon icon="fa-solid:user-tie" className="icon" colr="blue" />
           </div> */}
           <div className="name p-0 w-100">
-<p className="mb-0 px-3">{user.firstName}{" "}{user.lastName}</p>
-<p className="mb-0 px-3 text-muted">      {user.email.length > 18 ? `${user.email.slice(0, 18)}...` : user.email}
-</p>
+            <p className="mb-0 px-3">
+              {user.firstName} {user.lastName}
+            </p>
+            <p className="mb-0 px-3 text-muted">
+              {" "}
+              {user.email.length > 15
+                ? `${user.email.slice(0, 15)}...`
+                : user.email}
+            </p>
           </div>
-          {/* <div className="div p-0 w-100">
-            <p className="mb-0 px-3 text-transform-capitalize">{user.role}</p>
-          </div> */}
-          </div>
-       
+           <div className="div p-0 w-100">
+            <p className="mb-0 px-3">
+              About Me
+            </p>
+            <p className="mb-0 px-3">
+             Log Out
+            </p>
+          </div> 
+        </div>
       </div>
     </Wrapper>
   );
@@ -62,43 +80,42 @@ export default function StudentNavbar(){
 const Wrapper = styled.div`
   align-items: center;
   background-color: white;
-height: 80px !important;
-position: fixed;
-width: calc(100vw - 280px);
-backdrop-filter: blur(2px) !important;
-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-z-index:999 !important;
-    padding-left: 48px;
-    padding-right: 48px;
+  height: 80px !important;
+  position: fixed;
+  width: calc(100vw - 280px);
+  backdrop-filter: blur(2px) !important;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  z-index: 999 !important;
+  padding-left: 48px;
+  padding-right: 48px;
   .btns {
     .profile-div {
       cursor: pointer;
       border-radius: 10px;
       gap: 7px;
-      transition:all ease-in-out 0.4s;
-      &:hover{
+      transition: all ease-in-out 0.4s;
+      &:hover {
         background-color: #f1f1f1;
       }
-  
     }
-    .circle-profile{
-    height:32px ;
-    width: 32px;
-    border-radius: 50%;
-    background-color: blue;
-    p{
-      color: white;
-      font-weight: 600;
+    .circle-profile {
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      background-color: blue;
+      p {
+        color: white;
+        font-weight: 600;
+      }
     }
-    }
-    .profile-text{
+    .profile-text {
       line-height: 0.2;
-      h6{
+      h6 {
         font-size: 14px;
       }
-      p{
-font-size: 12px;
-font-weight: 500 !important;
+      p {
+        font-size: 12px;
+        font-weight: 500 !important;
       }
     }
     .profile-btn {
@@ -120,7 +137,7 @@ font-weight: 500 !important;
     background-color: white;
     overflow: hidden;
     color: black;
-    transition:all ease-in-out 0.4s;
+    transition: all ease-in-out 0.4s;
     opacity: 0.1 !important;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .image {
@@ -136,18 +153,19 @@ font-weight: 500 !important;
         color: black;
       }
     }
-.name, .div{
-  border-bottom: 1px solid #f1f1f1;
-  p{
-    font-size: 14px;
+    .name,
+    .div {
+      border-bottom: 1px solid #f1f1f1;
+      p {
+        font-size: 14px;
+      }
+    }
+    .div {
+      p {
+        text-transform: capitalize !important;
+      }
+    }
   }
-}
-.div{
-p{
-  text-transform: capitalize !important;
-}
-  }
-}
   .open {
     display: flex !important;
     z-index: 999;
@@ -155,26 +173,23 @@ p{
     position: absolute;
     right: 40px !important;
     top: 80px !important;
-    transition:all ease-in-out 0.4s;
+    transition: all ease-in-out 0.4s;
     opacity: 1 !important;
-
   }
   .close {
-    transition:all ease-in-out 0.4s;
+    transition: all ease-in-out 0.4s;
     opacity: 0.1 !important;
-
   }
-  .animate-profile{
+  .animate-profile {
     margin-right: -0.3px !important;
     transition: 0.3s;
-    .profile-text{
-      display:none !important;
+    .profile-text {
+      display: none !important;
     }
   }
-  .animate-bar{
+  .animate-bar {
     margin-left: 290px !important;
     transition: 0.3s;
-
   }
   @media screen and (max-width: 1100px) {
     width: 100%;
@@ -188,9 +203,9 @@ p{
       }
     }
   }
-  @media screen and (max-width:500px){
-    .animate-bar{
-margin-left: 0 !important;
+  @media screen and (max-width: 500px) {
+    .animate-bar {
+      margin-left: 0 !important;
     }
-    }
+  }
 `;
