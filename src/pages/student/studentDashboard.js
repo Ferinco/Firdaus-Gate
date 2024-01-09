@@ -203,7 +203,7 @@ export default function StudentDashboard() {
                       className="icon"
                     />
                   </div>
-                  <h5 className="mb-0">{user.currentClass}</h5>
+                  <h6 className="mb-0">{user.currentClass}</h6>
                   <p>current class</p>
                 </div>
                 <div className="info p-3">
@@ -214,7 +214,7 @@ export default function StudentDashboard() {
                       className="icon"
                     />
                   </div>
-                  <h5 className="mb-0">{subjects.length}</h5>
+                  <h6 className="mb-0">{subjects.length}</h6>
                   <p>Subjects offered</p>
                 </div>
                 <div className="info d-flex flex-column justify-content-between p-3">
