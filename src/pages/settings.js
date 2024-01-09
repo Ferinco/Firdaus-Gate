@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -10,12 +10,16 @@ import { UserService } from "../services/userService";
 import { api } from "../api/axios";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import { GetStudentClass, GetTeacherClass } from "../components/custom/teacherClass";
+import { useAppContext } from "../contexts/Context";
 
 export default function Settings() {
   const [isLoading, setLoading] = useState(false);
   const [activeNav, setActiveNav] = useState("Profile");
   const [previewImage, setPreviewImage] = useState(null);
   const [signatureFile, setSignatureFile] = useState("");
+  const { studentClass, setStudentClass } = useAppContext();
+  const { teacherClass, setTeacherClass } = useAppContext();
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const { user } = useAuth();
@@ -79,7 +83,11 @@ export default function Settings() {
       reader.readAsDataURL(file);
     }
   };
-
+  useEffect(() => {
+    GetStudentClass(user, setStudentClass)
+    GetTeacherClass(user, setTeacherClass);
+    setLoading(false)
+  }, [ user, setStudentClass, setTeacherClass]);
   return (
     <Wrapper className="d-flex flex-column py-5 container">
              <Helmet>
@@ -161,8 +169,8 @@ export default function Settings() {
                   readOnly
                   value={
                     user.role === "student"
-                      ? user.currentClass
-                      : user.classHandled
+                      ? studentClass
+                      : teacherClass
                   }
                   name="class"
                 />

@@ -21,6 +21,7 @@ import {
 } from "../../configs/classConfig";
 import { SubjectService } from "../../services/subjectService";
 import { UserService } from "../../services/userService";
+import { GetStudentClass } from "../../components/custom/teacherClass";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -35,6 +36,8 @@ export default function StudentDashboard() {
   const currentClass = classes.filter((item) => item.code === selectedClass);
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
+  const { studentClass, setStudentClass } = useAppContext();
+
 
   const [visibleSubjects, setVisibleSubjects] = useState(5);
 
@@ -59,7 +62,8 @@ export default function StudentDashboard() {
     const userId = user._id;
     fetchSubjects(userId);
     getTeachers();
-  }, []);
+    GetStudentClass(user, setStudentClass)
+  }, [user, setStudentClass]);
   const fetchSubjects = async (userId) => {
     try {
       const { data } = await SubjectService.getSubjects(userId);
@@ -199,7 +203,7 @@ export default function StudentDashboard() {
                       className="icon"
                     />
                   </div>
-                  <h6 className="mb-0">{user.currentClass}</h6>
+                  <h6 className="mb-0">{studentClass}</h6>
                   <p>current class</p>
                 </div>
                 <div className="info p-3">

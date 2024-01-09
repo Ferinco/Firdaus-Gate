@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function TeacherNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
   const { user } = useAuth();
+  const {logout} = useAuth()
   const firstLetter = user.firstName.charAt(0);
 
   return (
@@ -51,9 +52,14 @@ export default function TeacherNavbar() {
 <p className="mb-0 px-3">{user.firstName}{" "}{user.lastName}</p>
 <p className="mb-0 px-3 text-muted">{user.email}</p>
           </div>
-          {/* <div className="div p-0 w-100">
-            <p className="mb-0 px-3 text-transform-capitalize">{user.role}</p>
-          </div> */}
+          <div className="div p-0 w-100 pt-2">
+            <Link className="mb-0 px-3 react-router-link" to={PATH_DASHBOARD.teacher.aboutMe}>
+              About Me
+            </Link>
+            <Link className="mb-0 px-3 react-router-link red" onClick={logout}>
+             Log Out
+            </Link>
+          </div> 
           </div>
        
       </div>
@@ -113,8 +119,11 @@ font-weight: 500 !important;
       display: none;
     }
   }
+  .react-router-link{
+    font-size: 14px !important;
+  }
   .profile {
-    height: 200px;
+    height: auto;
     width: 200px;
     display: none;
     border-radius: 20px;
@@ -124,6 +133,9 @@ font-weight: 500 !important;
     transition:all ease-in-out 0.4s;
     opacity: 0.1 !important;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .red{
+    color: red !important;
+  }
     .image {
       height: 50px;
       width: 50px;
@@ -137,17 +149,20 @@ font-weight: 500 !important;
         color: black;
       }
     }
-.name, .div{
-  border-bottom: 1px solid #f1f1f1;
-  p{
-    font-size: 14px;
-  }
-}
-.div{
-p{
-  text-transform: capitalize !important;
-}
-  }
+    .name{
+      border-bottom: 1px solid #f1f1f1;
+      background-color: white !important;
+      p {
+        font-size: 14px;
+      }
+    }
+    .div {
+      border-top: 1px solid #f1f1f1;
+      background-color: white !important;
+      p {
+        text-transform: capitalize !important;
+      }
+    }
 }
   .open {
     display: flex !important;

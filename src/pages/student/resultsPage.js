@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import { Icon } from "@iconify/react";
 import { CLASS } from "../../constants/class";
@@ -12,13 +12,15 @@ import { useTerm } from "../../hooks/useTerm";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { generatePdfApi } from "../../api/axios";
 import axios from "axios";
+import { useAppContext } from "../../contexts/Context";
+import { GetStudentClass } from "../../components/custom/teacherClass";
 
 export default function ResultsPage() {
   const { user } = useAuth();
-
+  const { studentClass, setStudentClass } = useAppContext();
   const { currentTerm } = useTerm();
-  const [loading, setLoading] = React.useState(false);
-  const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
+  const [loading, setLoading] = React.useState(true);
+  const [selectedClass, setSelectedClass] = React.useState(studentClass);
 
   const reportsItem = [
     {
@@ -79,12 +81,13 @@ export default function ResultsPage() {
             link.click();
             window.URL.revokeObjectURL(url);
             document.body.removeChild(link);
-
+            setLoading(false)
             toast.success("Report downloaded successfully");
           })
           .catch((error) => {
             toast.error("Error downloading report");
             console.error(error);
+            setLoading(false)
           });
       }
 
@@ -102,6 +105,12 @@ export default function ResultsPage() {
       }
     }
   }
+
+useEffect(()=>{
+  GetStudentClass(user, setStudentClass)
+  setLoading(false)
+}, [user, setStudentClass])
+
   function changedClass(e) {
     setSelectedClass(e.target.value);
     toast.success(`class has been changed to ${e.target.value}`);
