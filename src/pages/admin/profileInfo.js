@@ -6,12 +6,15 @@ import { fetchUser } from "../../redux/slices/users";
 import styled from "styled-components";
 import { UserService } from "../../services/userService";
 import { useAppContext } from "../../contexts/Context";
-import  {GetTeacherClass, GetStudentClass}  from "../../components/custom/teacherClass";
+import {
+  GetTeacherClass,
+  GetStudentClass,
+} from "../../components/custom/teacherClass";
+import { ElementarySubjects, BasicSubjects, JuniorSubjects, SeniorSubjects } from "../../configs/subjectsConfig";
+
 export const StudentInfo = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [isLoading, setIsLoading] = useState(true);
-
-    
   const { identity } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.users || {});
@@ -19,38 +22,34 @@ export const StudentInfo = () => {
 
   // const state = useSelector(state=> state)
   console.log(user);
-  
+
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
-    GetStudentClass(user, setStudentClass)
-    setIsLoading(false)
+    GetStudentClass(user, setStudentClass);
+    setIsLoading(false);
   }, [identity, dispatch, user, setStudentClass]);
 
-console.log(studentClass)
+  console.log(studentClass);
 
-//to deactiveate users
-const deactivateUser = async (studentId, currentStatus)=>{
+  //to deactiveate users
+  const deactivateUser = async (studentId, currentStatus) => {
     try {
-        setIsLoading(true);
-        const formData = new FormData();
-        const newStatus = currentStatus === "active" ? "inactive" : "active";
-        formData.append("values", JSON.stringify({ status: newStatus }));
-        await UserService.updateUser(studentId, formData);
-        dispatch(fetchUser({ id: identity }));
-        setIsLoading(false);
-
-      }
-      catch (error) {
-        console.log(error);
-      }
-}
-
-
+      setIsLoading(true);
+      const formData = new FormData();
+      const newStatus = currentStatus === "active" ? "inactive" : "active";
+      formData.append("values", JSON.stringify({ status: newStatus }));
+      await UserService.updateUser(studentId, formData);
+      dispatch(fetchUser({ id: identity }));
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
       {isLoading && user === null && <CircularProgress />}
-      {isLoading ? <CircularProgress/> : ""}
+      {isLoading ? <CircularProgress /> : ""}
       <StudentWrapper className="div d-flex flex-column pt-0 pb-5 px-0">
         <div className="back-div w-100 p-0"></div>
         <div className="body container">
@@ -132,20 +131,41 @@ const deactivateUser = async (studentId, currentStatus)=>{
 export const TeacherInfo = () => {
   const { identity } = useParams();
   const [currentTeacher, setCurrentTeacher] = useState("");
+  const [teacherSubjects, setTeacherSubjects] = useState([]);
   const { teacherClass, setTeacherClass } = useAppContext();
-const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users || {});
 
-
+  function getSubjects() {
+    if (user?.subjectTaught.startsWith("FJS") || user?.subjectTaught.startsWith("FSS")) {
+      setTeacherSubjects([...JuniorSubjects, ...SeniorSubjects]);
+    } else if (user?.subjectTaught.startsWith("FES")) {
+      setTeacherSubjects(ElementarySubjects);
+    } else if (user?.subjectTaught.startsWith("FBS")) {
+      setTeacherSubjects(BasicSubjects);
+    } else {
+      setTeacherSubjects(SeniorSubjects);
+    }
+  }
 
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
     setCurrentTeacher(user);
-    setLoading(false)
+    getSubjects()
+    setLoading(false);
     GetTeacherClass(user, setTeacherClass);
-
   }, [identity, dispatch, user, setTeacherClass]);
+
+  //make the teachers' subjects taught strings into an array
+  const subjectsArray = user?.subjectTaught
+    .split(",")
+    .map((subject) => subject.trim());
+
+    const filteredSubjects = teacherSubjects.filter((subject) =>
+    subjectsArray.includes(subject.code)
+  );
+
   return (
     <div>
       {isLoading && user === null && <CircularProgress />}
@@ -195,7 +215,13 @@ const [loading, setLoading] = useState(true)
               </div>
               <div className="info d-flex align-items-center">
                 <p className="w-50">Subject(s) taught :</p>{" "}
-                <h6 className="text-capitalize w-50">{user?.subjectTaught}</h6>
+                {
+                  filteredSubjects.map((subject)=>(
+<h6 className="text-capitalize w-50">
+  {subject.name}
+</h6>
+                  ))
+                }
               </div>
               <div className="info d-flex align-items-center">
                 <p className="text-capitalize w-50">Email :</p>{" "}

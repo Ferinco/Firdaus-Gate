@@ -25,7 +25,6 @@ export default function Assign() {
   }, []);
   function getSubjects() {
     if (user.subjectTaught.startsWith("FJS") || user.subjectTaught.startsWith("FSS")) {
-      // Combine subjects from JuniorSubjects and SeniorSubjects
       setTeacherSubjects([...JuniorSubjects, ...SeniorSubjects]);
     } else if (user.subjectTaught.startsWith("FES")) {
       setTeacherSubjects(ElementarySubjects);
