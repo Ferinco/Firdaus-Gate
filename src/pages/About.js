@@ -3,6 +3,8 @@ import { Button } from "../components/custom/Button";
 import { Icon } from "@iconify/react";
 import { useEffect } from "react";
 import ContactUs from "../components/landing/contactSection";
+import { Link } from "react-router-dom";
+import {PATH_PAGE} from "../routes/paths"
 export default function About() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -172,7 +174,11 @@ export default function About() {
             sphere of your life. Applly to be a student with just simple steps
             now.
           </p>
-          <Button white>Join Us</Button>
+          <Button white>
+            <Link className="react-router-link" to={PATH_PAGE.admission}>
+            Apply Now
+            </Link>
+          </Button>
         </div>
       </div>
     </Container>
