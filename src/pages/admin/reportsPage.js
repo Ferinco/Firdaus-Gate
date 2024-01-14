@@ -95,6 +95,7 @@ export default function Reports() {
     try {
       const { data } = await api.get("/reports", {});
       setReportData(data.data);
+      setLoading(false)
     } catch (error) {
       throw new Error("Something went wrong, try again later");
     }
@@ -158,10 +159,11 @@ export default function Reports() {
       }
     }
   }
-
+console.log(reportData)
 
   return (
     <Container>
+        {loading ? <CircularProgress /> : ""}
       {reportData.length > 0 ? (
         <div className="content-wrapper p-3 mt-5">
             <div className="mt-5">
@@ -328,7 +330,7 @@ export default function Reports() {
           </div>
         </div>
       ) : (
-       <div className="d-flex flex-column">
+       <div className="d-flex flex-column px-3 py-5">
         <h4>(0) Results Uploaded</h4>
         <p>No reports uploaded yet, reach out to teachers to upload students' reports.</p>
        </div>

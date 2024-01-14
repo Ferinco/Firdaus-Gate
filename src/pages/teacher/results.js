@@ -289,6 +289,8 @@ export default function Results() {
       }
     }
   }
+
+  
   return (
     <div>
       {loading ? <CircularProgress /> : ""}
@@ -357,8 +359,8 @@ export default function Results() {
       </tr>
       {reportData.length > 0 &&
         reportData.map((row, i) => (
-          <tr key={i} className="body">
-            {columns.map((cell, index) => {
+          <tr key={i} className={i % 2 !== 0 ? "d-none" : "body"}>
+          {columns.map((cell, index) => {
               if (cell.accessor.indexOf("image") > -1) {
                 return (
                   <th key={index} className="table-body">
@@ -478,7 +480,7 @@ export default function Results() {
           </tr>
         ))}
     </Table>
-    <PaginationBar
+    {/* <PaginationBar
           canNextPage={canNextPage}
           canPreviousPage={canPreviousPage}
           currentPage={page}
@@ -488,7 +490,7 @@ export default function Results() {
           pageSize={pageSize}
           updatePageSize={updatePageSize}
           // handleSubmit={createCsvUsers}
-        />
+        /> */}
   </div>
   </div>
   

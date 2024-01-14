@@ -28,11 +28,11 @@ const sidebarConfig = [
     link: PATH_DASHBOARD.teacher.assignments,
     title: "Assignments",
   },
-  {
-    icon: "solar:calendar-bold",
-    link: PATH_DASHBOARD.teacher.viewCalendar,
-    title: "Work Scheme",
-  },
+  // {
+  //   icon: "solar:calendar-bold",
+  //   link: PATH_DASHBOARD.teacher.viewCalendar,
+  //   title: "Work Scheme",
+  // },
 ];
 export default function TeacherSidebar() {
   const { isSidebarOpen, setIsSidebarOpen, setIsProfileOpen } = useAppContext();

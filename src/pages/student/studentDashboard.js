@@ -248,11 +248,14 @@ export default function StudentDashboard() {
               </div>
             </div>
             <div className="bottom-wrapper ">
-              <div className="bottom-div py-4 px-5 d-flex flex-row flex-wrap gap-1">
-                <Link className="scheme-link">Check Scheme</Link>
+              <div className="bottom-div py-4 px-5 d-flex flex-column flex-wrap gap-1 justify-content-between">
                 <Link className="download-link react-router-link">
                   Download Result
                 </Link>
+                <div className="assignment d-flex flex-column px-3 py-4 gap-2">
+                  <h6 className="m-0">Assignments</h6>
+                  <p className="m-0">you get notified when you have a new assignment</p>
+                </div>
               </div>
             </div>
           </div>
@@ -317,6 +320,13 @@ const Dashboard = styled.div`
   padding-right: 32px !important;
   .view-more{
     font-size: 14px !important;
+  }
+  .assignment{
+   background-color: #f1f1f1;
+   border-radius: 10px;
+   p{
+    color: orangered;
+   }
   }
   .bottom-wrapper {
     padding-right: 50px;
