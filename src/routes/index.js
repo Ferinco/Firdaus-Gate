@@ -55,6 +55,7 @@ import Notify from "../pages/admin/notify";
 import {StudentInfo} from "../pages/admin/profileInfo"
 import {TeacherInfo} from "../pages/admin/profileInfo"
 import AdmissionLayout from "../pages/admission/layout";
+import Reports from "../pages/admin/reportsPage";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -173,6 +174,8 @@ export default function Routes() {
         { path: "/admin/teacher-info/:identity", element: <TeacherInfo/> },
         { path: "/admin/edit-student/:identity", element: <EditStudent/> },
         { path: "/admin/edit-teacher/:identity", element: <EditTeacher/> },
+        { path: "/admin/results", element: <Reports/> },
+
 
 
 
