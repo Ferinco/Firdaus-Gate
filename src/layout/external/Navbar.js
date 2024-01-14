@@ -68,7 +68,7 @@ export default function Navbar() {
                 </Link>
                 <Link className="react-router-link">founder's profile</Link>
                 <Link className="react-router-link">principal's profile</Link>
-                <Link className="react-router-link">Managemnet and staff</Link>
+                <Link className="react-router-link">Management and staff</Link>
               </ul>{" "}
             </li>
 
