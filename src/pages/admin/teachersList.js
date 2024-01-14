@@ -346,12 +346,7 @@ export default function TeachersList() {
           </div>
           {currentTableData.length > 0 ? (
             <div className="div mt-3">
-              <div className="d-flex justify-content-between bars">
-                <div className="navigators d-flex gap-2">
-                  <div className="navigator ">All</div>
-                  <div className="navigator ">Deactivated</div>
-                  <div className="navigator"></div>
-                </div>
+              <div className="d-flex justify-content-end bars">
                 <div className="d-flex gap-1 actions">
                   {/* <button onClick={handleMultiTransfer} className="action-bar">
                     Deactivate &nbsp;{" "}
