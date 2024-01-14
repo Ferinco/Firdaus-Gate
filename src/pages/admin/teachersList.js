@@ -353,16 +353,18 @@ export default function TeachersList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button> */}
-                  <button
-                    onClick={() => {
-                      setConfirmation(true);
-                    }}
-                    className="action-bar"
-                  >
-                    Delete &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button>
+               {
+                multiSelect.length > 0 ?    <button
+                onClick={() => {
+                  setConfirmation(true);
+                }}
+                className="action-bar"
+              >
+                Delete &nbsp;{" "}
+                {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                &nbsp;
+              </button> : ""
+               }
                 </div>
               </div>
               <div className=" table-div">
