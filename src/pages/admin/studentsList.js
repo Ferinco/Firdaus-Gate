@@ -543,6 +543,8 @@ getData(page, pageSize);
                     &nbsp;
                   </button> 
                   }
+                  {
+                    multiSelect.length > 0 ?
                   <button
                     onClick={() => {
                       setConfirmation(true);
@@ -552,7 +554,8 @@ getData(page, pageSize);
                     Delete &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
-                  </button>
+                  </button> : ""
+                  }
                 </div>
               </div>
               <div className=" table-div">
