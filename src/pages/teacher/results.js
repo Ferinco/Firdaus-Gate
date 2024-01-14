@@ -351,13 +351,7 @@ export default function Results() {
             >
               {column.header}
             </p>
-            {/* <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " ▼"
-                          : " ▲"
-                        : ""}
-                    </span> */}
+
           </th>
         ))}
       </tr>
@@ -454,8 +448,6 @@ export default function Results() {
                       </button>
                       <button
                         onClick={() => {
-                          // setOverlay(true);
-                          // setDeleteId(row._id);
                         }}
                         className="delete-button"
                       >
