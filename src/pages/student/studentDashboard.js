@@ -248,7 +248,7 @@ export default function StudentDashboard() {
               </div>
             </div>
             <div className="bottom-wrapper ">
-              <div className="bottom-div py-4 px-5 d-flex flex-column flex-wrap gap-1 justify-content-between">
+              <div className="bottom-div py-4 px-5 d-flex flex-column-reverse flex-wrap gap-1 justify-content-between">
                 <Link className="download-link react-router-link">
                   Download Result
                 </Link>
