@@ -5,6 +5,7 @@ import {
 } from "../components/landing";
 import { Helmet } from "react-helmet";
 import ContactUs from "../components/landing/contactSection";
+import News from "../components/landing/newsSection";
 
 export default function Home() {
   return (
@@ -21,7 +22,9 @@ export default function Home() {
       <Gallery/>
       <Services/>
       <Info/>
+      <News/>
       <Testimonials/>
+      
       <AdmissionSection/>
       <ContactUs/>
     </Wrapper>

@@ -33,11 +33,18 @@ const sidebarConfig = [
     title: "Reports",
   },
   {
+    id: 6,
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.admin.news,
+    title: "News",
+  },
+  {
     id: 5,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
   },
+
 ];
 
 export default function AdminSidebar() {

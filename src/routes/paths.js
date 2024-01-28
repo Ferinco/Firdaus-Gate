@@ -75,6 +75,8 @@ aboutMe: JOIN(ROOT_STUDENT, "about-me"),
     editStudent: JOIN(ROOT_ADMIN, "edit-student"),
     editTeacher: JOIN(ROOT_ADMIN, "edit-teacher"),
     reports: JOIN(ROOT_ADMIN, "results"),
+    news: JOIN(ROOT_ADMIN, "news"),
+
 
 
 

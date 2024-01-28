@@ -43,7 +43,8 @@ import {
   CreateCalendar,
   AdminSettings,
   EditStudent,
-  EditTeacher
+  EditTeacher,
+  UploadNews
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -175,6 +176,8 @@ export default function Routes() {
         { path: "/admin/edit-student/:identity", element: <EditStudent/> },
         { path: "/admin/edit-teacher/:identity", element: <EditTeacher/> },
         { path: "/admin/results", element: <Reports/> },
+        { path: "/admin/news", element: <UploadNews/> },
+
 
 
 

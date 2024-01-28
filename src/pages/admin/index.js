@@ -12,4 +12,5 @@ export { StudentInfo} from "./profileInfo"
 export {TeacherInfo} from "./profileInfo"
 export {default as EditStudent} from "./editStudent"
 export {default as EditTeacher} from "./editTeacher"
+export {default as UploadNews} from "./news"
 
