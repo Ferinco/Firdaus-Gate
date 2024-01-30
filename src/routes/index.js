@@ -44,7 +44,8 @@ import {
   AdminSettings,
   EditStudent,
   EditTeacher,
-  UploadNews
+  UploadNews,
+  NewsPage
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -57,6 +58,7 @@ import {StudentInfo} from "../pages/admin/profileInfo"
 import {TeacherInfo} from "../pages/admin/profileInfo"
 import AdmissionLayout from "../pages/admission/layout";
 import Reports from "../pages/admin/reportsPage";
+import News from "../components/landing/newsSection";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -176,7 +178,9 @@ export default function Routes() {
         { path: "/admin/edit-student/:identity", element: <EditStudent/> },
         { path: "/admin/edit-teacher/:identity", element: <EditTeacher/> },
         { path: "/admin/results", element: <Reports/> },
-        { path: "/admin/news", element: <UploadNews/> },
+        { path: "/admin/news", element: <NewsPage/> },
+        { path: "/admin/post-news", element: <UploadNews/> },
+
 
 
 

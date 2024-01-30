@@ -33,7 +33,7 @@ export default function Receipt() {
           </div>
         </div>
         <div className="middle mt-4 d-flex flex-row justify-content-center">
-          <h4>Admission from receipt -Original</h4>
+          <h4>Admission form receipt -Original</h4>
         </div>
         <div className="content-div row">
           <div className="col-6 d-flex flex-column mt-1">
