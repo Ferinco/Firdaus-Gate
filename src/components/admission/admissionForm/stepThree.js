@@ -27,13 +27,14 @@ export default function StepThree({ setStep }) {
   const config = {
     reference: new Date().getTime().toString(),
     email: parentInformation.parentEmailAddress,
-    amount: 12000 * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: 12000 * 100,
     publicKey: "pk_test_04dd699dfc4661f56ad39113ba41e9c5e9af44e5",
+    // currency: 'NGN',
   };
   const initializePayment = usePaystackPayment(config);
-  const onSuccess = (reference) => {
-    console.log(reference);
-    navigate("/admission/admission-form/payment-success", { state: reference });
+  const onSuccess = (response) => {
+    console.log(response);
+    navigate("/admission/admission-form/payment-success", { state: response });
 
     // api
     //   .post("/admission/create", { payment: reference })
