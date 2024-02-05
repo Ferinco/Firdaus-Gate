@@ -20,9 +20,7 @@ export default function StepFour({ setStep }) {
       </ul>
 
       <p>Expect updates via email or phone. We're excited to have you apply.</p>
-      {/* <button className="btn btn-primary w-100" onClick={handleSubmit}>
-        Submit{" "}
-      </button> */}
+
       <div className="py-4">
         <button>Download Receipt</button>
       </div>

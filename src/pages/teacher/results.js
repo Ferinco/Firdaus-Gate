@@ -554,7 +554,6 @@ const Wrapper = styled.div`
   .table-button {
     border: 0 !important;
   }
-
   .table-div {
     overflow-x: auto !important;
     background-color: white !important;

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { usePaystackPayment } from "react-paystack";
 import admission from "../../../redux/slices/admission";
 import styled from "styled-components";
+import IconButton from "../../custom/IconButton";
 
 StepThree.propTypes = {
   setStep: PropTypes.any,
@@ -19,14 +20,14 @@ export default function StepThree({ setStep }) {
     defaultValues: {},
   });
 
-  const { studentInformation, parentInformation } = useSelector(
+  const { student, parent } = useSelector(
     (state) => state.admission
   );
-  console.log(studentInformation);
+  console.log(student);
 
   const config = {
     reference: new Date().getTime().toString(),
-    email: parentInformation.parentEmailAddress,
+    email: parent.parentEmailAddress,
     amount: 12000 * 100,
     publicKey: "pk_test_04dd699dfc4661f56ad39113ba41e9c5e9af44e5",
     // currency: 'NGN',
@@ -51,7 +52,9 @@ export default function StepThree({ setStep }) {
   const onClose = () => {
     console.log("closed");
   };
-  console.log(studentInformation);
+  const goBack = () => {
+    setStep(2);
+  };
 
   return (
     <Wrapper>
@@ -61,7 +64,7 @@ export default function StepThree({ setStep }) {
           Payment of Admission fee for{" "}
           <b>
             {" "}
-            {studentInformation?.surname} {studentInformation?.surname}{" "}
+            {student?.firstName} {student?.surname}{" "}
           </b>
         </p>
       </div>
@@ -71,100 +74,107 @@ export default function StepThree({ setStep }) {
         <div className="row mt-3">
           <div className="col-6">
             <p>
-              <strong> First Name</strong>
-              <br />
-              {studentInformation?.firstName}
-            </p>
+               First Name
+               </p>
+              <p className="item">
+              {student?.firstName}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Surname</strong>
-              <br />
-              {studentInformation?.surname}
-            </p>
+          <p>
+               Surname
+               </p>
+              <p className="item">
+              {student?.surname}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Other Names</strong>
-              <br />
-              {studentInformation?.middleName}
-            </p>
+          <p>
+               Other Names
+               </p>
+              <p className="item">
+              {student?.middleName}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Date of Birth</strong>
-              <br />
-              {studentInformation?.dateOfBirth}
-            </p>
+          <p>
+               Date of Birth
+               </p>
+              <p className="item">
+              {student?.dateOfBirth}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Gender</strong>
-              <br />
-              {studentInformation?.gender}
-            </p>
+          <p>
+               Gender
+               </p>
+              <p className="item">
+              {student?.gender}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Present Class</strong>
-              <br />
-              {studentInformation?.presentClass}
-            </p>
+          <p>
+               Present Class
+               </p>
+              <p className="item">
+              {student?.presentClass}
+              </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Class of Interest</strong>
-              <br />
-              {studentInformation?.classOfInterest}
-            </p>
+          <p>
+               Class of Interest
+               </p>
+              <p className="item">
+              {student?.classOfInterest}
+              </p>
           </div>
           <div className="col-6">
             <p>
               <strong> School of Interest</strong>
               <br />
-              {studentInformation?.schoolOfInterest}
+              {student?.schoolOfInterest}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Day or Boarding</strong>
               <br />
-              {studentInformation?.dayOrBoarding}
+              {student?.dayOrBoarding}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Phone Number</strong>
               <br />
-              {studentInformation?.phone}
+              {student?.phone}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> State of Origin </strong>
               <br />
-              {studentInformation?.stateOfOrigin}
+              {student?.stateOfOrigin}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Nationality</strong>
               <br />
-              {studentInformation?.nationality}
+              {student?.nationality}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Local Government Area </strong>
               <br />
-              {studentInformation?.localGovernmentArea}
+              {student?.localGovernmentArea}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong>Residential Address</strong>
               <br />
-              {studentInformation?.residentialAddress}
+              {student?.residentialAddress}
             </p>
           </div>
         </div>
@@ -176,41 +186,49 @@ export default function StepThree({ setStep }) {
             <p>
               <strong> Parent Name</strong>
               <br />
-              {parentInformation?.parentName}
+              {parent?.parentName}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Parent's phone</strong>
               <br />
-              {parentInformation?.parentPhoneNumber}
+              {parent?.parentPhoneNumber}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Parent's email</strong>
               <br />
-              {parentInformation?.parentEmailAddress}
+              {parent?.parentEmailAddress}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Occupation</strong>
               <br />
-              {parentInformation?.parentOccupation}
+              {parent?.parentOccupation}
             </p>
           </div>
           <div className="col-6">
             <p>
               <strong> Residential Address</strong>
               <br />
-              {parentInformation?.residentialAddress}
+              {parent?.residentialAddress}
             </p>
           </div>
         </div>
       </div>
+      <div className="d-flex justify-content-end align-items-center">
+          <IconButton
+            className=" mr-3"
+            icon={"solar:arrow-left-line-duotone"}
+            text={"Back"}
+            onClick={() => goBack()}
+            type="button"
+          />
       <button
-        className="w-100 btn btn-primary mt-4"
+        className=" btn btn-primary mt-4"
         type="button"
         onClick={() => {
           initializePayment(onSuccess, onClose);
@@ -218,6 +236,7 @@ export default function StepThree({ setStep }) {
       >
         Continue
       </button>
+     </div>
     </Wrapper>
   );
 }
@@ -243,11 +262,11 @@ const Wrapper = styled.div`
     ); /* Adjust the alpha value for transparency */
   }
   .header-section {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #0d6efd;
     position: relative;
   }
   .sub-header {
-    background-color: grey;
+    background-color: #0d6efd;
     color: white;
     padding: 10px;
     position: relative;

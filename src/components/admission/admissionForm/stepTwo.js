@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import IconButton from "../../custom/IconButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { parentInformation } from "../../../redux/slices/admission";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -24,21 +24,28 @@ const schema = yup.object({
   parentOccupation: yup.string().required("fill in your parent's occupation"),
   parentEmailAddress: yup.string().email("email must be a valid one!").required("parent email is required"),
 })
+
 export default function StepTwo({ setStep }) {
   const dispatch = useDispatch();
+  const { student, parent } = useSelector(
+    (state) => state.admission
+  );
   const { handleSubmit, register, formState:{errors} } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      parentName: "",
-      parentPhoneNumber: "",
-      parentEmailAddress: "",
-      parentOccupation: "",
-      residentialAddress: "",
+      parentName: parent?.parentName,
+      parentPhoneNumber: parent?.parentPhoneNumber,
+      parentEmailAddress: parent?.parentEmailAddress,
+      parentOccupation: parent?.parentOccupation,
+      residentialAddress: parent?.residentialAddress,
     },
   });
   const onSave = (values) => {
     setStep(3);
     dispatch(parentInformation(values));
+  };
+  const goBack = () => {
+    setStep(1);
   };
   return (
     <Wrapper className="">
@@ -131,7 +138,7 @@ export default function StepTwo({ setStep }) {
             className=" mr-3"
             icon={"solar:arrow-left-line-duotone"}
             text={"Back"}
-            onClick={() => setStep(1)}
+            onClick={() => goBack()}
             type="button"
           />
           <IconButton

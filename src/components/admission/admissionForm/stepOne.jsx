@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { studentInformation } from "../../../redux/slices/admission";
 import IconButton from "../../custom/IconButton";
 import styled from "styled-components";
@@ -30,10 +30,10 @@ const schema = yup.object({
   .min(10, "phone number is invalid")
   .max(11, "phone number is invalid"),
   classOfInterest: yup.string()
-  .oneOf(["FGKGC_001","FGKGC_002","FGNSC_001","FGNSC_002","FGBSC_001","FGBSC_002","FGBSC_003","FGBSC_004","FGBSC_005","FGBSC_006","FGJSC_001","FGJSC_002","FGJSC_003","FGSSC_001","FGSSC_002","FGSSC_003"], "Class of interest is required")
+  .oneOf(["KG 1","KG 2","NURSERY 1","NURSERY 2","BAISC 1","BASIC 2","BASIC 3","BASIC 4","BASIC 5","BASIC 6","JSS 1","JSS 2","SSS 1","SSS 2"], "Class of interest is required")
   .required('Class of interest is required'),
   presentClass: yup.string()
-  .oneOf(["FGKGC_001","FGKGC_002","FGNSC_001","FGNSC_002","FGBSC_001","FGBSC_002","FGBSC_003","FGBSC_004","FGBSC_005","FGBSC_006","FGJSC_001","FGJSC_002","FGJSC_003","FGSSC_001","FGSSC_002","FGSSC_003"], "Class of interest is required")
+  .oneOf(["KG 1","KG 2","NURSERY 1","NURSERY 2","BASIC 1","BASIC 2","BASIC 3","BASIC 4","BASIC 5","BASIC 6","JSS 1","JSS 2","SSS 1","SSS 2"], "Class of interest is required")
   .required('Select your present class'),
   religion: yup.string(),
   residentialAddress: yup.string().required("Residential address is required"),
@@ -45,31 +45,35 @@ const schema = yup.object({
 export default function StepOne({ setStep }) {
   const [studentPhoto, setStudentPhoto] = useState("");
   const dispatch = useDispatch();
+  const { student } = useSelector(
+    (state) => state.admission
+  );
   const { register, handleSubmit, watch, formState: {errors} } = useForm({
     resolver: yupResolver(schema),
     shouldUnregister: true,
     defaultValues: {
-      firstName: "",
-      surname: "",
-      middleName: "",
-      dateOfBirth: "",
-      presentClass: "",
-      gender: "",
-      phone: "",
-      schoolOfInterest: "",
-      classOfInterest: "",
-      nationality: "",
-      stateOfOrigin: "",
-      localGovernmentArea: "",
-      religion: "",
-      residentialAddress: "",
-      dayOrBoarding: "",
-      primarySchoolAttended: "",
-      secondarySchoolAttended: "",
-      birthCertificate: "",
-      previousClassResult: "",
+      firstName: student?.firstName,
+      surname: student?.surname,
+      middleName: student?.middleName,
+      dateOfBirth: student?.dateOfBirth,
+      presentClass: student?.presentClass,
+      gender: student?.gender,
+      phone: student?.phone,
+      schoolOfInterest: student?.schoolOfInterest,
+      classOfInterest: student?.classOfInterest,
+      nationality: student?.nationality,
+      stateOfOrigin: student?.stateOfOrigin,
+      localGovernmentArea: student?.localGovernmentArea,
+      religion: student?.religion,
+      residentialAddress: student?.residentialAddress,
+      dayOrBoarding: student?.dayOrBoarding,
+      primarySchoolAttended: student?.primarySchoolAttended,
+      secondarySchoolAttended: student?.primarySchoolAttended,
+      birthCertificate: student?.birthCertificate,
+      previousClassResult: student?.previousClassResult,
     },
   });
+
 const SelectedSchoolOfInterest = watch("schoolOfInterest")
   const handleStudentPhotoChange = (e) => {
     setStudentPhoto(URL.createObjectURL(e.target.files[0]));
@@ -182,22 +186,20 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
                   <option value="" disabled>
                     Present class
                   </option>
-                  <option value="FGKGC_001">KG 1</option>
-                  <option value="FGKGC_002">KG 2</option>
-                  <option value="FGNSC_001">NURSERY 1</option>
-                  <option value="FGNSC_002">NURSERY 2</option>
-                  <option value="FGBSC_001">BASIC 1</option>
-                  <option value="FGBSC_002">BASIC 2</option>
-                  <option value="FGBSC_003">BASIC 3</option>
-                  <option value="FGBSC_004">BASIC 4</option>
-                  <option value="FGBSC_005">BASIC 5</option>
-                  <option value="FGBSC_006">BASIC 6</option>
-                  <option value="FGJSC_001">JSS 1</option>
-                  <option value="FGJSC_002">JSS 2</option>
-                  <option value="FGJSC_003">JSS 3</option>
-                  <option value="FGSSC_001">SSS 1</option>
-                  <option value="FGSSC_002">SSS 2</option>
-                  <option value="FGSSC_003">SSS 3</option>
+                  <option value="KG 1">KG 1</option>
+                  <option value="KG 2">KG 2</option>
+                  <option value="NURSERY 1">NURSERY 1</option>
+                  <option value="NURSERY 2">NURSERY 2</option>
+                  <option value="BASIC 1">BASIC 1</option>
+                  <option value="BASIC 2">BASIC 2</option>
+                  <option value="BASIC 3">BASIC 3</option>
+                  <option value="BASIC 4">BASIC 4</option>
+                  <option value="BASIC 5">BASIC 5</option>
+                  <option value="BASIC 6">BASIC 6</option>
+                  <option value="JSS 1">JSS 1</option>
+                  <option value="JSS 2">JSS 2</option>
+                  <option value="SSS 1">SSS 1</option>
+                  <option value="SSS 2">SSS 2</option>
                 </select>
                 <p className="error-message">
                   {errors.presentClass?.message
@@ -267,10 +269,10 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
                 {
                   SelectedSchoolOfInterest === "nursery" ?
                   (<>
-                    <option value="FGKGC_001">KG 1</option>
-                      <option value="FGKGC_002">KG 2</option>
-                      <option value="FGNSC_001">NURSERY 1</option>
-                      <option value="FGNSC_002">NURSERY 2</option>
+                    <option value="KG 1">KG 1</option>
+                      <option value="KG 2">KG 2</option>
+                      <option value="NURSERY 1">NURSERY 1</option>
+                      <option value="NURSERY 2">NURSERY 2</option>
                       </>
                   ):(
                     ""
@@ -280,12 +282,12 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
                   SelectedSchoolOfInterest === "primary" ?
                   (
                     <>
-                  <option value="FGBSC_001">BASIC 1</option>
-                  <option value="FGBSC_002">BASIC 2</option>
-                  <option value="FGBSC_003">BASIC 3</option>
-                  <option value="FGBSC_004">BASIC 4</option>
-                  <option value="FGBSC_005">BASIC 5</option>
-                  <option value="FGBSC_006">BASIC 6</option>
+                  <option value="BASIC 1">BASIC 1</option>
+                  <option value="BASIC 2">BASIC 2</option>
+                  <option value="BASIC 3">BASIC 3</option>
+                  <option value="BASIC 4">BASIC 4</option>
+                  <option value="BASIC 5">BASIC 5</option>
+                  <option value="BASIC 6">BASIC 6</option>
                     </>
                   ): (
                     ""
@@ -294,9 +296,9 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
                 {
                   SelectedSchoolOfInterest === "junior" ? (
                     <>
-                  <option value="FGJSC_001">JSS 1</option>
-                  <option value="FGJSC_002">JSS 2</option>
-                  <option value="FGJSC_003">JSS 3</option>
+                  <option value="JSS 1">JSS 1</option>
+                  <option value="JSS 2">JSS 2</option>
+                  {/* <option value="JSS 3">JSS 3</option> */}
                     </>
                   ): ("")
                 }
@@ -304,9 +306,9 @@ const SelectedSchoolOfInterest = watch("schoolOfInterest")
 {
   SelectedSchoolOfInterest === "senior" ? (
     <>
-  <option value="FGSSC_001">SSS 1</option>
-  <option value="FGSSC_002">SSS 2</option>
-  <option value="FGSSC_003">SSS 3</option>
+  <option value="SSS 1">SSS 1</option>
+  <option value="SSS 2">SSS 2</option>
+  {/* <option value="SSS 3">SSS 3</option> */}
     </>
   ): ("")
 }

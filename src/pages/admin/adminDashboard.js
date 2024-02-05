@@ -31,13 +31,7 @@ const TabsConfig = [
     icon: "bxs:graduation",
     iconColor: "white",
   },
-  {
-    link: PATH_DASHBOARD.admin.notify,
-    title: "Notify",
-    subTitle: "Send message to your staff",
-    icon: "tabler:bell-filled",
-    iconColor: "white",
-  },
+
 ];
 
 export default function AdminDashboard() {

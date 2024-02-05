@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  studentInformation: null,
-  parentInformation: null,
+  student: null,
+  parent: null,
   payment: null,
 };
 
@@ -11,10 +11,10 @@ const slice = createSlice({
   name: "admission",
   reducers: {
     studentInformation: (state, action) => {
-      state.studentInformation = action.payload;
+      state.student = action.payload;
     },
     parentInformation: (state, action) => {
-      state.parentInformation = action.payload;
+      state.parent = action.payload;
     },
     payment: (state, action) => {
       state.payment = action.payload;
