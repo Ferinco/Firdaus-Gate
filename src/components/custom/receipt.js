@@ -3,13 +3,16 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 import generatePDF from "react-to-pdf";
+import { Icon } from "@iconify/react";
 export default function Receipt() {
   const location = useLocation();
   const { reference } = location.state;
   const { transaction } = location.state;
+  const { status } = location.state;
+
 
   console.log(reference);
-  const { studentInformation, parentInformation } = useSelector(
+  const { student, parent } = useSelector(
     (state) => state.admission
   );
   const componentRef = useRef()
@@ -22,71 +25,111 @@ export default function Receipt() {
           generatePDF(componentRef, {filename: "receipt.pdf"})}>Download Receipt</button>
       </div>
       <div className="receipt-div p-5" ref={componentRef}>
-        <div className="header d-flex flex-row justify-content-between align-center">
-          <div className="image">
+        <div className="header d-flex flex-column justify-content-start gap-3" >
+          <div className="div d-flex flex-row justify-content-start align-items-start gap-3">
             <img src="/images/logo.png" />
+       
+          </div>
+          <div className="div d-flex flex-row justify-content-between">
+          <div className="school-info">
+            <h6 className="m-0">Firdaus-Gate Model Schools</h6>
+            <p className="m-0">13, Omo-Olope Area, Magboro, Abeokuta, Ogun</p>
+            <p className="m-0">firdausgateschools@gmail.com</p>
+            <p className="m-0">09055512553</p>
+
           </div>
           <div className="school-info">
-            <h4 className="m-0">Firdaus-Gate Model Schools</h4>
-            <p className="m-0">13, Omo-Olope Area, Magboro</p>
-            <p className="m-0">Abeokuta, Ogun</p>
+            <h6 className="m-0">Admission Form Receipt</h6>
+            <p className="m-0">Generated on</p>
+
+          </div>
           </div>
         </div>
         <div className="middle mt-4 d-flex flex-row justify-content-center">
-          <h4>Admission form receipt -Original</h4>
+          <p className="sub-header">Admission form receipt -Original</p>
         </div>
         <div className="content-div row">
-          <div className="col-6 d-flex flex-column mt-1">
-            <i>Payment Received From:</i>
-            <h4>
-              {studentInformation?.surname} {studentInformation?.surname}
-            </h4>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Admission Number: </h6> &nbsp; <p>N/A</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Class Applied: </h6> &nbsp;{" "}
-              <p> {studentInformation?.classOfInterest}</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Department: </h6> &nbsp; <p>Science</p>
-            </div>
-          </div>
-          <div className="col-6  right d-flex flex-column mt-1">
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Receipt Number: </h6> &nbsp; <p>FGMS/AR/2023/000001</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Print Date: </h6> &nbsp; <p>03-12-2023</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Reference ID: </h6> &nbsp; <p>{reference}</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Transaction ID: </h6> &nbsp; <p>{transaction}</p>
-            </div>
-            <div className="d-flex flex-row align-items-baseline">
-              <h6>Transaction Type: </h6> &nbsp;{" "}
-              <p>Admission Form Purchase</p>
-            </div>
-          </div>
+          <table className="table table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="first">Name</td>
+                <td className="item">{student?.firstName} {" "}{student?.surname}</td>
+              </tr>
+              <tr>
+              <td className="first">Current Class</td>
+              <td><p className="item">{student?.presentClass}</p></td>
+              </tr>
+              <tr>
+              <td className="first">Applied Class</td>
+              <td><p className="item">{student?.classOfInterest}</p></td>
+              </tr>
+              <tr>
+                
+              <td className="first">Email</td>
+                <td><p className="item">{parent?.parentEmailAddress}</p></td>
+               
+              </tr>
+              <tr>
+                
+              <td className="first">Phone Number</td>
+                <td><p className="item">{student?.phone}</p></td>
+               
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div className="amount-div d-flex flex-row align-items-center justify-content-between mt-5 px-3 py-1">
-          <h6>TOTAL AMOUNT PAID :</h6>
-          <h2>12,000</h2>
+        <div className="middle mt-4 d-flex flex-row justify-content-center">
+          <p className="sub-header">Transaction Information</p>
         </div>
-        <div className="end-div d-flex flex-row justify-content-between mt-4 align-items-center">
-          <div className="d-flex flex-column">
-            <i>Payment Aknowledged:</i>
-            <h4>BURSAR</h4>
-            <p>kindly make a copy of this receipt for reference purpose</p>
-          </div>
-          <div>
-            <p className="xo p-1">Firdaus-Gate Model Schools</p>
-          </div>
+        <div className="content-div row">
+          <table className="table table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="first">Payment Status</td>
+                <td className="item">{status}</td>
+              </tr>
+              <tr>
+              <td>Refernce ID</td>
+              <td><p className="item">{reference}</p></td>
+              </tr>
+              <tr>
+              <td>Transaction ID</td>
+              <td><p className="item">{transaction}</p></td>
+              </tr>
+              <tr>
+                
+              <td>Payment Purpose</td>
+                <td><p className="item">Admission Form</p></td>
+               
+              </tr>
+              <tr>
+                
+              <td>Payment Aknowledged</td>
+                <td><p className="item">By Bursar (Mr. Lagbaja)</p></td>
+               
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div>
-          <p className="warning">note that this is a receipt for admission form purchase and not of admission and thereby does not gurantee your studentship, kindly keep this receipt for reference purpose.</p>
+        <div className="amount-div d-flex flex-row justify-content-between p-1 mt-4">
+              <p className="mt-3">Total Amount Paid</p>
+              <h2>12,000.00</h2>
+        </div>
+        <div className="end-div d-flex flex-row align-items-center gap-1 mt-5 p-1">
+        <Icon icon="lets-icons:info-alt-light" />  
+        <p>Kindy download a copy of the receipt for reference.</p>
         </div>
       </div>
     </Container>
@@ -94,6 +137,11 @@ export default function Receipt() {
 }
 const Container = styled.div`
   height: auto;
+  .school-info{
+    p{
+      font-size: 13px;
+    }
+  }
   p,
   h6,
   h4 {
@@ -107,22 +155,20 @@ const Container = styled.div`
     width: 900px !important;
     margin: auto !important;
     background: white !important;
-    border: 1px solid grey;
     height:auto !important;
   }
   .header {
     align-items: center;
-    .image {
-      height: 100px;
-      width: 100px;
-      margin-top: -5px !important;
+
       img {
-        object-fit: cover !important;
-        display: flex;
-        width: 100%;
-        height: 100%;
+        display: block;
+        width: 120px !important;
+        height: 90px !important;
         object-position: center;
       }
+    
+    .div{
+      width: 100%;
     }
   }
   .middle {
@@ -138,14 +184,33 @@ const Container = styled.div`
       text-transform: uppercase;
     }
   }
+  .amount-div{
+    height: 70px;
+    background-color: #f5f5f5;
+    padding: 8px !important;
+
+    p{
+      font-size: 20px;
+      align-items: center !important;
+      margin: 0;
+      height: fit-content;
+      justify-self: center !important;
+      align-self: center;
+    }
+    h2{
+      margin: 0;
+      font-weight: 600 !important;
+      height: fit-content;
+      align-self: center;
+    }
+  }
   .content-div {
-    border-top: 2px solid grey;
   }
   .right {
     align-items: flex-end;
   }
   .amount-div {
-    border: 2px solid grey;
+    
   }
   .xo {
     border: 1px solid grey;
@@ -164,4 +229,47 @@ const Container = styled.div`
     margin-top: 20px !important;
 
   }
+  .sub-header {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px;
+    position: relative;
+    text-transform: capitalize !important;
+    width: 100%;
+    text-align: start;
+  span {
+      color: blue !important;
+    }
+    text-transform: uppercase;
+  }
+  .table{
+    width: 804px !important;
+    margin: auto;
+  }
+  thead{
+    display: none !important;
+  }
+  td{
+    background-color: #f5f5f5 !important;
+    font-size: 13px;
+  }
+  .item{
+    font-weight: 500 !important;
+    width: 60%;
+  }
+  .first{
+    width: 30%;
+  }
+  p{
+    margin: 0 !important;
+  }
+  .end-div{
+    height: 50px;
+    background-color: #fbfbac;
+    padding: 8px !important;
+    p{
+      font-size: 12px;
+    }
+  }
+
 `;
