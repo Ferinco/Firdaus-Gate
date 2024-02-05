@@ -61,15 +61,11 @@ export default function StepThree({ setStep }) {
       <div className="header-section pb-2 d-flex flex-column justify-content-center align-items-center">
         <h4 className="title p-0 m-0">CONFIRM & PAY</h4>
         <p className="m-0">
-          Payment of Admission fee for{" "}
-          <b>
-            {" "}
-            {student?.firstName} {student?.surname}{" "}
-          </b>
+        Confirm your Details and Proceed to Make Payment
         </p>
       </div>
       <div className="section">
-        <h5 className="sub-header">Student Information</h5>
+        <p className="sub-header">Student's Information</p>
 
         <div className="row mt-3">
           <div className="col-6">
@@ -88,7 +84,7 @@ export default function StepThree({ setStep }) {
               {student?.surname}
               </p>
           </div>
-          <div className="col-6">
+          <div className="col-6 mt-2">
           <p>
                Other Names
                </p>
@@ -96,7 +92,7 @@ export default function StepThree({ setStep }) {
               {student?.middleName}
               </p>
           </div>
-          <div className="col-6">
+          <div className="col-6 mt-2">
           <p>
                Date of Birth
                </p>
@@ -104,7 +100,7 @@ export default function StepThree({ setStep }) {
               {student?.dateOfBirth}
               </p>
           </div>
-          <div className="col-6">
+          <div className="col-6 mt-2">
           <p>
                Gender
                </p>
@@ -112,7 +108,7 @@ export default function StepThree({ setStep }) {
               {student?.gender}
               </p>
           </div>
-          <div className="col-6">
+          <div className="col-6 mt-2">
           <p>
                Present Class
                </p>
@@ -120,7 +116,7 @@ export default function StepThree({ setStep }) {
               {student?.presentClass}
               </p>
           </div>
-          <div className="col-6">
+          <div className="col-6 mt-2">
           <p>
                Class of Interest
                </p>
@@ -128,92 +124,81 @@ export default function StepThree({ setStep }) {
               {student?.classOfInterest}
               </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> School of Interest</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> School of Interest</p>
+            <p className="item">
               {student?.schoolOfInterest}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Day or Boarding</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Day or Boarding</p>
+            <p className="item">
               {student?.dayOrBoarding}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Phone Number</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Phone Number</p>
+            <p className="item">
               {student?.phone}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> State of Origin </strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> State of Origin </p>
+            <p className="item">
               {student?.stateOfOrigin}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Nationality</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Nationality</p>
+            <p className="item">
               {student?.nationality}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Local Government Area </strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Local Government Area </p>
+            <p className="item">
               {student?.localGovernmentArea}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong>Residential Address</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p>Residential Address</p>
+            <p className="item">
               {student?.residentialAddress}
             </p>
           </div>
         </div>
       </div>
       <div className="section mt-4">
-        <h5 className="sub-header">Parent Information</h5>
+        <p className="sub-header">Parent's Information</p>
         <div className="row mt-3">
           <div className="col-6">
-            <p>
-              <strong> Parent Name</strong>
-              <br />
+              <p> Parent Name</p>
+            <p className="item">
               {parent?.parentName}
             </p>
           </div>
           <div className="col-6">
-            <p>
-              <strong> Parent's phone</strong>
-              <br />
+              <p> Parent's phone</p>
+            <p className="item">
+              
               {parent?.parentPhoneNumber}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Parent's email</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Parent's email</p>
+            <p className="item">
               {parent?.parentEmailAddress}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Occupation</strong>
-              <br />
-              {parent?.parentOccupation}
+          <div className="col-6 mt-2">
+              <p> Occupation</p>
+            <p className="item">
+\              {parent?.parentOccupation}
             </p>
           </div>
-          <div className="col-6">
-            <p>
-              <strong> Residential Address</strong>
-              <br />
+          <div className="col-6 mt-2">
+              <p> Residential Address</p>
+            <p className="item">
               {parent?.residentialAddress}
             </p>
           </div>
@@ -228,7 +213,7 @@ export default function StepThree({ setStep }) {
             type="button"
           />
       <button
-        className=" btn btn-primary mt-4"
+        className=" btn btn-primary m-0"
         type="button"
         onClick={() => {
           initializePayment(onSuccess, onClose);
@@ -270,20 +255,26 @@ const Wrapper = styled.div`
     color: white;
     padding: 10px;
     position: relative;
-    span {
+    text-transform: capitalize !important;
+\    span {
       color: blue !important;
     }
     text-transform: uppercase;
   }
   .row {
     p {
-      color: grey;
-      strong {
-        color: black !important;
-      }
+margin: 0;
+font-size: 15px;
+font-weight: 400;
     }
   }
+
   button {
     position: relative;
+  }
+  
+  .item{
+    font-weight: 500 !important;
+    text-transform: capitalize;
   }
 `;

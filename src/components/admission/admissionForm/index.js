@@ -66,7 +66,7 @@ export default function AdmissionFormSteps() {
       <div className="container ">
         <div className="step-indicator d-flex justify-content-between align-items-center py-5">
           <div className="d-flex flex-column">
-          <h3 className="m-0 pl-2">{renderTitle()}</h3>
+          <h3 className=" title m-0 pl-2">{renderTitle()}</h3>
           <p className="m-0 pl-2">{renderSubTitle()}</p>
           </div>
           <div>
@@ -122,8 +122,11 @@ export default function AdmissionFormSteps() {
 const Wrapper = styled.div`
 .step-indicator{
 p{
-color:red;
+color:black;
 }
+}
+.title{
+  font-weight: 600 !important;
 }
   .header {
     height: 50px !important;
