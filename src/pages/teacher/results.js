@@ -7,6 +7,8 @@ import { useState } from "react";
 import AddCSV from "../../components/AddCSV";
 import { CircularProgress } from "../../components/custom";
 import { api, generatePdfApi } from "../../api/axios";
+import Papa from "papaparse";
+
 import {
   basicPerformance,
   elementaryPerformance,
@@ -22,6 +24,7 @@ import { Link } from "react-router-dom";
 import { ReportService } from "../../services/reportService";
 import axios from "axios";
 import { Icon } from "@iconify/react";
+import { useAppContext } from "../../contexts/Context";
 
 const columns = [
   { header: "", accessor: "select" },
@@ -110,6 +113,12 @@ export default function Results() {
   const [reportData, setReportData] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [multiSelect, setMultiSelect] = useState([]);
+  const [data, setData] = useState([])
+const {resultsData, setResultsData} = useAppContext()
+  
+  const [columnArray, setColumn] = useState([]);
+  const [values, setValues] = useState([]);
+  const [tester, setTester] = useState([]);
 
   async function getData(pageNum, limitNum, filter) {
     try {
@@ -127,85 +136,31 @@ export default function Results() {
   useEffect(() => {
     (async () => await getData(page, pageSize))();
   }, []);
-  console.log(reportData);
+  console.log(data);
 
   const { reports, isLoading } = useSelector((state) => state.reports);
   const multiSelectHandle = () => {};
   const onSort = () => {};
-  const handleCsvReportUpload = async () => {
-    if (csvData.length) {
-      let result = csvData.slice(2);
-      let classSection;
-      setLoading(true);
-      console.log(result);
+  const handleCsvReportUpload = async (event) => {
+    Papa.parse(event.target.files[0], {
+      header: false,
+      skipEmptyLines: true,
+      complete: function (result) {
+        const headerRow = result.data[0];
 
-      try {
-        setLoading(true);
+        if (headerRow) {
+          const columnArray = Object.values(headerRow);
+          const valuesArray = result.data
+            .slice(1)
+            .map((row) => Object.values(row));
 
-        for (const item of result) {
-          let performance = null;
-          if (
-            ["FGNSC_001", "FGNSC_002", "FGKGC_002"].includes(user.classHandled)
-          ) {
-            performance = elementaryPerformance(item);
-            classSection = "elementary";
-          }
-          if (
-            [
-              "FGBSC_001",
-              "FGBSC_002",
-              "FGBSC_003",
-              "FGBSC_004",
-              "FGBSC_005",
-              "FGBSC_006",
-            ].includes(user.classHandled)
-          ) {
-            performance = basicPerformance(item);
-            classSection = "primary";
-          }
-          if (
-            ["FGJSC_001", "FGJSC_002", "FGJSC_003"].includes(user.classHandled)
-          ) {
-            performance = juniorPerformance(item);
-            classSection = "junior";
-          }
-          if (
-            ["FGSSC_001", "FGSSC_002", "FGSSC_003"].includes(user.classHandled)
-          ) {
-            performance = seniorPerformance(item);
-            classSection = "senior";
-          }
-          console.log(item);
-
-          await api.post("/reports/create", {
-            performance,
-            admissionNumber: item[0],
-            classSection,
-            classTeacherComment: item[item.length - 2],
-            principalComment: item[item.length - 1],
-            timesAbsent: item[item.length - 6],
-            timesPresent: item[item.length - 7],
-            timesSchoolOpenedAndActivities: item[item.length - 4],
-            timesPunctual: item[item.length - 5],
-            schoolReopenDate: item[item.length - 3],
-            numberOfStudents: item[item.length - 8],
-            position: item[item.length - 9],
-          });
-
-          setCSVOpen(false);
+          setColumn(columnArray);
+          setValues(valuesArray);
+          setTester(result.data);
+          setData(result.data.slice(2));
         }
-        setLoading(false);
-        toast.success("Report uploaded successfully");
-        getData(page);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        setCSVOpen(false);
-        toast.error("Error creating reports, please contact developer");
-      }
-
-      // getData(page, pageSize);
-    }
+      },
+    });
   };
   function updatePageSize(limit) {
     (async function () {
@@ -288,227 +243,54 @@ export default function Results() {
       }
     }
   }
+  const handleSubmit = () => {
+console.log(data)
+setResultsData(data)
+
+  };
+  console.log(resultsData)
 
   return (
     <div>
       {loading ? <CircularProgress /> : ""}
-      <Wrapper className="py-5 container">
-        {CSVOpen && (
-          <AddCSV
-            onClose={() => setCSVOpen(false)}
-            setData={setCsvData}
-            data={csvData}
-            handleSubmit={handleCsvReportUpload}
-          />
-        )}
-        <div>
-          <h4>Results</h4>
-        </div>
-        {user.classHandled === "none" ? (
-          <div>
-            <div></div>
-            <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-              <div className="icon-div p-3">
-                <Icon
-                  icon="ph:barricade-light"
-                  className="big-icon"
-                  color="grey"
-                />
-              </div>
-              <div className="texts d-flex flex-column  text-center mt-1">
-                <p className="m-0 p-1">Permission Denied</p>
-                <p className="m-0 p-2">
-                  you have to be a class teacher to create reports
-                </p>
-                <Link to={PATH_DASHBOARD.teacher.index}>Dashboard</Link>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <>
-            {reportData.length > 0 ? (
-              <div className="content-wrapper p-3 mt-5">
-                <div className="d-flex flex-column justify-content-end align-items-end mt-3 gap-2">
-                  <p className=" m-0">
-                    Upload more results/upload corrections?
-                  </p>
-                  <button
-                    onClick={() => setCSVOpen(true)}
-                    className="csv-button"
-                  >
-                    Import CSV file
-                  </button>
-                </div>
-                <div className="table-div">
-                  <Table className="table table-bordered mt-5">
-                    <tr className="head">
-                      {columns.map((column, i) => (
-                        <th
-                          key={i}
-                          scope="col"
-                          className="table-head p-0 m-0"
-                          onClick={() => onSort(i)}
-                        >
-                          <p
-                            className="mb-0 p-0 text-muted"
-                            style={{ background: "transparent" }}
-                          >
-                            {column.header}
-                          </p>
-                        </th>
-                      ))}
-                    </tr>
-                    {reportData.length > 0 &&
-                      reportData.map((row, i) => (
-                        <tr key={i} className={i % 2 !== 0 ? "d-none" : "body"}>
-                          {columns.map((cell, index) => {
-                            if (cell.accessor.indexOf("image") > -1) {
-                              return (
-                                <th key={index} className="table-body">
-                                  <td className="table-button">
-                                    <img src={row[cell.accessor]} />
-                                  </td>
-                                </th>
-                              );
-                            }
+      <input
+        type="file"
+        name="file"
+        accept=".csv"
+        onChange={handleCsvReportUpload}
+      ></input>
+            {/* <table className="">
+        <thead>
+          <tr>
+            {columnArray.map((head, i) => (
+              <th key={1}>{head}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {values.map((body, i) => (
+            <tr key={i}>
+              {body.map((value, i) => (
+                <td>{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table> */}
+        {
+        data.length > 0 ? (
+      <div className="d-flex flex-row gap-2 justify-content-center mt-5">
 
-                            if (cell.accessor == "select") {
-                              return (
-                                <td className="table-body">
-                                  <td className="table-button id">
-                                    <input
-                                      type="checkbox"
-                                      className=" cursor-pointer focus:outline-none focus:ring-0 "
-                                      onChange={() =>
-                                        multiSelectHandle(row._id)
-                                      }
-                                      checked={multiSelect.includes(row._id)}
-                                    />
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "createdAt") {
-                              return (
-                                <td className="table-body">
-                                  <td className="table-button id">
-                                    {new Date(
-                                      row.createdAt
-                                    ).toLocaleDateString()}
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "admissionNumber") {
-                              return (
-                                <td className="table-body">
-                                  <td className="table-button id">
-                                    {row.student?.admissionNumber}
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "lastName") {
-                              return (
-                                <td className="table-body">
-                                  <td className="table-button id">
-                                    {row.student?.lastName}
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "firstName") {
-                              return (
-                                <td className="table-body">
-                                  <td className="table-button id">
-                                    {row.student?.firstName}
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "student.admissionNumber") {
-                              return (
-                                <td className="table-body">
-                                  <td className="real-id table-button">
-                                    <p className="mb-0">
-                                      {row.admissionNumber}
-                                    </p>
-                                  </td>
-                                </td>
-                              );
-                            }
-                            if (cell.accessor == "") {
-                              return (
-                                <td key={index} className="table-body">
-                                  <button
-                                    className="view-button"
-                                    type="button"
-                                    onClick={() =>
-                                      downloadReport(
-                                        row.student?.admissionNumber,
-                                        row.reportTerm,
-                                        row.reportClass,
-                                        row.classSection,
-                                        row.student?._id
-                                      )
-                                    }
-                                  >
-                                    Download
-                                  </button>
-                                  <button
-                                    onClick={() => {}}
-                                    className="delete-button"
-                                  >
-                                    Delete
-                                  </button>
-                                </td>
-                              );
-                            }
+      <button onClick={handleSubmit}>submit werey</button>
+      <Link to="/result">
+      <Link to="/teacher/junior-first" >show</Link>
+      </Link>
+      </div>
 
-                            if (cell.mappingExist) {
-                              return (
-                                <td key={index} className="table-body">
-                                  <td className="table-button">
-                                    {cell.mappings[row[cell.accessor]]}
-                                  </td>
-                                </td>
-                              );
-                            }
-                            return (
-                              <td key={index} className="table-body">
-                                <td className="table-button others">
-                                  {row[cell.accessor]}
-                                </td>
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      ))}
-                  </Table>
-                  {/* <PaginationBar
-          canNextPage={canNextPage}
-          canPreviousPage={canPreviousPage}
-          currentPage={page}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          pageCount={pageCount}
-          pageSize={pageSize}
-          updatePageSize={updatePageSize}
-          // handleSubmit={createCsvUsers}
-        /> */}
-                </div>
-              </div>
-            ) : (
-              <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-                <p className="text-muted">No reports uploaded yet</p>
-                <button onClick={() => setCSVOpen(true)} className="csv-button">
-                  Import CSV file
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </Wrapper>
+        ): (
+<></>
+        )
+      }
     </div>
   );
 }

@@ -8,6 +8,8 @@ export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [teacherClass, setTeacherClass] = useState()
   const [studentClass, setStudentClass] = useState()
+  const [resultsData, setResultsData] = useState([])
+
 
   return (
     <AppContext.Provider
@@ -23,7 +25,9 @@ export function AppProvider({ children }) {
         teacherClass,
         setTeacherClass,
         studentClass,
-        setStudentClass
+        setStudentClass,
+        resultsData,
+        setResultsData
       }}
     >
       {children}

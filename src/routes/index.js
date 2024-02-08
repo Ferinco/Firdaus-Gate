@@ -10,6 +10,7 @@ import { Receipt } from "../components/custom";
 import AdmissionHome from "../pages/admission/home";
 import ContinueAdmission from "../pages/admission/continue";
 import AboutMe from "../layout/dashboard/AboutMe";
+import JuniorFirst from "../utils/results/Junior/juniorFirst";
 import {
   TeacherDashboard,
   CreateResult,
@@ -120,6 +121,8 @@ export default function Routes() {
         { path: "new-assignment", element: <GiveAssignments/> },
         { path: "set-assignment/:identity", element: <AssignmentSettings/> },
         { path: "about-me", element: <AboutMe/> },
+        { path: "junior-first", element: <JuniorFirst/> },
+
 
 
 
