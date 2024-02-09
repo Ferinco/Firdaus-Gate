@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
-
+import generatePDF from "react-to-pdf";
+import { useRef } from "react";
 export default function JuniorFirst() {
   const { resultsData, setResultsData } = useAppContext();
-
+const ResultRef = useRef()
   return (
-    <ResultDiv className="d-flex flex-column gap-3">
+    <div className="d-flex flex-column gap-5">
+    <button onClick={()=>(
+        generatePDF(ResultRef,{filename: "second-term-results"}  )
+    )}>download</button>
+    <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
+        <div className="logo-container">
+
+        </div>
       <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
         <div className="title">
           <p>Academic Year</p>
@@ -233,7 +241,7 @@ export default function JuniorFirst() {
       </div>
       <div className="d-flex flex-column gap-1">
         <div className="header d-flex flex-row align-items-center mb-2  ">
-          <h6>4</h6> <h6>CLUBS, YOUTH ORGANIZATION ETC</h6>
+          <h6>5</h6> <h6>CLUBS, YOUTH ORGANIZATION ETC</h6>
         </div>
         <table className="table table-bordered" border="1" width="100%">
           <thead>
@@ -248,12 +256,12 @@ export default function JuniorFirst() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr className="last">
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
-            <tr>
+            <tr className="last">
                 <td></td>
                 <td></td>
                 <td></td>
@@ -288,16 +296,31 @@ export default function JuniorFirst() {
       </div>
       </div>
     </ResultDiv>
+    </div>
   );
 }
 const ResultDiv = styled.div`
   width: 900px;
   margin: auto;
+  background-color: white;
+  .logo-container{
+    border: 1px solid red;
+    height: 200px;
+  }
+  .table{
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+  td{
+    border: 1px solid black;
+  }
+
   th{
     font-weight: 500;
     text-align: center;
     text-transform: capitalize;
     font-size: 14px;
+    border: 1px solid black !important;
   }
   h6{
     font-weight: 600 !important;
@@ -310,9 +333,7 @@ const ResultDiv = styled.div`
   h6 {
     margin: 0 !important;
   }
-  td{
 
-  }
   .intro-header {
     border: 1px solid black;
     height: 50px;
@@ -342,5 +363,8 @@ const ResultDiv = styled.div`
   }
   .header{
     gap: 200px;
+  }
+  .last{
+    height: 37px;
   }
 `;

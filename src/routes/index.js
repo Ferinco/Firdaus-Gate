@@ -60,6 +60,7 @@ import {TeacherInfo} from "../pages/admin/profileInfo"
 import AdmissionLayout from "../pages/admission/layout";
 import Reports from "../pages/admin/reportsPage";
 import News from "../components/landing/newsSection";
+import SeniorFirst from "../utils/results/Senior/seniorFirst";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -122,6 +123,8 @@ export default function Routes() {
         { path: "set-assignment/:identity", element: <AssignmentSettings/> },
         { path: "about-me", element: <AboutMe/> },
         { path: "junior-first", element: <JuniorFirst/> },
+        { path: "senior-first", element: <SeniorFirst/> },
+
 
 
 

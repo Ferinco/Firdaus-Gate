@@ -284,6 +284,8 @@ setResultsData(data)
       <button onClick={handleSubmit}>submit werey</button>
       <Link to="/result">
       <Link to="/teacher/junior-first" >show</Link>
+      <Link to="/teacher/senior-first" >show</Link>
+
       </Link>
       </div>
 
