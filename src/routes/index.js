@@ -61,6 +61,7 @@ import AdmissionLayout from "../pages/admission/layout";
 import Reports from "../pages/admin/reportsPage";
 import News from "../components/landing/newsSection";
 import SeniorFirst from "../utils/results/Senior/seniorFirst";
+import BasicFirst from "../utils/results/Basic/basicFirst";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -124,6 +125,8 @@ export default function Routes() {
         { path: "about-me", element: <AboutMe/> },
         { path: "junior-first", element: <JuniorFirst/> },
         { path: "senior-first", element: <SeniorFirst/> },
+        { path: "basic-first", element: <BasicFirst/> },
+
 
 
 
