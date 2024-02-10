@@ -12,9 +12,7 @@ export default function BasicFirst (){
             generatePDF(ResultRef,{filename: "second-term-results"}  )
         )}>download</button>
         <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-            <div className="logo-container">
-    
-            </div>
+        <img src="/images/result-header.png" className="logo-container"/>
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
             <div className="title">
               <p>Academic Year</p>
@@ -28,6 +26,17 @@ export default function BasicFirst (){
             </div>
             {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
           </div>
+          <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <div className="title w-75 d-flex flex-row">
+          <p className="" style={{width: "10%"}}>Name</p>
+          <p className="student-name" style={{width: "80%"}}></p>
+        </div>
+        <div className="title w-25 d-flex flex-row">
+          <p style={{width: "30%"}}>Class</p>
+          <p className="student-name" style={{width: "50%"}}></p>
+        </div>
+        {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
+      </div>
           <div className="d-flex flex-column gap-1">
             <div className="header d-flex flex-row align-items-center mb-2  ">
               <h6>1</h6> <h6>ATTENDANCE (Regularity and Punctuality)</h6>
@@ -76,10 +85,10 @@ export default function BasicFirst (){
                   <th>Other Organised Activities</th>
                 </tr>
                 <tr>
-                  <td>Beginning of Term</td>
-                  <td>End of Term</td>
-                  <td>Beginning of Term</td>
-                  <td>End of Term</td>
+                  <td className="sub-head">Beginning of Term</td>
+                  <td className="sub-head">End of Term</td>
+                  <td className="sub-head">Beginning of Term</td>
+                  <td className="sub-head">End of Term</td>
                   <th></th>
                   <th></th>
                 </tr>
@@ -254,8 +263,17 @@ const ResultDiv = styled.div`
   margin: auto;
   background-color: white;
   .logo-container{
-    border: 1px solid red;
     height: 200px;
+  }
+  .sub-head{
+    border-bottom: 0;
+  }
+  .intro-header {
+    border: 1px solid black;
+    height: 50px;
+    .student-name{
+    border-bottom: 1px solid black;
+  }
   }
   .table{
     border-collapse: collapse;

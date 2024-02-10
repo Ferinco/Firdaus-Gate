@@ -14,4 +14,7 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+const supportApi = axios.create({
+  baseURL: ""
+})
 export { api };

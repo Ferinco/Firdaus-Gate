@@ -5,25 +5,59 @@ import { useRef } from "react";
 export default function JuniorFirst() {
   const { resultsData, setResultsData } = useAppContext();
 const ResultRef = useRef()
+const studentAdmissionNumber = "23002";
+const results = resultsData.find((row) => row[0] === studentAdmissionNumber);
+console.log(results);
+
+const testScores = results.slice(1, 103).filter((_, index) => index % 6 === 0);
+const examScores = results.slice(2, 103).filter((_, index) => index % 6 === 0);
+const totalScore = results.slice(3, 103).filter((_, index) => index % 6 === 0);
+
+
+function addSuffix(number) {
+    const lastDigit = number % 10;
+    const lastTwoDigits = number % 100;
+
+    if (lastDigit === 1 && lastTwoDigits !== 11) {
+      return number + "st";
+    } else if (lastDigit === 2 && lastTwoDigits !== 12) {
+      return number + "nd";
+    } else if (lastDigit === 3 && lastTwoDigits !== 13) {
+      return number + "rd";
+    } else {
+      return number + "th";
+    }
+  }
+
+console.log(testScores)
   return (
     <div className="d-flex flex-column gap-5">
     <button onClick={()=>(
         generatePDF(ResultRef,{filename: "second-term-results"}  )
     )}>download</button>
     <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-        <div className="logo-container">
 
-        </div>
+<img src="/images/result-header.png" className="logo-container"/>
       <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
         <div className="title">
           <p>Academic Year</p>
         </div>
-        <div className="item"></div>
         <div className="">
           <h6>FIRST TERM RESULT</h6>
         </div>
         <div className="title">
           <p>Admission Number</p>
+        </div>
+        {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
+      </div>
+      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <div className="title w-75 d-flex flex-row">
+          <p className="" style={{width: "10%"}}>Name</p>
+          <p className="student-name" style={{width: "80%"}}></p>
+        </div>
+        <div className="title w-25 d-flex flex-row">
+          <p style={{width: "30%"}}>Class</p>
+          <p className="student-name" style={{width: "50%"}}></p>
         </div>
         {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
       </div>
@@ -43,21 +77,21 @@ const ResultRef = useRef()
           <tbody>
             <tr>
               <td>No of Times School Opened/Activities Held</td>
-              {resultsData[0].slice(1, 4).map((score) => (
-                <td>{score}</td>
-              ))}
+              <td className="text-center">{results ? results[104]: ""}</td>
+              <td className="text-center">{results ? results[107]: ""}</td>
+              <td className="text-center">{results ? results[110]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Present</td>
-              {resultsData[0].slice(1, 4).map((score) => (
-                <td>{score}</td>
-              ))}
+              <td className="text-center">{results ? results[105]: ""}</td>
+              <td className="text-center">{results ? results[108]: ""}</td>
+              <td className="text-center">{results ? results[111]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Absent</td>
-              {resultsData[0].slice(1, 4).map((score) => (
-                <td>{score}</td>
-              ))}
+              <td className="text-center">{results ? results[106]: ""}</td>
+              <td className="text-center">{results ? results[109]: ""}</td>
+              <td className="text-center">{results ? results[112]: ""}</td>
             </tr>
           </tbody>
         </table>
@@ -71,32 +105,20 @@ const ResultRef = useRef()
             <tr>
               <th colSpan={2}>Height</th>
               <th colSpan={2}>Weight</th>
-              <th>Sports and Athletics</th>
-              <th>Other Organised Activities</th>
+              <th rowSpan={2}>No. of Times Absent due to Illness</th>
+              <th rowSpan={2}>Nature of Illness</th>
             </tr>
             <tr>
-              <td>Beginning of Term</td>
-              <td>End of Term</td>
-              <td>Beginning of Term</td>
-              <td>End of Term</td>
-              <th></th>
-              <th></th>
+              <td className="sub-head">Beginning of Term</td>
+              <td className="sub-head">End of Term</td>
+              <td className="sub-head">Beginning of Term</td>
+              <td className="sub-head">End of Term</td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              {resultsData[0]?.slice(1, 7).map((score) => (
-                <td>{score}</td>
-              ))}
-            </tr>
-            <tr>
-              {resultsData[0]?.slice(1, 7).map((score) => (
-                <td>{score}</td>
-              ))}
-            </tr>
-            <tr>
-              {resultsData[0]?.slice(1, 7).map((score) => (
-                <td>{score}</td>
+              {results?.slice(116, 122).map((score) => (
+                <td className="text-center">{score}</td>
               ))}
             </tr>
             <tr>
@@ -173,33 +195,45 @@ const ResultRef = useRef()
               <th>
                 <p className="subject">Quran and Hadith</p>
               </th>
-              <th>
-                <p className="subject">History</p>
-              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Cont. Asses. Scores</td>
-              {resultsData[0].slice(1, 20).map((score) => (
-                <td>{score}</td>
-              ))}
+             <td className="text-center">30</td>
+             {
+                testScores?.map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+             }
             </tr>
             <tr>
               <td>Sum. Test Scores</td>
-              {resultsData[0].slice(1, 20).map((score) => (
-                <td>{score}</td>
-              ))}
+              <td className="text-center">70</td>
+             {
+                examScores?.map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+             }
             </tr>
             <tr>
               <td>Total (Weighted Average)</td>
-              {resultsData[0].slice(1, 20).map((score) => (
-                <td>{score}</td>
-              ))}
+              <td className="text-center">100</td>
+             {
+                totalScore?.map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+             }
             </tr>
             <tr>
-              <td colSpan={10}>Average</td>
-              <td colSpan={10}>No. of Students in Class</td>
+            <td colSpan={2}>Average Score <h6>{results ? results[130] : ""}</h6></td>
+
+              <td colSpan={4}>Marks Obtainable <h6>{results? results[132]: ""}</h6></td>
+              <td colSpan={4}>Marks Obtained <h6>{results? results[133]: ""}</h6></td>
+              <td colSpan={2}>Percentage <h6>{results? results[134]: ""}</h6></td>
+              <td colSpan={3}>Position <h6>{results? addSuffix(results[135]): ""}</h6></td>
+
+              <td colSpan={4}>No. of Students in Class <h6>{results? results[103]: ""}</h6></td>
             </tr>
           </tbody>
         </table>
@@ -222,22 +256,21 @@ const ResultRef = useRef()
           <tbody>
             <tr>
               <td>Level Attained</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>A-Excellent</td>
-              <td>A-Excellent</td>
-              <td>A-Excellent</td>
-              <td>A-Excellent</td>
-              <td>A-Excellent</td>
+              {
+                results?.slice(122, 127).map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+              }
             </tr>
           </tbody>
         </table>
+            <div className="d-flex flex-row justify-content-between w-100 px-2 special-div">
+              <p className="special-p">A-Excellent</p>
+              <p className="special-p">B-Very Good </p>
+              <p className="special-p">C-Good</p>
+              <p className="special-p">D-Fair</p>
+              <p className="special-p">E-Poor</p>
+            </div>
       </div>
       <div className="d-flex flex-column gap-1">
         <div className="header d-flex flex-row align-items-center mb-2  ">
@@ -257,9 +290,11 @@ const ResultRef = useRef()
           </thead>
           <tbody>
             <tr className="last">
-                <td></td>
-                <td></td>
-                <td></td>
+            {
+                results?.slice(127, 130).map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+              }
             </tr>
             <tr className="last">
                 <td></td>
@@ -273,7 +308,7 @@ const ResultRef = useRef()
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Class Teacher's Comments:</p>
-        <p className="comments">khe;rih4rhio</p>
+        <p className="comments">{results ? results[114] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
@@ -283,7 +318,7 @@ const ResultRef = useRef()
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Principal's/ Head Teacher's/Master's Comments:</p>
-        <p className="comments">khe;rih4rhio</p>
+        <p className="comments">{results ? results[115] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
@@ -292,7 +327,7 @@ const ResultRef = useRef()
       </div>
       <div className="d-flex flex-row gap-2">
         <p>School Reopens: </p>
-        <p className="comments">khe;rih4rhio</p>
+        <p className="comments">{results ? results[113] : ""}</p>
       </div>
       </div>
     </ResultDiv>
@@ -303,16 +338,30 @@ const ResultDiv = styled.div`
   width: 900px;
   margin: auto;
   background-color: white;
+  .special-div{
+    border-top: 0 !important;
+    border: 1px solid black;
+    margin-top: -19px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .student-name{
+    border-bottom: 1px solid black;
+  }
+  .sub-head{
+    border-bottom: 0;
+  }
   .logo-container{
-    border: 1px solid red;
     height: 200px;
   }
   .table{
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     border: 1px solid black;
   }
   td{
     border: 1px solid black;
+    border-collapse: collapse !important;
+
   }
 
   th{

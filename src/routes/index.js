@@ -62,6 +62,8 @@ import Reports from "../pages/admin/reportsPage";
 import News from "../components/landing/newsSection";
 import SeniorFirst from "../utils/results/Senior/seniorFirst";
 import BasicFirst from "../utils/results/Basic/basicFirst";
+import NurseryFirst from "../utils/results/Nursery/nurseryFirst";
+import { KgResult } from "../utils/results/KG/kgResult";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -125,7 +127,7 @@ export default function Routes() {
         { path: "about-me", element: <AboutMe/> },
         { path: "junior-first", element: <JuniorFirst/> },
         { path: "senior-first", element: <SeniorFirst/> },
-        { path: "basic-first", element: <BasicFirst/> },
+        { path: "basic-first", element: <NurseryFirst/> },
 
 
 

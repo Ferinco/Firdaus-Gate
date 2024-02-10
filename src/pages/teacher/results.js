@@ -249,7 +249,9 @@ setResultsData(data)
 
   };
   console.log(resultsData)
-
+  const studentAdmissionNumber = "11111";
+  const results = resultsData.find((row) => row[0] === studentAdmissionNumber);
+  console.log(results);
   return (
     <div>
       {loading ? <CircularProgress /> : ""}

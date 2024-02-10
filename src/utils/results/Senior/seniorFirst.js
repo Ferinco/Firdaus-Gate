@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
-
+import { useRef } from "react";
+import generatePDF from "react-to-pdf";
 export default function SeniorFirst() {
   const { resultsData, setResultsData } = useAppContext();
-
+const resultRef = useRef()
   return (
     <div>
-      <ResultDiv className="d-flex flex-column gap-3 p-3">
-        <div className="logo-div"></div>
+        <button onClick={()=>{
+            generatePDF(resultRef, {filename: "senior-class"})
+        }}>download</button>
+      <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
+      <img src="/images/result-header.png" className="logo-container"/>
         <div className="intro-div d-flex flex-column">
           <div className=" d-flex flex-row justify-content-between">
             <div className="d-flex flex-row">
@@ -20,37 +24,37 @@ export default function SeniorFirst() {
               <p>2023</p>
             </div>
           </div>
-          <div className=" d-flex flex-row justify-content-between">
-            <div className="d-flex flex-row">
-              <p>NAme of Student</p>
-              <p>2023</p>
-            </div>
-
-            <div className="d-flex flex-row">
-              <p>Class</p>
-              <p>2023</p>
-            </div>
-          </div>
+          <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <div className="title w-75 d-flex flex-row">
+          <p className="" style={{width: "10%"}}>Name</p>
+          <p className="student-name" style={{width: "80%"}}></p>
+        </div>
+        <div className="title w-25 d-flex flex-row">
+          <p style={{width: "30%"}}>Class</p>
+          <p className="student-name" style={{width: "50%"}}></p>
+        </div>
+        {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
+      </div>
           <div className="results-div d-flex flex-row">
-            <div className="performance-div p-3">
-              <table className="results-table">
+            <div className="performance-div p-3 d-flex flex-column gap-3">
+              <table className="results-table table table-bordeerd">
                 <thead>
                   <tr>
                     <th className="holder"></th>
                     <th>
-                      <p className="">Continous Assessment Scores</p>
+                      <p className="rotate">Continous Assessment Scores</p>
                     </th>
                     <th>
-                      <p className="">Exam Scores</p>
+                      <p className="rotate">Exam Scores</p>
                     </th>
                     <th>
-                      <p className="">Total (Weighted Average)</p>
+                      <p className="rotate">Total (Weighted Average)</p>
                     </th>
                     <th>
-                      <p className="">Position/Grade</p>
+                      <p className="rotate">Position/Grade</p>
                     </th>
                     <th>
-                      <p className="holder">Comments</p>
+                      <p className="holder text-center">Comments</p>
                     </th>
                   </tr>
                 </thead>
@@ -464,6 +468,17 @@ const ResultDiv = styled.div`
   margin: auto;
   height: fit-content !important;
   background-color: white;
+  .intro-header {
+    border: 1px solid black;
+    height: 50px;
+    border-bottom: 0 !important;
+    .student-name{
+    border-bottom: 1px solid black;
+  }
+  }
+  .header{
+    gap: 50px;
+  }
   .comments{
     text-decoration: underline !important;
   }
@@ -479,7 +494,6 @@ const ResultDiv = styled.div`
   }
   .logo-div {
     height: 200px;
-    border: 1px solid red;
   }
   .affective-body {
     border-right: 1px solid black;
@@ -496,11 +510,17 @@ const ResultDiv = styled.div`
     width: 30%;
   }
   .table {
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     border: 1px solid black;
+  }
+  tr, td, tr, thead, tbody{
+    border-collapse: collapse !important;
+
   }
   td {
     border: 1px solid black;
+    white-space: nowrap;
+    padding: 3px;
   }
 
   th,
@@ -535,11 +555,14 @@ const ResultDiv = styled.div`
       height: 250px !important;
     }
     th {
-      text-align: start;
+      text-align: center;
       white-space: nowrap;
-      p {
+      padding: 3px;
+      .rotate {
         transform: rotate(-90deg);
+      text-align: center !important;
         width: 50px;
+        margin-top: -50px !important;
       }
     }
     .holder {
