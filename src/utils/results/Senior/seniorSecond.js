@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { useRef } from "react";
 import generatePDF from "react-to-pdf";
-export default function SeniorFirst() {
+export default function SeniorSecond() {
   const { resultsData, setResultsData } = useAppContext();
 const resultRef = useRef()
 const studentAdmissionNumber = "23002";
@@ -51,7 +51,10 @@ console.log(results);
                       <p className="rotate">Exam Scores</p>
                     </th>
                     <th>
-                      <p className="rotate">Total (Weighted Average)</p>
+                      <p className="rotate">Total (Second Term)</p>
+                    </th>
+                    <th>
+                      <p className="rotate">First Term Scores</p>
                     </th>
                     <th>
                       <p className="rotate">Position/Grade</p>
@@ -69,10 +72,11 @@ console.log(results);
                     <th>100</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                   </tr>
                   <tr>
                     <td>english language</td>
-                    {results?.slice(1, 4).map((score) => (
+                    {results?.slice(1, 5).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(8, 10).map((score) => (
@@ -81,7 +85,7 @@ console.log(results);
                   </tr>{" "}
                   <tr>
                     <td>Mathematics</td>
-                    {results?.slice(10, 13).map((score) => (
+                    {results?.slice(10, 14).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(17, 19).map((score) => (
@@ -90,7 +94,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>biology</td>
-                    {results?.slice(19, 22).map((score) => (
+                    {results?.slice(19, 23).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(26, 28).map((score) => (
@@ -99,7 +103,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>physics</td>
-                    {results?.slice(28, 31).map((score) => (
+                    {results?.slice(28, 32).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(35, 37).map((score) => (
@@ -108,7 +112,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>chemistry</td>
-                    {results?.slice(37, 40).map((score) => (
+                    {results?.slice(37, 41).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(44, 46).map((score) => (
@@ -116,8 +120,8 @@ console.log(results);
                     ))}
                   </tr>
                   <tr>
-                    <td>further mathematics</td>
-                    {results?.slice(46, 49).map((score) => (
+                    <td>Further Mathematics</td>
+                    {results?.slice(46, 50).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(53, 55).map((score) => (
@@ -125,8 +129,8 @@ console.log(results);
                     ))}
                   </tr>
                   <tr>
-                    <td>physicyoruba language</td>
-                    {results?.slice(55, 58).map((score) => (
+                    <td>Yoruba Language</td>
+                    {results?.slice(55, 59).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(62, 64).map((score) => (
@@ -135,7 +139,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>civic education</td>
-                    {results?.slice(64, 67).map((score) => (
+                    {results?.slice(64, 68).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(71, 73).map((score) => (
@@ -144,7 +148,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>computer studies</td>
-                    {results?.slice(73, 76).map((score) => (
+                    {results?.slice(73, 77).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(80, 82).map((score) => (
@@ -153,7 +157,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>data processing</td>
-                    {results?.slice(82, 85).map((score) => (
+                    {results?.slice(82, 86).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(89, 91).map((score) => (
@@ -162,7 +166,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>I.R.S</td>
-                    {results?.slice(91, 94).map((score) => (
+                    {results?.slice(91, 95).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(98, 100).map((score) => (
@@ -171,7 +175,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>arabic</td>
-                    {results?.slice(100, 103).map((score) => (
+                    {results?.slice(100, 104).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(107, 109).map((score) => (
@@ -180,7 +184,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>economics</td>
-                    {results?.slice(109, 112).map((score) => (
+                    {results?.slice(109, 113).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(116, 118).map((score) => (
@@ -189,7 +193,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>Government</td>
-                    {results?.slice(118, 121).map((score) => (
+                    {results?.slice(118, 122).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(125, 127).map((score) => (
@@ -198,7 +202,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>Geography</td>
-                    {results?.slice(127, 130).map((score) => (
+                    {results?.slice(127, 131).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(134, 136).map((score) => (
@@ -207,7 +211,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>agricultural science</td>
-                    {results?.slice(136, 139).map((score) => (
+                    {results?.slice(136, 140).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(143, 145).map((score) => (
@@ -216,7 +220,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>literature in english</td>
-                    {results?.slice(145, 148).map((score) => (
+                    {results?.slice(145, 149).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(152, 154).map((score) => (
@@ -225,7 +229,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>Financial Accounting</td>
-                    {results?.slice(154, 157).map((score) => (
+                    {results?.slice(154, 158).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(161, 163).map((score) => (
@@ -234,7 +238,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>commerce</td>
-                    {results?.slice(163, 166).map((score) => (
+                    {results?.slice(163, 167).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(170, 172).map((score) => (
@@ -243,7 +247,7 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>QURAN</td>
-                    {results?.slice(172, 175).map((score) => (
+                    {results?.slice(172, 176).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                      {results?.slice(179, 181).map((score) => (
@@ -631,7 +635,7 @@ const ResultDiv = styled.div`
       }
     }
     .holder {
-      width: 250px !important;
+      width: auto !important;
     }
   }
   .special-td {

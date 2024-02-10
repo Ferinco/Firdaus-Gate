@@ -66,6 +66,7 @@ import NurseryFirst from "../utils/results/Nursery/nurseryFirst";
 import { KgResult } from "../utils/results/KG/kgResult";
 import JuniorSecond from "../utils/results/Junior/juniorSecond";
 import JuniorThird from "../utils/results/Junior/juniorThird";
+import SeniorSecond from "../utils/results/Senior/seniorSecond";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -127,7 +128,7 @@ export default function Routes() {
         { path: "new-assignment", element: <GiveAssignments/> },
         { path: "set-assignment/:identity", element: <AssignmentSettings/> },
         { path: "about-me", element: <AboutMe/> },
-        { path: "junior-first", element: <JuniorThird/> },
+        { path: "junior-first", element: <SeniorSecond/> },
         { path: "senior-first", element: <SeniorFirst/> },
         { path: "basic-first", element: <NurseryFirst/> },
 
