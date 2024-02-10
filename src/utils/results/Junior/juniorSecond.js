@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
-export default function JuniorFirst() {
+
+
+export default function JuniorSecond() {
   const { resultsData, setResultsData } = useAppContext();
 const ResultRef = useRef()
 const studentAdmissionNumber = "23002";
@@ -11,7 +13,9 @@ console.log(results);
 
 const testScores = results.slice(1, 103).filter((_, index) => index % 6 === 0);
 const examScores = results.slice(2, 103).filter((_, index) => index % 6 === 0);
-const totalScore = results.slice(6, 103).filter((_, index) => index % 6 === 0);
+const totalScores = results.slice(3, 103).filter((_, index) => index % 6 === 0);
+const secondTotal = results.slice(4, 103).filter((_, index) => index % 6 === 0);
+const weightedAverage = results.slice(6, 103).filter((_, index) => index % 6 === 0);
 
 
 function addSuffix(number) {
@@ -43,7 +47,7 @@ console.log(testScores)
           <p>Academic Year</p>
         </div>
         <div className="">
-          <h6>FIRST TERM RESULT</h6>
+          <h6>SECOND TERM RESULT</h6>
         </div>
         <div className="title">
           <p>Admission Number</p>
@@ -217,10 +221,28 @@ console.log(testScores)
              }
             </tr>
             <tr>
+              <td>Total (2nd Term)</td>
+              <td className="text-center">100</td>
+             {
+                totalScores?.map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+             }
+            </tr>
+            <tr>
+              <td>First Term Scores (if any)</td>
+              <td className="text-center">100</td>
+             {
+                secondTotal?.map((score)=>(
+                    <td className="text-center">{score}</td>
+                ))
+             }
+            </tr>
+            <tr>
               <td>Total (Weighted Average)</td>
               <td className="text-center">100</td>
              {
-                totalScore?.map((score)=>(
+                weightedAverage?.map((score)=>(
                     <td className="text-center">{score}</td>
                 ))
              }
