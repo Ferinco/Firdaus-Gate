@@ -37,11 +37,10 @@ const TabsConfig = [
 export default function AdminDashboard() {
   const { user } = useAuth();
   const dispatch = useDispatch();
-  const { currentTerm, isLoading } = useSelector((state) => state.term);
-  // const { users } = useSelector((state) => state.users);
   const [Teachers, setTeachers] = useState("");
   const [Students, setStudents] = useState("");
   const [termName, setTermName] = useState("");
+  const [currentTerm, setCurrentTerm] = useState("")
 
   //current term
   useEffect(() => {
@@ -49,13 +48,12 @@ export default function AdminDashboard() {
       .unwrap()
       .then((res) => {
         console.log(res);
-        setTermName(res.data.name);
+        setTermName(res[res.length-1]?.term);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  console.log(currentTerm);
 
   //number of students
   useEffect(() => {
@@ -119,7 +117,6 @@ export default function AdminDashboard() {
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
             <h5>
-              {currentTerm ? (
                 <h5>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
@@ -129,17 +126,6 @@ export default function AdminDashboard() {
                     termName
                   )}
                 </h5>
-              ) : (
-                <>
-                  <p>
-                    Term has ended! or yet to start
-                    <br />
-                    Set a
-                    <Link to={PATH_DASHBOARD.admin.createTerm}> term </Link>, if
-                    there are no upcoming term
-                  </p>
-                </>
-              )}
             </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">

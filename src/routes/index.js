@@ -30,7 +30,8 @@ import {
   ResultsPage,
   StudentLogin,
   Assignments,
-  Scheme
+  Scheme,
+  ViewResult
 } from "../pages/student";
 import {
   StudentsList,
@@ -67,6 +68,7 @@ import { KgResult } from "../utils/results/KG/kgResult";
 import JuniorSecond from "../utils/results/Junior/juniorSecond";
 import JuniorThird from "../utils/results/Junior/juniorThird";
 import SeniorSecond from "../utils/results/Senior/seniorSecond";
+import SeniorThird from "../utils/results/Senior/seniorThird";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -128,7 +130,7 @@ export default function Routes() {
         { path: "new-assignment", element: <GiveAssignments/> },
         { path: "set-assignment/:identity", element: <AssignmentSettings/> },
         { path: "about-me", element: <AboutMe/> },
-        { path: "junior-first", element: <SeniorSecond/> },
+        { path: "junior-first", element: <SeniorThird/> },
         { path: "senior-first", element: <SeniorFirst/> },
         { path: "basic-first", element: <NurseryFirst/> },
 
@@ -160,6 +162,8 @@ export default function Routes() {
         {path:"/student/submit-assignments", element: <Assignments/>},
         { path: "work-scheme/:identity", element: <Scheme/> },
         { path: "about-me", element: <AboutMe/> },
+        { path: "view-result", element: <ViewResult/> },
+
 
 
 

@@ -56,6 +56,8 @@ aboutMe: JOIN(ROOT_TEACHER, "about-me"),
     assignments: JOIN(ROOT_STUDENT, "submit-assignments"),
     scheme: JOIN(ROOT_STUDENT, "work-scheme"),
 aboutMe: JOIN(ROOT_STUDENT, "about-me"),
+viewReport: JOIN(ROOT_STUDENT, "view-result"),
+
 
 
   },

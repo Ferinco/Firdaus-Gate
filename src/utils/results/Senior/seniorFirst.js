@@ -21,7 +21,7 @@ console.log(results);
               <p>Admission Year</p>
               <p>2023</p>
             </div>
-            <h6>first twem</h6>
+            <h6>FIRST TERM RESULTS</h6>
             <div className="d-flex flex-row">
               <p>Admission Number</p>
               <p>2023</p>

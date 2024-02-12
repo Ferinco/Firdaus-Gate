@@ -36,12 +36,7 @@ const TabsConfig = [
 
 export default function TeacherDashboard() {
   const [weeks, setWeeks] = useState([]);
-  const [startDate, setStartDate] = useState(null);
-  const [begin, setBegin] = useState();
-  const [end, setEnd] = useState();
-  const [endDate, setEndDate] = useState(null);
-  const [termName, setTermName] = useState("");
-  const [currentTerm, setCurrentTerm] = useState({});
+  const {termName, setTermName, teacherClass, setTeacherClass, activeSession, setActiveSession} = useAppContext()
 
   const dispatch = useDispatch();
 
@@ -49,53 +44,11 @@ export default function TeacherDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        console.log(res.data.startDate);
-        setCurrentTerm(res.data);
-        setStartDate(new Date(res.data.startDate));
-        setEndDate(new Date(res.data.endDate));
-        setTermName(res.data.name);
-        console.log(currentTerm);
-        console.log(startDate);
+        setTermName(res[res.length-1]?.term);
+        setActiveSession(res[res.length-1]?.session)
+        setTeacherClass(user.classHandled)
       });
   }, []);
-
-  console.log(currentTerm);
-  console.log(startDate);
-  // const begin =
-  // const end = endDate.toLocaleDateString('en-us',{year: "numeric", month:"short", day: "numeric", weekday: "short"})
-  console.log(begin, end);
-  useEffect(() => {
-    if (startDate !== null) {
-      const currentDate = new Date();
-      const dateDifference = currentDate - startDate;
-      const weeksDifference = Math.max(
-        Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)),
-        0
-      );
-      setWeeks(new Array(weeksDifference));
-      setBegin(
-        startDate.toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      );
-      setEnd(
-        endDate.toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      );
-    }
-  }, [startDate]);
-
-  console.log(startDate);
-  console.log(weeks);
-
-  const lastWeek = weeks.length - 1;
-  console.log(lastWeek);
-  console.log(weeks);
 
   //get current time
   const { user } = useAuth();
@@ -108,7 +61,6 @@ export default function TeacherDashboard() {
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
 
-  console.log(currentTerm);
 
   //fetching class length details
   useEffect(() => {
@@ -149,7 +101,6 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-  console.log(subjects);
   useEffect(() => {
     function getTitle() {
       if (user?.gender === "male") {

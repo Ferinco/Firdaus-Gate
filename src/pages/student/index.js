@@ -5,3 +5,4 @@ export { default as ResultsPage } from "./resultsPage";
 export { default as StudentLogin } from "./authentication/login";
 export {default as Assignments} from "./assignments"
 export {default as Scheme} from "./subjectScheme"
+export {default as ViewResult} from "./viewResults"

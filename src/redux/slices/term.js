@@ -38,9 +38,6 @@ const slices = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // fetch current term
-    builder.addCase(fetchCurrentTerm.pending, (state) => {
-      state.isLoading = true;
-    });
     builder.addCase(fetchCurrentTerm.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentTerm = action.payload.data;

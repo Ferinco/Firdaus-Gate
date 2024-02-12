@@ -25,18 +25,13 @@ import { GetStudentClass } from "../../components/custom/teacherClass";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
-  const [weeks, setWeeks] = useState([]);
-  const [startDate, setStartDate] = useState(null);
-  const [termName, setTermName] = useState("");
-  const [begin, setBegin] = useState();
-  const [currentTerm, setCurrentTerm] = useState({});
   const [loading, setLoading] = React.useState(false);
   const [selectedClass, setSelectedClass] = React.useState(user.currentClass);
   const classes = [...JuniorClasses];
   const currentClass = classes.filter((item) => item.code === selectedClass);
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
-  const { studentClass, setStudentClass } = useAppContext();
+  const {termName, setTermName, studentClass, setStudentClass, activeSession, setActiveSession} = useAppContext()
 
 
   const [visibleSubjects, setVisibleSubjects] = useState(5);
@@ -81,88 +76,13 @@ export default function StudentDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        console.log(res.data.startDate);
-        setCurrentTerm(res.data);
-        setStartDate(new Date(res.data.startDate));
-        setTermName(res.data.name);
-        console.log(currentTerm);
-        console.log(startDate);
-      });
+        setTermName(res[res.length-1]?.term);
+        setActiveSession(res[res.length-1].session)      });
   }, []);
-  useEffect(() => {
-    if (startDate !== null) {
-      const currentDate = new Date();
-      const dateDifference = currentDate - startDate;
-      const weeksDifference = Math.max(
-        Math.ceil(dateDifference / (1000 * 3600 * 24 * 7)),
-        0
-      );
-      setWeeks(new Array(weeksDifference));
-      setBegin(
-        startDate.toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      );
-    }
-  }, [startDate]);
-  const lastWeek = weeks.length - 1;
+console.log(termName)
 
   //downloading current report
-  async function downloadReport(term) {
-    try {
-      setLoading(true);
-      const data = await ReportService.downloadReport({
-        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
-        selectedTerm: term,
-        selectedClass,
-        student: user._id,
-      });
 
-      if (data?.success) {
-        await axios
-          .post(
-            generatePdfApi,
-            { html: data.data },
-            { responseType: "arraybuffer" }
-          )
-          .then(({ data }) => {
-            const blob = new Blob([data]);
-            const url = window.URL.createObjectURL(blob);
-            var link = document.createElement("a");
-            link.href = url;
-            link.setAttribute(
-              "download",
-              `${user.admissionNumber}-${term}.pdf`
-            );
-            document.body.appendChild(link);
-            link.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(link);
-
-            toast.success("Report downloaded successfully");
-          })
-          .catch((error) => {
-            toast.error("Error downloading report");
-            console.error(error);
-          });
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.error("An error occurred:", error);
-      setLoading(false);
-      if (error?.response?.data?.message) {
-        toast.error(error.response.data.message);
-      }
-      if (error?.response?.status === 404) {
-        toast.error("Report is currently unavailable!");
-      } else {
-        toast.error("Network error, try again later");
-      }
-    }
-  }
   //get time for welcome message
   const currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
@@ -249,7 +169,7 @@ export default function StudentDashboard() {
             </div>
             <div className="bottom-wrapper ">
               <div className="bottom-div py-4 px-5 d-flex flex-column-reverse flex-wrap gap-1 justify-content-between">
-                <Link className="download-link react-router-link">
+                <Link className="download-link react-router-link" to={PATH_DASHBOARD.student.viewReport} >
                   Download Result
                 </Link>
                 <div className="assignment d-flex flex-column px-3 py-4 gap-2">

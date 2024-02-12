@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
-export default function JuniorFirst() {
-  const { resultsData, setResultsData } = useAppContext();
+export default function JuniorFirst(resultsData) {
 const ResultRef = useRef()
 const studentAdmissionNumber = "23002";
 const results = resultsData.find((row) => row[0] === studentAdmissionNumber);

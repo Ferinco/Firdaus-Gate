@@ -6,7 +6,9 @@ export function AppProvider({ children }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [currentUser, setCurrentUser] = useState();
-  const [teacherClass, setTeacherClass] = useState()
+  const [teacherClass, setTeacherClass] = useState("")
+  const [termName, setTermName] = useState("")
+  const [activeSession, setActiveSession] = useState("")
   const [studentClass, setStudentClass] = useState()
   const [resultsData, setResultsData] = useState([])
 
@@ -27,7 +29,11 @@ export function AppProvider({ children }) {
         studentClass,
         setStudentClass,
         resultsData,
-        setResultsData
+        setResultsData,
+        termName,
+        setTermName,
+        activeSession,
+        setActiveSession
       }}
     >
       {children}

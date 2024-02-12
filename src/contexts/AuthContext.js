@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({
       type: "REGISTER",
       payload: {
-        ...initialState,
+        ...initialState, 
         user: data.data,
         isAuthenticated: true,
         role: data.data.role,

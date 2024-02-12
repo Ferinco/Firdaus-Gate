@@ -15,6 +15,14 @@ api.interceptors.request.use((req) => {
 });
 
 const supportApi = axios.create({
-  baseURL: ""
+  baseURL: "https://ferrum-sever.onrender.com"
 })
+supportApi.interceptors.request.use((req) => {
+  if (localStorage.getItem("token")) {
+    req.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  }
+  return req;
+});
+
 export { api };
+export {supportApi}
