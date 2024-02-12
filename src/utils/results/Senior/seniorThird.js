@@ -2,42 +2,111 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { useRef } from "react";
 import generatePDF from "react-to-pdf";
-export default function SeniorThird() {
-  const { resultsData, setResultsData } = useAppContext();
-const resultRef = useRef()
-const studentAdmissionNumber = "23002";
-const results = resultsData.find((row) => row[0] === studentAdmissionNumber);
-console.log(results);
+export default function SeniorThird(props) {
+  const resultRef = useRef();
+  const { results } = props;
+  const { owner } = props;
+  const { session } = props;
+  const { teacher } = props;
+
+  const getClass = (user) => {
+    switch (user?.currentClass) {
+      case "FGJSC_001":
+        return "JSS 1";
+        break;
+      case "FGJSC_002":
+        return "JSS 2";
+        break;
+      case "FGJSC_003":
+        return "JSS 3";
+        break;
+      case "FGSSC_001":
+        return "SSS 1";
+        break;
+      case "FGSSC_002":
+        return "SSS 2";
+        break;
+      case "FGSSC_003":
+        return "SSS 3";
+        break;
+      case "FGBSC_001":
+        return "Basic 1";
+        break;
+      case "FGBSC_002":
+        return "Basic 2";
+        break;
+      case "FGBSC_003":
+        return "Basic 3";
+        break;
+      case "FGBSC_004":
+        return "Basic 4";
+        break;
+      case "FGBSC_005":
+        return "Basic 5";
+        break;
+      case "FGKGC_001":
+        return "K.G 1";
+        break;
+      case "FGKGC_003":
+        return "K.G 2";
+        break;
+      case "FGNSC_001":
+        return "Nursery 1";
+        break;
+      case "FGNSC_002":
+        return "Nursery 2";
+        break;
+      default:
+        return "None"; // Provide a default value if none of the cases match
+    }
+  };
+
   return (
-    <div>
-        <button onClick={()=>{
-            generatePDF(resultRef, {filename: "senior-class"})
-        }}>download</button>
+    <div className="d-flex flex-column gap-5">
+      <div className="download-field d-flex flex-row px-5">
+        <button
+          className=""
+          onClick={() =>
+            generatePDF(resultRef, { filename: "second-term-results" })
+          }
+        >
+          download
+        </button>
+      </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
-      <img src="/images/result-header.png" className="logo-container"/>
+        <img src="/images/result-header.png" className="logo-container" />
         <div className="intro-div d-flex flex-column">
-          <div className=" d-flex flex-row justify-content-between">
-            <div className="d-flex flex-row">
-              <p>Admission Year</p>
-              <p>2023</p>
+          <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+            <div className="title">
+              <p>Academic Year</p>
+              <p>{props.session}</p>
             </div>
-            <h6>THIRD TERM RESULTS</h6>
-            <div className="d-flex flex-row">
+            <div className="">
+              <h6>THIRD TERM RESULT</h6>
+            </div>
+            <div className="title">
               <p>Admission Number</p>
-              <p>2023</p>
+              <p>{props.owner.admissionNumber}</p>
             </div>
           </div>
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
-        <div className="title w-75 d-flex flex-row">
-          <p className="" style={{width: "10%"}}>Name</p>
-          <p className="student-name" style={{width: "80%"}}></p>
-        </div>
-        <div className="title w-25 d-flex flex-row">
-          <p style={{width: "30%"}}>Class</p>
-          <p className="student-name" style={{width: "50%"}}></p>
-        </div>
-        {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
-      </div>
+            <div className="title w-75 d-flex flex-row">
+              <p className="" style={{ width: "10%" }}>
+                Name
+              </p>
+              <p className="student-name" style={{ width: "80%" }}>
+                {props.owner.lastName} {props.owner.firstName}{" "}
+                {props.owner.middleName}
+              </p>
+            </div>
+            <div className="title w-25 d-flex flex-row">
+              <p style={{ width: "30%" }}>Class</p>
+              <p className="student-name" style={{ width: "50%" }}>
+                {getClass(props.owner)}
+              </p>
+            </div>
+            {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
+          </div>
           <div className="results-div d-flex flex-row">
             <div className="performance-div p-3 d-flex flex-column gap-3">
               <table className="results-table table table-bordeerd">
@@ -85,122 +154,121 @@ console.log(results);
                   </tr>
                   <tr>
                     <td>english language</td>
-                    {results?.slice(1, 10).map((score) => (
+                    {props.results?.slice(1, 10).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>{" "}
                   <tr>
                     <td>Mathematics</td>
-                    {results?.slice(10, 19).map((score) => (
+                    {props.results?.slice(10, 19).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>biology</td>
-                    {results?.slice(19, 28).map((score) => (
+                    {props.results?.slice(19, 28).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-
                   </tr>
                   <tr>
                     <td>physics</td>
-                    {results?.slice(28, 37).map((score) => (
+                    {props.results?.slice(28, 37).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>chemistry</td>
-                    {results?.slice(37, 46).map((score) => (
+                    {props.results?.slice(37, 46).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>Further Mathematics</td>
-                    {results?.slice(46, 55).map((score) => (
+                    {props.results?.slice(46, 55).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>Yoruba Language</td>
-                    {results?.slice(55, 64).map((score) => (
+                    {props.results?.slice(55, 64).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>civic education</td>
-                    {results?.slice(64, 73).map((score) => (
+                    {props.results?.slice(64, 73).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>computer studies</td>
-                    {results?.slice(73, 82).map((score) => (
+                    {props.results?.slice(73, 82).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>data processing</td>
-                    {results?.slice(82, 91).map((score) => (
+                    {props.results?.slice(82, 91).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>I.R.S</td>
-                    {results?.slice(91, 100).map((score) => (
+                    {props.results?.slice(91, 100).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>arabic</td>
-                    {results?.slice(100, 109).map((score) => (
+                    {props.results?.slice(100, 109).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>economics</td>
-                    {results?.slice(109, 118).map((score) => (
+                    {props.results?.slice(109, 118).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>Government</td>
-                    {results?.slice(118, 127).map((score) => (
+                    {props.results?.slice(118, 127).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>Geography</td>
-                    {results?.slice(127, 136).map((score) => (
+                    {props.results?.slice(127, 136).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>agricultural science</td>
-                    {results?.slice(136, 145).map((score) => (
+                    {props.results?.slice(136, 145).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>literature in english</td>
-                    {results?.slice(145, 154).map((score) => (
+                    {props.results?.slice(145, 154).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>Financial Accounting</td>
-                    {results?.slice(154, 163).map((score) => (
+                    {props.results?.slice(154, 163).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>commerce</td>
-                    {results?.slice(163, 172).map((score) => (
+                    {props.results?.slice(163, 172).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                   <tr>
                     <td>QURAN</td>
-                    {results?.slice(172, 181).map((score) => (
+                    {props.results?.slice(172, 181).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -230,9 +298,9 @@ console.log(results);
                   </thead>
                   <tbody>
                     <tr>
-                    {results?.slice(194, 200).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                      {props.results?.slice(194, 200).map((score) => (
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                   </tbody>
                 </table>
@@ -255,9 +323,9 @@ console.log(results);
                   </thead>
                   <tbody>
                     <tr className="last">
-                    {results?.slice(205, 208).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                      {props.results?.slice(205, 208).map((score) => (
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                   </tbody>
                 </table>
@@ -280,9 +348,9 @@ console.log(results);
                   <tbody>
                     <tr>
                       <td>Level Attained</td>
-                      {results?.slice(200, 205).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                      {props.results?.slice(200, 205).map((score) => (
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                     <tr>
                       <td className="special-td"></td>
@@ -445,31 +513,45 @@ console.log(results);
                 </thead>
                 <tbody>
                   <tr style={{ height: "50px" }}>
-                  {results?.slice(210, 213).map((score) => (
+                    {props.results?.slice(210, 213).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
                 </tbody>
               </table>
-              <div className="d-flex flex-column gap-2">
-                    <div className="d-flex flex-row gap-1 flex-wrap td">
-                      <p>House Master's Comments:</p>
-                      <p className="comments">khe;rih4rhio</p>
-                    </div>
+              <div className="d-flex flex-column gap-2 stamp-div">
+                <div className="d-flex flex-row gap-1 flex-wrap td">
+                  <p>House Master's Comments:</p>
+                  <p className="comments">khe;rih4rhio</p>
+                </div>
 
-                  <div className="d-flex flex-row gap-1 flex-wrap td">
-                    <p>Class Teacher's Comments:</p>
-                    <p className="comments">{results ? results[192] : ""} </p>
+                <div className="d-flex flex-row gap-1 flex-wrap td">
+                  <p>Class Teacher's Comments:</p>
+                  <p className="comments">
+                    {props.results ? props.results[192] : ""}{" "}
+                  </p>
+                  <div className="d-flex flex-row gap-2">
+                    <p>Signature/Date</p>
+                    <p className="comments">
+                      <img
+                        src={props.teacher.teacherSignature}
+                        className="signature-img"
+                      />
+                    </p>
                   </div>
+                </div>
 
                 <div className="d-flex flex-row gap-1 flex-wrap td">
                   <p>Principal's Comments:</p>
-                  <p className="comments">{results ? results[193] : ""} </p>
+                  <p className="comments">
+                    {props.results ? props.results[193] : ""}{" "}
+                  </p>
                 </div>
                 <div className="d-flex flex-row gap-2">
                   <p>School Reopens: </p>
-                  <p className="comments">{results ? results[191] : ""} </p>
-
+                  <p className="comments">
+                    {props.results ? props.results[191] : ""}{" "}
+                  </p>
                 </div>
               </div>
             </div>
@@ -484,26 +566,26 @@ const ResultDiv = styled.div`
   margin: auto;
   height: fit-content !important;
   background-color: white;
-  .last{
+  .last {
     height: 27px;
   }
-  .results-table{
-    td{
-    text-transform: capitalize !important;
+  .results-table {
+    td {
+      text-transform: capitalize !important;
     }
   }
   .intro-header {
     border: 1px solid black;
     height: 50px;
     border-bottom: 0 !important;
-    .student-name{
-    border-bottom: 1px solid black;
+    .student-name {
+      border-bottom: 1px solid black;
+    }
   }
-  }
-  .header{
+  .header {
     gap: 50px;
   }
-  .comments{
+  .comments {
     text-decoration: underline !important;
   }
   span {
@@ -537,9 +619,12 @@ const ResultDiv = styled.div`
     border-collapse: collapse !important;
     border: 1px solid black;
   }
-  tr, td, tr, thead, tbody{
+  tr,
+  td,
+  tr,
+  thead,
+  tbody {
     border-collapse: collapse !important;
-
   }
   td {
     border: 1px solid black;
@@ -584,7 +669,7 @@ const ResultDiv = styled.div`
       padding: 3px;
       .rotate {
         transform: rotate(-90deg);
-      text-align: center !important;
+        text-align: center !important;
         width: 20px;
         margin-top: -50px !important;
       }

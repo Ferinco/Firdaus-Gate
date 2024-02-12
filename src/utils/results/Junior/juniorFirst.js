@@ -2,15 +2,18 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
-export default function JuniorFirst(resultsData) {
+export default function JuniorFirst(props) {
+  const { results } = props;
+  const { owner } = props;
+  const { session } = props;
+  const { teacher } = props;
 const ResultRef = useRef()
-const studentAdmissionNumber = "23002";
-const results = resultsData.find((row) => row[0] === studentAdmissionNumber);
-console.log(results);
 
-const testScores = results.slice(1, 103).filter((_, index) => index % 6 === 0);
-const examScores = results.slice(2, 103).filter((_, index) => index % 6 === 0);
-const totalScore = results.slice(6, 103).filter((_, index) => index % 6 === 0);
+
+
+const testScores = props.results?.slice(1, 103)?.filter((_, index) => index % 6 === 0);
+const examScores = props.results?.slice(2, 103)?.filter((_, index) => index % 6 === 0);
+const totalScore = props.results?.slice(6, 103)?.filter((_, index) => index % 6 === 0);
 
 
 function addSuffix(number) {
@@ -27,36 +30,90 @@ function addSuffix(number) {
       return number + "th";
     }
   }
-
+  const getClass = (user) => {
+    switch (user?.currentClass) {
+      case "FGJSC_001":
+        return ("JSS 1");
+        break;
+      case "FGJSC_002":
+        return ("JSS 2");
+        break;
+      case "FGJSC_003":
+        return ("JSS 3");
+        break;
+      case "FGSSC_001":
+        return ("SSS 1");
+        break;
+      case "FGSSC_002":
+        return ("SSS 2");
+        break;
+      case "FGSSC_003":
+        return ("SSS 3");
+        break;
+      case "FGBSC_001":
+        return ("Basic 1");
+        break;
+      case "FGBSC_002":
+        return ("Basic 2");
+        break;
+      case "FGBSC_003":
+        return ("Basic 3");
+        break;
+      case "FGBSC_004":
+        return ("Basic 4");
+        break;
+      case "FGBSC_005":
+        return ("Basic 5");
+        break;
+      case "FGKGC_001":
+        return ("K.G 1");
+        break;
+      case "FGKGC_003":
+        return ("K.G 2");
+        break;
+      case "FGNSC_001":
+        return ("Nursery 1");
+        break;
+      case "FGNSC_002":
+        return ("Nursery 2");
+        break;
+      default:
+        return ("None"); // Provide a default value if none of the cases match
+    }
+  }
 console.log(testScores)
   return (
     <div className="d-flex flex-column gap-5">
-    <button onClick={()=>(
+ <div className="download-field d-flex flex-row px-5">
+    <button className="" onClick={()=>(
         generatePDF(ResultRef,{filename: "second-term-results"}  )
     )}>download</button>
+      </div>
     <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
 
 <img src="/images/result-header.png" className="logo-container"/>
-      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+<div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
         <div className="title">
           <p>Academic Year</p>
+          <p>{props.session}</p>
         </div>
         <div className="">
           <h6>FIRST TERM RESULT</h6>
         </div>
         <div className="title">
           <p>Admission Number</p>
+          <p>{props.owner.admissionNumber}</p>
         </div>
         {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
       </div>
       <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
         <div className="title w-75 d-flex flex-row">
           <p className="" style={{width: "10%"}}>Name</p>
-          <p className="student-name" style={{width: "80%"}}></p>
+          <p className="student-name" style={{width: "80%"}}>{props.owner.lastName}{" "}{props.owner.firstName}{" "}{props.owner.middleName}</p>
         </div>
         <div className="title w-25 d-flex flex-row">
           <p style={{width: "30%"}}>Class</p>
-          <p className="student-name" style={{width: "50%"}}></p>
+          <p className="student-name" style={{width: "50%"}}>{getClass(props.owner)}</p>
         </div>
         {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
       </div>
@@ -76,21 +133,21 @@ console.log(testScores)
           <tbody>
             <tr>
               <td>No of Times School Opened/Activities Held</td>
-              <td className="text-center">{results ? results[104]: ""}</td>
-              <td className="text-center">{results ? results[107]: ""}</td>
-              <td className="text-center">{results ? results[110]: ""}</td>
+              <td className="text-center">{props.results ? props.results[104]: ""}</td>
+              <td className="text-center">{props.results ? props.results[107]: ""}</td>
+              <td className="text-center">{props.results ? props.results[110]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Present</td>
-              <td className="text-center">{results ? results[105]: ""}</td>
-              <td className="text-center">{results ? results[108]: ""}</td>
-              <td className="text-center">{results ? results[111]: ""}</td>
+              <td className="text-center">{props.results ? props.results[105]: ""}</td>
+              <td className="text-center">{props.results ? props.results[108]: ""}</td>
+              <td className="text-center">{props.results ? props.results[111]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Absent</td>
-              <td className="text-center">{results ? results[106]: ""}</td>
-              <td className="text-center">{results ? results[109]: ""}</td>
-              <td className="text-center">{results ? results[112]: ""}</td>
+              <td className="text-center">{props.results ? props.results[106]: ""}</td>
+              <td className="text-center">{props.results ? props.results[109]: ""}</td>
+              <td className="text-center">{props.results ? props.results[112]: ""}</td>
             </tr>
           </tbody>
         </table>
@@ -115,8 +172,8 @@ console.log(testScores)
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {results?.slice(116, 122).map((score) => (
+          <tr>
+              {props.results?.slice(116, 122).map((score) => (
                 <td className="text-center">{score}</td>
               ))}
             </tr>
@@ -225,14 +282,14 @@ console.log(testScores)
              }
             </tr>
             <tr>
-            <td colSpan={2}>Average Score <h6>{results ? results[130] : ""}</h6></td>
+            <td colSpan={2}>Average Score <h6>{props.results ? props.results[130] : ""}</h6></td>
 
-              <td colSpan={4}>Marks Obtainable <h6>{results? results[132]: ""}</h6></td>
-              <td colSpan={4}>Marks Obtained <h6>{results? results[133]: ""}</h6></td>
-              <td colSpan={2}>Percentage <h6>{results? results[134]: ""}</h6></td>
-              <td colSpan={3}>Position <h6>{results? addSuffix(results[135]): ""}</h6></td>
+              <td colSpan={4}>Marks Obtainable <h6>{props.results? props.results[132]: ""}</h6></td>
+              <td colSpan={4}>Marks Obtained <h6>{props.results? props.results[133]: ""}</h6></td>
+              <td colSpan={2}>Percentage <h6>{props.results? props.results[134]: ""}</h6></td>
+              <td colSpan={3}>Position <h6>{props.results? addSuffix(props.results[135]): ""}</h6></td>
 
-              <td colSpan={4}>No. of Students in Class <h6>{results? results[103]: ""}</h6></td>
+              <td colSpan={4}>No. of Students in Class <h6>{props.results? props.results[103]: ""}</h6></td>
             </tr>
           </tbody>
         </table>
@@ -256,7 +313,7 @@ console.log(testScores)
             <tr>
               <td>Level Attained</td>
               {
-                results?.slice(122, 127).map((score)=>(
+                props.results?.slice(122, 127).map((score)=>(
                     <td className="text-center">{score}</td>
                 ))
               }
@@ -290,7 +347,7 @@ console.log(testScores)
           <tbody>
             <tr className="last">
             {
-                results?.slice(127, 130).map((score)=>(
+                props.results?.slice(127, 130).map((score)=>(
                     <td className="text-center">{score}</td>
                 ))
               }
@@ -303,21 +360,21 @@ console.log(testScores)
           </tbody>
         </table>
       </div>
-      <div className="d-flex flex-column gap-2">
+      <div className="d-flex flex-column gap-2 stamp-div">
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Class Teacher's Comments:</p>
-        <p className="comments">{results ? results[114] : ""}</p>
+        <p className="comments">{props.results ? props.results[114] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
-        <p className="comments">khe;rih4rhio</p>
+        <p className="comments"><img src={props.teacher.teacherSignature} className="signature-img"/></p>
         </div>
       </div>
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Principal's/ Head Teacher's/Master's Comments:</p>
-        <p className="comments">{results ? results[115] : ""}</p>
+        <p className="comments">{props.results ? props.results[115] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
@@ -326,7 +383,7 @@ console.log(testScores)
       </div>
       <div className="d-flex flex-row gap-2">
         <p>School Reopens: </p>
-        <p className="comments">{results ? results[113] : ""}</p>
+        <p className="comments">{props.results ? props.results[113] : ""}</p>
       </div>
       </div>
     </ResultDiv>

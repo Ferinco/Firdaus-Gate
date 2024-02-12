@@ -2,32 +2,90 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
-export default function NurseryFirst() {
-  const { resultsData, setResultsData } = useAppContext();
+export default function NurseryFirst(props) {
+  const { results } = props;
+  const { owner } = props;
+  const { session } = props;
+  const { teacher } = props;
+  const { term } = props;
+
   const resultRef = useRef();
-  const studentAdmissionNumber = "11111";
-  const results = resultsData.find((row) => row[0] === studentAdmissionNumber);
-  console.log(results);
+  const getClass = (user) => {
+    switch (user?.currentClass) {
+      case "FGJSC_001":
+        return "JSS 1";
+        break;
+      case "FGJSC_002":
+        return "JSS 2";
+        break;
+      case "FGJSC_003":
+        return "JSS 3";
+        break;
+      case "FGSSC_001":
+        return "SSS 1";
+        break;
+      case "FGSSC_002":
+        return "SSS 2";
+        break;
+      case "FGSSC_003":
+        return "SSS 3";
+        break;
+      case "FGBSC_001":
+        return "Basic 1";
+        break;
+      case "FGBSC_002":
+        return "Basic 2";
+        break;
+      case "FGBSC_003":
+        return "Basic 3";
+        break;
+      case "FGBSC_004":
+        return "Basic 4";
+        break;
+      case "FGBSC_005":
+        return "Basic 5";
+        break;
+      case "FGKGC_001":
+        return "K.G 1";
+        break;
+      case "FGKGC_003":
+        return "K.G 2";
+        break;
+      case "FGNSC_001":
+        return "Nursery 1";
+        break;
+      case "FGNSC_002":
+        return "Nursery 2";
+        break;
+      default:
+        return "None"; // Provide a default value if none of the cases match
+    }
+  };
   return (
-    <div>
-      <button
-        onClick={() => {
-          generatePDF(resultRef, { filename: "nursery-result" });
-        }}
-      >
-        download
-      </button>
+    <div className="d-flex flex-column gap-5">
+      <div className="download-field d-flex flex-row px-5">
+        <button
+          className=""
+          onClick={() =>
+            generatePDF(resultRef, { filename: "second-term-results" })
+          }
+        >
+          download
+        </button>
+      </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
         <img src="/images/result-header.png" className="logo-container" />
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
+            <p>{props.session}</p>
           </div>
           <div className="">
-            <h6>FIRST TERM RESULT</h6>
+            <h6>{props.term} RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
+            <p>{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -36,11 +94,16 @@ export default function NurseryFirst() {
             <p className="" style={{ width: "10%" }}>
               Name
             </p>
-            <p className="student-name" style={{ width: "80%" }}></p>
+            <p className="student-name" style={{ width: "80%" }}>
+              {props.owner.lastName} {props.owner.firstName}{" "}
+              {props.owner.middleName}
+            </p>
           </div>
           <div className="title w-25 d-flex flex-row">
             <p style={{ width: "30%" }}>Class</p>
-            <p className="student-name" style={{ width: "50%" }}></p>
+            <p className="student-name" style={{ width: "50%" }}>
+              {getClass(props.owner)}
+            </p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -60,22 +123,39 @@ export default function NurseryFirst() {
             <tbody>
               <tr>
                 <td>No of Times School Opened/Activities Held</td>
-                <td className="text-center">{results ? results[72]: ""}</td>
-                <td className="text-center">{results ? results[75]: ""}</td>
-                <td className="text-center">{results ? results[78]: ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[72] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[75] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[78] : ""}
+                </td>
               </tr>
               <tr>
                 <td>No of Times Present</td>
-                <td className="text-center">{results ? results[73]: ""}</td>
-                <td className="text-center">{results ? results[76]: ""}</td>
-                <td className="text-center">{results ? results[79]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[73] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[76] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[79] : ""}
+                </td>
               </tr>
               <tr>
                 <td>No of Times Absent</td>
-                <td className="text-center">{results ? results[74]: ""}</td>
-                <td className="text-center">{results ? results[77]: ""}</td>
-                <td className="text-center">{results ? results[80]: ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[74] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[77] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[80] : ""}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -101,11 +181,9 @@ export default function NurseryFirst() {
             </thead>
             <tbody>
               <tr>
-                {
-                  results?.slice(81, 87).map((score)=>(
-<td className="text-center">{score}</td>
-                  ))
-                }
+                {props.results?.slice(81, 87).map((score) => (
+                  <td className="text-center">{score}</td>
+                ))}
               </tr>
             </tbody>
           </table>
@@ -132,97 +210,98 @@ export default function NurseryFirst() {
             <tbody>
               <tr>
                 <td>ENGLISH LANGUAGE</td>
-                {results?.slice(1, 5).map((score) => (
+                {props.results?.slice(1, 5).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>MATHEMATICS</td>
-                {results?.slice(5, 9).map((score) => (
+                {props.results?.slice(5, 9).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>QUANTITATIVE REASONING</td>
-                {results?.slice(9, 13).map((score) => (
+                {props.results?.slice(9, 13).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>VERBAL REASONING</td>
-                {results?.slice(13, 17).map((score) => (
+                {props.results?.slice(13, 17).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>ISLAMIC STUDIES & ETHICS</td>
-                {results?.slice(17, 21).map((score) => (
+                {props.results?.slice(17, 21).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>ARABIC</td>
-                {results?.slice(21, 25).map((score) => (
+                {props.results?.slice(21, 25).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>QURAN & HADITH</td>
-                {results?.slice(25, 29).map((score) => (
+                {props.results?.slice(25, 29).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>HANDWRITING</td>
-                {results?.slice(29, 33).map((score) => (
+                {props.results?.slice(29, 33).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>FINE ART/CRAFT WORK</td>
-                {results?.slice(33, 37).map((score) => (
+                {props.results?.slice(33, 37).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>PHYSICAL AND HEALTH EDUCATION</td>
-                {results?.slice(37, 41).map((score) => (
+                {props.results?.slice(37, 41).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>MORAL INSTRUCTIONS</td>
-                {results?.slice(41, 45).map((score) => (
+                {props.results?.slice(41, 45).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>SOCIAL NORMS</td>
-                {results?.slice(45, 49).map((score) => (
+                {props.results?.slice(45, 49).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>COMPUTER APPRECIATION</td>
-                {results?.slice(49, 53).map((score) => (
+                {props.results?.slice(49, 53).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>VOCATIONAL</td>
-                {results?.slice(53, 57).map((score) => (
+                {props.results?.slice(53, 57).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>PRIMARY SCIENCE</td>
-                {results?.slice(57, 61).map((score) => (
+                {props.results?.slice(57, 61).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td colSpan={5} className="py-2">
-                  AVERAGE RATING : <h6>{results ? results[89] + "%" : ""}</h6>
+                  AVERAGE RATING :{" "}
+                  <h6>{props.results ? props.results[89] + "%" : ""}</h6>
                 </td>
               </tr>
             </tbody>
@@ -249,47 +328,57 @@ export default function NurseryFirst() {
             <tbody>
               <tr>
                 <td>PUNCTUALITY</td>
-                <td className="text-center">{results? results[61]: ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[61] : ""}
+                </td>
               </tr>
               <tr>
                 <td>NEATNESS</td>
-                <td className="text-center">{results? results[62]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[62] : ""}
+                </td>
               </tr>
               <tr>
                 <td>HONESTY</td>
-                <td className="text-center">{results? results[63]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[63] : ""}
+                </td>
               </tr>
               <tr>
                 <td>VERBAL FLUENCY</td>
-                <td className="text-center">{results? results[64]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[64] : ""}
+                </td>
               </tr>
               <tr>
                 <td>ACCOMODATING</td>
-                <td className="text-center">{results? results[65]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[65] : ""}
+                </td>
               </tr>
               <tr>
                 <td>SPORTS</td>
-                <td className="text-center">{results? results[66]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[66] : ""}
+                </td>
               </tr>
               <tr>
                 <td>PAINTING AND DRAWING</td>
-                <td className="text-center">{results? results[67]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[67] : ""}
+                </td>
               </tr>
               <tr>
                 <td>PARTICIPATIVE</td>
-                <td className="text-center">{results? results[68]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[68] : ""}
+                </td>
               </tr>
               <tr>
                 <td>BEHAVIORAL PATTERN</td>
-                <td className="text-center">{results? results[69]: ""}</td>
-
+                <td className="text-center">
+                  {props.results ? props.results[69] : ""}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -301,21 +390,30 @@ export default function NurseryFirst() {
             <p>E-Poor</p>
           </div>
         </div>
-        <div className="d-flex flex-column gap-2 end">
+        <div className="d-flex flex-column gap-2 end stamp-div">
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
-              <p className="comments">{results ? results[70]: ""}</p>
+              <p className="comments">
+                {props.results ? props.results[70] : ""}
+              </p>
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments">
+                <img
+                  src={props.teacher.teacherSignature}
+                  className="signature-img"
+                />
+              </p>
             </div>
           </div>
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
-              <p className="comments">{results ? results[71]: ""}</p>
+              <p className="comments">
+                {props.results ? props.results[71] : ""}
+              </p>
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>

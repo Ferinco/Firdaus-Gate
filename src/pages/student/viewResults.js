@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import styled from "styled-components";
 import { fetchCurrentTerm } from "../../redux/slices/term";
@@ -7,13 +7,23 @@ import { ReportService } from "../../services/reportService";
 import axios from "axios";
 import { useAppContext } from "../../contexts/Context";
 import { OverlayLoading } from "../../components/OverlayLoading";
-import juniorFirst from "../../utils/results/Junior/juniorFirst"
-import juniorSecond from "../../utils/results/Junior/juniorSecond"
+import JuniorFirst from "../../utils/results/Junior/juniorFirst";
 import JuniorSecond from "../../utils/results/Junior/juniorSecond";
+import { UserService } from "../../services/userService";
+import SeniorFirst from "../../utils/results/Senior/seniorFirst";
+import SeniorSecond from "../../utils/results/Senior/seniorSecond";
+import NurseryFirst from "../../utils/results/Nursery/nurseryFirst";
+
+import JuniorThird from "../../utils/results/Junior/juniorThird";
+import SeniorThird from "../../utils/results/Senior/seniorThird";
+import { KgResult } from "../../utils/results/KG/kgResult";
 
 export default function ViewResult() {
   const [studentResult, setStudentResult] = useState("");
-  const [report, setReport] = useState([])
+  const [report, setReport] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [classTeacher, setClassTeacher] = React.useState([]);
+
   const {
     termName,
     setTermName,
@@ -35,69 +45,207 @@ export default function ViewResult() {
         setActiveSession(latestTerm?.session);
       });
   }, []);
-  
-  useEffect(() => {
-    if (termName, studentClass, activeSession) {
-      getResults();
+
+  //to get class teacher
+  const getClassTeacher = async () => {
+    try {
+      const result = await UserService.findUsers({
+        role: "teacher",
+        classHandled: user.currentClass,
+      });
+      setClassTeacher(result.data.list[0]);
+      setLoading(false);
+      console.log(result.data.list[0]);
+    } catch (error) {
+      console.log(error);
     }
-  }, [termName, studentClass, activeSession]);
+  };
+  React.useEffect(() => {
+    getClassTeacher();
+  }, []);
+  console.log(classTeacher);
+  useEffect(() => {
+    const getResults = async () => {
+      try {
+        const response = await axios.get(
+          `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user.currentClass}`
+        );
+        console.log("Response:", response.data.results);
+        setStudentResult(response.data.results[0]);
+        const studentAdmissionNumber = "23002";
+        setStudentResult(response?.data.results[0]?.results);
+        console.log(studentResult);
+        const results = response?.data.results[0]?.results?.find(
+          (row) => row[0] === studentAdmissionNumber
+        );
+        setReport(results);
+        console.log(results);
+      } catch (error) {
+        console.error("Error fetching results:", error);
+      }
+    };
+
+    if (termName !== "") {
+      getResults();
+      setLoading(false);
+    }
+  }, [termName]);
   const { user } = useAuth();
+
+  // set student class
   useEffect(() => {
     setStudentClass(user.currentClass);
   }, []);
 
-  const getResults = async () => {
-    try {
-      const response = await axios.get(
-        `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${studentClass}`
-      );
-      console.log("Response:", response.data.results);
-      setStudentResult(response.data.results[0])
-      const studentAdmissionNumber = "23002";
-      setStudentResult(response?.data.results[0]?.results);
-      console.log(studentResult)
-      const results = studentResult?.find((row) => row[0] === studentAdmissionNumber);
-      setReport(results)
-      console.log(results)
-    } catch (error) {
-      console.error("Error fetching results:", error);
-    }
-  };
-  console.log(report)
+  console.log(report);
+
+  //get result template
   const getResultsTemplate = (termName, studentClass) => {
     switch (termName) {
       case "FIRST TERM":
-        if (studentClass.startsWith("FGJSC")){
-          return <juniorFirst results={report} />;
-        } else if(studentClass.startsWith("FGSSC")) {
-          return null;
+        if (studentClass.startsWith("FGJSC")) {
+          return (
+            <JuniorFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGSSC")) {
+          return (
+            <SeniorFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGNSC")) {
+          return (
+            <NurseryFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
+        }
+        else if (studentClass.startsWith("FGKGC")) {
+          return (
+            <KgResult
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
         }
       case "SECOND TERM":
-        if (studentClass.startsWith("FGJSC")){
-          return <JuniorSecond results={report} />;
-        } else if(studentClass.startsWith("FGSSC")) {
-          return null;
+        if (studentClass.startsWith("FGJSC")) {
+          return (
+            <JuniorSecond
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGSSC")) {
+          return (
+            <SeniorSecond
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGNSC")) {
+          return (
+            <NurseryFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
         }
-      // Add more cases for other terms and classes if needed
+        else if (studentClass.startsWith("FGKGC")) {
+          return (
+            <KgResult
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
+        }
+      case "THIRD TERM":
+        if (studentClass.startsWith("FGJSC")) {
+          return (
+            <JuniorThird
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGSSC")) {
+          return (
+            <SeniorThird
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
+        } else if (studentClass.startsWith("FGNSC")) {
+          return (
+            <NurseryFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
+        }
+        else if (studentClass.startsWith("FGKGC")) {
+          return (
+            <KgResult
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+              term={termName}
+            />
+          );
+        }
       default:
         return null;
     }
   };
-  
-  
-  
-
-  
 
   console.log(studentClass, termName, activeSession);
   return (
-    <ViewPage>
-      <>
-        {termName}
-        {activeSession}
-        {studentClass}
-        {getResultsTemplate(termName, studentClass)}
-      </>
+    <ViewPage className="">
+      {loading ? (
+        <OverlayLoading />
+      ) : (
+        <>
+          <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
+            <p className="m-0">
+              This is your {termName} result, switch to desktop mode for proper
+              view. To download, click on the download button below
+            </p>
+          </div>
+          {getResultsTemplate(termName, studentClass)}
+        </>
+      )}
     </ViewPage>
   );
 }

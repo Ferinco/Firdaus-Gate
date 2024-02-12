@@ -11,7 +11,28 @@ body  {
    width: 100vw !important;
   overflow-x: hidden !important;
 }
-
+.download-field{
+  margin-top: 10px;
+}
+.download-field > button{
+color: white;
+background-color: green;
+border: 1px solid green;
+padding: 7px 15px;
+text-transform: capitalize;
+border-radius: 10px;
+}
+.stamp-div{
+  background-image: url(/public/images/furdaus-stamp.jpg);
+  background-repeat: no-repeat;
+  background-position: right !important;
+  background-size: contain;
+}
+.signature-img{
+  width:70px;
+  height: 15px;
+  margin-top: -7px;
+}
 *,
 *::after,
 *::before {

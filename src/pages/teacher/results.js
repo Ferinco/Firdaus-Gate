@@ -113,6 +113,8 @@ export default function Results() {
   const [values, setValues] = useState([]);
   const [tester, setTester] = useState([]);
   const {termName, setTermName, teacherClass, setTeacherClass, activeSession, setActiveSession} = useAppContext()
+  const [file, setFile] = React.useState("");
+
 
 
 
@@ -148,6 +150,8 @@ export default function Results() {
 
   //to upload students results
   const handleCsvReportUpload = async (event) => {
+    const incomingFile = event.target.files[0];
+    setFile(incomingFile);
     Papa.parse(event.target.files[0], {
       header: false,
       skipEmptyLines: true,
@@ -182,99 +186,61 @@ const handleSubmit = async() => {
 };
 console.log(data)
   return (
-    <div>
-      {loading ? <CircularProgress /> : ""}
-      <input
-        type="file"
-        name="file"
-        accept=".csv"
-        onChange={handleCsvReportUpload}
-      ></input>
-        {
-        data.length > 0 ? (
-      <div className="d-flex flex-row gap-2 justify-content-center mt-5">
-
-      <button onClick={handleSubmit}>submit werey</button>
-      <Link to="/result">
-      <Link to="/teacher/junior-first" >show</Link>
-      <Link to="/teacher/senior-first" >sss</Link>
-      <Link to="/teacher/basic-first" >basic</Link>
-
-
-      </Link>
+    <Page>
+<div className="d-flex justify-content-between align-items-center text-center px-3 py-5">
+  <p>Upload students reports for {termName}</p>
+  <button>View Result History</button>
+</div>
+    <Wrapper className="d-flex flex-column justify-content-between p-4">
+      <div>
+        <div className="d-flex flex-row justify-content-center align-items-center gap-3 flex-wrap">
+          <p className="m-0 intro">Don't have the template? Click Here* </p>
+          <button className="download-btn">Download Template</button>
+        </div>
+        <div>
+        </div>
       </div>
-
-        ): (
-<></>
-        )
-      }
-    </div>
+      <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center gap-2">
+        <input
+     type="file"
+     name="file"
+     accept=".csv"
+     onChange={handleCsvReportUpload}
+     
+          style={{ cursor: "pointer", left: 0, right: 0 }}
+        />
+        <Icon className="icon" icon="fa6-solid:cloud-arrow-up" />
+        <p className="text-muted"> Drag file here or browse for file.</p>
+        <small>{file.name}</small>
+      </div>
+    </Wrapper>
+    </Page>
   );
 }
+const Page = styled.div`
+`
 const Wrapper = styled.div`
-  .table-head {
-    color: grey !important;
-    font-size: 14px;
-    padding: 10px !important;
-    text-transform: capitalize;
-    text-align: start;
-    padding: 5px !important;
-    p {
-      display: flex;
-      justify-content: center !important;
-    }
+  height: 100%;
+  margin: auto !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: fit-content;
+  border-radius: 20px;
+  border: 1px solid grey;
+  .upload-area {
+    height: 270px;
   }
-  .head {
-    background-color: #f1f1f1 !important;
-    height: auto !important;
+  .icon {
+    font-size: 60px !important;
   }
-  .icon-div {
-    border: 1px dashed grey;
-    border-radius: 50%;
+  .intro {
+    font-size: 20px;
   }
-  .big-icon {
-    font-size: 200px !important;
-  }
-  .p-1 {
-    font-size: 25px;
-  }
-  .body {
-    padding: 0 !important;
-    border: 1px solid #f1f1f1;
-    background-color: white;
-  }
-  .table-body {
-    font-size: 13px;
-    border: 1px solid #f1f1f1;
-    text-align: center;
-    padding: 5px !important;
-    width: fit-content !important;
-  }
-  .table-button {
-    border: 0 !important;
-  }
-  .table-div {
-    overflow-x: auto !important;
-    background-color: white !important;
-  }
-  .content-wrapper {
-    background-color: white;
-    border-radius: 15px;
-  }
-  .real-id {
-    font-weight: 600 !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-  .id {
-    display: flex !important;
-    justify-content: center !important;
-  }
-  .view-button {
-    color: blue !important;
-    border: 0 !important;
-    background: white !important;
-    font-size: 13px;
-    font-weight: 600;
+  .download-btn {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+    border: 1px solid grey;
   }
 `;
+
