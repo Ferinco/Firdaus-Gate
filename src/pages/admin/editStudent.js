@@ -131,7 +131,7 @@ const ChangeProfile = () => {
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
   }, [identity, dispatch]);
-
+console.log(user)
   const onSubmitProfile = async (data) => {
     console.log(data);
   };

@@ -7,3 +7,4 @@ export { default as TeacherLogin } from "./authentication/login";
 export {default as Assign} from "./assignments";
 export {default as GiveAssignments} from "./giveAssignments"
 export {default as AssignmentSettings} from "./assignmentSettings"
+export {default as History} from "./resultHistory"

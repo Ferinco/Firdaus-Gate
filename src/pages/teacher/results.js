@@ -189,7 +189,7 @@ console.log(data)
     <Page>
 <div className="d-flex justify-content-between align-items-center text-center px-3 py-5">
   <p>Upload students reports for {termName}</p>
-  <button>View Result History</button>
+  <Link to="uploaded-results">View Result History</Link>
 </div>
     <Wrapper className="d-flex flex-column justify-content-between p-4">
       <div>

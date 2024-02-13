@@ -64,6 +64,8 @@ export default function ViewResult() {
     getClassTeacher();
   }, []);
   console.log(classTeacher);
+
+  //fetch results from database
   useEffect(() => {
     const getResults = async () => {
       try {
@@ -72,7 +74,7 @@ export default function ViewResult() {
         );
         console.log("Response:", response.data.results);
         setStudentResult(response.data.results[0]);
-        const studentAdmissionNumber = "23002";
+        const studentAdmissionNumber = user?.admissionNumber;
         setStudentResult(response?.data.results[0]?.results);
         console.log(studentResult);
         const results = response?.data.results[0]?.results?.find(
