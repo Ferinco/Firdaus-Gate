@@ -60,6 +60,7 @@ export default function ViewResult() {
       console.log(error);
     }
   };
+  
   React.useEffect(() => {
     getClassTeacher();
   }, []);

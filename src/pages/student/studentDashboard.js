@@ -22,6 +22,7 @@ import {
 import { SubjectService } from "../../services/subjectService";
 import { UserService } from "../../services/userService";
 import { GetStudentClass } from "../../components/custom/teacherClass";
+import { CircularProgress } from "../../components/custom";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -98,7 +99,7 @@ console.log(termName)
   }
   return (
     <>
-      {loading && <OverlayLoading />}
+      {loading && <CircularProgress />}
       <Dashboard className="py-5">
         <div className="big-tab d-flex flex-row justify-content-between p-3">
           <div className="text d-flex flex-column justify-content-center gap-2">

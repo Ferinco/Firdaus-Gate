@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { Icon } from "@iconify/react";
 import { CLASS } from "../../constants/class";
@@ -13,196 +13,251 @@ import { fetchCurrentTerm } from "../../redux/slices/term";
 import { generatePdfApi } from "../../api/axios";
 import axios from "axios";
 import { useAppContext } from "../../contexts/Context";
-import { GetStudentClass } from "../../components/custom/teacherClass";
+import { AllClasses } from "../../configs/allClasses";
+import { AllSessions } from "../../constants/AllSessions";
+import { AllTerms } from "../../configs/AllTerms";
+import { UserService } from "../../services/userService";
+import { CircularProgress } from "../../components/custom";
 
 export default function ResultsPage() {
   const { user } = useAuth();
-  const { studentClass, setStudentClass } = useAppContext();
-  const { currentTerm } = useTerm();
-  const [loading, setLoading] = React.useState(true);
+  const {
+    studentClass,
+    setStudentClass,
+    termName,
+    setTermName,
+    activeSession,
+    setActiveSession,
+  } = useAppContext();
+
+  //fetch current term
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        const latestTerm = res[res.length - 1];
+        setTermName(latestTerm?.term);
+        setActiveSession(latestTerm?.session);
+      });
+  }, []);
+
   const [selectedClass, setSelectedClass] = React.useState(studentClass);
+  const [selectedSession, setSelectedSession] = React.useState(activeSession);
+  const [selectedTerm, setSelectedTerm] = React.useState(termName);
+  const [classTeacher, setClassTeacher] = React.useState([]);
+  const [studentResult, setStudentResult] = useState("");
+  const [report, setReport] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(false);
+  const [after, setAfter] = useState(false);
 
-  const reportsItem = [
-    {
-      reportTerm: "FIRST TERM",
 
-      icon: "icon-park-solid:two-key",
-      _id: 4484,
-    },
-    {
-      reportTerm: "SECOND TERM",
-      icon: "icon-park-solid:two-key",
-      _id: 4485,
-    },
-    {
-      reportTerm: "THIRD TERM",
-      icon: "icon-park-solid:two-key",
-      _id: 4486,
-    },
-  ];
 
-  // Download handler for report card
-  async function downloadReport( 
-    admissionNumber,
-    term,
-    selectedClass,
-    classSection,
-    studentId
-    ) 
-    {
-    console.log(admissionNumber, term, selectedClass, classSection, studentId);
+
+  // set student class
+  useEffect(() => {
+    setStudentClass(user.currentClass);
+  }, []);
+  console.log(user.currentClass);
+  //to get class teacher
+  const getClassTeacher = async () => {
     try {
-      setLoading(true);
-      const data = await ReportService.downloadReport({
-        admissionNumber : user?.admissionNumber,
-        term: currentTerm.name,
-        selectedClass,
-        classSection: selectedClass?.startsWith("JSS") ? "junior" : "senior",
-          studentId: user?._id,
-        });
-
-      if (data?.success) {
-        await axios
-          .post(
-            generatePdfApi,
-            { html: data.data },
-            { responseType: "arraybuffer" }
-          )
-          .then(({ data }) => {
-            const blob = new Blob([data]);
-            const url = window.URL.createObjectURL(blob);
-            var link = document.createElement("a");
-            link.href = url;
-            link.setAttribute(
-              "download",
-              `${user.admissionNumber}-${term}.pdf`
-            );
-            document.body.appendChild(link);
-            link.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(link);
-            setLoading(false)
-            toast.success("Report downloaded successfully");
-          })
-          .catch((error) => {
-            toast.error("Error downloading report");
-            console.error(error);
-            setLoading(false)
-          });
-      }
-
-      setLoading(false);
+      const result = await UserService.findUsers({
+        role: "teacher",
+        classHandled: user.currentClass,
+      });
+      setClassTeacher(result.data.list[0]);
+      console.log(result.data.list[0]);
+      setLoading(false)
     } catch (error) {
-      console.error("An error occurred:", error);
-      setLoading(false);
-      if (error?.response?.data?.message) {
-        toast.error(error.response.data.message);
-      }
-      if (error?.response?.status === 404) {
-        toast.error("You do not have a report for this session!");
-      } else {
-        toast.error("Network error, try again later");
-      }
+      console.log(error);
     }
-  }
+  };
 
-useEffect(()=>{
-  GetStudentClass(user, setStudentClass)
-  setLoading(false)
-}, [user, setStudentClass])
+  //fetch current term
+  useEffect(() => {
+    dispatch(fetchCurrentTerm())
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        const latestTerm = res[res.length - 1];
+        setTermName(latestTerm?.term);
+        setActiveSession(latestTerm?.session);
+        setLoading(false)
+      });
+  }, []);
+
+  React.useEffect(() => {
+    getClassTeacher();
+  }, []);
+  console.log(classTeacher);
+
+  //fetch results from database
+  useEffect(() => {
+    if (termName !== "") {
+      getResults();
+    }
+  }, [termName]);
+
+  const getResults = async () => {
+    setChecking(true)
+    try {
+      const response = await axios.get(
+        `https://ferrum-sever.onrender.com/api/studentsresults/${selectedSession}/${selectedTerm}/${selectedClass}`
+      );
+      console.log("Response:", response.data.results);
+      setStudentResult(response.data.results[0]);
+      const studentAdmissionNumber = user?.admissionNumber;
+      setStudentResult(response?.data.results[0]?.results);
+      console.log(studentResult);
+      const results = response?.data.results[0]?.results?.find(
+        (row) => row[0] === studentAdmissionNumber
+      );
+      setReport(results);
+      console.log(results);
+      setChecking(false)
+      setAfter(true)
+    } catch (error) {
+      console.error("Error fetching results:", error);
+    }
+  };
 
   function changedClass(e) {
     setSelectedClass(e.target.value);
     toast.success(`class has been changed to ${e.target.value}`);
   }
+
+  function changedSession(e) {
+    setSelectedSession(e.target.value);
+    toast.success(`session has been changed to ${e.target.value}`);
+  }
+
+  function changedTerm(e) {
+    setSelectedTerm(e.target.value);
+    toast.success(`term has been changed to ${e.target.value}`);
+  }
+  const getClass = (selectedClass) => {
+    switch (selectedClass) {
+      case "FGJSC_001":
+        return ("JSS 1");
+      case "FGJSC_002":
+        return ("JSS 2");
+      case "FGJSC_003":
+        return ("JSS 3");
+      case "FGSSC_001":
+        return ("SSS 1");
+      case "FGSSC_002":
+        return ("SSS 2");
+      case "FGSSC_003":
+        return ("SSS 3");
+      case "FGBSC_001":
+        return ("Basic 1");
+      case "FGBSC_002":
+        return ("Basic 2");
+      case "FGBSC_003":
+        return ("Basic 3");
+      case "FGBSC_004":
+        return ("Basic 4");
+      case "FGBSC_005":
+        return ("Basic 5");
+      case "FGKGC_001":
+        return ("K.G 1");
+      case "FGKGC_003":
+        return ("K.G 2");
+      case "FGNSC_001":
+        return ("Nursery 1");
+      case "FGNSC_002":
+        return ("Nursery 2");
+      default:
+        return ("None");
+    }
+  }
+
   return (
+    <>
+      {loading && <CircularProgress />}
     <Wrapper className="p-5">
-      {loading && <OverlayLoading />}
       <div className="">
         <h4>Reports</h4>
-        <p>View reports for each school term</p>
-        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4">
-          <div>
-            <div>current class selected : {selectedClass}</div>
+        <p>View your current and past results here by selecting the term, class and session of the results you wish to check for.</p>
+        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4 mt-5">
+          <div className="d-flex flex-column gap-1">
+            <div><h6>select Class</h6></div>
             {/* selection of class */}
             <select onChange={changedClass}>
-              {CLASS.map((opt, index) => (
-                <option key={index} value={opt}>
-                  {opt}
+              {AllClasses?.map((opt, index) => (
+                <option key={index} value={opt.code}>
+                  {opt.name}
+                </option>
+              ))}
+            </select>
+          </div>{" "}
+          <div className="d-flex flex-column gap-1">
+          <div><h6>select Session</h6></div>
+            {/* selection of session */}
+            <select onChange={changedSession}>
+              {AllSessions?.map((opt, index) => (
+                <option key={index} value={opt.code}>
+                  {opt.name}
                 </option>
               ))}
             </select>
           </div>
-          <div>
-            <span className="d-flex flex-column justify-content-center">
-              <p>Current Term:</p> <h6>{currentTerm.name}</h6>
-            </span>
+          <div className="d-flex flex-column gap-1">
+          <div><h6>select Term</h6></div>
+            {/* selection of TERM */}
+            <select onChange={changedTerm}>
+              {AllTerms?.map((opt, index) => (
+                <option key={index} value={opt.code}>
+                  {opt.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
-      <div className="tabs-wrapper py-5 mt-5">
-        <div className="tabs w-100 p-0 py-2 px-3">
-          {reportsItem.map((report) => (
-            <div
-              className="tab "
-              onClick={() =>
-                downloadReport(
-                 user?.admissionNumber,
-                 report.reportTerm,
-                 selectedClass,
-                 selectedClass?.startsWith("JSS") ? "senior" : "junior",
-                  user?._id,
-                )
-              }
-              key={report._id}
-            >
-              <div className="tab-right">
-                <div className="icon-div">
-                  <Icon
-                    icon={
-                      (report.reportTerm === "FIRST TERM" &&
-                        "icon-park-solid:one-key") ||
-                      (report.reportTerm === "SECOND TERM" &&
-                        "icon-park-solid:two-key") ||
-                      (report.reportTerm === "THIRD TERM" &&
-                        "icon-park-solid:three-key")
-                    }
-                    className="icon"
-                  />
-                </div>
-                <div className="text d-flex flex-column">
-                  <h6>
-                    {(report.reportTerm === "FIRST TERM" && "1ST") ||
-                      (report.reportTerm === "SECOND TERM" && "2ND") ||
-                      (report.reportTerm === "THIRD TERM" && "3RD")}
-                  </h6>
-                  <p>
-                    {" "}
-                    {(report.reportTerm === "FIRST TERM" && "1ST") ||
-                      (report.reportTerm === "SECOND TERM" && "2ND") ||
-                      (report.reportTerm === "THIRD TERM" && "3RD")}{" "}
-                    term reports
-                  </p>
-                </div>
-              </div>
-              <div className="tab-left">
-                <Icon
-                  icon={
-                    (report.reportTerm === "FIRST TERM" &&
-                      "icon-park-solid:one-key") ||
-                    (report.reportTerm === "SECOND TERM" &&
-                      "icon-park-solid:two-key") ||
-                    (report.reportTerm === "THIRD TERM" &&
-                      "icon-park-solid:three-key")
-                  }
-                  className="big-icon"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="tabs-wrapper py-5 mt-5 d-flex flex-row justify-content-between align-items-center px-3">
+        <button
+          onClick={() => {
+            getResults();
+          }}
+          className="check-btn"
+        >
+          Check Result
+        </button>
+        {checking ? (
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        ) : (
+          ""
+        )}
+        {
+          after?  
+          <>
+          {
+            report ? (
+              <p>Result for {selectedTerm}, {selectedClass} of {selectedSession} is <span className="good-span">available.</span> </p>
+            ): 
+            <p>Result for {selectedTerm}, {selectedClass} of {selectedSession} is <span className="bad-span">not available.</span> </p>
+  
+          }
+          </>   : ""
+        }
+     
       </div>
+     <div className="mt-3 py-5 px-3">
+     {
+        report ? (
+          <button className="view-btn w-100">View Result</button>
+        ) :
+        ("")
+      }
+     </div>
     </Wrapper>
+    </>
   );
 }
 
@@ -213,6 +268,35 @@ const Wrapper = styled.div`
     background-color: white;
     border-radius: 30px;
   }
+  .view-btn{
+    border: 1px solid #5ca95c;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    background-color: #5ca95c;
+    font-weight: 600;
+  }
+  .check-btn{
+    border: 1px solid grey;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    background-color: grey;
+    font-weight: 300;
+  }
+  .good-span{
+    color: green;
+    background-color: #d3d9d3;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .bad-span{
+    color: red;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
   .select-wrapper {
     width: 100%;
     background-color: white;

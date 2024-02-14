@@ -159,7 +159,7 @@ export default function Reports() {
       }
     }
   }
-console.log(reportData)
+
 
   return (
     <Container>

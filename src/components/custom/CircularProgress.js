@@ -5,9 +5,9 @@ export default function CircularProgress() {
   return (
     <Wrapper>
       <div className="circular-progress">
-      <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+<div class="spinner-grow" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
       </div>
     </Wrapper>
   )
@@ -24,7 +24,7 @@ top:0;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
   z-index:9999;
 
 .circular-progress{
