@@ -19,6 +19,7 @@ import SeniorThird from "../../utils/results/Senior/seniorThird";
 import { KgResult } from "../../utils/results/KG/kgResult";
 import BasicFirst from "../../utils/results/Basic/basicFirst";
 import BasicSecond from "../../utils/results/Basic/BasicSecond";
+import BasicThird from "../../utils/results/Basic/basicThird";
 
 export default function ViewResult() {
   const [studentResult, setStudentResult] = useState("");
@@ -62,7 +63,7 @@ export default function ViewResult() {
       console.log(error);
     }
   };
-  
+
   React.useEffect(() => {
     getClassTeacher();
   }, []);
@@ -126,6 +127,15 @@ export default function ViewResult() {
               teacher={classTeacher}
             />
           );
+        } else if (studentClass.startsWith("FGBSC")) {
+          return (
+            <BasicFirst
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
         } else if (studentClass.startsWith("FGNSC")) {
           return (
             <NurseryFirst
@@ -136,8 +146,7 @@ export default function ViewResult() {
               term={termName}
             />
           );
-        }
-        else if (studentClass.startsWith("FGKGC")) {
+        } else if (studentClass.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
@@ -151,7 +160,7 @@ export default function ViewResult() {
       case "SECOND TERM":
         if (studentClass.startsWith("FGJSC")) {
           return (
-            <BasicSecond
+            <JuniorSecond
               results={report}
               owner={user}
               session={activeSession}
@@ -167,6 +176,15 @@ export default function ViewResult() {
               teacher={classTeacher}
             />
           );
+        } else if (studentClass.startsWith("FGBSC")) {
+          return (
+            <BasicSecond
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
         } else if (studentClass.startsWith("FGNSC")) {
           return (
             <NurseryFirst
@@ -177,8 +195,7 @@ export default function ViewResult() {
               term={termName}
             />
           );
-        }
-        else if (studentClass.startsWith("FGKGC")) {
+        } else if (studentClass.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
@@ -208,6 +225,15 @@ export default function ViewResult() {
               teacher={classTeacher}
             />
           );
+        } else if (studentClass.startsWith("FGBSC")) {
+          return (
+            <BasicThird
+              results={report}
+              owner={user}
+              session={activeSession}
+              teacher={classTeacher}
+            />
+          );
         } else if (studentClass.startsWith("FGNSC")) {
           return (
             <NurseryFirst
@@ -218,8 +244,7 @@ export default function ViewResult() {
               term={termName}
             />
           );
-        }
-        else if (studentClass.startsWith("FGKGC")) {
+        } else if (studentClass.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
