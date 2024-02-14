@@ -18,6 +18,7 @@ import JuniorThird from "../../utils/results/Junior/juniorThird";
 import SeniorThird from "../../utils/results/Senior/seniorThird";
 import { KgResult } from "../../utils/results/KG/kgResult";
 import BasicFirst from "../../utils/results/Basic/basicFirst";
+import BasicSecond from "../../utils/results/Basic/BasicSecond";
 
 export default function ViewResult() {
   const [studentResult, setStudentResult] = useState("");
@@ -150,7 +151,7 @@ export default function ViewResult() {
       case "SECOND TERM":
         if (studentClass.startsWith("FGJSC")) {
           return (
-            <BasicFirst
+            <BasicSecond
               results={report}
               owner={user}
               session={activeSession}

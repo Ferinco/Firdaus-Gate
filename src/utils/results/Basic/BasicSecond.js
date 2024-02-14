@@ -3,7 +3,7 @@ import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
 import { BasicSubjects } from "../../../configs/subjectsConfig";
-export default function BasicFirst(props) {
+export default function BasicSecond(props) {
   const { results } = props;
   const { owner } = props;
   const { session } = props;
@@ -16,7 +16,13 @@ export default function BasicFirst(props) {
   const examScores = props.results
     ?.slice(2, 127)
     ?.filter((_, index) => index % 6 === 0);
-  const totalScore = props.results
+  const totalScores = props.results
+    ?.slice(3, 127)
+    ?.filter((_, index) => index % 6 === 0);
+  const secondTotal = props.results
+    ?.slice(4, 127)
+    ?.filter((_, index) => index % 6 === 0);
+  const weightedAverage = props.results
     ?.slice(6, 127)
     ?.filter((_, index) => index % 6 === 0);
 
@@ -85,7 +91,7 @@ export default function BasicFirst(props) {
         return "None"; // Provide a default value if none of the cases match
     }
   };
-  console.log(testScores);
+  console.log(weightedAverage);
   return (
     <div className="d-flex flex-column gap-5">
       <div className="download-field d-flex flex-row px-5">
@@ -106,7 +112,7 @@ export default function BasicFirst(props) {
             <p>{props.session}</p>
           </div>
           <div className="">
-            <h6>FIRST TERM RESULT</h6>
+            <h6>SECOND TERM RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
@@ -251,32 +257,46 @@ export default function BasicFirst(props) {
                 ))}
               </tr>
               <tr>
+                <td>Total (Second Term)</td>
+                <td className="text-center">100</td>
+                {totalScores?.map((score) => (
+                  <td className="text-center">{score}</td>
+                ))}
+              </tr>
+              <tr>
+                <td>First Term Scores (if any)</td>
+                <td className="text-center">100</td>
+                {secondTotal?.map((score) => (
+                  <td className="text-center">{score}</td>
+                ))}
+              </tr>
+              <tr>
                 <td>Total (Weighted Average)</td>
                 <td className="text-center">100</td>
-                {totalScore?.map((score) => (
+                {weightedAverage?.map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td colSpan={2}>
                   Average Score{" "}
-                  <h6>{props.results ? props.results[130] : ""}</h6>
+                  <h6>{props.results ? props.results[154] : ""}</h6>
                 </td>
 
                 <td colSpan={4}>
                   Marks Obtainable{" "}
-                  <h6>{props.results ? props.results[132] : ""}</h6>
+                  <h6>{props.results ? props.results[156] : ""}</h6>
                 </td>
                 <td colSpan={4}>
                   Marks Obtained{" "}
-                  <h6>{props.results ? props.results[133] : ""}</h6>
+                  <h6>{props.results ? props.results[157] : ""}</h6>
                 </td>
                 <td colSpan={2}>
-                  Percentage <h6>{props.results ? props.results[134] : ""}</h6>
+                  Percentage <h6>{props.results ? props.results[158] : ""}</h6>
                 </td>
                 <td colSpan={3}>
                   Position{" "}
-                  <h6>{props.results ? addSuffix(props.results[135]) : ""}</h6>
+                  <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
                 </td>
 
                 <td colSpan={4}>
