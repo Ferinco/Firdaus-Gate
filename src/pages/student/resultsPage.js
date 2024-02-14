@@ -18,9 +18,10 @@ import { AllSessions } from "../../constants/AllSessions";
 import { AllTerms } from "../../configs/AllTerms";
 import { UserService } from "../../services/userService";
 import { CircularProgress } from "../../components/custom";
-
+import { useNavigate } from "react-router-dom";
 export default function ResultsPage() {
   const { user } = useAuth();
+  const navigate = useNavigate()
   const {
     studentClass,
     setStudentClass,
@@ -53,9 +54,6 @@ export default function ResultsPage() {
   const [checking, setChecking] = useState(false);
   const [after, setAfter] = useState(false);
 
-
-
-
   // set student class
   useEffect(() => {
     setStudentClass(user.currentClass);
@@ -70,7 +68,7 @@ export default function ResultsPage() {
       });
       setClassTeacher(result.data.list[0]);
       console.log(result.data.list[0]);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +83,7 @@ export default function ResultsPage() {
         const latestTerm = res[res.length - 1];
         setTermName(latestTerm?.term);
         setActiveSession(latestTerm?.session);
-        setLoading(false)
+        setLoading(false);
       });
   }, []);
 
@@ -102,7 +100,7 @@ export default function ResultsPage() {
   }, [termName]);
 
   const getResults = async () => {
-    setChecking(true)
+    setChecking(true);
     try {
       const response = await axios.get(
         `https://ferrum-sever.onrender.com/api/studentsresults/${selectedSession}/${selectedTerm}/${selectedClass}`
@@ -117,8 +115,8 @@ export default function ResultsPage() {
       );
       setReport(results);
       console.log(results);
-      setChecking(false)
-      setAfter(true)
+      setChecking(false);
+      setAfter(true);
     } catch (error) {
       console.error("Error fetching results:", error);
     }
@@ -141,122 +139,148 @@ export default function ResultsPage() {
   const getClass = (selectedClass) => {
     switch (selectedClass) {
       case "FGJSC_001":
-        return ("JSS 1");
+        return "JSS 1";
       case "FGJSC_002":
-        return ("JSS 2");
+        return "JSS 2";
       case "FGJSC_003":
-        return ("JSS 3");
+        return "JSS 3";
       case "FGSSC_001":
-        return ("SSS 1");
+        return "SSS 1";
       case "FGSSC_002":
-        return ("SSS 2");
+        return "SSS 2";
       case "FGSSC_003":
-        return ("SSS 3");
+        return "SSS 3";
       case "FGBSC_001":
-        return ("Basic 1");
+        return "Basic 1";
       case "FGBSC_002":
-        return ("Basic 2");
+        return "Basic 2";
       case "FGBSC_003":
-        return ("Basic 3");
+        return "Basic 3";
       case "FGBSC_004":
-        return ("Basic 4");
+        return "Basic 4";
       case "FGBSC_005":
-        return ("Basic 5");
+        return "Basic 5";
       case "FGKGC_001":
-        return ("K.G 1");
+        return "K.G 1";
       case "FGKGC_003":
-        return ("K.G 2");
+        return "K.G 2";
       case "FGNSC_001":
-        return ("Nursery 1");
+        return "Nursery 1";
       case "FGNSC_002":
-        return ("Nursery 2");
+        return "Nursery 2";
       default:
-        return ("None");
+        return "None";
     }
-  }
+  };
+  const data = {
+    term: selectedTerm,
+    clas: selectedClass,
+    session: selectedSession,
+  };
+
+  const onSuccess = (response) => {
+    console.log(response);
+    navigate("/student/filter-results", { state: data });
+  };
 
   return (
     <>
       {loading && <CircularProgress />}
-    <Wrapper className="p-5">
-      <div className="">
-        <h4>Reports</h4>
-        <p>View your current and past results here by selecting the term, class and session of the results you wish to check for.</p>
-        <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4 mt-5">
-          <div className="d-flex flex-column gap-1">
-            <div><h6>select Class</h6></div>
-            {/* selection of class */}
-            <select onChange={changedClass}>
-              {AllClasses?.map((opt, index) => (
-                <option key={index} value={opt.code}>
-                  {opt.name}
-                </option>
-              ))}
-            </select>
-          </div>{" "}
-          <div className="d-flex flex-column gap-1">
-          <div><h6>select Session</h6></div>
-            {/* selection of session */}
-            <select onChange={changedSession}>
-              {AllSessions?.map((opt, index) => (
-                <option key={index} value={opt.code}>
-                  {opt.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="d-flex flex-column gap-1">
-          <div><h6>select Term</h6></div>
-            {/* selection of TERM */}
-            <select onChange={changedTerm}>
-              {AllTerms?.map((opt, index) => (
-                <option key={index} value={opt.code}>
-                  {opt.name}
-                </option>
-              ))}
-            </select>
+      <Wrapper className="p-5">
+        <div className="">
+          <h4>Reports</h4>
+          <p>
+            View your current and past results here by selecting the term, class
+            and session of the results you wish to check for.
+          </p>
+          <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4 mt-5">
+            <div className="d-flex flex-column gap-1">
+              <div>
+                <h6>select Class</h6>
+              </div>
+              {/* selection of class */}
+              <select onChange={changedClass}>
+                {AllClasses?.map((opt, index) => (
+                  <option key={index} value={opt.code}>
+                    {opt.name}
+                  </option>
+                ))}
+              </select>
+            </div>{" "}
+            <div className="d-flex flex-column gap-1">
+              <div>
+                <h6>select Session</h6>
+              </div>
+              {/* selection of session */}
+              <select onChange={changedSession}>
+                {AllSessions?.map((opt, index) => (
+                  <option key={index} value={opt.code}>
+                    {opt.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="d-flex flex-column gap-1">
+              <div>
+                <h6>select Term</h6>
+              </div>
+              {/* selection of TERM */}
+              <select onChange={changedTerm}>
+                {AllTerms?.map((opt, index) => (
+                  <option key={index} value={opt.code}>
+                    {opt.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="tabs-wrapper py-5 mt-5 d-flex flex-row justify-content-between align-items-center px-3">
-        <button
-          onClick={() => {
-            getResults();
-          }}
-          className="check-btn"
-        >
-          Check Result
-        </button>
-        {checking ? (
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        ) : (
-          ""
-        )}
-        {
-          after?  
-          <>
-          {
-            report ? (
-              <p>Result for {selectedTerm}, {selectedClass} of {selectedSession} is <span className="good-span">available.</span> </p>
-            ): 
-            <p>Result for {selectedTerm}, {selectedClass} of {selectedSession} is <span className="bad-span">not available.</span> </p>
-  
-          }
-          </>   : ""
-        }
-     
-      </div>
-     <div className="mt-3 py-5 px-3">
-     {
-        report ? (
-          <button className="view-btn w-100">View Result</button>
-        ) :
-        ("")
-      }
-     </div>
-    </Wrapper>
+        <div className="tabs-wrapper py-5 mt-5 d-flex flex-row justify-content-between align-items-center px-3">
+          <button
+            onClick={() => {
+              getResults();
+            }}
+            className="check-btn"
+          >
+            Check Result
+          </button>
+          {checking ? (
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : (
+            ""
+          )}
+          {after ? (
+            <>
+              {report ? (
+                <p>
+                  Result for {selectedTerm}, {selectedClass} of{" "}
+                  {selectedSession} is{" "}
+                  <span className="good-span">available.</span>{" "}
+                </p>
+              ) : (
+                <p>
+                  Result for {selectedTerm}, {selectedClass} of{" "}
+                  {selectedSession} is{" "}
+                  <span className="bad-span">not available.</span>{" "}
+                </p>
+              )}
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="mt-3 py-5 px-3">
+          {report ? (
+            <button className="view-btn w-100" onClick={()=>{
+              onSuccess()
+            }}>View Result</button>
+          ) : (
+            ""
+          )}
+        </div>
+      </Wrapper>
     </>
   );
 }
@@ -268,7 +292,7 @@ const Wrapper = styled.div`
     background-color: white;
     border-radius: 30px;
   }
-  .view-btn{
+  .view-btn {
     border: 1px solid #5ca95c;
     color: white;
     border-radius: 20px;
@@ -276,7 +300,7 @@ const Wrapper = styled.div`
     background-color: #5ca95c;
     font-weight: 600;
   }
-  .check-btn{
+  .check-btn {
     border: 1px solid grey;
     color: white;
     border-radius: 20px;
@@ -284,13 +308,13 @@ const Wrapper = styled.div`
     background-color: grey;
     font-weight: 300;
   }
-  .good-span{
+  .good-span {
     color: green;
     background-color: #d3d9d3;
     padding: 5px;
     border-radius: 10px;
   }
-  .bad-span{
+  .bad-span {
     color: red;
     background-color: white;
     padding: 5px;

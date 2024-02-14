@@ -102,12 +102,15 @@ export default function ResultHistory() {
           setCanNextPage(currentPage + 1 <= totalPages);
           setIsLoading(false);
           setCurrentTableData(list);
+          setIsLoading(false)
           setDataTotal(total);
           setPageSize(limit);
           setPageCount(totalPages);
           setPage(currentPage);
         } catch (error) {
           console.log(error);
+          setIsLoading(false)
+
         }
       };
       useEffect(() => {
@@ -159,6 +162,8 @@ export default function ResultHistory() {
       };
       const { register, handleSubmit, reset } = useForm();
     return(
+        <>
+        {isLoading ? <CircularProgress/> : (
         <Wrapper className="d-flex flex-column py-5">
         {currentTableData.length > 0 ? (
           <div className="content-wrapper p-3 mt-5">
@@ -312,21 +317,9 @@ export default function ResultHistory() {
             </div>
           </div>
         )}
-        {overlay ? (
-          <div className="overlay-wrapper d-flex ">
-            <div
-              className={`d-flex flex-column p-3 overlay-options ${
-                overlay ? "open" : "close"
-              }`}
-            >
-              <p>Are you sure you want to delete this student profile?</p>
-           
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
       </Wrapper>
+        )}
+        </>
     );
 }
 const Wrapper = styled.div`

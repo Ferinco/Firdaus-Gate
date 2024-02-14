@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import AddCSV from "../../components/AddCSV";
-import { CircularProgress } from "../../components/custom";
+import { Button, CircularProgress } from "../../components/custom";
 import { api, generatePdfApi } from "../../api/axios";
 import Papa from "papaparse";
 
@@ -212,6 +212,7 @@ console.log(data)
         <Icon className="icon" icon="fa6-solid:cloud-arrow-up" />
         <p className="text-muted"> Drag file here or browse for file.</p>
         <small>{file.name}</small>
+        <Button blue onClick={handleSubmit}>Submit</Button>
       </div>
     </Wrapper>
     </Page>

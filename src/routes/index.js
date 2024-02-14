@@ -32,7 +32,8 @@ import {
   StudentLogin,
   Assignments,
   Scheme,
-  ViewResult
+  ViewResult,
+  FilterResults
 } from "../pages/student";
 import {
   StudentsList,
@@ -166,10 +167,7 @@ export default function Routes() {
         { path: "work-scheme/:identity", element: <Scheme/> },
         { path: "about-me", element: <AboutMe/> },
         { path: "view-result", element: <ViewResult/> },
-
-
-
-
+        { path: "filter-results", element: <FilterResults/> },
       ],
     },
 

@@ -17,35 +17,18 @@ import NurseryFirst from "../../utils/results/Nursery/nurseryFirst";
 import JuniorThird from "../../utils/results/Junior/juniorThird";
 import SeniorThird from "../../utils/results/Senior/seniorThird";
 import { KgResult } from "../../utils/results/KG/kgResult";
-import BasicFirst from "../../utils/results/Basic/basicFirst";
+import { useLocation } from "react-router-dom";
 
-export default function ViewResult() {
+export default function Filter() {
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
   const [loading, setLoading] = useState(true);
   const [classTeacher, setClassTeacher] = React.useState([]);
+  const location = useLocation();
+  const { clas } = location.state;
+  const { session } = location.state;
+  const { term } = location.state;
 
-  const {
-    termName,
-    setTermName,
-    studentClass,
-    setStudentClass,
-    activeSession,
-    setActiveSession,
-  } = useAppContext();
-
-  //fetch current term
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCurrentTerm())
-      .unwrap()
-      .then((res) => {
-        console.log(res);
-        const latestTerm = res[res.length - 1];
-        setTermName(latestTerm?.term);
-        setActiveSession(latestTerm?.session);
-      });
-  }, []);
 
   //to get class teacher
   const getClassTeacher = async () => {
@@ -72,7 +55,7 @@ export default function ViewResult() {
     const getResults = async () => {
       try {
         const response = await axios.get(
-          `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user.currentClass}`
+          `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${term}/${clas}`
         );
         console.log("Response:", response.data.results);
         setStudentResult(response.data.results[0]);
@@ -89,143 +72,141 @@ export default function ViewResult() {
       }
     };
 
-    if (termName !== "") {
+    if (term !== "") {
       getResults();
       setLoading(false);
     }
-  }, [termName]);
+  }, [term]);
   const { user } = useAuth();
 
   // set student class
-  useEffect(() => {
-    setStudentClass(user.currentClass);
-  }, []);
+
 
   console.log(report);
 
   //get result template
-  const getResultsTemplate = (termName, studentClass) => {
-    switch (termName) {
+  const getResultsTemplate = (term, clas) => {
+    switch (term) {
       case "FIRST TERM":
-        if (studentClass.startsWith("FGJSC")) {
+        if (clas.startsWith("FGJSC")) {
           return (
             <JuniorFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGSSC")) {
+        } else if (clas.startsWith("FGSSC")) {
           return (
             <SeniorFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGNSC")) {
+        } else if (clas.startsWith("FGNSC")) {
           return (
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
-        else if (studentClass.startsWith("FGKGC")) {
+        else if (clas.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
       case "SECOND TERM":
-        if (studentClass.startsWith("FGJSC")) {
+        if (clas.startsWith("FGJSC")) {
           return (
-            <BasicFirst
+            <JuniorSecond
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGSSC")) {
+        } else if (clas.startsWith("FGSSC")) {
           return (
             <SeniorSecond
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGNSC")) {
+        } else if (clas.startsWith("FGNSC")) {
           return (
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
-        else if (studentClass.startsWith("FGKGC")) {
+        else if (clas.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
       case "THIRD TERM":
-        if (studentClass.startsWith("FGJSC")) {
+        if (clas.startsWith("FGJSC")) {
           return (
             <JuniorThird
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGSSC")) {
+        } else if (clas.startsWith("FGSSC")) {
           return (
             <SeniorThird
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
-        } else if (studentClass.startsWith("FGNSC")) {
+        } else if (clas.startsWith("FGNSC")) {
           return (
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
-        else if (studentClass.startsWith("FGKGC")) {
+        else if (clas.startsWith("FGKGC")) {
           return (
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
@@ -234,7 +215,7 @@ export default function ViewResult() {
     }
   };
 
-  console.log(studentClass, termName, activeSession);
+  console.log(clas, term, session);
   return (
     <ViewPage className="">
       {loading ? (
@@ -243,11 +224,11 @@ export default function ViewResult() {
         <>
           <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
             <p className="m-0">
-              This is your {termName} result, switch to desktop mode for proper
+              This is your {term} result, switch to desktop mode for proper
               view. To download, click on the download button below
             </p>
           </div>
-          {getResultsTemplate(termName, studentClass)}
+          {getResultsTemplate(term, clas)}
         </>
       )}
     </ViewPage>

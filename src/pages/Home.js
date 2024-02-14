@@ -22,7 +22,7 @@ export default function Home() {
       <Gallery/>
       <Services/>
       <Info/>
-      <News/>
+      {/* <News/> */}
       <Testimonials/>
       
       <AdmissionSection/>
