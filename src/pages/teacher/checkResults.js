@@ -33,7 +33,7 @@ export default function CheckResults(){
         setActiveSession,
       } = useAppContext();
 
-      const { user } = useSelector((state) => state.users || {});
+      const { user, isLoading} = useSelector((state) => state.users || {});
       useEffect(() => {
         dispatch(fetchUser({ id: identity }));
       }, [identity, dispatch]);
@@ -92,7 +92,7 @@ console.log(user)
           }
         };
     
-        if (termName !== "") {
+        if (termName) {
           getResults();
           setLoading(false);
         }
@@ -101,14 +101,14 @@ console.log(user)
   
         // set student class
   useEffect(() => {
-    setStudentClass(user.currentClass);
+    setStudentClass(user?.currentClass);
   }, []);
 
     //get result template
     const getResultsTemplate = (termName, studentClass) => {
         switch (termName) {
           case "FIRST TERM":
-            if (studentClass.startsWith("FGJSC")) {
+            if (studentClass?.startsWith("FGJSC")) {
               return (
                 <JuniorFirst
                   results={report}
@@ -117,7 +117,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGSSC")) {
+            } else if (studentClass?.startsWith("FGSSC")) {
               return (
                 <SeniorFirst
                   results={report}
@@ -126,7 +126,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGNSC")) {
+            } else if (studentClass?.startsWith("FGNSC")) {
               return (
                 <NurseryFirst
                   results={report}
@@ -137,7 +137,7 @@ console.log(user)
                 />
               );
             }
-            else if (studentClass.startsWith("FGKGC")) {
+            else if (studentClass?.startsWith("FGKGC")) {
               return (
                 <KgResult
                   results={report}
@@ -149,7 +149,7 @@ console.log(user)
               );
             }
           case "SECOND TERM":
-            if (studentClass.startsWith("FGJSC")) {
+            if (studentClass?.startsWith("FGJSC")) {
               return (
                 <JuniorSecond
                   results={report}
@@ -158,7 +158,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGSSC")) {
+            } else if (studentClass?.startsWith("FGSSC")) {
               return (
                 <SeniorSecond
                   results={report}
@@ -167,7 +167,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGNSC")) {
+            } else if (studentClass?.startsWith("FGNSC")) {
               return (
                 <NurseryFirst
                   results={report}
@@ -178,7 +178,7 @@ console.log(user)
                 />
               );
             }
-            else if (studentClass.startsWith("FGKGC")) {
+            else if (studentClass?.startsWith("FGKGC")) {
               return (
                 <KgResult
                   results={report}
@@ -190,7 +190,7 @@ console.log(user)
               );
             }
           case "THIRD TERM":
-            if (studentClass.startsWith("FGJSC")) {
+            if (studentClass?.startsWith("FGJSC")) {
               return (
                 <JuniorThird
                   results={report}
@@ -199,7 +199,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGSSC")) {
+            } else if (studentClass?.startsWith("FGSSC")) {
               return (
                 <SeniorThird
                   results={report}
@@ -208,7 +208,7 @@ console.log(user)
                   teacher={classTeacher}
                 />
               );
-            } else if (studentClass.startsWith("FGNSC")) {
+            } else if (studentClass?.startsWith("FGNSC")) {
               return (
                 <NurseryFirst
                   results={report}
@@ -219,7 +219,7 @@ console.log(user)
                 />
               );
             }
-            else if (studentClass.startsWith("FGKGC")) {
+            else if (studentClass?.startsWith("FGKGC")) {
               return (
                 <KgResult
                   results={report}
