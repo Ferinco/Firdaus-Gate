@@ -11,7 +11,7 @@ export const TermService = {
     return data;
   },
   updateTerm: async(values) =>{
-    const { data } = await supportApi.post("/updateTerm", values);
+    const { data } = await supportApi.put("/api/updateTerm", values);
     return data
   }
 };

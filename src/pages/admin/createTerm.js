@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { createTerm } from "../../redux/slices/term";
@@ -9,41 +9,52 @@ import { TermService } from "../../services/termService";
 export default function CreateTerm() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [termDate, setTermDate] = useState([]);
   const { handleSubmit, register, reset } = useForm({
     defaultValues: {
       term: "",
       session: "",
     },
   });
-  const onSubmit = async (values) => {
+
+  useEffect(() => {
+    getCurrentTerm();
+  }, []);
+  async function getCurrentTerm() {
     try {
-      const response = await TermService.createTerm(values);
-      console.log(response);
+      const currentTerm = await TermService.getCurrentTerm();
+      setTermDate(currentTerm);
     } catch (error) {
-      console.log(error);
+    }
+  }
+  const onSubmit = async (values) => {
+    if (termDate.length > 0) {
+      try {
+        setLoading(true);
+        const response = await TermService.updateTerm(values);
+        toast.success("Term updated successfully.");
+        setLoading(false);
+      } catch (error) {
+        toast.error("Unable to update term..");
+        setLoading(false);
+      }
+    } else {
+      try {
+        setLoading(true);
+        const response = await TermService.createTerm(values);
+        toast.success("Term created successfully.");
+        getCurrentTerm()
+        setLoading(false);
+      } catch (error) {
+        toast.error("Unable to create term.");
+        setLoading(false);
+      }
     }
   };
-
-
-
-// Somewhere in your code where you need to retrieve the current term
-async function getCurrentTerm() {
-  try {
-    const currentTerm = await TermService.getCurrentTerm();
-    console.log("Current Term:", currentTerm);
-    // Do something with the current term, such as updating state or displaying it in the UI
-  } catch (error) {
-    console.error("Error fetching current term:", error);
-    // Handle the error, such as displaying an error message to the user
-  }
-}
-
-// Call the getCurrentTerm function
-getCurrentTerm();
-
   return (
     <Container className="container p-5">
-      <h4>Set Current Term</h4>
+      <h4 className="m-0">Set Current Term and Session</h4>
+      <p className="m-0">Create and update active terms and sessions</p>
       <form onSubmit={handleSubmit(onSubmit)} className="form mt-5">
         <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
           <label> Select Term</label>
@@ -56,20 +67,29 @@ getCurrentTerm();
             <option value="THIRD TERM">THIRD TERM</option>
           </select>
         </div>
-        <div>
-        <select {...register("session")}>
+        <div className="mt-3 field justify-content-between d-flex flex-wrap align-items-center">
+        <label> Select Session</label>
+
+          <select {...register("session")}>
             <option value="" disabled>
               CHOOSE SESSION
             </option>
             <option value="2023">2023/2024</option>
             <option value="2024">2024/2025</option>
             <option value="2025 ">2026/2025</option>
-          </select> </div>
+          </select>{" "}
+        </div>
 
         <div className="button mt-5">
-          <Button blue type="submit" disabled={loading}>
-            {loading ? "Creating..." : "Set Term"}
-          </Button>
+          {termDate.length > 0  ? (
+            <Button blue type="submit" disabled={loading}>
+              {loading ? "Updating..." : "Update Term"}
+            </Button>
+          ) : (
+            <Button blue type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Set Term"}
+            </Button>
+          )}
         </div>
       </form>
     </Container>
@@ -77,9 +97,9 @@ getCurrentTerm();
 }
 const Container = styled.div`
   .form {
-    max-width: 270px;
+    max-width: 300px;
     label {
-      font-weight: 600;
+      font-weight: 500;
     }
     input {
       width: fit-content;

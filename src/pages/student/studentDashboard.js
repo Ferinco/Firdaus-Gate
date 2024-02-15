@@ -21,7 +21,10 @@ import {
 } from "../../configs/classConfig";
 import { SubjectService } from "../../services/subjectService";
 import { UserService } from "../../services/userService";
-import { GetStudentClass } from "../../components/custom/teacherClass";
+import {
+  GetActiveTerm,
+  GetStudentClass,
+} from "../../components/custom/teacherClass";
 import { CircularProgress } from "../../components/custom";
 
 export default function StudentDashboard() {
@@ -32,10 +35,16 @@ export default function StudentDashboard() {
   const currentClass = classes.filter((item) => item.code === selectedClass);
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
-  const {termName, setTermName, studentClass, setStudentClass, activeSession, setActiveSession} = useAppContext()
-
-
+  const {
+    termName,
+    setTermName,
+    studentClass,
+    setStudentClass,
+    activeSession,
+    setActiveSession,
+  } = useAppContext();
   const [visibleSubjects, setVisibleSubjects] = useState(5);
+  const [session, setSession] = useState("");
 
   const getTeachers = async (filter) => {
     try {
@@ -58,8 +67,9 @@ export default function StudentDashboard() {
     const userId = user._id;
     fetchSubjects(userId);
     getTeachers();
-    GetStudentClass(user, setStudentClass)
-  }, [user, setStudentClass]);
+    GetStudentClass(user, setStudentClass);
+    GetActiveTerm(activeSession, setSession);
+  }, [user, setStudentClass, activeSession, setSession]);
   const fetchSubjects = async (userId) => {
     try {
       const { data } = await SubjectService.getSubjects(userId);
@@ -77,10 +87,11 @@ export default function StudentDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        setTermName(res[res.length-1]?.term);
-        setActiveSession(res[res.length-1].session)      });
+        setTermName(res[res.length - 1]?.term);
+        setActiveSession(res[res.length - 1].session);
+      });
   }, []);
-console.log(termName)
+  console.log(termName);
 
   //downloading current report
 
@@ -120,62 +131,89 @@ console.log(termName)
                   <div className="icon-div p-2">
                     <Icon
                       icon="entypo:graduation-cap"
-                      color="rgba(158, 160, 231, 0.7)"
+                      color="rgba(69 72 172 / 70%)"
                       className="icon"
                     />
                   </div>
-                  <h6 className="mb-0">{studentClass}</h6>
+                  <h6 className="mb-0 mt-2">{studentClass}</h6>
                   <p>current class</p>
                 </div>
                 <div className="info p-3">
                   <div className="icon-div p-2">
                     <Icon
                       icon="emojione-monotone:books"
-                      color="rgba(158, 160, 231, 0.7)"
+                      color="brown"
                       className="icon"
                     />
                   </div>
-                  <h6 className="mb-0">{subjects.length}</h6>
+                  <h6 className="mb-0 mt-2">{subjects.length}</h6>
                   <p>Subjects offered</p>
                 </div>
                 <div className="info d-flex flex-column justify-content-between p-3">
                   <div className="small-div d-flex flex-row align-items-center py-1 px-2">
                     <Icon
                       icon="basil:calendar-solid"
-                      color="rgba(158, 160, 231, 0.7)"
+                      color="rgba(69 72 172 / 70%)"
                       width="24"
                       height="24"
                     />
                     <div className="text-div d-flex flex-column">
-                      <p className="mb-0">Current Term</p>
-                      <h6 className="mb-0">{termName}</h6>
+                      <p className="mb-0 small-p">Current Term</p>
+                      <h6 className="mb-0 small-h6">{termName}</h6>
                     </div>
                   </div>
                   <div className="small-div d-flex flex-row align-items-center py-1 px-2">
                     <Icon
                       icon="carbon:report"
-                      color="rgba(158, 160, 231, 0.7)"
+                      color="rgba(69 72 172 / 70%)"
                       width="30"
                       height="30"
                     />
-                    <div className="text-div d-flex flex-row">
-                      <p className="mb-0 available-reports">
-                        Available reports
-                      </p>
-                      <h6 className="mb-0">{user.reports.length}</h6>
+                    <div className="text-div d-flex flex-column">
+                      <p className="mb-0 small-p">Current Session</p>
+
+                      <h6 className="mb-0 small-h6">{session}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bottom-wrapper ">
-              <div className="bottom-div py-4 px-5 d-flex flex-column-reverse flex-wrap gap-1 justify-content-between">
-                <Link className="download-link react-router-link" to={PATH_DASHBOARD.student.viewReport} >
-                  Download Result
+              <div className="bottom-div py-4 px-3 d-flex flex-column-reverse flex-wrap gap-1 justify-content-between">
+                <div className="d-flex flex-row gap-2 flex-wrap">
+                  <button className="result-btn">
+                <Link
+                  className="react-router-link d-flex flex-row align-items-center gap-3"
+                  to={PATH_DASHBOARD.student.viewReport}
+                >
+                <div className="d-flex flex-column text-start">
+                  <h6 className="m-0 small-h6 ">Current Result</h6>
+                  <p className="m-0">view and download</p>
+                </div>
+                <div className="result-icon">
+                <Icon icon="fluent-mdl2:poll-results" height="30px" color="white"/>
+                </div>
                 </Link>
-                <div className="assignment d-flex flex-column px-3 py-4 gap-2">
+                  </button>
+                  <button className="result-btn">
+                <Link
+                  className="react-router-link d-flex flex-row align-items-center gap-3"
+                  to={PATH_DASHBOARD.student.results}
+                >
+                <div className="d-flex flex-column text-start">
+                  <h6 className="small-h6 m-0">Results Archive</h6>
+                  <p className="m-0">search and download</p>
+                </div>
+                <div className="result-icon">
+                <Icon icon="material-symbols-light:archive-outline" height="40px" color="white"/>                </div>
+                </Link>
+                  </button>
+                </div>
+                <div className="assignment d-flex flex-column px-3 py-3 gap-2">
                   <h6 className="m-0">Assignments</h6>
-                  <p className="m-0">you get notified when you have a new assignment</p>
+                  <p className="m-0">
+                    you get notified when you have a new assignment
+                  </p>
                 </div>
               </div>
             </div>
@@ -187,7 +225,9 @@ console.log(termName)
                 {teachers.slice(0, visibleSubjects).map((teacher, index) => (
                   <div
                     key={index}
-                    className={`d-flex flex-column align-items-center justify-content-center ${index === 0 ? "" : "margined"}`}
+                    className={`d-flex flex-column align-items-center justify-content-center ${
+                      index === 0 ? "" : "margined"
+                    }`}
                   >
                     <div className="initial h-100 d-flex justify-content-center align-items-center">
                       <p className="m-0"></p>
@@ -202,7 +242,12 @@ console.log(termName)
                 ))}
 
                 {visibleSubjects < teachers.length && (
-                  <Link to={PATH_DASHBOARD.student.myTeachers} className="view-more">View More></Link>
+                  <Link
+                    to={PATH_DASHBOARD.student.myTeachers}
+                    className="view-more"
+                  >
+                    View More>
+                  </Link>
                 )}
               </div>
             </div>
@@ -212,18 +257,29 @@ console.log(termName)
                 {subjects.slice(0, visibleSubjects).map((subject, index) => (
                   <div
                     key={index}
-                    className={`d-flex flex-column align-items-center justify-content-center ${index === 0 ? "" : "margined"}`}
+                    className={`d-flex flex-column align-items-center justify-content-center ${
+                      index === 0 ? "" : "margined"
+                    }`}
                   >
-                    <div className={`initial h-100 d-flex justify-content-center align-items-center `}>
-                      <p className="m-0">{subject.name.length > 3
-                        ? `${subject.name.slice(0, 3)}...`
-                        : subject.name}</p>
+                    <div
+                      className={`initial h-100 d-flex justify-content-center align-items-center `}
+                    >
+                      <p className="m-0">
+                        {subject.name.length > 3
+                          ? `${subject.name.slice(0, 3)}...`
+                          : subject.name}
+                      </p>
                     </div>
                   </div>
                 ))}
 
                 {visibleSubjects < subjects.length && (
-                  <Link to={PATH_DASHBOARD.student.mySubjects} className="view-more">View More></Link>
+                  <Link
+                    to={PATH_DASHBOARD.student.mySubjects}
+                    className="view-more"
+                  >
+                    View More>
+                  </Link>
                 )}
               </div>
             </div>
@@ -239,15 +295,44 @@ const Dashboard = styled.div`
   height: fit-content !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
-  .view-more{
+  .result-icon{
+  }
+  .result-btn{
+    font-size: 13px;
+    padding: 3px 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 1px solid rgba(69 72 172 / 70%);
+    background-color: rgba(69 72 172 / 70%);
+    color: white;
+    p{
+      font-weight: 400;
+    }
+    &:hover{
+      transition: 0.3s;
+      background-color: blue;
+    }
+  }
+  .view-more {
     font-size: 14px !important;
   }
-  .assignment{
-   background-color: #f1f1f1;
-   border-radius: 10px;
-   p{
-    color: orangered;
-   }
+  .small-h6 {
+    font-size: 13px;
+  }
+  .small-p{
+    font-size: 12px;
+  }
+  h6 {
+    font-weight: 600 !important;
+  }
+
+  .assignment {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    p {
+      color: orangered;
+    }
   }
   .bottom-wrapper {
     padding-right: 50px;
@@ -260,6 +345,9 @@ const Dashboard = styled.div`
     border-radius: 30px;
     background-color: white;
     flex-wrap: nowrap !important;
+    @media screen and (max-width: 530px) {
+      height: auto;
+    }
     .download-link {
       padding: 10px;
       background-color: green;
@@ -290,7 +378,7 @@ const Dashboard = styled.div`
   .big-tab {
     border-radius: 30px;
     z-index: 99;
-    background-color: rgba(158, 160, 231, 0.7);
+    background-color: rgba(69 72 172 / 70%);
     backdrop-filter: blur(10px);
     height: 180px;
     .text {
@@ -314,12 +402,12 @@ const Dashboard = styled.div`
       }
     }
   }
-.margined{
-  margin-left: -30px !important;
-  .initial{
-    border: 3px solid white;
+  .margined {
+    margin-left: -30px !important;
+    .initial {
+      border: 3px solid white;
+    }
   }
-}
   .div {
     overflow-x: auto !important;
     margin-top: 0 !important;
@@ -329,6 +417,9 @@ const Dashboard = styled.div`
 
     flex-direction: column;
     justify-content: space-between;
+    p{
+    font-size: 13px;
+  }
   }
   .infos {
     width: 634px !important;
@@ -363,6 +454,9 @@ const Dashboard = styled.div`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 20px;
     background-color: white;
+    @media screen and (max-width: 991px){
+      margin-top: 15px;
+    }
     p {
       font-size: 13px;
       color: grey;
