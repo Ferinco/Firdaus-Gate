@@ -10,21 +10,23 @@ export default function JSS1Admission() {
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
 
   return (
-    <div className="container">
+    <div className="container py-5">
       <p className="text-primary">ADMISSION INTO JSS1</p>
 
       <div>
         <h3>Entrance Examination into JSS1</h3>
         <p>
-          {currentYear + "/" + oneYearFromNow.getFullYear()} &nbsp; academic
+          {currentYear + "/" + oneYearFromNow.getFullYear()} &nbsp;
+           {/* academic
           session into JSS1 classes is ongoing.
           <br /> Admission forms can be obtained online via the college website
-          or at the Exams and Records unit of the college.
+          or at the Exams and Records unit of the college. */}
+          academic session is yet to begin, pupils <br/> who wish to join our school for the {currentYear + "/" + oneYearFromNow.getFullYear()} &nbsp; session<br/> should be kindly patient for the sales of admission form to begin.
         </p>
       </div>
 
       <Link to={PATH_PAGE.admissionForm}>
-        <Button>Proceed to apply</Button>
+        {/* <Button>Proceed to apply</Button> */}
       </Link>
     </div>
   );

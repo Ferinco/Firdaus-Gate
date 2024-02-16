@@ -76,6 +76,7 @@ export default function CheckResults(){
 useEffect(()=>{
   const getResults = async () => {
   dispatch(fetchUser({ id: identity }));
+  setStudentClass(user?.currentClass)
     try {
       const response = await axios.get(
         `https:ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user.currentClass}`
