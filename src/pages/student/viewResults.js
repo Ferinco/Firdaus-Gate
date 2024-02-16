@@ -20,6 +20,8 @@ import { KgResult } from "../../utils/results/KG/kgResult";
 import BasicFirst from "../../utils/results/Basic/basicFirst";
 import BasicSecond from "../../utils/results/Basic/BasicSecond";
 import BasicThird from "../../utils/results/Basic/basicThird";
+import { Link } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function ViewResult() {
   const [studentResult, setStudentResult] = useState("");
@@ -267,13 +269,29 @@ export default function ViewResult() {
         <OverlayLoading />
       ) : (
         <>
-          <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
-            <p className="m-0">
-              This is your {termName} result, switch to desktop mode for proper
-              view. To download, click on the download button below
-            </p>
-          </div>
-          {getResultsTemplate(termName, studentClass)}
+        {
+          report ? (
+            <>
+
+<div className="d-flex flex-column text-start align-items-start px-4 pt-3">
+              <p className="m-0">
+                This is your result. If you are on phone, switch to desktop mode for proper
+                view. To download, click on the download button below.
+              </p>
+            </div>
+            {getResultsTemplate(termName, studentClass)}
+            </>
+
+          ): (
+<div className="d-flex flex-column text-center align-items-center px-4 pt-3 justify-content-center m-auto">
+<h4 className="m-0">No results found.</h4>
+<p className="m-0">You do not have a result for {termName}, session: {activeSession}, class: {studentClass} yet.</p>
+<p className="m-0">You can view your past results here 
+<Link to={PATH_DASHBOARD.student.results}>Results Archive</Link>
+</p>
+</div>
+          )
+        }
         </>
       )}
     </ViewPage>

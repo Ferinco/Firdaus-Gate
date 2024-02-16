@@ -78,7 +78,7 @@ const userSlice = createSlice({
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
     //  end fetching users
 
@@ -94,7 +94,7 @@ const userSlice = createSlice({
     builder.addCase(fetchUser.rejected, (state, action) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
 //end of fetchuser
 
@@ -114,7 +114,7 @@ const userSlice = createSlice({
     builder.addCase(deleteUser.rejected, (state, action) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
     //  end deleting users
 
@@ -134,7 +134,7 @@ const userSlice = createSlice({
     builder.addCase(editUser.rejected, (state, action) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
     //  end editing users
   },

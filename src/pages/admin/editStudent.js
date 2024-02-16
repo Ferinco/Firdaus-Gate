@@ -57,7 +57,6 @@ export default function EditTeacher() {
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
       tel: user?.role === "student" ? user?.parentPhone : user?.tel,
-
       newPassword: "",
       signature: "",
       class: user?.role === "student" ? user?.currentClass : user?.classHandled,
