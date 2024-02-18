@@ -13,27 +13,41 @@ import JuniorThird from "../../utils/results/Junior/juniorThird";
 import SeniorThird from "../../utils/results/Senior/seniorThird";
 import React, { useEffect, useState } from "react";
 import { fetchCurrentTerm } from "../../redux/slices/term";
-import { fetchUser } from "../../redux/slices/users";
+import { fetchUser, fetchUsers } from "../../redux/slices/users";
 import axios from "axios";
 import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { GetStudentClass } from "../../components/custom/teacherClass";
+import { unwrapResult } from "@reduxjs/toolkit";
 export default function CheckResults() {
   const { identity } = useParams();
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState([]);
   const { termName, setTermName, activeSession, setActiveSession } =
     useAppContext();
 
-
-  const { user, isLoading } = useSelector((state) => state.users || {});
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser({ id: identity }));
-  }, [dispatch, identity]);
+    const FetchStudents = async () => {
+      try {
+        const results = await dispatch(fetchUsers({ role: "student" }));
+        const users = unwrapResult(results);
+        setStudents(users.data.list);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    FetchStudents();
+  }, []);
+  const user = students?.find(
+    (student) => student?.admissionNumber === identity
+  );
+
+  console.log(user);
 
   useEffect(() => {
     dispatch(fetchCurrentTerm())
@@ -76,14 +90,11 @@ export default function CheckResults() {
         console.error("Error fetching results:", error);
       }
     };
-    if (isLoading) {
-      setLoading(true);
+    if (termName) {
+      getResults();
+      setLoading(false);
     }
-    else{
-      getResults()
-      setLoading(false)
-    }
-  }, [isLoading]);
+  }, [termName]);
   //get result template
   const getResultsTemplate = (termName, user) => {
     switch (termName) {

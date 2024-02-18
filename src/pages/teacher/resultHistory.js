@@ -86,45 +86,68 @@ export default function ResultHistory() {
               <h4>Uploaded Results</h4>
               <p>List of results uploaded by you for {termName}.</p>
             </div>
-            <button className="upload-btn"><Link className="react-router-link" to={PATH_DASHBOARD.teacher.results}>Upload More</Link></button>
+            {results.length > 0 ? (
+              <button className="upload-btn">
+                <Link
+                  className="react-router-link"
+                  to={PATH_DASHBOARD.teacher.results}
+                >
+                  Upload More
+                </Link>
+              </button>
+            ) : (
+              ""
+            )}
           </div>
           <Wrapper className="d-flex flex-column py-5">
-            <div className="d-flex flex-row justify-content-start align-items-start text-start">
-              <h6 className="m-0">List of Students</h6>
-            </div>
-            <div className="table-div p-0 mt-3">
-              <table className="table  p-0">
-                <thead>
-                  <tr>
-                    <th>Admission No.</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Surname</th>
-                    <th>Gender</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {results.map((result) => {
-                    const student = students.find(
-                      (student) => student.admissionNumber === result[0]
-                    );
-                    return (
-                      <tr key={result[0]}>
-                        <td>{result[0]}</td>
-                        <td>{student ? student.firstName : ""}</td>
-                        <td>{student ? student.middleName : ""}</td>
-                        <td>{student ? student.lastName : ""}</td>
-                        <td>{student ? student.gender : ""}</td>
-                        <td>
-                          <button className="view-button">View</button>
-                        </td>
+            {results.length === 0 ? (
+              <div className="text-center d-flex flex-column mt-4">
+                <h4 className="m-0">No Results Found</h4>
+                <p>
+                  Click <Link to={PATH_DASHBOARD.teacher.results}>here</Link> to
+                  upload results for {termName}.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="d-flex flex-row justify-content-start align-items-start text-start">
+                  <h6 className="m-0">List of Students</h6>
+                </div>
+                <div className="table-div p-0 mt-3">
+                  <table className="table  p-0">
+                    <thead>
+                      <tr>
+                        <th>Admission No.</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Surname</th>
+                        <th>Gender</th>
+                        <th>Action</th>
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                    </thead>
+                    <tbody>
+                      {results.map((result) => {
+                        const student = students?.find(
+                          (student) => student?.admissionNumber === result[0]
+                        );
+                        return (
+                          <tr key={result[0]}>
+                            <td>{result[0]}</td>
+                            <td>{student ? student?.firstName : ""}</td>
+                            <td>{student ? student?.middleName : ""}</td>
+                            <td>{student ? student?.lastName : ""}</td>
+                            <td>{student ? student?.gender : ""}</td>
+                            <td>
+                              <button className="view-button"><Link className="react-router-link" to={`${PATH_DASHBOARD.teacher.checkResults}/${student?.admissionNumber}`}>View</Link></button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
           </Wrapper>
         </Page>
       )}
@@ -157,9 +180,9 @@ const Wrapper = styled.div`
   }
 `;
 const Page = styled.div`
-.d-flex{
-  flex-wrap: wrap;
-}
+  .d-flex {
+    flex-wrap: wrap;
+  }
   h4,
   p {
     margin: 0;
