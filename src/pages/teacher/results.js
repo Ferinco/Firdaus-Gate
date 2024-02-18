@@ -142,7 +142,7 @@ export default function Results() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `https://ferrum-sever.onrender.com/api/saveResults`,
+        `https://ferrum-seve.onrender.com/api/saveResults`,
         {
           results: data,
           selectedClass: "FGJSC_002",
@@ -150,9 +150,13 @@ export default function Results() {
           currentSession: "2023",
         }
       );
+      toast.success("Results upload was successful.")
+     setFile("")
       console.log(response);
     } catch (error) {
       console.log(error);
+      toast.success("Unable to upload results.")
+
     }
   };
   console.log(data);
