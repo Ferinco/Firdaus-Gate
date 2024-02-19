@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,219 +13,212 @@ import JuniorThird from "../../utils/results/Junior/juniorThird";
 import SeniorThird from "../../utils/results/Senior/seniorThird";
 import React, { useEffect, useState } from "react";
 import { fetchCurrentTerm } from "../../redux/slices/term";
-import { fetchUser, fetchUsers } from "../../redux/slices/users";
+import { fetchUser } from "../../redux/slices/users";
 import axios from "axios";
 import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { GetStudentClass } from "../../components/custom/teacherClass";
-import { unwrapResult } from "@reduxjs/toolkit";
 export default function CheckResults() {
   const { identity } = useParams();
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [students, setStudents] = useState([]);
-  const { termName, setTermName, activeSession, setActiveSession } =
-    useAppContext();
+  const location = useLocation();
+  const { termName, activeSession } = location.state;
+  console.log( termName);
+  console.log(activeSession);  
+  // const { termName, setTermName, activeSession, setActiveSession } =
+  //   useAppContext();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const FetchStudents = async () => {
-      try {
-        const results = await dispatch(fetchUsers({ role: "student" }));
-        const users = unwrapResult(results);
-        setStudents(users.data.list);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    FetchStudents();
-  }, []);
-  const user = students?.find(
-    (student) => student?.admissionNumber === identity
-  );
+  // useEffect(() => {
+  //   const FetchStudents = async () => {
+  //     try {
+  //       const results = await dispatch(fetchUsers({ role: "student" }));
+  //       const users = unwrapResult(results);
+  //       setStudents(users.data.list);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   FetchStudents();
+  // }, []);
+  // const user = students?.find(
+  //   (student) => student?.admissionNumber === identity
+  // );
+  
 
-  console.log(user);
+  // useEffect(() => {
+  //   const getClassTeacher = async () => {
+  //     try {
+  //       const result = await UserService.findUsers({
+  //         role: "teacher",
+  //         classHandled: user.currentClass,
+  //       });
+  //       setClassTeacher(result.data.list[0]);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getClassTeacher();
+  // }, [user]);
 
-  useEffect(() => {
-    dispatch(fetchCurrentTerm())
-      .unwrap()
-      .then((res) => {
-        const latestTerm = res[res.length - 1];
-        setTermName(latestTerm?.term);
-        setActiveSession(latestTerm?.session);
-      });
-  }, []);
-
-  useEffect(() => {
-    const getClassTeacher = async () => {
-      try {
-        const result = await UserService.findUsers({
-          role: "teacher",
-          classHandled: user.currentClass,
-        });
-        setClassTeacher(result.data.list[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getClassTeacher();
-  }, [user]);
-
-  useEffect(() => {
-    const getResults = async () => {
-      try {
-        const response = await axios.get(
-          `https:ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.currentClass}`
-        );
-        setStudentResult(response.data.results[0]);
-        const studentAdmissionNumber = user?.admissionNumber;
-        const results = response?.data.results[0]?.results?.find(
-          (row) => row[0] === studentAdmissionNumber
-        );
-        setReport(results);
-      } catch (error) {
-        console.error("Error fetching results:", error);
-      }
-    };
-    if (termName) {
-      getResults();
-      setLoading(false);
-    }
-  }, [termName]);
+  // useEffect(() => {
+  //   const getResults = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https:ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.currentClass}`
+  //       );
+  //       setStudentResult(response.data.results[0]);
+  //       const studentAdmissionNumber = user?.admissionNumber;
+  //       const results = response?.data.results[0]?.results?.find(
+  //         (row) => row[0] === studentAdmissionNumber
+  //       );
+  //       setReport(results);
+  //     } catch (error) {
+  //       console.error("Error fetching results:", error);
+  //     }
+  //   };
+  //   if (isLoading) {
+  //     setLoading(true);
+  //   } else {
+  //     getResults();
+  //     setLoading(false);
+  //   }
+  // }, [isLoading]);
   //get result template
-  const getResultsTemplate = (termName, user) => {
-    switch (termName) {
-      case "FIRST TERM":
-        if (user?.currentClass.startsWith("FGJSC")) {
-          return (
-            <JuniorFirst
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGSSC")) {
-          return (
-            <SeniorFirst
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGNSC")) {
-          return (
-            <NurseryFirst
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGKGC")) {
-          return (
-            <KgResult
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        }
-      case "SECOND TERM":
-        if (user?.currentClass.startsWith("FGJSC")) {
-          return (
-            <JuniorSecond
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGSSC")) {
-          return (
-            <SeniorSecond
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGNSC")) {
-          return (
-            <NurseryFirst
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGKGC")) {
-          return (
-            <KgResult
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        }
-      case "THIRD TERM":
-        if (user?.currentClass.startsWith("FGJSC")) {
-          return (
-            <JuniorThird
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGSSC")) {
-          return (
-            <SeniorThird
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGNSC")) {
-          return (
-            <NurseryFirst
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        } else if (user?.currentClass.startsWith("FGKGC")) {
-          return (
-            <KgResult
-              results={report}
-              owner={user}
-              session={activeSession}
-              teacher={classTeacher}
-              term={termName}
-            />
-          );
-        }
-      default:
-        return null;
-    }
-  };
+  // const getResultsTemplate = (termName, user) => {
+  //   switch (termName) {
+  //     case "FIRST TERM":
+  //       if (user?.currentClass.startsWith("FGJSC")) {
+  //         return (
+  //           <JuniorFirst
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGSSC")) {
+  //         return (
+  //           <SeniorFirst
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGNSC")) {
+  //         return (
+  //           <NurseryFirst
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGKGC")) {
+  //         return (
+  //           <KgResult
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       }
+  //     case "SECOND TERM":
+  //       if (user?.currentClass.startsWith("FGJSC")) {
+  //         return (
+  //           <JuniorSecond
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGSSC")) {
+  //         return (
+  //           <SeniorSecond
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGNSC")) {
+  //         return (
+  //           <NurseryFirst
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGKGC")) {
+  //         return (
+  //           <KgResult
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       }
+  //     case "THIRD TERM":
+  //       if (user?.currentClass.startsWith("FGJSC")) {
+  //         return (
+  //           <JuniorThird
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGSSC")) {
+  //         return (
+  //           <SeniorThird
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGNSC")) {
+  //         return (
+  //           <NurseryFirst
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       } else if (user?.currentClass.startsWith("FGKGC")) {
+  //         return (
+  //           <KgResult
+  //             results={report}
+  //             owner={user}
+  //             session={activeSession}
+  //             teacher={classTeacher}
+  //             term={termName}
+  //           />
+  //         );
+  //       }
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   return (
     <ViewPage className="">
-      {loading ? (
+      {/* {loading ? (
         <CircularProgress />
       ) : (
         <>
@@ -250,7 +243,7 @@ export default function CheckResults() {
             </div>
           )}
         </>
-      )}
+      )} */}
     </ViewPage>
   );
 }

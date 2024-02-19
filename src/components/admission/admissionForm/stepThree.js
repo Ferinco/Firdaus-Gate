@@ -58,7 +58,7 @@ export default function StepThree({ setStep }) {
     console.log(response);
     console.log(student)
     saveResponse(response, student, parent);
-    // navigate("/admission/admission-form/payment-success", { state: response });
+    navigate("/admission/admission-form/payment-success", { state: response });
   };
   
 

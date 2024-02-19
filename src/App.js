@@ -6,14 +6,14 @@ import toast, { Toaster } from "react-hot-toast";
 import { OverlayLoading } from "./components/OverlayLoading";
 import { useAuth } from "./hooks/useAuth";
 function App() {
-  React.useEffect(()=>{
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-  },[])
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   const { isInitialized } = useAuth();
 
   return (
     <AppProvider>
-   <div className="App">
+      <div className="App">
         <BrowserRouter>
           {isInitialized ? <Routes /> : <OverlayLoading />}
 

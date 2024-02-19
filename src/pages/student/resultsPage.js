@@ -193,7 +193,7 @@ export default function ResultsPage() {
             View your current and past results here by selecting the term, class
             and session of the results you wish to check for.
           </p>
-          <div className="select-wrapper d-flex flex-row p-3 justify-content-between center container px-4 mt-5">
+          <div className="select-wrapper d-flex flex-row flex-wrap p-3 justify-content-between center container px-4 mt-5">
             <div className="d-flex flex-column gap-1">
               <div>
                 <h6>select Class</h6>

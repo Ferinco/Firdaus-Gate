@@ -17,22 +17,12 @@ import { useAppContext } from "../../contexts/Context";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { fetchUsers } from "../../redux/slices/users";
+import { AllTerms } from "../../configs/AllTerms";
+import { AllSessions } from "../../constants/AllSessions";
 
 export default function ResultHistory() {
   const { user } = useAuth();
-  const [currentTableData, setCurrentTableData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [pageSize, setPageSize] = useState(5);
-  const [page, setPage] = useState(1);
-  const [canNextPage, setCanNextPage] = useState(false);
-  const [canPreviousPage, setCanPreviousPage] = useState(false);
-  const [dataTotal, setDataTotal] = useState(0);
-  const dispatch = useDispatch();
-  const [students, setStudents] = useState([]);
-  const [results, setResults] = useState([]);
-  const { termName, setTermName, activeSession, setActiveSession } =
-    useAppContext();
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const FetchStudents = async () => {
       try {
@@ -46,110 +36,156 @@ export default function ResultHistory() {
     FetchStudents();
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchCurrentTerm())
-      .unwrap()
-      .then((res) => {
-        const latestTerm = res[res.length - 1];
-        setTermName(latestTerm?.term);
-        setActiveSession(latestTerm?.session);
-      });
-  }, []);
+  const dispatch = useDispatch();
+  const [students, setStudents] = useState([]);
+  const [results, setResults] = useState([]);
+  const [termName, setTermName] = useState("")
+  const [session, setSession] = useState("")
+console.log(session, termName)
 
-  useEffect(() => {
+
+
+
     const getResults = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `https:ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.classHandled}`
+          `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${user?.classHandled}`
         );
         console.log(response.data.results[0].results);
-        setResults(response.data.results[0].results);
+        setResults(response?.data?.results[0]?.results);
+      setIsLoading(false)
       } catch (error) {
         console.error("Error fetching results:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    if (termName !== "") {
-      getResults();
-      setIsLoading(false);
-    }
-  }, [termName]);
 
+  // Return JSX with your table and other components
+console.log(results)
   return (
     <>
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Page className="container py-5">
-          <div className="d-flex flex-row justify-content-between">
-            <div>
-              <h4>Uploaded Results</h4>
-              <p>List of results uploaded by you for {termName}.</p>
-            </div>
-            {results.length > 0 ? (
-              <button className="upload-btn">
-                <Link
-                  className="react-router-link"
-                  to={PATH_DASHBOARD.teacher.results}
-                >
-                  Upload More
-                </Link>
-              </button>
-            ) : (
-              ""
-            )}
+      <>
+        <div className="select-wrapper d-flex flex-row flex-wrap p-3 justify-content-between center container px-4 mt-5">
+        <div className="d-flex flex-column gap-1">
+          <div>
+            <h6>select Term</h6>
           </div>
-          <Wrapper className="d-flex flex-column py-5">
-            {results.length === 0 ? (
-              <div className="text-center d-flex flex-column mt-4">
-                <h4 className="m-0">No Results Found</h4>
-                <p>
-                  Click <Link to={PATH_DASHBOARD.teacher.results}>here</Link> to
-                  upload results for {termName}.
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="d-flex flex-row justify-content-start align-items-start text-start">
-                  <h6 className="m-0">List of Students</h6>
-                </div>
-                <div className="table-div p-0 mt-3">
-                  <table className="table  p-0">
-                    <thead>
-                      <tr>
-                        <th>Admission No.</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Surname</th>
-                        <th>Gender</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {results.map((result) => {
-                        const student = students?.find(
-                          (student) => student?.admissionNumber === result[0]
-                        );
-                        return (
-                          <tr key={result[0]}>
-                            <td>{result[0]}</td>
-                            <td>{student ? student?.firstName : ""}</td>
-                            <td>{student ? student?.middleName : ""}</td>
-                            <td>{student ? student?.lastName : ""}</td>
-                            <td>{student ? student?.gender : ""}</td>
-                            <td>
-                              <button className="view-button"><Link className="react-router-link" to={`${PATH_DASHBOARD.teacher.checkResults}/${student?.admissionNumber}`}>View</Link></button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </>
-            )}
-          </Wrapper>
-        </Page>
+          <select onChange={(e)=>{
+            setTermName(e.target.value)
+          }}>
+            {AllTerms?.map((opt, index) => (
+              <option key={index} value={opt.code}>
+                {opt.name}
+              </option>
+            ))}
+          </select>
+        </div>{" "}
+        <div className="d-flex flex-column gap-1">
+          <div>
+            <h6>select Session</h6>
+          </div>
+          <select onChange={(e)=>{
+            setSession(e.target.value)
+          }}>
+            {AllSessions?.map((opt, index) => (
+              <option key={index} value={opt.code}>
+                {opt.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button onClick={()=>{
+          getResults()
+        }}>
+          check
+        </button>
+      </div>
+         <Page className="container py-5">
+           <div className="d-flex flex-row justify-content-between">
+             <div>
+               <h4>Uploaded Results</h4>
+               <p>List of results uploaded by you for {termName}.</p>
+             </div>
+             {results.length > 0 ? (
+               <button className="upload-btn">
+                 <Link
+                   className="react-router-link"
+                   to={PATH_DASHBOARD.teacher.results}
+                 >
+                   Upload More
+                 </Link>
+               </button>
+             ) : (
+               ""
+             )}
+           </div>
+           <Wrapper className="d-flex flex-column py-5">
+             {results ? (
+               <>
+                 <div className="d-flex flex-row justify-content-start align-items-start text-start">
+                   <h6 className="m-0">List of Students</h6>
+                 </div>
+                 <div className="table-div p-0 mt-3">
+                   <table className="table  p-0">
+                     <thead>
+                       <tr>
+                         <th>Admission No.</th>
+                         <th>First Name</th>
+                         <th>Middle Name</th>
+                         <th>Surname</th>
+                         <th>Gender</th>
+                         <th>Action</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {results.map((result) => {
+                         const student = students?.find(
+                           (student) => student?.admissionNumber === result[0]
+                         );
+                         return (
+                           <tr key={result[0]}>
+                             <td>{result[0]}</td>
+                             <td>{student ? student?.firstName : ""}</td>
+                             <td>{student ? student?.middleName : ""}</td>
+                             <td>{student ? student?.lastName : ""}</td>
+                             <td>{student ? student?.gender : ""}</td>
+                             <td>
+                               <button className="view-button">
+                                 <Link
+                                   className="react-router-link"
+                                   to={{
+                                    pathname: `${PATH_DASHBOARD.teacher.checkResults}/${student?.admissionNumber}`,
+                                    state: { termName: termName, activeSession: session }
+                                   }}
+                                 >
+                                   View
+                                 </Link>
+                               </button>
+                             </td>
+                           </tr>
+                         );
+                       })}
+                     </tbody>
+                   </table>
+                 </div>
+               </>
+             ) : (
+               <div className="text-center d-flex flex-column mt-4">
+                 <h4 className="m-0">No Results Found</h4>
+                 <p>
+                   Click <Link to={PATH_DASHBOARD.teacher.results}>here</Link> to
+                   upload results for {termName}.
+                 </p>
+               </div>
+             )}
+           </Wrapper>
+         </Page>
+      </>
       )}
     </>
   );

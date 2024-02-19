@@ -9,11 +9,12 @@ import { useState } from "react";
 import { PATH_AUTH, PATH_PAGE } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { Button } from "../../components/custom";
+import { useAppContext } from "../../contexts/Context";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
   const [closer, setCloser] = useState(false);
-
+const {termName} = useAppContext()
   useEffect(() => {
     const handleScroll = () => {
       setSticky(window.scrollY > 200);
@@ -38,6 +39,7 @@ export default function Navbar() {
         <div className="div d-flex justify-content-between w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
+            
           </div>
           <div className="first-navbar-div d-flex">
             <p className="px-3 py-2">Office Hour : 09:00am - 4:00pm</p>

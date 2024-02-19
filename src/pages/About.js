@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ContactUs from "../components/landing/contactSection";
 import { Link } from "react-router-dom";
 import {PATH_PAGE} from "../routes/paths"
+import { useAppContext } from "../contexts/Context";
 export default function About() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,6 +40,8 @@ export default function About() {
       icon: "carbon:worship-muslim",
     },
   ];
+  const {termName} = useAppContext()
+  console.log(termName)
   return (
     <div>
     <Container className="d-flex flex-column justify-content-center align-items-center pt-5">
