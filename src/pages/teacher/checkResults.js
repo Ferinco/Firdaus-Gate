@@ -17,6 +17,7 @@ import { fetchUser } from "../../redux/slices/users";
 import axios from "axios";
 import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
+import { OverlayLoading } from "../../components/OverlayLoading";
 export default function CheckResults(){
     const {identity} = useParams()
     const dispatch = useDispatch()
@@ -78,10 +79,7 @@ console.log(user)
               `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user.currentClass}`
             );
             console.log("Response:", response.data.results);
-            setStudentResult(response.data.results[0]);
             const studentAdmissionNumber = user?.admissionNumber;
-            setStudentResult(response?.data.results[0]?.results);
-            console.log(studentResult);
             const results = response?.data.results[0]?.results?.find(
               (row) => row[0] === studentAdmissionNumber
             );
@@ -92,7 +90,7 @@ console.log(user)
           }
         };
     
-        if (termName) {
+        if (termName !== "" && isLoading === false) {
           getResults();
           setLoading(false);
         }
@@ -243,11 +241,11 @@ console.log(user)
           <>
             <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
               <p className="m-0">
-                This is your {termName} result, switch to desktop mode for proper
-                view. To download, click on the download button below
+                This is your {user?.firstName}'s result for {termName}, session: {activeSession}... kindly switch to desktop mode for proper
+                view. To download, click on the download button below.
               </p>
             </div>
-            {getResultsTemplate(termName, user)}
+            {isLoading ? <CircularProgress/> : getResultsTemplate(termName, user)}
           </>
         )}
       </ViewPage>

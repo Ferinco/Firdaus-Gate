@@ -209,15 +209,16 @@ console.log(user)
             firstName: item[0],
             lastName: item[1],
             middleName: item[2],
-            admissionNumber: item[3],
-            parentPhone: item[4],
-            email: item[5],
-            gender: item[6],
+            currentClass: student[3],
+            admissionNumber: item[4],
+            parentPhone: item[5],
+            email: item[6],
+            gender: item[7],
             role: "student",
             department: user.department,
             classTeacher: user._id,
             currentClass: user.classHandled,
-            password: `${item[0].toLowerCase()}${item[3]}`,
+            password: `${item[1]}${item[4]}`.toLowerCase(),
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
