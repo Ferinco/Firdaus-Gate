@@ -92,13 +92,16 @@ export default function ResultHistory() {
             <div className="select-wrapper d-flex flex-row flex-wrap p-3 px-4 mt-5 justify-content-start gap-3 align-items-end">
               <div className="d-flex flex-column gap-1">
                 <div>
-                  <h6>Select Term</h6>
+                  <h6>Term</h6>
                 </div>
                 <select
                   onChange={(e) => {
                     setTermName(e.target.value);
                   }}
                 >
+                  <option value="" disabled selected>
+                    Select Term
+                  </option>
                   {AllTerms?.map((opt, index) => (
                     <option key={index} value={opt.code}>
                       {opt.name}
@@ -108,13 +111,16 @@ export default function ResultHistory() {
               </div>{" "}
               <div className="d-flex flex-column gap-1">
                 <div>
-                  <h6>Select Session</h6>
+                  <h6>Session</h6>
                 </div>
                 <select
                   onChange={(e) => {
                     setSession(e.target.value);
                   }}
                 >
+                   <option value="" disabled selected>
+                    Select Session
+                  </option>
                   {AllSessions?.map((opt, index) => (
                     <option key={index} value={opt.code}>
                       {opt.name}
@@ -135,7 +141,9 @@ export default function ResultHistory() {
               {results?.length > 0 ? (
                 <div className="table-wrapper container py-5">
                   <div className="d-flex flex-row justify-content-start align-items-start text-start">
-                    <h6 className="m-0">List of Uploaded Resullts for {termName}, {session}.</h6>
+                    <h6 className="m-0">
+                      List of Uploaded Resullts for {termName}, {session}.
+                    </h6>
                   </div>
                   <div className="table-div p-0 mt-3">
                     <table className="table  p-0">
@@ -224,7 +232,7 @@ const Wrapper = styled.div`
   td {
     font-weight: 300 !important;
   }
-  .table-wrapper{
+  .table-wrapper {
     background-color: white !important;
   }
 `;
@@ -246,9 +254,14 @@ const Page = styled.div`
       border-radius: 10px;
       background: transparent;
     }
+    h6{
+    font-weight: 500 !important;
+    font-size: 17px;
+    margin: 0 !important;
+  }
   }
 
-  .check-btn{
+  .check-btn {
     padding: 5px 20px;
     border: 1px solid blue;
     color: white;

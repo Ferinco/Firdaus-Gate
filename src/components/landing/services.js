@@ -40,6 +40,9 @@ export default function Services() {
 
 const Container = styled.div`
   background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+  h2{
+    font-weight: 500 !important;
+  }
   .container {
     flex-direction: row-reverse !important;
     gap: 100px;

@@ -137,6 +137,7 @@ export default function GalleryPage() {
 }
 const Container = styled.div`
   width: 100vw;
+  
   .image{
 width: 300px;
 height: 200px;

@@ -90,6 +90,7 @@ const Container = styled.div`
    color: #4299e1;
   font-size: 13px !important;
   }
+  
   .image {
     width: 200px;
     height: 200px;

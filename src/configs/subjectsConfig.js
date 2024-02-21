@@ -373,11 +373,7 @@ export const SeniorSubjects = [
     code: "FSS_019",
     id: "019",
   },
-  {
-    name: "testing and education consult",
-    code: "FSS_021",
-    id: "021",
-  },
+
 ];
 
 export const ScienceSubjects = [

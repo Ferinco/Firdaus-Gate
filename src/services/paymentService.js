@@ -5,8 +5,8 @@ export const PaymentService = {
     const { data } = await supportApi.post("api/paymentreference", {reference, transaction, firstName, surname, gender, presentClass, classOfInterest, dayOrBoarding, parentEmailAddress, parentPhoneNumber});
     return data;
   },
-  checkReference: async () => {
-    const { data } = await supportApi.get("/api/confirmpayment/reference");
+  checkReference: async (reference) => {
+    const { data } = await supportApi.get("/api/confirmpayment/reference", {reference});
     return data;
   },
 }

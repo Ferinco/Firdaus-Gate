@@ -347,6 +347,7 @@ const Dashboard = styled.div`
     flex-wrap: nowrap !important;
     @media screen and (max-width: 530px) {
       height: auto;
+      gap: 30px !important;
     }
     .download-link {
       padding: 10px;

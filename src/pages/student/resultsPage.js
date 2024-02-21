@@ -194,12 +194,13 @@ export default function ResultsPage() {
             and session of the results you wish to check for.
           </p>
           <div className="select-wrapper d-flex flex-row flex-wrap p-3 justify-content-between center container px-4 mt-5">
-            <div className="d-flex flex-column gap-1">
+            <div className="d-flex flex-column gap-1 mt-2">
               <div>
-                <h6>select Class</h6>
+                <h6>Class</h6>
               </div>
               {/* selection of class */}
               <select onChange={changedClass}>
+              <option selected disabled value="">Select Class</option>
                 {AllClasses?.map((opt, index) => (
                   <option key={index} value={opt.code}>
                     {opt.name}
@@ -207,12 +208,13 @@ export default function ResultsPage() {
                 ))}
               </select>
             </div>{" "}
-            <div className="d-flex flex-column gap-1">
+            <div className="d-flex flex-column gap-1 mt-2">
               <div>
-                <h6>select Session</h6>
+                <h6>Session</h6>
               </div>
               {/* selection of session */}
               <select onChange={changedSession}>
+              <option selected disabled value="">Select Session</option>
                 {AllSessions?.map((opt, index) => (
                   <option key={index} value={opt.code}>
                     {opt.name}
@@ -220,12 +222,12 @@ export default function ResultsPage() {
                 ))}
               </select>
             </div>
-            <div className="d-flex flex-column gap-1">
+            <div className="d-flex flex-column gap-1 mt-2">
               <div>
-                <h6>select Term</h6>
+                <h6>Term</h6>
               </div>
-              {/* selection of TERM */}
               <select onChange={changedTerm}>
+              <option selected disabled value="">Select Term</option>
                 {AllTerms?.map((opt, index) => (
                   <option key={index} value={opt.code}>
                     {opt.name}
@@ -235,7 +237,7 @@ export default function ResultsPage() {
             </div>
           </div>
         </div>
-        <div className="tabs-wrapper py-5 mt-5 d-flex flex-row justify-content-between align-items-center px-3">
+        <div className="tabs-wrapper py-5 mt-5 d-flex flex-row justify-content-between align-items-center px-3 flex-wrap">
           <button
             onClick={() => {
               getResults();
@@ -254,7 +256,7 @@ export default function ResultsPage() {
           {after ? (
             <>
               {report ? (
-                <p>
+                <p className="m-0">
                   Result for {selectedTerm}, {selectedClass} of{" "}
                   {selectedSession} is{" "}
                   <span className="good-span">available.</span>{" "}
@@ -288,6 +290,14 @@ export default function ResultsPage() {
 const Wrapper = styled.div`
   background: #f1f1f1 !important;
   height: fit-content !important;
+  h6{
+    font-weight: 500 !important;
+    font-size: 17px;
+    margin: 0 !important;
+  }
+  p{
+    margin: 0 !important;
+  }
   .tabs-wrapper {
     background-color: white;
     border-radius: 30px;

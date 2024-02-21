@@ -76,7 +76,7 @@ export default function ViewResult() {
     const getResults = async () => {
       try {
         const response = await axios.get(
-          `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user.currentClass}`
+          `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.currentClass}`
         );
         setStudentResult(response.data.results[0]);
         const studentAdmissionNumber = user?.admissionNumber;
@@ -260,7 +260,6 @@ export default function ViewResult() {
     }
   };
 
-  console.log(studentClass, termName, activeSession);
   return (
     <ViewPage className="">
       {loading ? (

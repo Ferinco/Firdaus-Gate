@@ -209,7 +209,7 @@ console.log(user)
             firstName: item[0],
             lastName: item[1],
             middleName: item[2],
-            currentClass: student[3],
+            currentClass: item[3],
             admissionNumber: item[4],
             parentPhone: item[5],
             email: item[6],

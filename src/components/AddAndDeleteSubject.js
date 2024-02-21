@@ -102,7 +102,7 @@ export default function AddAndDeleteSubject({ studentId }) {
             onChange={(e) => setSelectedSubject(JSON.parse(e.target.value))}
           >
             <option disabled>Select subject</option>
-            {allSubjects.map((item) => (
+            {SeniorSubjects.map((item) => (
               <>
                 <option key={item.code} value={JSON.stringify(item)}>
                   {item.name}
@@ -136,7 +136,7 @@ export default function AddAndDeleteSubject({ studentId }) {
             })}
           </>
         ) : (
-          "loading"
+          "..loading"
         )}
       </div>
       <button
