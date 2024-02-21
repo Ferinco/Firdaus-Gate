@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection, Testimonials
+  LandingHero, AboutSection, OfferSection, Services, Gallery, Info, Intro, ContactUS, AdmissionSection, Testimonials, Special
 } from "../components/landing";
 import { Helmet } from "react-helmet";
 import ContactUs from "../components/landing/contactSection";
@@ -22,6 +22,7 @@ export default function Home() {
       <Gallery/>
       <Services/>
       <Info/>
+      <Special/>
       {/* <News/> */}
       <Testimonials/>
       

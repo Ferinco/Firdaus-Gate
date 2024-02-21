@@ -64,16 +64,19 @@ const Testimonials = () => {
       content: "I'm proud to be part of a school where I can freely express my faith and identity. The supportive community and engaging lessons have not only enhanced my academic skills but also shaped me into a confident and compassionate individual.",
     },
     {
+      name: "Dr. Fagbenro",
       role: "Parent",
       image: "",
       content: "Mr. and Mrs. Dejo express their gratitude to Firdaus-Gate for fostering an environment where their children thrive academically and morally. They also commended our strong commitment to Islamic values.",
     },
     {
+      name: "Mr. Ayomide",
       image: "",
-      role: "Student",
+      role: "Alumnus",
       content: "Being an alumnus of this school, I can confidently say that the education and values instilled here continue to guide me in my career and personal life. The memories and lessons are cherished forever.",
     },
     {
+      name: "Mrs Ahmed",
       image: "",
       role: "Parent",
       content: "Mrs. Ahmed praises the school for its dedicated teachers and staff who create a positive and inclusive learning environment. The emphasis on Islamic principles is evident in her child's holistic development.",

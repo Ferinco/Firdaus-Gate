@@ -4,12 +4,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 export default function IntroSection() {
   return (
-    <Container className="py-5">
-      <div className="container d-flex align-items-center flex-column gap-5">
-        <div className="header d-flex flex-column justify-content-center align-items-center">
-          <h6 className="pre-header">what we offer</h6>
-          <h2>Some of Our Core Services</h2>
-        </div>
+    <Container className="pb-5 pt-0">
+      <div className="container d-flex align-items-center flex-column gap-5 pt-0">
         <div className="div d-flex justify-content-between p-0 m-0 gap-3">
           <motion.div
             animate={{
@@ -81,6 +77,7 @@ export default function IntroSection() {
   );
 }
 const Container = styled.div`
+  background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
   h2 {
     max-width: 600px;
     font-size: 45px;

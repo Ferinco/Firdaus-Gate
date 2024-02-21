@@ -1,4 +1,4 @@
-      import React, { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../../components/custom/Button";
 import { useForm } from "react-hook-form";
@@ -10,8 +10,6 @@ import { useAuth } from "../../../hooks/useAuth";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "../../../contexts/Context";
 import { Icon } from "@iconify/react";
-
-
 
 export default function StudentLogin() {
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
@@ -59,11 +57,17 @@ export default function StudentLogin() {
 
   return (
     <Wrapper>
-                   <Helmet>
+      <Helmet>
         <title>Login | FGMS</title>
-        <meta name="description" content="FGMS Student Portal - Firdaus-Gate Model Schools student portal is available to all newly admitted (fresh) and returning students. Kindly follow the link to sign in to your portal." />
+        <meta
+          name="description"
+          content="FGMS Student Portal - Firdaus-Gate Model Schools student portal is available to all newly admitted (fresh) and returning students. Kindly follow the link to sign in to your portal."
+        />
 
-        <meta name="keywords" content="student, pupil, portal, login, sign im, sign, firdaus login, firdaus-gate" />
+        <meta
+          name="keywords"
+          content="student, pupil, portal, login, sign im, sign, firdaus login, firdaus-gate"
+        />
       </Helmet>
       <div className="container-fluid">
         <div className="row">
@@ -116,7 +120,7 @@ export default function StudentLogin() {
                     <p className="error-message">{errors.password?.message}</p>
                   </div>
                   <div className="action d-flex flex-row justify-content-end">
-                    <Link className="m-0" >Forgot password?</Link>
+                    <Link className="m-0">Forgot password?</Link>
                   </div>
                 </div>
                 <div className="">
@@ -156,8 +160,8 @@ const Wrapper = styled.div`
       .eye-icon {
         margin-left: -30px;
         font-size: 15px;
-        cursor:pointer;
-        .icon{
+        cursor: pointer;
+        .icon {
           font-size: 20px !important;
         }
       }

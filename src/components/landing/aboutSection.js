@@ -45,11 +45,6 @@ export default function AboutSection() {
             <b>Iman(faith)</b>, making them responsible and be of good impact to
             the society.
           </p>
-          <Button blue>
-            <Link className="react-router-link" to={PATH_PAGE.about}>
-              Read More
-            </Link>
-          </Button>
         </div>
       </div>
     </Container>
