@@ -35,12 +35,11 @@ const MobileImage = styled.div`
     width: 100%;
     height: 320px;
     background-color: purple;
-    img{
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    object-position: center;
-    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
   }
 `;
@@ -74,16 +73,17 @@ export default function LandingHero() {
       <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
         <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
-            <motion.div className="my-5 d-flex flex-column gap-3 text-div justify-content-center"
-            animate={{
-x: 0
-            }}
-            initial={{
-              x: -1000
-            }}
-            transition={{
-              duration: 1
-            }}
+            <motion.div
+              className="my-5 d-flex flex-column gap-3 text-div justify-content-center"
+              animate={{
+                x: 0,
+              }}
+              initial={{
+                x: -1000,
+              }}
+              transition={{
+                duration: 1,
+              }}
             >
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
               <div className="">
@@ -98,7 +98,9 @@ x: 0
                 {/* <Button blue>Get started</Button> */}
                 <span> </span>
                 <Button blue>
-                  <Link className="react-router-link" to={PATH_PAGE.about}>About Us</Link>
+                  <Link className="react-router-link" to={PATH_PAGE.about}>
+                    About Us
+                  </Link>
                 </Button>
               </div>
             </motion.div>
@@ -106,7 +108,7 @@ x: 0
         </div>
       </div>
       <MobileImage>
-<img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg"/>
+        <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg" />
       </MobileImage>
     </Wrapper>
   );
@@ -177,8 +179,7 @@ const Wrapper = styled.div`
     margin-top: 80px;
     height: auto !important;
 
-
-    .hero-bg{
+    .hero-bg {
       background: transparent !important;
     }
     .left {

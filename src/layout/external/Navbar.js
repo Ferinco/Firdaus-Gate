@@ -86,8 +86,7 @@ const {termName} = useAppContext()
                 >
                   admission into JSS1
                 </Link>
-                <Link className="react-router-link">continue admission</Link>
-                <Link className="react-router-link">admission letter</Link>
+                <Link className="react-router-link" to={PATH_PAGE.continue}>continue admission</Link>
               </ul>
             </li>
             <li>

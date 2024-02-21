@@ -3,33 +3,32 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 const images = [
   {
-    image: "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg",
-    id: 0
+    image:
+      "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg",
+    id: 0,
   },
   {
     image: "",
-    id: 1
+    id: 1,
   },
   {
     image: "",
-    id: 2
+    id: 2,
   },
   {
-    image: "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698087/Firdaus/Screenshot_20220823-083433_2_poesu0.jpg",
-    id: 3
+    image:
+      "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698087/Firdaus/Screenshot_20220823-083433_2_poesu0.jpg",
+    id: 3,
   },
   {
     image: "",
-    id: 4
+    id: 4,
   },
 
   // Add more image URLs as needed
 ];
 const IDs = [
-  1,
-  2,
-  3,
-  4,
+  1, 2, 3, 4,
   // Add more image URLs as needed
 ];
 const CarouselContainer = styled.div`
@@ -50,140 +49,164 @@ const CarouselWrapper = styled.div`
   margin-left: 100px !important;
   @media screen and (max-width: 390px) {
     width: 300px;
-}
+  }
 `;
 
-
 const ThreeDCarousel = () => {
-  const [ActiveID, setActiveID] = useState(0)
-  const [facilityName, setFacilityName] = useState("Laboratories, FGMS.")
-  const [quote, setQuote] = useState("Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students.")
-  const [activeImage, setActiveImage] = useState("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg")
+  const [ActiveID, setActiveID] = useState(0);
+  const [facilityName, setFacilityName] = useState("Laboratories, FGMS.");
+  const [quote, setQuote] = useState(
+    "Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students."
+  );
+  const [activeImage, setActiveImage] = useState(
+    "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg"
+  );
 
+  useEffect(() => {
+    const timeOut = setInterval(() => {
+      setActiveID((prevID) => (prevID + 1) % 5);
+    }, 5000);
+    return () => clearInterval(timeOut);
+  }, []);
 
-useEffect(()=>{
-  const timeOut = setInterval(()=>{
-setActiveID((prevID)=> (prevID + 1) % 5)
-  }, 5000)
-  return () => clearInterval(timeOut)
-}, [])
-
-useEffect(()=>{
-  if (ActiveID === 1) {
-    setFacilityName("Library, FGMS.");
-    setQuote("The library, a haven of knowledge, boasts an extensive collection, fostering intellectual growth and academic excellence for all.")
-    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698723/Firdaus/IMG-20230901-WA0013_esps5y.jpg");
-
-  } else if (ActiveID === 2) {
-    setFacilityName("Hostel Facilities, FGMS.");
-    setQuote("Our modern hostels provide a comfortable and secure living environment, promoting a sense of community and well-being.")
-    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1703759457/xsmagszb_rk8unj.png");
-
-  }
-else if (ActiveID === 3) {
-  setFacilityName("Sports' Facilities, FGMS.");
-  setQuote("Our top-notch sports facilities offer a dynamic space for physical activity, fostering teamwork, fitness, and skill development.")
-  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1703758950/hdao4a7l_lmpgbb.png");
-
-} 
-else if (ActiveID === 4) {
-  setFacilityName("School Mosque, FGMS.");
-  setQuote("The school's mosque stands as a sacred space devoted to Islamic teachings, nurturing faith, knowledge, and religious devotion among students, fostering a strong connection to Islam.")
-  setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg");
-
-}
-else {
-    setFacilityName("Laboratories, FGMS.");
-    setQuote("Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students.")
-    setActiveImage("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg");
-
-  }
-})
+  useEffect(() => {
+    if (ActiveID === 1) {
+      setFacilityName("Library, FGMS.");
+      setQuote(
+        "The library, a haven of knowledge, boasts an extensive collection, fostering intellectual growth and academic excellence for all."
+      );
+      setActiveImage(
+        "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698723/Firdaus/IMG-20230901-WA0013_esps5y.jpg"
+      );
+    } else if (ActiveID === 2) {
+      setFacilityName("Hostel Facilities, FGMS.");
+      setQuote(
+        "Our modern hostels provide a comfortable and secure living environment, promoting a sense of community and well-being."
+      );
+      setActiveImage(
+        "https://res.cloudinary.com/duvwweuhj/image/upload/v1703759457/xsmagszb_rk8unj.png"
+      );
+    } else if (ActiveID === 3) {
+      setFacilityName("Sports' Facilities, FGMS.");
+      setQuote(
+        "Our top-notch sports facilities offer a dynamic space for physical activity, fostering teamwork, fitness, and skill development."
+      );
+      setActiveImage(
+        "https://res.cloudinary.com/duvwweuhj/image/upload/v1703758950/hdao4a7l_lmpgbb.png"
+      );
+    } else if (ActiveID === 4) {
+      setFacilityName("School Mosque, FGMS.");
+      setQuote(
+        "The school's mosque stands as a sacred space devoted to Islamic teachings, nurturing faith, knowledge, and religious devotion among students, fostering a strong connection to Islam."
+      );
+      setActiveImage(
+        "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg"
+      );
+    } else {
+      setFacilityName("Laboratories, FGMS.");
+      setQuote(
+        "Our school's state-of-the-art laboratories exemplify excellence, equipped with cutting-edge technology, ensuring the highest educational standards for students."
+      );
+      setActiveImage(
+        "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg"
+      );
+    }
+  });
 
   return (
     <Info className=" p-0">
-<div className="row">
-<div className="col-md-6 left p-5 d-flex flex-column align-items-start justify-content-center">
-
-  <h2 className="">Take a Look at our World Class Facilities.</h2>
-  <p>
-   {quote}
-  </p>
-  <div className="indicators d-flex gap-1">
-  {
-    images.map((image, id)=>(
-      <Icon icon="octicon:dash-24" color={ActiveID === id ? "white" : "grey"} className="indicator" id={image.id}/>
-
-    ))
-  }
-  </div>
-  <div><p className="facility-name">-{" "}{facilityName}</p></div>
-</div>
-<div className="col-md-6 right">
-<img src={activeImage}/>
-</div>
-
-
-</div>
+      <div className="row">
+        <div className="col-md-6 left p-5 d-flex flex-column align-items-start justify-content-center">
+          <h2 className="">Take a Look at our World Class Facilities.</h2>
+          <p>{quote}</p>
+          <div className="indicators d-flex gap-1">
+            {images.map((image, id) => (
+              <Icon
+                icon="octicon:dash-24"
+                color={ActiveID === id ? "white" : "grey"}
+                className="indicator"
+                id={image.id}
+              />
+            ))}
+          </div>
+          <div>
+            <p className="facility-name">- {facilityName}</p>
+          </div>
+        </div>
+        <div className="col-md-6 right">
+          <img src={activeImage} />
+        </div>
+      </div>
     </Info>
   );
 };
 
 const Info = styled.div`
-background:black !important;
-height: 500px;
-.facility-name{
-  font-style: italic;
-}
-.right{
   height: 500px;
-  overflow: hidden;
-  img{
-    width:100% ;
-    height: 100%;
-    object-fit:cover;
-    display:block;
-    margin:0 !important;
+  .facility-name {
+    font-style: italic;
   }
-}
-.left{
-color:white;
-h6{
-  color:blue;
-}
-h2{
-  font-size: 45px;
-  font-weight: 800;
-}
-.indicator{
-  font-size:48px !important;
-}
-}
-  @media screen and (max-width: 767px){
+  .right {
+    height: 500px;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin: 0 !important;
+    }
+  }
+  .left {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0.9)
+
+      ),
+      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1702391861/Firdaus/Screenshot_20221226-182654_1_eu6doz.jpg") !important;
+    margin: 0 !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+    h6 {
+      color: blue;
+    }
+    h2 {
+      font-size: 45px;
+      font-weight: 800;
+    }
+    .indicator {
+      font-size: 48px !important;
+    }
+  }
+  @media screen and (max-width: 767px) {
     height: auto !important;
-    .left{
+    .left {
       padding-left: 20px !important;
       padding-right: 20px !important;
-      h2{
-          font-size: 36px !important;
+      h2 {
+        font-size: 36px !important;
       }
-
     }
-    .right{
-      height: 400px ;
+    .right {
+      height: 400px;
     }
-}
-@media screen and (max-width: 390px) {
-  .buttons {
+  }
+  @media screen and (max-width: 390px) {
+    .buttons {
       margin-right: -250px !important;
     }
-}
-@media screen and (max-width: 991px){
-    h2{
-        font-size: 36px;
+  }
+  @media screen and (max-width: 991px) {
+    h2 {
+      font-size: 36px;
     }
-
-}
+  }
 `;
 
 export default ThreeDCarousel;

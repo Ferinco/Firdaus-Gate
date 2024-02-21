@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 export default function SpecialSection() {
   return (
-    <Wrapper className="">
+    <Wrapper className="py-5">
       <div className=" container py-5">
         <div className="row">
           <div className="d-flex flex-column col-lg-4 ">
             <h6 className="m-0">WHAT WE OFFER</h6>
-            <h2 className="m-0">Learn more about our core services</h2>
-            <p className="mt-2">
+            <h2 className="mb-0 mt-2">Learn more about our core services</h2>
+            <p className="mt-3 text-muted">
               Firdaus-Gate Model Schools is unlike any other institution, we do
               not only care about our students and pupils' academic excellence,
               but a
             </p>
-            <ul className="m-0 p-0">
+            <ul className="m-0 p-0 d-flex flex-column gap-2">
               <li className="d-flex flex-row align-items-start gap-1">
                 <div>
                   <Icon
@@ -56,7 +56,7 @@ export default function SpecialSection() {
               </li>
             </ul>
           </div>
-          <div className="d-flex row col-lg-8 gap-3 cards">
+          <div className="d-flex row col-lg-8 gap-3 cards ">
             <div className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2">
               <div>
                 <Icon
@@ -126,10 +126,20 @@ export default function SpecialSection() {
 }
 const Wrapper = styled.div`
   background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+  .row{
+    flex-wrap: nowrap;
+    @media screen and (max-width: 991px) {
+        flex-wrap: wrap !important;
+    }
+  }
   .cards {
     margin: 0 !important;
+    margin-left: 20px !important;
+    flex-wrap: wrap !important;
     @media screen and (max-width: 991px) {
       margin-top: 20px !important;
+    margin-left: 0 !important;
+
     }
   }
   .card {
