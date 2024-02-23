@@ -102,9 +102,9 @@ const {termName} = useAppContext()
                   className="react-router-link"
                   to={PATH_DASHBOARD.teacher.index}
                 >
-                  teacher portal
+                  staff portal
                 </Link>
-                <Link className="react-router-link">
+                {/* <Link className="react-router-link">
                   school fees payment
                   <br />
                   (existing students)
@@ -113,7 +113,7 @@ const {termName} = useAppContext()
                   school fees payment
                   <br />
                   (new students)
-                </Link>
+                </Link> */}
               </ul>
             </li>
             <li>

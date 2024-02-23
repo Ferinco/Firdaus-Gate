@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import FeesSidebar from "./sidebar";
+import styled from "styled-components";
 
 export default function SchoolFeesLayout(){
     return(

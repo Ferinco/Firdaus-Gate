@@ -47,7 +47,9 @@ function Footer() {
           <div className="reach ">
             <p className="header ">Reach Us</p>
             <div className="d-flex flex-row gap-1 align-items-center" >
+            <div>
             <Icon icon="system-uicons:location" className="icon"/>
+            </div>
               <p className="no-link m-0 pl-2 d-flex flex-row flex-wrap react-router-link">
                 6/8 Balogun Street, off Igodo Road,<br/> Omo-Olope Area, Magboro, Ogun State.
               </p>

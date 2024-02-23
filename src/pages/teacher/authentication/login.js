@@ -69,13 +69,13 @@ export default function TeacherLogin() {
                 </Link>
               </div>
               <div className="text-center mb-4">
-                <h3 className="fw-bolder">Welcome back!</h3>
-                <p>You are a world class teacher.</p>
+                <h3 className="m-0">Welcome back!</h3>
+                <p>Sign into your personal dashboard.</p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-3">
                   <input
-                    placeholder="Teacher ID"
+                    placeholder="Staff ID"
                     name="teacherId"
                     type="text"
                     {...register("teacherId")}
@@ -140,6 +140,9 @@ export default function TeacherLogin() {
 
 const Wrapper = styled.div`
   height: 100vh;
+  h3{
+    font-weight: 600 !important;
+  }
   .button {
     width: 100%;
   }

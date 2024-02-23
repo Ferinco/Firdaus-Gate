@@ -21,7 +21,7 @@ import {
   Assign,
   GiveAssignments,
   AssignmentSettings,
-  History
+  History,
 } from "../pages/teacher";
 
 import {
@@ -33,7 +33,7 @@ import {
   Assignments,
   Scheme,
   ViewResult,
-  FilterResults
+  FilterResults,
 } from "../pages/student";
 import {
   StudentsList,
@@ -49,7 +49,7 @@ import {
   EditStudent,
   EditTeacher,
   UploadNews,
-  NewsPage
+  NewsPage,
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -58,8 +58,8 @@ import AuthGuard from "../guards/AuthGuard";
 import GuestGuard from "../guards/GuestGuard";
 import Calendar from "../pages/teacher/calendar";
 import Notify from "../pages/admin/notify";
-import {StudentInfo} from "../pages/admin/profileInfo"
-import {TeacherInfo} from "../pages/admin/profileInfo"
+import { StudentInfo } from "../pages/admin/profileInfo";
+import { TeacherInfo } from "../pages/admin/profileInfo";
 import AdmissionLayout from "../pages/admission/layout";
 import Reports from "../pages/admin/reportsPage";
 import News from "../components/landing/newsSection";
@@ -72,29 +72,38 @@ import JuniorThird from "../utils/results/Junior/juniorThird";
 import SeniorSecond from "../utils/results/Senior/seniorSecond";
 import SeniorThird from "../utils/results/Senior/seniorThird";
 import CheckResults from "../pages/teacher/checkResults";
+import SchoolFeesLayout from "../pages/fees/layout";
+import ReturningStudents from "../pages/fees/returning";
+import NewStudents from "../pages/fees/newStudents";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
     {
       path: "/",
       element: <Layout />,
-      children: [{ path: "/", element: <Home /> },
-      { path: "/about-us", element: <About /> },
-      { path: "/gallery", element: <Gallery /> },
-    
-    ],
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/about-us", element: <About /> },
+        { path: "/gallery", element: <Gallery /> },
+      ],
+    },
+    {
+      path: "/school-fees",
+      element: <SchoolFeesLayout />,
+      children: [
+        { path: "returning-students", element: <ReturningStudents /> },
+        { path: "new-students", element: <NewStudents /> },
+      ],
     },
     {
       path: "/admission",
-      element: 
-      <AdmissionLayout/>,
+      element: <AdmissionLayout />,
       children: [
         { path: "index", element: <AdmissionHome /> },
         { path: "admission-into-jss1", element: <JSS1Admission /> },
         { path: "admission-form", element: <AdmissionForm /> },
         { path: "admission-form/payment-success", element: <Receipt /> },
         { path: "continue-admission", element: <ContinueAdmission /> },
-
       ],
     },
     {
@@ -126,23 +135,15 @@ export default function Routes() {
         { path: "create-result", element: <CreateResult /> },
         { path: "view-calendar", element: <Calendar /> },
         { path: "add-scheme", element: <Scheme /> },
-        {path:"account-settings", element: <Settings/>},
-        {path:"assign", element: <Assign/>},
-        { path: "edit-student/:identity", element: <EditStudent/> },
-        { path: "student-info/:identity", element: <StudentInfo/> },
-        { path: "new-assignment", element: <GiveAssignments/> },
-        { path: "set-assignment/:identity", element: <AssignmentSettings/> },
-        { path: "about-me", element: <AboutMe/> },
-        { path: "results/uploaded-results", element: <History/> },
-        { path: "view-results/:identity", element: <CheckResults/> },
-
-
-
-
-
-
-
-
+        { path: "account-settings", element: <Settings /> },
+        { path: "assign", element: <Assign /> },
+        { path: "edit-student/:identity", element: <EditStudent /> },
+        { path: "student-info/:identity", element: <StudentInfo /> },
+        { path: "new-assignment", element: <GiveAssignments /> },
+        { path: "set-assignment/:identity", element: <AssignmentSettings /> },
+        { path: "about-me", element: <AboutMe /> },
+        { path: "results/uploaded-results", element: <History /> },
+        { path: "view-results/:identity", element: <CheckResults /> },
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },
@@ -162,12 +163,12 @@ export default function Routes() {
         { path: "/student/reports", element: <ResultsPage /> },
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
-        {path:"/student/account-settings", element: <Settings/>},
-        {path:"/student/submit-assignments", element: <Assignments/>},
-        { path: "work-scheme/:identity", element: <Scheme/> },
-        { path: "about-me", element: <AboutMe/> },
-        { path: "view-result", element: <ViewResult/> },
-        { path: "filter-results", element: <FilterResults/> },
+        { path: "/student/account-settings", element: <Settings /> },
+        { path: "/student/submit-assignments", element: <Assignments /> },
+        { path: "work-scheme/:identity", element: <Scheme /> },
+        { path: "about-me", element: <AboutMe /> },
+        { path: "view-result", element: <ViewResult /> },
+        { path: "filter-results", element: <FilterResults /> },
       ],
     },
 
@@ -192,20 +193,13 @@ export default function Routes() {
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
         { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
-        { path: "/admin/student-info/:identity", element: <StudentInfo/> },
-        { path: "/admin/teacher-info/:identity", element: <TeacherInfo/> },
-        { path: "/admin/edit-student/:identity", element: <EditStudent/> },
-        { path: "/admin/edit-teacher/:identity", element: <EditTeacher/> },
-        { path: "/admin/results", element: <Reports/> },
-        { path: "/admin/news", element: <NewsPage/> },
-        { path: "/admin/post-news", element: <UploadNews/> },
-
-
-
-
-
-
-
+        { path: "/admin/student-info/:identity", element: <StudentInfo /> },
+        { path: "/admin/teacher-info/:identity", element: <TeacherInfo /> },
+        { path: "/admin/edit-student/:identity", element: <EditStudent /> },
+        { path: "/admin/edit-teacher/:identity", element: <EditTeacher /> },
+        { path: "/admin/results", element: <Reports /> },
+        { path: "/admin/news", element: <NewsPage /> },
+        { path: "/admin/post-news", element: <UploadNews /> },
       ],
     },
 

@@ -118,7 +118,7 @@ export default function ResultHistory() {
                     setSession(e.target.value);
                   }}
                 >
-                   <option value="" disabled selected>
+                  <option value="" disabled selected>
                     Select Session
                   </option>
                   {AllSessions?.map((opt, index) => (
@@ -254,11 +254,11 @@ const Page = styled.div`
       border-radius: 10px;
       background: transparent;
     }
-    h6{
-    font-weight: 500 !important;
-    font-size: 17px;
-    margin: 0 !important;
-  }
+    h6 {
+      font-weight: 500 !important;
+      font-size: 17px;
+      margin: 0 !important;
+    }
   }
 
   .check-btn {
