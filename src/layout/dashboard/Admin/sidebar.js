@@ -26,12 +26,12 @@ const sidebarConfig = [
     link: PATH_DASHBOARD.admin.studentsList,
     title: "Students",
   },
-  // {
-  //   id: 4,
-  //   icon: "fluent-mdl2:poll-results",
-  //   link: PATH_DASHBOARD.admin.reports,
-  //   title: "Reports",
-  // },
+  {
+    id: 4,
+    icon: "fluent-mdl2:poll-results",
+    link: PATH_DASHBOARD.admin.reports,
+    title: "Reports",
+  },
   {
     id: 6,
     icon: "uil:create-dashboard",

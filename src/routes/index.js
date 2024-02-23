@@ -50,6 +50,7 @@ import {
   EditTeacher,
   UploadNews,
   NewsPage,
+  ResultsCheck,
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -200,6 +201,8 @@ export default function Routes() {
         { path: "/admin/results", element: <Reports /> },
         { path: "/admin/news", element: <NewsPage /> },
         { path: "/admin/post-news", element: <UploadNews /> },
+        { path: "/admin/view-results/:identity", element: <ResultsCheck /> },
+
       ],
     },
 

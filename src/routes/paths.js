@@ -80,6 +80,8 @@ viewReport: JOIN(ROOT_STUDENT, "view-result"),
     editTeacher: JOIN(ROOT_ADMIN, "edit-teacher"),
     reports: JOIN(ROOT_ADMIN, "results"),
     news: JOIN(ROOT_ADMIN, "news"),
+    view: JOIN(ROOT_ADMIN, "view-results"),
+
 
 
 

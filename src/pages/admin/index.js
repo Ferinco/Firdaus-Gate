@@ -14,5 +14,7 @@ export {default as EditStudent} from "./editStudent"
 export {default as EditTeacher} from "./editTeacher"
 export {default as UploadNews} from "./news"
 export {default as NewsPage} from "./newsPage"
+export {default as ResultsCheck} from "./checkResults"
+
 
 
