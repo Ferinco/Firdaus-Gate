@@ -56,7 +56,7 @@ export default function CheckResults() {
     try {
       const result = await UserService.findUsers({
         role: "teacher",
-        classHandled: user.currentClass,
+        classHandled: user?.currentClass,
       });
       setClassTeacher(result.data.list[0]);
       setLoading(false);

@@ -67,7 +67,7 @@ const [selectedClass, setClass] = useState("")
     try {
       setIsLoading(true);
       const response = await axios.get(
-        `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${user?.classHandled}`
+        `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${selectedClass}`
       );
       console.log(response.data.results[0].results);
       setResults(response?.data?.results[0]?.results);
@@ -92,8 +92,7 @@ const [selectedClass, setClass] = useState("")
               <div>
                 <h4>Uploaded Results</h4>
                 <p>
-                  Select term and session to see list of available results for
-                  class: {user?.classHandled} {termName}.
+                  Select term and session to see list of available results for {termName}, of any class chosen.
                 </p>
               </div>
               {results.length > 0 ? (

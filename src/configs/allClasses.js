@@ -70,12 +70,12 @@
         id: "002"
     },
     {
-        name:"KG 1",
+        name:"NUSERY 1",
         code: "FGNSC_001",
         id: "001"
     },
     {
-        name:"KG 2",
+        name:"NURSERY 2",
         code: "FGNSC_002",
         id: "002"
     },
