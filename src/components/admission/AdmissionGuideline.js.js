@@ -24,19 +24,15 @@ export default function AdmissionGuideline({ isShow, onToggle }) {
                   interest in Firdaus Gate Model College. Thank you for taking
                   the time to learn more about us. Kindly follow the highlighted
                   Steps on Filling the Admission Form.
-                </p>
+                </p> ones
                 <p>
                   Step 1: Carefully input the Learner's valid details. (i.e.
-                  Name, Date of Birth, Address). Please note that it is
-                  important to pick an Entrepreneurship Course. N:B A recent
-                  passport photograph, scanned copy of the Learner's Birth
-                  Certificate and Last Result/Report are required to be uploaded
-                  when filling the application form.
+                  Name, Date of Birth, Address).
                 </p>
                 <p>Step 2: Input all Parents and Guardians details.</p>
                 <p> Step 3: Proceed to make Payment.</p>
                 <p>Step 4: Confirm payment details and print receipt.</p> For
-                applicants who could not complete the registration at ones can
+                applicants who could not complete the registration at once can
                 choose to continue by following the procedures below;
                 <ul>
                   <li>

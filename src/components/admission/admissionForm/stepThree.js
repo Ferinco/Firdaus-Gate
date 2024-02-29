@@ -188,7 +188,6 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  /* filter: blur(10px); */
   position: relative;
   &:before {
     content: "";
@@ -202,7 +201,7 @@ const Wrapper = styled.div`
       255,
       255,
       0.8
-    ); /* Adjust the alpha value for transparency */
+    ); 
   }
   .header-section {
     border-bottom: 1px solid #0d6efd;
