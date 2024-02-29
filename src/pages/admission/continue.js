@@ -4,24 +4,28 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
 import { useState } from "react";
 import { PaymentService } from "../../services/paymentService";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 export default function ContinueAdmission() {
   const [referenceNo, setReferenceNo] = useState("");
-  const submitRef = async (referenceNo) => {
+  const [referenceState, setReferenceState] = useState({})
+  const navigate = useNavigate()
+  console.log(referenceNo);
+  const submitRef = async () => {
     try {
       const response = await axios.get(
-        "https://ferrum-sever.onrender.com/api/confirmpayment/reference",
-        {
-          params: { referenceNo },
-        }
+        `https://ferrum-sever.onrender.com/api/confirmpayment/${referenceNo}`,
       );
       console.log(response);
+      setReferenceState(response.data)
+      navigate("/admission/check-admission", { state: referenceState });
+
     } catch (error) {
       console.error(error);
     }
   };
+  console.log(referenceState)
 
-  console.log(referenceNo);
   return (
     <Container className="d-flex flex-column">
       <div className="header d-flex flex-row justify-content-start align-items-center px-3">
@@ -45,7 +49,7 @@ export default function ContinueAdmission() {
             blue
             className="mt-2"
             onClick={() => {
-              submitRef();
+              submitRef()
             }}
           >
             <Link className="react-router-link" mto={PATH_PAGE.admissionForm}>

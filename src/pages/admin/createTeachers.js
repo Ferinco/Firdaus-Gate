@@ -8,7 +8,15 @@ import { UserService } from "../../services/userService";
 import toast from "react-hot-toast";
 import { CLASS } from "../../constants/class";
 import { allSubjects } from "../../constants/subjects";
-import { ElementarySubjects,BasicSubjects, JuniorSubjects, SeniorSubjects, ScienceSubjects, ArtsSubjects, CommercialSubjects } from "../../configs/subjectsConfig";
+import {
+  ElementarySubjects,
+  BasicSubjects,
+  JuniorSubjects,
+  SeniorSubjects,
+  ScienceSubjects,
+  ArtsSubjects,
+  CommercialSubjects,
+} from "../../configs/subjectsConfig";
 export default function CreateTeachers() {
   //  yup resolvers
   const schema = yup.object({
@@ -58,10 +66,15 @@ export default function CreateTeachers() {
     const formData = new FormData();
     formData.append(
       "values",
-      JSON.stringify({ ...values, tel: values.mobileNumber, password:`${values.lastName}${values.teacherId}`.toLowerCase() }));
+      JSON.stringify({
+        ...values,
+        tel: values.mobileNumber,
+        password: `${values.lastName}${values.teacherId}`.toLowerCase(),
+      })
+    );
     formData.append("teacherSignature", values.teacherSignature[0]);
     try {
-      setIsSubmitting(true); 
+      setIsSubmitting(true);
       const response = await UserService.createUser(formData);
       reset();
       console.log(response);
@@ -180,9 +193,7 @@ export default function CreateTeachers() {
                   <option value="female">female</option>
                 </select>
                 <p className="error-message">
-                  {errors.gender?.message
-                    ? `*${errors.gender?.message}`
-                    : ""}
+                  {errors.gender?.message ? `*${errors.gender?.message}` : ""}
                 </p>
               </div>
 
@@ -211,9 +222,9 @@ export default function CreateTeachers() {
                   Class Managed
                 </label>
                 <select name="classHandled" {...register("classHandled")}>
-                <option value="" disabled>
-                      Class Managed
-                    </option>
+                  <option value="" disabled>
+                    Class Managed
+                  </option>
                   <option value="FGKGC_001">KG 1</option>
                   <option value="FGKGC_002">KG 2</option>
                   <option value="FGNSC_001">NURSERY 1</option>
@@ -245,16 +256,16 @@ export default function CreateTeachers() {
                     Department
                   </label>
                   <select name="department" {...register("department")}>
-                  <option value="science">general</option>
+                    <option value="science">general</option>
                     <option value="science">science</option>
                     <option value="commercial">commercial</option>
                     <option value="art">art</option>
                   </select>
                   <p className="error-message">
-                  {errors.department?.message
-                    ? `*${errors.department?.message}`
-                    : ""}
-                </p>
+                    {errors.department?.message
+                      ? `*${errors.department?.message}`
+                      : ""}
+                  </p>
                 </div>
               )}
             <div className="my-2 d-flex flex-column">
@@ -262,56 +273,55 @@ export default function CreateTeachers() {
                 Subject Taught
               </label>
               <select name="subjectTaught" {...register("subjectTaught")}>
-              <option value="" disabled>
-                      Subject Taught
-                    </option>
-{
-  selectedClass?.startsWith("FGKGC") ? ElementarySubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedClass?.startsWith("FGNSC") ? ElementarySubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedClass?.startsWith("FGBSC") ? BasicSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedClass?.startsWith("FGJSC") ? JuniorSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedDept === "general" ? SeniorSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedDept === "science" ? ScienceSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedDept === "art" ? ArtsSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-{
-  selectedDept === "commercial" ? CommercialSubjects.map((subject)=>(
-    <option value={subject.code}>{subject.name}</option>
-  )) : ""
-}
-
+                <option value="" disabled>
+                  Subject Taught
+                </option>
+                {selectedClass?.startsWith("FGKGC")
+                  ? ElementarySubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedClass?.startsWith("FGNSC")
+                  ? ElementarySubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedClass?.startsWith("FGBSC")
+                  ? BasicSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedClass?.startsWith("FGJSC")
+                  ? JuniorSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedDept === "general"
+                  ? SeniorSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedDept === "science"
+                  ? ScienceSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedDept === "art"
+                  ? ArtsSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
+                {selectedDept === "commercial"
+                  ? CommercialSubjects.map((subject) => (
+                      <option value={subject.code}>{subject.name}</option>
+                    ))
+                  : ""}
               </select>
               <p className="error-message">
-                  {errors.subjectTaught?.message
-                    ? `*${errors.subjectTaught?.message}`
-                    : ""}
-                </p>
+                {errors.subjectTaught?.message
+                  ? `*${errors.subjectTaught?.message}`
+                  : ""}
+              </p>
             </div>
 
             <div className="my-2 d-flex flex-column">
@@ -374,8 +384,8 @@ export default function CreateTeachers() {
 }
 
 const Wrapper = styled.div`
-padding-left: 32px !important;
-padding-right: 32px !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   .form-wrapper {
     max-width: 420px;
     .button {
@@ -422,7 +432,7 @@ padding-right: 32px !important;
     font-size: 14px;
     font-weight: 500;
   }
-  @media screen and (max-width: 1100px){
+  @media screen and (max-width: 1100px) {
     padding-left: 24px !important;
     padding-right: 24px !important;
   }

@@ -14,7 +14,7 @@ export default function ActiveApplications() {
   useEffect(() => {
     const checkPayment = async () => {
       try {
-        const results = await axios.get("https://ferrum-sever.onrender.com/api/confirmpayment/reference")
+        const results = await axios.get("https://ferrum-sever.onrender.com/api/allpayments")
         console.log(results);
       } catch (error) {
         console.log(error);

@@ -76,6 +76,7 @@ import CheckResults from "../pages/teacher/checkResults";
 import SchoolFeesLayout from "../pages/fees/layout";
 import ReturningStudents from "../pages/fees/returning";
 import NewStudents from "../pages/fees/newStudents";
+import CheckAdmission from "../pages/admission/checkAdmission";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -105,6 +106,8 @@ export default function Routes() {
         { path: "admission-form", element: <AdmissionForm /> },
         { path: "admission-form/payment-success", element: <Receipt /> },
         { path: "continue-admission", element: <ContinueAdmission /> },
+        { path: "check-admission", element: <CheckAdmission /> },
+
       ],
     },
     {

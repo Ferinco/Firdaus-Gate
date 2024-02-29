@@ -85,7 +85,7 @@ const {
     {
       loading? <CircularProgress/> : (
         <Container className="py-5">
-        {/* <div className="container d-flex flex-row gap-2 first-div">
+         <div className="container d-flex flex-row gap-2 first-div">
           <button onClick={OpenSelect} className="new-tab p-2">
             New Assignment +
           </button>
@@ -171,10 +171,6 @@ const {
               </tbody>
             </Table>
           </div>
-        </div> */}
-        <div className="px-3 py-5">
-        <h4>Page locked</h4>
-        <p>Developers are currently building and it's almost ready</p>
         </div>
       </Container>
       )
