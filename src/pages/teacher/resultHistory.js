@@ -23,18 +23,6 @@ import { AllSessions } from "../../constants/AllSessions";
 export default function ResultHistory() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const FetchStudents = async () => {
-      try {
-        const results = await dispatch(fetchUsers({ role: "student" }));
-        const users = unwrapResult(results);
-        setStudents(users.data.list);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    FetchStudents();
-  }, []);
 
   const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
@@ -42,6 +30,22 @@ export default function ResultHistory() {
   const [termName, setTermName] = useState("");
   const [session, setSession] = useState("");
   console.log(session, termName);
+
+  useEffect(() => {
+    const FetchStudents = async () => {
+      try {
+        const results = await dispatch(
+          fetchUsers({ role: "student", currentClass: user?.classHandled })
+        );
+        const users = unwrapResult(results);
+        setStudents(users.data.list);
+        console.log(users.data.list);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    FetchStudents();
+  }, []);
 
   const getResults = async () => {
     try {

@@ -300,10 +300,9 @@ const Dashboard = styled.div`
   .result-btn{
     font-size: 13px;
     padding: 3px 15px;
-    border: 1px solid black;
     border-radius: 10px;
     font-weight: 600;
-    border: 1px solid rgba(69 72 172 / 70%);
+    border: 0 !important;
     background-color: rgba(69 72 172 / 70%);
     color: white;
     p{
@@ -311,7 +310,9 @@ const Dashboard = styled.div`
     }
     &:hover{
       transition: 0.3s;
-      background-color: blue;
+    background-color: rgba(69 72 172 / 90%);
+
+
     }
   }
   .view-more {

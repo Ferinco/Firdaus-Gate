@@ -29,19 +29,10 @@ export default function Reports() {
   const [termName, setTermName] = useState("");
   const [user, setUser] = useState("");
   const [session, setSession] = useState("");
-const [selectedClass, setClass] = useState("")
+  const [selectedClass, setClass] = useState("");
 
   //get students
   useEffect(() => {
-    const FetchStudents = async () => {
-      try {
-        const results = await dispatch(fetchUsers({ role: "student" }));
-        const users = unwrapResult(results);
-        setStudents(users.data.list);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     FetchStudents();
   }, []);
 
@@ -54,7 +45,7 @@ const [selectedClass, setClass] = useState("")
           classHandled: selectedClass,
         });
         setUser(result.data.list[0]);
-        setIsLoading(false)
+        setIsLoading(false);
         console.log(result.data.list[0]);
       } catch (error) {
         console.log(error);
@@ -63,8 +54,21 @@ const [selectedClass, setClass] = useState("")
     getClassTeacher();
   }, []);
 
+  const FetchStudents = async (user) => {
+    try {
+      const results = await dispatch(
+        fetchUsers({ role: "student", currentClass: selectedClass })
+      );
+      const users = unwrapResult(results);
+      setStudents(users.data.list);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getResults = async () => {
     try {
+      FetchStudents()
       setIsLoading(true);
       const response = await axios.get(
         `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${selectedClass}`
@@ -92,7 +96,8 @@ const [selectedClass, setClass] = useState("")
               <div>
                 <h4>Uploaded Results</h4>
                 <p>
-                  Select term and session to see list of available results for {termName}, of any class chosen.
+                  Select term and session to see list of available results for{" "}
+                  {termName}, of any class chosen.
                 </p>
               </div>
               {results.length > 0 ? (

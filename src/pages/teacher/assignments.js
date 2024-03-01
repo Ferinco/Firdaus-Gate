@@ -12,19 +12,21 @@ import {
   SeniorSubjects,
 } from "../../configs/subjectsConfig";
 import { get } from "lodash";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { CircularProgress } from "../../components/custom";
 import { Icon } from "@iconify/react";
 
 export default function Assign() {
-
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getSubjects();
-    setLoading(false)
+    setLoading(false);
   }, []);
   function getSubjects() {
-    if (user.subjectTaught.startsWith("FJS") || user.subjectTaught.startsWith("FSS")) {
+    if (
+      user.subjectTaught.startsWith("FJS") ||
+      user.subjectTaught.startsWith("FSS")
+    ) {
       setTeacherSubjects([...JuniorSubjects, ...SeniorSubjects]);
     } else if (user.subjectTaught.startsWith("FES")) {
       setTeacherSubjects(ElementarySubjects);
@@ -38,8 +40,6 @@ export default function Assign() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [teacherSubjects, setTeacherSubjects] = useState([]);
-
-
 
   //state for onclick of "add new assignment"
   function OpenSelect() {
@@ -56,127 +56,122 @@ export default function Assign() {
     subjectsArray.includes(subject.code)
   );
   console.log(filteredSubjects);
-  console.log(user.subjectTaught)
+  console.log(user.subjectTaught);
 
+  //submision of filter select
+  const onSubmit = async (data) => {
+    console.log(data);
+  };
 
+  //to get first member of the filtered subjects
+  const [firstSubject, setFirstSubject] = useState(filteredSubjects[0]);
 
-//submision of filter select
-const onSubmit = async (data) => {
-  console.log(data)
-};
-
-//to get first member of the filtered subjects
-const [firstSubject, setFirstSubject] = useState(filteredSubjects[0])
-
-
-//to filter table
-const {
-  register,
-  handleSubmit,
-  formState: { errors },
-} = useForm({
-  defaultValues: {
-    subjectSelected: firstSubject?.name,
-  },
-});
+  //to filter table
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      subjectSelected: firstSubject?.name,
+    },
+  });
   return (
     <>
- 
-    {
-      loading? <CircularProgress/> : (
+      {loading ? (
+        <CircularProgress />
+      ) : (
         <Container className="py-5">
-         <div className="container d-flex flex-row gap-2 first-div">
-          <button onClick={OpenSelect} className="new-tab p-2">
-            New Assignment +
-          </button>
+          <div className="container d-flex flex-row gap-2 first-div">
+            <button onClick={OpenSelect} className="new-tab p-2">
+              New Assignment +
+            </button>
 
-          {open
-            ? filteredSubjects.map((subject) => (
-                <Link
-                  to={`${PATH_DASHBOARD.teacher.setAssignments}/${subject.code}`}
-                  className="react-router-link subject-tile d-flex flex-column p-2 gap-2"
-                >
-                 <div className="icon-div p-2">
-                  <h6 className="text-left m-0">
-            {subject.name.charAt(0)}
-
-                  </h6>
-            </div>
-                  <p className="m-0">
-                  {subject.name.length > 15
-                    ? `${subject.name.slice(0, 15)}...`
-                    : subject.name}
-  
-                  </p>
-                </Link>
-              ))
-            : ""}
-
-        </div>
-        <div className=" container mt-5">
-          <h6>Active Assignments</h6>
-          <div className="d-flex flex-row gap-2 second-div">
-            <div className="subject-tile py-3">
-              <div className="d-flex flex-column text-center">
-                <h3>M</h3>
-                <p>Mathematics</p>
-              </div>
-            </div>
-            <div className="subject-tile py-3">
-              <div className="d-flex flex-column text-center">
-                <h3>M</h3>
-                <p>Mathematics</p>
-              </div>
-            </div>
+            {open
+              ? filteredSubjects.map((subject) => (
+                  <Link
+                    to={`${PATH_DASHBOARD.teacher.setAssignments}/${subject.code}`}
+                    className="react-router-link subject-tile d-flex flex-column p-2 gap-2"
+                  >
+                    <div className="icon-div p-2">
+                      <h6 className="text-left m-0">
+                        {subject.name.charAt(0)}
+                      </h6>
+                    </div>
+                    <p className="m-0">
+                      {subject.name.length > 15
+                        ? `${subject.name.slice(0, 15)}...`
+                        : subject.name}
+                    </p>
+                  </Link>
+                ))
+              : ""}
           </div>
-        </div>
-        <div className="table-div mt-5 py-5">
-          <div className="container">
-            <div className="table-header d-flex flex-row justify-content-between">
-              <div className="d-flex flex-column">
-                <h6>History</h6>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="d-flex flex-row align-items-center gap-2">
-                    <select name="subjectSelected" {...register("subjectSelected")}>
-                    {filteredSubjects.map((subject) => (
-                        <option>{subject.name}</option>
+          {/* <div className=" container mt-5">
+            <h6>Active Assignments</h6>
+            <div className="d-flex flex-row gap-2 second-div">
+              <div className="subject-tile py-3">
+                <div className="d-flex flex-column text-center">
+                  <h3>M</h3>
+                  <p>Mathematics</p>
+                </div>
+              </div>
+              <div className="subject-tile py-3">
+                <div className="d-flex flex-column text-center">
+                  <h3>M</h3>
+                  <p>Mathematics</p>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          <div className="table-div mt-5 py-5">
+            <div className="container">
+              <div className="table-header d-flex flex-row justify-content-between">
+                <div className="d-flex flex-column">
+                  <h6>History</h6>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="d-flex flex-row align-items-center gap-2">
+                      <select
+                        name="subjectSelected"
+                        {...register("subjectSelected")}
+                      >
+                        {filteredSubjects.map((subject) => (
+                          <option>{subject.name}</option>
                         ))}
-                        </select>
-                    <button className="filter-btn">filter</button>
-                  </div>
-                </form>
+                      </select>
+                      <button className="filter-btn">filter</button>
+                    </div>
+                  </form>
+                </div>
+                <button className="clear-btn">clear all</button>
               </div>
-              <button className="clear-btn">clear all</button>
+              <Table className="table-bordered mt-3">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Date Assigned</th>
+                    <th>Deadline</th>
+                    <th>Assignment Title</th>
+                    <th>Assignment Topic</th>
+                    <th>No. of Submissions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1.</td>
+                    <td>01/01/2024</td>
+                    <td>03/01/2023</td>
+                    <td>Algebra</td>
+                    <td>Algebra</td>
+                    <td>33</td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
-            <Table className="table-bordered mt-3">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Date Assigned</th>
-                  <th>Deadline</th>
-                  <th>Assignment Title</th>
-                  <th>Assignment Topic</th>
-                  <th>No. of Submissions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1.</td>
-                  <td>01/01/2024</td>
-                  <td>03/01/2023</td>
-                  <td>Algebra</td>
-                  <td>Algebra</td>
-                  <td>33</td>
-                </tr>
-              </tbody>
-            </Table>
           </div>
-        </div>
-      </Container>
-      )
-    }
-       </>
-
+        </Container>
+      )}
+    </>
   );
 }
 const Container = styled.div`
@@ -202,25 +197,25 @@ const Container = styled.div`
     background-color: white;
     border: 1px solid white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-        border-radius: 10px;
-    p{
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius: 10px;
+    p {
       font-size: 13px;
       color: black;
     }
-    h6{
+    h6 {
       color: blue;
       font-size: 16px;
       text-transform: capitalize;
     }
     .icon-div {
-        background-color: #f1f1f1;
-        overflow: hidden;
-        border-radius: 10px;
-        .icon {
-          font-size: 35px;
-        }
+      background-color: #f1f1f1;
+      overflow: hidden;
+      border-radius: 10px;
+      .icon {
+        font-size: 35px;
       }
+    }
   }
   .first-div,
   .second-div {
@@ -231,7 +226,7 @@ const Container = styled.div`
     height: fit-content;
     font-weight: 600;
     font-size: 14px;
-    color:red;
+    color: red;
     background-color: white;
     border: 1px solid red;
     &:hover {

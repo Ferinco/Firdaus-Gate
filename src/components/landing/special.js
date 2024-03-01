@@ -144,9 +144,9 @@ const Wrapper = styled.div`
   }
   .card {
     border: 0 !important;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    background-color: transparent;
+    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
       p{
         font-size: 16px !important;
       }
