@@ -19,14 +19,12 @@ export default function ActiveApplications() {
       } catch (error) {
         console.log(error);
       }
-
     };
     checkPayment()
   }, []);
   return (
     <>
       {isLoading ? <CircularProgress /> : ""}
-
       <Container className="py-5">
         <div>
           <h4>Active Applications</h4>

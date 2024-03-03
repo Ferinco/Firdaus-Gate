@@ -15,6 +15,8 @@ import { get } from "lodash";
 import { useForm } from "react-hook-form";
 import { CircularProgress } from "../../components/custom";
 import { Icon } from "@iconify/react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Assign() {
   const [loading, setLoading] = useState(true);
@@ -76,6 +78,36 @@ export default function Assign() {
       subjectSelected: firstSubject?.name,
     },
   });
+
+  //fetch asignment history
+  const [history, setHistory] = useState([]);
+  const [subjectCode, setSubjectCode] = useState();
+
+  console.log(filteredSubjects[0]);
+  console.log(filteredSubjects[0]?.code);
+  console.log(subjectCode);
+
+  const getHistory = async () => {
+    try {
+      const response = await axios.get(
+        `https://ferrum-sever.onrender.com/api/assignments/subject/${subjectCode}`
+      );
+      console.log(response.data);
+      setHistory([response.data]);
+    } catch (error) {
+      console.log(error);
+      if(
+        subjectCode === undefined
+      ){
+
+        toast.error("Please select a subject")
+      }
+      else{
+        toast.error("No record for this subject")
+
+      }
+    }
+  };
   return (
     <>
       {loading ? (
@@ -134,12 +166,17 @@ export default function Assign() {
                       <select
                         name="subjectSelected"
                         {...register("subjectSelected")}
+                        onChange={(e)=>{
+                          setSubjectCode(e.target.value)
+                        }}
                       >
+                          <option value="" disabled selected>select subject</option>
+                      
                         {filteredSubjects.map((subject) => (
-                          <option>{subject.name}</option>
+                          <option value={subject.code}>{subject.name}</option>
                         ))}
                       </select>
-                      <button className="filter-btn">filter</button>
+                      <button className="filter-btn" onClick={getHistory}>filter</button>
                     </div>
                   </form>
                 </div>
@@ -154,17 +191,23 @@ export default function Assign() {
                     <th>Assignment Title</th>
                     <th>Assignment Topic</th>
                     <th>No. of Submissions</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1.</td>
-                    <td>01/01/2024</td>
-                    <td>03/01/2023</td>
-                    <td>Algebra</td>
-                    <td>Algebra</td>
-                    <td>33</td>
-                  </tr>
+                  {history.map((answer, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{answer?.dateGiven}</td>
+                      <td>{answer?.dateGiven}</td>
+                      <td>{answer?.dateGiven}</td>
+                      <td>{answer?.dateGiven}</td>
+                      <td>{answer?.answers?.length}</td>
+                      <td>
+                        <Link className="view-button ">view</Link>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
             </div>

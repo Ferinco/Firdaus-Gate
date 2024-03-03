@@ -113,7 +113,7 @@ export default function TeacherDashboard() {
   return (
     <Dashboard className="py-5">
       <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
-        <h4 className="mt-3">
+        <h4 className="mt-3 mb-0">
           <span>{greeting} </span>
           {title} {user.firstName} <span></span>
         </h4>
@@ -220,10 +220,12 @@ const Dashboard = styled.div`
   /* height: fit-content; */
   .head {
     h4 {
-      font-weight: 800 !important;
+      font-weight: 600 !important;
     }
     p {
-      font-weight: 600;
+      font-weight: 400;
+      color: black;
+
     }
   }
   .spinner-border {

@@ -63,6 +63,7 @@ export default function StudentDashboard() {
     }
   };
 
+
   useEffect(() => {
     const userId = user._id;
     fetchSubjects(userId);
@@ -70,6 +71,8 @@ export default function StudentDashboard() {
     GetStudentClass(user, setStudentClass);
     GetActiveTerm(activeSession, setSession);
   }, [user, setStudentClass, activeSession, setSession]);
+
+//ASSIGNMENT SEETINGS STARTS HERE
   const fetchSubjects = async (userId) => {
     try {
       const { data } = await SubjectService.getSubjects(userId);

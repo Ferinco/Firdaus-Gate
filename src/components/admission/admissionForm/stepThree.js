@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 import { api, supportApi } from "../../../api/axios";
@@ -33,6 +33,10 @@ export default function StepThree({ setStep }) {
     // currency: 'NGN',
   };
 
+  const date = new Date(student?.dateOfBirth);
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
+  const DOB = date.toLocaleDateString(undefined, options);
+
   const saveResponse = async (response, student, parent) => {
     try {
       const data = await PaymentService.postRefernce(
@@ -52,15 +56,14 @@ export default function StepThree({ setStep }) {
       console.log(error);
     }
   };
-  
+
   const initializePayment = usePaystackPayment(config);
   const onSuccess = (response) => {
     console.log(response);
-    console.log(student)
+    console.log(student);
     saveResponse(response, student, parent);
     navigate("/admission/admission-form/payment-success", { state: response });
   };
-  
 
   const onClose = () => {
     console.log("closed");
@@ -93,7 +96,7 @@ export default function StepThree({ setStep }) {
           </div>
           <div className="col-6 mt-2">
             <p>Date of Birth</p>
-            <p className="item">{student?.dateOfBirth}</p>
+            <p className="item">{DOB}</p>
           </div>
           <div className="col-6 mt-2">
             <p>Gender</p>
@@ -196,12 +199,7 @@ const Wrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(
-      255,
-      255,
-      255,
-      0.8
-    ); 
+    background-color: rgba(255, 255, 255, 0.8);
   }
   .header-section {
     border-bottom: 1px solid #0d6efd;

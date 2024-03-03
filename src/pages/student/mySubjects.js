@@ -19,6 +19,7 @@ export default function Subjects() {
     try {
       const { data } = await SubjectService.getSubjects(userId);
       setSubjects(data.subjects.slice(1));
+      console.log(subjects)
       setLoading(false);
     } catch (error) {
       console.error(error);
