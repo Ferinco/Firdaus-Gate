@@ -20,6 +20,8 @@ import toast from "react-hot-toast";
 
 export default function Assign() {
   const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(false);
+
   useEffect(() => {
     getSubjects();
     setLoading(false);
@@ -88,58 +90,61 @@ export default function Assign() {
   console.log(subjectCode);
 
   const getHistory = async () => {
+    setChecking(true);
     try {
       const response = await axios.get(
         `https://ferrum-sever.onrender.com/api/assignments/subject/${subjectCode}`
       );
-      console.log(response.data);
-      setHistory([response.data]);
+      console.log(response);
+      setHistory(response.data);
+      if(response.data.length < 1){
+        toast.error("No record for this subject");
+      }
     } catch (error) {
       console.log(error);
-      if(
-        subjectCode === undefined
-      ){
-
-        toast.error("Please select a subject")
+      if (subjectCode === undefined) {
+        toast.error("Please select a subject");
+      } else{
+        toast.error("No record for this subject");
       }
-      else{
-        toast.error("No record for this subject")
-
-      }
+    } finally {
+      setChecking(false);
     }
   };
+  console.log(history);
   return (
     <>
       {loading ? (
         <CircularProgress />
       ) : (
-        <Container className="py-5">
-          <div className="container d-flex flex-row gap-2 first-div">
-            <button onClick={OpenSelect} className="new-tab p-2">
-              New Assignment +
-            </button>
+        <>
+          <Container className="py-5">
+            <div className="container d-flex flex-row gap-2 first-div">
+              <button onClick={OpenSelect} className="new-tab p-2">
+                New Assignment +
+              </button>
 
-            {open
-              ? filteredSubjects.map((subject) => (
-                  <Link
-                    to={`${PATH_DASHBOARD.teacher.setAssignments}/${subject.code}`}
-                    className="react-router-link subject-tile d-flex flex-column p-2 gap-2"
-                  >
-                    <div className="icon-div p-2">
-                      <h6 className="text-left m-0">
-                        {subject.name.charAt(0)}
-                      </h6>
-                    </div>
-                    <p className="m-0">
-                      {subject.name.length > 15
-                        ? `${subject.name.slice(0, 15)}...`
-                        : subject.name}
-                    </p>
-                  </Link>
-                ))
-              : ""}
-          </div>
-          {/* <div className=" container mt-5">
+              {open
+                ? filteredSubjects.map((subject) => (
+                    <Link
+                      to={`${PATH_DASHBOARD.teacher.setAssignments}/${subject.code}`}
+                      className="react-router-link subject-tile d-flex flex-column p-2 gap-2"
+                    >
+                      <div className="icon-div p-2">
+                        <h6 className="text-left m-0">
+                          {subject.name.charAt(0)}
+                        </h6>
+                      </div>
+                      <p className="m-0">
+                        {subject.name.length > 15
+                          ? `${subject.name.slice(0, 15)}...`
+                          : subject.name}
+                      </p>
+                    </Link>
+                  ))
+                : ""}
+            </div>
+            {/* <div className=" container mt-5">
             <h6>Active Assignments</h6>
             <div className="d-flex flex-row gap-2 second-div">
               <div className="subject-tile py-3">
@@ -156,63 +161,78 @@ export default function Assign() {
               </div>
             </div>
           </div> */}
-          <div className="table-div mt-5 py-5">
-            <div className="container">
-              <div className="table-header d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <h6>History</h6>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="d-flex flex-row align-items-center gap-2">
-                      <select
-                        name="subjectSelected"
-                        {...register("subjectSelected")}
-                        onChange={(e)=>{
-                          setSubjectCode(e.target.value)
-                        }}
-                      >
-                          <option value="" disabled selected>select subject</option>
-                      
-                        {filteredSubjects.map((subject) => (
-                          <option value={subject.code}>{subject.name}</option>
-                        ))}
-                      </select>
-                      <button className="filter-btn" onClick={getHistory}>filter</button>
-                    </div>
-                  </form>
+            <div className="table-div mt-5 py-5">
+              <div className="container">
+                <div className="table-header d-flex flex-row justify-content-between">
+                  <div className="d-flex flex-column">
+                    <h6>History</h6>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div className="d-flex flex-row align-items-center gap-2">
+                        <select
+                          name="subjectSelected"
+                          {...register("subjectSelected")}
+                          onChange={(e) => {
+                            setSubjectCode(e.target.value);
+                          }}
+                        >
+                          <option value="" disabled selected>
+                            select subject
+                          </option>
+
+                          {filteredSubjects.map((subject) => (
+                            <option value={subject.code}>{subject.name}</option>
+                          ))}
+                        </select>
+                        <button className="filter-btn" onClick={getHistory}>
+                          filter
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <button className="clear-btn">clear all</button>
                 </div>
-                <button className="clear-btn">clear all</button>
-              </div>
-              <Table className="table-bordered mt-3">
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Date Assigned</th>
-                    <th>Deadline</th>
-                    <th>Assignment Title</th>
-                    <th>Assignment Topic</th>
-                    <th>No. of Submissions</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {history.map((answer, index) => (
+                <Table className="table-bordered mt-3">
+                  <thead>
                     <tr>
-                      <td>{index + 1}</td>
-                      <td>{answer?.dateGiven}</td>
-                      <td>{answer?.dateGiven}</td>
-                      <td>{answer?.dateGiven}</td>
-                      <td>{answer?.dateGiven}</td>
-                      <td>{answer?.answers?.length}</td>
-                      <td>
-                        <Link className="view-button ">view</Link>
-                      </td>
+                      <th>No.</th>
+                      <th>Date Assigned</th>
+                      <th>Deadline</th>
+                      <th>Assignment Title</th>
+                      <th>Assignment Topic</th>
+                      <th>No. of Submissions</th>
+                      <th></th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
+                  </thead>
+                  {history.length > 0 ? (
+                    <tbody>
+                      {history.map((answer, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{answer?.dateGiven}</td>
+                          <td>{answer?.dateGiven}</td>
+                          <td>{answer?.dateGiven}</td>
+                          <td>{answer?.dateGiven}</td>
+                          <td>{answer?.answers?.length}</td>
+                          <td>
+                            <Link
+                              className="view-button "
+                              to={`${PATH_DASHBOARD.teacher.giveAssignments}/${answer._id}`}
+                            >
+                              view
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
+                    ""
+                  )}
+                </Table>
+              </div>
             </div>
-          </div>
-        </Container>
+          </Container>
+          {checking ? <CircularProgress /> : ""}
+        </>
       )}
     </>
   );

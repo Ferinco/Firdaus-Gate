@@ -19,7 +19,7 @@ import {
   MyClass,
   TeacherLogin,
   Assign,
-  GiveAssignments,
+  CheckAssignments,
   AssignmentSettings,
   History,
 } from "../pages/teacher";
@@ -143,7 +143,7 @@ export default function Routes() {
         { path: "assign", element: <Assign /> },
         { path: "edit-student/:identity", element: <EditStudent /> },
         { path: "student-info/:identity", element: <StudentInfo /> },
-        { path: "new-assignment", element: <GiveAssignments /> },
+        { path: "assignment-details/:identity", element: <CheckAssignments /> },
         { path: "set-assignment/:identity", element: <AssignmentSettings /> },
         { path: "about-me", element: <AboutMe /> },
         { path: "results/uploaded-results", element: <History /> },
