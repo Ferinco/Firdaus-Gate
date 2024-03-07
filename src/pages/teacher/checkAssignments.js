@@ -9,6 +9,7 @@ import { CircularProgress } from "../../components/custom";
 export default function CheckAssignments() {
   const { identity } = useParams();
   const [assignment, setAssignment] = useState();
+  const [answers, setAnswers] = useState();
   const [question, setQuestion] = useState();
   const [correction, setCorrection] = useState();
   const [correctionText, setCorrectionText] = useState("");
@@ -36,6 +37,9 @@ export default function CheckAssignments() {
             ? response?.data.correctionImage.filename
             : []
         );
+        setAnswers(response.data.answers);
+        console.log(response.data.answers);
+
         setAssignment(response.data);
         console.log(response.data);
       } catch (error) {
@@ -76,7 +80,7 @@ export default function CheckAssignments() {
           },
         }
       );
-      console.log(response)
+      console.log(response);
     } catch (error) {
       toast.error("Could not upload corrections");
       console.log(error);
@@ -91,79 +95,100 @@ export default function CheckAssignments() {
         <CircularProgress />
       ) : (
         <Container className="container py-5 d-flex flex-column">
-          <div className="header d-flex flex-row justify-content-between">
-            <h4 className="m-0">Assignment Details</h4>
-            <button className="delete">Delete Assignment</button>
-          </div>
-          <span>You can click on image to view properly</span>
-          <div className="content-div mt-5 row flex-wrap align-items-top justify-content-between">
-            <div className="d-flex flex-column col-md-6">
-              <div className="head">
-                {" "}
-                <h6>Question</h6>
-              </div>
-              <div className="d-flex flex- gap-3 flex-wrap mt-3">
-                <p className="label">Question in text: </p>
-                <p className="text">{assignment?.questionText}</p>
-              </div>{" "}
-              <div className="image-div">
-                {assignment?.questionImage ? (
-                  <div className="image mt-2">
-                    <img
-                      src={Path + question}
-                      onClick={() => setOpenQuestion(true)}
-                    />
-                  </div>
-                ) : (
-                  <div>no photos uploaded</div>
-                )}
-              </div>
+          <div className="top-div d-flex flex-column justify-content-between p-3 gap-4">
+            <div className="d-flex flex-column">
+              <h4 className="m-0">Assignment Details</h4>
             </div>
-            <div className="d-flex flex-column col-md-6">
-              <div className="head">
-                <h6>Correction</h6>
+            <div className="d-flex flex-row justify-content-between flex-wrap gap-3">
+              <div className="d-flex flex-column small-divs">
+                <p>Topic:</p>
+                <h6>{assignment?.topic}</h6>
               </div>
-              {assignment?.correctionText ? (
-                <div className="d-flex flex- gap-3 flex-wrap mt-3">
-                  <p className="label">Correction in text: </p>
-                  <p className="text">{assignment?.correctionText}</p>
-                </div>
-              ) : (
-                <div className="mt-3">
-                  <label className="label">Correction Text:</label>
-                  <input
-                    className="input"
-                    placeholder="correction text..."
-                    onChange={(e) => {
-                      setCorrectionText(e.target.value);
-                    }}
+              <div className="d-flex flex-column small-divs">
+                <p>Title:</p>
+                <h6>{assignment?.title}</h6>
+              </div>
+              <div className="d-flex flex-column small-divs">
+                <p>Date Issued:</p>
+                <h6>{assignment?.dateGiven}</h6>
+              </div>
+              <div className="d-flex flex-column small-divs">
+                <p>Deadline:</p>
+                <h6>{assignment?.deadline}</h6>
+              </div>
+              <div className="d-flex flex-column small-divs">
+                <p>No of Submissions:</p>
+                <h6>{assignment?.answers.length}</h6>
+              </div>
+              <button className="delete">Delete Assignment</button>
+            </div>
+          </div>
+          <div className="d-flex flex-column mt-5 justify-content-center">
+            <div className="head">
+              {" "}
+              <h6>Questions/Instruction</h6>
+            </div>
+            <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
+              <p className="label">Question in text: </p>
+              <p className="text">{assignment?.questionText}</p>
+            </div>{" "}
+            <div className="image-div d-flex justify-content-center align-items-center">
+              {assignment?.questionImage ? (
+                <div className="image mt-2">
+                  <img
+                    src={Path + question}
+                    onClick={() => setOpenQuestion(true)}
                   />
                 </div>
-              )}
-              {assignment?.correctionImage ? (
-                <div className="image-div">
-                  <div className="image mt-2">
-                    <img
-                      src={Path + correction}
-                      onClick={() => setOpenCorrection(true)}
-                    />
-                  </div>
-                </div>
               ) : (
-                <>
-                  <div className="mt-1">
-                    <label className="label">Correction Image:</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="p-0 input"
-                      onChange={handleCorrectionChange}
-                    />
-                  </div>
-                  <button onClick={handleSubmit}>Post Correction</button>
-                </>
+                <div>no photos uploaded</div>
               )}
             </div>
+          </div>
+          <div className="d-flex flex-column mt-4 justify-content-center">
+            <div className="head">
+              <h6>Correction</h6>
+            </div>
+            {assignment?.correctionText ? (
+              <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
+                <p className="label">Correction in text: </p>
+                <p className="text">{assignment?.correctionText}</p>
+              </div>
+            ) : (
+              <div className="mt-3 d-flex flex-column justify-content-center">
+                <label className="label">Correction Text:</label>
+                <textarea
+                  className="input"
+                  placeholder="correction text..."
+                  onChange={(e) => {
+                    setCorrectionText(e.target.value);
+                  }}
+                />
+              </div>
+            )}
+            {assignment?.correctionImage ? (
+              <div className="image-div">
+                <div className="image mt-2">
+                  <img
+                    src={Path + correction}
+                    onClick={() => setOpenCorrection(true)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="mt-1 d-flex flex-column">
+                  <label className="label">Correction Image:</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="p-0 upload-div d-flex justify-content-center p-3 align-items-center"
+                    onChange={handleCorrectionChange}
+                  />
+                </div>
+                <button onClick={handleSubmit}>Post Correction</button>
+              </>
+            )}
           </div>
           <div className="table-section mt-5">
             <div className="head">Answers and Submissions</div>
@@ -223,18 +248,33 @@ export default function CheckAssignments() {
   );
 }
 const Container = styled.div`
-  max-width: 700px;
   margin: 0 !important;
+  p,
+  h6 {
+    margin: 0 !important;
+  }
+  .top-div {
+    background-color: white;
+    border-radius: 20px;
+    button {
+      border-radius: 10px;
+    }
+    p {
+      font-size: 14px;
+    }
+    h6 {
+      font-weight: 500 !important;
+      font-size: 15px;
+    }
+  }
   label {
     margin: 0 !important;
-    font-weight: 600;
+    font-weight: 600 !important;
+    font-size: 14px;
   }
   h4 {
     font-weight: 500 !important;
-  }
-  .input {
-    border: 1px solid grey;
-    width: fit-content;
+    font-size: 19px;
   }
   button {
     width: fit-content;
@@ -267,8 +307,7 @@ const Container = styled.div`
     }
   }
   .head {
-    background-color: grey;
-    color: white;
+    color: black;
     padding: 5px 3px;
     h6 {
       font-weight: 500 !important;
@@ -278,12 +317,16 @@ const Container = styled.div`
     font-weight: 300;
   }
   .text {
-    color: blue;
+    color: black;
+    text-decoration: underline;
     font-weight: 500;
   }
   .image-div {
     border: 1px solid grey;
     padding: 5px;
+    max-width: 300px;
+    justify-self: center;
+    align-self: center;
   }
   .table-div {
     overflow-x: auto !important;
@@ -294,6 +337,22 @@ const Container = styled.div`
       font-weight: 500 !important;
       text-align: center;
     }
+  }
+  textarea {
+    padding: 10px;
+    border: 1px solid grey;
+    color: grey;
+    border-radius: 10px;
+    background: transparent;
+  }
+  input,
+  textarea {
+    outline: 0 !important;
+  }
+  .upload-div {
+    border: 1px dashed blue;
+    width: 200px;
+    height: 200px;
   }
 `;
 const PhotoOverlay = styled.div`

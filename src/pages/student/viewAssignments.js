@@ -11,8 +11,8 @@ export default function ViewAssignments() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("");
-  const [questions, setQuestions] = useState([]);
-  const [subjects, setSubjects] = useState([]);
+  const [questions, setQuestions] = useState();
+  const [subjects, setSubjects] = useState();
 
   useEffect(() => {
     SetStudentCategory();
@@ -43,6 +43,7 @@ export default function ViewAssignments() {
         const data = response?.data.map((res) =>
           res.category === category ? res : []
         );
+        console.log(data)
         setQuestions(data);
       } catch (error) {
         console.log(error);
@@ -51,7 +52,7 @@ export default function ViewAssignments() {
       }
     };
     FetchAssignments();
-  }, []);
+  }, [category]);
 
   useEffect(() => {
     const userId = user._id;
