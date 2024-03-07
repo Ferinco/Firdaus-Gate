@@ -104,7 +104,7 @@ export default function JuniorThird(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(ResultRef, { filename: "second-term-results" })
+            generatePDF(ResultRef,{filename: props.owner.firstName+props.owner.admissionNumber+"Third-Term"}  )
           }
         >
           download

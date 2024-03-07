@@ -59,20 +59,30 @@ export default function SeniorFirst(props) {
         return "None"; // Provide a default value if none of the cases match
     }
   };
-const ResultRef = useRef()
+  const ResultRef = useRef();
 
-console.log(results);
+  console.log(results);
   return (
     <div className="d-flex flex-column gap-5">
- <div className="download-field d-flex flex-row px-5">
-    <button className="" onClick={()=>(
-        generatePDF(ResultRef,{filename: "second-term-results"}  )
-    )}>download</button>
+      <div className="download-field d-flex flex-row px-5">
+        <button
+          className=""
+          onClick={() =>
+            generatePDF(ResultRef, {
+              filename:
+                props.owner.firstName +
+                props.owner.admissionNumber +
+                "First-Term",
+            })
+          }
+        >
+          download
+        </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-      <img src="/images/result-header.png" className="logo-container"/>
+        <img src="/images/result-header.png" className="logo-container" />
         <div className="intro-div d-flex flex-column">
-        <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+          <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
             <div className="title">
               <p>Academic Year</p>
               <p>{props.session}</p>
@@ -140,7 +150,7 @@ console.log(results);
                     {props.results?.slice(1, 4).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(8, 10).map((score) => (
+                    {props.results?.slice(8, 10).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>{" "}
@@ -149,7 +159,7 @@ console.log(results);
                     {props.results?.slice(10, 13).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(17, 19).map((score) => (
+                    {props.results?.slice(17, 19).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -158,7 +168,7 @@ console.log(results);
                     {props.results?.slice(19, 22).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(26, 28).map((score) => (
+                    {props.results?.slice(26, 28).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -167,7 +177,7 @@ console.log(results);
                     {props.results?.slice(28, 31).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(35, 37).map((score) => (
+                    {props.results?.slice(35, 37).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -176,7 +186,7 @@ console.log(results);
                     {props.results?.slice(37, 40).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(44, 46).map((score) => (
+                    {props.results?.slice(44, 46).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -185,7 +195,7 @@ console.log(results);
                     {props.results?.slice(46, 49).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(53, 55).map((score) => (
+                    {props.results?.slice(53, 55).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -194,7 +204,7 @@ console.log(results);
                     {props.results?.slice(55, 58).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(62, 64).map((score) => (
+                    {props.results?.slice(62, 64).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -203,7 +213,7 @@ console.log(results);
                     {props.results?.slice(64, 67).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(71, 73).map((score) => (
+                    {props.results?.slice(71, 73).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -212,7 +222,7 @@ console.log(results);
                     {props.results?.slice(73, 76).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(80, 82).map((score) => (
+                    {props.results?.slice(80, 82).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -221,7 +231,7 @@ console.log(results);
                     {props.results?.slice(82, 85).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(89, 91).map((score) => (
+                    {props.results?.slice(89, 91).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -230,7 +240,7 @@ console.log(results);
                     {props.results?.slice(91, 94).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(98, 100).map((score) => (
+                    {props.results?.slice(98, 100).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -239,7 +249,7 @@ console.log(results);
                     {props.results?.slice(100, 103).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(107, 109).map((score) => (
+                    {props.results?.slice(107, 109).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -248,7 +258,7 @@ console.log(results);
                     {props.results?.slice(109, 112).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(116, 118).map((score) => (
+                    {props.results?.slice(116, 118).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -257,7 +267,7 @@ console.log(results);
                     {props.results?.slice(118, 121).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(125, 127).map((score) => (
+                    {props.results?.slice(125, 127).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -266,7 +276,7 @@ console.log(results);
                     {props.results?.slice(127, 130).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(134, 136).map((score) => (
+                    {props.results?.slice(134, 136).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -275,7 +285,7 @@ console.log(results);
                     {props.results?.slice(136, 139).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(143, 145).map((score) => (
+                    {props.results?.slice(143, 145).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -284,7 +294,7 @@ console.log(results);
                     {props.results?.slice(145, 148).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(152, 154).map((score) => (
+                    {props.results?.slice(152, 154).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -293,7 +303,7 @@ console.log(results);
                     {props.results?.slice(154, 157).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(161, 163).map((score) => (
+                    {props.results?.slice(161, 163).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -302,7 +312,7 @@ console.log(results);
                     {props.results?.slice(163, 166).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(170, 172).map((score) => (
+                    {props.results?.slice(170, 172).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -311,7 +321,7 @@ console.log(results);
                     {props.results?.slice(172, 175).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
-                     {props.results?.slice(179, 181).map((score) => (
+                    {props.results?.slice(179, 181).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -341,9 +351,9 @@ console.log(results);
                   </thead>
                   <tbody>
                     <tr>
-                    {props.results?.slice(194, 200).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                      {props.results?.slice(194, 200).map((score) => (
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                   </tbody>
                 </table>
@@ -366,9 +376,9 @@ console.log(results);
                   </thead>
                   <tbody>
                     <tr className="last">
-                    {props.results?.slice(205, 208).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                      {props.results?.slice(205, 208).map((score) => (
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                   </tbody>
                 </table>
@@ -392,8 +402,8 @@ console.log(results);
                     <tr>
                       <td>Level Attained</td>
                       {props.results?.slice(200, 205).map((score) => (
-                      <td className="text-center">{score}</td>
-                    ))}
+                        <td className="text-center">{score}</td>
+                      ))}
                     </tr>
                     <tr>
                       <td className="special-td"></td>
@@ -556,7 +566,7 @@ console.log(results);
                 </thead>
                 <tbody>
                   <tr style={{ height: "50px" }}>
-                  {props.results?.slice(210, 213).map((score) => (
+                    {props.results?.slice(210, 213).map((score) => (
                       <td className="text-center">{score}</td>
                     ))}
                   </tr>
@@ -609,21 +619,21 @@ const ResultDiv = styled.div`
   margin: auto;
   height: fit-content !important;
   background-color: white;
-  .last{
+  .last {
     height: 27px;
   }
   .intro-header {
     border: 1px solid black;
     height: 50px;
     border-bottom: 0 !important;
-    .student-name{
-    border-bottom: 1px solid black;
+    .student-name {
+      border-bottom: 1px solid black;
+    }
   }
-  }
-  .header{
+  .header {
     gap: 50px;
   }
-  .comments{
+  .comments {
     text-decoration: underline !important;
   }
   span {
@@ -657,9 +667,12 @@ const ResultDiv = styled.div`
     border-collapse: collapse !important;
     border: 1px solid black;
   }
-  tr, td, tr, thead, tbody{
+  tr,
+  td,
+  tr,
+  thead,
+  tbody {
     border-collapse: collapse !important;
-
   }
   td {
     border: 1px solid black;
@@ -704,7 +717,7 @@ const ResultDiv = styled.div`
       padding: 3px;
       .rotate {
         transform: rotate(-90deg);
-      text-align: center !important;
+        text-align: center !important;
         width: 50px;
         margin-top: -50px !important;
       }

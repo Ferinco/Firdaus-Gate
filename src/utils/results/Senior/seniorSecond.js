@@ -62,10 +62,20 @@ export default function SeniorSecond(props) {
   };
   return (
     <div className="d-flex flex-column gap-5">
- <div className="download-field d-flex flex-row px-5">
-    <button className="" onClick={()=>(
-        generatePDF(resultRef,{filename: "second-term-results"}  )
-    )}>download</button>
+      <div className="download-field d-flex flex-row px-5">
+        <button
+          className=""
+          onClick={() =>
+            generatePDF(resultRef, {
+              filename:
+                props.owner.firstName +
+                props.owner.admissionNumber +
+                "Second-Term",
+            })
+          }
+        >
+          download
+        </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
         <img src="/images/result-header.png" className="logo-container" />

@@ -66,7 +66,7 @@ export function KgResult(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(resultRef, { filename: "second-term-results" })
+            generatePDF(resultRef,{filename: props.owner.firstName+props.owner.admissionNumber}  )
           }
         >
           download

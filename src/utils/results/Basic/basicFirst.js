@@ -92,7 +92,7 @@ export default function BasicFirst(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(ResultRef, { filename: "second-term-results" })
+            generatePDF(ResultRef,{filename: props.owner.firstName+props.owner.admissionNumber+"First-Term"}  )
           }
         >
           download
