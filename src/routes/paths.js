@@ -59,6 +59,10 @@ checkResults: JOIN(ROOT_TEACHER, "view-results"),
     scheme: JOIN(ROOT_STUDENT, "work-scheme"),
 aboutMe: JOIN(ROOT_STUDENT, "about-me"),
 viewReport: JOIN(ROOT_STUDENT, "view-result"),
+viewAssignments: JOIN(ROOT_STUDENT, "view-assignments"),
+postAnswer: JOIN(ROOT_STUDENT, "submit-solutions"),
+
+
 
 
 

@@ -209,9 +209,9 @@ export default function Assign() {
                         <tr>
                           <td>{index + 1}</td>
                           <td>{answer?.dateGiven}</td>
-                          <td>{answer?.dateGiven}</td>
-                          <td>{answer?.dateGiven}</td>
-                          <td>{answer?.dateGiven}</td>
+                          <td>{answer?.deadline}</td>
+                          <td>{answer?.title}</td>
+                          <td>{answer?.topic}</td>
                           <td>{answer?.answers?.length}</td>
                           <td>
                             <Link

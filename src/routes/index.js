@@ -34,6 +34,7 @@ import {
   Scheme,
   ViewResult,
   FilterResults,
+  ViewAssignments,
 } from "../pages/student";
 import {
   StudentsList,
@@ -77,6 +78,7 @@ import SchoolFeesLayout from "../pages/fees/layout";
 import ReturningStudents from "../pages/fees/returning";
 import NewStudents from "../pages/fees/newStudents";
 import CheckAdmission from "../pages/admission/checkAdmission";
+import CheckQuestions from "../pages/student/checkQuestions";
 export default function Routes() {
   return useRoutes([
     //GENERAL ROUTES
@@ -173,6 +175,10 @@ export default function Routes() {
         { path: "about-me", element: <AboutMe /> },
         { path: "view-result", element: <ViewResult /> },
         { path: "filter-results", element: <FilterResults /> },
+        { path: "view-assignments", element: <ViewAssignments /> },
+        { path: "submit-solutions/:identity", element: <CheckQuestions /> },
+
+
       ],
     },
 

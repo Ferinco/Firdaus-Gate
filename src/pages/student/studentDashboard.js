@@ -34,6 +34,7 @@ export default function StudentDashboard() {
   const classes = [...JuniorClasses];
   const currentClass = classes.filter((item) => item.code === selectedClass);
   const [subjects, setSubjects] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const {
     termName,
@@ -45,6 +46,7 @@ export default function StudentDashboard() {
   } = useAppContext();
   const [visibleSubjects, setVisibleSubjects] = useState(5);
   const [session, setSession] = useState("");
+  const [category, setCategory] = useState("");
 
   const getTeachers = async (filter) => {
     try {
@@ -62,17 +64,29 @@ export default function StudentDashboard() {
       console.log(error);
     }
   };
-
-
+  function SetStudentCategory() {
+    if (user?.currentClass.startsWith("FGJSC")) {
+      setCategory("junior");
+    } else if (user?.currentClass.startsWith("FGSSC")) {
+      setCategory("senior");
+    } else if (user?.currentClass.startsWith("FGNSC")) {
+      setCategory("nursery");
+    } else if (user?.currentClass.startsWith("FGKGC")) {
+      setCategory("kg");
+    } else if (user?.currentClass.startsWith("FGBSC")) {
+      setCategory("basic");
+    }
+  }
   useEffect(() => {
     const userId = user._id;
+    SetStudentCategory();
     fetchSubjects(userId);
     getTeachers();
     GetStudentClass(user, setStudentClass);
     GetActiveTerm(activeSession, setSession);
   }, [user, setStudentClass, activeSession, setSession]);
 
-//ASSIGNMENT SEETINGS STARTS HERE
+  //ASSIGNMENT SEETINGS STARTS HERE
   const fetchSubjects = async (userId) => {
     try {
       const { data } = await SubjectService.getSubjects(userId);
@@ -96,7 +110,24 @@ export default function StudentDashboard() {
   }, []);
   console.log(termName);
 
-  //downloading current report
+  //get assignments
+  useEffect(() => {
+    const FetchAssignments = async () => {
+      try {
+        const response = await axios.get(
+          "https://ferrum-sever.onrender.com/api/get-all-assignments"
+        );
+        console.log(response);
+        const data = response?.data.map((res) =>
+          res.category === category ? res : []
+        );
+        setQuestions(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    FetchAssignments();
+  }, []);
 
   //get time for welcome message
   const currentTime = new Date().getHours();
@@ -185,37 +216,51 @@ export default function StudentDashboard() {
               <div className="bottom-div py-4 px-3 d-flex flex-column-reverse flex-wrap gap-1 justify-content-between">
                 <div className="d-flex flex-row gap-2 flex-wrap">
                   <button className="result-btn">
-                <Link
-                  className="react-router-link d-flex flex-row align-items-center gap-3"
-                  to={PATH_DASHBOARD.student.viewReport}
-                >
-                <div className="d-flex flex-column text-start">
-                  <h6 className="m-0 small-h6 ">Current Result</h6>
-                  <p className="m-0">view and download</p>
-                </div>
-                <div className="result-icon">
-                <Icon icon="fluent-mdl2:poll-results" height="30px" color="white"/>
-                </div>
-                </Link>
+                    <Link
+                      className="react-router-link d-flex flex-row align-items-center gap-3"
+                      to={PATH_DASHBOARD.student.viewReport}
+                    >
+                      <div className="d-flex flex-column text-start">
+                        <h6 className="m-0 small-h6 ">Current Result</h6>
+                        <p className="m-0">view and download</p>
+                      </div>
+                      <div className="result-icon">
+                        <Icon
+                          icon="fluent-mdl2:poll-results"
+                          height="30px"
+                          color="white"
+                        />
+                      </div>
+                    </Link>
                   </button>
                   <button className="result-btn">
-                <Link
-                  className="react-router-link d-flex flex-row align-items-center gap-3"
-                  to={PATH_DASHBOARD.student.results}
-                >
-                <div className="d-flex flex-column text-start">
-                  <h6 className="small-h6 m-0">Results Archive</h6>
-                  <p className="m-0">search and download</p>
-                </div>
-                <div className="result-icon">
-                <Icon icon="material-symbols-light:archive-outline" height="40px" color="white"/>                </div>
-                </Link>
+                    <Link
+                      className="react-router-link d-flex flex-row align-items-center gap-3"
+                      to={PATH_DASHBOARD.student.results}
+                    >
+                      <div className="d-flex flex-column text-start">
+                        <h6 className="small-h6 m-0">Results Archive</h6>
+                        <p className="m-0">search and download</p>
+                      </div>
+                      <div className="result-icon">
+                        <Icon
+                          icon="material-symbols-light:archive-outline"
+                          height="40px"
+                          color="white"
+                        />{" "}
+                      </div>
+                    </Link>
                   </button>
                 </div>
                 <div className="assignment d-flex flex-column px-3 py-3 gap-2">
                   <h6 className="m-0">Assignments</h6>
                   <p className="m-0">
-                    you get notified when you have a new assignment
+                    {
+                      questions.length>0 ? 
+                    <Link to={PATH_DASHBOARD.student.viewAssignments}>
+                      you have a new assignment
+                    </Link> : <p className="m-0">you get notified when you have a new assignment</p>
+                    }
                   </p>
                 </div>
               </div>
@@ -298,9 +343,9 @@ const Dashboard = styled.div`
   height: fit-content !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
-  .result-icon{
+  .result-icon {
   }
-  .result-btn{
+  .result-btn {
     font-size: 13px;
     padding: 3px 15px;
     border-radius: 10px;
@@ -308,14 +353,12 @@ const Dashboard = styled.div`
     border: 0 !important;
     background-color: rgba(69 72 172 / 70%);
     color: white;
-    p{
+    p {
       font-weight: 400;
     }
-    &:hover{
+    &:hover {
       transition: 0.3s;
-    background-color: rgba(69 72 172 / 90%);
-
-
+      background-color: rgba(69 72 172 / 90%);
     }
   }
   .view-more {
@@ -324,7 +367,7 @@ const Dashboard = styled.div`
   .small-h6 {
     font-size: 13px;
   }
-  .small-p{
+  .small-p {
     font-size: 12px;
   }
   h6 {
@@ -422,9 +465,9 @@ const Dashboard = styled.div`
 
     flex-direction: column;
     justify-content: space-between;
-    p{
-    font-size: 13px;
-  }
+    p {
+      font-size: 13px;
+    }
   }
   .infos {
     width: 634px !important;
@@ -459,7 +502,7 @@ const Dashboard = styled.div`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 20px;
     background-color: white;
-    @media screen and (max-width: 991px){
+    @media screen and (max-width: 991px) {
       margin-top: 15px;
     }
     p {
