@@ -34,7 +34,7 @@ export default function ViewAssignments() {
   //get assignments
   useEffect(() => {
     const FetchAssignments = async () => {
-        setLoading(true)
+      setLoading(true);
       try {
         const response = await axios.get(
           "https://ferrum-sever.onrender.com/api/get-all-assignments"
@@ -43,7 +43,7 @@ export default function ViewAssignments() {
         const data = response?.data.map((res) =>
           res.category === category ? res : []
         );
-        console.log(data)
+        console.log(data);
         setQuestions(data);
       } catch (error) {
         console.log(error);
@@ -63,10 +63,10 @@ export default function ViewAssignments() {
     try {
       const { data } = await SubjectService.getSubjects(userId);
       setSubjects(data.subjects.slice(1));
-    //   setLoading(false);
+      //   setLoading(false);
     } catch (error) {
       console.error(error);
-    //   setLoading(false);
+      //   setLoading(false);
     }
   };
   console.log(questions);
@@ -77,32 +77,67 @@ export default function ViewAssignments() {
         <CircularProgress />
       ) : (
         <Wrapper className=" pt-3 pb-5 d-flex flex-column gap-3">
-          <div className="px-3">
+          {/* <div className="px-3">
             <div className="top-div"></div>
-          </div>
-          <div className="mt-4 d-flex flex-column gap-1 px-3">
-            <h6 className="m-0">Active Assignments</h6>
-            <p>Click on a tile to submit your answer or view correction.</p>
-          </div>
-          <div className="bottom-div pl-3">
-            {questions.length > 0 ? (
-              questions.map((question) => {
-                const subject = subjects?.find(
-                  (subject) => subject?.code === question?.subjectCode
-                );
-                return (
-                  <Link
-                    to={`${PATH_DASHBOARD.student.postAnswer}/${question._id}`}
-                  >
-                    {subject?.name}
-                  </Link>
-                );
-              })
-            ) : (
-              <div>
-                <p>no active assignments</p>
-              </div>
-            )}
+          </div> */}
+          <div className="bottom-div p-3 mt-5">
+            <div className=" d-flex flex-column gap-1 px-3">
+              <h6 className="m-0">Active Assignments</h6>
+              <p>
+                Click on a the "view" link to submit your answer or view
+                correction.
+              </p>
+            </div>
+            <div className=" pl-3">
+              {questions.length > 0 ? (
+                <div className="table-div">
+                  <table className="table-bordered table">
+                    <thead>
+                      <tr>
+                        <th>S/N</th>
+                        <th>Subject</th>
+                        <th>Topic</th>
+                        <th>Title</th>
+                        <th>Date Given</th>
+                        <th>Deadline</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    {questions.map((question, index) => {
+                      const subject = subjects?.find(
+                        (subject) => subject?.code === question?.subjectCode
+                      );
+                      return (
+                        <tbody>
+                          {
+                            <tr>
+                              <td>{index}</td>
+                              <td>{subject?.name}</td>
+                              <td>{question?.topic}</td>
+                              <td>{question.title}</td>
+                              <td>{question?.dateGiven}</td>
+                              <td>{question?.deadline}</td>
+                              <td>
+                                <Link
+                                  to={`${PATH_DASHBOARD.student.postAnswer}/${question._id}`}
+                                  className="view-button"
+                                >
+                                  view
+                                </Link>
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      );
+                    })}
+                  </table>
+                </div>
+              ) : (
+                <div>
+                  <p>no active assignments</p>
+                </div>
+              )}
+            </div>
           </div>
         </Wrapper>
       )}
@@ -115,5 +150,11 @@ const Wrapper = styled.div`
     height: 300px;
     width: 100%;
     border-radius: 30px;
+  }
+  .table-div {
+    overflow-x: auto !important;
+  }
+  .bottom-div {
+    /* background-color: white !important; */
   }
 `;

@@ -31,7 +31,7 @@ const sidebarConfig = [
   },
   {
     icon: "la:chalkboard-teacher",
-    link: PATH_DASHBOARD.student.assignments,
+    link: PATH_DASHBOARD.student.viewAssignments,
     title: "Assignments",
   },
 ];

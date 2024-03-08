@@ -40,7 +40,7 @@ export default function Subjects() {
                 index % 2 === 0 ? "even-subject" : "odd-subject"
               }`}
               key={subject._id}
-              to={`${PATH_DASHBOARD.student.scheme}/${subject._id}`}
+              // to={`${PATH_DASHBOARD.student.scheme}/${subject._id}`}
             >
               <div className="initial h-100 d-flex justify-content-center align-items-center">
                 <p className="m-0">{subject.name.charAt(0)}</p>

@@ -4,6 +4,7 @@ import { UserService } from "../../services/userService";
 import { useAuth } from "../../hooks/useAuth";
 import { api } from "../../api/axios";
 import { CircularProgress } from "../../components/custom";
+import { Icon } from "@iconify/react";
 export default function MyTeachers() {
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [subjectTeachers, setSubjectTeachers] = React.useState([]);
@@ -54,7 +55,9 @@ export default function MyTeachers() {
         <Container className="container py-5">
           <h5>CLASS TEACHER</h5>
           <div className="big-div col-md-8 d-flex flex-row align-items-center gap-3 flex-wrap p-3">
-            <div className="circle-div"></div>
+            <div className="circle-div d-flex justify-content-center align-items-center">
+            <Icon icon="mdi:tie" className="icon" />
+            </div>
             <div className="texts d-flex flex-column gap-1">
               <h5 className="m-0">
                 {classTeacher.gender === "male" ? "Mr." : "Mrs."}{" "}
@@ -71,10 +74,12 @@ export default function MyTeachers() {
             <div className="header">
               <h5>SUBJECT TEACHERS</h5>
             </div>
-            <div className="divs d-flex flex-row flex-wrap gap-5 mt-4 col-md-8">
+            <div className="divs d-flex flex-row flex-wrap justify-content-between mt-4 col-md-8">
               {subjectTeachers.map((teacher) => (
                 <div className="small-div d-flex flex-row align-items-center gap-3 p-2">
-                  <div className="circle-div"></div>
+                  <div className="circle-div d-flex justify-content-center align-items-center">
+                  <Icon icon="mdi:tie" className="icon"  style={{color: "white"}} />
+                  </div>
                   <div className="texts d-flex flex-column ">
                     <h6 className="m-0">
                       {teacher.gender === "male" ? "Mr." : "Mrs."}{" "}
@@ -100,14 +105,22 @@ const Container = styled.div`
   .big-div {
     height: auto;
     border-radius: 20px;
-    background-color: rgb(0 0 0 / 70%);
+    background-color: #5b5bff;
+    width: fit-content;
         color: white;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        a{
+          color: white !important;
+        }
     .circle-div {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background-color: white;
+      background-color: #6f7aff;
+      .icon{
+        font-size: 50px;
+        color: white;
+      }
     }
     @media screen and (max-width: 600px) {
       width: 100% !important;
@@ -116,6 +129,7 @@ const Container = styled.div`
   .small-div {
     background-color: white;
     width: 320px;
+    margin-top: 20px;
     border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     .circle-div {
@@ -123,6 +137,9 @@ const Container = styled.div`
       height: 70px;
       background-color: black;
       border-radius: 50%;
+      .icon{
+        font-size: 40px;
+      }
     }
     .texts {
 

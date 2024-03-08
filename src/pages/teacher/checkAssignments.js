@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { CircularProgress } from "../../components/custom";
+import { Button, CircularProgress } from "../../components/custom";
 
 export default function CheckAssignments() {
   const { identity } = useParams();
@@ -89,7 +89,7 @@ export default function CheckAssignments() {
       setSubmitting(false);
     }
   };
-
+console.log(Path + question)
   return (
     <>
       {loading ? (
@@ -133,7 +133,7 @@ export default function CheckAssignments() {
               {" "}
               <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
                 <p className="label">Question in text: </p>
-                <p className="text">{assignment?.questionText}</p>
+                <p className="text text-center">{assignment?.questionText}</p>
               </div>
               <div className="image-div d-flex justify-content-center align-items-center">
                 {assignment?.questionImage ? (
@@ -157,7 +157,7 @@ export default function CheckAssignments() {
               {assignment?.correctionText ? (
                 <div className="d-flex flex-column gap-3 mt-3 justify-content-center">
                   <p className="label">Correction in text: </p>
-                  <p className="text">{assignment?.correctionText}</p>
+                  <p className="text text-center">{assignment?.correctionText}</p>
                 </div>
               ) : (
                 <div className="mt-3 d-flex flex-column align-items-center">
@@ -192,9 +192,9 @@ export default function CheckAssignments() {
                     />
                   </div>
                   <div className="d-flex flex-row justify-content-center ">
-                    <button
+                    <Button
                       onClick={handleSubmit}
-                      disabled={submitting ? true : false}
+                      disabled={submitting}
                     >
                       {submitting ? (
                         <div className="d-flex justify-content-center">
@@ -205,7 +205,7 @@ export default function CheckAssignments() {
                       ) : (
                         "Post Correction"
                       )}
-                    </button>
+                    </Button>
                   </div>
                 </>
               )}

@@ -170,7 +170,7 @@ export default function Routes() {
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
         { path: "/student/account-settings", element: <Settings /> },
-        { path: "/student/submit-assignments", element: <Assignments /> },
+        { path: "/student/assignments-history", element: <Assignments /> },
         { path: "work-scheme/:identity", element: <Scheme /> },
         { path: "about-me", element: <AboutMe /> },
         { path: "view-result", element: <ViewResult /> },
