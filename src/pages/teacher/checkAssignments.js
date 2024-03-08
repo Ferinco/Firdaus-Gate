@@ -81,6 +81,7 @@ export default function CheckAssignments() {
         }
       );
       console.log(response);
+      toast.success("Correction upload successful.");
     } catch (error) {
       toast.error("Could not upload corrections");
       console.log(error);
@@ -94,7 +95,7 @@ export default function CheckAssignments() {
       {loading ? (
         <CircularProgress />
       ) : (
-        <Container className="container py-5 d-flex flex-column">
+        <Container className="px-3 py-5 d-flex flex-column">
           <div className="top-div d-flex flex-column justify-content-between p-3 gap-4">
             <div className="d-flex flex-column">
               <h4 className="m-0">Assignment Details</h4>
@@ -128,71 +129,95 @@ export default function CheckAssignments() {
               {" "}
               <h6>Questions/Instruction</h6>
             </div>
-            <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
-              <p className="label">Question in text: </p>
-              <p className="text">{assignment?.questionText}</p>
-            </div>{" "}
-            <div className="image-div d-flex justify-content-center align-items-center">
-              {assignment?.questionImage ? (
-                <div className="image mt-2">
-                  <img
-                    src={Path + question}
-                    onClick={() => setOpenQuestion(true)}
-                  />
-                </div>
-              ) : (
-                <div>no photos uploaded</div>
-              )}
+            <div className="div d-flex flex-column justify-content-center p-3">
+              {" "}
+              <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
+                <p className="label">Question in text: </p>
+                <p className="text">{assignment?.questionText}</p>
+              </div>
+              <div className="image-div d-flex justify-content-center align-items-center">
+                {assignment?.questionImage ? (
+                  <div className="image mt-2">
+                    <img
+                      src={Path + question}
+                      onClick={() => setOpenQuestion(true)}
+                    />
+                  </div>
+                ) : (
+                  <div>no photos uploaded</div>
+                )}
+              </div>
             </div>
           </div>
           <div className="d-flex flex-column mt-4 justify-content-center">
             <div className="head">
               <h6>Correction</h6>
             </div>
-            {assignment?.correctionText ? (
-              <div className="d-flex flex- gap-3 flex-wrap mt-3 justify-content-center">
-                <p className="label">Correction in text: </p>
-                <p className="text">{assignment?.correctionText}</p>
-              </div>
-            ) : (
-              <div className="mt-3 d-flex flex-column justify-content-center">
-                <label className="label">Correction Text:</label>
-                <textarea
-                  className="input"
-                  placeholder="correction text..."
-                  onChange={(e) => {
-                    setCorrectionText(e.target.value);
-                  }}
-                />
-              </div>
-            )}
-            {assignment?.correctionImage ? (
-              <div className="image-div">
-                <div className="image mt-2">
-                  <img
-                    src={Path + correction}
-                    onClick={() => setOpenCorrection(true)}
+            <div className="div d-flex flex-column justify-content-center m-0 p-3">
+              {assignment?.correctionText ? (
+                <div className="d-flex flex-column gap-3 mt-3 justify-content-center">
+                  <p className="label">Correction in text: </p>
+                  <p className="text">{assignment?.correctionText}</p>
+                </div>
+              ) : (
+                <div className="mt-3 d-flex flex-column align-items-center">
+                  <label className="label">Correction Text:</label>
+                  <textarea
+                    className="input"
+                    placeholder="correction text..."
+                    onChange={(e) => {
+                      setCorrectionText(e.target.value);
+                    }}
                   />
                 </div>
-              </div>
-            ) : (
-              <>
-                <div className="mt-1 d-flex flex-column">
-                  <label className="label">Correction Image:</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="p-0 upload-div d-flex justify-content-center p-3 align-items-center"
-                    onChange={handleCorrectionChange}
-                  />
+              )}
+              {assignment?.correctionImage ? (
+                <div className="image-div">
+                  <div className="image mt-2">
+                    <img
+                      src={Path + correction}
+                      onClick={() => setOpenCorrection(true)}
+                    />
+                  </div>
                 </div>
-                <button onClick={handleSubmit}>Post Correction</button>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className="mt-1 d-flex flex-column justify-content-center align-items-center">
+                    <label className="label">Correction Image:</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="p-0 upload-div d-flex justify-content-center p-3 align-items-center"
+                      onChange={handleCorrectionChange}
+                    />
+                  </div>
+                  <div className="d-flex flex-row justify-content-center ">
+                    <button
+                      onClick={handleSubmit}
+                      disabled={submitting ? true : false}
+                    >
+                      {submitting ? (
+                        <div className="d-flex justify-content-center">
+                          <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        </div>
+                      ) : (
+                        "Post Correction"
+                      )}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
           <div className="table-section mt-5">
-            <div className="head">Answers and Submissions</div>
-            <p>no. of submisions: {assignment?.answers?.length}</p>
+            <div className="head">
+              <h6 className="m-0">Answers and Submissions</h6>
+              <p className="m-0">
+                No. of submisions: {assignment?.answers?.length}
+              </p>
+            </div>
             <div className="table-div">
               <Table className="table-bordered mt-3">
                 <thead>
@@ -248,7 +273,22 @@ export default function CheckAssignments() {
   );
 }
 const Container = styled.div`
+  .table-div {
+    overflow-x: auto !important;
+  }
   margin: 0 !important;
+
+  .div {
+    background-color: white !important;
+    border-radius: 20px;
+    margin: 0 !important;
+    button {
+    border-radius: 15px;
+    width: 200px !important;
+    height: 40px;
+  }
+  }
+
   p,
   h6 {
     margin: 0 !important;
@@ -282,7 +322,7 @@ const Container = styled.div`
     color: white;
     background-color: blue;
     margin-top: 10px;
-    padding: 3px 10px;
+    padding: 5px 20px;
   }
   .delete {
     border: 1px solid red;
@@ -344,6 +384,7 @@ const Container = styled.div`
     color: grey;
     border-radius: 10px;
     background: transparent;
+    width: 300px !important;
   }
   input,
   textarea {
@@ -351,8 +392,8 @@ const Container = styled.div`
   }
   .upload-div {
     border: 1px dashed blue;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
   }
 `;
 const PhotoOverlay = styled.div`

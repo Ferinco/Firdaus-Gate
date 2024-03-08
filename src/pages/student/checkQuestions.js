@@ -80,7 +80,11 @@ export default function CheckQuestions() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          answers: [...formData],
+          
+          answers: [
+            {...formData}
+          ],
+
         }
       );
       console.log(response);
