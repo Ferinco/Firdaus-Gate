@@ -22,6 +22,7 @@ import {
   CheckAssignments,
   AssignmentSettings,
   History,
+  ViewAnswers,
 } from "../pages/teacher";
 
 import {
@@ -150,6 +151,7 @@ export default function Routes() {
         { path: "about-me", element: <AboutMe /> },
         { path: "results/uploaded-results", element: <History /> },
         { path: "view-results/:identity", element: <CheckResults /> },
+        { path: "view-answers/:identity/:id", element: <ViewAnswers /> },
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
     },

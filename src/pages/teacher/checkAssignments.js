@@ -5,12 +5,14 @@ import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, CircularProgress } from "../../components/custom";
+import { PATH_DASHBOARD } from "../../routes/paths";
 
 export default function CheckAssignments() {
   const { identity } = useParams();
   const [assignment, setAssignment] = useState();
   const [answers, setAnswers] = useState();
   const [question, setQuestion] = useState();
+  const [questionId, setQuestionId] = useState();
   const [correction, setCorrection] = useState();
   const [correctionText, setCorrectionText] = useState("");
   const [previewC, setPreviewC] = useState(null);
@@ -32,13 +34,14 @@ export default function CheckAssignments() {
             ? response?.data.questionImage.filename
             : []
         );
+        setQuestionId(response.data._id);
         setCorrection(
           response.data.correctionImage
             ? response?.data.correctionImage.filename
             : []
         );
         setAnswers(response.data.answers);
-        console.log(response.data.answers);
+        console.log(response.data);
 
         setAssignment(response.data);
         console.log(response.data);
@@ -63,7 +66,7 @@ export default function CheckAssignments() {
       reader.readAsDataURL(file);
     }
   };
-
+  console.log(questionId);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
@@ -89,7 +92,7 @@ export default function CheckAssignments() {
       setSubmitting(false);
     }
   };
-console.log(Path + question)
+  console.log(Path + question);
   return (
     <>
       {loading ? (
@@ -157,7 +160,9 @@ console.log(Path + question)
               {assignment?.correctionText ? (
                 <div className="d-flex flex-column gap-3 mt-3 justify-content-center">
                   <p className="label">Correction in text: </p>
-                  <p className="text text-center">{assignment?.correctionText}</p>
+                  <p className="text text-center">
+                    {assignment?.correctionText}
+                  </p>
                 </div>
               ) : (
                 <div className="mt-3 d-flex flex-column align-items-center">
@@ -192,10 +197,7 @@ console.log(Path + question)
                     />
                   </div>
                   <div className="d-flex flex-row justify-content-center ">
-                    <Button
-                      onClick={handleSubmit}
-                      disabled={submitting}
-                    >
+                    <Button onClick={handleSubmit} disabled={submitting}>
                       {submitting ? (
                         <div className="d-flex justify-content-center">
                           <div className="spinner-border" role="status">
@@ -219,29 +221,44 @@ console.log(Path + question)
               </p>
             </div>
             <div className="table-div">
-              <Table className="table-bordered mt-3">
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Admission No.</th>
-                    <th>First Name</th>
-                    <th>Surname</th>
-                    <th>Time Submitted</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-
-                    <td>23003</td>
-                    <td>Bolu</td>
-                    <td>Ecool</td>
-                    <td>23003</td>
-                    <td>answer</td>
-                  </tr>
-                </tbody>
-              </Table>
+              {answers.length > 0 ? (
+                <Table className="table-bordered mt-3">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Admission No.</th>
+                      <th>First Name</th>
+                      <th>Surname</th>
+                      <th>Time Submitted</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {answers.map((answer, index) => (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>{answer?.admission}</td>
+                        <td>{answer?.firstname}</td>
+                        <td>{answer?.surname}</td>
+                        <td>{answer?.datePosted}</td>
+                        <td>
+                          {" "}
+                          <Link
+                            className="view-button "
+                            to={`${PATH_DASHBOARD.teacher.viewAnswers}/${questionId}/${answer?._id}`}
+                          >
+                            view
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <div className="d-flex flex-column text-start align-items-start justify-content-left">
+                  <p>No student/pupil has submitted any answers.</p>
+                </div>
+              )}
             </div>
           </div>
         </Container>
@@ -283,10 +300,10 @@ const Container = styled.div`
     border-radius: 20px;
     margin: 0 !important;
     button {
-    border-radius: 15px;
-    width: 200px !important;
-    height: 40px;
-  }
+      border-radius: 15px;
+      width: 200px !important;
+      height: 40px;
+    }
   }
 
   p,
@@ -371,7 +388,7 @@ const Container = styled.div`
   .table-div {
     overflow-x: auto !important;
     td {
-      font-size: 14px;
+      font-size: 14px !important;
     }
     th {
       font-weight: 500 !important;

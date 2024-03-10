@@ -77,21 +77,25 @@ export default function Assignments() {
     <Container className="container py-5 ">
       <div className="header d-flex flex -row justify-content-between flex-wrap p-3 col-lg-8 w-100">
         <div className="d-flex flex-column gap-3">
-        <h3>ASSIGNMENTS</h3>
-<div className="status">
-<h6>0 submitted</h6>
-<h6>3 assignments</h6>
-
-</div>
+          <h3>ASSIGNMENTS</h3>
+          <div className="status">
+            <h6>0 submitted</h6>
+            <h6>3 assignments</h6>
+          </div>
         </div>
         <div>
-        <Icon icon="wpf:books" className="big-icon" /> 
+          <Icon icon="wpf:books" className="big-icon" />
         </div>
       </div>
       <div className="form-div col-lg-8 p-3 mt-5">
         <form className="form " onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="subject"><span>*</span>Subject :</label>
+            <label
+              className="label m-0 d-flex justify-content-center align-items-center"
+              htmlFor="subject"
+            >
+              <span>*</span>Subject :
+            </label>
             <select name="subject" {...register("subject")} className="input">
               <option value="" disabled>
                 Select Subject
@@ -104,7 +108,12 @@ export default function Assignments() {
             </select>
           </div>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="subject"><span>*</span>Topic :</label>
+            <label
+              className="label m-0 d-flex justify-content-center align-items-center"
+              htmlFor="subject"
+            >
+              <span>*</span>Topic :
+            </label>
             <select name="subject" {...register("topic")} className="input">
               <option value="" disabled>
                 Select Topic
@@ -117,7 +126,12 @@ export default function Assignments() {
             </select>
           </div>
           <div className="d-flex flex-row justify-content-between flex-wrap mt-3">
-            <label className="label m-0 d-flex justify-content-center align-items-center" htmlFor="name"><span>*</span>Name :</label>
+            <label
+              className="label m-0 d-flex justify-content-center align-items-center"
+              htmlFor="name"
+            >
+              <span>*</span>Name :
+            </label>
 
             <input
               placeholder="Name of Assignment"
@@ -185,37 +199,36 @@ export default function Assignments() {
   );
 }
 const Container = styled.div`
-.header{
-border-radius:20px;
-background-color: rgba(158, 160, 231, 0.7);
+  .header {
+    border-radius: 20px;
+    background-color: rgba(158, 160, 231, 0.7);
     backdrop-filter: blur(10px);
-color:white;
-}
-      .big-icon {
-        color:grey;
-        font-size: 100px;
-        @media (max-width: 558px) {
-          font-size: 70px;
-        }
-        @media (max-width: 506px) {
-          font-size: 50px;
-        }
-        /* @media (max-width: 485px) {
+    color: white;
+  }
+  .big-icon {
+    color: grey;
+    font-size: 100px;
+    @media (max-width: 558px) {
+      font-size: 70px;
+    }
+    @media (max-width: 506px) {
+      font-size: 50px;
+    }
+    /* @media (max-width: 485px) {
           font-size: 100px;
         }
         @media (max-width: 455px) {
           font-size: 70px;
         } */
-      }
-.form-div{
-background-color:white;
-border-radius:20px;
-
-}
-.label{
-  font-weight:600;
-  font-size:14px;
-}
+  }
+  .form-div {
+    background-color: white;
+    border-radius: 20px;
+  }
+  .label {
+    font-weight: 600;
+    font-size: 14px;
+  }
   .image {
     width: 70px;
     height: 100px;
@@ -247,29 +260,28 @@ border-radius:20px;
     color: blue;
     padding: 0 !important;
     font-size: 14px;
-    width:fit-content !important;
-    height:fit-content !important;
-text-decoration: underline;
-border: 0;
+    width: fit-content !important;
+    height: fit-content !important;
+    text-decoration: underline;
+    border: 0;
     .icon {
       color: grey !important;
       font-size: 30px !important;
     }
   }
-  .label{
-span{
-  color:red;
-}
-
+  .label {
+    span {
+      color: red;
+    }
   }
-  .file-div{
+  .file-div {
     border-top: 1px solid grey;
   }
-  .input{
-  width:600px ;
-  padding: 10px 7px;
-  border: 1px solid grey;
-  border-radius: 10px;
-  font-size: 15px;
+  .input {
+    width: 600px;
+    padding: 10px 7px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    font-size: 15px;
   }
 `;

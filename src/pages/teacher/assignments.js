@@ -120,6 +120,7 @@ export default function Assign() {
         <>
           <Container className="py-5">
             <div className="container d-flex flex-row gap-2 first-div">
+              <div className="first-div d-flex p-3 gap-3 no-wrap">
               <button onClick={OpenSelect} className="new-tab p-2">
                 New Assignment +
               </button>
@@ -128,9 +129,9 @@ export default function Assign() {
                 ? filteredSubjects.map((subject) => (
                     <Link
                       to={`${PATH_DASHBOARD.teacher.setAssignments}/${subject.code}`}
-                      className="react-router-link subject-tile d-flex flex-column p-2 gap-2"
+                      className="react-router-link subject-tile d-flex flex-column justify-content-center align-items-center p-2 gap-2"
                     >
-                      <div className="icon-div p-2">
+                      <div className="icon-div p-2 d-flex justify-content-center align-items-center">
                         <h6 className="text-left m-0">
                           {subject.name.charAt(0)}
                         </h6>
@@ -143,6 +144,8 @@ export default function Assign() {
                     </Link>
                   ))
                 : ""}
+
+              </div>
             </div>
             {/* <div className=" container mt-5">
             <h6>Active Assignments</h6>
@@ -184,12 +187,12 @@ export default function Assign() {
                           ))}
                         </select>
                         <button className="filter-btn" onClick={getHistory}>
-                          filter
+                          check
                         </button>
                       </div>
                     </form>
                   </div>
-                  <button className="clear-btn">clear all</button>
+                  {/* <button className="clear-btn">clear all</button> */}
                 </div>
                 <Table className="table-bordered mt-3">
                   <thead>
@@ -244,13 +247,28 @@ const Container = styled.div`
   .card {
     width: fit-content;
   }
+  .first-div{
+    overflow-x: auto !important;
+  }
   .new-tab {
     height: 100px;
+    background-color: rgba(69 72 172 / 70%);
+    color: white;
+    border: 0 !important;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
   .table-div {
     background-color: white !important;
     height: 500px !important;
     width: 100% !important;
+    overflow-x: auto;
+    td{
+      font-size: 14px;
+    }
+    th{
+      font-weight: 500;
+    }
   }
   .subject-tile {
     height: 100px;
@@ -259,22 +277,26 @@ const Container = styled.div`
     text-align: center;
     background-color: white;
     border: 1px solid white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px; */
     border-radius: 10px;
     p {
       font-size: 13px;
       color: black;
+      font-weight: 600;
     }
     h6 {
       color: blue;
-      font-size: 16px;
+      font-size: 20px;
       text-transform: capitalize;
     }
     .icon-div {
       background-color: #f1f1f1;
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       .icon {
         font-size: 35px;
       }
@@ -304,6 +326,7 @@ const Container = styled.div`
     background-color: white;
     color: blue;
     border: 1px solid blue;
+    border-radius: 5px;
     &:hover {
       background-color: blue;
       color: white;

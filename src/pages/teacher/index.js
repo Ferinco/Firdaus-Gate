@@ -8,3 +8,5 @@ export {default as Assign} from "./assignments";
 export {default as CheckAssignments} from "./checkAssignments"
 export {default as AssignmentSettings} from "./assignmentSettings"
 export {default as History} from "./resultHistory"
+export {default as ViewAnswers} from "./viewAnswers"
+

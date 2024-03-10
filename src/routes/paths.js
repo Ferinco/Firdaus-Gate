@@ -18,10 +18,9 @@ export const PATH_PAGE = {
   jss1Admission: "/admission/admission-into-jss1",
   admissionForm: "/admission/admission-form",
   receipt: "/admission/admission-form/payment-success",
-admission: "/admission/index",
-continue: "/admission/continue-admission",
-gallery: "/gallery"
-
+  admission: "/admission/index",
+  continue: "/admission/continue-admission",
+  gallery: "/gallery",
 };
 
 // for teacher dashboard pages
@@ -40,12 +39,9 @@ export const PATH_DASHBOARD = {
     assignments: JOIN(ROOT_TEACHER, "assign"),
     giveAssignments: JOIN(ROOT_TEACHER, "assignment-details"),
     setAssignments: JOIN(ROOT_TEACHER, "set-assignment"),
-aboutMe: JOIN(ROOT_TEACHER, "about-me"),
-checkResults: JOIN(ROOT_TEACHER, "view-results"),
-
-
-
-
+    aboutMe: JOIN(ROOT_TEACHER, "about-me"),
+    checkResults: JOIN(ROOT_TEACHER, "view-results"),
+    viewAnswers: JOIN(ROOT_TEACHER, "view-answers"),
   },
   student: {
     index: ROOT_STUDENT,
@@ -57,15 +53,10 @@ checkResults: JOIN(ROOT_TEACHER, "view-results"),
     accountSettings: JOIN(ROOT_STUDENT, "account-settings"),
     assignments: JOIN(ROOT_STUDENT, "submit-assignments"),
     scheme: JOIN(ROOT_STUDENT, "work-scheme"),
-aboutMe: JOIN(ROOT_STUDENT, "about-me"),
-viewReport: JOIN(ROOT_STUDENT, "view-result"),
-viewAssignments: JOIN(ROOT_STUDENT, "view-assignments"),
-postAnswer: JOIN(ROOT_STUDENT, "submit-solutions"),
-
-
-
-
-
+    aboutMe: JOIN(ROOT_STUDENT, "about-me"),
+    viewReport: JOIN(ROOT_STUDENT, "view-result"),
+    viewAssignments: JOIN(ROOT_STUDENT, "view-assignments"),
+    postAnswer: JOIN(ROOT_STUDENT, "submit-solutions"),
   },
   admin: {
     index: ROOT_ADMIN,
@@ -85,12 +76,5 @@ postAnswer: JOIN(ROOT_STUDENT, "submit-solutions"),
     reports: JOIN(ROOT_ADMIN, "results"),
     news: JOIN(ROOT_ADMIN, "news"),
     view: JOIN(ROOT_ADMIN, "view-results"),
-
-
-
-
-
-
-
   },
 };

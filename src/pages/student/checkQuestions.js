@@ -20,6 +20,7 @@ export default function CheckQuestions() {
   const [openCorrection, setOpenCorrection] = useState(false);
   const [correctionPhoto, setCorrectionPhoto] = useState(null);
   const [answerPhoto, setAnswerPhoto] = useState(null);
+  const [createdAt, setCreatedAt] = useState("");
 
   const Path = "https://ferrum-sever.onrender.com/uploads/";
   // to get assignment question
@@ -48,7 +49,7 @@ export default function CheckQuestions() {
       }
     };
     getHistory();
-    console.log(assignment);
+   GetCurrentDate()
   }, []);
 
   //handle photo event
@@ -64,6 +65,13 @@ export default function CheckQuestions() {
     }
   };
 
+  //get current date  
+  function GetCurrentDate() {
+    const date = new Date();
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    setCreatedAt(date.toLocaleDateString(undefined, options));
+  }
+
   // to post answers
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,16 +81,15 @@ export default function CheckQuestions() {
       formData.append("admission", user?.admissionNumber);
       formData.append("firstname", user?.firstName);
       formData.append("surname", user?.lastName);
-      formData.append("datePosted", "correction");
+      formData.append("datePosted", createdAt);
       formData.append("answerImage", answerPhoto);
       const response = await axios.put(
         `https://ferrum-sever.onrender.com/api/assignments/update-answers/${identity}`,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-
-          answers: [{ ...formData }],
         }
       );
       console.log(response);
@@ -199,6 +206,19 @@ export default function CheckQuestions() {
           <button onClick={() => setOpenQuestion(false)}>X</button>
           <div className="image">
             <img src={Path + question} onClick={() => setOpenQuestion(true)} />
+          </div>
+        </PhotoOverlay>
+      ) : (
+        ""
+      )}
+       {openCorrection ? (
+        <PhotoOverlay className="d-flex flex-column justify-content-center align-items-center">
+          <button onClick={() => setOpenCorrection(false)}>X</button>
+          <div className="image">
+            <img
+              src={Path + correction}
+              onClick={() => setOpenCorrection(true)}
+            />
           </div>
         </PhotoOverlay>
       ) : (

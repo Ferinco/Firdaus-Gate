@@ -56,10 +56,10 @@ export default function About() {
             education and proper Iman in children.
           </p>
           <p className="m-0">
-            It has always been our life-long gaol to ensure that we make
+            It has always been our life-long goal to ensure that we make
             students that are fit for the standards of the society by equiping
-            them with thw right knowledge, skills and enhancing their potentials
-            with no limiit.
+            them with the right knowledge, skills and enhancing their potentials
+            with no limits.
           </p>
         </div>
       </div>
