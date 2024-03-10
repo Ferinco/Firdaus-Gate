@@ -306,9 +306,9 @@ console.log(user)
                 </button>
               </form>
 
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
+              {/* <button onClick={() => setCSVOpen(true)} className="csv-button">
                 Import CSV file
-              </button>
+              </button> */}
             </div>
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
@@ -465,13 +465,12 @@ console.log(user)
             </div>
           </div>
         ) : (
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="pt-5 h-100">
-              <p className="text-muted">No student to display...</p>
-              <button onClick={() => setCSVOpen(true)} className="csv-button">
+          <div className="d-flex flex-column justify-content-center align-items-center text-center">
+              <h4 className="text-muted">No Students Found</h4>
+<p>You currently do not have any students registered under you</p>
+              {/* <button onClick={() => setCSVOpen(true)} className="csv-button">
                 Import CSV file
-              </button>
-            </div>
+              </button> */}
           </div>
         )}
         {overlay ? (

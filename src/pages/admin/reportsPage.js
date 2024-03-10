@@ -111,18 +111,18 @@ export default function Reports() {
               {termName}, of any class chosen.
             </p>
           </div>
-          {results.length > 0 ? (
-            <button className="upload-btn">
-              <Link
-                className="react-router-link"
-                to={PATH_DASHBOARD.teacher.results}
-              >
-                Upload More
-              </Link>
-            </button>
+          {/* {results.length > 0 ? (
+            // <button className="upload-btn">
+            //   <Link
+            //     className="react-router-link"
+            //     to={PATH_DASHBOARD.teacher.results}
+            //   >
+            //     Upload More
+            //   </Link>
+            // </button>
           ) : (
             ""
-          )}
+          )} */}
         </div>
         <div className="select-wrapper d-flex flex-row flex-wrap p-3 px-4 mt-5 justify-content-start gap-3 align-items-end">
           <div className="d-flex flex-column gap-1">

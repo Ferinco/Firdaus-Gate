@@ -221,7 +221,7 @@ const ChangeProfile = () => {
   return (
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
-      <div className="photo-upload-container">
+      {/* <div className="photo-upload-container">
         <label htmlFor="photo" className="rounded-input">
           {previewProfilePhoto ? (
             <div className="profile-image">
@@ -238,7 +238,7 @@ const ChangeProfile = () => {
             onChange={handlePhotoChange}
           />
         </label>
-      </div>
+      </div> */}
         <div className="row">
           <div className="d-flex flex-column col-md-6">
             <label htmlFor="firstName" className="label">

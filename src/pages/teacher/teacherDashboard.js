@@ -25,13 +25,13 @@ const TabsConfig = [
     icon: "fluent:pen-16-filled",
     iconColor: "black",
   },
-  {
-    link: PATH_DASHBOARD.teacher.addScheme,
-    title: "Subject Scheme",
-    subTitle: "Upload scheme for the term",
-    icon: "pepicons-pencil:list",
-    iconColor: "white",
-  },
+  // {
+  //   link: PATH_DASHBOARD.teacher.addScheme,
+  //   title: "Subject Scheme",
+  //   subTitle: "Upload scheme for the term",
+  //   icon: "pepicons-pencil:list",
+  //   iconColor: "white",
+  // },
 ];
 
 export default function TeacherDashboard() {
@@ -101,6 +101,7 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
+  
   useEffect(() => {
     function getTitle() {
       if (user?.gender === "male") {

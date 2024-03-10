@@ -179,7 +179,7 @@ console.log(user)
     <div className="div p-3">
       <form className="profile-div" onSubmit={handleSubmit(onSubmitProfile)}>
       <div className="photo-upload-container">
-        <label htmlFor="photo" className="rounded-input">
+        {/* <label htmlFor="photo" className="rounded-input">
           {previewProfilePhoto ? (
             <div className="profile-image">
             <img src={previewProfilePhoto} alt="Preview" className="rounded-preview" />
@@ -194,7 +194,7 @@ console.log(user)
             {...register('photo')}
             onChange={handlePhotoChange}
           />
-        </label>
+        </label> */}
       </div>
         <div className="row">
           <div className="d-flex flex-column col-md-6">
