@@ -82,11 +82,11 @@ export default function StudentLogin() {
                 </Link>
               </div>
               <div className="text-center mb-4">
-                <h3 className="fw-bolder">Hello Student!</h3>
+                <h3 className="fw-bolder m-0">Hello Student!</h3>
                 <p>Sign in to your dashboard.</p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="my-3">
+                <div className="">
                   <input
                     placeholder="Admission number"
                     name="admissionNumber"
@@ -152,6 +152,9 @@ export default function StudentLogin() {
 
 const Wrapper = styled.div`
   height: 100vh;
+  h3{
+    font-weight: 600 !important;
+  }
   .row {
     height: 95% !important;
     align-items: center;

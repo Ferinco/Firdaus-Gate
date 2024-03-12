@@ -75,7 +75,7 @@ export default function Navbar() {
               />
             </div>
             <div className="d-flex flex-column">
-              <h6 className="m-0">09134256252</h6>
+              <h6 className="m-0">+2349055512553</h6>
               <p className="m-0">Call Us</p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function Navbar() {
           <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
               <a className="nav-link">about &#9662;</a>
-              <ul class="dropdown px-1 pb-1">
+              <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.about}>
                   about us
                 </Link>
@@ -138,10 +138,9 @@ export default function Navbar() {
                 <Link className="react-router-link">Management and staff</Link>
               </ul>{" "}
             </li>
-
             <li>
               <a className="nav-link">admission &#9662;</a>
-              <ul class="dropdown px-1 pb-1">
+              <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.admission}>
                   Student admission portal
                 </Link>
@@ -165,12 +164,12 @@ export default function Navbar() {
                 >
                   student portal
                 </Link>
-                <Link
+                {/* <Link
                   className="react-router-link"
                   to={PATH_DASHBOARD.teacher.index}
                 >
                   staff portal
-                </Link>
+                </Link> */}
                 {/* <Link className="react-router-link">
                   school fees payment
                   <br />
