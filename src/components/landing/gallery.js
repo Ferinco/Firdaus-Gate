@@ -3,7 +3,30 @@ import Marquee from "react-fast-marquee";
 import { Button } from "../custom/Button";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 export default function Gallery() {
+    //aos animation setup
+    useEffect(() => {
+      Aos.init({
+        // Global settings:
+        disable: false,
+        startEvent: "DOMContentLoaded",
+        initClassName: "aos-init",
+        animatedClassName: "aos-animate",
+        useClassNames: false,
+        offset: 120,
+        delay: 0,
+        duration: 300,
+        easing: "ease",
+        once: true,
+        mirror: false,
+        anchorPlacement: "top-bottom",
+      });
+    }, []);
+
   const marqueImages1 = [
     "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698717/Firdaus/IMG-20230901-WA0010_wpqd5y.jpg",
     "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698100/Firdaus/Screenshot_20221226-182710_1_jrfr32.jpg",
@@ -24,7 +47,7 @@ export default function Gallery() {
     "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698101/Firdaus/Screenshot_20221226-182739_1_za3qn6.jpg",
   ];
   return (
-    <Container className="py-5">
+    <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
       <div className="header d-flex flex-column justify-content-center align-items-center">
       <h6 className="">GALLERY</h6>
         <h2 className="mt-2">
@@ -97,6 +120,13 @@ const Container = styled.div`
     background-color: purple;
     border-radius: 30px;
     overflow: hidden;
+    overflow: hidden !important;
+      &:hover{
+      img{
+        scale: 1.05;
+        transition: 0.5s !important;
+      }
+    }
     img {
       width: 100%;
       height: 100%;
@@ -126,11 +156,12 @@ const Container = styled.div`
     .header {
       h2 {
         font-size: 36px;
+        font-weight: 600 !important;
       }
     }
     .image {
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 250px;
       background-color: purple;
     }
   }

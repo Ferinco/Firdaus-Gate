@@ -2,29 +2,38 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+import { Button } from "../custom";
 export default function IntroSection() {
+  useEffect(() => {
+    Aos.init({
+      // Global settings:
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      offset: 120,
+      delay: 100,
+      duration: 1000,
+      easing: "ease",
+      once: true,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+  }, []);
+
   return (
-    <Container className="py-5">
+    <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
       <div className="container d-flex align-items-center flex-column gap-5">
         <div className="header d-flex flex-column justify-content-center align-items-center">
           <h6 className="pre-header">what we offer</h6>
           <h2>Some of Our Core Services</h2>
         </div>
         <div className="div d-flex justify-content-between p-0 m-0 gap-3">
-          <motion.div
-            animate={{
-              y: 0,
-              opacity: 1
-
-            }}
-            initial={{
-              y: 200,
-              opacity: 0
-            }}
-            transition={{
-              duration: 1,
-            }}
-          >
+          <div className="item-div p-3">
             <div className="icon-div">
               <Icon className="icon" icon="ion:bed" />
             </div>
@@ -34,8 +43,8 @@ export default function IntroSection() {
               Providing a nurturing environment for both day students and
               boarders.
             </p>
-          </motion.div>
-          <div>
+          </div>
+          <div className="item-div p-3">
             <div className="icon-div">
               <Icon className="icon" icon="mdi:wan" />
             </div>
@@ -46,7 +55,7 @@ export default function IntroSection() {
               experiences and innovation.
             </p>
           </div>
-          <div>
+          <div className="item-div p-3">
             <div className="icon-div">
               <Icon className="icon" icon="mdi:islam" />
             </div>
@@ -56,7 +65,7 @@ export default function IntroSection() {
               programs.
             </p>
           </div>
-          <div>
+          <div className="item-div p-3">
             <div className="icon-div">
               <Icon className="icon" icon="fa6-solid:people-line" />
             </div>
@@ -67,15 +76,6 @@ export default function IntroSection() {
             </p>
           </div>
         </div>
-        <Link className="link mt-4">
-          learn more{" "}
-          <Icon
-            icon="system-uicons:arrow-up"
-            color="white"
-            rotate={1}
-            className="icon"
-          />
-        </Link>
       </div>
     </Container>
   );
@@ -84,8 +84,9 @@ const Container = styled.div`
   h2 {
     max-width: 600px;
     font-size: 45px;
-    text-align: center;
+    text-align: center !important;
     font-weight: 800;
+
   }
   h6 {
     margin-top: 20px;
@@ -100,6 +101,58 @@ const Container = styled.div`
       color: white;
     }
   }
+  .item-div {
+    background-color: white;
+    position: relative;
+    z-index: 1 !important;
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center !important;
+      align-items: center !important;
+      text-align: center !important;
+    }
+    p{
+      font: 15px !important;
+    }
+    &:hover {
+      .icon-div,
+      h6,
+      p {
+        position: relative;
+        z-index: 3 !important;
+        color: white !important;
+      }
+      .icon-div {
+    width: fit-content;
+    background-color: white;
+    .icon {
+      font-size: 30px;
+      color: blue;
+    }
+  }
+    }
+  }
+  .item-div:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    transition: 0.5s;
+    z-index: 2;
+    /* display: none; */
+  }
+
+  .item-div:hover:before {
+    top: 0;
+    display: flex;
+    transition: 0.5s;
+    background: black;
+    border-radius: 15px;
+  }
   .link {
     text-decoration: none !important;
     font-weight: 700;
@@ -113,6 +166,7 @@ const Container = styled.div`
     h2 {
       font-size: 36px;
       text-align: left;
+      font-weight: 600 !important;
     }
     .div {
       flex-direction: column;

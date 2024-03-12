@@ -10,19 +10,38 @@ import { PATH_AUTH, PATH_PAGE } from "../../routes/paths";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { Button } from "../../components/custom";
 import { useAppContext } from "../../contexts/Context";
+import Aos from "aos";
+import "aos/dist/aos.css";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
   const [closer, setCloser] = useState(false);
-const {termName} = useAppContext()
+  const { termName } = useAppContext();
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 200);
+      setSticky(window.scrollY > 250);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    Aos.init({
+      // Global settings:
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      offset: 120,
+      delay: 0,
+      easing: "ease",
+      once: false,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
   }, []);
 
   useEffect(() => {
@@ -39,14 +58,52 @@ const {termName} = useAppContext()
         <div className="div d-flex justify-content-between w-100 px-5">
           <div className="first-navbar-div">
             <p className=" px-3">Raising Role Model and Achievers</p>
-            
           </div>
           <div className="first-navbar-div d-flex">
             <p className="px-3 py-2">Office Hour : 09:00am - 4:00pm</p>
           </div>
         </div>
       </div>
-      <div className={`second-navbar p-0 ${isSticky ? "sticky" : ""} ${isOpen ? "unsticky": ""}`}>
+      <div className="middle-nav">
+        <div className="px-5 d-flex row h-100">
+          <div className="d-flex flex-row gap-1 align-items-center col-md-4">
+            <div className="icon-div">
+              <Icon
+                icon="line-md:phone-call-loop"
+                className="icon"
+                style={{ color: "blue" }}
+              />
+            </div>
+            <div className="d-flex flex-column">
+              <h6 className="m-0">09134256252</h6>
+              <p className="m-0">Call Us</p>
+            </div>
+          </div>
+          <div className="d-flex flex-row gap-1 align-items-center col-md-4 justify-content-start">
+            <div className="icon-div">
+            <Icon icon="la:envelope-open-text" className="icon" style={{color: "blue"}} />
+            </div>
+            <div className="d-flex flex-column">
+              <h6 className="m-0">firdausgateschools@gmail.com</h6>
+              <p className="m-0">Mail Us</p>
+            </div>
+          </div>
+          <div className="d-flex flex-row gap-1 align-items-center col-md-4 justify-content-end">
+            <div className="icon-div">
+            <Icon icon="game-icons:world" className="icon" style={{color: "blue"}} />
+            </div>
+            <div className="d-flex flex-column">
+              <h6 className="m-0">6/8 Balogun Street, off Igodo Road</h6>
+              <p className="m-0">Omo-Olope Are, Magboro, Ogun State.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`second-navbar p-0 ${isSticky ? "sticky" : ""} ${
+          isOpen ? "unsticky" : ""
+        }`}
+      >
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
@@ -59,7 +116,15 @@ const {termName} = useAppContext()
                 }}
               />
             </div>
-            <Logo />
+            <div
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              data-aos-delay="100"
+              data-aos-offset="0"
+              data-aos-duration="500"
+            >
+              <Logo />
+            </div>
           </div>
           <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
@@ -86,7 +151,9 @@ const {termName} = useAppContext()
                 >
                   admission into JSS1
                 </Link>
-                <Link className="react-router-link" to={PATH_PAGE.continue}>continue admission</Link>
+                <Link className="react-router-link" to={PATH_PAGE.continue}>
+                  continue admission
+                </Link>
               </ul>
             </li>
             <li>
@@ -121,9 +188,7 @@ const {termName} = useAppContext()
                 gallery
               </Link>
             </li>
-            <li>
-              <a className="nav-link">news</a>
-            </li>
+            <li>{/* <a className="nav-link">news</a> */}</li>
             <li>
               <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
                 <Button blue>
@@ -282,9 +347,7 @@ const {termName} = useAppContext()
                   Gallery
                 </Link>
 
-                <li>
-                  <a className="nav-link">News</a>
-                </li>
+                <li>{/* <a className="nav-link">News</a> */}</li>
               </div>
             </nav>
           </div>
@@ -311,6 +374,11 @@ const {termName} = useAppContext()
 }
 const NavigationBar = styled.div`
   /* display: none !important; */
+  .middle-nav {
+    background-color: #f5f5f5;
+    height: 80px;
+    width: 100%;
+  }
   .sidebar {
     background-color: white !important;
   }
@@ -339,7 +407,7 @@ const NavigationBar = styled.div`
     background-color: #f5f5f5;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 13px;
     &-div {
       border-right: 1px solid gray;
       border-left: 1px solid gray;
@@ -351,15 +419,29 @@ const NavigationBar = styled.div`
       height: 100%;
     }
   }
+  .middle-nav {
+    @media screen and (max-width: 1109px) {
+      display:none !important;
+    }
+    h6 {
+      font-weight: 600 !important;
+    }
+    p {
+      font-size: 14px !important;
+    }
+  }
   .second-navbar {
     height: 90px !important;
     align-items: center;
     z-index: 999;
     width: 100%;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* transition: background-color 0.5s ease, box-shadow 0.3s ease; */
+    position: relative;
+    transition: 0.5s !important;
     .div {
       align-items: center;
-      height: 100px;
+      height: 90px !important;
+      background-color: white;
       .header {
       }
       .contact-btn {
@@ -418,12 +500,17 @@ const NavigationBar = styled.div`
   }
   .sticky {
     position: fixed !important;
-    margin-top: -53px !important;
+    top: 0 !important;
     width: 100% !important;
     z-index: 9999;
-    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+    position: relative;
+    transition: 1s !important;
+    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5) !important;
     ul li ul.dropdown {
       background: linear-gradient(to top, #ffff, #f5f5f5, #f5f5f5);
+    }
+    .div {
+    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5) !important;
     }
   }
   .mobile-nav {
@@ -436,13 +523,13 @@ const NavigationBar = styled.div`
     align-items: left !important;
     .second-navbar {
       position: fixed;
-    /* z-index: 9999 !important; */
-background-color: white !important;
+      /* z-index: 9999 !important; */
+      background-color: white !important;
     }
     .sticky {
-    margin-top: 0px !important;
-    background: white;
-  }
+      margin-top: 0px !important;
+      background: white;
+    }
     .closing-div {
       display: block;
       height: 100%;
@@ -452,7 +539,7 @@ background-color: white !important;
     .home-icon {
       display: none;
     }
-    .nav-links{
+    .nav-links {
       margin-top: 120px !important;
     }
     .mobile-nav {
@@ -463,12 +550,11 @@ background-color: white !important;
       height: 100vh;
       display: flex !important;
       background-color: rgba(0, 0, 0, 0.1);
-      .logo-div{
+      .logo-div {
         position: fixed !important;
         z-index: 99;
         background-color: white !important;
         width: 65%;
-
       }
       .links {
         background: white !important;
@@ -510,22 +596,22 @@ background-color: white !important;
       /* overflow-y: auto !important; */
     }
     .unsticky {
-display: none !important;
-  }
+      display: none !important;
+    }
     .icon-div {
       margin-left: -12px !important;
     }
     .react-router-link {
-    &:hover {
-      background-color: white;
-      color: blue !important;
+      &:hover {
+        background-color: white;
+        color: blue !important;
+      }
     }
-  }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
   }
   @media screen and (max-width: 1057px) {
-    .first-navbar {
+    .first-navbar, .middle-nav {
       display: none !important;
     }
     .menu-links {

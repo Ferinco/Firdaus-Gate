@@ -25,9 +25,7 @@ export default function Home() {
       <Special/>
       {/* <News/> */}
       <Testimonials/>
-      
       <AdmissionSection/>
-      <ContactUs/>
     </Wrapper>
   );
 }

@@ -1,22 +1,65 @@
 import styled from "styled-components";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import { Button } from "../custom/Button";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
+import { useEffect } from "react";
 
 export default function Services() {
+  //aos animation setup
+  useEffect(() => {
+    Aos.init({
+      // Global settings:
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      offset: 120,
+      delay: 0,
+      duration: 400,
+      easing: "ease",
+      once: false,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+  }, []);
+
   return (
-    <Container className="py-5">
+    <Container className="py-5" data-aos="fade-up" data-aos-duration="5000">
       <div className="container d-flex py-5 align-items-center gap-5">
         <div className="left d-flex flex-column align-items-center">
           <h6 className="pre-header">join us</h6>
           <div className="image-wrapper d-flex flex-column gap-2 ">
-            <div className=" image">
+            <div
+              className=" image"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              data-aos-delay="300"
+              data-aos-offset="0"
+              data-aos-duration="1000"
+            >
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698715/Firdaus/IMG-20230901-WA0005_wsy9ri.jpg" />
             </div>
-            <div className=" image">
+            <div
+              className=" image"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              data-aos-delay="100"
+              data-aos-offset="0"
+              data-aos-duration="1000"
+            >
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698084/Firdaus/Screenshot_20220822-213231_1_echgsu.jpg" />
             </div>{" "}
-            <div className=" image">
+            <div
+              className=" image"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              data-aos-delay="400"
+              data-aos-duration="1000"
+              data-aos-offset="0"
+            >
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698102/Firdaus/Screenshot_20221226-182747_1_rruqtm.jpg" />
             </div>{" "}
           </div>
@@ -40,7 +83,7 @@ export default function Services() {
 
 const Container = styled.div`
   background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
-  h2{
+  h2 {
     font-weight: 500 !important;
   }
   .container {
@@ -61,7 +104,14 @@ const Container = styled.div`
       width: 500px;
       height: 130px;
       border-radius: 30px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      overflow: hidden !important;
+      &:hover{
+      img{
+        scale: 1.05;
+        transition: 0.5s !important;
+      }
+    }
       img {
         width: 100%;
         height: 100%;
@@ -89,6 +139,9 @@ const Container = styled.div`
     h2 {
       font-size: 45px;
       font-weight: 800;
+      @media (max-width: 768px) {
+        font-weight: 600 !important;
+      }
     }
     Button {
       width: fit-content;
@@ -136,6 +189,7 @@ const Container = styled.div`
       }
       h2 {
         font-size: 36px !important;
+        font-weight: 600 !important;
       }
       p {
         font-size: 14px;

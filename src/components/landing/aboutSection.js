@@ -1,33 +1,53 @@
 import styled from "styled-components";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import { Button } from "../custom/Button";
 import { PATH_PAGE } from "../../routes/paths";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { Icon } from "@iconify/react";
 export default function AboutSection() {
+  //aos animation setup
+  useEffect(() => {
+    Aos.init({
+      // Global settings:
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      offset: 120,
+      delay: 0,
+      duration: 300,
+      easing: "ease",
+      once: true,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+  }, []);
+
   return (
-    <Container className="py-5">
+    <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
       <div className="container d-flex py-5 align-items-center">
         <div className="left d-flex flex-column align-items-center">
-          <motion.h6
-            className="pre-header"
-            animate={{
-              opacity: 1,
-            }}
-            initial={{
-              opacity: 0.1,
-            }}
-            transition={{}}
-          >
-            about us
-          </motion.h6>
+          <h6 className="pre-header">about us</h6>
           <div className="image-wrapper d-flex gap-2 ">
-            <div className=" image">
+            <div
+            className=" image"
+            // data-aos="fade-down"
+            // data-aos-duration="1000"
+            >
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755254/c3cp84kq_q4ge6r.png" />
             </div>
             <div className=" image">
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755836/p0pqpzge_jqjqmj.png" />
             </div>
-            <div className=" image">
+            <div
+              className=" image"
+              // data-aos="fade-down"
+              // data-aos-duration="1000"
+            >
               <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703756027/Firdaus/jvjhcvtq_vhz2qg.png" />
             </div>
           </div>
@@ -45,6 +65,15 @@ export default function AboutSection() {
             <b>Iman(faith)</b>, making them responsible and be of good impact to
             the society.
           </p>
+          <Button blue>
+        <Link className="react-router-link" to={PATH_PAGE.about}>  Read More{" "}
+          <Icon
+            icon="system-uicons:arrow-up"
+            color="white"
+            rotate={1}
+            className="icon"
+          /></Link>
+        </Button>
         </div>
       </div>
     </Container>
@@ -79,6 +108,13 @@ const Container = styled.div`
       height: 100%;
       border-radius: 30px;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      overflow: hidden !important;
+      &:hover{
+      img{
+        scale: 1.05;
+        transition: 0.5s !important;
+      }
+    }
       img {
         width: 100%;
         height: 100%;
@@ -133,6 +169,7 @@ const Container = styled.div`
     }
     h2 {
       font-size: 36px !important;
+      font-weight: 600 !important;
     }
     .left {
       gap: 20px;

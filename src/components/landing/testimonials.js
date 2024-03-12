@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Testimonials = () => {
   const sliderSettings = {
@@ -24,6 +26,25 @@ const Testimonials = () => {
       },
     ],
   };
+
+    //aos animation setup
+    useEffect(() => {
+      Aos.init({
+        // Global settings:
+        disable: false,
+        startEvent: "DOMContentLoaded",
+        initClassName: "aos-init",
+        animatedClassName: "aos-animate",
+        useClassNames: false,
+        offset: 120,
+        delay: 0,
+        duration: 300,
+        easing: "ease",
+        once: true,
+        mirror: false,
+        anchorPlacement: "top-bottom",
+      });
+    }, []);
   
   
   const testimonials = [
@@ -84,7 +105,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <Container className=" py-5">
+    <Container className=" py-5" data-aos="fade-up" data-aos-duration="1000">
       <div className="div container">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
@@ -125,6 +146,7 @@ font-weight: 600;
       text-align: center;
       @media (max-width: 768px) {
             font-size: 36px !important;
+            font-weight: 600 !important;
           }
     }
     .author-image{
@@ -132,6 +154,7 @@ font-weight: 600;
       height:50px;
       background: purple;
       border-radius: 50%;
+      object-fit: cover;
     }
     .slick-dots {
   margin-top: 50px;

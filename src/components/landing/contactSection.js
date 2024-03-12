@@ -13,9 +13,9 @@ export default function ContactUs() {
         <Link className="m-0 react-router-link span">Call Us On</Link>
           <a className="m-0 react-router-link" href="tel:+2349055512553">09055512553</a>
         </div>
-        <div className="col-md-4 d-flex flex-row gap-3 align-items-center div">
+        <div className="col-md-4 d-flex flex-row gap-3 align-items-center justify-content-center div">
           <Icon icon="cil:envelope-letter" className="icon"/>
-          <a className="m-0 react-router-link " href="mailto:firdausgateschools@gmail.com">Send Us an Email {" "} &#8594;</a>
+          <a className="m-0 react-router-link " href="mailto:firdausgateschools@gmail.com">Email Us {" "} &#8594;</a>
         </div>
       </div>
     </Contact>
@@ -23,17 +23,20 @@ export default function ContactUs() {
 } 
 const Contact = styled.div`
 height: auto;
-background-color:#0f0f0f;
+background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 1.0)
+
+      );
 color: white;
 @media screen and (max-width: 767px){
   background-color:black;
 
 }
 .col-md-4{
-  padding:15px 0px;
-background-color:#0f0f0f;
-
-    }
+  padding:30px 0px;
+}
   .span{
     color:blue !important;
   }

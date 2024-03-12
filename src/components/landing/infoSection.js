@@ -151,6 +151,7 @@ const Info = styled.div`
     overflow: hidden;
     margin: 0 !important;
     padding: 0 !important;
+    
     img {
       width: 100%;
       height: 100%;
@@ -205,6 +206,7 @@ const Info = styled.div`
   @media screen and (max-width: 991px) {
     h2 {
       font-size: 36px;
+      font-weight: 600 !important;
     }
   }
 `;

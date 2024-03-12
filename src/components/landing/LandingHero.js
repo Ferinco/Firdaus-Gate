@@ -4,8 +4,8 @@ import { Button } from "../custom/Button";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
-import { motion } from "framer-motion";
-const images = [
+import Aos from "aos";
+import "aos/dist/aos.css";const images = [
   {
     className: "image image-1",
     content: "",
@@ -49,7 +49,7 @@ export default function LandingHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 200);
+      setSticky(window.scrollY > 250);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -68,22 +68,35 @@ export default function LandingHero() {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    Aos.init({
+      // Global settings:
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      offset: 120,
+      delay: 0,
+      easing: "ease",
+      once: false,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+  }, []);
   return (
     <Wrapper>
       <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
         <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
-            <motion.div
+            <div
               className="my-5 d-flex flex-column gap-3 text-div justify-content-center"
-              animate={{
-                x: 0,
-              }}
-              initial={{
-                x: -1000,
-              }}
-              transition={{
-                duration: 1,
-              }}
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              data-aos-delay="100"
+              data-aos-offset="0"
+              data-aos-duration="500"
             >
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
               <div className="">
@@ -94,16 +107,14 @@ export default function LandingHero() {
                   academics and Islamic values...
                 </p>
               </div>
-              <div className="button-group d-flex flex-row">
-                {/* <Button blue>Get started</Button> */}
-                <span> </span>
+              <div className="button-group d-flex flex-row p-0">
                 <Button blue>
                   <Link className="react-router-link" to={PATH_PAGE.about}>
                     About Us
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,10 +125,15 @@ export default function LandingHero() {
   );
 }
 const Wrapper = styled.div`
-  height: calc(100vh - 70px);
+  height: 100vh;
+  position: relative !important;
   color: white;
+  Button{
+    border-radius: 0 !important;
+  }
   .sticky {
-    margin-top: 70px;
+  /* position: sticky !important; */
+    margin-top: 90px !important;
   }
   .row {
     justify-content: space-between;
@@ -148,6 +164,7 @@ const Wrapper = styled.div`
     }
     p {
       max-width: 400px !important;
+      font-weight: 300 !important;
     }
   }
   .container {
@@ -191,6 +208,7 @@ const Wrapper = styled.div`
       width: auto !important;
       text-shadow: none !important;
       font-size: 50px;
+      font-weight: 600 !important;
     }
     p {
       /* font-size: 16px; */
