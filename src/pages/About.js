@@ -41,7 +41,12 @@ export default function About() {
     },
   ];
   const {termName} = useAppContext()
-  console.log(termName)
+  // {
+  //   @media screen and (max-width: 982px) {
+  //     padding-right: 12px !important;
+  //   padding-left: 24px !important;
+  //   }
+  // }
   return (
     <div>
     <Container className="d-flex flex-column justify-content-center align-items-center pt-5">
@@ -185,7 +190,6 @@ export default function About() {
         </div>
       </div>
     </Container>
-    <ContactUs/>
     </div>
   );
 }

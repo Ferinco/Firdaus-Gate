@@ -49,7 +49,7 @@ export default function LandingHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 250);
+      setSticky(window.scrollY > 145);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -126,18 +126,19 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
   height: 100vh;
-  position: relative !important;
+  /* position: relative !important; */
   color: white;
   Button{
     border-radius: 0 !important;
   }
   .sticky {
-  /* position: sticky !important; */
+  position: relative !important;
     margin-top: 90px !important;
   }
   .row {
     justify-content: space-between;
     align-items: center;
+    
   }
   .left {
     /* background-image: linear-gradient(to left, #00008b, #000000) !important; */

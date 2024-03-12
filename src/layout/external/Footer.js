@@ -179,6 +179,11 @@ const Container = styled.div`
   .first {
     padding-right: 48px;
     padding-left: 48px;
+    @media screen and (max-width: 982px) {
+      padding-right: 12px;
+    padding-left: 12px;
+    }
+    
   }
   .social-icon {
     font-size: 20px;

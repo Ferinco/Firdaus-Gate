@@ -19,7 +19,7 @@ export default function Navbar() {
   const { termName } = useAppContext();
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 250);
+      setSticky(window.scrollY > 145);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -64,7 +64,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className="middle-nav">
+      {/* <div className="middle-nav">
         <div className="px-5 d-flex row h-100">
           <div className="d-flex flex-row gap-1 align-items-center col-md-4">
             <div className="icon-div">
@@ -98,7 +98,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         className={`second-navbar p-0 ${isSticky ? "sticky" : ""} ${
           isOpen ? "unsticky" : ""
@@ -373,6 +373,7 @@ export default function Navbar() {
 }
 const NavigationBar = styled.div`
   /* display: none !important; */
+
   .middle-nav {
     background-color: #f5f5f5;
     height: 80px;
@@ -434,13 +435,17 @@ const NavigationBar = styled.div`
     align-items: center;
     z-index: 999;
     width: 100%;
-    /* transition: background-color 0.5s ease, box-shadow 0.3s ease; */
-    position: relative;
+    transition: background-color 0.5s ease, box-shadow 0.3s ease;
     transition: 0.5s !important;
+    position: static;
     .div {
       align-items: center;
       height: 90px !important;
       background-color: white;
+      @media screen and (max-width: 982px) {
+      padding-right: 12px !important;
+    padding-left: 24px !important;
+    }
       .header {
       }
       .contact-btn {
@@ -502,7 +507,7 @@ const NavigationBar = styled.div`
     top: 0 !important;
     width: 100% !important;
     z-index: 9999;
-    position: relative;
+    /* position: relative; */
     transition: 1s !important;
     background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5) !important;
     ul li ul.dropdown {

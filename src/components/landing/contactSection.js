@@ -7,7 +7,7 @@ export default function ContactUs() {
       <div className="py-0 container row d-flex w-100 justify-content-between py-4 w-100 p-0">
         <div className="col-md-4 d-flex flex-row gap-3 align-items-center">
         <Icon icon="uiw:left-circle-o"  style={{color: "white"}} className="small-icon"/>
-        <p className="m-0 react-router-link "> Find Our School {" "} </p>
+        <p className="m-0 react-router-link "> Locate Us {" "} </p>
           <Icon icon="teenyicons:school-outline" className="icon"/>
         </div>
         <div className="col-md-4 d-flex flex-column gap-0 align-items-center middle h-100 ">
