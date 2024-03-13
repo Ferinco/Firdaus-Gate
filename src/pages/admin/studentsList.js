@@ -604,7 +604,6 @@ export default function StudentsList() {
                     <select
                       onChange={(e) => {
                         setSelectedClass(e.target.value);
-                        
                       }}
                       className="class-select"
                     >
@@ -620,6 +619,7 @@ export default function StudentsList() {
                     <button
                       onClick={() => {
                         selectedClass === "All" ? getData() : getDataByClass();
+                        setCurrentTab("all")
                       }}
                       className="select-btn"
                     >
@@ -634,6 +634,7 @@ export default function StudentsList() {
                     }`}
                     onClick={() => {
                     selectedClass === "All" ? getDeactivated() : getDeactivatedByClass()
+                    setCurrentTab("deactivated")
                     }}
                   >
                     Deactivated
@@ -1048,7 +1049,7 @@ const Wrapper = styled.div`
     }
     .active-tab {
       border-bottom: 2px solid blue;
-      color: blue;
+      color: black;
     }
     .action-bar {
       border: 1px solid grey;
