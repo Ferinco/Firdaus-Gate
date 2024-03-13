@@ -373,12 +373,6 @@ export default function Navbar() {
 }
 const NavigationBar = styled.div`
   /* display: none !important; */
-
-  .middle-nav {
-    background-color: #f5f5f5;
-    height: 80px;
-    width: 100%;
-  }
   .sidebar {
     background-color: white !important;
   }
@@ -408,6 +402,7 @@ const NavigationBar = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 13px;
+    position: relative;
     &-div {
       border-right: 1px solid gray;
       border-left: 1px solid gray;
@@ -430,6 +425,9 @@ const NavigationBar = styled.div`
       font-size: 14px !important;
     }
   }
+  Button{
+    border-radius: 0 !important;
+  }
   .second-navbar {
     height: 90px !important;
     align-items: center;
@@ -437,7 +435,7 @@ const NavigationBar = styled.div`
     width: 100%;
     transition: background-color 0.5s ease, box-shadow 0.3s ease;
     transition: 0.5s !important;
-    position: static;
+    position: relative !important;
     .div {
       align-items: center;
       height: 90px !important;

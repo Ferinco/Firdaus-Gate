@@ -16,6 +16,7 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 import { api } from "../../api/axios";
 import { useForm } from "react-hook-form";
 import { getNonNullValue } from "../../utils/utils";
+import { AllClasses } from "../../configs/allClasses";
 
 const columns = [
   { header: "", accessor: "select" },
@@ -109,11 +110,10 @@ export default function StudentsList() {
   const [pageCount, setPageCount] = useState(0);
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
-const[deactivated, setDeactivated] = useState(false)
-const [currentTab, setCurrentTab] = useState("All")
+  const [deactivated, setDeactivated] = useState(false);
+  const [currentTab, setCurrentTab] = useState("All");
   //fetching student details
-  async function toggleTabs() {
-    if (currentTab === "deactivated") {
+  async function getDeactivated() {
       try {
         setIsLoading(true);
         const result = await UserService.findUsers({
@@ -128,15 +128,32 @@ const [currentTab, setCurrentTab] = useState("All")
       } finally {
         setIsLoading(false);
       }
-    } else if (currentTab === "All") {
-      getData(page, pageSize);
+    }
+
+
+  //fetching deactivated students by class
+  async function getDeactivatedByClass() {
+    try {
+      setIsLoading(true);
+      const result = await UserService.findUsers({
+        role: "student",
+        status: "inactive",
+        currentClass: selectedClass
+      });
+      console.log(result);
+      const { list } = result.data;
+      setCurrentTableData(list);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
-  
-useEffect(()=>{
-setCurrentTab("All")
-getData(page, pageSize);
-}, [])
+
+  useEffect(() => {
+    setCurrentTab("All");
+    getData(page, pageSize);
+  }, []);
 
   const getData = async (pageNum, limitNum, filter) => {
     try {
@@ -162,6 +179,35 @@ getData(page, pageSize);
       console.log(error);
     }
   };
+
+  const [selectedClass, setSelectedClass] = useState("");
+  //get data by class
+  const getDataByClass = async (pageNum, limitNum, filter) => {
+    try {
+      setIsLoading(true);
+      const result = await UserService.findUsers({
+        role: "student",
+        currentClass: selectedClass,
+        // status: "inactive",
+        limit: limitNum,
+        page: pageNum,
+        ...filter,
+      });
+      console.log(result);
+      const { list, totalPages, currentPage, total, limit } = result.data;
+      setCanPreviousPage(currentPage > 1);
+      setCanNextPage(currentPage + 1 <= totalPages);
+      setIsLoading(false);
+      setCurrentTableData(list);
+      setDataTotal(total);
+      setPageSize(limit);
+      setPageCount(totalPages);
+      setPage(currentPage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     (async () => await getData(page, pageSize))();
   }, []);
@@ -269,7 +315,6 @@ getData(page, pageSize);
     }
   }, [csvData, getData, page, pageSize, setCSVOpen, setIsLoading]);
 
-
   //multiple transfer
   const handleMultiTransfer = () => {
     if (multiSelect.length) {
@@ -278,7 +323,7 @@ getData(page, pageSize);
           setIsLoading(true);
           await api.post("/class/transfer", {
             studentId,
-            currentClass: user.classHandled
+            currentClass: user.classHandled,
           });
           setMultiSelect([]);
         })
@@ -287,6 +332,33 @@ getData(page, pageSize);
           console.log(res);
           setIsLoading(false);
           getData(page, pageSize);
+          console.log(user.classHandled);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    } else if (multiSelect.length < 1) {
+      Promise.all(
+        currentTableData.map(async (studentId) => {
+          setIsLoading(true);
+          try {
+            const response = await api.post("/class/transfer", {
+              studentId,
+              currentClass: user.classHandled,
+            });
+
+            setMultiSelect([]);
+          } catch (error) {
+            console.log(error);
+          }
+        })
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+          console.log(user.classHandled);
         })
         .catch((error) => {
           console.log(error);
@@ -295,17 +367,19 @@ getData(page, pageSize);
     }
   };
 
+  console.log(multiSelect);
   //multiple deactivation
   const handleDeactivate = () => {
     if (multiSelect.length) {
       Promise.all(
         multiSelect.map(async (studentId, currentStatus) => {
-          const newStatus = currentStatus === "inactive" ? "active" : "inactive";
+          const newStatus =
+            currentStatus === "inactive" ? "active" : "inactive";
           setIsLoading(true);
           const formData = new FormData();
-          formData.append("values", JSON.stringify({ status: newStatus}));
+          formData.append("values", JSON.stringify({ status: newStatus }));
           await UserService.updateUser(studentId, formData);
-      // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+          // toast.success($`{multiSelect.length "students deactivated successfully"}`)
 
           setMultiSelect([]);
         })
@@ -313,23 +387,21 @@ getData(page, pageSize);
         .then((res) => {
           console.log(res);
           setIsLoading(false);
-          setCurrentTab("deactivated")
+          setCurrentTab("deactivated");
           getData(page, pageSize);
         })
         .catch((error) => {
           console.log(error);
           setIsLoading(false);
         });
-
-    }
-    else if(multiSelect.length === 0){
+    } else if (multiSelect.length === 0) {
       Promise.all(
         currentTableData.map(async (student) => {
           setIsLoading(true);
           const formData = new FormData();
-          formData.append("values", JSON.stringify({ status: "inactive"}));
+          formData.append("values", JSON.stringify({ status: "inactive" }));
           await UserService.updateUser(student._id, formData);
-      // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+          // toast.success($`{multiSelect.length "students deactivated successfully"}`)
 
           setMultiSelect([]);
         })
@@ -346,53 +418,50 @@ getData(page, pageSize);
     }
   };
 
-    //multiple activation
-    const handleActivation = () => {
-      if (multiSelect.length) {
-        Promise.all(
-          multiSelect.map(async (studentId) => {
-            setIsLoading(true);
-            const formData = new FormData();
-            formData.append("values", JSON.stringify({ status: "active"}));
-            await UserService.updateUser(studentId, formData);  
-            setMultiSelect([]);
-          })
-        )
-          .then((res) => {
-            console.log(res);
-            setIsLoading(false);
-            getData(page, pageSize);
-          })
-          .catch((error) => {
-            console.log(error);
-            setIsLoading(false);
-          });
-  
-      }
-      else if(multiSelect.length === 0){
-        Promise.all(
-          currentTableData.map(async (student) => {
-            setIsLoading(true);
-            const formData = new FormData();
-            formData.append("values", JSON.stringify({ status: "active"}));
-            await UserService.updateUser(student._id, formData);
-        // toast.success($`{multiSelect.length "students deactivated successfully"}`)
-  
-            setMultiSelect([]);
-          })
-        )
-          .then((res) => {
-            console.log(res);
-            setIsLoading(false);
-            getData(page, pageSize);
-          })
-          .catch((error) => {
-            console.log(error);
-            setIsLoading(false);
-          });
-      }
-    };
-  
+  //multiple activation
+  const handleActivation = () => {
+    if (multiSelect.length) {
+      Promise.all(
+        multiSelect.map(async (studentId) => {
+          setIsLoading(true);
+          const formData = new FormData();
+          formData.append("values", JSON.stringify({ status: "active" }));
+          await UserService.updateUser(studentId, formData);
+          setMultiSelect([]);
+        })
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    } else if (multiSelect.length === 0) {
+      Promise.all(
+        currentTableData.map(async (student) => {
+          setIsLoading(true);
+          const formData = new FormData();
+          formData.append("values", JSON.stringify({ status: "active" }));
+          await UserService.updateUser(student._id, formData);
+          // toast.success($`{multiSelect.length "students deactivated successfully"}`)
+
+          setMultiSelect([]);
+        })
+      )
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
+  };
 
   //single deactivation
   const deactivateUser = async (studentId, currentStatus) => {
@@ -405,15 +474,14 @@ getData(page, pageSize);
       // Move setIsLoading(false) inside the try block to ensure it gets called even if there is an error
       setIsLoading(false);
       getData(page, pageSize);
-      setCurrentTab("All")
-
+      setCurrentTab("All");
     } catch (error) {
       console.log(error);
       // Handle error or notify the user about the failure
     }
   };
-  
-//multiple delete
+
+  //multiple delete
   const deleteMultiple = async () => {
     if (multiSelect.length) {
       Promise.all(
@@ -425,17 +493,24 @@ getData(page, pageSize);
               setIsLoading(false);
               setMultiSelect([]);
               getData(page, pageSize);
-              toast.success(`${multiSelect.length} ${multiSelect.length > 1 ? "students" : "student's"} deleted successfully`);
+              toast.success(
+                `${multiSelect.length} ${
+                  multiSelect.length > 1 ? "students" : "student's"
+                } deleted successfully`
+              );
             })
             .catch((error) => {
               setIsLoading(false);
               console.log(error);
-              toast.error(`Unable to delete ${multiSelect.length > 1 ? "students'" : "student's"}`);
+              toast.error(
+                `Unable to delete ${
+                  multiSelect.length > 1 ? "students'" : "student's"
+                }`
+              );
             });
         })
       );
-    }
-    else if(multiSelect.length === 0){
+    } else if (multiSelect.length === 0) {
       Promise.all(
         currentTableData.map(async (student) => {
           setIsLoading(true);
@@ -446,7 +521,6 @@ getData(page, pageSize);
               setMultiSelect([]);
               getData(page, pageSize);
               toast.success("successfully deleted all students' account");
-
             })
             .catch((error) => {
               setIsLoading(false);
@@ -513,49 +587,107 @@ getData(page, pageSize);
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
-                  <div className={`${currentTab === "All" ? "active-tab navigator" : "navigator"}`} onClick={()=>{
-                    setCurrentTab("All")
-                    toggleTabs()
-                  }}>All</div>
-                  <div className={`${currentTab === "deactivated" ? "active-tab navigator" : "navigator"}`} onClick={()=>{
-                    toggleTabs()
-                    setCurrentTab("deactivated")
-                  }}>Deactivated</div>
+                  {/* <div
+                    className={`${
+                      currentTab === "All"
+                        ? "active-tab navigator"
+                        : "navigator"
+                    }`}
+                    onClick={() => {
+                      setCurrentTab("All");
+                      toggleTabs();
+                    }}
+                  >
+                    All
+                  </div> */}
+                  <div className="d-flex flex-row align-items-center gap-1">
+                    <select
+                      onChange={(e) => {
+                        setSelectedClass(e.target.value);
+                        
+                      }}
+                      className="class-select"
+                    >
+                      <option value="All" selected>
+                        All
+                      </option>
+                      {AllClasses?.map((opt, index) => (
+                        <option key={index} value={opt.code}>
+                          {opt.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => {
+                        selectedClass === "All" ? getData() : getDataByClass();
+                      }}
+                      className="select-btn"
+                    >
+                      Display
+                    </button>
+                  </div>
+                  <div
+                    className={`${
+                      currentTab === "deactivated"
+                        ? "active-tab navigator"
+                        : "navigator"
+                    }`}
+                    onClick={() => {
+                    selectedClass === "All" ? getDeactivated() : getDeactivatedByClass()
+                    }}
+                  >
+                    Deactivated
+                  </div>
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
-                  <button onClick={()=>{
-                    handleMultiTransfer()
-                  }} className="action-bar">
+                  <button
+                    onClick={() => {
+                      handleMultiTransfer();
+                    }}
+                    className="action-bar"
+                  >
                     Transfer &nbsp;{" "}
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  {
-                    currentTab === "All" ? 
-                  <button onClick={()=>{ handleDeactivate()}} className="action-bar">
-                    Deactivate &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button> : <button onClick={()=>{ handleActivation()}} className="activate-btn">
-                    Activate &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button> 
-                  }
-                  {
-                    multiSelect.length > 0 ?
-                  <button
-                    onClick={() => {
-                      setConfirmation(true);
-                    }}
-                    className="action-bar"
-                  >
-                    Delete &nbsp;{" "}
-                    {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                    &nbsp;
-                  </button> : ""
-                  }
+                  {currentTab === "All" ? (
+                    <button
+                      onClick={() => {
+                        handleDeactivate();
+                      }}
+                      className="action-bar"
+                    >
+                      Deactivate &nbsp;{" "}
+                      {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                      &nbsp;
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        handleActivation();
+                      }}
+                      className="activate-btn"
+                    >
+                      Activate &nbsp;{" "}
+                      {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                      &nbsp;
+                    </button>
+                  )}
+                  {multiSelect.length > 0 ? (
+                    <button
+                      onClick={() => {
+                        setConfirmation(true);
+                      }}
+                      className="action-bar"
+                    >
+                      Delete &nbsp;{" "}
+                      {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                      &nbsp;
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className=" table-div">
@@ -663,7 +795,7 @@ getData(page, pageSize);
                                 <td className="table-button">
                                   <button
                                     onClick={() => {
-                                      deactivateUser(row._id, row.status)
+                                      deactivateUser(row._id, row.status);
                                     }}
                                     className={
                                       row.status === "inactive"
@@ -714,13 +846,12 @@ getData(page, pageSize);
             </div>
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-
-                  <div className="pt-5 h-100">
-                  <p className="text-muted">No student to display...</p>
-                  <button onClick={() => setCSVOpen(true)} className="csv-button">
-                    Import CSV file
-                  </button>
-                </div>
+              <div className="pt-5 h-100">
+                <p className="text-muted">No student to display...</p>
+                <button onClick={() => setCSVOpen(true)} className="csv-button">
+                  Import CSV file
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -763,7 +894,8 @@ getData(page, pageSize);
               }`}
             >
               <p>
-                Are you sure you want to delete {multiSelect.length > 1 ? (multiSelect.length) : "all"}{" "}
+                Are you sure you want to delete{" "}
+                {multiSelect.length > 1 ? multiSelect.length : "all"}{" "}
                 {multiSelect.length > 1 ? "students'" : "student's"} profile?
               </p>
               <div className=" buttons d-flex gap-3">
@@ -823,6 +955,19 @@ const Wrapper = styled.div`
         color: white;
       }
     }
+  }
+  .class-select{
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+  .select-btn{
+    border: 1px solid blue;
+    color: white;
+    background-color: blue;
+    padding:2px 7px ;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
   }
   .content-wrapper {
     background-color: white;
@@ -901,7 +1046,7 @@ const Wrapper = styled.div`
       border-bottom: 2px solid white;
       cursor: pointer;
     }
-    .active-tab{
+    .active-tab {
       border-bottom: 2px solid blue;
       color: blue;
     }
@@ -946,20 +1091,20 @@ const Wrapper = styled.div`
       }
     }
   }
-  .activate-btn{
+  .activate-btn {
     border: 1px solid green;
-      border-radius: 20px;
-      padding: 3px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: green;
-      text-transform: capitalize;
-      background-color: white;
-      &:hover {
-          color: white;
-          background-color: green;
-          transition: 0.3s;
-        }
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: green;
+    text-transform: capitalize;
+    background-color: white;
+    &:hover {
+      color: white;
+      background-color: green;
+      transition: 0.3s;
+    }
   }
   .search-div {
     @media screen and (max-width: 690px) {

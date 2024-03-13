@@ -168,13 +168,7 @@ const Wrapper = styled.div`
       font-weight: 300 !important;
     }
   }
-  .container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  .col-md-4 {
-  }
+
   p {
     font-size: 17px;
   }

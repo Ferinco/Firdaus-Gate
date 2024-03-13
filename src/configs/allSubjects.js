@@ -178,6 +178,11 @@ export const AllSubjects =[
         id: "021",
       },
       {
+        name: "Arabic",
+        code: "FBS_022",
+        id: "022",
+      },
+      {
         name: "English Language",
         code: "FJS_001",
         id: "001",
@@ -236,7 +241,6 @@ export const AllSubjects =[
         name: "Civic Education",
         code: "FJS_012",
         id: "012",
-        _id: uuidv4(),
       },
       {
         name: "Creative and Cultural Arts",
@@ -367,140 +371,5 @@ export const AllSubjects =[
         name: "Commerce",
         code: "FSS_019",
         id: "019",
-      },
-      {
-        name: "English Langauage",
-        code: "FSS_001",
-        id: "101",
-      },
-      {
-        name: "Mathematics",
-        code: "FSS_002",
-        id: "102",
-      },
-      {
-        name: "Biology",
-        code: "FSS_003",
-        id: "103",
-      },
-      {
-        name: "Physics",
-        code: "FSS_004",
-        id: "004",
-      },
-      {
-        name: "Chemistry",
-        code: "FSS_005",
-        id: "005",
-      },
-      {
-        name: "Further Mathematics",
-        code: "FSS_006",
-        id: "006",
-      },
-      {
-        name: "Computer Studies",
-        code: "FSS_009",
-        id: "009",
-      },
-      {
-        name: "Data Processing",
-        code: "FSS_010",
-        id: "010",
-      },
-      {
-        name: "Arabic",
-        code: "FSS_012",
-        id: "112",
-      },
-      {
-        name: "Economics",
-        code: "FSS_013",
-        id: "013",
-      },
-      {
-        name: "Geography",
-        code: "FSS_014",
-        id: "014",
-      },
-      {
-        name: "Agric. Science",
-        code: "FSS_015",
-        id: "015",
-      },
-      {
-        name: "English Langauage",
-        code: "FSS_0021",
-        id: "201",
-      },
-      {
-        name: "Mathematics",
-        code: "FSS_002",
-        id: "202",
-      },
-      {
-        name: "Government",
-        code: "FSS_016",
-        id: "016",
-      },
-      {
-        name: "Literature in English",
-        code: "FSS_017",
-        id: "017",
-      },
-      {
-        name: "Biology",
-        code: "FSS_003",
-        id: "203",
-      },
-      {
-        name: "Yoruba Language",
-        code: "FSS_007",
-        id: "007",
-      },
-      {
-        name: "Civic Education",
-        code: "FSS_008",
-        id: "208",
-      },
-      {
-        name: "I.R.S",
-        code: "FSS_011",
-        id: "011",
-      },
-      {
-        name: "English Langauage",
-        code: "FSS_001",
-        id: "301",
-      },
-      {
-        name: "Mathematics",
-        code: "FSS_002",
-        id: "302",
-      },
-      {
-        name: "Financial Accounting",
-        code: "FSS_018",
-        id: "018",
-      },
-      {
-        name: "Commerce",
-        code: "FSS_019",
-        id: "019",
-      },
-      {
-        name: "Biology",
-        code: "FSS_003",
-        id: "003",
-      },
-      {
-        name: "Civic Education",
-        code: "FSS_0038",
-        id: "008",
-      },
-      {
-        name: "Arabic",
-        code: "FSS_012",
-        id: "312",
       },
 ]

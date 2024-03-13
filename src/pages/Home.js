@@ -33,6 +33,7 @@ export default function Home() {
 const Wrapper = styled.section`
 width:100vw !important;
 overflow-x:hidden !important;
+position: relative;
     p {
   font-size: 17px !important;
 }
