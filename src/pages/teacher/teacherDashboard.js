@@ -69,6 +69,7 @@ export default function TeacherDashboard() {
         const res = await UserService.findUsers({
           role: "student",
           currentClass: user?.classHandled,
+          status: "active"
         });
         console.log(res.data.list.length);
 
@@ -80,7 +81,7 @@ export default function TeacherDashboard() {
           setMaleGender(male.length);
           const female = list.filter((user) => user.gender === "female");
           setFemaleGender(female.length);
-          setStudents(list.length);
+          setStudents(list.length + 1);
           console.log(students);
         }
       } catch (error) {

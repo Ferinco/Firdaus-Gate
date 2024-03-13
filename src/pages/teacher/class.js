@@ -94,7 +94,7 @@ export default function MyClass() {
   const [canNextPage, setCanNextPage] = useState(false);
   const [canPreviousPage, setCanPreviousPage] = useState(false);
   const [dataTotal, setDataTotal] = useState(0);
-
+const [activeTab, setActive] = useState("all")
   const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch();
 
@@ -103,7 +103,7 @@ export default function MyClass() {
   const [csvData, setCsvData] = useState([]);
   //handle checked students
   const [checkLength, setcheckLength] = useState(0);
-console.log(user)
+  console.log(user);
   const getData = async (pageNum, limitNum, filter) => {
     try {
       setIsLoading(true);
@@ -128,6 +128,34 @@ console.log(user)
       console.log(error);
     }
   };
+
+//fetch deactivated students
+const getDeactivated = async (pageNum, limitNum, filter) => {
+  try {
+    setIsLoading(true);
+    const result = await UserService.findUsers({
+      role: "student",
+      currentClass: user?.classHandled,
+      status: "inactive",
+      limit: limitNum,
+      page: pageNum,
+      ...filter,
+    });
+    console.log(result);
+    const { list, totalPages, currentPage, total, limit } = result.data;
+    setCanPreviousPage(currentPage > 1);
+    setCanNextPage(currentPage + 1 <= totalPages);
+    setIsLoading(false);
+    setCurrentTableData(list);
+    setDataTotal(total);
+    setPageSize(limit);
+    setPageCount(totalPages);
+    setPage(currentPage);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   useEffect(() => {
     (async () => await getData(page, pageSize))();
   }, []);
@@ -249,15 +277,15 @@ console.log(user)
           setMultiSelect([]);
         })
       )
-      .then((res) => {
-        console.log(res);
-        setIsLoading(false);
-        getData(page, pageSize);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
+        .then((res) => {
+          console.log(res);
+          setIsLoading(false);
+          getData(page, pageSize);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     }
   };
 
@@ -313,8 +341,16 @@ console.log(user)
             <div className="div mt-3">
               <div className="d-flex justify-content-between bars">
                 <div className="navigators d-flex gap-2">
-                  <div className="navigator ">All</div>
-                  <div className="navigator ">Deactivated</div>
+                  <div className={`navigator ${activeTab === "all" ? "active" : ""}`}
+                  onClick={()=>{
+                    setActive("all")
+                   getData()
+                  }}>All</div>
+                  <div className={`navigator ${activeTab === "deactivated" ? "active" : ""}`} 
+                  onClick={()=>{
+                    setActive("deactivated")
+                    getDeactivated()
+                  }}>Deactivated</div>
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
@@ -410,7 +446,7 @@ console.log(user)
                             return (
                               <td key={index} className="table-body">
                                 <td className="table-button">
-                                <Link
+                                  <Link
                                     to={`${PATH_DASHBOARD.teacher.studentInfo}/${row._id}`}
                                   >
                                     <button className="view-button">
@@ -466,9 +502,9 @@ console.log(user)
           </div>
         ) : (
           <div className="d-flex flex-column justify-content-center align-items-center text-center">
-              <h4 className="text-muted">No Students Found</h4>
-<p>You currently do not have any students registered under you</p>
-              {/* <button onClick={() => setCSVOpen(true)} className="csv-button">
+            <h4 className="text-muted">No Students Found</h4>
+            <p>You currently do not have any students registered under you</p>
+            {/* <button onClick={() => setCSVOpen(true)} className="csv-button">
                 Import CSV file
               </button> */}
           </div>
@@ -610,14 +646,15 @@ const Wrapper = styled.div`
       font-size: 13px;
       font-weight: 600;
       color: grey;
-      border-bottom: 2px solid white;
-
+      border-bottom: none;
+      transition: 0.3s;
       cursor: pointer;
 
-      &:first-child {
-        border-bottom: 2px solid blue;
-        color: blue;
-      }
+    }
+    .active {
+      border-bottom: 2px solid blue;
+      color: blue;
+      transition: 0.3s;
     }
     .action-bar {
       border: 1px solid grey;
