@@ -20,6 +20,14 @@ import { getNonNullValue } from "../../utils/utils";
 const columns = [
   { header: "", accessor: "select" },
   {
+    header: "Surname",
+    accessor: "lastName",
+    isSorted: false,
+    isSortedDesc: false,
+    mappingExist: false,
+    mappings: {},
+  },
+  {
     header: "First Name",
     accessor: "firstName",
     isSorted: false,
@@ -27,14 +35,7 @@ const columns = [
     mappingExist: false,
     mappings: {},
   },
-  {
-    header: "Last Name",
-    accessor: "lastName",
-    isSorted: false,
-    isSortedDesc: false,
-    mappingExist: false,
-    mappings: {},
-  },
+
   {
     header: "Date Added",
     accessor: "createdAt",
@@ -214,8 +215,8 @@ export default function TeachersList() {
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
-            firstName: item[0],
-            lastName: item[1],
+            firstName: item[1],
+            lastName: item[0],
             middleName: item[2],
             classHandled: item[3],
             teacherId: item[4],

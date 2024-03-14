@@ -21,16 +21,16 @@ import { AllClasses } from "../../configs/allClasses";
 const columns = [
   { header: "", accessor: "select" },
   {
-    header: "First Name",
-    accessor: "firstName",
+    header: "Surname",
+    accessor: "lastName",
     isSorted: false,
     isSortedDesc: false,
     mappingExist: false,
     mappings: {},
   },
   {
-    header: "Surname",
-    accessor: "lastName",
+    header: "First Name",
+    accessor: "firstName",
     isSorted: false,
     isSortedDesc: false,
     mappingExist: false,
@@ -282,14 +282,15 @@ export default function StudentsList() {
   const createCsvUsers = useCallback(async () => {
     if (csvData.length) {
       let newStudents = csvData.slice(1);
+      setCSVOpen(false);
       setIsLoading(true);
       console.log(newStudents);
       try {
         setIsLoading(true);
         for (const student of newStudents) {
           const data = {
-            firstName: student[0],
-            lastName: student[1],
+            firstName: student[1],
+            lastName: student[0],
             middleName: student[2],
             currentClass: student[3],
             admissionNumber: student[4],
@@ -301,14 +302,19 @@ export default function StudentsList() {
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
-          await UserService.createUser(formData);
+         const response = await UserService.createUser(formData);
           setIsLoading(false);
-          setCSVOpen(false);
+          console.log(response)
+          toast.success("students have been created successfully")
         }
       } catch (error) {
-        console.log(error);
-        setIsLoading(false);
         setCSVOpen(false);
+        setIsLoading(false);
+        if (error?.response?.data?.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Failure creating teachers from CSV");
+        }
       }
 
       getData(page, pageSize);
