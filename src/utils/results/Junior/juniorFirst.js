@@ -368,7 +368,7 @@ console.log(testScores)
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
-        <p className="comments"><img src={props.teacher.teacherSignature} className="signature-img"/></p>
+        <p className="comments"><img src={props? props.teacher.teacherSignature: ""} className="signature-img"/></p>
         </div>
       </div>
       <div className="d-flex flex-row gap-4">
@@ -378,7 +378,7 @@ console.log(testScores)
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
-        <p className="comments">khe;rih4rhio</p>
+        <p className="comments"></p>
         </div>
       </div>
       <div className="d-flex flex-row gap-2">

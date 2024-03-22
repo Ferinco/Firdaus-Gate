@@ -114,22 +114,21 @@ export default function StudentsList() {
   const [currentTab, setCurrentTab] = useState("All");
   //fetching student details
   async function getDeactivated() {
-      try {
-        setIsLoading(true);
-        const result = await UserService.findUsers({
-          role: "student",
-          status: "inactive",
-        });
-        console.log(result);
-        const { list } = result.data;
-        setCurrentTableData(list);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+    try {
+      setIsLoading(true);
+      const result = await UserService.findUsers({
+        role: "student",
+        status: "inactive",
+      });
+      console.log(result);
+      const { list } = result.data;
+      setCurrentTableData(list);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-
+  }
 
   //fetching deactivated students by class
   async function getDeactivatedByClass() {
@@ -138,7 +137,7 @@ export default function StudentsList() {
       const result = await UserService.findUsers({
         role: "student",
         status: "inactive",
-        currentClass: selectedClass
+        currentClass: selectedClass,
       });
       console.log(result);
       const { list } = result.data;
@@ -231,6 +230,7 @@ export default function StudentsList() {
       })
       .catch((error) => {
         toast.error("unable to delete student account");
+      
       });
   };
 
@@ -302,10 +302,10 @@ export default function StudentsList() {
           };
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
-         const response = await UserService.createUser(formData);
+          const response = await UserService.createUser(formData);
           setIsLoading(false);
-          console.log(response)
-          toast.success("students have been created successfully")
+          console.log(response);
+          toast.success("students have been created successfully");
         }
       } catch (error) {
         setCSVOpen(false);
@@ -586,7 +586,7 @@ export default function StudentsList() {
             </form>
 
             <button onClick={() => setCSVOpen(true)} className="csv-button">
-              Import CSV file
+              Upload Students
             </button>
           </div>
           {currentTableData.length ? (
@@ -625,7 +625,7 @@ export default function StudentsList() {
                     <button
                       onClick={() => {
                         selectedClass === "All" ? getData() : getDataByClass();
-                        setCurrentTab("all")
+                        setCurrentTab("all");
                       }}
                       className="select-btn"
                     >
@@ -639,8 +639,10 @@ export default function StudentsList() {
                         : "navigator"
                     }`}
                     onClick={() => {
-                    selectedClass === "All" ? getDeactivated() : getDeactivatedByClass()
-                    setCurrentTab("deactivated")
+                      selectedClass === "All"
+                        ? getDeactivated()
+                        : getDeactivatedByClass();
+                      setCurrentTab("deactivated");
                     }}
                   >
                     Deactivated
@@ -854,10 +856,43 @@ export default function StudentsList() {
           ) : (
             <div className="d-flex justify-content-center align-items-center">
               <div className="pt-5 h-100">
-                <p className="text-muted">No student to display...</p>
-                <button onClick={() => setCSVOpen(true)} className="csv-button">
-                  Import CSV file
-                </button>
+                {currentTab === "deactivated" ? (
+                  <div className="text-center d-flex flex-column justify-content-center align-items-center">
+                  <h4 className="m-0">
+                    Sorry, there are no deactivated accounts {selectedClass != "all" ? `in class: ${selectedClass}` : ""}
+                  </h4>
+                  <p>
+                    Reload page to display list of all students
+                  </p>
+                </div>
+                ) : (
+                  <>
+                    {selectedClass != "all" ? (
+                      <div className="text-center d-flex flex-column justify-content-center align-items-center">
+                        <h4 className="m-0">
+                          Sorry, there are no students in class: {selectedClass}
+                        </h4>
+                        <p>
+                          Reload page to display list of all students/ click on
+                          the upload button to upload students
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="text-center d-flex flex-columnb\ justify-content-center align-items-center">
+                        <h4 className="text-muted m-0">
+                          No record of uploaded students
+                        </h4>
+                        <button
+                          onClick={() => setCSVOpen(true)}
+                          className="csv-button"
+                        >
+                          Upload Students
+                        </button>
+                        ={" "}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -963,15 +998,15 @@ const Wrapper = styled.div`
       }
     }
   }
-  .class-select{
+  .class-select {
     border: 1px solid grey;
     border-radius: 5px;
   }
-  .select-btn{
+  .select-btn {
     border: 1px solid blue;
     color: white;
     background-color: blue;
-    padding:2px 7px ;
+    padding: 2px 7px;
     font-size: 14px;
     font-weight: 600;
     border-radius: 5px;

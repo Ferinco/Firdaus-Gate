@@ -68,7 +68,7 @@ export default function CheckResults() {
 
   React.useEffect(() => {
     getClassTeacher();
-  }, []);
+  }, [user]);
   console.log(classTeacher);
 
   useEffect(() => {

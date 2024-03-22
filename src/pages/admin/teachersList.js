@@ -159,6 +159,7 @@ export default function TeachersList() {
       })
       .catch((error) => {
         toast.error("unable to delete teacher account");
+        console.log(error)
       });
   };
 
