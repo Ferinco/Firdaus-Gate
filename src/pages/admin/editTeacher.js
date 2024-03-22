@@ -12,6 +12,7 @@ import { fetchSubjects } from "../../redux/slices/subjects";
 import { api } from "../../api/axios";
 import toast from "react-hot-toast";
 import AddAndDeleteSubject from "../../components/AddAndDeleteSubject";
+import { UserService } from "../../services/userService";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -139,7 +140,7 @@ export default function EditTeacher() {
 const ChangeProfile = () => {
   const { identity } = useParams();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [previewProfilePhoto, setPreviewProfilePhoto] = useState(null);
 
@@ -150,9 +151,24 @@ const ChangeProfile = () => {
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
   }, [identity, dispatch]);
-
   const onSubmitProfile = async (data) => {
-    console.log("data");
+    const formData = new FormData();
+    formData.append("values", JSON.stringify(data));
+    formData.append("teacherSignature", signatureFile);
+    try {
+      setIsLoading(true)
+      const data = await UserService.updateUser(user._id, formData);
+      toast.success("Teacher profile edited successfully");
+      setIsLoading(false)
+    }catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, try again later");
+      }
+    }
   };
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -351,7 +367,7 @@ const ChangeProfile = () => {
         </div>
 
         <div className="button-div d-flex justify-content-end mt-4">
-          <Button blue>Save Changes</Button>
+          <Button blue disabled={isLoading}>Save Changes</Button>
         </div>
       </form>
     </div>

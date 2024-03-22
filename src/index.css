@@ -162,6 +162,10 @@ font-size: 20px !important;
   font-size: 13px !important;
   width: fit-content;
 }
+.reopens{
+  font-weight: 600 !important;
+  color: black;
+}
 .csv-button{
   background-color: green;
   color: white;

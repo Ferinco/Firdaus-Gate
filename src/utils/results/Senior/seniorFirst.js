@@ -431,9 +431,9 @@ export default function SeniorFirst(props) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>d</td>
-                    <td>dd</td>
-                    <td>dd</td>
+                    {props.results?.slice(215, 218).map((score) => (
+                      <td className="text-center">{score}</td>
+                    ))}
                   </tr>
                 </tbody>
               </table>
@@ -450,28 +450,70 @@ export default function SeniorFirst(props) {
             </tr>
         </tbody>
        </table> */}
-              <table className="w-100">
+              <table className="w-100 table">
                 <thead>
                   <tr>
-                    <th colSpan={2}>PSYCHOMOTOR/PERSONAL SKILLS</th>
+                    <th>PSYCHOMOTOR/PERSONAL SKILLS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Literary</td>
-                    <td>Quran memorisation</td>
+                  <tr className="">
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Literary</p>
+                      <p className="">
+                        {props.results ? props.results[218] : ""}
+                      </p>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Technical</td>
-                    <td>Hadith Skills</td>
+                    <td className="d-flex justify-content-between">
+                      <p>Quran memorisation</p>
+                      <p className="">
+                        {props.results ? props.results[219] : ""}
+                      </p>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Innovative</td>
-                    <td>Arabiyya/Fighu</td>
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Technical</p>
+                      <p className="">
+                        {props.results ? props.results[220] : ""}
+                      </p>
+                    </td>
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Technical</p>
+                      <p className="">
+                        {props.results ? props.results[221] : ""}
+                      </p>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Sporting</td>
-                    <td>Cultural</td>
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Innovative</p>
+                      <p className="">
+                        {props.results ? props.results[222] : ""}
+                      </p>
+                    </td>{" "}
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Arabiyya/Fighu</p>
+                      <p className="">
+                        {props.results ? props.results[223] : ""}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Sporting</p>
+                      <p className="">
+                        {props.results ? props.results[224] : ""}
+                      </p>
+                    </td>{" "}
+                    <td className="d-flex justify-content-between w-100">
+                      <p>Cultural</p>
+                      <p className="">
+                        {props.results ? props.results[225] : ""}
+                      </p>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -482,55 +524,55 @@ export default function SeniorFirst(props) {
                 <div className="d-flex flex-column affective-body">
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Punctuality</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[226] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Politeness</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[227] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Attentiveness</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[228] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Neatness</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[229] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Initiative</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[230] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Perseverance</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[231] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Team Work</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[232] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Leadership Spirit</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[233]: ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Relationship with Teachers</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[234] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Attitude to Work</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[235] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Health</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[226] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Emotional Stability</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[227] : ""}{" "}</p>
                   </div>
                   <div className="d-flex flex-row justify-content-between items">
                     <p className="td">Inovative</p>
-                    <p className="td"></p>
+                    <p className="td">{props.results ? props.results[228] : ""}{" "}</p>
                   </div>
                 </div>
               </div>
@@ -575,7 +617,9 @@ export default function SeniorFirst(props) {
               <div className="d-flex flex-column gap-2 stamp-div">
                 <div className="d-flex flex-row gap-1 flex-wrap td">
                   <p>House Master's Comments:</p>
-                  <p className="comments">khe;rih4rhio</p>
+                  <p className="comments">
+                    {props.results ? props.results[214] : ""}
+                  </p>
                 </div>
 
                 <div className="d-flex flex-row gap-1 flex-wrap td">
@@ -602,7 +646,7 @@ export default function SeniorFirst(props) {
                 </div>
                 <div className="d-flex flex-row gap-2">
                   <p>School Reopens: </p>
-                  <p className="comments">
+                  <p className="comments reopens">
                     {props.results ? props.results[191] : ""}{" "}
                   </p>
                 </div>
@@ -700,6 +744,7 @@ const ResultDiv = styled.div`
   td,
   .td {
     font-size: 13px;
+    padding: 3px;
   }
   p,
   h3,
