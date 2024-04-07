@@ -73,6 +73,7 @@ export default function ResultHistory() {
       setResults(response?.data?.results[0]?.results);
       setIsLoading(false);
     } catch (error) {
+      setResults([]);
       console.error("Error fetching results:", error);
     } finally {
       setIsLoading(false);

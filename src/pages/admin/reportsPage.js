@@ -228,7 +228,7 @@ export default function Reports() {
                               <Link
                                 className="react-router-link"
                                 to={{
-                                  pathname: `${PATH_DASHBOARD.admin.view}/${student?._id}`,
+                                  pathname: `${PATH_DASHBOARD.admin.view}/${student?._id}/${termName}/${session}`,
                                   state: {
                                     termName: termName,
                                     activeSession: session,
