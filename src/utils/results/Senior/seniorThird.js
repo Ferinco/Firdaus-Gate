@@ -84,14 +84,14 @@ export default function SeniorThird(props) {
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
             <div className="title">
               <p>Academic Year</p>
-              <p>{props.session}</p>
+              <p className="academic-year">{props.session}</p>
             </div>
             <div className="">
               <h6>THIRD TERM RESULT</h6>
             </div>
             <div className="title">
               <p>Admission Number</p>
-              <p>{props.owner.admissionNumber}</p>
+              <p className="academic-year">{props.owner.admissionNumber}</p>
             </div>
           </div>
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
@@ -587,7 +587,7 @@ export default function SeniorThird(props) {
                 <tbody>
                   <tr style={{ height: "50px" }}>
                     {props.results?.slice(210, 213).map((score) => (
-                      <td className="text-center">{score}</td>
+                      <td className="text-center academic-year">{score}</td>
                     ))}
                   </tr>
                 </tbody>

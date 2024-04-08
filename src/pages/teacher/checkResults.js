@@ -20,14 +20,16 @@ import { UserService } from "../../services/userService";
 import { OverlayLoading } from "../../components/OverlayLoading";
 export default function CheckResults() {
   const { identity } = useParams();
+  const { session } = useParams();
+  const { term } = useParams();
+
   const dispatch = useDispatch();
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
   const [loading, setLoading] = useState(true);
   const {
-    termName,
-    setTermName,
+  setterm,
     studentClass,
     setStudentClass,
     activeSession,
@@ -46,8 +48,8 @@ export default function CheckResults() {
       .then((res) => {
         console.log(res);
         const latestTerm = res[res.length - 1];
-        setTermName(latestTerm?.term);
-        setActiveSession(latestTerm?.session);
+        // setterm(latestTerm?.term);
+        // setActiveSession(latestTerm?.session);
       });
   }, []);
 
@@ -75,7 +77,7 @@ export default function CheckResults() {
     const getResults = async () => {
       try {
         const response = await axios.get(
-          `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.currentClass}`
+          `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${term}/${user?.currentClass}`
         );
         console.log("Response:", response.data.results);
         const studentAdmissionNumber = user?.admissionNumber;
@@ -88,11 +90,11 @@ export default function CheckResults() {
       }
     };
 
-    if (termName !== "") {
+
       getResults();
       setLoading(false);
-    }
-  }, [termName]);
+
+  }, [term]);
   console.log(report);
 
   // set student class
@@ -101,15 +103,15 @@ export default function CheckResults() {
   }, []);
 
   //get result template
-  const getResultsTemplate = (termName, user) => {
-    switch (termName) {
+  const getResultsTemplate = (term, user) => {
+    switch (term) {
       case "FIRST TERM":
         if (user?.currentClass.startsWith("FGJSC")) {
           return (
             <JuniorFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -118,7 +120,7 @@ export default function CheckResults() {
             <SeniorFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -127,9 +129,9 @@ export default function CheckResults() {
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         } else if (user?.currentClass.startsWith("FGKGC")) {
@@ -137,9 +139,9 @@ export default function CheckResults() {
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
@@ -149,7 +151,7 @@ export default function CheckResults() {
             <JuniorSecond
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -158,7 +160,7 @@ export default function CheckResults() {
             <SeniorSecond
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -167,9 +169,9 @@ export default function CheckResults() {
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         } else if (user?.currentClass.startsWith("FGKGC")) {
@@ -177,9 +179,9 @@ export default function CheckResults() {
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
@@ -189,7 +191,7 @@ export default function CheckResults() {
             <JuniorThird
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -198,7 +200,7 @@ export default function CheckResults() {
             <SeniorThird
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
             />
           );
@@ -207,9 +209,9 @@ export default function CheckResults() {
             <NurseryFirst
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         } else if (user?.currentClass.startsWith("FGKGC")) {
@@ -217,9 +219,9 @@ export default function CheckResults() {
             <KgResult
               results={report}
               owner={user}
-              session={activeSession}
+              session={session}
               teacher={classTeacher}
-              term={termName}
+              term={term}
             />
           );
         }
@@ -236,15 +238,15 @@ export default function CheckResults() {
         <>
           <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
             <p className="m-0">
-              This is your {user?.firstName}'s result for {termName}, session:{" "}
-              {activeSession}... kindly switch to desktop mode for proper view.
+              This is your {user?.firstName}'s result for {term}, session:{" "}
+              {session}... kindly switch to desktop mode for proper view.
               To download, click on the download button below.
             </p>
           </div>
           {isLoading ? (
             <CircularProgress />
           ) : (
-            getResultsTemplate(termName, user)
+            getResultsTemplate(term, user)
           )}
         </>
       )}

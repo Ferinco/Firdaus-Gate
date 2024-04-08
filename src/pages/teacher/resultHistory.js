@@ -192,7 +192,7 @@ export default function ResultHistory() {
                               <Link
                                 className="react-router-link"
                                 to={{
-                                  pathname: `${PATH_DASHBOARD.teacher.checkResults}/${student?._id}`,
+                                  pathname: `${PATH_DASHBOARD.teacher.checkResults}/${student?._id}/${session}/${termName}`,
                                   state: {
                                     termName: termName,
                                     activeSession: session,

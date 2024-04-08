@@ -88,10 +88,8 @@ export default function CheckResults() {
       }
     };
 
-
-      getResults();
-      setLoading(false);
-    
+    getResults();
+    setLoading(false);
   }, [term, user, term]);
   console.log(user);
 
@@ -235,14 +233,20 @@ export default function CheckResults() {
         <CircularProgress />
       ) : (
         <>
-          <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
-            <p className="m-0">
-              This is your {user?.firstName}'s result for {term}, session:{" "}
-              {session}... kindly switch to desktop mode for proper view. To
-              download, click on the download button below.
-            </p>
-          </div>
-          {waiting ? <p>...loading</p> : getResultsTemplate(term, user)}
+          {waiting ? (
+            <OverlayLoading />
+          ) : (
+            <>
+              <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
+                <p className="m-0">
+                  This is your {user?.firstName}'s result for {term}, session:{" "}
+                  {session}... kindly switch to desktop mode for proper view. To
+                  download, click on the download button below.
+                </p>
+              </div>
+              {getResultsTemplate(term, user)}
+            </>
+          )}
         </>
       )}
     </ViewPage>

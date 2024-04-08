@@ -150,7 +150,7 @@ export default function Routes() {
         { path: "set-assignment/:identity", element: <AssignmentSettings /> },
         { path: "about-me", element: <AboutMe /> },
         { path: "results/uploaded-results", element: <History /> },
-        { path: "view-results/:identity", element: <CheckResults /> },
+        { path: "view-results/:identity/:session/:term", element: <CheckResults /> },
         { path: "view-answers/:identity/:id", element: <ViewAnswers /> },
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
