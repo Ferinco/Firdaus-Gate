@@ -11,23 +11,23 @@ export default function JuniorThird(props) {
   const { teacher } = props;
   const ResultRef = useRef();
 
-  const testScores = props.results
-    .slice(1, 103)
+  const testScores = props?.results
+    ?.slice(1, 103)
     .filter((_, index) => index % 6 === 0);
-  const examScores = props.results
-    .slice(2, 103)
+  const examScores = props?.results
+    ?.slice(2, 103)
     .filter((_, index) => index % 6 === 0);
-  const totalScores = props.results
-    .slice(3, 103)
+  const totalScores = props?.results
+    ?.slice(3, 103)
     .filter((_, index) => index % 6 === 0);
-  const secondTotal = props.results
-    .slice(4, 103)
+  const secondTotal = props?.results
+    ?.slice(4, 103)
     .filter((_, index) => index % 6 === 0);
-  const thirdTotal = props.results
-    .slice(5, 103)
+  const thirdTotal = props?.results
+    ?.slice(5, 103)
     .filter((_, index) => index % 6 === 0);
-  const weightedAverage = props.results
-    .slice(6, 103)
+  const weightedAverage = props?.results
+    ?.slice(6, 103)
     .filter((_, index) => index % 6 === 0);
 
   function addSuffix(number) {
@@ -115,14 +115,14 @@ export default function JuniorThird(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p className="academic-year">{props.session}</p>
           </div>
           <div className="">
-            <h6>SECOND TERM RESULT</h6>
+            <h6>THIRD TERM RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
-            <p>{props.owner.admissionNumber}</p>
+            <p className="academic-year">{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -449,18 +449,18 @@ export default function JuniorThird(props) {
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
-              <p className="comments">
+              <p className="comments ">
                 {props.results ? props.results[115] : ""}
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments reopens"></p>
             </div>
           </div>
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
-            <p className="comments">
+            <p className="comments ">
               {props.results ? props.results[113] : ""}
             </p>
           </div>
@@ -473,6 +473,10 @@ const ResultDiv = styled.div`
   width: 900px;
   margin: auto;
   background-color: white;
+  font-weight: 400;
+  .academic-year{
+    font-weight: 600 !important;
+  }
   .special-div {
     border-top: 0 !important;
     border: 1px solid black;
@@ -498,6 +502,7 @@ const ResultDiv = styled.div`
     border-collapse: collapse !important;
   }
 
+
   th {
     font-weight: 500;
     text-align: center;
@@ -522,7 +527,7 @@ const ResultDiv = styled.div`
     height: 50px;
   }
   .subject {
-    transform: rotate(-90deg);
+    transform: rotate(-90deg) ;
   }
   .performance-div {
     thead {

@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "../../contexts/Context";
 import JuniorFirst from "../../utils/results/Junior/juniorFirst";
 import SeniorFirst from "../../utils/results/Senior/seniorFirst";
+import BasicThird from "../../utils/results/Basic/basicThird"
+import BasicFirst from "../../utils/results/Basic/basicFirst"
+import BasicSecond from "../../utils/results/Basic/BasicSecond"
 import NurseryFirst from "../../utils/results/Nursery/nurseryFirst";
 import { KgResult } from "../../utils/results/KG/kgResult";
 import JuniorSecond from "../../utils/results/Junior/juniorSecond";
@@ -22,12 +25,12 @@ export default function CheckResults() {
   const { identity } = useParams();
   const { session } = useParams();
   const { term } = useParams();
-
   const dispatch = useDispatch();
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [waiting, setWaiting] = useState(false);
   const {
   setterm,
     studentClass,
@@ -79,13 +82,16 @@ export default function CheckResults() {
         const response = await axios.get(
           `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${term}/${user?.currentClass}`
         );
+        setWaiting(true);
         console.log("Response:", response.data.results);
         const studentAdmissionNumber = user?.admissionNumber;
         const results = response?.data.results[0]?.results?.find(
           (row) => row[0] === studentAdmissionNumber
         );
         setReport(results);
+        setWaiting(false);
       } catch (error) {
+        setWaiting(false);
         console.error("Error fetching results:", error);
       }
     };
@@ -94,7 +100,7 @@ export default function CheckResults() {
       getResults();
       setLoading(false);
 
-  }, [term]);
+  }, [term, user]);
   console.log(report);
 
   // set student class
@@ -145,6 +151,17 @@ export default function CheckResults() {
             />
           );
         }
+        else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicFirst
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        }
       case "SECOND TERM":
         if (user?.currentClass.startsWith("FGJSC")) {
           return (
@@ -177,6 +194,17 @@ export default function CheckResults() {
         } else if (user?.currentClass.startsWith("FGKGC")) {
           return (
             <KgResult
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        }
+        else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicSecond
               results={report}
               owner={user}
               session={session}
@@ -225,6 +253,17 @@ export default function CheckResults() {
             />
           );
         }
+        else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicThird
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        }
       default:
         return null;
     }
@@ -238,7 +277,7 @@ export default function CheckResults() {
         <>
           <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
             <p className="m-0">
-              This is your {user?.firstName}'s result for {term}, session:{" "}
+              This is the result for {term}, session:{" "}
               {session}... kindly switch to desktop mode for proper view.
               To download, click on the download button below.
             </p>

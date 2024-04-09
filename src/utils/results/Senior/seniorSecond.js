@@ -691,6 +691,7 @@ const ResultDiv = styled.div`
   margin: auto;
   height: fit-content !important;
   background-color: white;
+  font-weight: 400;
   .psycho {
     .d-flex {
       font-size: 14px;

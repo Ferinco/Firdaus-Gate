@@ -350,6 +350,7 @@ export default function CreateTeachers() {
                 placeholder="Teacher's Signature"
                 name="teacherSignature"
                 type="file"
+                accept="image/*"
                 {...register("teacherSignature")}
               />
               <p className="error-message">

@@ -158,10 +158,11 @@ export default function ResultHistory() {
         <Wrapper className="d-flex flex-column py-5">
           {results?.length > 0 ? (
             <div className="table-wrapper container py-5">
-              <div className="d-flex flex-row justify-content-start align-items-start text-start">
+              <div className="d-flex flex-row justify-content-start align-items-start text-start gap-2">
                 <h6 className="m-0">
-                  List of Uploaded Resullts for {termName}, {session}.
+                  List of Uploaded Resullts for selected term and session. 
                 </h6>
+                <span>(click on the check button when you change term or session)</span>
               </div>
               <div className="table-div p-0 mt-3">
                 <table className="table  p-0">
@@ -234,6 +235,10 @@ export default function ResultHistory() {
 }
 const Wrapper = styled.div`
   background-color: #f5f5f5 !important;
+  span{
+    color: orangered;
+    font-size: 13px;
+  }
   .table {
     width: 100%;
     border: 1px solid grey;

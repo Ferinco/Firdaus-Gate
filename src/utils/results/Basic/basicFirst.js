@@ -103,14 +103,14 @@ export default function BasicFirst(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p className="academic-year">{props.session}</p>
           </div>
           <div className="">
             <h6>FIRST TERM RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
-            <p>{props.owner.admissionNumber}</p>
+            <p className="academic-year">{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -260,26 +260,26 @@ export default function BasicFirst(props) {
               <tr>
                 <td colSpan={2}>
                   Average Score{" "}
-                  <h6>{props.results ? props.results[130] : ""}</h6>
+                  <h6>{props.results ? props.results[154] : ""}</h6>
                 </td>
 
                 <td colSpan={4}>
                   Marks Obtainable{" "}
-                  <h6>{props.results ? props.results[132] : ""}</h6>
+                  <h6>{props.results ? props.results[156] : ""}</h6>
                 </td>
                 <td colSpan={4}>
                   Marks Obtained{" "}
-                  <h6>{props.results ? props.results[133] : ""}</h6>
+                  <h6>{props.results ? props.results[157] : ""}</h6>
                 </td>
                 <td colSpan={2}>
-                  Percentage <h6>{props.results ? props.results[134] : ""}</h6>
+                  Percentage <h6>{props.results ? props.results[158] : ""}</h6>
                 </td>
                 <td colSpan={3}>
                   Position{" "}
-                  <h6>{props.results ? addSuffix(props.results[135]) : ""}</h6>
+                  <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
                 </td>
 
-                <td colSpan={4}>
+                <td colSpan={8}>
                   No. of Students in Class{" "}
                   <h6>{props.results ? props.results[103] : ""}</h6>
                 </td>
@@ -376,7 +376,7 @@ export default function BasicFirst(props) {
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments"></p>
             </div>
           </div>
           <div className="d-flex flex-row gap-2">
@@ -394,6 +394,7 @@ const ResultDiv = styled.div`
   width: 970px;
   margin: auto;
   background-color: white;
+  font-weight: 400;
   .special-div {
     border-top: 0 !important;
     border: 1px solid black;

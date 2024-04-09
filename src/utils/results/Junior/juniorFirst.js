@@ -95,14 +95,14 @@ console.log(testScores)
 <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
         <div className="title">
           <p>Academic Year</p>
-          <p>{props.session}</p>
+          <p className="academic-year">{props.session}</p>
         </div>
         <div className="">
           <h6>FIRST TERM RESULT</h6>
         </div>
         <div className="title">
           <p>Admission Number</p>
-          <p>{props.owner.admissionNumber}</p>
+          <p className="academic-year">{props.owner.admissionNumber}</p>
         </div>
         {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
       </div>
@@ -394,6 +394,7 @@ const ResultDiv = styled.div`
   width: 900px;
   margin: auto;
   background-color: white;
+  font-weight: 400;
   .special-div{
     border-top: 0 !important;
     border: 1px solid black;

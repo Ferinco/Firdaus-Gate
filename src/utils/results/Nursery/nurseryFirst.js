@@ -78,14 +78,14 @@ export default function NurseryFirst(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p className="academic-year">{props.session}</p>
           </div>
           <div className="">
             <h6>{props.term} RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
-            <p>{props.owner.admissionNumber}</p>
+            <p className="academic-year">{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -417,12 +417,12 @@ export default function NurseryFirst(props) {
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments"></p>
             </div>
           </div>
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
-            <p className="comments">khe;rih4rhio</p>
+            <p className="comments reopens">{props.results ? props.results[90] : ""}</p>
           </div>
         </div>
       </ResultDiv>

@@ -81,7 +81,7 @@ export default function TeacherDashboard() {
           setMaleGender(male.length);
           const female = list.filter((user) => user.gender === "female");
           setFemaleGender(female.length);
-          setStudents(list.length + 1);
+          setStudents(list.length);
           console.log(students);
         }
       } catch (error) {

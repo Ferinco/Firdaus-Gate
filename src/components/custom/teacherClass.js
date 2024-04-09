@@ -39,7 +39,7 @@ export const GetTeacherClass = (user, setTeacherClass) => {
     case "FGKGC_001":
       setTeacherClass("K.G 1");
       break;
-    case "FGKGC_003":
+    case "FGKGC_002":
       setTeacherClass("K.G 2");
       break;
     case "FGNSC_001":

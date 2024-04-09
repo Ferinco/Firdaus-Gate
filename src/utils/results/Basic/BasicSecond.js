@@ -114,14 +114,14 @@ export default function BasicSecond(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p className="academic-year">{props.session}</p>
           </div>
           <div className="">
             <h6>SECOND TERM RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
-            <p>{props.owner.admissionNumber}</p>
+            <p className="academic-year">{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -304,7 +304,7 @@ export default function BasicSecond(props) {
                   <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
                 </td>
 
-                <td colSpan={4}>
+                <td colSpan={8}>
                   No. of Students in Class{" "}
                   <h6>{props.results ? props.results[103] : ""}</h6>
                 </td>
@@ -401,7 +401,7 @@ export default function BasicSecond(props) {
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments"></p>
             </div>
           </div>
           <div className="d-flex flex-row gap-2">
@@ -419,6 +419,7 @@ const ResultDiv = styled.div`
   width: 970px;
   margin: auto;
   background-color: white;
+  font-weight: 400;
   .special-div {
     border-top: 0 !important;
     border: 1px solid black;

@@ -23,8 +23,8 @@ export default function BasicThird(props) {
     ?.slice(4, 127)
     ?.filter((_, index) => index % 6 === 0);
     const thirdTotal = props.results
-    .slice(5, 127)
-    .filter((_, index) => index % 6 === 0);
+    ?.slice(5, 127)
+    ?.filter((_, index) => index % 6 === 0);
   const weightedAverage = props.results
     ?.slice(6, 127)
     ?.filter((_, index) => index % 6 === 0);
@@ -112,14 +112,14 @@ export default function BasicThird(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p className="academic-year">{props.session}</p>
           </div>
           <div className="">
             <h6>THIRD TERM RESULT</h6>
           </div>
           <div className="title">
             <p>Admission Number</p>
-            <p>{props.owner.admissionNumber}</p>
+            <p className="academic-year">{props.owner.admissionNumber}</p>
           </div>
           {/* <div className="item">{resultsData ? resultsData[0][0] : ""}</div> */}
         </div>
@@ -309,7 +309,7 @@ export default function BasicThird(props) {
                   <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
                 </td>
 
-                <td colSpan={4}>
+                <td colSpan={4} className="last-td">
                   No. of Students in Class{" "}
                   <h6>{props.results ? props.results[103] : ""}</h6>
                 </td>
@@ -391,7 +391,7 @@ export default function BasicThird(props) {
               <p>Signature/Date</p>
               <p className="comments">
                 <img
-                  src={props.teacher.teacherSignature}
+                  src={props?.teacher?.teacherSignature}
                   className="signature-img"
                 />
               </p>
@@ -406,7 +406,7 @@ export default function BasicThird(props) {
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
-              <p className="comments">khe;rih4rhio</p>
+              <p className="comments"></p>
             </div>
           </div>
           <div className="d-flex flex-row gap-2">
@@ -424,6 +424,10 @@ const ResultDiv = styled.div`
   width: 970px;
   margin: auto;
   background-color: white;
+  font-weight: 400;
+  .last-td{
+    border-right: 0 !important;
+  }
   .special-div {
     border-top: 0 !important;
     border: 1px solid black;
