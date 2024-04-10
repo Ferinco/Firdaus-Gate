@@ -137,8 +137,8 @@ export default function Assign() {
                         </h6>
                       </div>
                       <p className="m-0">
-                        {subject.name.length > 15
-                          ? `${subject.name.slice(0, 15)}...`
+                        {subject.name.length > 9
+                          ? `${subject.name.slice(0, 9)}...`
                           : subject.name}
                       </p>
                     </Link>
