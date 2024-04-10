@@ -18,6 +18,9 @@ import axios from "axios";
 import { CircularProgress } from "../../components/custom";
 import { UserService } from "../../services/userService";
 import { OverlayLoading } from "../../components/OverlayLoading";
+import BasicThird from "../../utils/results/Basic/basicThird";
+import BasicSecond from "../../utils/results/Basic/BasicSecond";
+import BasicFirst from "../../utils/results/Basic/basicFirst";
 export default function CheckResults() {
   const { identity } = useParams();
   const { term } = useParams();
@@ -141,6 +144,17 @@ export default function CheckResults() {
             />
           );
         }
+        else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicFirst
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        }
       case "SECOND TERM":
         if (user?.currentClass.startsWith("FGJSC")) {
           return (
@@ -173,6 +187,16 @@ export default function CheckResults() {
         } else if (user?.currentClass.startsWith("FGKGC")) {
           return (
             <KgResult
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        } else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicSecond
               results={report}
               owner={user}
               session={session}
@@ -221,6 +245,17 @@ export default function CheckResults() {
             />
           );
         }
+        else if (user?.currentClass.startsWith("FGBSC")) {
+          return (
+            <BasicThird
+              results={report}
+              owner={user}
+              session={session}
+              teacher={classTeacher}
+              term={term}
+            />
+          );
+        }
       default:
         return null;
     }
@@ -239,8 +274,8 @@ export default function CheckResults() {
             <>
               <div className="d-flex flex-column text-start align-items-start px-5 pt-3">
                 <p className="m-0">
-                  This is your {user?.firstName}'s result for {term}, session:{" "}
-                  {session}... kindly switch to desktop mode for proper view. To
+                   {user?.firstName}'s result for {term}, session:{" "}
+                  {session} will display below... kindly switch to desktop mode for proper view. To
                   download, click on the download button below.
                 </p>
               </div>

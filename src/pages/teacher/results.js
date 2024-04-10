@@ -75,6 +75,7 @@ export default function Results() {
   const [CSVOpen, setCSVOpen] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [waiting, setWaiting] = useState(false);
   const [reportData, setReportData] = useState([]);
   const [data, setData] = useState([]);
   const [columnArray, setColumn] = useState([]);
@@ -140,6 +141,7 @@ export default function Results() {
   //handle reports submission
   console.log(termName, activeSession, teacherClass);
   const handleSubmit = async () => {
+    setWaiting(true)
     try {
       const response = await axios.post(
         `https://ferrum-sever.onrender.com/api/saveResults`,
@@ -150,11 +152,13 @@ export default function Results() {
           currentSession: activeSession,
         }
       );
+      setWaiting(false)
       toast.success("Results upload was successful.")
      setFile("")
       console.log(response);
     } catch (error) {
       console.log(error);
+      setWaiting(false)
       toast.error("Unable to upload results.")
 
     }
@@ -188,16 +192,14 @@ export default function Results() {
           </div>
         </div>
       ) : (
-        <Wrapper className="d-flex flex-column justify-content-between p-4">
-          <div>
+        <Wrapper className="d-flex flex-column justify-content-center align-items-center p-4">
             <div className="d-flex flex-row justify-content-center align-items-center gap-3 flex-wrap">
               <p className="m-0 intro">
                 Make sure you use the right template for {teacherClass}{" "}
               </p>
             </div>
-            <div></div>
-          </div>
-          <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center gap-2">
+
+          <div className="upload-area position-relative d-flex flex-column justify-content-center align-items-center gap-2 px-3 mt-5">
             <Icon className="icon" icon="fa6-solid:cloud-arrow-up" />
             {file ? (
               ""
@@ -223,7 +225,17 @@ export default function Results() {
               </>
             )}
             <p>{file.name}</p>
-            {file ? <button className="submit" onClick={handleSubmit}>Submit</button> : ""}
+            {file ? <button className="submit d-flex justify-content-center align-items-center" onClick={handleSubmit} disabled={waiting ? true : false}>
+            {waiting ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      "Upload Results"
+                    )}
+            </button> : ""}
           </div>
         </Wrapper>
       )}
@@ -232,16 +244,23 @@ export default function Results() {
 }
 const Page = styled.div``;
 const Wrapper = styled.div`
+.spinner-border{
+  height: 25px !important;
+  width: 25px !important;
+}
   input {
     width: 220px !important;
     cursor: pointer;
   }
   .submit{
-    padding: 2px 10px;
-    border: 1px solid grey;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 5px 30px;
+    border: 1px solid blue;
+    border-radius: 15px;
+    font-size: 15px;
     color: blue;
+    background: transparent;
+    width: 174px !important;
+    height: 34.5px !important;
   }
   .icon-div {
     border: 1px dashed grey;
@@ -255,18 +274,21 @@ const Wrapper = styled.div`
   }
   height: 100%;
   margin: auto !important;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: fit-content;
+  width: 100%;
   border-radius: 20px;
   background-color: white;
   .upload-area {
-    height: 270px;
+    min-height: 270px;
+    min-width: 250px;
+    border: 1px dashed grey;
+    border-radius: 50%;
   }
   .icon {
     font-size: 60px !important;
   }
   .intro {
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 400;
   }
   .download-btn {
     padding: 10px;

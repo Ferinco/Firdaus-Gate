@@ -201,8 +201,7 @@ export default function CheckResults() {
               term={term}
             />
           );
-        }
-        else if (user?.currentClass.startsWith("FGBSC")) {
+        } else if (user?.currentClass.startsWith("FGBSC")) {
           return (
             <BasicSecond
               results={report}
@@ -252,8 +251,7 @@ export default function CheckResults() {
               term={term}
             />
           );
-        }
-        else if (user?.currentClass.startsWith("FGBSC")) {
+        } else if (user?.currentClass.startsWith("FGBSC")) {
           return (
             <BasicThird
               results={report}

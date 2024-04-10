@@ -171,6 +171,7 @@ export default function Reports() {
               onChange={(e) => {
                 setClass(e.target.value);
               }}
+              className="select-class"
             >
               <option value="" disabled selected>
                 Select Class
@@ -270,6 +271,9 @@ const Wrapper = styled.div`
     width: 100%;
     border: 1px solid grey;
     border-collapse: collapse;
+  }
+  .select-class{
+    height: 100% !important;
   }
   .table-div {
     width: 100%;
