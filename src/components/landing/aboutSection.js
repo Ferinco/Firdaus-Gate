@@ -29,32 +29,16 @@ export default function AboutSection() {
 
   return (
     <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
-      <div className="container d-flex py-5 align-items-center">
+      <div className="container d-flex flex-row-reverse py-5 align-items-center">
         <div className="left d-flex flex-column align-items-center">
           <h6 className="pre-header">about us</h6>
           <div className="image-wrapper d-flex gap-2 ">
-            <div
-            className=" image"
-            // data-aos="fade-down"
-            // data-aos-duration="1000"
-            >
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755254/c3cp84kq_q4ge6r.png" />
-            </div>
-            <div className=" image">
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703755836/p0pqpzge_jqjqmj.png" />
-            </div>
-            <div
-              className=" image"
-              // data-aos="fade-down"
-              // data-aos-duration="1000"
-            >
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703756027/Firdaus/jvjhcvtq_vhz2qg.png" />
-            </div>
+<img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1712949299/firdaus-mesh_shgeip.png"/>
           </div>
         </div>
         <div className="right d-flex flex-column gap-3">
-          <h6 className="pre-header">about us</h6>
-          <h2>The Place Where you Grow and Learn</h2>
+          {/* <h6 className="pre-header">about us</h6> */}
+          <h2>The Place Where you Grow and Learn.</h2>
           <p>
             Firdaus-Gate Model Schools, established in 1999 has dedicated her
             resources to raise future leaders. We have since then provided
@@ -65,7 +49,7 @@ export default function AboutSection() {
             <b>Iman(faith)</b>, making them responsible and be of good impact to
             the society.
           </p>
-          <Button blue>
+          {/* <Button blue>
         <Link className="react-router-link" to={PATH_PAGE.about}>  Read More{" "}
           <Icon
             icon="system-uicons:arrow-up"
@@ -73,15 +57,14 @@ export default function AboutSection() {
             rotate={1}
             className="icon"
           /></Link>
-        </Button>
+        </Button> */}
         </div>
       </div>
     </Container>
   );
 }
 const Container = styled.div`
-  background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
-  margin-top: 0 !important;
+  /* background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5); */
   .container {
     gap: 100px;
     justify-content: space-between !important;
@@ -100,38 +83,17 @@ const Container = styled.div`
     }
   }
   .image-wrapper {
-    height: 400px;
-    width: auto;
     flex-wrap: no-wrap;
-    .image {
-      width: 150px;
-      height: 100%;
-      border-radius: 30px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      overflow: hidden !important;
-      &:hover{
-      img{
-        scale: 1.05;
-        transition: 0.5s !important;
-      }
-    }
-      img {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        object-fit: cover;
-        border-radius: 30px;
-      }
-      &:first-child {
-        margin-top: 10px;
-      }
-      &:nth-child(2) {
-        margin-top: 40px;
-      }
-      &:nth-child(3) {
-        background-color: black;
-      }
-    }
+    width: 550px;
+    height: 550px;
+overflow: hidden;
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+
+}
   }
   .right {
     padding-right: 10px;
@@ -140,9 +102,6 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       max-width: 90%;
-      h2 {
-        font-size: 36px;
-      }
       p {
         padding: 0 !important;
         margin: 0 !important;
@@ -153,7 +112,8 @@ const Container = styled.div`
     }
     h2 {
       font-size: 45px;
-      font-weight: 800;
+      font-weight: 600 !important;
+      line-height: 1.1;
     }
     Button {
       width: fit-content;

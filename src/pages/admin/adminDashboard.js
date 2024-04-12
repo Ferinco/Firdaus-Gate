@@ -9,6 +9,7 @@ import { fetchUsers } from "../../redux/slices/users";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { Helmet } from "react-helmet";
+import axios from "axios";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.admin.createTerm,
@@ -41,6 +42,7 @@ export default function AdminDashboard() {
   const [Students, setStudents] = useState("");
   const [termName, setTermName] = useState("");
   const [currentTerm, setCurrentTerm] = useState("")
+  const [applications, setApplications] = useState("");
 
   //current term
   useEffect(() => {
@@ -70,6 +72,20 @@ export default function AdminDashboard() {
     FetchStudents();
   }, []);
 
+  useEffect(() => {
+    const checkPayment = async () => {
+      try {
+        const results = await axios.get(
+          "https://ferrum-sever.onrender.com/api/allpayments"
+        );
+        setApplications(results.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+      }
+    };
+    checkPayment();
+  }, []);
   //number of teachers
   useEffect(() => {
     const FetchTeachers = async () => {
@@ -154,7 +170,15 @@ export default function AdminDashboard() {
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>active applications</p>
-            <h5>0</h5>
+            <h5>
+              {applications === "" ? (
+                <div className="spinner-border" role="status">
+                  <span className="sr-only"></span>
+                </div>
+              ) : (
+                applications?.length
+              )}
+            </h5>
           </div>
         </div>
       </div>

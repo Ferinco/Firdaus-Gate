@@ -8,7 +8,7 @@ export const Button = styled.button`
   border: ${(props) =>
     (props.blue && "1px solid blue") || (props.white && "1px solid black")};
   padding: 7px 25px;
-  font-size: 18px;
+  font-size: 15px;
   border-radius: 9px;
   &:hover {
     transition: 0.4s;

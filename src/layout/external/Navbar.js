@@ -187,7 +187,7 @@ export default function Navbar() {
                 gallery
               </Link>
             </li>
-            <li>{/* <a className="nav-link">news</a> */}</li>
+            <li><a className="nav-link">news</a></li>
             <li>
               <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
                 <Button blue>
@@ -346,7 +346,7 @@ export default function Navbar() {
                   Gallery
                 </Link>
 
-                <li>{/* <a className="nav-link">News</a> */}</li>
+                <li><a className="nav-link">News</a></li>
               </div>
             </nav>
           </div>
@@ -426,7 +426,7 @@ const NavigationBar = styled.div`
     }
   }
   Button{
-    border-radius: 0 !important;
+    /* border-radius: 0 !important; */
   }
   .second-navbar {
     height: 90px !important;

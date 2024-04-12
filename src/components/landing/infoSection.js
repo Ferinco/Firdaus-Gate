@@ -73,7 +73,7 @@ const ThreeDCarousel = () => {
     if (ActiveID === 1) {
       setFacilityName("Library, FGMS.");
       setQuote(
-        "The library, a haven of knowledge, boasts an extensive collection, fostering intellectual growth and academic excellence for all."
+        "The library, a bastion of knowledge, hosts an extensive collection, nurturing intellectual growth and fostering academic excellence for all its patrons."
       );
       setActiveImage(
         "https://res.cloudinary.com/duvwweuhj/image/upload/v1700698723/Firdaus/IMG-20230901-WA0013_esps5y.jpg"
@@ -114,26 +114,31 @@ const ThreeDCarousel = () => {
   });
 
   return (
-    <Info className=" p-0">
+    <Info className=" px-0 py-5">
       <div className="row">
-        <div className="col-md-6 left p-5 d-flex flex-column align-items-start justify-content-center">
-          <h2 className="">Take a Look at our World Class Facilities.</h2>
-          <p>{quote}</p>
+        <div className="col-md-7 left p-5 d-flex flex-column align-items-start justify-content-center container ">
+          <div className="container d-flex flex-column contents gap-2">
+            <h6 className="fac-header">FACILITIES</h6>
+            <h2 className="">Take a Look at our World Class Facilities.</h2>
+            <p>{quote}</p>
+          <div className="d-flex flex-column gap-1">
           <div className="indicators d-flex gap-1">
-            {images.map((image, id) => (
-              <Icon
-                icon="octicon:dash-24"
-                color={ActiveID === id ? "white" : "grey"}
-                className="indicator"
-                id={image.id}
-              />
-            ))}
+              {images.map((image, id) => (
+                <Icon
+                  icon="octicon:dash-16"
+                  color={ActiveID === id ? "white" : "grey"}
+                  className="indicator"
+                  id={image.id}
+                />
+              ))}
+            </div>
+            <div>
+              <p className="facility-name">- {facilityName}</p>
+            </div>
           </div>
-          <div>
-            <p className="facility-name">- {facilityName}</p>
           </div>
         </div>
-        <div className="col-md-6 right">
+        <div className="col-md-5 right">
           <img src={activeImage} />
         </div>
       </div>
@@ -142,16 +147,24 @@ const ThreeDCarousel = () => {
 };
 
 const Info = styled.div`
-  height: 500px;
+  height: 550px;
+
+  .fac-header {
+    font-weight: 400 !important;
+  }
   .facility-name {
-    font-style: italic;
+    font-size: 14px !important;
+    text-transform: uppercase;
+  }
+  .contents{
+    max-width: 600px !important;
   }
   .right {
-    height: 500px;
+    height: 550px;
     overflow: hidden;
     margin: 0 !important;
     padding: 0 !important;
-    
+
     img {
       width: 100%;
       height: 100%;
@@ -162,12 +175,11 @@ const Info = styled.div`
   }
   .left {
     color: white;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.9),
-        rgba(0, 0, 0, 0.9)
-
+        rgba(0, 0, 0, 0.95),
+        rgba(0, 0, 0, 0.95)
       ),
       url("https://res.cloudinary.com/duvwweuhj/image/upload/v1702391861/Firdaus/Screenshot_20221226-182654_1_eu6doz.jpg") !important;
     margin: 0 !important;
@@ -178,11 +190,13 @@ const Info = styled.div`
       color: blue;
     }
     h2 {
-      font-size: 45px;
-      font-weight: 800;
+      font-size: 32px;
+      font-weight: 600 !important;
+      color: white !important;
     }
     .indicator {
       font-size: 48px !important;
+      font-weight: 800 !important;
     }
   }
   @media screen and (max-width: 767px) {

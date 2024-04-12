@@ -19,10 +19,10 @@ export default function Home() {
       <AboutSection/>
       <Intro/>
       <OfferSection/>
-      <Gallery/>
-      <Services/>
-      <Info/>
       <Special/>
+      <Gallery/>
+      {/* <Services/> */}
+      <Info/>
       {/* <News/> */}
       <Testimonials/>
       <AdmissionSection/>
@@ -35,7 +35,9 @@ width:100vw !important;
 overflow-x:hidden !important;
 position: relative;
     p {
-  font-size: 17px !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  /* color: black !important; */
 }
 @media (max-width: 768px) {
   p {

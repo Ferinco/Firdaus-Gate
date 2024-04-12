@@ -51,7 +51,7 @@ export default function Gallery() {
       <div className="header d-flex flex-column justify-content-center align-items-center">
       <h6 className="">GALLERY</h6>
         <h2 className="mt-2">
-          View Multiple Photos of our Students
+          The Pictures Speak it all.
         </h2>
       </div>
       <div className="d-flex flex-column body py-5 gap-4">
@@ -107,7 +107,6 @@ export default function Gallery() {
 
 const Container = styled.div`
   overflow: hidden !important;
-  background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
   color: black;
   h6 {
    color: #4299e1;
@@ -146,8 +145,8 @@ const Container = styled.div`
   }
   .header {
     h2 {
-      font-size: 45px;
-      font-weight: 700;
+      font-size: 42px;
+      font-weight: 600 !important;
       text-align: center;
       max-width: 700px;
     }

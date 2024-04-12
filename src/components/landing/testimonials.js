@@ -105,11 +105,11 @@ const Testimonials = () => {
   ];
 
   return (
-    <Container className=" py-5" data-aos="fade-up" data-aos-duration="1000">
-      <div className="div container">
+    <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
+      <div className="div container d-flex flex-column gap-3 py-5">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
-    <h2 className="mt-4">What our Clients say About us.</h2>
+    <h2 className="mt-2">What our Clients say About us.</h2>
     </div>
     <div className=" pt-3">
       <Slider {...sliderSettings} className="">
@@ -142,7 +142,7 @@ font-weight: 600;
 }
     h2 {
       font-size: 45px;
-      font-weight: 800;
+      font-weight: 600 !important;
       text-align: center;
       @media (max-width: 768px) {
             font-size: 36px !important;

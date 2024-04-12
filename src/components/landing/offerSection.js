@@ -26,10 +26,10 @@ export default function OfferSection() {
     <Container>
       <div className="container py-5" data-aos="fade-up" data-aos-duration="1000">
         <div className="header d-flex flex-column justify-content-center align-items-center">
-          <h6 className="pre-header">Why choose us?</h6>
+          <p className="small-header">Why choose us?</p>
           <h2 className="mt-2">Why you Should Trust us With your Ward(s)</h2>
         </div>
-        <div className="body row">
+        {/* <div className="body row">
           <div className="col-md-4 d-flex flex-column">
             <h5>20+ years experience</h5>
             <div className="image">
@@ -59,7 +59,7 @@ export default function OfferSection() {
 
             <p>Our school is government screened, accredited and certified.</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </Container>
   );
@@ -75,7 +75,13 @@ const Container = styled.div`
       font-size: 45px;
       max-width: 600px;
       text-align: center;
+      font-weight: 600 !important;
+
     }
+  }
+  .small-header{
+    color: blue;
+    text-transform: uppercase;
   }
   .image {
     width: 300px;

@@ -129,7 +129,7 @@ const Wrapper = styled.div`
   /* position: relative !important; */
   color: white;
   Button{
-    border-radius: 0 !important;
+    /* border-radius: 0 !important; */
   }
   .sticky {
   position: relative !important;
@@ -151,7 +151,7 @@ const Wrapper = styled.div`
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.1)
       ),
-      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;
+      url("") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -160,6 +160,7 @@ const Wrapper = styled.div`
     z-index: 99;
     h1 {
       width: 600px;
+      /* color: white !important; */
       text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4),
         0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
     }

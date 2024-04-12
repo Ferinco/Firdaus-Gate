@@ -1,5 +1,5 @@
-import React from "react";
-import { useRoutes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useRoutes } from "react-router-dom";
 import Layout from "../layout/external";
 import { Home, About, Gallery } from "../pages";
 import AdminDashboardLayout from "../layout/dashboard/Admin";
@@ -80,8 +80,22 @@ import ReturningStudents from "../pages/fees/returning";
 import NewStudents from "../pages/fees/newStudents";
 import CheckAdmission from "../pages/admission/checkAdmission";
 import CheckQuestions from "../pages/student/checkQuestions";
+import { OverlayLoading } from "../components/OverlayLoading";
 export default function Routes() {
-  return useRoutes([
+  const [loading, setLoading] = useState(true);
+const location = useLocation()
+
+  useEffect(() => {
+    // Set loading state to true when navigating to a new route
+    setLoading(true);
+
+    // Set loading state to false after a brief delay
+    const timer = setTimeout(() => setLoading(false), 1000);
+
+    // Clear the timer on unmount
+    return () => clearTimeout(timer);
+  }, [location]);
+  const routes = useRoutes([
     //GENERAL ROUTES
     {
       path: "/",
@@ -110,7 +124,6 @@ export default function Routes() {
         { path: "admission-form/payment-success", element: <Receipt /> },
         { path: "continue-admission", element: <ContinueAdmission /> },
         { path: "check-admission", element: <CheckAdmission /> },
-
       ],
     },
     {
@@ -146,11 +159,20 @@ export default function Routes() {
         { path: "assign", element: <Assign /> },
         { path: "edit-student/:identity", element: <EditStudent /> },
         { path: "student-info/:identity", element: <StudentInfo /> },
-        { path: "assignment-details/:identity", element: <CheckAssignments /> },
-        { path: "set-assignment/:identity", element: <AssignmentSettings /> },
+        {
+          path: "assignment-details/:identity",
+          element: <CheckAssignments />,
+        },
+        {
+          path: "set-assignment/:identity",
+          element: <AssignmentSettings />,
+        },
         { path: "about-me", element: <AboutMe /> },
         { path: "results/uploaded-results", element: <History /> },
-        { path: "view-results/:identity/:session/:term", element: <CheckResults /> },
+        {
+          path: "view-results/:identity/:session/:term",
+          element: <CheckResults />,
+        },
         { path: "view-answers/:identity/:id", element: <ViewAnswers /> },
       ],
       // children: [{ path: "/teacher", element: <ProgressPage /> }],
@@ -172,15 +194,19 @@ export default function Routes() {
         { path: "/student/subjects", element: <Subjects /> },
         { path: "/student/teachers", element: <MyTeachers /> },
         { path: "/student/account-settings", element: <Settings /> },
-        { path: "/student/assignments-history", element: <Assignments /> },
+        {
+          path: "/student/assignments-history",
+          element: <Assignments />,
+        },
         { path: "work-scheme/:identity", element: <Scheme /> },
         { path: "about-me", element: <AboutMe /> },
         { path: "view-result", element: <ViewResult /> },
         { path: "filter-results", element: <FilterResults /> },
         { path: "view-assignments", element: <ViewAssignments /> },
-        { path: "submit-solutions/:identity", element: <CheckQuestions /> },
-
-
+        {
+          path: "submit-solutions/:identity",
+          element: <CheckQuestions />,
+        },
       ],
     },
 
@@ -205,18 +231,34 @@ export default function Routes() {
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
         { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
-        { path: "/admin/student-info/:identity", element: <StudentInfo /> },
-        { path: "/admin/teacher-info/:identity", element: <TeacherInfo /> },
-        { path: "/admin/edit-student/:identity", element: <EditStudent /> },
-        { path: "/admin/edit-teacher/:identity", element: <EditTeacher /> },
+        {
+          path: "/admin/student-info/:identity",
+          element: <StudentInfo />,
+        },
+        {
+          path: "/admin/teacher-info/:identity",
+          element: <TeacherInfo />,
+        },
+        {
+          path: "/admin/edit-student/:identity",
+          element: <EditStudent />,
+        },
+        {
+          path: "/admin/edit-teacher/:identity",
+          element: <EditTeacher />,
+        },
         { path: "/admin/results", element: <Reports /> },
         { path: "/admin/news", element: <NewsPage /> },
         { path: "/admin/post-news", element: <UploadNews /> },
-        { path: "/admin/view-results/:identity/:term/:session", element: <ResultsCheck /> },
-
+        {
+          path: "/admin/view-results/:identity/:term/:session",
+          element: <ResultsCheck />,
+        },
       ],
     },
 
     //CATCH ALL
   ]);
+
+  return <>{loading ? <OverlayLoading /> : routes}</>;
 }
