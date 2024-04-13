@@ -29,11 +29,10 @@ export default function AboutSection() {
 
   return (
     <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
-      <div className="container d-flex flex-row-reverse py-5 align-items-center">
+      <div className="container d-flex flex-row-reverse align-items-center">
         <div className="left d-flex flex-column align-items-center">
-          <h6 className="pre-header">about us</h6>
           <div className="image-wrapper d-flex gap-2 ">
-<img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1712949299/firdaus-mesh_shgeip.png"/>
+            <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1712949299/firdaus-mesh_shgeip.png" />
           </div>
         </div>
         <div className="right d-flex flex-column gap-3">
@@ -68,8 +67,8 @@ const Container = styled.div`
   .container {
     gap: 100px;
     justify-content: space-between !important;
-    @media screen and (max-width: 991px) {
-      flex-direction: column !important;
+    @media screen and (max-width: 590px) {
+      flex-direction: column-reverse !important;
     }
   }
   .left {
@@ -84,22 +83,23 @@ const Container = styled.div`
   }
   .image-wrapper {
     flex-wrap: no-wrap;
-    width: 550px;
-    height: 550px;
-overflow: hidden;
-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-
-}
+    width: 600px;
+    height: 700px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @media screen and (max-width: 590px) {
+      width: 100vw;
+    height: fit-content !important;
+    }
   }
   .right {
     padding-right: 10px;
     @media screen and (max-width: 991px) {
-      text-align: center;
-      justify-content: center;
       align-items: center;
       max-width: 90%;
       p {
@@ -122,11 +122,6 @@ img{
 
   @media (max-width: 768px) {
     margin-top: 30px;
-    .container {
-      flex-direction: column;
-      align-items: center;
-      gap: 50px !important;
-    }
     h2 {
       font-size: 36px !important;
       font-weight: 600 !important;
@@ -151,5 +146,22 @@ img{
         }
       }
     }
+  }
+  @media screen and (min-width: 590px) and (max-width: 1199px) {
+    .container {
+      flex-direction: column !important;
+      align-items: center;
+      gap: 15px !important;
+    }
+  }
+  @media (max-width: 1199px) {
+    .container{
+      gap:  0 !important;
+    }
+    .right{
+        text-align: center;
+        justify-content: center;
+      }
+
   }
 `;

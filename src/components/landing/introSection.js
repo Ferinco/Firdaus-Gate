@@ -116,9 +116,7 @@ height: 100% !important;
     @media screen and (max-width: 768px) {
       display: flex;
       flex-direction: column;
-      justify-content: center !important;
-      align-items: center !important;
-      text-align: center !important;
+padding-left: 0 !important;
     }
 
 
