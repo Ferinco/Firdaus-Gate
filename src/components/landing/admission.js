@@ -34,7 +34,7 @@ export default function AdmissionSection() {
           skills you need to become a world class individual in every sphere of
           your life. Applly to be a student with just simple steps now.
         </p>
-        <Button white>
+        <Button blue>
           <Link to={PATH_PAGE.admission} className="react-router-link">
             Start Admission
           </Link>

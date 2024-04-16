@@ -49,8 +49,8 @@ export default function Gallery() {
   return (
     <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
       <div className="header d-flex flex-column justify-content-center align-items-center">
-      <h6 className="">GALLERY</h6>
-        <h2 className="mt-2">
+      <h6 className="pre-header">GALLERY</h6>
+        <h2 className="">
           The Pictures Speak it all.
         </h2>
       </div>

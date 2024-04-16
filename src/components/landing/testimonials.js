@@ -109,9 +109,9 @@ const Testimonials = () => {
       <div className="div container d-flex flex-column gap-3 py-5">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
-    <h2 className="mt-2">What our Clients say About us.</h2>
+    <h2 className="mt-1">What our Clients say About us.</h2>
     </div>
-    <div className=" pt-3">
+    <div className=" pt-3 mt-3">
       <Slider {...sliderSettings} className="">
         {testimonials.map((testimonial, index) => (
           <div key={index} className="pr-4 testimony ">

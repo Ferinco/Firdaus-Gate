@@ -118,7 +118,7 @@ const ThreeDCarousel = () => {
       <div className="row">
         <div className="col-md-7 left p-5 d-flex flex-column align-items-start justify-content-center container ">
           <div className="container d-flex flex-column contents gap-2">
-            <h6 className="fac-header">FACILITIES</h6>
+            <h6 className="pre-header p-0">FACILITIES</h6>
             <h2 className="">Take a Look at our World Class Facilities.</h2>
             <p className="qoute">{quote}</p>
           <div className="d-flex flex-column gap-1">
@@ -187,7 +187,7 @@ const Info = styled.div`
     background-position: center !important;
     background-size: cover !important;
     h6 {
-      color: blue;
+      /* color: blue; */
     }
     h2 {
       font-size: 32px;

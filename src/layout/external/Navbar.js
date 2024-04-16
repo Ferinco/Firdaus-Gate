@@ -54,11 +54,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div
-        className={`second-navbar p-0 ${
-          isOpen ? "unsticky" : ""
-        }`}
-      >
+      <div className={`second-navbar p-0 ${isOpen ? "unsticky" : ""}`}>
         <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
@@ -94,7 +90,7 @@ export default function Navbar() {
               </ul>{" "}
             </li>
             <li>
-              <a className="nav-link">admission &#9662;</a>
+              <a className="nav-link">admission <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.3em" height="1.3em"  style={{color: "black"}} /></a>
               <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.admission}>
                   Student admission portal
@@ -142,25 +138,32 @@ export default function Navbar() {
                 gallery
               </Link>
             </li>
-            <li><a className="nav-link">news</a></li>
             <li>
-              <a className="nav-link contact-btn m-0 d-flex justify-content-center align-items-center">
-                <Button blue>
-                  {" "}
-                  <a
-                    className="p-0"
-                    href="#contactUs"
-                    style={{ color: "white" }}
-                  >
-                    CONTACT US
-                  </a>
-                </Button>{" "}
-              </a>
+              <a className="nav-link">news</a>
             </li>
+            <div className="link-group px-2 nav-link d-flex align-items-center gap-2">
+              {" "}
+              <li>
+                <a className="p-0 book-apt">Book Appointment</a>
+              </li>
+              <li>
+                <a className="contact-btn m-0 d-flex justify-content-center align-items-center p-0">
+                  <Button blue>
+                    {" "}
+                    <a
+                      className="p-0"
+                      href="#contactUs"
+                      style={{ color: "white" }}
+                    >
+                      Contact Us
+                    </a>
+                  </Button>{" "}
+                </a>
+              </li>
+            </div>
           </ul>
         </div>
       </div>
-
 
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links py-0 px-2">
@@ -303,7 +306,9 @@ export default function Navbar() {
                   Gallery
                 </Link>
 
-                <li><a className="nav-link">News</a></li>
+                <li>
+                  <a className="nav-link">News</a>
+                </li>
               </div>
             </nav>
           </div>
@@ -329,11 +334,22 @@ export default function Navbar() {
   );
 }
 const NavigationBar = styled.div`
-    position: fixed !important;
-    top: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    z-index: 9999;
+  position: fixed !important;
+  top: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  z-index: 9999;
+  .book-apt{
+    color: blue !important;
+    font-size: 13px !important;
+    padding: 6px 16px !important;
+    border: 10px;
+    border-radius: 9px;
+    &:hover{
+  background-color: #eff4fb;
+  transition: 0.3ms;
+    }
+  }
   .sidebar {
     background-color: white !important;
   }
@@ -375,20 +391,6 @@ const NavigationBar = styled.div`
       height: 100%;
     }
   }
-  .middle-nav {
-    @media screen and (max-width: 1109px) {
-      display:none !important;
-    }
-    h6 {
-      font-weight: 600 !important;
-    }
-    p {
-      font-size: 14px !important;
-    }
-  }
-  Button{
-    /* border-radius: 0 !important; */
-  }
   .second-navbar {
     height: 90px !important;
     align-items: center;
@@ -402,13 +404,18 @@ const NavigationBar = styled.div`
       height: 90px !important;
       background-color: white;
       @media screen and (max-width: 982px) {
-      padding-right: 12px !important;
-    padding-left: 24px !important;
-    }
+        padding-right: 12px !important;
+        padding-left: 24px !important;
+      }
       .header {
       }
       .contact-btn {
-        text-transform: uppercase !important;
+        Button {
+          text-transform: capitalize !important;
+          padding: 6px 16px !important;
+          font-size: 13px !important;
+          font-weight: 600;
+        }
       }
       .icon {
         font-size: 30px;
@@ -422,6 +429,7 @@ const NavigationBar = styled.div`
     .dropdown {
       border-radius: 10px;
       padding-top: 30px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     }
     ul {
       padding: 0;
@@ -435,7 +443,7 @@ const NavigationBar = styled.div`
     }
     ul li a {
       display: block;
-      padding: 8px 25px;
+      padding: 8px 19px;
       text-decoration: none;
     }
     .nav-link {
@@ -560,7 +568,8 @@ const NavigationBar = styled.div`
   @media screen and (min-width: 992px) and (max-width: 1200px) {
   }
   @media screen and (max-width: 1057px) {
-    .first-navbar, .middle-nav {
+    .first-navbar,
+    .middle-nav {
       display: none !important;
     }
     .menu-links {

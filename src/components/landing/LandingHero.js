@@ -99,7 +99,7 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
   height: 100vh;
-margin-top: 90px !important;
+  margin-top: 90px !important;
   color: white;
   Button {
     /* border-radius: 0 !important; */
@@ -157,16 +157,20 @@ margin-top: 90px !important;
   }
 
   @media (max-width: 768px) {
-    /* margin-top: 80px; */
-    height: auto !important;
-
-    .hero-bg {
-      background: transparent !important;
+    height: 550px !important;
+    h1{
+      font-size: 40px !important;
     }
+    .button-group {
+    justify-content: center !important;
+    align-items: center;
+  }
+
+text-align: center !important;
     .left {
       background: transparent !important;
       padding-bottom: 0 !important;
-      color: black;
+
     }
     h1 {
       width: auto !important;
@@ -175,8 +179,7 @@ margin-top: 90px !important;
       font-weight: 600 !important;
     }
     p {
-      /* font-size: 16px; */
-      color: black;
+
     }
 
     .text-div {

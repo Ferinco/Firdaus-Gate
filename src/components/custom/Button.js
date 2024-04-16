@@ -17,7 +17,7 @@ export const Button = styled.button`
     color: ${(props) => (props.blue && "white") || (props.white && "white")};
     transition: 0.5s;
     border: ${(props) =>
-      (props.blue && "1px solid 04048d") || (props.white && "1px solid blue")};
+      (props.blue && "1px solid #04048d") || (props.white && "1px solid blue")};
   }
   &:disabled {
     opacity: 0.4;

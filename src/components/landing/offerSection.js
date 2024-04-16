@@ -52,7 +52,7 @@ export default function OfferSection() {
           </div>
         </div>
       </div>
-      <div className="bottom-div w-100 mt-5"></div>
+      {/* <div className="bottom-div w-100 mt-5"></div> */}
     </Container>
   );
 }

@@ -49,7 +49,7 @@ h2{
     font-size: 40px !important;
   }
   @media screen and (max-width: 599px) {
-    font-size: 36px !important;
+    font-size: 32px !important;
   }
 }
     `;
