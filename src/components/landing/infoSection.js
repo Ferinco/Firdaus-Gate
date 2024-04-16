@@ -114,13 +114,13 @@ const ThreeDCarousel = () => {
   });
 
   return (
-    <Info className=" px-0 py-5">
+    <Info className=" px-0 ">
       <div className="row">
         <div className="col-md-7 left p-5 d-flex flex-column align-items-start justify-content-center container ">
           <div className="container d-flex flex-column contents gap-2">
             <h6 className="fac-header">FACILITIES</h6>
             <h2 className="">Take a Look at our World Class Facilities.</h2>
-            <p>{quote}</p>
+            <p className="qoute">{quote}</p>
           <div className="d-flex flex-column gap-1">
           <div className="indicators d-flex gap-1">
               {images.map((image, id) => (
@@ -191,7 +191,7 @@ const Info = styled.div`
     }
     h2 {
       font-size: 32px;
-      font-weight: 600 !important;
+      /* font-weight: 600 !important; */
       color: white !important;
     }
     .indicator {
@@ -202,14 +202,15 @@ const Info = styled.div`
   @media screen and (max-width: 767px) {
     height: auto !important;
     .left {
+      height: 500px;
       padding-left: 20px !important;
       padding-right: 20px !important;
       h2 {
-        font-size: 36px !important;
+        line-height: 1.5;
       }
     }
     .right {
-      height: 400px;
+      height: 200px;
     }
   }
   @media screen and (max-width: 390px) {
@@ -219,7 +220,7 @@ const Info = styled.div`
   }
   @media screen and (max-width: 991px) {
     h2 {
-      font-size: 36px;
+      font-size: 24px !important;
       font-weight: 600 !important;
     }
   }

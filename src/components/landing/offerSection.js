@@ -3,8 +3,9 @@ import { Icon } from "@iconify/react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { Button } from "../custom";
 export default function OfferSection() {
-      //aos animation setup
+  //aos animation setup
   useEffect(() => {
     Aos.init({
       // Global settings:
@@ -23,116 +24,112 @@ export default function OfferSection() {
     });
   }, []);
   return (
-    <Container>
-      <div className="container py-5" data-aos="fade-up" data-aos-duration="1000">
+    <Container className="py-5">
+      <div className="container" data-aos="fade-up" data-aos-duration="1000">
         <div className="header d-flex flex-column justify-content-center align-items-center">
-          <p className="small-header">Why choose us?</p>
-          <h2 className="mt-2">Why you Should Trust us With your Ward(s)</h2>
+        <h2 className="mobile-header d-none">Why you Should Choose Us.</h2>
         </div>
-        {/* <div className="body row">
-          <div className="col-md-4 d-flex flex-column">
-            <h5>20+ years experience</h5>
-            <div className="image">
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703762440/experience_fs8rhc.jpg" />
+        <div className="div d-flex flex-row justify-content-between align-items-center">
+          <div className="left d-flex flex-column">
+            <div className="image-wrapper d-flex">
+              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1713078874/offer-section_quteus.png" />
             </div>
+          </div>
+          <div className="right d-flex flex-column justify-content-left align-items-start gap-3">
+            <h2 className="mt-2 desktop-header">Why you Should Choose Us.</h2>
             <p>
-              For over 20 years, we have been in operation and have delivered
-              well!
+              Our school is the ultimate choice for students, backed by
+              government certification. Our extensive experience in education
+              guarantees a nurturing environment for academic growth. Our team
+              of competent teachers is committed to guiding you towards success.
+              With our government certification, your achievements hold value in
+              the competitive landscape. Trust us for an educational journey
+              that leads to a promising future.
             </p>
-          </div>
-          <div className="col-md-4 d-flex flex-column">
-            <h5>Compitent workers</h5>
-            <div className="image">
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703761195/muslim_teacher_evh4im.jpg" />
+            <div className="button w-100 d-flex">
+              <Button white>Application Form</Button>
             </div>
-
-            <p>
-              Our workers are well trained and experienced in their respective
-              fields.
-            </p>
           </div>
-          <div className="col-md-4 d-flex flex-column">
-            <h5>Accredited and certified</h5>
-            <div className="image">
-              <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1703761550/certified_gfkovk.jpg" />
-            </div>
-
-            <p>Our school is government screened, accredited and certified.</p>
-          </div>
-        </div> */}
+        </div>
       </div>
+      <div className="bottom-div w-100 mt-5"></div>
     </Container>
   );
 }
 const Container = styled.div`
   background: white !important;
-
+  .image-wrapper {
+    flex-wrap: no-wrap;
+    width: 550px;
+    height: 600px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    @media screen and (max-width: 590px) {
+      width: 100vw;
+      height: fit-content !important;
+    }
+  }
   h5 {
     font-size: 21px;
   }
-  .header {
-    h2 {
-      font-size: 45px;
-      max-width: 600px;
-      text-align: center;
-      font-weight: 600 !important;
 
-    }
+  h2 {
+    font-size: 45px;
+    max-width: 400px;
+    text-align: start;
+    font-weight: 600 !important;
+    line-height: 1.4;
   }
-  .small-header{
+
+  .small-header {
     color: blue;
     text-transform: uppercase;
   }
-  .image {
-    width: 300px;
-    height: 300px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
-    img {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      object-fit: cover;
+  .right {
+    max-width: 700px !important;
+    p {
+      max-width: 500px;
+      line-height: 1.7;
     }
   }
-  .body {
-    .d-flex {
-      justify-content: center;
+
+  .bottom-div {
+    height: 300px;
+    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5);
+  }
+
+  @media screen and (max-width: 1199px) {
+    .desktop-header{
+      display: none !important;
+    }
+    .mobile-header{
+      display: flex !important;
+    }
+    .div {
+      flex-direction: column !important;
       align-items: center;
+      gap: 15px !important;
+    }
+    .right {
+      width: 100% !important;
       text-align: center;
-      margin-top: 50px;
       p {
-        margin-top: 20px;
+        max-width: 100vw;
+        line-height: 1.7;
       }
     }
-  }
-  .icon {
-    font-size: 40px;
-  }
-  .icon-div {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: white;
-  }
-  @media screen and (max-width: 768px) {
-    .body {
-      padding: 0 20px;
+    h2{
+      text-align: center;
     }
-    h2 {
-      font-size: 36px !important;
-      font-weight: 600 !important;
-    }
-  }
-  .image {
-    width: 200px;
-    height: 200px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      object-fit: cover;
+    .button{
+      flex-direction: row;
+      justify-content: center;
     }
   }
 `;

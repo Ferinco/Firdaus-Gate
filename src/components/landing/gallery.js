@@ -134,11 +134,12 @@ const Container = styled.div`
     }
   }
   .text {
-    padding: 5px 10px;
-    background-color: black;
-    color: white;
+    padding: 7px 12px;
+    /* background-color: black; */
+    color: black;
     font-weight: 400;
     border-radius: 10px;
+    border: 1px solid blue;
   }
   .body {
     transform: rotate(-3deg);

@@ -82,7 +82,7 @@ const Container = styled.div`
 height: 100% !important;
   h2 {
     max-width: 300px;
-    font-size: 36px;
+    font-size: 45px;
     /* text-align: center !important; */
     font-weight: 600 !important;
     line-height: 1.4;
@@ -97,6 +97,7 @@ height: 100% !important;
   }
   h6{
     font-weight: 600 !important;
+    font-size: 18px !important;
   }
 }
   .icon-div {
@@ -133,7 +134,7 @@ padding-left: 0 !important;
   }
   @media screen and (max-width: 768px) {
     h2 {
-      /* font-size: 30px; */
+      font-size: 36px;
       max-width: 768px !important;
       text-align: left;
       font-weight: 600 !important;

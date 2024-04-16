@@ -19,8 +19,8 @@ export default function Home() {
       <AboutSection/>
       <Intro/>
       <OfferSection/>
-      <Special/>
       <Gallery/>
+      <Special/>
       {/* <Services/> */}
       <Info/>
       {/* <News/> */}
@@ -42,6 +42,14 @@ position: relative;
 @media (max-width: 768px) {
   p {
     font-size: 16px !important;
+  }
+}
+h2{
+  @media screen and (min-width: 599px) and (max-width: 899px) {
+    font-size: 40px !important;
+  }
+  @media screen and (max-width: 599px) {
+    font-size: 36px !important;
   }
 }
     `;

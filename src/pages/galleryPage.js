@@ -79,7 +79,7 @@ export default function GalleryPage() {
 ];
 
   return (
-  <Container>
+  <Container className="py-5">
     <div className="container py-5 d-flex flex-column gap-5">
   <div>
     <div><h2>Excursions</h2></div>
@@ -136,7 +136,7 @@ export default function GalleryPage() {
 }
 const Container = styled.div`
   width: 100vw;
-  
+  margin-top: 90px;
   .image{
 width: 300px;
 height: 200px;

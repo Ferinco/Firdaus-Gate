@@ -14,18 +14,8 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSticky, setSticky] = useState(false);
   const [closer, setCloser] = useState(false);
   const { termName } = useAppContext();
-  useEffect(() => {
-    const handleScroll = () => {
-      setSticky(window.scrollY > 145);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     Aos.init({
@@ -64,43 +54,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {/* <div className="middle-nav">
-        <div className="px-5 d-flex row h-100">
-          <div className="d-flex flex-row gap-1 align-items-center col-md-4">
-            <div className="icon-div">
-              <Icon
-                icon="line-md:phone-call-loop"
-                className="icon"
-                style={{ color: "blue" }}
-              />
-            </div>
-            <div className="d-flex flex-column">
-              <h6 className="m-0">+2349055512553</h6>
-              <p className="m-0">Call Us</p>
-            </div>
-          </div>
-          <div className="d-flex flex-row gap-1 align-items-center col-md-4 justify-content-start">
-            <div className="icon-div">
-            <Icon icon="la:envelope-open-text" className="icon" style={{color: "blue"}} />
-            </div>
-            <div className="d-flex flex-column">
-              <h6 className="m-0">firdausgateschools@gmail.com</h6>
-              <p className="m-0">Mail Us</p>
-            </div>
-          </div>
-          <div className="d-flex flex-row gap-1 align-items-center col-md-4 justify-content-end">
-            <div className="icon-div">
-            <Icon icon="game-icons:world" className="icon" style={{color: "blue"}} />
-            </div>
-            <div className="d-flex flex-column">
-              <h6 className="m-0">6/8 Balogun Street, off Igodo Road</h6>
-              <p className="m-0">Omo-Olope Are, Magboro, Ogun State.</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div
-        className={`second-navbar p-0 ${isSticky ? "sticky" : ""} ${
+        className={`second-navbar p-0 ${
           isOpen ? "unsticky" : ""
         }`}
       >
@@ -205,6 +160,8 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+
+
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links py-0 px-2">
           <div className="logo-div py-3">
@@ -372,7 +329,11 @@ export default function Navbar() {
   );
 }
 const NavigationBar = styled.div`
-  /* display: none !important; */
+    position: fixed !important;
+    top: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 9999;
   .sidebar {
     background-color: white !important;
   }
@@ -500,21 +461,7 @@ const NavigationBar = styled.div`
       display: block;
     }
   }
-  .sticky {
-    position: fixed !important;
-    top: 0 !important;
-    width: 100% !important;
-    z-index: 9999;
-    /* position: relative; */
-    transition: 1s !important;
-    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5) !important;
-    ul li ul.dropdown {
-      background: linear-gradient(to top, #ffff, #f5f5f5, #f5f5f5);
-    }
-    .div {
-    background: linear-gradient(to right, #ffff, #f5f5f5, #f5f5f5) !important;
-    }
-  }
+
   .mobile-nav {
     display: none !important;
   }

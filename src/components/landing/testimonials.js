@@ -105,7 +105,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
+    <Container className="py-5">
       <div className="div container d-flex flex-column gap-3 py-5">
     <div className="header d-flex flex-column justify-content-center align-items-center">
     <h6 className="pre-header">Testimonials</h6>
@@ -145,7 +145,6 @@ font-weight: 600;
       font-weight: 600 !important;
       text-align: center;
       @media (max-width: 768px) {
-            font-size: 36px !important;
             font-weight: 600 !important;
           }
     }

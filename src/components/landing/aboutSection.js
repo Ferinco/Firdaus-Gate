@@ -48,15 +48,16 @@ export default function AboutSection() {
             <b>Iman(faith)</b>, making them responsible and be of good impact to
             the society.
           </p>
-          {/* <Button blue>
+          <Button white>
         <Link className="react-router-link" to={PATH_PAGE.about}>  Read More{" "}
-          <Icon
+          {/* <Icon
             icon="system-uicons:arrow-up"
-            color="white"
+            // color="white"
             rotate={1}
             className="icon"
-          /></Link>
-        </Button> */}
+          /> */}
+          </Link>
+        </Button>
         </div>
       </div>
     </Container>
@@ -70,6 +71,9 @@ const Container = styled.div`
     @media screen and (max-width: 590px) {
       flex-direction: column-reverse !important;
     }
+  }
+  .icon{
+
   }
   .left {
     h6 {

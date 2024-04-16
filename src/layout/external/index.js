@@ -8,7 +8,7 @@ import styled from "styled-components";
 export default function Layout() {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <Outlet />
       {/* <End> */}
         <ContactUS />

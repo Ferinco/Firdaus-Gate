@@ -5,7 +5,8 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
 import Aos from "aos";
-import "aos/dist/aos.css";const images = [
+import "aos/dist/aos.css";
+const images = [
   {
     className: "image image-1",
     content: "",
@@ -44,31 +45,6 @@ const MobileImage = styled.div`
   }
 `;
 export default function LandingHero() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isSticky, setSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setSticky(window.scrollY > 145);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
   useEffect(() => {
     Aos.init({
       // Global settings:
@@ -87,7 +63,7 @@ export default function LandingHero() {
   }, []);
   return (
     <Wrapper>
-      <div className={` h-100 ${isSticky ? "sticky" : ""}`}>
+      <div className={` h-100`}>
         <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
             <div
@@ -118,27 +94,19 @@ export default function LandingHero() {
           </div>
         </div>
       </div>
-      <MobileImage>
-        <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg" />
-      </MobileImage>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
   height: 100vh;
-  /* position: relative !important; */
+margin-top: 90px !important;
   color: white;
-  Button{
+  Button {
     /* border-radius: 0 !important; */
-  }
-  .sticky {
-  position: relative !important;
-    margin-top: 90px !important;
   }
   .row {
     justify-content: space-between;
     align-items: center;
-    
   }
   .left {
     /* background-image: linear-gradient(to left, #00008b, #000000) !important; */
@@ -151,7 +119,7 @@ const Wrapper = styled.div`
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.1)
       ),
-      url("") !important;
+      url("https://res.cloudinary.com/duvwweuhj/image/upload/v1700698716/Firdaus/main-image.jpg") !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
@@ -189,7 +157,7 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin-top: 80px;
+    /* margin-top: 80px; */
     height: auto !important;
 
     .hero-bg {

@@ -190,7 +190,7 @@ export default function About() {
 }
 
 const Container = styled.div`
-
+margin-top: 90px;
   .container,
   .row {
   }

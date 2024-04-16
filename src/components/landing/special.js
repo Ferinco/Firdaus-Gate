@@ -27,8 +27,8 @@ export default function SpecialSection() {
       <div className=" container py-5">
         <div className="row">
           <div className="d-flex flex-column col-lg-4 ">
-            <h6 className="m-0">WHAT WE OFFER</h6>
-            <h2 className="mb-0 mt-2">Learn more about our core services</h2>
+            <h6 className="m-0 header">WHAT WE OFFER</h6>
+            <h2 className="mb-0 mt-2">Learn more about our core services.</h2>
             <p className="mt-3 text-muted">
               Firdaus-Gate Model Schools is unlike any other institution, we do
               not only care about our students and pupils' academic excellence,
@@ -77,12 +77,11 @@ export default function SpecialSection() {
             </ul>
           </div>
           <div className="d-flex row col-lg-8 gap-3 cards ">
-            <div className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2"
+            <div
+              className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2"
               data-aos="fade-zoom-in"
               data-aos-easing="ease-in-back"
-              data-aos-delay="100"
-              data-aos-offset="0"
-              data-aos-duration="500">
+            >
               <div>
                 <Icon
                   icon="maki:religious-muslim"
@@ -90,7 +89,7 @@ export default function SpecialSection() {
                   className="big-icon"
                 />
               </div>
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column gap-2 mt-2">
                 <h4 className="m-0">ARABIC</h4>
                 <p className="m-0">
                   This is one of our core services as we do not neglect our
@@ -100,12 +99,12 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2"
-             data-aos="fade-zoom-in"
-             data-aos-easing="ease-in-back"
-             data-aos-delay="200"
-             data-aos-offset="0"
-             data-aos-duration="500">
+            <div
+              className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              
+            >
               <div>
                 <Icon
                   icon="bxs:baby-carriage"
@@ -113,7 +112,7 @@ export default function SpecialSection() {
                   className="big-icon"
                 />
               </div>
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column gap-2 mt-2">
                 <h4 className="m-0">EYFS</h4>
                 <p className="m-0">
                   The school offers Early years foundation school programmes
@@ -121,12 +120,12 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2" 
-             data-aos="fade-zoom-in"
-             data-aos-easing="ease-in-back"
-             data-aos-delay="300"
-             data-aos-offset="0"
-             data-aos-duration="500">
+            <div
+              className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              
+            >
               <div>
                 <Icon
                   icon="fa6-solid:children"
@@ -134,7 +133,7 @@ export default function SpecialSection() {
                   className="big-icon"
                 />
               </div>
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column gap-2 mt-2">
                 <h4 className="m-0">PYP</h4>
                 <p className="m-0">
                   Primary Years Education where we offer comprehensive training
@@ -143,12 +142,12 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2" 
-             data-aos="fade-zoom-in"
-             data-aos-easing="ease-in-back"
-             data-aos-delay="400"
-             data-aos-offset="0"
-             data-aos-duration="500">
+            <div
+              className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2"
+              data-aos="fade-zoom-in"
+              data-aos-easing="ease-in-back"
+              
+            >
               <div>
                 <Icon
                   icon="fluent-emoji-high-contrast:graduation-cap"
@@ -156,7 +155,7 @@ export default function SpecialSection() {
                   className="big-icon"
                 />
               </div>{" "}
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column gap-2 mt-2">
                 <h4 className="m-0">SSC</h4>
                 <p className="m-0">
                   The Senior School Classes Programmes help nuture our students
@@ -177,7 +176,17 @@ const Wrapper = styled.div`
     flex-wrap: nowrap;
     @media screen and (max-width: 991px) {
       flex-wrap: wrap !important;
+      .card{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .cards{
+        padding-left: 0 !important;
+      }
     }
+  }
+  .big-icon{
+    display: none;
   }
   .cards {
     margin: 0 !important;
@@ -191,17 +200,27 @@ const Wrapper = styled.div`
   .card {
     border: 0 !important;
     background-color: transparent;
+    &:hover{
+      background-color: rgb(40 40 40);
+      border-radius: 15px;
+      transition: 0.5s;
+      color: white !important;
+      .big-icon{
+        color: white !important;
+      }
+    }
     /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
     p {
-      font-size: 16px !important;
+      font-weight: 300 !important;
+      font-size: 14px !important;
     }
   }
   h2 {
     font-weight: 500 !important;
   }
   h6 {
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     color: blue;
   }
   h4 {
@@ -215,7 +234,7 @@ const Wrapper = styled.div`
     font-size: 20px !important;
   }
   h6 {
-    font-weight: 500 !important;
+    /* font-weight: 500 !important; */
   }
   h4 {
     font-weight: 500 !important;
