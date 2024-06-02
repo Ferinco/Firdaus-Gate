@@ -79,7 +79,7 @@ export default function Navbar() {
           </div>
           <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
-              <a className="nav-link">about &#9662;</a>
+              <a className="nav-link">about <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
               <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.about}>
                   about us
@@ -90,7 +90,7 @@ export default function Navbar() {
               </ul>{" "}
             </li>
             <li>
-              <a className="nav-link">admission <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.3em" height="1.3em"  style={{color: "black"}} /></a>
+              <a className="nav-link">admission <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
               <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.admission}>
                   Student admission portal
@@ -107,7 +107,7 @@ export default function Navbar() {
               </ul>
             </li>
             <li>
-              <a className="nav-link">portal &#9662;</a>
+              <a className="nav-link">portal <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
               <ul className="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
@@ -392,20 +392,24 @@ const NavigationBar = styled.div`
     }
   }
   .second-navbar {
-    height: 90px !important;
+    height: 90px;
     align-items: center;
     z-index: 999;
     width: 100%;
     transition: background-color 0.5s ease, box-shadow 0.3s ease;
     transition: 0.5s !important;
     position: relative !important;
+    @media screen and (max-width: 982px) {
+        height: 68px !important;
+      }
     .div {
       align-items: center;
-      height: 90px !important;
+      height: 90px;
       background-color: white;
       @media screen and (max-width: 982px) {
         padding-right: 12px !important;
         padding-left: 24px !important;
+        height: 68px !important;
       }
       .header {
       }
@@ -473,7 +477,7 @@ const NavigationBar = styled.div`
   .mobile-nav {
     display: none !important;
   }
-  @media screen and (max-width: 1057px) {
+  @media screen and (max-width: 1110px) {
     width: 100vw !important;
     overflow: hidden !important;
     justify-content: left !important;
@@ -567,7 +571,7 @@ const NavigationBar = styled.div`
   }
   @media screen and (min-width: 992px) and (max-width: 1200px) {
   }
-  @media screen and (max-width: 1057px) {
+  @media screen and (max-width: 1110px) {
     .first-navbar,
     .middle-nav {
       display: none !important;

@@ -6,44 +6,7 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
 import Aos from "aos";
 import "aos/dist/aos.css";
-const images = [
-  {
-    className: "image image-1",
-    content: "",
-  },
-  {
-    className: "image image-2",
-    content: "",
-  },
-  {
-    className: "image image-1",
-    content: "",
-  },
 
-  // Add more image URLs as needed
-];
-
-const CarouselContainer = styled.div`
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileImage = styled.div`
-  display: none;
-  @media screen and (max-width: 768px) {
-    display: block;
-    width: 100%;
-    height: 320px;
-    background-color: purple;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-  }
-`;
 export default function LandingHero() {
   useEffect(() => {
     Aos.init({
@@ -63,7 +26,7 @@ export default function LandingHero() {
   }, []);
   return (
     <Wrapper>
-      <div className={` h-100`}>
+      <div className={`h-100`}>
         <div className="row h-100 hero-bg">
           <div className="col-md-4 d-flex left flex-row h-100 py-5">
             <div
@@ -76,15 +39,19 @@ export default function LandingHero() {
             >
               <h1 className="display-3">Firdaus-Gate Model Schools</h1>
               <div className="">
-                <p className="">
+                <p className="desktop-p">
                   Assalamu Alaikum! Welcome to Firdaus Gate Model Schools, where
                   education meets faith. In our school, we nurture minds,
                   hearts, and character. Explore the enriching blend of
                   academics and Islamic values...
                 </p>
+                <p className="mobile-p d-none">
+                 Welcome to Firdaus Gate Model Schools, where
+                  education meets faith. 
+                </p>
               </div>
               <div className="button-group d-flex flex-row p-0">
-                <Button blue>
+                <Button blue className="px-5 py-2">
                   <Link className="react-router-link" to={PATH_PAGE.about}>
                     About Us
                   </Link>
@@ -99,8 +66,12 @@ export default function LandingHero() {
 }
 const Wrapper = styled.div`
   height: 100vh;
-  margin-top: 90px !important;
+  margin-top: 88px;
   color: white;
+  @media screen and (max-width: 982px) {
+    margin-top: 66px !important;
+
+      }
   Button {
     /* border-radius: 0 !important; */
   }
@@ -138,9 +109,6 @@ const Wrapper = styled.div`
     }
   }
 
-  p {
-    font-size: 17px;
-  }
   justify-content: left;
   align-items: start;
   text-align: left;
@@ -149,21 +117,21 @@ const Wrapper = styled.div`
     justify-content: start !important;
     align-items: left;
   }
-  .image {
-    max-width: 400px;
-    height: 400px;
-    background-color: purple;
-    border-radius: 30px;
-  }
+
 
   @media (max-width: 768px) {
-    height: 550px !important;
+    height: 500px !important;
     h1{
-      font-size: 40px !important;
+      font-size: 42px !important;
+    }
+    .desktop-p{
+      display: none;
+    }
+    .mobile-p{
+      display: block !important;
     }
     .button-group {
-    justify-content: center !important;
-    align-items: center;
+   display: none !important;
   }
 
 text-align: center !important;

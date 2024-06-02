@@ -10,10 +10,10 @@ export default function Layout() {
     <>
       <Navbar />
       <Outlet />
-      {/* <End> */}
+      <End>
         <ContactUS />
         <Footer />
-      {/* </End> */}
+      </End>
     </>
   );
 }

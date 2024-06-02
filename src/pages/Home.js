@@ -9,12 +9,7 @@ import News from "../components/landing/newsSection";
 
 export default function Home() {
   return (
-    <Wrapper>
-             <Helmet>
-        <title>Firdaus Gate Model Schools.</title>
-        <meta name="description" content="Welcome to Firdaus-Gate Model Schools where knowledge meets faith." />
-        <meta name="keywords" content="landing page, firdaus gate model schools, welcome" />
-      </Helmet>
+    <Wrapper className=" ">
       <LandingHero />
       <AboutSection/>
       <Intro/>
@@ -31,9 +26,9 @@ export default function Home() {
 }
 
 const Wrapper = styled.section`
-width:100vw !important;
+width:100vw ;
 overflow-x:hidden !important;
-position: relative;
+height: fit-content !important;
     p {
   font-size: 16px !important;
   font-weight: 400 !important;

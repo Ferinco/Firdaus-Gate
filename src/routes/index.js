@@ -83,7 +83,7 @@ import CheckQuestions from "../pages/student/checkQuestions";
 import { OverlayLoading } from "../components/OverlayLoading";
 export default function Routes() {
   const [loading, setLoading] = useState(true);
-const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     // Set loading state to true when navigating to a new route
@@ -95,17 +95,21 @@ const location = useLocation()
     // Clear the timer on unmount
     return () => clearTimeout(timer);
   }, [location]);
-  const routes = useRoutes([
+  return useRoutes([
     //GENERAL ROUTES
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { path: "/", element: <Home /> },
-        { path: "/about-us", element: <About /> },
-        { path: "/gallery", element: <Gallery /> },
-      ],
-    },
+    loading ? (
+      <OverlayLoading/>
+    ) : (
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { path: "/", element: <Home /> },
+          { path: "/about-us", element: <About /> },
+          { path: "/gallery", element: <Gallery /> },
+        ],
+      }
+    ),
     {
       path: "/school-fees",
       element: <SchoolFeesLayout />,
@@ -259,6 +263,4 @@ const location = useLocation()
 
     //CATCH ALL
   ]);
-
-  return <>{loading ? <OverlayLoading /> : routes}</>;
 }
