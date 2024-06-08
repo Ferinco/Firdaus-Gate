@@ -56,7 +56,7 @@ export default function Assign() {
     .map((subject) => subject.trim());
 
   //filter the subject taught against the school subjects data
-  const filteredSubjects = teacherSubjects.filter((subject) =>
+  const filteredSubjects = AllSubjects.filter((subject) =>
     subjectsArray.includes(subject.code)
   );
   console.log(filteredSubjects);

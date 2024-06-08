@@ -9,6 +9,7 @@ import { UserService } from "../../services/userService";
 import { useEffect } from "react";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { useDispatch, useSelector } from "react-redux";
+import { AllSubjects } from "../../configs/allSubjects";
 
 const TabsConfig = [
   {
@@ -36,7 +37,14 @@ const TabsConfig = [
 
 export default function TeacherDashboard() {
   const [weeks, setWeeks] = useState([]);
-  const {termName, setTermName, teacherClass, setTeacherClass, activeSession, setActiveSession} = useAppContext()
+  const {
+    termName,
+    setTermName,
+    teacherClass,
+    setTeacherClass,
+    activeSession,
+    setActiveSession,
+  } = useAppContext();
 
   const dispatch = useDispatch();
 
@@ -44,9 +52,9 @@ export default function TeacherDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        setTermName(res[res.length-1]?.term);
-        setActiveSession(res[res.length-1]?.session)
-        setTeacherClass(user.classHandled)
+        setTermName(res[res.length - 1]?.term);
+        setActiveSession(res[res.length - 1]?.session);
+        setTeacherClass(user.classHandled);
       });
   }, []);
 
@@ -61,7 +69,6 @@ export default function TeacherDashboard() {
   const [maleGender, setMaleGender] = useState();
   const [femaleGender, setFemaleGender] = useState();
 
-
   //fetching class length details
   useEffect(() => {
     const FetchStudents = async () => {
@@ -69,11 +76,9 @@ export default function TeacherDashboard() {
         const res = await UserService.findUsers({
           role: "student",
           currentClass: user?.classHandled,
-          status: "active"
+          status: "active",
         });
         console.log(res.data.list.length);
-
-        setSubjects([user.subjectTaught]);
 
         if (res.success) {
           const { list } = res.data;
@@ -102,7 +107,7 @@ export default function TeacherDashboard() {
         return "Good Evening,";
     }
   }
-  
+
   useEffect(() => {
     function getTitle() {
       if (user?.gender === "male") {
@@ -112,6 +117,16 @@ export default function TeacherDashboard() {
     getTitle();
   }, []);
 
+  const subjectsArray = user?.subjectTaught
+    .split(",")
+    .map((subject) => subject.trim());
+  const filteredSubjects = AllSubjects.filter((subject) =>
+    subjectsArray.includes(subject.code)
+  );
+  console.log(filteredSubjects);
+  useEffect(()=>{
+setSubjects(filteredSubjects)
+  }, [])
   return (
     <Dashboard className="py-5">
       <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
@@ -227,7 +242,6 @@ const Dashboard = styled.div`
     p {
       font-weight: 400;
       color: black;
-
     }
   }
   .spinner-border {
