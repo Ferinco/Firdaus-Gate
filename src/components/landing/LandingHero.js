@@ -46,12 +46,17 @@ export default function LandingHero() {
                   academics and Islamic values...
                 </p>
                 <p className="mobile-p d-none">
-                 Welcome to Firdaus Gate Model Schools, where
-                  education meets faith. 
+                  Welcome to our school, Firdaus Gate Model Schools, where we
+                  nurture minds to become excellent in education and faith.
                 </p>
               </div>
               <div className="button-group d-flex flex-row p-0">
-                <Button blue className="px-5 py-2">
+                <Button blue className="px-5 py-2 desktop-btn">
+                  <Link className="react-router-link" to={PATH_PAGE.about}>
+                    About Us
+                  </Link>
+                </Button>
+                <Button blue className="d-none mobile-btn">
                   <Link className="react-router-link" to={PATH_PAGE.about}>
                     About Us
                   </Link>
@@ -70,8 +75,7 @@ const Wrapper = styled.div`
   color: white;
   @media screen and (max-width: 982px) {
     margin-top: 66px !important;
-
-      }
+  }
   Button {
     /* border-radius: 0 !important; */
   }
@@ -118,27 +122,31 @@ const Wrapper = styled.div`
     align-items: left;
   }
 
-
   @media (max-width: 768px) {
     height: 500px !important;
-    h1{
+    h1 {
       font-size: 42px !important;
     }
-    .desktop-p{
+    .desktop-p {
       display: none;
     }
-    .mobile-p{
+    .mobile-p {
       display: block !important;
     }
+    .desktop-btn {
+      display: none !important;
+    }  .mobile-btn {
+      display: block !important;
+      width: 200px;
+    }
     .button-group {
-   display: none !important;
+  justify-content: center !important;
   }
 
-text-align: center !important;
+    text-align: center !important;
     .left {
       background: transparent !important;
       padding-bottom: 0 !important;
-
     }
     h1 {
       width: auto !important;
@@ -147,7 +155,6 @@ text-align: center !important;
       font-weight: 600 !important;
     }
     p {
-
     }
 
     .text-div {

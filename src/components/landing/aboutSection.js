@@ -32,7 +32,7 @@ export default function AboutSection() {
       <div className="container d-flex flex-row-reverse align-items-center">
         <div className="left d-flex flex-column align-items-center">
           <div className="image-wrapper d-flex gap-2 ">
-            <img src="https://res.cloudinary.com/duvwweuhj/image/upload/v1713895716/firdaus-mesh_wbkdww.png" />
+            <img src="./images/backgrounds/firduas-ps.png" />
           </div>
         </div>
         <div className="right d-flex flex-column gap-3">

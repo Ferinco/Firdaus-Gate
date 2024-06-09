@@ -70,7 +70,9 @@ const Container = styled.div`
       display: block;
     }
     @media screen and (max-width: 590px) {
-      width: 100vw;
+      width: 350px;
+    height: 350px !important;
+
       height: fit-content !important;
     }
   }

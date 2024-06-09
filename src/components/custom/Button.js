@@ -2,22 +2,22 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   background-color: ${(props) =>
-    (props.blue && "blue") || (props.white && "white")};
+    (props.blue && "#020d9b") || (props.white && "white")};
   color: ${(props) => (props.blue && "white") || (props.white && "black")};
   font-weight: 400 !important;
   border: ${(props) =>
-    (props.blue && "1px solid blue") || (props.white && "1px solid black")};
+    (props.blue && "1px solid #020d9b") || (props.white && "1px solid black")};
   padding: 7px 25px;
   font-size: 15px;
   border-radius: 9px;
   &:hover {
     transition: 0.4s;
     background-color: ${(props) =>
-      (props.blue && "#04048d") || (props.white && "blue")};
+      (props.blue && "#04048d") || (props.white && "#020d9b")};
     color: ${(props) => (props.blue && "white") || (props.white && "white")};
     transition: 0.5s;
     border: ${(props) =>
-      (props.blue && "1px solid #04048d") || (props.white && "1px solid blue")};
+      (props.blue && "1px solid #04048d") || (props.white && "1px solid #020d9b")};
   }
   &:disabled {
     opacity: 0.4;

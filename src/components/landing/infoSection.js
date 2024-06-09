@@ -191,8 +191,9 @@ const Info = styled.div`
     }
     h2 {
       font-size: 32px;
-      /* font-weight: 600 !important; */
+      font-weight: 600 !important;
       color: white !important;
+      line-height: 1.5 !important;
     }
     .indicator {
       font-size: 48px !important;

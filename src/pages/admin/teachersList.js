@@ -343,7 +343,7 @@ export default function TeachersList() {
             </form>
 
             <button onClick={() => setCSVOpen(true)} className="csv-button">
-              Import CSV file
+            Upload Teachers
             </button>
           </div>
           {currentTableData.length > 0 ? (
