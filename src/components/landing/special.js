@@ -32,7 +32,7 @@ export default function SpecialSection() {
             <p className="mt-3 text-muted">
               Firdaus-Gate Model Schools is unlike any other institution, we do
               not only care about our students and pupils' academic excellence,
-              but a
+              but also, we ensure that they excel in faith.
             </p>
             <ul className="m-0 p-0 d-flex flex-column gap-2">
               <li className="d-flex flex-row align-items-start gap-1">
@@ -64,7 +64,7 @@ export default function SpecialSection() {
                 A conducive and well structured Mosque for students to observe
                 their prayers.
               </li>
-              <li className="d-flex flex-row align-items-start gap-1">
+              {/* <li className="d-flex flex-row align-items-start gap-1">
                 <div>
                   <Icon
                     icon="fluent-emoji-high-contrast:check-mark-button"
@@ -73,15 +73,11 @@ export default function SpecialSection() {
                 </div>
                 A conducive and well structured Mosque for students to observe
                 their prayers.
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="d-flex row col-lg-8 gap-3 cards ">
-            <div
-              className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2"
-              data-aos="fade-zoom-in"
-              data-aos-easing="ease-in-back"
-            >
+            <div className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2">
               <div>
                 <Icon
                   icon="maki:religious-muslim"
@@ -99,12 +95,7 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div
-              className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2"
-              data-aos="fade-zoom-in"
-              data-aos-easing="ease-in-back"
-              
-            >
+            <div className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2">
               <div>
                 <Icon
                   icon="bxs:baby-carriage"
@@ -120,12 +111,7 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div
-              className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2"
-              data-aos="fade-zoom-in"
-              data-aos-easing="ease-in-back"
-              
-            >
+            <div className="card d-flex flex-row col-lg-5 gap-3 py-3 pr-2">
               <div>
                 <Icon
                   icon="fa6-solid:children"
@@ -142,12 +128,7 @@ export default function SpecialSection() {
                 </p>
               </div>
             </div>
-            <div
-              className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2"
-              data-aos="fade-zoom-in"
-              data-aos-easing="ease-in-back"
-              
-            >
+            <div className="card d-flex flex-row col-lg-6 gap-3 py-3 pr-2">
               <div>
                 <Icon
                   icon="fluent-emoji-high-contrast:graduation-cap"
@@ -176,16 +157,16 @@ const Wrapper = styled.div`
     flex-wrap: nowrap;
     @media screen and (max-width: 991px) {
       flex-wrap: wrap !important;
-      .card{
+      .card {
         padding-left: 0 !important;
         padding-right: 0 !important;
       }
-      .cards{
+      .cards {
         padding-left: 0 !important;
       }
     }
   }
-  .big-icon{
+  .big-icon {
     display: none;
   }
   .cards {
@@ -200,12 +181,12 @@ const Wrapper = styled.div`
   .card {
     border: 0 !important;
     background-color: transparent;
-    &:hover{
+    &:hover {
       background-color: rgb(40 40 40);
       border-radius: 15px;
       transition: 0.5s;
       color: white !important;
-      .big-icon{
+      .big-icon {
         color: white !important;
       }
     }

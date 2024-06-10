@@ -281,22 +281,6 @@ export default function Navbar() {
                         >
                           student portal
                         </Link>
-                        <Link
-                          className="react-router-link"
-                          to={PATH_DASHBOARD.teacher.index}
-                        >
-                          teacher portal
-                        </Link>
-                        <Link className="react-router-link">
-                          school fees payment
-                          <br />
-                          (existing students)
-                        </Link>
-                        <Link className="react-router-link">
-                          school fees payment
-                          <br />
-                          (new students)
-                        </Link>
                       </div>
                     </div>
                   </div>
@@ -306,9 +290,9 @@ export default function Navbar() {
                   Gallery
                 </Link>
 
-                <li>
+                {/* <li>
                   <a className="nav-link">News</a>
-                </li>
+                </li> */}
               </div>
             </nav>
           </div>

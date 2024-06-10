@@ -27,7 +27,7 @@ export default function IntroSection() {
 
   return (
     <Container className="py-5" data-aos="fade-up" data-aos-duration="1000">
-      <div className="container d-flex align-items-center flex-column gap-5">
+      <div className="container d-flex align-items-center flex-column gap-4">
         <div className="header d-flex flex-column justify-content-left align-items-left text-start w-100 gap-2">
           {/* <h6 className="pre-header">what we offer</h6> */}
           <h2 className="text-start">We have everything.</h2>
@@ -80,10 +80,10 @@ export default function IntroSection() {
 }
 const Container = styled.div`
 height: 100% !important;
+background-color: white !important;
   h2 {
     max-width: 300px;
     font-size: 45px;
-    /* text-align: center !important; */
     font-weight: 600 !important;
     line-height: 1.4;
 
@@ -102,11 +102,11 @@ height: 100% !important;
 }
   .icon-div {
     width: fit-content;
-    padding: 7px 10px;
-    border-radius: 5px;
-    background-color: blue;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #020d9b;
     .icon {
-      font-size: 22px;
+      font-size: 20px;
       color: white;
     }
   }
@@ -137,7 +137,7 @@ padding-left: 0 !important;
       font-size: 36px;
       max-width: 768px !important;
       text-align: left;
-      font-weight: 600 !important;
+      font-weight: 500 !important;
     }
     .div {
       flex-direction: column;

@@ -17,6 +17,14 @@ const Testimonials = () => {
     autoplaySpeed: 7000,
     responsive: [
       {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,  
+          autoplaySpeed: 3000, 
+        },
+      },
+      {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
@@ -163,6 +171,9 @@ font-weight: 600;
       justify-content: center;
       text-align: center;
     }
+    .slick-dots {
+display: none !important;
+}
     }
 `
 export default Testimonials;

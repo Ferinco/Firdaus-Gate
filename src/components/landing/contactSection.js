@@ -78,7 +78,7 @@ height: auto !important;
     justify-content: flex-end;
 }
 .icon{
-    color:blue !important;
+    color:#020d9b !important;
     font-size: 40px;
 }
 .react-router-link{

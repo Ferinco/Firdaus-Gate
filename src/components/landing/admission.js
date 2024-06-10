@@ -26,13 +26,13 @@ export default function AdmissionSection() {
       }, []);
     
   return (
-    <Wrapper data-aos="fade-up" data-aos-duration="1000">
+    <Wrapper>
       <div className="join-us p-5 d-flex flex-column justify-content-center align-items-center">
         <h2>Ready to Join Us?</h2>
         <p>
-          We offer various services that will equip you with then knowledge and
+          We offer various services that will equip you with the knowledge and
           skills you need to become a world class individual in every sphere of
-          your life. Applly to be a student with just simple steps now.
+          your life. Apply to be a student with just simple steps now.
         </p>
         <Button blue>
           <Link to={PATH_PAGE.admission} className="react-router-link">
@@ -44,7 +44,7 @@ export default function AdmissionSection() {
   );
 }
 const Wrapper = styled.div`
-  background-color: white !important;
+  background-color: #f1f1f1 !important;
   .join-us {
     text-align: center;
     p {

@@ -55,7 +55,7 @@ export default function Gallery() {
         </h2>
       </div>
       <div className="d-flex flex-column body py-5 gap-4">
-        <Marquee direction="left" speed={30} className="d-flex gap-3">
+        <Marquee direction="left" speed={30} className="d-flex gap-3 top">
           <div className="d-flex flex-row gap-3">
             {marqueImages1.map((image) => (
               <div className="image">
@@ -64,7 +64,7 @@ export default function Gallery() {
             ))}
           </div>
         </Marquee>
-        <Marquee direction="left" speed={60} className="d-flex gap-3">
+        <Marquee direction="left" speed={60} className="d-flex gap-3 texts">
           <div className="d-flex flex-row gap-3">
             <div className="text">sports</div>
             <div className="text">science</div>
@@ -84,8 +84,8 @@ export default function Gallery() {
             <div className="text">tech</div>
           </div>
         </Marquee>
-        <Marquee direction="left" speed={30} className="d-flex gap-3">
-          <div className="d-flex flex-row gap-3 ">
+        <Marquee direction="left" speed={30} className="d-flex gap-3 bottom">
+          <div className="d-flex flex-row gap-3">
             {marqueImages2.map((image) => (
               <div className="image">
                 <img src={image} />
@@ -139,10 +139,11 @@ const Container = styled.div`
     color: black;
     font-weight: 400;
     border-radius: 10px;
-    border: 1px solid blue;
+    border: 1px solid #020d9b;
   }
-  .body {
+  .bottom, .top, .texts {
     transform: rotate(-3deg);
+    overflow-x: visible !important;
   }
   .header {
     h2 {
@@ -159,9 +160,20 @@ const Container = styled.div`
         font-weight: 600 !important;
       }
     }
+    .text {
+    padding: 10px 20px;
+  }
+  .body{
+    gap: 30px !important;
+  }
+  .bottom, .top, .texts {
+   .flex-row{
+    gap: 20px !important;
+   }
+  }
     .image {
       width: 200px;
-      height: 250px;
+      height: 200px;
       background-color: purple;
     }
   }
