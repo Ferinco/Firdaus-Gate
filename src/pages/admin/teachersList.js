@@ -432,6 +432,24 @@ export default function TeachersList() {
                               </td>
                             );
                           }
+                          if (cell.accessor == "lastName") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button name">
+                                  {row.lastName}
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "firstName") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button name">
+                                  {row.firstName}
+                                </td>
+                              </td>
+                            );
+                          }
                           if (cell.accessor == "email") {
                             return (
                               <td className="table-body">
@@ -605,6 +623,10 @@ const Wrapper = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   background-color: #f5f5f5 !important;
+  .name{
+    text-transform: lowercase;
+
+  }
   .buttons {
     justify-content: right;
     width: 100%;
