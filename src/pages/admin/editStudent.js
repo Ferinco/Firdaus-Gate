@@ -12,6 +12,7 @@ import { fetchSubjects } from "../../redux/slices/subjects";
 import AddAndDeleteSubject from "../../components/AddAndDeleteSubject";
 import { api } from "../../api/axios";
 import toast from "react-hot-toast";
+import { UserService } from "../../services/userService";
 export default function EditTeacher() {
   const [activeNav, setActiveNav] = useState("Profile");
   const [currentPage, setCurrentPage] = useState(null);
@@ -131,9 +132,24 @@ const ChangeProfile = () => {
     dispatch(fetchUser({ id: identity }));
   }, [identity, dispatch]);
 console.log(user)
-  const onSubmitProfile = async (data) => {
-    console.log(data);
-  };
+const onSubmitProfile = async (data) => {
+  const formData = new FormData();
+  formData.append("values", JSON.stringify(data));
+  try {
+    setIsLoading(true)
+    const data = await UserService.updateUser(user._id, formData);
+    toast.success("Student profile edited successfully");
+    setIsLoading(false)
+  }catch (error) {
+    console.log(error);
+    setIsLoading(false);
+    if (error?.response?.data?.message) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error("Something went wrong, try again later");
+    }
+  }
+};
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   //validations for edit form
@@ -278,7 +294,7 @@ console.log(user)
         </div>
 
         <div className="button-div d-flex justify-content-end mt-4">
-          <Button blue>Save Changes</Button>
+          <Button blue disabled={isLoading}>Save Changes</Button>
         </div>
       </form>
     </div>

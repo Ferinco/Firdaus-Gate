@@ -230,7 +230,6 @@ export default function StudentsList() {
       })
       .catch((error) => {
         toast.error("unable to delete student account");
-      
       });
   };
 
@@ -285,8 +284,8 @@ export default function StudentsList() {
       setCSVOpen(false);
       setIsLoading(true);
       console.log(newStudents);
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         for (const student of newStudents) {
           const data = {
             firstName: student[1],
@@ -303,9 +302,8 @@ export default function StudentsList() {
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
           const response = await UserService.createUser(formData);
-          setIsLoading(false);
           console.log(response);
-          toast.success("students have been created successfully");
+          toast.success(`${student[0]}${" "}${student[1]}'s account created.`);
         }
       } catch (error) {
         setCSVOpen(false);
@@ -316,7 +314,7 @@ export default function StudentsList() {
           toast.error("Failure creating teachers from CSV");
         }
       }
-
+      setIsLoading(false);
       getData(page, pageSize);
     }
   }, [csvData, getData, page, pageSize, setCSVOpen, setIsLoading]);
@@ -738,7 +736,24 @@ export default function StudentsList() {
                               </th>
                             );
                           }
-
+                          if (cell.accessor == "lastName") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button name">
+                                  {row.lastName}
+                                </td>
+                              </td>
+                            );
+                          }
+                          if (cell.accessor == "firstName") {
+                            return (
+                              <td className="table-body">
+                                <td className="table-button name">
+                                  {row.firstName}
+                                </td>
+                              </td>
+                            );
+                          }
                           if (cell.accessor == "select") {
                             return (
                               <td className="table-body">
@@ -858,13 +873,14 @@ export default function StudentsList() {
               <div className="pt-5 h-100">
                 {currentTab === "deactivated" ? (
                   <div className="text-center d-flex flex-column justify-content-center align-items-center">
-                  <h4 className="m-0">
-                    Sorry, there are no deactivated accounts {selectedClass != "all" ? `in class: ${selectedClass}` : ""}
-                  </h4>
-                  <p>
-                    Reload page to display list of all students
-                  </p>
-                </div>
+                    <h4 className="m-0">
+                      Sorry, there are no deactivated accounts{" "}
+                      {selectedClass != "all"
+                        ? `in class: ${selectedClass}`
+                        : ""}
+                    </h4>
+                    <p>Reload page to display list of all students</p>
+                  </div>
                 ) : (
                   <>
                     {selectedClass != "all" ? (
@@ -973,6 +989,9 @@ const Wrapper = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   background-color: #f5f5f5 !important;
+  .name{
+    text-transform: lowercase;
+  }
   .buttons {
     justify-content: right;
     width: 100%;

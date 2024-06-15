@@ -210,7 +210,6 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-
                 {/* Section 2 */}
                 <div className="accordion drop-link" id="section2">
                   <div className="accordion-item">

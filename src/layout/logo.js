@@ -10,7 +10,7 @@ export default function Logo() {
         </div>
         <div className="text d-flex flex-column">
           <h6 className="m-0">
-            FIRDAUS GATE <br />
+            FIRDAUS-GATE <br />
             MODEL SCHOOLS
           </h6>
         </div>

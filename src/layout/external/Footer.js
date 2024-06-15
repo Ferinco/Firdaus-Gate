@@ -11,7 +11,7 @@ function Footer() {
       <div className="first  py-5 d-flex flex-column justify-content-between ">
         <div className="d-flex flex-row justify-content-between w-100 align-items-center flex-wrap">
           <div className="brief">
-            <p className="header ">Firdaus Gate Model Schools</p>
+            <p className="header ">Firdaus-Gate Model Schools</p>
             <p className="not-link ">
               Establised in 1999, we have since dedicated our resources to
               raising future leaders; making them responsible, confident and be

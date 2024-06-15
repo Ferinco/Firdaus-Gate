@@ -32,7 +32,6 @@ const TabsConfig = [
     icon: "bxs:graduation",
     iconColor: "white",
   },
-
 ];
 
 export default function AdminDashboard() {
@@ -41,7 +40,7 @@ export default function AdminDashboard() {
   const [Teachers, setTeachers] = useState("");
   const [Students, setStudents] = useState("");
   const [termName, setTermName] = useState("");
-  const [currentTerm, setCurrentTerm] = useState("")
+  const [currentTerm, setCurrentTerm] = useState("");
   const [applications, setApplications] = useState("");
 
   //current term
@@ -50,7 +49,7 @@ export default function AdminDashboard() {
       .unwrap()
       .then((res) => {
         console.log(res);
-        setTermName(res[res.length-1]?.term);
+        setTermName(res[res.length - 1]?.term);
       })
       .catch((error) => {
         console.log(error);
@@ -63,8 +62,9 @@ export default function AdminDashboard() {
       try {
         const results = await dispatch(fetchUsers({ role: "student" }));
         const users = unwrapResult(results);
-        const Length = users.data.list.length;
+        const Length = users.data.total;
         setStudents(Length);
+        console.log(users.data)
       } catch (error) {
         console.log(error);
       }
@@ -133,15 +133,15 @@ export default function AdminDashboard() {
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
             <p>current term</p>
             <h5>
-                <h5>
-                  {termName === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only"></span>
-                    </div>
-                  ) : (
-                    termName
-                  )}
-                </h5>
+              <h5>
+                {termName === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                  </div>
+                ) : (
+                  termName
+                )}
+              </h5>
             </h5>
           </div>
           <div className="circle-div d-flex flex-column justify-content-center align-items-center">
