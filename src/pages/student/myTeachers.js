@@ -60,12 +60,12 @@ export default function MyTeachers() {
             </div>
             <div className="texts d-flex flex-column gap-1">
               <h5 className="m-0">
-                {classTeacher.gender === "male" ? "Mr." : "Mrs."}{" "}
-                {classTeacher.lastName}{" "}
+                {classTeacher?.gender === "male" ? "Mr." : "Mrs."}{" "}
+                {classTeacher?.lastName}{" "}
               </h5>
-              <p className="m-0">{classTeacher.email}</p>
+              <p className="m-0">{classTeacher?.email}</p>
               <a className="m-0" href="">
-                +234{classTeacher.tel}
+                +234{classTeacher?.tel}
               </a>
             </div>
           </div>
@@ -82,15 +82,10 @@ export default function MyTeachers() {
                   </div>
                   <div className="texts d-flex flex-column ">
                     <h6 className="m-0">
-                      {teacher.gender === "male" ? "Mr." : "Mrs."}{" "}
-                      {teacher.lastName}
+                      {teacher?.gender === "male" ? "Mr." : "Mrs."}{" "}
+                      {teacher?.lastName}
                     </h6>
-                    <p className="m-0">
-                      {subjects.includes(teacher.subjectTaught)
-                        ? teacher.subjectTaught
-                        : teacher.subjectTaught}
-                    </p>
-                    <p className="m-0">{teacher.email}</p>
+                    <p className="m-0">{teacher?.email}</p>
                   </div>
                 </div>
               ))}

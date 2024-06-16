@@ -30,7 +30,7 @@ const sidebarConfig = [
     id: 4,
     icon: "fluent-mdl2:poll-results",
     link: PATH_DASHBOARD.admin.reports,
-    title: "Reports",
+    title: "Results",
   },
   // {
   //   id: 6,
@@ -43,8 +43,27 @@ const sidebarConfig = [
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
+  },  {
+    id: 6,
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.admin.applications,
+    title: "Term",
+  },  {
+    id: 7,
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.admin.applications,
+    title: "General",
+  },  {
+    id: 8,
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.admin.applications,
+    title: "Classes and Subjects",
+  },  {
+    id: 9,
+    icon: "uil:create-dashboard",
+    link: PATH_DASHBOARD.admin.applications,
+    title: "News",
   },
-
 ];
 
 export default function AdminSidebar() {
@@ -68,12 +87,10 @@ export default function AdminSidebar() {
       >
         <div className="nav-container d-flex flex-column py-3 justify-content-between h-100 px-0">
           <div className="wrapper d-flex flex-column justify-content-between">
-            <div className="logo">
-              <Link className="react-router-link" to={PATH_PAGE.home}>
-                <img src="/images/logo.png" alt="logo" />
-              </Link>
+            <div className="bar-header w-100 d-flex justify-content-start">
+              <p>Admin Console</p>
             </div>
-            <div className="nav-links d-flex flex-column pl-5 mt-5">
+            <div className="nav-links d-flex flex-column">
               {sidebarConfig.map(({ link, icon, title }, index) => (
                 <Link
                   className={`nav-link react-router-link ${
@@ -83,13 +100,13 @@ export default function AdminSidebar() {
                   key={index}
                   onClick={() => handleNavClick(title)}
                 >
-                  <Icon icon={icon} />
+                  <Icon icon={icon} className="icon"/>
                   {title}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="log-out nav-links d-flex flex-column pl-5">
+          <div className="log-out nav-links d-flex flex-column">
             <Link
               className={`nav-link react-router-link ${
                 activeTab === "Settings" ? "active-tab" : ""
@@ -141,26 +158,36 @@ const SIDEBAR = styled.div`
     width: 100%;
   }
   .wrapper {
-    height: 60% !important;
+    height: fit-content !important;
     width: 100%;
     align-items: center;
     padding-right: 0 !important;
   }
   .nav-links {
-    gap: 20px;
     width: 100% !important;
   }
   .nav-link {
-    font-weight: 700 !important;
-    color: #b3b3b3 !important;
+    font-weight: 300 !important;
+    color: white !important;
     display: flex;
     justify-content: left !important;
     gap: 20px;
     align-items: center;
+    padding-left: 10px;
+    border: 1px solid white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
     &:hover {
       color: white !important;
       transition: 0.3s;
     }
+    .icon{
+      font-size: 22px !important;
+    }
+  }
+  .bar-header{
+color: white;
   }
   .active-tab {
     border-right: 5px solid white !important;
