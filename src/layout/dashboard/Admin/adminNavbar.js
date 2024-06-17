@@ -63,9 +63,10 @@ export default function AdminNavbar() {
 const Wrapper = styled.div`
   align-items: center;
   background-color: white;
-height: 80px !important;
+height: 60px !important;
 position: fixed;
 width: calc(100vw - 280px);
+border-bottom: 1px solid #f1f1f1;
 z-index:999 !important;
     padding-left: 32px !important;
     padding-right: 32px !important;

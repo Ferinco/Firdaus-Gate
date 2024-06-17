@@ -10,6 +10,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import { UserService } from "../../services/userService";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.admin.createTerm,
@@ -42,6 +43,9 @@ export default function AdminDashboard() {
   const [termName, setTermName] = useState("");
   const [currentTerm, setCurrentTerm] = useState("");
   const [applications, setApplications] = useState("");
+  const [femaleStudents, setFemaleStudents] = useState("");
+  const [maleStudents, setMaleStudents] = useState("");
+  const [maleSTeachers, setMaleTeachers] = useState("");
 
   //current term
   useEffect(() => {
@@ -58,13 +62,20 @@ export default function AdminDashboard() {
 
   //number of students
   useEffect(() => {
-    const FetchStudents = async () => {
+    const FetchStudents = async (limit) => {
       try {
-        const results = await dispatch(fetchUsers({ role: "student" }));
+        const results = await dispatch(fetchUsers({ role: "student", limit: 500 }));
         const users = unwrapResult(results);
         const Length = users.data.total;
         setStudents(Length);
-        console.log(users.data)
+        const {list} = users.data
+        //female students
+        const females = list.filter((female)=>female.gender === "female")
+      setFemaleStudents(females.length)
+
+        //male students
+        const males = list.filter((male)=>male.gender === "male")
+      setMaleStudents(males.length)
       } catch (error) {
         console.log(error);
       }
@@ -117,126 +128,272 @@ export default function AdminDashboard() {
     }
   }
   return (
-    <Wrapper className="py-5 mt-5">
-      <Helmet>
-        <title>Admin Dashboard | FGMS</title>
-      </Helmet>
-      <div className="d-flex flex-column left">
-        <h4>
-          {greeting} Mr {user.lastName}
-        </h4>
-        <p>welcome to your dashboard</p>
+    <Wrapper className="py-5">
+      <div className="d-flex flex-row left w-100 justify-content-between align-items-center first-div">
+        <div className="logo-div">
+          <img src="./images/logo.png" />
+        </div>
+        <div className="d-flex flex-column intro gap-2">
+          <h4>Firdaus-Gate Model Schools Admin Dashboard</h4>
+          <p>www.firdausgateschools.com</p>
+        </div>
+        <div className="d-flex flex-column about gap-2">
+          <div className="admin d-flex flex-row justify-content-between">
+            <div className="child d-flex flex-column">
+              <p>Current Administrator:</p>
+              <h6>
+                {user?.firstName} {user?.lastName}
+              </h6>
+            </div>
+            <button className="pencil-btn">
+              <Icon
+                icon="octicon:pencil-24"
+                width="1.0em"
+                height="1.0em"
+                style={{ color: "black" }}
+              />
+            </button>
+          </div>
+          <div className="child">
+            <p>Personal Email Address:</p>
+            <h6 className="email">queenlatheefahh@gmail.com</h6>
+          </div>
+        </div>
+        <div className="d-flex flex-column about gap-2">
+          <div className="child">
+            <p>Official Email Address:</p>
+            <h6 className="email">
+              {user?.email.length > 20
+                ? `${user?.email.slice(0, 20)}...`
+                : user?.email}
+            </h6>
+          </div>
+          <div className="child">
+            <p>Telephone:</p>
+            <h6 className="email">{user?.tel}</h6>
+          </div>
+        </div>
       </div>
-
       <div className="middle-div py-3">
-        <div className="overviews p-3 py-5">
-          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
-            <p>current term</p>
-            <h5>
+        <div className="overviews p-0 py-3">
+          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+            <Icon
+              icon="solar:calendar-broken"
+              width="2.5em"
+              height="2.5em"
+              style={{ color: "#030c8a" }}
+            />
+            <div className="d-flex flex-column">
+              <p>current term</p>
               <h5>
-                {termName === "" ? (
+                <h5>
+                  {termName === "" ? (
+                    <div className="spinner-border" role="status">
+                      <span className="sr-only"></span>
+                    </div>
+                  ) : (
+                    termName
+                  )}
+                </h5>
+              </h5>
+            </div>
+          </div>
+          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+            <Icon
+              icon="la:chalkboard-teacher"
+              width="2.5em"
+              height="2.5em"
+              style={{ color: "green" }}
+            />
+            <div className="d-flex flex-column">
+              <p>active teachers</p>
+              <h5>
+                {Teachers === "" ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  termName
+                  Teachers
                 )}
               </h5>
-            </h5>
+            </div>
           </div>
-          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
-            <p>active teachers</p>
-            <h5>
-              {Teachers === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only"></span>
-                </div>
-              ) : (
-                Teachers
-              )}
-            </h5>
+          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+            <Icon
+              icon="fluent:people-community-48-regular"
+              width="2.5em"
+              height="2.5em"
+              style={{ color: "#ffb366" }}
+            />
+            <div className="d-flex flex-column">
+              <p>active students</p>
+              <h5>
+                {Students === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                  </div>
+                ) : (
+                  Students
+                )}
+              </h5>
+            </div>
           </div>
-          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
-            <p>active students</p>
-            <h5>
-              {Students === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only"></span>
-                </div>
-              ) : (
-                Students
-              )}
-            </h5>
-          </div>
-          <div className="circle-div d-flex flex-column justify-content-center align-items-center">
-            <p>active applications</p>
-            <h5>
-              {applications === "" ? (
-                <div className="spinner-border" role="status">
-                  <span className="sr-only"></span>
-                </div>
-              ) : (
-                applications?.length
-              )}
-            </h5>
+          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+            <Icon
+              icon="fluent:form-multiple-28-regular"
+              width="2.5em"
+              height="2.5em"
+              style={{ color: "#1c1c1c" }}
+            />
+            <div className="d-flex flex-column">
+              <p> applications</p>
+              <h5>
+                {applications === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                  </div>
+                ) : (
+                  applications?.length
+                )}
+              </h5>
+            </div>
           </div>
         </div>
       </div>
-      <div className="tabs d-flex flex-column py-4">
-        {TabsConfig.map(({ link, title, subTitle, iconColor, icon }, index) => (
-          <Link
-            className="react-router-link tab d-flex flex-row justify-content-between px-3 py-2"
-            to={link}
-            key={index}
-          >
-            <div className="d-flex flex-column mt-3 text">
-              <h6>{title}</h6>
-              <p>{subTitle}</p>
+      <div className="tabs row">
+        <div className="col-lg-8 plate px-lg-2">
+          <div className="content d-flex flex-column justify-content-between align-items-center p-3">
+            <div className="d-flex flex-row justify-content-between w-100">
+              <h4>Population Data</h4>
+              <Icon
+                icon="iconamoon:arrow-top-right-1-bold"
+                width="1.2em"
+                height="1.2em"
+                style={{ color: "white" }}
+              />
             </div>
-            <div className="icon-div">
-              <Icon className="icon" icon={icon} color={iconColor} />
+            <div className="big-icon">
+              <Icon
+                icon="fluent:hard-drive-20-regular"
+                width="12em"
+                height="12em"
+                style={{ color: "grey" }}
+              />
             </div>
-          </Link>
-        ))}
+            <div className="d-flex flex-row gap-3">
+              <div className="population d-flex flex-column justify-content-center align-items-center">
+                <h5>{femaleStudents}</h5>
+                <p>Female Students</p>
+              </div>{" "}
+              <div className="population d-flex flex-column justify-content-center align-items-center">
+                <h5>{maleStudents}</h5>
+                <p>Male Students</p>
+              </div>{" "}
+              <div className="population d-flex flex-column justify-content-center align-items-center">
+                <h5>3</h5>
+                <p>Female Teachers</p>
+              </div>{" "}
+              <div className="population d-flex flex-column justify-content-center align-items-center">
+                <h5>3</h5>
+                <p>Female Teachers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-4 plate px-lg-2">
+          <div className="content"></div>
+        </div>
       </div>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
-  background-color: #f5f5f5 !important;
+  background: linear-gradient(to bottom, white 7%, #f1f1f1 93%) !important;
   padding-left: 32px !important;
   padding-right: 32px !important;
+  p,
+  h5,
+  h4,
+  h6 {
+    margin: 0 !important;
+  }
+  .logo-div {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #f1f1f1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .pencil-btn {
+    border: 0 !important;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
+  .first-div {
+    p {
+      font-weight: 300 !important;
+    }
+    .intro {
+      max-width: 260px;
+      h4 {
+        font-weight: 500 !important;
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px !important;
+      }
+    }
+    .about {
+      .admin {
+        width: 250px;
+      }
+      p {
+        font-size: 15px !important;
+      }
+      h6 {
+        font-weight: 500 !important;
+        font-size: 14px;
+      }
+
+      .child {
+        line-height: 1;
+      }
+    }
+  }
   .middle-div {
     overflow-x: auto !important;
     .overviews {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      gap: 10px;
+      gap: 20px;
       width: fit-content;
-      background: white;
-      border-radius: 30px;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       .circle-div {
-        width: 150px !important;
-        height: 150px;
-        border-radius: 50%;
+        width: 270px !important;
+        height: 100px;
+        border-radius: 10px;
         display: flex;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-          rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        border: 1px solid #f1f1f1;
         p {
-          font-weight: 600;
-          font-size: 13px;
-          color: white;
+          font-weight: 300;
+          font-size: 16px;
+          color: black;
+          text-transform: uppercase;
         }
         h5 {
-          color: white;
+          color: black;
+          font-weight: 600 !important;
+          font-size: 20px;
         }
         &:first-child {
-          background-color: #030c8a;
+          border-bottom: 2px solid #030c8a;
         }
         &:nth-child(2) {
-          background: #feff37;
+          border-bottom: 2px solid green;
           p {
             color: black !important;
           }
@@ -245,14 +402,10 @@ const Wrapper = styled.div`
           }
         }
         &:nth-child(3) {
-          background: #ffb366;
+          border-bottom: 2px solid #ffb366;
         }
         &:last-child {
-          background-color: #1c1c1c;
-          p,
-          h5 {
-            color: white;
-          }
+          border-bottom: 2px solid #1c1c1c;
         }
       }
       .overviews {
@@ -260,64 +413,18 @@ const Wrapper = styled.div`
         overflow-x: scroll !important;
       }
     }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   .tabs {
-    gap: 20px;
-    .tab {
-      max-width: 400px;
-      height: 80px;
+    .content {
+      height: 400px;
+      border: 1px solid #f1f1f1;
       border-radius: 10px;
-      align-items: center;
-      background-color: white !important;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      .icon-div {
-        padding: 10px;
-        border-radius: 50%;
-        /* border:1px solid black; */
-      }
-      .text {
-        text-align: left;
-      }
-      h6 {
-        margin-bottom: 0;
-      }
-      &:first-child {
-        .icon-div {
-          background-color: #1c1c1c;
-        }
-        .icon {
-          font-size: 30px;
-        }
-        h6 {
-          color: black;
-        }
-        p {
-          color: black;
-        }
-      }
-      &:nth-child(2) {
-        .icon-div {
-          background-color: #feff37;
-        }
-        .icon {
-          font-size: 30px;
-        }
-      }
-      &:nth-child(3) {
-        .icon-div {
-          background-color: #ffb366;
-        }
-        .icon {
-          font-size: 30px;
-        }
-      }
-      &:last-child {
-        .icon-div {
-          background-color: #030c8a;
-        }
-        .icon {
-          font-size: 30px;
-        }
+      background-color: white;
+      h4 {
+        font-weight: 400 !important;
       }
     }
   }

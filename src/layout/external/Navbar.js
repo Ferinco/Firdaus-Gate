@@ -322,6 +322,7 @@ const NavigationBar = styled.div`
   top: 0 !important;
   width: 100% !important;
   z-index: 9999;
+
   .book-apt{
     color: blue !important;
     font-size: 13px !important;

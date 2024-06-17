@@ -43,22 +43,26 @@ const sidebarConfig = [
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
-  },  {
+  },
+  {
     id: 6,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Term",
-  },  {
+  },
+  {
     id: 7,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "General",
-  },  {
+  },
+  {
     id: 8,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
     title: "Classes and Subjects",
-  },  {
+  },
+  {
     id: 9,
     icon: "uil:create-dashboard",
     link: PATH_DASHBOARD.admin.applications,
@@ -86,7 +90,7 @@ export default function AdminSidebar() {
         }`}
       >
         <div className="nav-container d-flex flex-column py-3 justify-content-between h-100 px-0">
-          <div className="wrapper d-flex flex-column justify-content-between">
+          <div className="wrapper d-flex flex-column justify-content-between gap-3">
             <div className="bar-header w-100 d-flex justify-content-start">
               <p>Admin Console</p>
             </div>
@@ -100,8 +104,10 @@ export default function AdminSidebar() {
                   key={index}
                   onClick={() => handleNavClick(title)}
                 >
-                  <Icon icon={icon} className="icon"/>
-                  {title}
+                  <div className="child-link">
+                    <Icon icon={icon} className="icon" />
+                    {title}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -115,18 +121,24 @@ export default function AdminSidebar() {
               onClick={() => handleNavClick("Settings")}
             >
               {" "}
-              <Icon icon="fluent:settings-20-regular" /> Settings
+              <div className="child-link">
+                <Icon icon="fluent:settings-20-regular" className="icon" />{" "}
+                Settings
+              </div>
             </Link>
             <button
               to=""
               className="react-router-link nav-link"
               onClick={logout}
             >
-              <Icon
-                icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
-                rotate={2}
-              />
-              Log out
+              <div className="child-link">
+                <Icon
+                  icon="streamline:interface-logout-arrow-exit-frame-leave-logout-rectangle-right"
+                  rotate={2}
+                  className="icon"
+                />
+                Log out
+              </div>
             </button>
           </div>
         </div>
@@ -153,6 +165,7 @@ const SIDEBAR = styled.div`
     position: fixed;
     background-color: black;
     padding-right: 0 !important;
+    padding-left: 0 !important;
   }
   .nav-container {
     width: 100%;
@@ -167,31 +180,37 @@ const SIDEBAR = styled.div`
     width: 100% !important;
   }
   .nav-link {
-    font-weight: 300 !important;
-    color: white !important;
-    display: flex;
-    justify-content: left !important;
-    gap: 20px;
-    align-items: center;
-    padding-left: 10px;
-    border: 1px solid white;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 15px;
+    border-left: 2px solid black;
+
+    .child-link {
+      display: flex;
+      font-weight: 300 !important;
+      color: white !important;
+      justify-content: left !important;
+      align-items: center;
+      padding-left: 15px;
+      gap: 20px;
+    }
     &:hover {
       color: white !important;
       transition: 0.3s;
+      border-left: 2px solid white;
     }
-    .icon{
-      font-size: 22px !important;
+    .icon {
+      /* font-size: 22px !important; */
+      height: 30px !important;
+      width: 18px !important;
     }
   }
-  .bar-header{
-color: white;
+  .bar-header {
+    color: white;
+    padding-left: 15px;
   }
   .active-tab {
-    border-right: 5px solid white !important;
-    color: white !important;
+    border-left: 2px solid white;
   }
   .logo {
     height: 80px;
@@ -206,6 +225,33 @@ color: white;
       object-fit: contain;
       overflow: hidden;
       border-radius: 50%;
+    }
+  }
+  .log-out {
+    .nav-link {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 15px;
+      border-left: 2px solid black;
+      .child-link {
+        display: flex;
+        font-weight: 300 !important;
+        color: white !important;
+        justify-content: left !important;
+        align-items: center;
+        padding-left: 15px;
+        gap: 20px;
+      }
+      &:hover {
+        color: white !important;
+        transition: 0.3s;
+        border-left: 2px solid white;
+      }
+      .icon {
+        /* font-size: 22px !important; */
+        height: 30px !important;
+        width: 18px !important;
+      }
     }
   }
   @media screen and (max-width: 1100px) {
