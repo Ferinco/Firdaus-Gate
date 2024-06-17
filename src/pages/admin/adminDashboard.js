@@ -10,7 +10,9 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { PATH_DASHBOARD } from "../../routes/paths";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import { UserService } from "../../services/userService";
+import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
+import "../../chart-js-setup";
 const TabsConfig = [
   {
     link: PATH_DASHBOARD.admin.createTerm,
@@ -45,7 +47,8 @@ export default function AdminDashboard() {
   const [applications, setApplications] = useState("");
   const [femaleStudents, setFemaleStudents] = useState("");
   const [maleStudents, setMaleStudents] = useState("");
-  const [maleSTeachers, setMaleTeachers] = useState("");
+  const [maleTeachers, setMaleTeachers] = useState("");
+  const [femaleTeachers, setFemaleTeachers] = useState("");
 
   //current term
   useEffect(() => {
@@ -64,18 +67,20 @@ export default function AdminDashboard() {
   useEffect(() => {
     const FetchStudents = async (limit) => {
       try {
-        const results = await dispatch(fetchUsers({ role: "student", limit: 500 }));
+        const results = await dispatch(
+          fetchUsers({ role: "student", limit: 500 })
+        );
         const users = unwrapResult(results);
         const Length = users.data.total;
         setStudents(Length);
-        const {list} = users.data
+        const { list } = users.data;
         //female students
-        const females = list.filter((female)=>female.gender === "female")
-      setFemaleStudents(females.length)
+        const females = list.filter((female) => female.gender === "female");
+        setFemaleStudents(females.length);
 
         //male students
-        const males = list.filter((male)=>male.gender === "male")
-      setMaleStudents(males.length)
+        const males = list.filter((male) => male.gender === "male");
+        setMaleStudents(males.length);
       } catch (error) {
         console.log(error);
       }
@@ -99,14 +104,24 @@ export default function AdminDashboard() {
   }, []);
   //number of teachers
   useEffect(() => {
-    const FetchTeachers = async () => {
+    const FetchTeachers = async (limit) => {
       try {
-        const results = await dispatch(fetchUsers({ role: "teacher" }));
+        const results = await dispatch(
+          fetchUsers({ role: "teacher", limit: 500 })
+        );
         console.log(results);
         const users = unwrapResult(results);
         const Length = users.data.total;
         console.log(Length);
         setTeachers(Length);
+        const { list } = users.data;
+        //female students
+        const females = list.filter((female) => female.gender === "female");
+        setFemaleTeachers(females.length);
+
+        //male students
+        const males = list.filter((male) => male.gender === "male");
+        setMaleTeachers(males.length);
       } catch (error) {
         console.log(error);
       }
@@ -127,9 +142,49 @@ export default function AdminDashboard() {
         return "Good Evening,";
     }
   }
+
+  //pie chart data
+  const pieData = {
+    labels: ["Active", "Deactivated"],
+    datasets: [
+      {
+        label: "No. of Students",
+        data: [106, 0],
+        backgroundColor: ["#4682B4", "red"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  //doughnut chart data
+  const StudentData = {
+    labels: ["Male", "Female"],
+    datasets: [
+      {
+        label: "No. of Students",
+        data: [maleStudents, femaleStudents],
+        backgroundColor: ["#5F9EA0", "#355E3B"],
+        borderColor: ["#5F9EA0", "#355E3B"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const TeacherData = {
+    labels: ["Male", "Female"],
+    datasets: [
+      {
+        label: "No. of Teachers",
+        data: [maleTeachers, femaleTeachers],
+        backgroundColor: ["#5F9EA0", "#355E3B"],
+        borderColor: ["#5F9EA0", "#355E3B"],
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <Wrapper className="py-5">
-      <div className="d-flex flex-row left w-100 justify-content-between align-items-center first-div">
+      <div className="d-flex flex-row left w-100 justify-content-between align-items-center first-div flex-wrap gap-4 md-gap-0">
         <div className="logo-div">
           <img src="./images/logo.png" />
         </div>
@@ -145,14 +200,15 @@ export default function AdminDashboard() {
                 {user?.firstName} {user?.lastName}
               </h6>
             </div>
-            <button className="pencil-btn">
+            <Link className="pencil-btn react-router-link"
+            to={PATH_DASHBOARD.admin.accountSettings}>
               <Icon
                 icon="octicon:pencil-24"
                 width="1.0em"
                 height="1.0em"
                 style={{ color: "black" }}
               />
-            </button>
+            </Link>
           </div>
           <div className="child">
             <p>Personal Email Address:</p>
@@ -263,7 +319,7 @@ export default function AdminDashboard() {
       <div className="tabs row">
         <div className="col-lg-8 plate px-lg-2">
           <div className="content d-flex flex-column justify-content-between align-items-center p-3">
-            <div className="d-flex flex-row justify-content-between w-100">
+            <div cl assName="d-flex flex-row justify-content-between w-100">
               <h4>Population Data</h4>
               <Icon
                 icon="iconamoon:arrow-top-right-1-bold"
@@ -272,13 +328,13 @@ export default function AdminDashboard() {
                 style={{ color: "white" }}
               />
             </div>
-            <div className="big-icon">
-              <Icon
-                icon="fluent:hard-drive-20-regular"
-                width="12em"
-                height="12em"
-                style={{ color: "grey" }}
-              />
+            <div className="d-flex flex-row justify-content-between flex-wrap align-items-center">
+              <div>
+                <Doughnut data={StudentData} />
+              </div>
+              <div>
+                <Doughnut data={TeacherData} />
+              </div>
             </div>
             <div className="d-flex flex-row gap-3">
               <div className="population d-flex flex-column justify-content-center align-items-center">
@@ -290,18 +346,37 @@ export default function AdminDashboard() {
                 <p>Male Students</p>
               </div>{" "}
               <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>3</h5>
+                <h5>{femaleTeachers}</h5>
                 <p>Female Teachers</p>
               </div>{" "}
               <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>3</h5>
-                <p>Female Teachers</p>
+                <h5>{maleTeachers}</h5>
+                <p>Male Teachers</p>
               </div>
             </div>
           </div>
         </div>
         <div className="col-lg-4 plate px-lg-2">
-          <div className="content"></div>
+          <div className="content d-flex flex-column justify-content-between align-items-center p-3">
+            <h4 className="head">Users Summary</h4>
+            <div className="chart-summary d-flex flex-row gap-2">
+              <div className="active-users"></div>
+              <div className="inactive-users"></div>
+            </div>
+            <div className="chart ">
+              <Pie data={pieData} />
+            </div>
+            <div className="users d-flex flex-row w-100 justify-content-between">
+              <div className="d-flex flex-column align-items-center">
+                <h5>106</h5>
+                <p>Active users</p>
+              </div>
+              <div className="d-flex flex-column align-items-center">
+                <h5>0</h5>
+                <p>Deactivated users</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -418,11 +493,22 @@ const Wrapper = styled.div`
     }
   }
   .tabs {
+    height: fit-content;
     .content {
-      height: 400px;
+      height: 100%;
       border: 1px solid #f1f1f1;
       border-radius: 10px;
       background-color: white;
+      text-align: center;
+      .population, .users{
+        margin-top: 15px;
+        p{
+          font-size: 15px;
+        }
+        h5{
+          font-weight: 500 !important;
+        }
+      }
       h4 {
         font-weight: 400 !important;
       }

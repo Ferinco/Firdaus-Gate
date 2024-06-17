@@ -47,7 +47,7 @@ const sidebarConfig = [
   {
     id: 6,
     icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.admin.applications,
+    link: PATH_DASHBOARD.admin.createTerm,
     title: "Term",
   },
   {
