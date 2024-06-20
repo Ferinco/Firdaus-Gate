@@ -76,5 +76,8 @@ export const PATH_DASHBOARD = {
     reports: JOIN(ROOT_ADMIN, "results"),
     news: JOIN(ROOT_ADMIN, "news"),
     view: JOIN(ROOT_ADMIN, "view-results"),
+    deactivated: JOIN(ROOT_ADMIN, "deactivated-users"),
+    classesAndSubjects: JOIN(ROOT_ADMIN, "classes-and-subjects"),
+    classesByData: JOIN(ROOT_ADMIN, "class-data"),
   },
 };

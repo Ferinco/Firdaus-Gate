@@ -53,6 +53,9 @@ import {
   UploadNews,
   NewsPage,
   ResultsCheck,
+  Deactivated,
+  ClassData,
+  DataByClasses,
 } from "../pages/admin";
 
 import { JSS1Admission, AdmissionForm } from "../pages/admission";
@@ -232,8 +235,11 @@ export default function Routes() {
         { path: "/admin/students-list", element: <StudentsList /> },
         { path: "/admin/create-term", element: <CreateTerm /> },
         { path: "/admin/applications", element: <ActiveApplications /> },
+        { path: "/admin/deactivated-users", element: <Deactivated /> },
         { path: "/admin/create-calendar", element: <CreateCalendar /> },
+        { path: "/admin/classes-and-subjects", element: <ClassData /> },
         { path: "/admin/notify", element: <Notify /> },
+        { path: "/admin/class-data", element: <DataByClasses /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
         {
           path: "/admin/student-info/:identity",

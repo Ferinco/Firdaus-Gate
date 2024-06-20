@@ -319,16 +319,16 @@ export default function AdminDashboard() {
       <div className="tabs row">
         <div className="col-lg-8 plate px-lg-2">
           <div className="content d-flex flex-column justify-content-between align-items-center p-3">
-            <div cl assName="d-flex flex-row justify-content-between w-100">
+            <div className="d-flex flex-row justify-content-between w-100">
               <h4>Population Data</h4>
               <Icon
                 icon="iconamoon:arrow-top-right-1-bold"
                 width="1.2em"
                 height="1.2em"
-                style={{ color: "white" }}
+                style={{ color: "black" }}
               />
             </div>
-            <div className="d-flex flex-row justify-content-between flex-wrap align-items-center">
+            <div className="d-flex flex-row justify-content-between flex-wrap align-items-center mt-3">
               <div>
                 <Doughnut data={StudentData} />
               </div>
@@ -494,6 +494,7 @@ const Wrapper = styled.div`
   }
   .tabs {
     height: fit-content;
+    margin-top: 50px;
     .content {
       height: 100%;
       border: 1px solid #f1f1f1;

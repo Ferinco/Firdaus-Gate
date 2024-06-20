@@ -15,6 +15,10 @@ export {default as EditTeacher} from "./editTeacher"
 export {default as UploadNews} from "./news"
 export {default as NewsPage} from "./newsPage"
 export {default as ResultsCheck} from "./checkResults"
+export {default as Deactivated} from "./deactivatedUsers"
+export {default as ClassData} from "./classData"
+export {default as DataByClasses} from "./classes"
+
 
 
 

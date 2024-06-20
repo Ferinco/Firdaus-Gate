@@ -40,33 +40,33 @@ const sidebarConfig = [
   // },
   {
     id: 5,
-    icon: "uil:create-dashboard",
+    icon: "fluent:form-multiple-28-regular",
     link: PATH_DASHBOARD.admin.applications,
     title: "Applications",
   },
   {
     id: 6,
-    icon: "uil:create-dashboard",
+    icon: "solar:calendar-broken",
     link: PATH_DASHBOARD.admin.createTerm,
     title: "Term",
   },
   {
     id: 7,
-    icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.admin.applications,
-    title: "General",
+    icon: "lets-icons:world-light" ,
+    link: PATH_DASHBOARD.admin.classesByData,
+    title: "Class Data",
   },
   {
     id: 8,
-    icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.admin.applications,
+    icon: "fluent:form-multiple-28-regular",
+    link: PATH_DASHBOARD.admin.classesAndSubjects,
     title: "Classes and Subjects",
   },
   {
     id: 9,
-    icon: "uil:create-dashboard",
-    link: PATH_DASHBOARD.admin.applications,
-    title: "News",
+    icon: "fluent-mdl2:deactivate-orders" ,
+    link: PATH_DASHBOARD.admin.deactivated,
+    title: "Dactivated Users",
   },
 ];
 
