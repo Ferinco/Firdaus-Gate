@@ -63,6 +63,12 @@ const sidebarConfig = [
     title: "Term",
   },
   {
+    id: 10,
+    icon: "ion:folder-open-outline",
+    link: PATH_DASHBOARD.admin.templates,
+    title: "Templates Archive",
+  },
+  {
     id: 9,
     icon: "fluent-mdl2:deactivate-orders" ,
     link: PATH_DASHBOARD.admin.deactivated,

@@ -84,6 +84,7 @@ import NewStudents from "../pages/fees/newStudents";
 import CheckAdmission from "../pages/admission/checkAdmission";
 import CheckQuestions from "../pages/student/checkQuestions";
 import { OverlayLoading } from "../components/OverlayLoading";
+import Templates from "../pages/admin/templates";
 export default function Routes() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -241,6 +242,7 @@ export default function Routes() {
         { path: "/admin/notify", element: <Notify /> },
         { path: "/admin/class-data", element: <DataByClasses /> },
         { path: "/admin/account-settings", element: <AdminSettings /> },
+        { path: "/admin/download-templates", element: <Templates /> },
         {
           path: "/admin/student-info/:identity",
           element: <StudentInfo />,

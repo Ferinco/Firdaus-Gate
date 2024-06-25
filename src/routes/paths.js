@@ -79,5 +79,6 @@ export const PATH_DASHBOARD = {
     deactivated: JOIN(ROOT_ADMIN, "deactivated-users"),
     classesAndSubjects: JOIN(ROOT_ADMIN, "classes-and-subjects"),
     classesByData: JOIN(ROOT_ADMIN, "class-data"),
+    templates: JOIN(ROOT_ADMIN, "download-templates"),
   },
 };
