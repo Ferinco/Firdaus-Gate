@@ -45,22 +45,22 @@ const sidebarConfig = [
     title: "Applications",
   },
   {
-    id: 6,
-    icon: "solar:calendar-broken",
-    link: PATH_DASHBOARD.admin.createTerm,
-    title: "Term",
-  },
-  {
     id: 7,
-    icon: "lets-icons:world-light" ,
+    icon: "oui:ml-create-population-job" ,
     link: PATH_DASHBOARD.admin.classesByData,
-    title: "Class Data",
+    title: "Population by Class",
   },
   {
     id: 8,
     icon: "fluent:form-multiple-28-regular",
     link: PATH_DASHBOARD.admin.classesAndSubjects,
     title: "Classes and Subjects",
+  },
+  {
+    id: 6,
+    icon: "solar:calendar-broken",
+    link: PATH_DASHBOARD.admin.createTerm,
+    title: "Term",
   },
   {
     id: 9,

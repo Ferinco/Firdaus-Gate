@@ -45,8 +45,7 @@ export default function ClassDataPage() {
             <div className="d-flex flex-column">
               {/* <p ><span>{applications?.length}</span> people have purchased the admission form.</p> */}
               <p className="text-muted">
-                A mail has been sent to them upon successful application, you
-                can also mail them to schedule a meeting with them
+                Class Lists, names and their respective codes with the number of subjects offered in them.
               </p>
             </div>
             <div className="table-div mt-3">

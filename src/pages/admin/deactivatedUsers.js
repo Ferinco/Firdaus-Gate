@@ -321,9 +321,10 @@ const getData = async (pageNum, limitNum, filter) => {
           {isLoading ? <CircularProgress /> : ""}
       <Wrapper className="d-flex flex-column py-5">
         <div className="content-wrapper p-3 mt-5">
+            {/* <h4>Deactivated Students</h4> */}
           <div className="d-flex py-3 justify-content-between align-items-center search-div">
             <form onSubmit={handleSubmit(handleSearch)}>
-              <p className="mb-1 search-p">Search students</p>
+              <p className="mb-1 search-p">Search deactivated students</p>
               <div className="d-flex flex-row gap-2 search-field">
                 <input
                   type="text"
@@ -531,7 +532,7 @@ const getData = async (pageNum, limitNum, filter) => {
             </div>
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-
+<p>You have not deactivated any students yet.</p>
               </div>
           )}
         </div>

@@ -200,8 +200,10 @@ export default function AdminDashboard() {
                 {user?.firstName} {user?.lastName}
               </h6>
             </div>
-            <Link className="pencil-btn react-router-link"
-            to={PATH_DASHBOARD.admin.accountSettings}>
+            <Link
+              className="pencil-btn react-router-link"
+              to={PATH_DASHBOARD.admin.accountSettings}
+            >
               <Icon
                 icon="octicon:pencil-24"
                 width="1.0em"
@@ -232,7 +234,10 @@ export default function AdminDashboard() {
       </div>
       <div className="middle-div py-3">
         <div className="overviews p-0 py-3">
-          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+          <Link
+            className="circle-div react-router-link d-flex flex-row justify-content-start align-items-center gap-3 p-3"
+            to={PATH_DASHBOARD.admin.createTerm}
+          >
             <Icon
               icon="solar:calendar-broken"
               width="2.5em"
@@ -253,8 +258,11 @@ export default function AdminDashboard() {
                 </h5>
               </h5>
             </div>
-          </div>
-          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+          </Link>
+          <Link
+            className="circle-div react-router-link d-flex flex-row justify-content-start align-items-center gap-3 p-3"
+            to={PATH_DASHBOARD.admin.teachersList}
+          >
             <Icon
               icon="la:chalkboard-teacher"
               width="2.5em"
@@ -273,8 +281,11 @@ export default function AdminDashboard() {
                 )}
               </h5>
             </div>
-          </div>
-          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+          </Link>
+          <Link
+            className="circle-div react-router-link d-flex flex-row justify-content-start align-items-center gap-3 p-3"
+            to={PATH_DASHBOARD.admin.studentsList}
+          >
             <Icon
               icon="fluent:people-community-48-regular"
               width="2.5em"
@@ -293,8 +304,11 @@ export default function AdminDashboard() {
                 )}
               </h5>
             </div>
-          </div>
-          <div className="circle-div d-flex flex-row justify-content-start align-items-center gap-3 p-3">
+          </Link>
+          <Link
+            className="circle-div react-router-link d-flex flex-row justify-content-start align-items-center gap-3 p-3"
+            to={PATH_DASHBOARD.admin.applications}
+          >
             <Icon
               icon="fluent:form-multiple-28-regular"
               width="2.5em"
@@ -313,7 +327,7 @@ export default function AdminDashboard() {
                 )}
               </h5>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="tabs row">
@@ -329,36 +343,38 @@ export default function AdminDashboard() {
               />
             </div>
             <div className="d-flex flex-row justify-content-between flex-wrap align-items-center mt-3">
-              <div>
+              <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
                 <Doughnut data={StudentData} />
+                <div className="d-flex flex-row gap-4">
+                  <div className="population d-flex flex-column justify-content-center align-items-center">
+                    <h5>{femaleStudents}</h5>
+                    <p>Female Students</p>
+                  </div>{" "}
+                  <div className="population d-flex flex-column justify-content-center align-items-center">
+                    <h5>{maleStudents}</h5>
+                    <p>Male Students</p>
+                  </div>{" "}
+                </div>
               </div>
-              <div>
+              <div className="d-flex flex-column gap-3 justify-content-center align-items-center">
                 <Doughnut data={TeacherData} />
-              </div>
-            </div>
-            <div className="d-flex flex-row gap-3">
-              <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>{femaleStudents}</h5>
-                <p>Female Students</p>
-              </div>{" "}
-              <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>{maleStudents}</h5>
-                <p>Male Students</p>
-              </div>{" "}
-              <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>{femaleTeachers}</h5>
-                <p>Female Teachers</p>
-              </div>{" "}
-              <div className="population d-flex flex-column justify-content-center align-items-center">
-                <h5>{maleTeachers}</h5>
-                <p>Male Teachers</p>
+                <div className="d-flex flex-row gap-4">
+                  <div className="population d-flex flex-column justify-content-center align-items-center">
+                    <h5>{femaleTeachers}</h5>
+                    <p>Female Teachers</p>
+                  </div>{" "}
+                  <div className="population d-flex flex-column justify-content-center align-items-center">
+                    <h5>{maleTeachers}</h5>
+                    <p>Male Teachers</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="col-lg-4 plate px-lg-2">
           <div className="content d-flex flex-column justify-content-between align-items-center p-3">
-            <h4 className="head">Users Summary</h4>
+            <h4 className="head">Students Summary</h4>
             <div className="chart-summary d-flex flex-row gap-2">
               <div className="active-users"></div>
               <div className="inactive-users"></div>
@@ -369,11 +385,11 @@ export default function AdminDashboard() {
             <div className="users d-flex flex-row w-100 justify-content-between">
               <div className="d-flex flex-column align-items-center">
                 <h5>106</h5>
-                <p>Active users</p>
+                <p>Active students</p>
               </div>
               <div className="d-flex flex-column align-items-center">
                 <h5>0</h5>
-                <p>Deactivated users</p>
+                <p>Deactivated students</p>
               </div>
             </div>
           </div>
@@ -453,6 +469,9 @@ const Wrapper = styled.div`
         border-radius: 10px;
         display: flex;
         border: 1px solid #f1f1f1;
+        &:hover {
+          scale: 1.02;
+        }
         p {
           font-weight: 300;
           font-size: 16px;
@@ -501,12 +520,13 @@ const Wrapper = styled.div`
       border-radius: 10px;
       background-color: white;
       text-align: center;
-      .population, .users{
+      .population,
+      .users {
         margin-top: 15px;
-        p{
-          font-size: 15px;
+        p {
+          font-size: 12px !important;
         }
-        h5{
+        h5 {
           font-weight: 500 !important;
         }
       }

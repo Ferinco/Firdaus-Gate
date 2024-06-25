@@ -130,6 +130,7 @@ const ChangeProfile = () => {
   const { user } = useSelector((state) => state.users || {});
   useEffect(() => {
     dispatch(fetchUser({ id: identity }));
+    setIsLoading(false)
   }, [identity, dispatch]);
 console.log(user)
 const onSubmitProfile = async (data) => {
@@ -166,6 +167,7 @@ const onSubmitProfile = async (data) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
     getValues,
   } = useForm({
@@ -179,6 +181,19 @@ const onSubmitProfile = async (data) => {
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      // Reset form values with the user's data
+      reset({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        class: user?.currentClass,
+        tel: user?.parentPhone,
+        id:user?.studentId
+        // add other fields here
+      });
+    }
+  }, [user, reset]);
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
     setProfilePhoto(event.target.files[0]);

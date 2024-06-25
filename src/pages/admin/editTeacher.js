@@ -25,7 +25,9 @@ export default function EditTeacher() {
   const onSubmitSecurity = async (data) => {
     console.log("data");
   };
-
+useEffect(()=>{
+  console.log("haaa")
+}, [])
   const phoneRegEx =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   //validations for edit form
@@ -56,7 +58,7 @@ export default function EditTeacher() {
       .matches(phoneRegEx, "phone number is invalid")
       .required("phone number is required")
       .min(10, "phone number is invalid")
-      .max(11, "phone number is invalid"),
+      .max(10, "phone number is invalid"),
     oldPassword: yup
       .string()
       .oneOf([yup.ref("newPassword"), null], "passwords must match")
@@ -195,6 +197,7 @@ const ChangeProfile = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
     getValues,
   } = useForm({
@@ -210,6 +213,19 @@ const ChangeProfile = () => {
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      // Reset form values with the user's data
+      reset({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        class: user?.classHandled,
+        tel: user?.tel,
+        id:user?.teacherId
+        // add other fields here
+      });
+    }
+  }, [user, reset]);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSignatureFile(event.target.files[0]);
@@ -329,7 +345,7 @@ const ChangeProfile = () => {
                 />
               ) : (
                 <img
-                  src={getValues().teacherSignature}
+                  src={user?.teacherSignature}
                   alt="Preview"
                   style={{ maxWidth: "200px" }}
                 />
