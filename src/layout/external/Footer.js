@@ -13,7 +13,7 @@ function Footer() {
           <div className="brief">
             <p className="header ">Firdaus-Gate Model Schools</p>
             <p className="not-link ">
-              Establised in 1999, we have since dedicated our resources to
+              Establised in 2012, we have since dedicated our resources to
               raising future leaders; making them responsible, confident and be
               of good impact to the society without neglect to proper FAITH.
             </p>

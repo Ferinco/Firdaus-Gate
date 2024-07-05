@@ -76,7 +76,10 @@ export default function CreateTerm() {
             </option>
             <option value="2023">2023/2024</option>
             <option value="2024">2024/2025</option>
-            <option value="2025 ">2026/2025</option>
+            <option value="2025 ">2025/2026</option>
+            <option value="2025 ">2026/2027</option>
+            <option value="2025 ">2027/2028</option>
+            <option value="2025 ">2028/2029</option>
           </select>{" "}
         </div>
 

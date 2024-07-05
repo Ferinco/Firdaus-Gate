@@ -39,7 +39,7 @@ export default function AboutSection() {
           {/* <h6 className="pre-header">about us</h6> */}
           <h2>The Place Where you Grow and Learn.</h2>
           <p>
-            Firdaus-Gate Model Schools, established in 1999 has dedicated her
+            Firdaus-Gate Model Schools, established in 2012 has dedicated her
             resources to raise future leaders. We have since then provided
             students with skills, resources and enlightment to harness their
             potential and talents, aimed at making them the best they can be.

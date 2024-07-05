@@ -15,7 +15,7 @@ export const PATH_AUTH = {
 export const PATH_PAGE = {
   home: "/",
   about: "/about-us",
-  jss1Admission: "/admission/admission-into-jss1",
+  jss1Admission: "/admission/enrollment",
   admissionForm: "/admission/admission-form",
   receipt: "/admission/admission-form/payment-success",
   admission: "/admission/index",

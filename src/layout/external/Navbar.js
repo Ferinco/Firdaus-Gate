@@ -12,6 +12,7 @@ import { Button } from "../../components/custom";
 import { useAppContext } from "../../contexts/Context";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import Marquee from "react-fast-marquee";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [closer, setCloser] = useState(false);
@@ -79,7 +80,16 @@ export default function Navbar() {
           </div>
           <ul className="menu-links d-flex align-items-center h-100 mb-0">
             <li>
-              <a className="nav-link">about <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
+              <a className="nav-link">
+                about{" "}
+                <Icon
+                  icon="ic:baseline-keyboard-arrow-down"
+                  className="drop-icon"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                />
+              </a>
               <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.about}>
                   about us
@@ -90,7 +100,16 @@ export default function Navbar() {
               </ul>{" "}
             </li>
             <li>
-              <a className="nav-link">admission <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
+              <a className="nav-link">
+                admission{" "}
+                <Icon
+                  icon="ic:baseline-keyboard-arrow-down"
+                  className="drop-icon"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                />
+              </a>
               <ul className="dropdown px-1 pb-1">
                 <Link className="react-router-link" to={PATH_PAGE.admission}>
                   Student admission portal
@@ -99,7 +118,7 @@ export default function Navbar() {
                   className="react-router-link"
                   to={PATH_PAGE.jss1Admission}
                 >
-                  admission into JSS1
+                  Entrance Examination
                 </Link>
                 <Link className="react-router-link" to={PATH_PAGE.continue}>
                   continue admission
@@ -107,7 +126,16 @@ export default function Navbar() {
               </ul>
             </li>
             <li>
-              <a className="nav-link">portal <Icon icon="ic:baseline-keyboard-arrow-down" className="drop-icon" width="1.2em" height="1.2em"  style={{color: "black"}} /></a>
+              <a className="nav-link">
+                portal{" "}
+                <Icon
+                  icon="ic:baseline-keyboard-arrow-down"
+                  className="drop-icon"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                />
+              </a>
               <ul className="dropdown px-1 pb-1">
                 <Link
                   className="react-router-link"
@@ -164,6 +192,10 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+      <Marquee className="third-navbar">
+      <Icon icon="streamline-emojis:bell" width="1.2em" height="1.2em" />&nbsp;&nbsp;Enrollment Now Open for 2024/2025 Academic year!!!&nbsp;&nbsp; Entrance Examination Dates:  6th of July, 2024. 10th of August, 2024. 24th of August, 2024.&nbsp;&nbsp;
+        Time:&nbsp; <p className="time m-0">9:00am</p> &nbsp; prompt.&nbsp;&nbsp; Venue: School Hall. Click &nbsp;<Link to={PATH_PAGE.jss1Admission}>here</Link>&nbsp;for more info.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </Marquee>
 
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links py-0 px-2">
@@ -323,15 +355,15 @@ const NavigationBar = styled.div`
   width: 100% !important;
   z-index: 9999;
 
-  .book-apt{
+  .book-apt {
     color: blue !important;
     font-size: 13px !important;
     padding: 6px 16px !important;
     border: 10px;
     border-radius: 9px;
-    &:hover{
-  background-color: #eff4fb;
-  transition: 0.3ms;
+    &:hover {
+      background-color: #eff4fb;
+      transition: 0.3ms;
     }
   }
   .sidebar {
@@ -384,8 +416,8 @@ const NavigationBar = styled.div`
     transition: 0.5s !important;
     position: relative !important;
     @media screen and (max-width: 982px) {
-        height: 68px !important;
-      }
+      height: 68px !important;
+    }
     .div {
       align-items: center;
       height: 90px;
@@ -457,7 +489,16 @@ const NavigationBar = styled.div`
       display: block;
     }
   }
-
+  .third-navbar {
+    background-color: white !important;
+    padding: 7px 0;
+    color: black;
+    font-weight: 400;
+    font-size: 14px !important;
+    .time{
+      font-weight: 600;
+    }
+  }
   .mobile-nav {
     display: none !important;
   }

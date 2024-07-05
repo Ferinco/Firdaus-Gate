@@ -127,7 +127,7 @@ export default function Routes() {
       element: <AdmissionLayout />,
       children: [
         { path: "index", element: <AdmissionHome /> },
-        { path: "admission-into-jss1", element: <JSS1Admission /> },
+        { path: "enrollment", element: <JSS1Admission /> },
         { path: "admission-form", element: <AdmissionForm /> },
         { path: "admission-form/payment-success", element: <Receipt /> },
         { path: "continue-admission", element: <ContinueAdmission /> },

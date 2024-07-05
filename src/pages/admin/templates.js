@@ -7,37 +7,6 @@ export default function Templates() {
   const [filename, setFileName] = useState("");
   const [downloading, setDownloading] = useState(false);
 
-  const updateFileLink = () => {
-    switch (school) {
-      case "kg":
-        setLink(
-          "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719311579/KG_REPORT_-_Sheet1_3_qudzv6.csv"
-        );
-        setFileName("KG_Template.csv");
-        break;
-      case "nur":
-        setLink("");
-        setFileName("NUR_Template.csv");
-        break;
-      case "pry":
-        setLink("");
-        setFileName("PRY_Template.csv");
-        break;
-      case "jnr":
-        setLink("");
-        setFileName("JNR_Template.csv");
-        break;
-      case "snr":
-        setLink("");
-        setFileName("SNR_Template.csv");
-        break;
-      default:
-        setLink("");
-        setFileName("");
-        break;
-    }
-  };
-
   const downloadFile = async (url, file) => {
     setDownloading(true);
     const response = await fetch(url);
@@ -52,7 +21,9 @@ export default function Templates() {
         chunks.push(value);
       }
     }
-    const blob = new Blob(chunks, { type: "text/csv" });
+    const blob = new Blob(chunks, {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
     const downloadUrl = window.URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = downloadUrl;
@@ -77,103 +48,109 @@ export default function Templates() {
         </div>
       </div>
       <div className="body-content">
-      <div className="select-wrapper d-flex flex-column justify-content-start align-items-start p-3 px-4 mt-5">
-        <h5>Results Template</h5>
-        <p>Select to download any results template of your choice.</p>
-        <div className="d-flex flex-row flex-wrap justify-content-start gap-3 align-items-end">
-          <div className="d-flex flex-column gap-1 mt-2">
-            <div>
-              <h6>Select Class</h6>
-            </div>
-            <select
-              onChange={(e) => {
-                setSchool(e.target.value);
-                switch (e.target.value) {
-                  case "kg":
-                    setLink(
-                      "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719311579/KG_REPORT_-_Sheet1_3_qudzv6.csv"
-                    );
-                    setFileName("KG_Template.csv");
-                    break;
-                  case "nur":
-                    setLink(
-                      "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719318540/NURSERY_REPORTS_-_Sheet1_9_ocba25.csv"
-                    );
-                    setFileName("NUR_Template.csv");
-                    break;
-                  case "pry":
-                    setLink(
-                      "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719318346/BASIC_REPORT_-_Sheet1_3_kk6cdt.csv"
-                    );
-                    setFileName("PRY_Template.csv");
-                    break;
-                  case "jnr":
-                    setLink(
-                      "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719318708/JUNIOR_REPORT_-_Sheet1_5_ibldow.csv"
-                    );
-                    setFileName("JNR_Template.csv");
-                    break;
-                  case "snr":
-                    setLink(
-                      "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719317418/SENIOR_REPORT_-_Sheet1_4_ua1ytx.csv"
-                    );
-                    setFileName("SNR_Template.csv");
-                    break;
-                  default:
-                    setLink("");
-                    setFileName("");
-                    break;
+        <div className="select-wrapper d-flex flex-column justify-content-start align-items-start p-3 px-4 mt-5">
+          <h5>Results Template</h5>
+          <p>Select to download any results template of your choice.</p>
+          <div className="d-flex flex-row flex-wrap justify-content-start gap-3 align-items-end">
+            <div className="d-flex flex-column gap-1 mt-2">
+              <div>
+                <h6>Select Class</h6>
+              </div>
+              <select
+                onChange={(e) => {
+                  setSchool(e.target.value);
+                  switch (e.target.value) {
+                    case "kg":
+                      setLink(
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182249/KG_REPORT_cf53yb.xlsx"
+                      );
+                      setFileName("KG_Template");
+                      break;
+                    case "nur":
+                      setLink(
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182269/NURSERY_REPORTS_jh0qwo.xlsx"
+                      );
+                      setFileName("NUR_Template");
+                      break;
+                    case "pry":
+                      setLink(
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182265/BASIC_REPORT_icnwuc.xlsx"
+                      );
+                      setFileName("PRY_Template");
+                      break;
+                    case "jnr":
+                      setLink(
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182255/JUNIOR_REPORT_1_ha0psq.xlsx"
+                      );
+                      setFileName("JNR_Template");
+                      break;
+                    case "snr":
+                      setLink(
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182271/SENIOR_REPORT_2_xsjetb.xlsx"
+                      );
+                      setFileName("SNR_Template");
+                      break;
+                    default:
+                      setLink("");
+                      setFileName("");
+                      break;
+                  }
+                }}
+              >
+                <option value="" disabled selected>
+                  Select Class
+                </option>
+                <option value={"kg"}>Kindergaten Classes</option>
+                <option value={"nur"}>Nursery Classes</option>
+                <option value={"pry"}>Basic Classes</option>
+                <option value={"jnr"}>Junior Classes</option>
+                <option value={"snr"}>Senior Classes</option>
+              </select>
+            </div>{" "}
+            <button
+              onClick={() => {
+                if (link) {
+                  downloadFile(link, filename);
                 }
               }}
+              className="check-btn"
+              disabled={!school || downloading}
             >
-              <option value="" disabled selected>
-                Select School
-              </option>
-              <option value={"kg"}>Kindergaten Classes</option>
-              <option value={"nur"}>Nursery Classes</option>
-              <option value={"pry"}>Basic Classes</option>
-              <option value={"jnr"}>Junior Classes</option>
-              <option value={"snr"}>Senior Classes</option>
-            </select>
-          </div>{" "}
-          <button
-            onClick={() => {
-              if (link) {
-                downloadFile(link, filename);
-              }
-            }}
-            className="check-btn"
-            disabled={!school || downloading}
-          >
-            {downloading ? "...downloading" : "Download"}
-          </button>
+              {downloading ? "...downloading" : "Download"}
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className="select-wrapper d-flex flex-column justify-content-start align-items-start p-3 px-4 mt-5">
-        <h5>Accounts Template</h5>
-        <p>Download either teachers or students template.</p>
-        <div className="d-flex flex-row flex-wrap justify-content-start gap-3 align-items-end">
-             <button
-            onClick={() => {
-              downloadFile("https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719319672/TEACHER_TEMPLATE_-_Sheet1_8_nbqsop.csv", "Teacher_Template.csv");
-            }}
-            className="check-btn"
-            disabled={downloading}
-          >
-            {downloading ? "...downloading" : "Teacher Template"}
-          </button>
-          <button
-            onClick={() => {
-              downloadFile("https://res.cloudinary.com/dyunxdvmy/raw/upload/v1719311480/STUDENT_TEMPLATE_-_student_test_csv_18_lbx7ew.csv", "Student_Template.csv");
-            }}
-            className="check-btn"
-            disabled={downloading}
-          >
-            {downloading ? "...downloading" : "Student Template"}
-          </button>
+        <div className="select-wrapper d-flex flex-column justify-content-start align-items-start p-3 px-4 mt-5">
+          <h5>Accounts Template</h5>
+          <p>Download either teachers or students template.</p>
+          <div className="d-flex flex-row flex-wrap justify-content-start gap-3 align-items-end">
+            <button
+              onClick={() => {
+                downloadFile(
+                  "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720183295/TEACHER_TEMPLATE_1_chabbt.xlsx",
+                  "Teacher_Template"
+                );
+              }}
+              className="check-btn"
+              disabled={downloading}
+            >
+              {downloading ? "...downloading" : "Teacher Template"}
+            </button>
+            <button
+              onClick={() => {
+                downloadFile(
+                  "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720183295/STUDENT_TEMPLATE_yjylc1.xlsx",
+                  "Student_Template"
+                );
+              }}
+              className="check-btn"
+              disabled={downloading}
+            >
+              {downloading ? "...downloading" : "Student Template"}
+            </button>
+          </div>
         </div>
-      </div>
       </div>
     </Wrapper>
   );
@@ -210,8 +187,8 @@ const Wrapper = styled.div`
     background-color: blue;
     border-radius: 10px;
   }
-  .body-content{
-  background-color: white !important;
-  min-height: 425px;
+  .body-content {
+    background-color: white !important;
+    min-height: 425px;
   }
 `;

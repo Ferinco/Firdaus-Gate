@@ -16,7 +16,7 @@ export default function About() {
       icon: "fluent:certificate-32-regular",
     },
     {
-      name: "Compitent Staff",
+      name: "Competent Staff",
       icon: "icon-park-outline:necktie",
     },
     {
@@ -51,7 +51,7 @@ export default function About() {
         </div>
         <div className="col-md-6 d-flex flex-column gap-3">
           <p className="m-0">
-            Since our establishment in 1999, we have been the best at dedicating
+            Since our establishment in 2012, we have been the best at dedicating
             our resources to building a better society through the power of
             education and proper Iman in children.
           </p>
@@ -190,7 +190,7 @@ export default function About() {
 }
 
 const Container = styled.div`
-margin-top: 90px;
+margin-top: 120px;
   .container,
   .row {
   }
