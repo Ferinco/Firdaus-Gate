@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { fetchCurrentTerm } from "../../redux/slices/term";
 import { useDispatch, useSelector } from "react-redux";
 import { AllSubjects } from "../../configs/allSubjects";
+import { GetTeacherClass } from "../../components/custom/teacherClass";
 
 const TabsConfig = [
   {
@@ -26,16 +27,24 @@ const TabsConfig = [
     icon: "fluent:pen-16-filled",
     iconColor: "black",
   },
-  // {
-  //   link: PATH_DASHBOARD.teacher.addScheme,
-  //   title: "Subject Scheme",
-  //   subTitle: "Upload scheme for the term",
-  //   icon: "pepicons-pencil:list",
-  //   iconColor: "white",
-  // },
+  {
+    link: PATH_DASHBOARD.teacher.results,
+    title: "Upload Results",
+    subTitle: "Upload students' performance results",
+    icon: "memory:poll",
+    iconColor: "white",
+  },
+  {
+    link: PATH_DASHBOARD.teacher.myStudents,
+    title: "View/Edit Students",
+    subTitle: "Upload students' perfor",
+    icon: "ic:baseline-settings",
+    iconColor: "white",
+  },
 ];
 
 export default function TeacherDashboard() {
+  const { user } = useAuth();
   const [weeks, setWeeks] = useState([]);
   const {
     termName,
@@ -54,12 +63,11 @@ export default function TeacherDashboard() {
       .then((res) => {
         setTermName(res[res.length - 1]?.term);
         setActiveSession(res[res.length - 1]?.session);
-        setTeacherClass(user.classHandled);
+        GetTeacherClass(user, setTeacherClass);
       });
-  }, []);
+  }, [user, setTeacherClass]);
 
   //get current time
-  const { user } = useAuth();
   console.log(user);
   let currentTime = new Date().getHours();
   const [greeting, setGreeting] = useState(getGreeting(currentTime));
@@ -124,9 +132,9 @@ export default function TeacherDashboard() {
     subjectsArray.includes(subject.code)
   );
   console.log(filteredSubjects);
-  useEffect(()=>{
-setSubjects(filteredSubjects)
-  }, [])
+  useEffect(() => {
+    setSubjects(filteredSubjects);
+  }, []);
   return (
     <Dashboard className="py-5">
       <div className="head d-flex flex-column container py-3 justify-content-center px-0 mx-0">
@@ -163,7 +171,7 @@ setSubjects(filteredSubjects)
             <div className="icon-div p-2">
               <Icon
                 icon="streamline:class-lesson"
-                color="blue"
+                color="green"
                 className="icon"
               />
             </div>
@@ -172,7 +180,7 @@ setSubjects(filteredSubjects)
               <h5>
                 {user.classHandled ? (
                   <h6>
-                    {user.classHandled === "none" ? "None" : user.classHandled}
+                    {user.classHandled === "none" ? "None" : teacherClass}
                   </h6>
                 ) : (
                   "None"
@@ -184,7 +192,7 @@ setSubjects(filteredSubjects)
             <div className="icon-div p-2">
               <Icon
                 icon="fluent:people-team-20-filled"
-                color="blue"
+                color="#ffb366"
                 className="icon"
               />
             </div>
@@ -195,7 +203,7 @@ setSubjects(filteredSubjects)
           </div>
           <div className="info p-4">
             <div className="icon-div p-2">
-              <Icon icon="tabler:books" color="blue" className="icon" />
+              <Icon icon="tabler:books" color="#1c1c1c" className="icon" />
             </div>
             <div className="info-text mt-3">
               <p className="mb-0">Subjects Taught</p>
@@ -209,21 +217,27 @@ setSubjects(filteredSubjects)
 
       <div className="tabs d-flex flex-column mt-5">
         <h5>Tabs</h5>
-        {TabsConfig.map(({ icon, title, subTitle, iconColor, link }, index) => (
-          <Link
-            className="react-router-link tab d-flex flex-row justify-content-between align-items-center px-3 py-2 gap-1"
-            to={link}
-            key={index}
-          >
-            <div className="d-flex flex-column text gap-1">
-              <h6 className="m-0">{title}</h6>
-              <p className="m-0 sub-title">{subTitle}</p>
-            </div>
-            <div className="icon-div">
-              <Icon className="icon" icon={icon} color={iconColor} />
-            </div>
-          </Link>
-        ))}
+        <div className="row">
+          {TabsConfig.map(
+            ({ icon, title, subTitle, iconColor, link }, index) => (
+              <div className="col-lg-6">
+                <Link
+                  className={`tab-${index} react-router-link tab d-flex flex-row justify-content-between align-items-center px-3 py-2 gap-1 mt-3`}
+                  to={link}
+                  key={index}
+                >
+                  <div className="d-flex flex-column text gap-1">
+                    <h6 className="m-0">{title}</h6>
+                    <p className="m-0 sub-title">{subTitle}</p>
+                  </div>
+                  <div className="icon-div">
+                    <Icon className="icon" icon={icon} color={iconColor} />
+                  </div>
+                </Link>
+              </div>
+            )
+          )}
+        </div>
       </div>
     </Dashboard>
   );
@@ -276,8 +290,9 @@ const Dashboard = styled.div`
   .tabs {
     gap: 10px;
     width: 100% !important;
+    max-width: 850px !important;
     .tab {
-      max-width: 400px !important;
+      max-width: 100% !important;
       height: 100px !important;
       border-radius: 15px;
       align-items: center;
@@ -297,52 +312,51 @@ const Dashboard = styled.div`
           text-overflow: ellipsis;
         }
       }
-      &:nth-child(4) {
-        /* background: black; */
-        .icon-div {
-          background-color: #1c1c1c;
-        }
-        .icon {
-          font-size: 30px;
-        }
-        h6 {
-          color: black;
-        }
-        p {
-          /* color: #b3b3b3; */
-        }
+
+    }
+    .tab-0 {
+      .icon-div {
+        background-color: #030c8a !important;
       }
-      &:nth-child(2) {
-        /* background: #ffff66; */
-        .icon-div {
-          background-color: #fbfb87;
-        }
-        .icon {
-          font-size: 30px;
-        }
+      .icon {
+        font-size: 30px;
+        color: white !important;
+
       }
-      &:nth-child(3) {
-        /* background: #ffb366; */
-        color: black !important;
-        .icon-div {
-          background-color: #d9a26b;
-        }
-        .icon {
-          font-size: 30px;
-        }
-      }
-      &:last-child {
-        /* background-color: #8080ff; */
-        color: black !important;
-        .icon-div {
-          background-color: #8c8ce1;
-        }
-        .icon {
-          font-size: 30px;
-          color: white !important;
-        }
+      h6 {
+        color: black;
       }
     }
+    .tab-1 {
+      .icon-div {
+        background-color: #1c1c1c !important;
+      }
+      .icon {
+        font-size: 30px ;
+        color: white !important;
+      }
+      h6 {
+        color: black;
+      }
+    }
+    .tab-2 {
+      .icon-div {
+        background-color: #ffb366 !important;
+      }
+      .icon {
+        font-size: 30px;
+      }
+    }
+    .tab-3 {
+      color: black !important;
+      .icon-div {
+        background-color: green;
+      }
+      .icon {
+        font-size: 30px;
+      }
+    }
+
   }
   .mobile-info {
     display: none;

@@ -64,7 +64,7 @@ function Footer() {
               className="react-router-link py-1"
               to={PATH_PAGE.jss1Admission}
             >
-              Admission Into JSS1
+              Entrance Examination
             </Link>
             <Link
               className="react-router-link py-1"
