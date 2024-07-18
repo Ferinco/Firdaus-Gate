@@ -51,17 +51,19 @@ export default function ResultHistory() {
     const FetchStudents = async () => {
       try {
         const results = await dispatch(
-          fetchUsers({ role: "student", currentClass: user?.classHandled })
+          fetchUsers({ role: "student", currentClass: user?.classHandled, limit: 500 })
         );
         const users = unwrapResult(results);
         setStudents(users.data.list);
-        console.log(users.data.list);
+        console.log(users.data.list)
+        console.log(students);
       } catch (error) {
         console.log(error);
       }
     };
     FetchStudents();
   }, []);
+  console.log(students);
 
   const getResults = async () => {
     try {
@@ -184,10 +186,10 @@ export default function ResultHistory() {
                       return (
                         <tr key={result[0]}>
                           <td>{result[0]}</td>
-                          <td>{student ? student?.firstName : ""}</td>
-                          <td>{student ? student?.middleName : ""}</td>
-                          <td>{student ? student?.lastName : ""}</td>
-                          <td>{student ? student?.gender : ""}</td>
+                          <td>{student?.firstName}</td>
+                          <td>{student?.middleName}</td>
+                          <td>{student?.lastName}</td>
+                          <td>{student?.gender}</td>
                           <td>
                             <button className="view-button">
                               <Link

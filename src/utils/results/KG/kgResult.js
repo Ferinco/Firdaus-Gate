@@ -75,11 +75,11 @@ export function KgResult(props) {
         </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
-        <img src="/images/result-header.png" className="logo-container" />
+        <img src="/images/junior-header.jpg" className="logo-container" />
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}</p>
+            <p>{props.session}/{Number(props.session) + 1}</p>
           </div>
           <div className="">
             <h6>{props.term} RESULT</h6>
@@ -226,7 +226,7 @@ export function KgResult(props) {
               </tr>
               <tr>
                 <td>WRITING WORK</td>
-                <td className="text-center">{props?.results[3]}</td>
+                <td className="text-center">{props.results ? props.results[3] : ""}</td>
               </tr>
               <tr>
                 <td>COMMUNICATION ABILITY</td>

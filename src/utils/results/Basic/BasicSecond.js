@@ -110,11 +110,11 @@ export default function BasicSecond(props) {
         </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-        <img src="/images/result-header.png" className="logo-container" />
-        <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+      <img src="/images/junior-header.jpg" className="logo-container" />
+      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p className="academic-year">{props.session}</p>
+            <p>{props.session}/{Number(props.session) + 1}</p>
           </div>
           <div className="">
             <h6>SECOND TERM RESULT</h6>

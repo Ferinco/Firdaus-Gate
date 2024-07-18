@@ -110,43 +110,48 @@ export default function Results() {
   //to upload students results
   const handleCsvReportUpload = async (event) => {
     const incomingFile = event.target.files[0];
-    const fileExtension =
-      incomingFile.name.split(".")[incomingFile.name.split(".").length - 1];
+    const fileExtension = incomingFile.name.split('.').pop();
+  
     setFile(incomingFile);
+  
     if (!allowedExtension.includes(fileExtension)) {
-      toast.error("Please upload CSV file");
+      toast.error("Please upload a CSV file");
     } else {
-      Papa.parse(event.target.files[0], {
+      Papa.parse(incomingFile, {
         header: false,
         skipEmptyLines: true,
         complete: function (result) {
           const headerRow = result.data[0];
-
+  
           if (headerRow) {
             const columnArray = Object.values(headerRow);
-            const valuesArray = result.data
-              .slice(1)
-              .map((row) => Object.values(row));
-
+            let valuesArray = result.data.slice(1).map((row) => 
+              Object.values(row)
+            );
+  
+            // Remove rows where the first cell is empty
+            valuesArray = valuesArray.filter(row => row[0] !== '');
+  
             setColumn(columnArray);
             setValues(valuesArray);
             setTester(result.data);
-            setData(result.data.slice(2));
+            setData(valuesArray.slice(1)); // Adjusted to slice the first element
           }
-        },
+        }
       });
     }
   };
+  
+  
 
   //handle reports submission
-  console.log(termName, activeSession, teacherClass);
   const handleSubmit = async () => {
     setWaiting(true)
     try {
       const response = await axios.post(
         `https://ferrum-sever.onrender.com/api/saveResults`,
         {
-          results: data,
+          results: values,
           selectedClass: user?.classHandled,
           term: termName,
           currentSession: activeSession,
@@ -163,7 +168,7 @@ export default function Results() {
 
     }
   };
-  console.log(data);
+  // console.log(values.slice(1));
   return (
     <Page>
       <div className="d-flex flex-column align-items-center text-center px-3 py-5">

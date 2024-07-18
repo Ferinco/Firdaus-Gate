@@ -14,6 +14,9 @@ body  {
   overflow-x: hidden !important;
   /* color: black !important */
 }
+::-webkit-scrollbar{
+  display: none !important;
+}
 .student-name, .academic-year{
   font-weight: 600 !important;
 }

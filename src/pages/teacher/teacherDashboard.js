@@ -35,7 +35,7 @@ const TabsConfig = [
     iconColor: "white",
   },
   {
-    link: PATH_DASHBOARD.teacher.myStudents,
+    link: PATH_DASHBOARD.teacher.nmyStudents,
     title: "View/Edit Students",
     subTitle: "Upload students' perfor",
     icon: "ic:baseline-settings",
