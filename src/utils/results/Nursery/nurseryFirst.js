@@ -78,7 +78,7 @@ export default function NurseryFirst(props) {
       <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}/{Number(props.session) + 1}</p>
+            <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
           </div>
           <div className="">
             <h6>{props.term} RESULT</h6>
@@ -383,11 +383,11 @@ export default function NurseryFirst(props) {
             </tbody>
           </table>
           <div className="d-flex flex-row justify-content-between grade-div py-2 px-1">
-            <p>A-Excellent</p>
-            <p>B-Very Good</p>
-            <p>C-Good</p>
-            <p>D-Fair</p>
-            <p>E-Poor</p>
+            <p>5-Excellent</p>
+            <p>4-Very Good</p>
+            <p>3-Good</p>
+            <p>2-Fair</p>
+            <p>1-Poor</p>
           </div>
         </div>
         <div className="d-flex flex-column gap-2 end stamp-div">

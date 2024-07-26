@@ -85,8 +85,8 @@ export default function SeniorFirst(props) {
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
             <div className="title">
               <p>Academic Year</p>
-              <p className="academic-year">{props.session}</p>
-            </div>
+              <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
+              </div>
             <div className="">
               <h6>FIRST TERM RESULT</h6>
             </div>
