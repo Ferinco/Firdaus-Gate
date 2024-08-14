@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
-import Logo from "../logo";
+import Logo from "../../logo";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Dropdown } from "react-bootstrap";
 import { useState } from "react";
-import { PATH_AUTH, PATH_PAGE } from "../../routes/paths";
-import { PATH_DASHBOARD } from "../../routes/paths";
-import { Button } from "../../components/custom";
-import { useAppContext } from "../../contexts/Context";
+import { PATH_AUTH, PATH_PAGE } from "../../../routes/paths";
+import { PATH_DASHBOARD } from "../../../routes/paths";
+import { Button } from "../../../components/custom";
+import { useAppContext } from "../../../contexts/Context";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import Marquee from "react-fast-marquee";
+import TopBar from "./topBar";
+import NavLinks from "./navlinks";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [closer, setCloser] = useState(false);
@@ -45,18 +46,9 @@ export default function Navbar() {
 
   return (
     <NavigationBar className="navigation-bar">
-      <div className=" first-navbar d-flex ">
-        <div className="div d-flex justify-content-between w-100 px-5">
-          <div className="first-navbar-div">
-            <p className=" px-3">Raising Role Model and Achievers</p>
-          </div>
-          <div className="first-navbar-div d-flex">
-            <p className="px-3 py-2">Office Hour : 09:00am - 4:00pm</p>
-          </div>
-        </div>
-      </div>
+      <TopBar style="top-bar" />
       <div className={`second-navbar p-0 ${isOpen ? "unsticky" : ""}`}>
-        <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
+        <div className="div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
               <Icon
@@ -78,125 +70,9 @@ export default function Navbar() {
               <Logo />
             </div>
           </div>
-          <ul className="menu-links d-flex align-items-center h-100 mb-0">
-            <li>
-              <a className="nav-link">
-                about{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link className="react-router-link" to={PATH_PAGE.about}>
-                  about us
-                </Link>
-                <Link className="react-router-link">founder's profile</Link>
-                <Link className="react-router-link">principal's profile</Link>
-                <Link className="react-router-link">Management and staff</Link>
-              </ul>{" "}
-            </li>
-            <li>
-              <a className="nav-link">
-                admission{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link className="react-router-link" to={PATH_PAGE.admission}>
-                  Student admission portal
-                </Link>
-                <Link
-                  className="react-router-link"
-                  to={PATH_PAGE.jss1Admission}
-                >
-                  Entrance Examination
-                </Link>
-                <Link className="react-router-link" to={PATH_PAGE.continue}>
-                  continue admission
-                </Link>
-              </ul>
-            </li>
-            <li>
-              <a className="nav-link">
-                portal{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link
-                  className="react-router-link"
-                  to={PATH_DASHBOARD.student.index}
-                >
-                  student portal
-                </Link>
-                {/* <Link
-                  className="react-router-link"
-                  to={PATH_DASHBOARD.teacher.index}
-                >
-                  staff portal
-                </Link> */}
-                {/* <Link className="react-router-link">
-                  school fees payment
-                  <br />
-                  (existing students)
-                </Link>
-                <Link className="react-router-link">
-                  school fees payment
-                  <br />
-                  (new students)
-                </Link> */}
-              </ul>
-            </li>
-            <li>
-              <Link className="nav-link" to={PATH_PAGE.gallery}>
-                gallery
-              </Link>
-            </li>
-            <li>
-              <a className="nav-link">news</a>
-            </li>
-            <div className="link-group px-2 nav-link d-flex align-items-center gap-2">
-              {" "}
-              <li>
-                <a className="p-0 book-apt">Book Appointment</a>
-              </li>
-              <li>
-                <a className="contact-btn m-0 d-flex justify-content-center align-items-center p-0">
-                  <Button blue>
-                    {" "}
-                    <a
-                      className="p-0"
-                      href="#contactUs"
-                      style={{ color: "white" }}
-                    >
-                      Contact Us
-                    </a>
-                  </Button>{" "}
-                </a>
-              </li>
-            </div>
-          </ul>
+            <NavLinks />
         </div>
       </div>
-      <Marquee className="third-navbar">
-      <Icon icon="streamline-emojis:bell" width="1.2em" height="1.2em" />&nbsp;&nbsp;Enrollment Now Open for 2024/2025 Academic year!!!&nbsp;&nbsp; Entrance Examination Dates:  6th of July, 2024. 10th of August, 2024. 24th of August, 2024.&nbsp;&nbsp;
-        Time:&nbsp; <p className="time m-0">9:00am</p> &nbsp; prompt.&nbsp;&nbsp; Venue: School Hall. Click &nbsp;<Link to={PATH_PAGE.jss1Admission}>here</Link>&nbsp;for more info.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </Marquee>
-
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links py-0 px-2">
           <div className="logo-div py-3">
@@ -354,7 +230,16 @@ const NavigationBar = styled.div`
   top: 0 !important;
   width: 100% !important;
   z-index: 9999;
-
+  .top-bar {
+    background-color: white !important;
+    padding: 7px 0;
+    color: black;
+    font-weight: 400;
+    font-size: 14px !important;
+    .time {
+      font-weight: 600;
+    }
+  }
   .book-apt {
     color: blue !important;
     font-size: 13px !important;
@@ -390,23 +275,6 @@ const NavigationBar = styled.div`
     font-size: 40px;
     font-weight: 700 !important;
   }
-  .first-navbar {
-    background-color: #f5f5f5;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    position: relative;
-    &-div {
-      border-right: 1px solid gray;
-      border-left: 1px solid gray;
-    }
-    p {
-      display: flex;
-      align-items: center;
-      justify-self: center;
-      height: 100%;
-    }
-  }
   .second-navbar {
     height: 90px;
     align-items: center;
@@ -429,14 +297,7 @@ const NavigationBar = styled.div`
       }
       .header {
       }
-      .contact-btn {
-        Button {
-          text-transform: capitalize !important;
-          padding: 6px 16px !important;
-          font-size: 13px !important;
-          font-weight: 600;
-        }
-      }
+
       .icon {
         font-size: 30px;
       }
@@ -446,59 +307,8 @@ const NavigationBar = styled.div`
         }
       }
     }
-    .dropdown {
-      border-radius: 10px;
-      padding-top: 30px;
-      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    }
-    ul {
-      padding: 0;
-      list-style: none;
-    }
-    ul li {
-      display: inline-block;
-      position: relative;
-      /* line-height: 21px; */
-      text-align: left;
-    }
-    ul li a {
-      display: block;
-      padding: 8px 19px;
-      text-decoration: none;
-    }
-    .nav-link {
-      text-transform: capitalize;
-      font-size: 14px !important;
-      font-weight: 500 !important;
-    }
-    ul li a:hover {
-      cursor: pointer;
-    }
-    ul li ul.dropdown {
-      width: 200px; /* Set width of the dropdown */
-      background: white;
-      display: none;
-      position: absolute;
-      z-index: 999;
-      left: 0;
-    }
-    ul li:hover ul.dropdown {
-      display: block; /* Display the dropdown */
-    }
-    ul li ul.dropdown li {
-      display: block;
-    }
   }
-  .third-navbar {
-    background-color: white !important;
-    padding: 7px 0;
-    color: black;
-    font-weight: 400;
-    font-size: 14px !important;
-    .time{
-      font-weight: 600;
-    }
-  }
+
   .mobile-nav {
     display: none !important;
   }
