@@ -46,9 +46,9 @@ export default function Navbar() {
 
   return (
     <NavigationBar className="navigation-bar">
-      <TopBar style="top-bar"/>
+      <TopBar style="top-bar" />
       <div className={`second-navbar p-0 ${isOpen ? "unsticky" : ""}`}>
-        <div className=" div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
+        <div className="div d-flex justify-content-between px-5 py-0 align-items-center w-100 h-100">
           <div className=" d-flex flex-row gap-3 header ">
             <div className="d-none icon-div align-items-center m-0">
               <Icon
@@ -70,83 +70,9 @@ export default function Navbar() {
               <Logo />
             </div>
           </div>
-          <ul className="menu-links d-flex align-items-center h-100 mb-0">
-            <NavLinks/>
-            {/* <li>
-              <a className="nav-link">
-                about{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link className="react-router-link" to={PATH_PAGE.about}>
-                  about us
-                </Link>
-                <Link className="react-router-link">founder's profile</Link>
-                <Link className="react-router-link">principal's profile</Link>
-                <Link className="react-router-link">Management and staff</Link>
-              </ul>{" "}
-            </li>
-            <li>
-              <a className="nav-link">
-                admission{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link className="react-router-link" to={PATH_PAGE.admission}>
-                  Student admission portal
-                </Link>
-                <Link
-                  className="react-router-link"
-                  to={PATH_PAGE.jss1Admission}
-                >
-                  Entrance Examination
-                </Link>
-                <Link className="react-router-link" to={PATH_PAGE.continue}>
-                  continue admission
-                </Link>
-              </ul>
-            </li>
-            <li>
-              <a className="nav-link">
-                portal{" "}
-                <Icon
-                  icon="ic:baseline-keyboard-arrow-down"
-                  className="drop-icon"
-                  width="1.2em"
-                  height="1.2em"
-                  style={{ color: "black" }}
-                />
-              </a>
-              <ul className="dropdown px-1 pb-1">
-                <Link
-                  className="react-router-link"
-                  to={PATH_DASHBOARD.student.index}
-                >
-                  student portal
-                </Link>
-              </ul>
-            </li>
-           
-            <li>
-              <a className="nav-link">news</a>
-            </li>
-             */}
-          </ul>
+            <NavLinks />
         </div>
       </div>
-
       <div className={`mobile-nav d-flex ${isOpen ? "opened" : "closed"}`}>
         <div className="links py-0 px-2">
           <div className="logo-div py-3">
@@ -349,23 +275,6 @@ const NavigationBar = styled.div`
     font-size: 40px;
     font-weight: 700 !important;
   }
-  .first-navbar {
-    background-color: #f5f5f5;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    position: relative;
-    &-div {
-      border-right: 1px solid gray;
-      border-left: 1px solid gray;
-    }
-    p {
-      display: flex;
-      align-items: center;
-      justify-self: center;
-      height: 100%;
-    }
-  }
   .second-navbar {
     height: 90px;
     align-items: center;
@@ -388,14 +297,7 @@ const NavigationBar = styled.div`
       }
       .header {
       }
-      .contact-btn {
-        Button {
-          text-transform: capitalize !important;
-          padding: 6px 16px !important;
-          font-size: 13px !important;
-          font-weight: 600;
-        }
-      }
+
       .icon {
         font-size: 30px;
       }

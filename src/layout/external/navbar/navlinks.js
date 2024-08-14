@@ -141,4 +141,12 @@ const Div = styled.ul`
       }
     }
   }
+  .contact-btn {
+    Button {
+      text-transform: capitalize !important;
+      padding: 6px 16px !important;
+      font-size: 13px !important;
+      font-weight: 600;
+    }
+  }
 `;
