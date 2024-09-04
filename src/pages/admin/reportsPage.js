@@ -20,9 +20,10 @@ import { fetchUsers } from "../../redux/slices/users";
 import { AllTerms } from "../../configs/AllTerms";
 import { AllSessions } from "../../constants/AllSessions";
 import { AllClasses } from "../../configs/allClasses";
+import { useSelector } from "react-redux";
 
 export default function Reports() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   const [results, setResults] = useState([]);
@@ -32,6 +33,7 @@ export default function Reports() {
   const [session, setSession] = useState("");
   const [selectedClass, setClass] = useState("");
   const [searched, setSearched] = useState(false);
+const {isLoading} = useSelector((state) => state.users)
 
   //get students
   useEffect(() => {
@@ -43,15 +45,14 @@ export default function Reports() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        console.log(res);
-        setRealName(res[res.length-1]?.term);
+        //console\.log\(.*\);?
+        setRealName(res[res.length - 1]?.term);
       })
       .catch((error) => {
-        console.log(error);
-      });
+              });
   }, []);
 
-  //get teaher
+  //get teacher
   useEffect(() => {
     const getClassTeacher = async () => {
       try {
@@ -61,46 +62,47 @@ export default function Reports() {
         });
         setUser(result.data.list[0]);
         setIsLoading(false);
-        console.log(result.data.list[0]);
+                setResults([])
       } catch (error) {
-        console.log(error);
-      }
+              }
     };
     getClassTeacher();
   }, []);
 
-  const FetchStudents = async (user) => {
+  const FetchStudents = async () => {
     try {
       const results = await dispatch(
-        fetchUsers({ role: "student", currentClass: selectedClass })
+        fetchUsers({ role: "student", currentClass: selectedClass, limit: 500 })
       );
       const users = unwrapResult(results);
-      setStudents(users.data.list);
+            setStudents(users?.data?.list);
     } catch (error) {
-      console.log(error);
-    }
+          }
   };
 
   const getResults = async () => {
-    try {
-      FetchStudents();
-      setIsLoading(true);
-      const response = await axios.get(
-        `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${selectedClass}`
-      );
-      console.log(response.data.results[0].results);
-      setResults(response?.data?.results[0]?.results);
-    } catch (error) {
-      console.error("Error fetching results:", error);
-    } finally {
-      setIsLoading(false);
-      setSearched(true);
+    if (students) {
+      try {
+        FetchStudents();
+        setIsLoading(true);
+        const response = await axios.get(
+          `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${termName}/${selectedClass}`
+        );
+               if(response.data.results.length > 0){
+         setResults(response?.data?.results[0]?.results);
+       }
+       else{
+        setResults([]);
+       }
+      } catch (error) {
+        console.error("Error fetching results:", error);
+      } finally {
+        setIsLoading(false);
+        setSearched(true);
+      }
     }
   };
-
-  // Return JSX with your table and other components
-  console.log(results);
-  return (
+        return (
     <>
       <Page className="py-5">
         <div className="d-flex flex-row justify-content-between container">
@@ -133,6 +135,7 @@ export default function Reports() {
               onChange={(e) => {
                 setTermName(e.target.value);
               }}
+              
             >
               <option value="" disabled selected>
                 Select Term
@@ -192,76 +195,81 @@ export default function Reports() {
             check
           </button>
         </div>
-        <Wrapper className="d-flex flex-column py-5">
-          {results?.length > 0 ? (
-            <div className="table-wrapper container py-5">
-              <div className="d-flex flex-row justify-content-start align-items-start text-start">
-                <h6 className="m-0">
-                  List of Uploaded Resullts for {termName}, {session}.
-                </h6>
+        {students?.length > 0 && results?.length > 0 ? (
+          <Wrapper className="d-flex flex-column py-5">
+            {results?.length > 0 ? (
+              <div className="table-wrapper container py-5">
+                <div className="d-flex flex-row justify-content-start align-items-start text-start">
+                  <h6 className="m-0">
+                    List of Uploaded Resullts for {termName}, {session}.
+                  </h6>
+                </div>
+                <div className="table-div p-0 mt-3">
+                  <table className="table  p-0">
+                    <thead>
+                      <tr>
+                        <th>Admission No.</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Surname</th>
+                        <th>Gender</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {results.map((result, index) => {
+                        const student = students?.find(
+                          (student) => student?.admissionNumber === result[0]
+                        );
+                        return (
+                          <tr key={index}>
+                            <td>{result[0]}</td>
+                            <td>{student ? student?.firstName : ""}</td>
+                            <td>{student ? student?.middleName : ""}</td>
+                            <td>{student ? student?.lastName : ""}</td>
+                            <td>{student ? student?.gender : ""}</td>
+                            <td>
+                              <button className="view-button">
+                                <Link
+                                  className="react-router-link"
+                                  to={{
+                                    pathname: `${PATH_DASHBOARD.admin.view}/${student?._id}/${termName}/${session}`,
+                                    state: {
+                                      termName: termName,
+                                      activeSession: session,
+                                    },
+                                  }}
+                                >
+                                  View
+                                </Link>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div className="table-div p-0 mt-3">
-                <table className="table  p-0">
-                  <thead>
-                    <tr>
-                      <th>Admission No.</th>
-                      <th>First Name</th>
-                      <th>Middle Name</th>
-                      <th>Surname</th>
-                      <th>Gender</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {results.map((result) => {
-                      const student = students?.find(
-                        (student) => student?.admissionNumber === result[0]
-                      );
-                      return (
-                        <tr key={result[0]}>
-                          <td>{result[0]}</td>
-                          <td>{student ? student?.firstName : ""}</td>
-                          <td>{student ? student?.middleName : ""}</td>
-                          <td>{student ? student?.lastName : ""}</td>
-                          <td>{student ? student?.gender : ""}</td>
-                          <td>
-                            <button className="view-button">
-                              <Link
-                                className="react-router-link"
-                                to={{
-                                  pathname: `${PATH_DASHBOARD.admin.view}/${student?._id}/${termName}/${session}`,
-                                  state: {
-                                    termName: termName,
-                                    activeSession: session,
-                                  },
-                                }}
-                              >
-                                View
-                              </Link>
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            ) : (
+              <div className="text-center d-flex flex-column mt-4">
+                <p className="m-0">
+                  List of Uploaded Results Will Display Here
+                </p>
               </div>
-            </div>
-          ) : searched ? (
-            <div className="text-center d-flex flex-column mt-4">
-              <h4 className="m-0">No Results Found</h4>
-              <p>
-               Make sure the results you are looking for have been uploaded by the class teacher.
-              </p>
-            </div>
-          ) : (
-            <div className="text-center d-flex flex-column mt-4">
-              <p className="m-0">List of Uploaded Results Will Display Here</p>
-            </div>
-          )}
-        </Wrapper>
+            )}
+          </Wrapper>
+        ) : (
+          <div className="text-center d-flex flex-column mt-4">
+            <h4 className="m-0">No Results Found</h4>
+            <p>
+              Make sure the results you are looking for have been uploaded by
+              the class teacher.
+            </p>
+          </div>
+        )}
       </Page>
-      {isLoading ? <CircularProgress /> : ""}
+      {isLoading || loading ? <CircularProgress /> : ""}
     </>
   );
 }
@@ -272,7 +280,7 @@ const Wrapper = styled.div`
     border: 1px solid grey;
     border-collapse: collapse;
   }
-  .select-class{
+  .select-class {
     height: 100% !important;
   }
   .table-div {
