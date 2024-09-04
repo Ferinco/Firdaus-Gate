@@ -6,7 +6,6 @@ export default function AdminNavbar() {
   const { setIsSidebarOpen, setIsProfileOpen, isProfileOpen, isSidebarOpen } = useAppContext();
   const { user } = useAuth();
   const firstLetter = user.firstName.charAt(0);
-  console.log(firstLetter)
   return (
     <Wrapper className="head container-fluid d-flex flex-column justify-content-center">
       <div className="btns d-flex flex-row justify-content-between w-100 align-items-center">
