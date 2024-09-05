@@ -63,7 +63,7 @@ export default function DataByClasses() {
       const { list } = results.data;
       setStudents(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +83,7 @@ export default function DataByClasses() {
      setKg1Male(males?.length)
       setKg1(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -103,7 +103,7 @@ export default function DataByClasses() {
       setKg2Male(males?.length)
       setKg2(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +123,7 @@ export default function DataByClasses() {
       setNur1Male(males?.length)
       setNur1(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -143,7 +143,7 @@ export default function DataByClasses() {
       setNur2Male(males?.length)
       setNur2(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +164,7 @@ export default function DataByClasses() {
       setBasic1Male(males?.length)
       setBasic1(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -185,7 +185,7 @@ export default function DataByClasses() {
       setBasic2Male(males?.length)
       setBasic2(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -206,7 +206,7 @@ export default function DataByClasses() {
       setBasic3Male(males?.length)
       setBasic3(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -227,7 +227,7 @@ export default function DataByClasses() {
       setBasic4Male(males?.length)
       setBasic4(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -248,7 +248,7 @@ export default function DataByClasses() {
       setBasic5Male(males?.length)
       setBasic5(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -269,7 +269,7 @@ export default function DataByClasses() {
       setBasic6Male(males?.length)
       setBasic6(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -290,7 +290,7 @@ export default function DataByClasses() {
       setJs1Male(males?.length)
       setJs1(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -311,7 +311,7 @@ export default function DataByClasses() {
       setJs2Male(males?.length)
       setJs2(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -332,7 +332,7 @@ export default function DataByClasses() {
      setJs3Male(males?.length)
       setJs3(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -352,7 +352,7 @@ export default function DataByClasses() {
       setSs1Male(males?.length)
       setSs1(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -372,7 +372,7 @@ export default function DataByClasses() {
       setSs2Male(males?.length)
       setSs2(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -393,7 +393,7 @@ export default function DataByClasses() {
       setSs3Male(males?.length)
       setSs3(results.data.total);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }

@@ -20,7 +20,7 @@ export default function ActiveApplications() {
         );
         setApplications(results.data);
       } catch (error) {
-        console.log(error);
+        
       } finally {
         setIsLoading(false);
       }

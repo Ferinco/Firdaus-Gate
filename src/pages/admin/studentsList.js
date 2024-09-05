@@ -120,11 +120,11 @@ export default function StudentsList() {
         role: "student",
         status: "inactive",
       });
-      console.log(result);
+      
       const { list } = result.data;
       setCurrentTableData(list);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -139,11 +139,11 @@ export default function StudentsList() {
         status: "inactive",
         currentClass: selectedClass,
       });
-      console.log(result);
+      
       const { list } = result.data;
       setCurrentTableData(list);
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +164,7 @@ export default function StudentsList() {
         page: pageNum,
         ...filter,
       });
-      console.log(result);
+      
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -175,7 +175,7 @@ export default function StudentsList() {
       setPageCount(totalPages);
       setPage(currentPage);
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -192,7 +192,7 @@ export default function StudentsList() {
         page: pageNum,
         ...filter,
       });
-      console.log(result);
+      
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -203,7 +203,7 @@ export default function StudentsList() {
       setPageCount(totalPages);
       setPage(currentPage);
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -215,7 +215,7 @@ export default function StudentsList() {
     if (multiSelect.includes(id)) {
       const newList = multiSelect.filter((item) => item !== id);
       setMultiSelect(newList);
-      console.log(multiSelect);
+      
     } else {
       setMultiSelect([...multiSelect, id]);
     }
@@ -234,7 +234,7 @@ export default function StudentsList() {
   };
 
   function onSort(columnIndex) {
-    console.log(columns[columnIndex]);
+    
     if (columns[columnIndex].isSorted) {
       columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
     } else {
@@ -283,7 +283,7 @@ export default function StudentsList() {
       let newStudents = csvData.slice(1);
       setCSVOpen(false);
       setIsLoading(true);
-      console.log(newStudents);
+      
       setIsLoading(true);
       try {
         for (const student of newStudents) {
@@ -302,7 +302,7 @@ export default function StudentsList() {
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
           const response = await UserService.createUser(formData);
-          console.log(response);
+          
           toast.success(`${student[0]}${" "}${student[1]}'s account created.`);
         }
       } catch (error) {
@@ -333,13 +333,13 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           getData(page, pageSize);
-          console.log(user.classHandled);
+          
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     } else if (multiSelect.length < 1) {
@@ -354,24 +354,24 @@ export default function StudentsList() {
 
             setMultiSelect([]);
           } catch (error) {
-            console.log(error);
+            
           }
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           getData(page, pageSize);
-          console.log(user.classHandled);
+          
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     }
   };
 
-  console.log(multiSelect);
+  
   //multiple deactivation
   const handleDeactivate = () => {
     if (multiSelect.length) {
@@ -389,13 +389,13 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           setCurrentTab("deactivated");
           getData(page, pageSize);
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     } else if (multiSelect.length === 0) {
@@ -411,12 +411,12 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           getData(page, pageSize);
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     }
@@ -435,12 +435,12 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           getData(page, pageSize);
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     } else if (multiSelect.length === 0) {
@@ -456,12 +456,12 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          console.log(res);
+          
           setIsLoading(false);
           getData(page, pageSize);
         })
         .catch((error) => {
-          console.log(error);
+          
           setIsLoading(false);
         });
     }
@@ -480,7 +480,7 @@ export default function StudentsList() {
       getData(page, pageSize);
       setCurrentTab("All");
     } catch (error) {
-      console.log(error);
+      
       // Handle error or notify the user about the failure
     }
   };
@@ -505,7 +505,7 @@ export default function StudentsList() {
             })
             .catch((error) => {
               setIsLoading(false);
-              console.log(error);
+              
               toast.error(
                 `Unable to delete ${
                   multiSelect.length > 1 ? "students'" : "student's"
@@ -528,7 +528,7 @@ export default function StudentsList() {
             })
             .catch((error) => {
               setIsLoading(false);
-              console.log(error);
+              
               toast.error("unable to delte students' accounts");
             });
         })

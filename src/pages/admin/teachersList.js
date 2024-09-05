@@ -121,7 +121,7 @@ export default function TeachersList() {
         page: pageNum,
         ...filter,
       });
-      console.log(result);
+      
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -132,7 +132,7 @@ export default function TeachersList() {
       setPageCount(totalPages);
       setPage(currentPage);
     } catch (error) {
-      console.log(error);
+      
     }
   };
   useEffect(() => {
@@ -143,7 +143,7 @@ export default function TeachersList() {
     if (multiSelect.includes(id)) {
       const newList = multiSelect.filter((item) => item !== id);
       setMultiSelect(newList);
-      console.log(multiSelect);
+      
     } else {
       setMultiSelect([...multiSelect, id]);
     }
@@ -159,12 +159,12 @@ export default function TeachersList() {
       })
       .catch((error) => {
         toast.error("unable to delete teacher account");
-        console.log(error)
+        
       });
   };
 
   function onSort(columnIndex) {
-    console.log(columns[columnIndex]);
+    
     if (columns[columnIndex].isSorted) {
       columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
     } else {
@@ -212,7 +212,7 @@ export default function TeachersList() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
       setIsLoading(true);
-      console.log(newTeachers);
+      
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
@@ -227,7 +227,7 @@ export default function TeachersList() {
             subjectTaught: item[8],
             role: "teacher",
           };
-          console.log(data);
+          
           const formData = new FormData();
           formData.append(
             "values",
@@ -241,10 +241,10 @@ export default function TeachersList() {
       )
         .then((res) => {
           toast.success("Teacher account created successfully");
-          console.log(res);
+          
         })
         .catch((error) => {
-          console.log(error);
+          
           if (error?.response?.data?.message) {
             toast.error(error.response.data.message);
           } else {
@@ -285,7 +285,7 @@ export default function TeachersList() {
             })
             .catch((error) => {
               setIsLoading(false);
-              console.log(error);
+              
               toast.error("Unable to delete teachers account");
             });
         })

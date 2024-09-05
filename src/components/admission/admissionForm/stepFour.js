@@ -7,7 +7,6 @@ export default function StepFour({ setStep }) {
   return (
     <div>
       <h4 className="py-3">Admission Confirmation</h4>
-
       <p>
         We've received your admission application and payment. Thank you for
         choosing Firdaus Gate Model Schools. Your application is now under

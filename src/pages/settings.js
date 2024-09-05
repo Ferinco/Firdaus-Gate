@@ -52,7 +52,7 @@ export default function Settings() {
       teacherSignature: user.teacherSignature,
     },
   });
-  console.log(errors);
+  
   const onSubmitProfile = async (data) => {
     const formData = new FormData();
     formData.append("values", JSON.stringify(data));
@@ -63,7 +63,7 @@ export default function Settings() {
       toast.success("Profile edited successfully");
       setLoading(false)
     }catch (error) {
-      console.log(error);
+      
       setLoading(false);
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
@@ -274,7 +274,7 @@ const ChangePassword = () => {
   });
 
   const onSubmitSecurity = async (data) => {
-    console.log(data);
+    
     try {
       setLoading(true);
       const response = await api.put("/users/change-password", {
@@ -283,9 +283,9 @@ const ChangePassword = () => {
       });
       toast.success("Password changed successfully");
       setLoading(false);
-      console.log(response);
+      
     } catch (error) {
-      console.log(error);
+      
       setLoading(false);
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);

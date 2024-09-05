@@ -55,12 +55,10 @@ export default function AdminDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-        console.log(res);
-        setTermName(res[res.length - 1]?.term);
+                setTermName(res[res.length - 1]?.term);
       })
       .catch((error) => {
-        console.log(error);
-      });
+              });
   }, []);
 
   //number of students
@@ -82,8 +80,7 @@ export default function AdminDashboard() {
         const males = list.filter((male) => male.gender === "male");
         setMaleStudents(males.length);
       } catch (error) {
-        console.log(error);
-      }
+              }
     };
     FetchStudents();
   }, []);
@@ -96,8 +93,7 @@ export default function AdminDashboard() {
         );
         setApplications(results.data);
       } catch (error) {
-        console.log(error);
-      } finally {
+              } finally {
       }
     };
     checkPayment();
@@ -109,11 +105,9 @@ export default function AdminDashboard() {
         const results = await dispatch(
           fetchUsers({ role: "teacher", limit: 500 })
         );
-        console.log(results);
-        const users = unwrapResult(results);
+                const users = unwrapResult(results);
         const Length = users.data.total;
-        console.log(Length);
-        setTeachers(Length);
+                setTeachers(Length);
         const { list } = users.data;
         //female students
         const females = list.filter((female) => female.gender === "female");
@@ -123,8 +117,7 @@ export default function AdminDashboard() {
         const males = list.filter((male) => male.gender === "male");
         setMaleTeachers(males.length);
       } catch (error) {
-        console.log(error);
-      }
+              }
     };
     FetchTeachers();
   }, []);
@@ -246,17 +239,17 @@ export default function AdminDashboard() {
             />
             <div className="d-flex flex-column">
               <p>current term</p>
-              <h5>
-                <h5>
+                <>
                   {termName === "" ? (
                     <div className="spinner-border" role="status">
                       <span className="sr-only"></span>
                     </div>
                   ) : (
-                    termName
+                    <h5>
+                      {termName}
+                    </h5>
                   )}
-                </h5>
-              </h5>
+                </>
             </div>
           </Link>
           <Link
@@ -271,15 +264,17 @@ export default function AdminDashboard() {
             />
             <div className="d-flex flex-column">
               <p>active teachers</p>
-              <h5>
+              <>
                 {Teachers === "" ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  Teachers
+                  <h5>
+                    {Teachers}
+                  </h5>
                 )}
-              </h5>
+              </>
             </div>
           </Link>
           <Link
@@ -294,15 +289,19 @@ export default function AdminDashboard() {
             />
             <div className="d-flex flex-column">
               <p>active students</p>
-              <h5>
+              <>
                 {Students === "" ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  Students
+                  <h5>
+                    {Students}
+
+                  </h5>
+
                 )}
-              </h5>
+              </>
             </div>
           </Link>
           <Link
@@ -317,15 +316,17 @@ export default function AdminDashboard() {
             />
             <div className="d-flex flex-column">
               <p> applications</p>
-              <h5>
+              <>
                 {applications === "" ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  applications?.length
+                  <h5>
+                    { applications?.length}
+                  </h5>
                 )}
-              </h5>
+              </>
             </div>
           </Link>
         </div>

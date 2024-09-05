@@ -23,8 +23,7 @@ export default function StepThree({ setStep }) {
   });
 
   const { student, parent } = useSelector((state) => state.admission);
-  console.log(student);
-
+  
   const config = {
     reference: new Date().getTime().toString(),
     email: parent.parentEmailAddress,
@@ -51,23 +50,18 @@ export default function StepThree({ setStep }) {
         parent.parentEmailAddress,
         parent.parentPhoneNumber
       );
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+          } catch (error) {
+          }
   };
 
   const initializePayment = usePaystackPayment(config);
   const onSuccess = (response) => {
-    console.log(response);
-    console.log(student);
-    saveResponse(response, student, parent);
+            saveResponse(response, student, parent);
     navigate("/admission/admission-form/payment-success", { state: response });
   };
 
   const onClose = () => {
-    console.log("closed");
-  };
+      };
   const goBack = () => {
     setStep(2);
   };

@@ -5,8 +5,8 @@ export default function CircularProgress() {
   return (
     <Wrapper>
       <div className="circular-progress">
-<div class="spinner-grow" role="status">
-  <span class="sr-only">Loading...</span>
+<div className="spinner-grow" role="status">
+  <span className="sr-only">Loading...</span>
 </div>
       </div>
     </Wrapper>
