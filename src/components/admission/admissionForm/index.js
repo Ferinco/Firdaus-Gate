@@ -6,8 +6,10 @@ import StepFour from "./stepFour";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../../routes/paths";
+import { useDocumentTitle } from "../../../hooks/useTitle";
 
 export default function AdmissionFormSteps() {
+  useDocumentTitle('FGMS - Admission Form')
   const [step, setStep] = React.useState(1);
   const renderForm = () => {
     switch (step) {

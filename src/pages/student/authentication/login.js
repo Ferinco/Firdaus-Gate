@@ -10,8 +10,10 @@ import { useAuth } from "../../../hooks/useAuth";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "../../../contexts/Context";
 import { Icon } from "@iconify/react";
+import { useDocumentTitle } from "../../../hooks/useTitle";
 
 export default function StudentLogin() {
+  useDocumentTitle('FGMS - Student Portal')
   const { setPasswordVisibility, passwordVisibility } = useAppContext();
   const [success, setSuccess] = useState(false);
   const [loading, setIsLoading] = useState(false);

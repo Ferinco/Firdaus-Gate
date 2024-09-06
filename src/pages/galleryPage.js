@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import ContactUs from "../components/landing/contactSection";
+import { useDocumentTitle } from "../hooks/useTitle";
 
 export default function GalleryPage() {
+  useDocumentTitle('FGMS - Gallery')
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

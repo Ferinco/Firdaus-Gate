@@ -6,7 +6,9 @@ import ContactUs from "../components/landing/contactSection";
 import { Link } from "react-router-dom";
 import {PATH_PAGE} from "../routes/paths"
 import { useAppContext } from "../contexts/Context";
+import { useDocumentTitle } from "../hooks/useTitle";
 export default function About() {
+  useDocumentTitle('FGMS - About')
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

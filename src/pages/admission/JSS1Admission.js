@@ -3,8 +3,11 @@ import styled from "styled-components";
 import { Button } from "../../components/custom";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../routes/paths";
+import { useDocumentTitle } from "../../hooks/useTitle";
 
 export default function JSS1Admission() {
+  useDocumentTitle('FGMS - Admission')
+
   const currentYear = new Date().getFullYear();
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
