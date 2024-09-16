@@ -95,7 +95,6 @@ export default function Routes() {
 
     // Set loading state to false after a brief delay
     const timer = setTimeout(() => setLoading(false), 1000);
-
     // Clear the timer on unmount
     return () => clearTimeout(timer);
   }, [location]);
