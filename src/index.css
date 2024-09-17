@@ -17,8 +17,13 @@ body  {
 ::-webkit-scrollbar {
   width: 10px;
 }
-
-
+::-webkit-scrollbar-thumb {
+  background: rgb(82, 82, 82) !important;
+  border-radius: 15px;
+}
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
 .student-name, .academic-year{
   font-weight: 600 !important;
 }
