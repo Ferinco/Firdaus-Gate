@@ -130,6 +130,7 @@ export default function StudentsList() {
     }
   }
 
+
   //fetching deactivated students by class
   async function getDeactivatedByClass() {
     try {
@@ -159,7 +160,7 @@ export default function StudentsList() {
       setIsLoading(true);
       const result = await UserService.findUsers({
         role: "student",
-        // status: "inactive",
+        status: "active",
         limit: limitNum,
         page: pageNum,
         ...filter,
@@ -188,7 +189,7 @@ export default function StudentsList() {
         role: "student",
         currentClass: selectedClass,
         // status: "inactive",
-        limit: limitNum,
+        limit: 50,
         page: pageNum,
         ...filter,
       });
@@ -392,7 +393,8 @@ export default function StudentsList() {
           
           setIsLoading(false);
           setCurrentTab("deactivated");
-          getData(page, pageSize);
+          selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
+
         })
         .catch((error) => {
           
@@ -437,7 +439,7 @@ export default function StudentsList() {
         .then((res) => {
           
           setIsLoading(false);
-          getData(page, pageSize);
+          selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
         })
         .catch((error) => {
           
@@ -450,15 +452,14 @@ export default function StudentsList() {
           const formData = new FormData();
           formData.append("values", JSON.stringify({ status: "active" }));
           await UserService.updateUser(student._id, formData);
-          // toast.success($`{multiSelect.length "students deactivated successfully"}`)
-
           setMultiSelect([]);
         })
       )
         .then((res) => {
           
           setIsLoading(false);
-          getData(page, pageSize);
+          selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
+
         })
         .catch((error) => {
           
@@ -477,7 +478,7 @@ export default function StudentsList() {
       await UserService.updateUser(studentId, formData);
       // Move setIsLoading(false) inside the try block to ensure it gets called even if there is an error
       setIsLoading(false);
-      getData(page, pageSize);
+      selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
       setCurrentTab("All");
     } catch (error) {
       
@@ -523,7 +524,7 @@ export default function StudentsList() {
             .then((res) => {
               setIsLoading(false);
               setMultiSelect([]);
-              getData(page, pageSize);
+              selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
               toast.success("successfully deleted all students' account");
             })
             .catch((error) => {

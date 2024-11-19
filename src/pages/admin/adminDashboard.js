@@ -66,7 +66,7 @@ export default function AdminDashboard() {
     const FetchStudents = async (limit) => {
       try {
         const results = await dispatch(
-          fetchUsers({ role: "student", limit: 500 })
+          fetchUsers({ role: "student", limit: 500, status: "active" })
         );
         const users = unwrapResult(results);
         const Length = users.data.total;
