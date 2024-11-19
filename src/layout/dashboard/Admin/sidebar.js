@@ -24,7 +24,7 @@ const sidebarConfig = [
     id: 3,
     icon: "fluent:people-team-16-filled",
     link: PATH_DASHBOARD.admin.studentsList,
-    title: "Students",
+    title: "Active Students",
   },
   {
     id: 4,

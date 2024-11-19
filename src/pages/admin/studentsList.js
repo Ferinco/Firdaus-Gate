@@ -120,16 +120,14 @@ export default function StudentsList() {
         role: "student",
         status: "inactive",
       });
-      
+
       const { list } = result.data;
       setCurrentTableData(list);
     } catch (error) {
-      
     } finally {
       setIsLoading(false);
     }
   }
-
 
   //fetching deactivated students by class
   async function getDeactivatedByClass() {
@@ -140,11 +138,10 @@ export default function StudentsList() {
         status: "inactive",
         currentClass: selectedClass,
       });
-      
+
       const { list } = result.data;
       setCurrentTableData(list);
     } catch (error) {
-      
     } finally {
       setIsLoading(false);
     }
@@ -165,7 +162,7 @@ export default function StudentsList() {
         page: pageNum,
         ...filter,
       });
-      
+
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -175,9 +172,7 @@ export default function StudentsList() {
       setPageSize(limit);
       setPageCount(totalPages);
       setPage(currentPage);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const [selectedClass, setSelectedClass] = useState("");
@@ -188,12 +183,12 @@ export default function StudentsList() {
       const result = await UserService.findUsers({
         role: "student",
         currentClass: selectedClass,
-        // status: "inactive",
+        status: "active",
         limit: 50,
         page: pageNum,
         ...filter,
       });
-      
+
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -203,9 +198,7 @@ export default function StudentsList() {
       setPageSize(limit);
       setPageCount(totalPages);
       setPage(currentPage);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -216,7 +209,6 @@ export default function StudentsList() {
     if (multiSelect.includes(id)) {
       const newList = multiSelect.filter((item) => item !== id);
       setMultiSelect(newList);
-      
     } else {
       setMultiSelect([...multiSelect, id]);
     }
@@ -235,7 +227,6 @@ export default function StudentsList() {
   };
 
   function onSort(columnIndex) {
-    
     if (columns[columnIndex].isSorted) {
       columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
     } else {
@@ -284,7 +275,7 @@ export default function StudentsList() {
       let newStudents = csvData.slice(1);
       setCSVOpen(false);
       setIsLoading(true);
-      
+
       setIsLoading(true);
       try {
         for (const student of newStudents) {
@@ -303,7 +294,7 @@ export default function StudentsList() {
           const formData = new FormData();
           formData.append("values", JSON.stringify(data));
           const response = await UserService.createUser(formData);
-          
+
           toast.success(`${student[0]}${" "}${student[1]}'s account created.`);
         }
       } catch (error) {
@@ -334,13 +325,10 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           getData(page, pageSize);
-          
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     } else if (multiSelect.length < 1) {
@@ -354,25 +342,19 @@ export default function StudentsList() {
             });
 
             setMultiSelect([]);
-          } catch (error) {
-            
-          }
+          } catch (error) {}
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           getData(page, pageSize);
-          
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     }
   };
 
-  
   //multiple deactivation
   const handleDeactivate = () => {
     if (multiSelect.length) {
@@ -390,14 +372,11 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           setCurrentTab("deactivated");
           selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
-
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     } else if (multiSelect.length === 0) {
@@ -413,12 +392,10 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           getData(page, pageSize);
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     }
@@ -437,12 +414,10 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     } else if (multiSelect.length === 0) {
@@ -456,13 +431,10 @@ export default function StudentsList() {
         })
       )
         .then((res) => {
-          
           setIsLoading(false);
           selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
-
         })
         .catch((error) => {
-          
           setIsLoading(false);
         });
     }
@@ -481,7 +453,6 @@ export default function StudentsList() {
       selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
       setCurrentTab("All");
     } catch (error) {
-      
       // Handle error or notify the user about the failure
     }
   };
@@ -506,7 +477,7 @@ export default function StudentsList() {
             })
             .catch((error) => {
               setIsLoading(false);
-              
+
               toast.error(
                 `Unable to delete ${
                   multiSelect.length > 1 ? "students'" : "student's"
@@ -524,12 +495,14 @@ export default function StudentsList() {
             .then((res) => {
               setIsLoading(false);
               setMultiSelect([]);
-              selectedClass === "All" ? getData(page, pageSize) : getDataByClass();
+              selectedClass === "All"
+                ? getData(page, pageSize)
+                : getDataByClass();
               toast.success("successfully deleted all students' account");
             })
             .catch((error) => {
               setIsLoading(false);
-              
+
               toast.error("unable to delte students' accounts");
             });
         })
@@ -631,21 +604,7 @@ export default function StudentsList() {
                       Display
                     </button>
                   </div>
-                  <div
-                    className={`${
-                      currentTab === "deactivated"
-                        ? "active-tab navigator"
-                        : "navigator"
-                    }`}
-                    onClick={() => {
-                      selectedClass === "All"
-                        ? getDeactivated()
-                        : getDeactivatedByClass();
-                      setCurrentTab("deactivated");
-                    }}
-                  >
-                    Deactivated
-                  </div>
+
                   <div className="navigator"></div>
                 </div>
                 <div className="d-flex gap-1 actions">
@@ -659,29 +618,17 @@ export default function StudentsList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button>
-                  {currentTab === "All" ? (
                     <button
                       onClick={() => {
                         handleDeactivate();
                       }}
-                      className="action-bar"
+                      className="deactivate-btn"
                     >
                       Deactivate &nbsp;{" "}
                       {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                       &nbsp;
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        handleActivation();
-                      }}
-                      className="activate-btn"
-                    >
-                      Activate &nbsp;{" "}
-                      {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                      &nbsp;
-                    </button>
-                  )}
+               
                   {multiSelect.length > 0 ? (
                     <button
                       onClick={() => {
@@ -990,7 +937,7 @@ const Wrapper = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   background-color: #f5f5f5 !important;
-  .name{
+  .name {
     text-transform: lowercase;
   }
   .buttons {

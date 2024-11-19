@@ -42,6 +42,8 @@ export default function AdminDashboard() {
   const dispatch = useDispatch();
   const [Teachers, setTeachers] = useState("");
   const [Students, setStudents] = useState("");
+  const [active, setActive] = useState("");
+  const [inactive, setInactive] = useState("");
   const [termName, setTermName] = useState("");
   const [currentTerm, setCurrentTerm] = useState("");
   const [applications, setApplications] = useState("");
@@ -55,10 +57,9 @@ export default function AdminDashboard() {
     dispatch(fetchCurrentTerm())
       .unwrap()
       .then((res) => {
-                setTermName(res[res.length - 1]?.term);
+        setTermName(res[res.length - 1]?.term);
       })
-      .catch((error) => {
-              });
+      .catch((error) => {});
   }, []);
 
   //number of students
@@ -79,10 +80,35 @@ export default function AdminDashboard() {
         //male students
         const males = list.filter((male) => male.gender === "male");
         setMaleStudents(males.length);
-      } catch (error) {
-              }
+      } catch (error) {}
     };
     FetchStudents();
+  }, []);
+  useEffect(() => {
+    const FetchActive = async (limit) => {
+      try {
+        const results = await dispatch(
+          fetchUsers({ role: "student", limit: 500, status: "active" })
+        );
+        const users = unwrapResult(results);
+        const Length = users.data.total;
+        setActive(Length);
+        console.log(Length)
+        const { list } = users.data;
+      } catch (error) {}
+    };
+    const FetchInactive = async (limit) => {
+      try {
+        const results = await dispatch(
+          fetchUsers({ role: "student", limit: 500, status: "inactive" })
+        );
+        const users = unwrapResult(results);
+        const Length = users.data.total;
+        setInactive(Length);
+      } catch (error) {}
+    };
+    FetchActive();
+    FetchInactive();
   }, []);
 
   useEffect(() => {
@@ -93,7 +119,7 @@ export default function AdminDashboard() {
         );
         setApplications(results.data);
       } catch (error) {
-              } finally {
+      } finally {
       }
     };
     checkPayment();
@@ -105,9 +131,9 @@ export default function AdminDashboard() {
         const results = await dispatch(
           fetchUsers({ role: "teacher", limit: 500 })
         );
-                const users = unwrapResult(results);
+        const users = unwrapResult(results);
         const Length = users.data.total;
-                setTeachers(Length);
+        setTeachers(Length);
         const { list } = users.data;
         //female students
         const females = list.filter((female) => female.gender === "female");
@@ -116,8 +142,7 @@ export default function AdminDashboard() {
         //male students
         const males = list.filter((male) => male.gender === "male");
         setMaleTeachers(males.length);
-      } catch (error) {
-              }
+      } catch (error) {}
     };
     FetchTeachers();
   }, []);
@@ -142,7 +167,7 @@ export default function AdminDashboard() {
     datasets: [
       {
         label: "No. of Students",
-        data: [106, 0],
+        data: [active, inactive],
         backgroundColor: ["#4682B4", "red"],
         borderWidth: 1,
       },
@@ -239,17 +264,15 @@ export default function AdminDashboard() {
             />
             <div className="d-flex flex-column">
               <p>current term</p>
-                <>
-                  {termName === "" ? (
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only"></span>
-                    </div>
-                  ) : (
-                    <h5>
-                      {termName}
-                    </h5>
-                  )}
-                </>
+              <>
+                {termName === "" ? (
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                  </div>
+                ) : (
+                  <h5>{termName}</h5>
+                )}
+              </>
             </div>
           </Link>
           <Link
@@ -270,9 +293,7 @@ export default function AdminDashboard() {
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  <h5>
-                    {Teachers}
-                  </h5>
+                  <h5>{Teachers}</h5>
                 )}
               </>
             </div>
@@ -295,11 +316,7 @@ export default function AdminDashboard() {
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  <h5>
-                    {Students}
-
-                  </h5>
-
+                  <h5>{Students}</h5>
                 )}
               </>
             </div>
@@ -322,9 +339,7 @@ export default function AdminDashboard() {
                     <span className="sr-only"></span>
                   </div>
                 ) : (
-                  <h5>
-                    { applications?.length}
-                  </h5>
+                  <h5>{applications?.length}</h5>
                 )}
               </>
             </div>
@@ -385,11 +400,11 @@ export default function AdminDashboard() {
             </div>
             <div className="users d-flex flex-row w-100 justify-content-between">
               <div className="d-flex flex-column align-items-center">
-                <h5>106</h5>
+                <h5>{active}</h5>
                 <p>Active students</p>
               </div>
               <div className="d-flex flex-column align-items-center">
-                <h5>0</h5>
+                <h5>{inactive}</h5>
                 <p>Deactivated students</p>
               </div>
             </div>

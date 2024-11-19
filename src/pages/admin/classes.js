@@ -59,6 +59,7 @@ export default function DataByClasses() {
     try {
       const results = await UserService.findUsers({
         role: "student",
+        status: "active"
       });
       const { list } = results.data;
       setStudents(results.data.total);
@@ -75,6 +76,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGKGC_001",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -95,6 +97,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGKGC_002",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -115,6 +118,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGNSC_001",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -135,6 +139,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGNSC_002",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -156,6 +161,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_001",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -177,6 +183,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_002",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -198,6 +205,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_003",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -219,6 +227,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_004",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -240,6 +249,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_005",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -261,6 +271,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGBSC_006",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -282,6 +293,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGJSC_001",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -303,6 +315,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGJSC_002",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -324,6 +337,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGJSC_003",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -344,6 +358,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGSSC_001",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -364,6 +379,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGSSC_002",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -385,6 +401,7 @@ export default function DataByClasses() {
         role: "student",
         limit: 500,
         currentClass: "FGSSC_003",
+        status: "active"
       });
       const { list } = results.data;
       const females = list.filter((female) => female.gender === "female");
@@ -569,7 +586,7 @@ export default function DataByClasses() {
             <div className="d-flex flex-column">
               {/* <p ><span>{applications?.length}</span> people have purchased the admission form.</p> */}
               <p className="text-muted">
-                The school has a total of <span> {ClassData.length}</span>  classes and a total of <span>{students}</span> students. Check population details in the table below.
+                The school has a total of <span> {ClassData.length}</span>  classes and a total of <span>{students}</span> active students. Check population details in the table below.
               </p>
             </div>
             <div className="table-div mt-3">

@@ -151,6 +151,15 @@ h6 {
   font-size: 12px !important;
   font-weight: 600 !important;
 }
+.deactivate-btn{
+  color: red !important;
+  border: 1px solid red;
+  border-radius: 20px;
+  padding: 3px 10px;
+  background: transparent !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
 
 .pagination > li {
   font-size: 12px;
