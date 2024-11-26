@@ -67,18 +67,22 @@ export default function NurseryFirst(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(resultRef,{filename: props.owner.firstName+props.owner.admissionNumber}  )
+            generatePDF(resultRef, {
+              filename: props.owner.firstName + props.owner.admissionNumber,
+            })
           }
         >
           download
         </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={resultRef}>
-      <img src="/images/junior-header.jpg" className="logo-container" />
-      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <img src="/images/junior-header.jpg" className="logo-container" />
+        <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
+            <p className="academic-year">
+              {props.session}/{Number(props.session) + 1}
+            </p>
           </div>
           <div className="">
             <h6>{props.term} RESULT</h6>
@@ -221,13 +225,13 @@ export default function NurseryFirst(props) {
                 ))}
               </tr>
               <tr>
-                <td>QUANTITATIVE REASONING</td>
+                <td>PRACTICAL LIFE</td>
                 {props.results?.slice(9, 13).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
-                <td>VERBAL REASONING</td>
+                <td>RHYMES</td>
                 {props.results?.slice(13, 17).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
@@ -263,7 +267,7 @@ export default function NurseryFirst(props) {
                 ))}
               </tr>
               <tr>
-                <td>PHYSICAL AND HEALTH EDUCATION</td>
+                <td>P.H.E/HEALTH HABIT</td>
                 {props.results?.slice(37, 41).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
@@ -293,7 +297,7 @@ export default function NurseryFirst(props) {
                 ))}
               </tr>
               <tr>
-                <td>PRIMARY SCIENCE</td>
+                <td>NATURE STUDY</td>
                 {props.results?.slice(57, 61).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
@@ -422,7 +426,9 @@ export default function NurseryFirst(props) {
           </div>
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
-            <p className="comments reopens">{props.results ? props.results[90] : ""}</p>
+            <p className="comments reopens">
+              {props.results ? props.results[90] : ""}
+            </p>
           </div>
         </div>
       </ResultDiv>
