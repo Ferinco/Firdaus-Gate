@@ -11,13 +11,13 @@ export default function BasicFirst(props) {
   const ResultRef = useRef();
 
   const testScores = props.results
-    ?.slice(1, 127)
+    ?.slice(1, 133)
     ?.filter((_, index) => index % 6 === 0);
   const examScores = props.results
-    ?.slice(2, 127)
+    ?.slice(2, 133)
     ?.filter((_, index) => index % 6 === 0);
   const totalScore = props.results
-    ?.slice(6, 127)
+    ?.slice(6, 133)
     ?.filter((_, index) => index % 6 === 0);
 
   function addSuffix(number) {
@@ -149,37 +149,37 @@ export default function BasicFirst(props) {
               <tr>
                 <td>No of Times School Opened/Activities Held</td>
                 <td className="text-center">
-                  {props.results ? props.results[128] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[131] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[134] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[137] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[140] : ""}
                 </td>
               </tr>
               <tr>
                 <td>No of Times Present</td>
                 <td className="text-center">
-                  {props.results ? props.results[129] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[132] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[135] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[138] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[141] : ""}
                 </td>
               </tr>
               <tr>
                 <td>No of Times Absent</td>
                 <td className="text-center">
-                  {props.results ? props.results[130] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[133] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[136] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[139] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[142] : ""}
                 </td>
               </tr>
             </tbody>
@@ -206,7 +206,7 @@ export default function BasicFirst(props) {
             </thead>
             <tbody>
               <tr>
-                {props.results?.slice(140, 146).map((score) => (
+                {props.results?.slice(146, 152).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -305,7 +305,7 @@ export default function BasicFirst(props) {
             <tbody>
               <tr>
                 <td>Level Attained</td>
-                {props.results?.slice(146, 151).map((score) => (
+                {props.results?.slice(152, 157).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -337,7 +337,7 @@ export default function BasicFirst(props) {
             </thead>
             <tbody>
               <tr className="last">
-                {props.results?.slice(151, 154).map((score) => (
+                {props.results?.slice(157, 160).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -354,7 +354,7 @@ export default function BasicFirst(props) {
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
               <p className="comments">
-                {props.results ? props.results[138] : ""}
+                {props.results ? props.results[144] : ""}
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
@@ -371,7 +371,7 @@ export default function BasicFirst(props) {
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
               <p className="comments">
-                {props.results ? props.results[139] : ""}
+                {props.results ? props.results[145] : ""}
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
@@ -382,7 +382,7 @@ export default function BasicFirst(props) {
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
             <p className="comments">
-              {props.results ? props.results[137] : ""}
+              {props.results ? props.results[143] : ""}
             </p>
           </div>
         </div>

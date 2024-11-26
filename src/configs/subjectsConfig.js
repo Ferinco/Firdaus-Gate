@@ -177,6 +177,11 @@ export const BasicSubjects = [
     code: "FBS_021",
     id: "021",
   },
+  {
+    name: "Arabic",
+    code: "FBS_022",
+    id: "022",
+  },
 ];
 
 export const JuniorSubjects = [
