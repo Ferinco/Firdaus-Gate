@@ -244,7 +244,7 @@ export default function BasicFirst(props) {
                 ))}
               </tr>
               <tr>
-                <td>Sum. Test Scores</td>
+                <td>Exam Scores</td>
                 <td className="text-center">70</td>
                 {examScores?.map((score) => (
                   <td className="text-center">{score}</td>
@@ -260,28 +260,28 @@ export default function BasicFirst(props) {
               <tr>
                 <td colSpan={2}>
                   Average Score{" "}
-                  <h6>{props.results ? props.results[154] : ""}</h6>
+                  <h6>{props.results ? props.results[160] : ""}</h6>
                 </td>
 
                 <td colSpan={4}>
                   Marks Obtainable{" "}
-                  <h6>{props.results ? props.results[156] : ""}</h6>
+                  <h6>{props.results ? props.results[162] : ""}</h6>
                 </td>
                 <td colSpan={4}>
                   Marks Obtained{" "}
-                  <h6>{props.results ? props.results[157] : ""}</h6>
+                  <h6>{props.results ? props.results[163] : ""}</h6>
                 </td>
                 <td colSpan={2}>
-                  Percentage <h6>{props.results ? props.results[158] : ""}</h6>
+                  Percentage <h6>{props.results ? props.results[164] : ""}</h6>
                 </td>
                 <td colSpan={3}>
                   Position{" "}
-                  <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
+                  <h6>{props.results ? addSuffix(props.results[165]) : ""}</h6>
                 </td>
 
                 <td colSpan={8}>
                   No. of Students in Class{" "}
-                  <h6>{props.results ? props.results[103] : ""}</h6>
+                  <h6>{props.results ? props.results[109] : ""}</h6>
                 </td>
               </tr>
             </tbody>

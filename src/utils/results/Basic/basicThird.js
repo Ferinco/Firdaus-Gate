@@ -11,22 +11,22 @@ export default function BasicThird(props) {
   const ResultRef = useRef();
 
   const testScores = props.results
-    ?.slice(1, 127)
+    ?.slice(1, 133)
     ?.filter((_, index) => index % 6 === 0);
   const examScores = props.results
-    ?.slice(2, 127)
+    ?.slice(2, 133)
     ?.filter((_, index) => index % 6 === 0);
   const totalScores = props.results
-    ?.slice(3, 127)
+    ?.slice(3, 133)
     ?.filter((_, index) => index % 6 === 0);
   const secondTotal = props.results
-    ?.slice(4, 127)
+    ?.slice(4, 133)
     ?.filter((_, index) => index % 6 === 0);
     const thirdTotal = props.results
-    ?.slice(5, 127)
+    ?.slice(5, 133)
     ?.filter((_, index) => index % 6 === 0);
   const weightedAverage = props.results
-    ?.slice(6, 127)
+    ?.slice(6, 133)
     ?.filter((_, index) => index % 6 === 0);
 
   function addSuffix(number) {
@@ -158,37 +158,37 @@ export default function BasicThird(props) {
               <tr>
                 <td>No of Times School Opened/Activities Held</td>
                 <td className="text-center">
-                  {props.results ? props.results[128] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[131] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[134] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[137] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[140] : ""}
                 </td>
               </tr>
               <tr>
                 <td>No of Times Present</td>
                 <td className="text-center">
-                  {props.results ? props.results[129] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[132] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[135] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[138] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[141] : ""}
                 </td>
               </tr>
               <tr>
                 <td>No of Times Absent</td>
                 <td className="text-center">
-                  {props.results ? props.results[130] : ""}
-                </td>
-                <td className="text-center">
-                  {props.results ? props.results[133] : ""}
-                </td>
-                <td className="text-center">
                   {props.results ? props.results[136] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[139] : ""}
+                </td>
+                <td className="text-center">
+                  {props.results ? props.results[142] : ""}
                 </td>
               </tr>
             </tbody>
@@ -215,7 +215,7 @@ export default function BasicThird(props) {
             </thead>
             <tbody>
               <tr>
-                {props.results?.slice(140, 146).map((score) => (
+                {props.results?.slice(146, 152).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -253,7 +253,7 @@ export default function BasicThird(props) {
                 ))}
               </tr>
               <tr>
-                <td>Sum. Test Scores</td>
+                <td>Exam Scores</td>
                 <td className="text-center">70</td>
                 {examScores?.map((score) => (
                   <td className="text-center">{score}</td>
@@ -290,28 +290,28 @@ export default function BasicThird(props) {
               <tr>
                 <td colSpan={2}>
                   Average Score{" "}
-                  <h6>{props.results ? props.results[154] : ""}</h6>
+                  <h6>{props.results ? props.results[160] : ""}</h6>
                 </td>
 
                 <td colSpan={4}>
                   Marks Obtainable{" "}
-                  <h6>{props.results ? props.results[156] : ""}</h6>
+                  <h6>{props.results ? props.results[162] : ""}</h6>
                 </td>
                 <td colSpan={4}>
                   Marks Obtained{" "}
-                  <h6>{props.results ? props.results[157] : ""}</h6>
+                  <h6>{props.results ? props.results[163] : ""}</h6>
                 </td>
                 <td colSpan={2}>
-                  Percentage <h6>{props.results ? props.results[158] : ""}</h6>
+                  Percentage <h6>{props.results ? props.results[164] : ""}</h6>
                 </td>
                 <td colSpan={3}>
                   Position{" "}
-                  <h6>{props.results ? addSuffix(props.results[159]) : ""}</h6>
+                  <h6>{props.results ? addSuffix(props.results[165]) : ""}</h6>
                 </td>
 
                 <td colSpan={4} className="last-td">
                   No. of Students in Class{" "}
-                  <h6>{props.results ? props.results[103] : ""}</h6>
+                  <h6>{props.results ? props.results[109] : ""}</h6>
                 </td>
               </tr>
             </tbody>
@@ -335,7 +335,7 @@ export default function BasicThird(props) {
             <tbody>
               <tr>
                 <td>Level Attained</td>
-                {props.results?.slice(146, 151).map((score) => (
+                {props.results?.slice(152, 157).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -367,7 +367,7 @@ export default function BasicThird(props) {
             </thead>
             <tbody>
               <tr className="last">
-                {props.results?.slice(151, 154).map((score) => (
+                {props.results?.slice(157, 160).map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
@@ -384,7 +384,7 @@ export default function BasicThird(props) {
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
               <p className="comments">
-                {props.results ? props.results[138] : ""}
+                {props.results ? props.results[144] : ""}
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
@@ -401,7 +401,7 @@ export default function BasicThird(props) {
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
               <p className="comments">
-                {props.results ? props.results[139] : ""}
+                {props.results ? props.results[145] : ""}
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
@@ -412,7 +412,7 @@ export default function BasicThird(props) {
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
             <p className="comments">
-              {props.results ? props.results[137] : ""}
+              {props.results ? props.results[143] : ""}
             </p>
           </div>
         </div>
