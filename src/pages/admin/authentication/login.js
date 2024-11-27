@@ -34,8 +34,6 @@ export default function AdminLogin() {
         toast.error("Network error, try again later");
       }
     }
-
-    console.log(values);
   };
   return (
     <Wrapper className="d-flex justify-content-center">

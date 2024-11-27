@@ -11,9 +11,9 @@ const ResultRef = useRef()
 
 
 
-const testScores = props.results?.slice(1, 103)?.filter((_, index) => index % 6 === 0);
-const examScores = props.results?.slice(2, 103)?.filter((_, index) => index % 6 === 0);
-const totalScore = props.results?.slice(6, 103)?.filter((_, index) => index % 6 === 0);
+const testScores = props.results?.slice(1, 109)?.filter((_, index) => index % 6 === 0);
+const examScores = props.results?.slice(2, 109)?.filter((_, index) => index % 6 === 0);
+const totalScore = props.results?.slice(6, 109)?.filter((_, index) => index % 6 === 0);
 
 
 function addSuffix(number) {
@@ -133,21 +133,21 @@ console.log(testScores)
           <tbody>
             <tr>
               <td>No of Times School Opened/Activities Held</td>
-              <td className="text-center">{props.results ? props.results[104]: ""}</td>
-              <td className="text-center">{props.results ? props.results[107]: ""}</td>
               <td className="text-center">{props.results ? props.results[110]: ""}</td>
+              <td className="text-center">{props.results ? props.results[113]: ""}</td>
+              <td className="text-center">{props.results ? props.results[116]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Present</td>
-              <td className="text-center">{props.results ? props.results[105]: ""}</td>
-              <td className="text-center">{props.results ? props.results[108]: ""}</td>
               <td className="text-center">{props.results ? props.results[111]: ""}</td>
+              <td className="text-center">{props.results ? props.results[114]: ""}</td>
+              <td className="text-center">{props.results ? props.results[117]: ""}</td>
             </tr>
             <tr>
               <td>No of Times Absent</td>
-              <td className="text-center">{props.results ? props.results[106]: ""}</td>
-              <td className="text-center">{props.results ? props.results[109]: ""}</td>
               <td className="text-center">{props.results ? props.results[112]: ""}</td>
+              <td className="text-center">{props.results ? props.results[115]: ""}</td>
+              <td className="text-center">{props.results ? props.results[118]: ""}</td>
             </tr>
           </tbody>
         </table>
@@ -173,7 +173,7 @@ console.log(testScores)
           </thead>
           <tbody>
           <tr>
-              {props.results?.slice(116, 122).map((score) => (
+              {props.results?.slice(122, 128).map((score) => (
                 <td className="text-center">{score}</td>
               ))}
             </tr>
@@ -234,7 +234,7 @@ console.log(testScores)
                 <p className="subject">Social Studies</p>
               </th>
               <th>
-                <p className="subject">Civic Education</p>
+                <p className="subject">Civic and Security Education</p>
               </th>
               <th>
                 <p className="subject">Creative and Cultural Arts</p>
@@ -251,6 +251,9 @@ console.log(testScores)
               <th>
                 <p className="subject">Quran and Hadith</p>
               </th>
+              <th>
+                <p className="subject">History</p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -264,7 +267,7 @@ console.log(testScores)
              }
             </tr>
             <tr>
-              <td>Sum. Test Scores</td>
+              <td>Exam Scores</td>
               <td className="text-center">70</td>
              {
                 examScores?.map((score)=>(
@@ -282,14 +285,14 @@ console.log(testScores)
              }
             </tr>
             <tr>
-            <td colSpan={2}>Average Score <h6>{props.results ? props.results[130] : ""}</h6></td>
+            <td colSpan={2}>Average Score <h6>{props.results ? props.results[136] : ""}</h6></td>
 
-              <td colSpan={4}>Marks Obtainable <h6>{props.results? props.results[132]: ""}</h6></td>
-              <td colSpan={4}>Marks Obtained <h6>{props.results? props.results[133]: ""}</h6></td>
-              <td colSpan={2}>Percentage <h6>{props.results? props.results[134]: ""}</h6></td>
-              <td colSpan={3}>Position <h6>{props.results? addSuffix(props.results[135]): ""}</h6></td>
+              <td colSpan={4}>Marks Obtainable <h6>{props.results? props.results[138]: ""}</h6></td>
+              <td colSpan={4}>Marks Obtained <h6>{props.results? props.results[139]: ""}</h6></td>
+              <td colSpan={2}>Percentage <h6>{props.results? props.results[140]: ""}</h6></td>
+              <td colSpan={3}>Position <h6>{props.results? addSuffix(props.results[141]): ""}</h6></td>
 
-              <td colSpan={4}>No. of Students in Class <h6>{props.results? props.results[103]: ""}</h6></td>
+              <td colSpan={4}>No. of Students in Class <h6>{props.results? props.results[109]: ""}</h6></td>
             </tr>
           </tbody>
         </table>
@@ -313,7 +316,7 @@ console.log(testScores)
             <tr>
               <td>Level Attained</td>
               {
-                props.results?.slice(122, 127).map((score)=>(
+                props.results?.slice(128, 133).map((score)=>(
                     <td className="text-center">{score}</td>
                 ))
               }
@@ -347,7 +350,7 @@ console.log(testScores)
           <tbody>
             <tr className="last">
             {
-                props.results?.slice(127, 130).map((score)=>(
+                props.results?.slice(133, 136).map((score)=>(
                     <td className="text-center">{score}</td>
                 ))
               }
@@ -364,7 +367,7 @@ console.log(testScores)
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Class Teacher's Comments:</p>
-        <p className="comments">{props.results ? props.results[114] : ""}</p>
+        <p className="comments">{props.results ? props.results[120] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
@@ -374,7 +377,7 @@ console.log(testScores)
       <div className="d-flex flex-row gap-4">
     <div className="d-flex flex-row gap-2">
         <p>Principal's/ Head Teacher's/Master's Comments:</p>
-        <p className="comments">{props.results ? props.results[115] : ""}</p>
+        <p className="comments">{props.results ? props.results[121] : ""}</p>
         </div>
         <div className="d-flex flex-row gap-2">
         <p>Signature/Date</p>
@@ -383,7 +386,7 @@ console.log(testScores)
       </div>
       <div className="d-flex flex-row gap-2">
         <p>School Reopens: </p>
-        <p className="comments">{props.results ? props.results[113] : ""}</p>
+        <p className="comments">{props.results ? props.results[119] : ""}</p>
       </div>
       </div>
     </ResultDiv>
@@ -391,8 +394,8 @@ console.log(testScores)
   );
 }
 const ResultDiv = styled.div`
-  width: 900px;
-  margin: auto;
+  width: auto;
+ margin: auto;
   background-color: white;
   font-weight: 400;
   .special-div{
