@@ -68,25 +68,25 @@ export default function Templates() {
                       break;
                     case "nur":
                       setLink(
-                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182269/NURSERY_REPORTS_jh0qwo.xlsx"
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1732722316/new-nursery_zuaoum.xlsx"
                       );
                       setFileName("NUR_Template");
                       break;
                     case "pry":
                       setLink(
-                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182265/BASIC_REPORT_icnwuc.xlsx"
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1732722394/BASIC_REPORT_1_yhmsz4.xlsx"
                       );
                       setFileName("PRY_Template");
                       break;
                     case "jnr":
                       setLink(
-                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182255/JUNIOR_REPORT_1_ha0psq.xlsx"
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1732722299/JUNIOR_REPORT_2_g1vodd.xlsx"
                       );
                       setFileName("JNR_Template");
                       break;
                     case "snr":
                       setLink(
-                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1720182271/SENIOR_REPORT_2_xsjetb.xlsx"
+                        "https://res.cloudinary.com/dyunxdvmy/raw/upload/v1732722399/SENIOR_REPORT_5_exqrfi.xlsx"
                       );
                       setFileName("SNR_Template");
                       break;
