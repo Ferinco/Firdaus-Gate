@@ -92,18 +92,25 @@ export default function BasicFirst(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(ResultRef,{filename: props.owner.firstName+props.owner.admissionNumber+"First-Term"}  )
+            generatePDF(ResultRef, {
+              filename:
+                props.owner.firstName +
+                props.owner.admissionNumber +
+                "First-Term",
+            })
           }
         >
           download
         </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-      <img src="/images/junior-header.jpg" className="logo-container" />
-      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <img src="/images/junior-header.jpg" className="logo-container" />
+        <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
+            <p className="academic-year">
+              {props.session}/{Number(props.session) + 1}
+            </p>
           </div>
           <div className="">
             <h6>FIRST TERM RESULT</h6>
@@ -386,9 +393,8 @@ export default function BasicFirst(props) {
             </p>
           </div>
           <div className="stamp-img">
-<img src="/images/furdaus-stamp.jpg"/>
+            <img src="/images/furdaus-stamp.jpg" />
           </div>
-
         </div>
       </ResultDiv>
     </div>
