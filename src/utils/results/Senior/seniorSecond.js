@@ -412,10 +412,10 @@ export default function SeniorSecond(props) {
                     <tr>
                       <td className="special-td"></td>
                       <td className="special-td">A-Excellent</td>
-                      <td className="special-td">A-Excellent</td>
-                      <td className="special-td">A-Excellent</td>
-                      <td className="special-td">A-Excellent</td>
-                      <td className="special-td">A-Excellent</td>
+                      <td className="special-td">B-Very Good</td>
+                      <td className="special-td">C-Good</td>
+                      <td className="special-td">D-Fair</td>
+                      <td className="special-td">E-Poor</td>
                     </tr>
                   </tbody>
                 </table>
