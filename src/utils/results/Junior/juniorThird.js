@@ -474,6 +474,9 @@ export default function JuniorThird(props) {
               {props.results ? props.results[119] : ""}
             </p>
           </div>
+          <div className="stamp-img">
+            <img src="/images/furdaus-stamp.jpg" />
+          </div>
         </div>
       </ResultDiv>
     </div>

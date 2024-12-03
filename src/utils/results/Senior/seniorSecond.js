@@ -83,8 +83,10 @@ export default function SeniorSecond(props) {
           <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
             <div className="title">
               <p>Academic Year</p>
-              <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
-              </div>
+              <p className="academic-year">
+                {props.session}/{Number(props.session) + 1}
+              </p>
+            </div>
             <div className="">
               <h6>SECOND TERM RESULT</h6>
             </div>
@@ -638,11 +640,11 @@ export default function SeniorSecond(props) {
                   <tr style={{ height: "50px" }}>
                     {props.results?.slice(210, 213).map((score) => (
                       <td className="text-center academic-year">{score}</td>
-                      ))}
+                    ))}
                   </tr>
                 </tbody>
               </table>
-              <div className="d-flex flex-column gap-2 stamp-div">
+              <div className="d-flex flex-column gap-2 senior-stamp">
                 <div className="d-flex flex-row gap-1 flex-wrap td">
                   <p>House Master's Comments:</p>
                   <p className="comments reopens">

@@ -26,6 +26,7 @@ const Wrapper = styled.div`
   .outlet {
     width: calc(100vw - 280px);
     height: 100vh;
+    border: 1px solid red;
   }
   .div {
     background-color: #f5f5f5 !important;

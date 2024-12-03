@@ -22,7 +22,7 @@ export default function BasicThird(props) {
   const secondTotal = props.results
     ?.slice(4, 133)
     ?.filter((_, index) => index % 6 === 0);
-    const thirdTotal = props.results
+  const thirdTotal = props.results
     ?.slice(5, 133)
     ?.filter((_, index) => index % 6 === 0);
   const weightedAverage = props.results
@@ -101,18 +101,25 @@ export default function BasicThird(props) {
         <button
           className=""
           onClick={() =>
-            generatePDF(ResultRef,{filename: props.owner.firstName+props.owner.admissionNumber+"Third-Term"}  )
+            generatePDF(ResultRef, {
+              filename:
+                props.owner.firstName +
+                props.owner.admissionNumber +
+                "Third-Term",
+            })
           }
         >
           download
         </button>
       </div>
       <ResultDiv className="d-flex flex-column gap-3 p-3" ref={ResultRef}>
-      <img src="/images/junior-header.jpg" className="logo-container" />
-      <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
+        <img src="/images/junior-header.jpg" className="logo-container" />
+        <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p className="academic-year">{props.session}/{Number(props.session) + 1}</p>
+            <p className="academic-year">
+              {props.session}/{Number(props.session) + 1}
+            </p>
           </div>
           <div className="">
             <h6>THIRD TERM RESULT</h6>
@@ -415,6 +422,9 @@ export default function BasicThird(props) {
               {props.results ? props.results[143] : ""}
             </p>
           </div>
+          <div className="stamp-img">
+            <img src="/images/furdaus-stamp.jpg" />
+          </div>
         </div>
       </ResultDiv>
     </div>
@@ -425,7 +435,7 @@ const ResultDiv = styled.div`
   margin: auto;
   background-color: white;
   font-weight: 400;
-  .last-td{
+  .last-td {
     border-right: 0 !important;
   }
   .special-div {

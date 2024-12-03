@@ -374,10 +374,10 @@ export default function BasicFirst(props) {
                 {props.results ? props.results[145] : ""}
               </p>
             </div>
-            <div className="d-flex flex-row gap-2">
+            {/* <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
               <p className="comments"></p>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
@@ -385,6 +385,10 @@ export default function BasicFirst(props) {
               {props.results ? props.results[143] : ""}
             </p>
           </div>
+          <div className="stamp-img">
+<img src="/images/furdaus-stamp.jpg"/>
+          </div>
+
         </div>
       </ResultDiv>
     </div>

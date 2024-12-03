@@ -640,7 +640,7 @@ export default function SeniorFirst(props) {
                   </tr>
                 </tbody>
               </table>
-              <div className="d-flex flex-column gap-2 stamp-div">
+              <div className="d-flex flex-column gap-2 senior-stamp">
                 <div className="d-flex flex-row gap-1 flex-wrap td">
                   <p>House Master's Comments:</p>
                   <p className="comments reopens">
