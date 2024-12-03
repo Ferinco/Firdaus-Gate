@@ -436,7 +436,7 @@ export default function JuniorSecond(props) {
                 {props.results ? props.results[120] : ""}
               </p>
             </div>
-            <div className="d-flex flex-row gap-2">
+            {/* <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
               <p className="comments">
                 <img
@@ -444,7 +444,7 @@ export default function JuniorSecond(props) {
                   className="signature-img"
                 />
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
@@ -454,7 +454,7 @@ export default function JuniorSecond(props) {
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
-              <p>Signature/Date</p>
+              <p>Date:</p>
               <p className="comments"></p>
             </div>
           </div>

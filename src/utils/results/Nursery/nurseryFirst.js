@@ -402,7 +402,7 @@ export default function NurseryFirst(props) {
                 {props.results ? props.results[70] : ""}
               </p>
             </div>
-            <div className="d-flex flex-row gap-2">
+            {/* <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
               <p className="comments">
                 <img
@@ -410,7 +410,7 @@ export default function NurseryFirst(props) {
                   className="signature-img"
                 />
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
@@ -420,7 +420,7 @@ export default function NurseryFirst(props) {
               </p>
             </div>
             <div className="d-flex flex-row gap-2">
-              <p>Signature/Date</p>
+              <p>Date:</p>
               <p className="comments"></p>
             </div>
           </div>
@@ -429,6 +429,9 @@ export default function NurseryFirst(props) {
             <p className="comments reopens">
               {props.results ? props.results[90] : ""}
             </p>
+          </div>
+          <div className="stamp-img">
+            <img src="/images/furdaus-stamp.jpg" />
           </div>
         </div>
       </ResultDiv>

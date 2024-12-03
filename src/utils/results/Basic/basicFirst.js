@@ -364,7 +364,7 @@ export default function BasicFirst(props) {
                 {props.results ? props.results[144] : ""}
               </p>
             </div>
-            <div className="d-flex flex-row gap-2">
+            {/* <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
               <p className="comments">
                 <img
@@ -372,7 +372,7 @@ export default function BasicFirst(props) {
                   className="signature-img"
                 />
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
@@ -381,10 +381,10 @@ export default function BasicFirst(props) {
                 {props.results ? props.results[145] : ""}
               </p>
             </div>
-            {/* <div className="d-flex flex-row gap-2">
-              <p>Signature/Date</p>
+            <div className="d-flex flex-row gap-2">
+              <p>Date:</p>
               <p className="comments"></p>
-            </div> */}
+            </div>
           </div>
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>

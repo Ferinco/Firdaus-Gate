@@ -593,20 +593,20 @@ export default function SeniorThird(props) {
                 </tbody>
               </table>
               <div className="d-flex flex-column gap-2 senior-stamp">
-                <div className="d-flex flex-row gap-1 flex-wrap td">
+                <div className="d-flex flex-row gap-1 border flex-wrap td">
                   <p>House Master's Comments:</p>
                   <p className="comments reopens">
                     {props.results ? props.results[214] : ""}
                   </p>
                 </div>
 
-                <div className="d-flex flex-row gap-1 flex-wrap td">
+                <div className="d-flex flex-row border gap-1 flex-wrap td">
                   <p>Class Teacher's Comments:</p>
                   <p className="comments reopens">
                     {props.results ? props.results[192] : ""}{" "}
                   </p>
                   <div className="d-flex flex-row gap-2">
-                    <p>Signature/Date</p>
+                    <p>Date:</p>
                     <p className="comments">
                       <img
                         src={props.teacher.teacherSignature}
@@ -616,7 +616,7 @@ export default function SeniorThird(props) {
                   </div>
                 </div>
 
-                <div className="d-flex flex-row gap-1 flex-wrap td">
+                <div className="d-flex flex-row border gap-1 flex-wrap td">
                   <p>Principal's Comments:</p>
                   <p className="comments reopens">
                     {props.results ? props.results[193] : ""}{" "}

@@ -79,7 +79,9 @@ export function KgResult(props) {
         <div className="d-flex flex-row intro-header align-items-center justify-content-between p-2">
           <div className="title">
             <p>Academic Year</p>
-            <p>{props.session}/{Number(props.session) + 1}</p>
+            <p>
+              {props.session}/{Number(props.session) + 1}
+            </p>
           </div>
           <div className="">
             <h6>{props.term} RESULT</h6>
@@ -215,30 +217,42 @@ export function KgResult(props) {
                   NUMBER WORK <br />
                   COUNTING AND RECOGNITION
                 </td>
-                <td className="text-center">{props.results ? props.results[1] : ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[1] : ""}
+                </td>
               </tr>
               <tr>
                 <td>
                   LETTER WORK <br />
                   READING AND IDENTIFICATION
                 </td>
-                <td className="text-center">{props.results ? props.results[2] : ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[2] : ""}
+                </td>
               </tr>
               <tr>
                 <td>WRITING WORK</td>
-                <td className="text-center">{props.results ? props.results[3] : ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[3] : ""}
+                </td>
               </tr>
               <tr>
                 <td>COMMUNICATION ABILITY</td>
-                <td className="text-center">{props.results ? props.results[1] : ""}</td>
+                <td className="text-center">
+                  {props.results ? props.results[1] : ""}
+                </td>
               </tr>
               <tr>
                 <td>RHYMES AND POEMS</td>
-                <td className="text-center">{props.results ? props?.results[5]  : " "}</td>
+                <td className="text-center">
+                  {props.results ? props?.results[5] : " "}
+                </td>
               </tr>
               <tr>
                 <td>ISLAMIC ETHICS/ARABIC</td>
-                <td className="text-center">{props.results ? props?.results[6] : " "} </td>
+                <td className="text-center">
+                  {props.results ? props?.results[6] : " "}{" "}
+                </td>
               </tr>
               <tr>
                 <td>
@@ -246,19 +260,26 @@ export function KgResult(props) {
                   <br />
                   MANNERS/MORALS
                 </td>
-                <td className="text-center">{props.results ? props?.results[7] : " "} </td>
+                <td className="text-center">
+                  {props.results ? props?.results[7] : " "}{" "}
+                </td>
               </tr>
               <tr>
                 <td>CREATIVE ACTIVITIES/IDEAS</td>
-                <td className="text-center">{props.results ? props?.results[8] : " " }</td>
+                <td className="text-center">
+                  {props.results ? props?.results[8] : " "}
+                </td>
               </tr>
               <tr>
                 <td>PHYSICAL WORK</td>
-                <td className="text-center">{props.results ? props?.results[9] : " "} </td>
+                <td className="text-center">
+                  {props.results ? props?.results[9] : " "}{" "}
+                </td>
               </tr>
               <tr>
                 <td colSpan={2} className="py-2">
-                  AVERAGE RATING : <h6>{props.results ? props?.results[10] : " "}</h6>
+                  AVERAGE RATING :{" "}
+                  <h6>{props.results ? props?.results[10] : " "}</h6>
                 </td>
               </tr>
             </tbody>
@@ -275,7 +296,9 @@ export function KgResult(props) {
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
-              <p className="comments">{props.results ? props?.results[11] : " "}</p>
+              <p className="comments">
+                {props.results ? props?.results[11] : " "}
+              </p>
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
@@ -290,7 +313,9 @@ export function KgResult(props) {
           <div className="d-flex flex-row gap-4">
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
-              <p className="comments">{props.results ? props?.results[12] : " "}</p>
+              <p className="comments">
+                {props.results ? props?.results[12] : " "}
+              </p>
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Signature/Date</p>
@@ -300,8 +325,11 @@ export function KgResult(props) {
           <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
             <p className="comments reopens">
-            {props.results ? props?.results[30] : " "}
+              {props.results ? props?.results[30] : " "}
             </p>
+          </div>
+          <div className="stamp-img">
+            <img src="/images/furdaus-stamp.jpg" />
           </div>
         </div>
       </ResultDiv>
