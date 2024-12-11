@@ -90,6 +90,9 @@ export const GetStudentClass = (user, setStudentClass) => {
     case "FGBSC_005":
       setStudentClass("Basic 5");
       break;
+      case "FGBSC_006":
+        setStudentClass("Basic 6");
+        break;
     case "FGKGC_001":
       setStudentClass("K.G 1");
       break;
