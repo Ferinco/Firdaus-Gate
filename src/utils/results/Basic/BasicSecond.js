@@ -75,6 +75,9 @@ export default function BasicSecond(props) {
       case "FGBSC_005":
         return "Basic 5";
         break;
+        case "FGBSC_006":
+          return("Basic 6");
+          break;
       case "FGKGC_001":
         return "K.G 1";
         break;
