@@ -42,6 +42,9 @@ border-radius: 10px;
   position: relative;
   height: 155px;
 }
+.z-in {
+  z-index: 999 !important;
+}
 .senior-stamp{
   background-image: url(/public/images/furdaus-stamp.jpg);
   background-repeat: no-repeat;

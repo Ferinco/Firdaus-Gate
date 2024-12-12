@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
+import { TheDate } from "../../../constants/thedate";
 export default function NurseryFirst(props) {
   const { results } = props;
   const { owner } = props;
@@ -394,8 +395,8 @@ export default function NurseryFirst(props) {
             <p>1-Poor</p>
           </div>
         </div>
-        <div className="d-flex flex-column gap-2 end stamp-div">
-          <div className="d-flex flex-row gap-4">
+        <div className="d-flex flex-column gap-2 end stamp-div mt-3">
+          <div className="d-flex flex-row gap-4 z-in">
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
               <p className="comments">
@@ -412,7 +413,7 @@ export default function NurseryFirst(props) {
               </p>
             </div> */}
           </div>
-          <div className="d-flex flex-row gap-4">
+          <div className="d-flex flex-row gap-4 z-in">
             <div className="d-flex flex-row gap-2">
               <p>Principal's/ Head Teacher's/Master's Comments:</p>
               <p className="comments">
@@ -421,16 +422,17 @@ export default function NurseryFirst(props) {
             </div>
             <div className="d-flex flex-row gap-2">
               <p>Date:</p>
+              <p className="comments">{TheDate()}</p>
               <p className="comments"></p>
             </div>
           </div>
-          <div className="d-flex flex-row gap-2">
+          <div className="d-flex flex-row gap-2 z-in">
             <p>School Reopens: </p>
             <p className="comments reopens">
               {props.results ? props.results[90] : ""}
             </p>
           </div>
-          <div className="stamp-img">
+          <div className="stamp-img ">
             <img src="/images/furdaus-stamp.jpg" />
           </div>
         </div>
@@ -442,6 +444,7 @@ const ResultDiv = styled.div`
   width: 900px;
   margin: auto;
   background-color: white;
+
   .student-name {
     border-bottom: 1px solid black;
   }

@@ -3,6 +3,7 @@ import { useAppContext } from "../../../contexts/Context";
 import generatePDF from "react-to-pdf";
 import { useRef } from "react";
 import { BasicSubjects } from "../../../configs/subjectsConfig";
+import { TheDate } from "../../../constants/thedate";
 export default function BasicFirst(props) {
   const { results } = props;
   const { owner } = props;
@@ -360,7 +361,7 @@ export default function BasicFirst(props) {
           </table>
         </div>
         <div className="d-flex flex-column gap-2 stamp-div">
-          <div className="d-flex flex-row gap-4">
+          <div className="d-flex flex-row gap-4 ">
             <div className="d-flex flex-row gap-2">
               <p>Class Teacher's Comments:</p>
               <p className="comments">
@@ -377,19 +378,19 @@ export default function BasicFirst(props) {
               </p>
             </div> */}
           </div>
-          <div className="d-flex flex-row gap-4">
+          <div className="d-flex flex-row gap-4 z-in">
             <div className="d-flex flex-row gap-2">
-              <p>Principal's/ Head Teacher's/Master's Comments:</p>
+              <p>Head Teacher's Comments:</p>
               <p className="comments">
                 {props.results ? props.results[145] : ""}
               </p>
             </div>
+          </div>
+          <div className="d-flex flex-row gap-2 z-in">
             <div className="d-flex flex-row gap-2">
               <p>Date:</p>
-              <p className="comments"></p>
+              <p className="comments">{TheDate()}</p>
             </div>
-          </div>
-          <div className="d-flex flex-row gap-2">
             <p>School Reopens: </p>
             <p className="comments">
               {props.results ? props.results[143] : ""}
@@ -484,6 +485,7 @@ const ResultDiv = styled.div`
   }
   .comments {
     text-decoration: underline !important;
+    font-weight: 600;
   }
   .header {
     gap: 200px;

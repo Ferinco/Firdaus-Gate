@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useAppContext } from "../../../contexts/Context";
 import { useRef } from "react";
 import generatePDF from "react-to-pdf";
+import { TheDate } from "../../../constants/thedate";
 export default function SeniorFirst(props) {
   const { results } = props;
   const { owner } = props;
@@ -653,8 +654,10 @@ export default function SeniorFirst(props) {
                   <p className="comments reopens">
                     {props.results ? props.results[192] : ""}{" "}
                   </p>
-                  <div className="d-flex flex-row gap-2">
-                    <p>Date:</p>
+                  <div className="d-flex flex-row gap-2 no-wrap">
+                    Date: <p className="comments reopens">
+                    {TheDate()}
+                  </p>
                     <p className="comments">
                       <img
                         src={props.teacher.teacherSignature}
