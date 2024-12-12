@@ -29,7 +29,7 @@ export default function CheckResults() {
   const [classTeacher, setClassTeacher] = React.useState([]);
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [waiting, setWaiting] = useState(false);
   const { studentClass, setStudentClass } = useAppContext();
   const { user, isLoading } = useSelector((state) => state.users || {});
@@ -81,19 +81,26 @@ export default function CheckResults() {
         const results = response?.data.results[0]?.results?.find(
           (row) => row[0] === studentAdmissionNumber
         );
+        if(!results){
+          setLoading(true)
+          setWaiting(true)
+        }
+        else if(results){
+          setLoading(false)
+          setWaiting(false)
+        }
         setReport(results);
         console.log(results);
-        setWaiting(false);
+      
       } catch (error) {
         // setReport([]);
-        setWaiting(false);
+      
         console.error("Error fetching results:", error);
       }
     };
 
     getResults();
-    setLoading(false);
-  }, [term, user, term]);
+  }, [term, user, session]);
   console.log(user);
 
   // set student class

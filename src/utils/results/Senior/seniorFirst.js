@@ -635,7 +635,7 @@ export default function SeniorFirst(props) {
                 </thead>
                 <tbody>
                   <tr style={{ height: "50px" }}>
-                    {props.results?.slice(210, 213).map((score) => (
+                    {props?.results?.slice(210, 213).map((score) => (
                       <td className="text-center academic-year">{score}</td>
                     ))}
                   </tr>
@@ -652,7 +652,7 @@ export default function SeniorFirst(props) {
                 <div className="d-flex border flex-row gap-1 flex-wrap td">
                   <p>Class Teacher's Comments:</p>
                   <p className="comments reopens">
-                    {props.results ? props.results[192] : ""}{" "}
+                    {props?.results ? props?.results[192] : ""}{" "}
                   </p>
                   <div className="d-flex flex-row gap-2 no-wrap">
                     Date: <p className="comments reopens">
@@ -660,7 +660,7 @@ export default function SeniorFirst(props) {
                   </p>
                     <p className="comments">
                       <img
-                        src={props.teacher.teacherSignature}
+                        src={props?.teacher?.teacherSignature}
                         className="signature-img"
                       />
                     </p>

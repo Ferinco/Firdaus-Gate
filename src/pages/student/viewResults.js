@@ -26,7 +26,7 @@ import { PATH_DASHBOARD } from "../../routes/paths";
 export default function ViewResult() {
   const [studentResult, setStudentResult] = useState("");
   const [report, setReport] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [classTeacher, setClassTeacher] = React.useState([]);
 
   const {
@@ -74,6 +74,7 @@ export default function ViewResult() {
   //fetch results from database
   useEffect(() => {
     const getResults = async () => {
+      setLoading(true)
       try {
         const response = await axios.get(
           `https://ferrum-sever.onrender.com/api/studentsresults/${activeSession}/${termName}/${user?.currentClass}`
@@ -86,14 +87,23 @@ export default function ViewResult() {
           (row) => row[0] === studentAdmissionNumber
         );
         setReport(results);
+        if(!results){
+          setLoading(true)
+        }
+        else if(results){
+          setReport(results);
+          setLoading(false)
+        }
       } catch (error) {
         console.error("Error fetching results:", error);
+      }
+      finally{
+        setLoading(false)
       }
     };
 
     if (termName !== "") {
       getResults();
-      setLoading(false);
     }
   }, [termName]);
   const { user } = useAuth();
@@ -280,10 +290,6 @@ export default function ViewResult() {
           ) : (
             <div className="d-flex flex-column text-center align-items-center px-4 pt-3 justify-content-center m-auto">
               <h4 className="m-0">No results found.</h4>
-              <p className="m-0">
-                You do not have a result for {termName}, session:{" "}
-                {activeSession}, class: {studentClass} yet.
-              </p>
               <p className="m-0">
                 You can view your past results here
                 <Link to={PATH_DASHBOARD.student.results}>Results Archive</Link>
