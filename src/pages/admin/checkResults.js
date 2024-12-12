@@ -71,6 +71,7 @@ export default function CheckResults() {
 
   useEffect(() => {
     const getResults = async () => {
+      setLoading(true)
       try {
         const response = await axios.get(
           `https://ferrum-sever.onrender.com/api/studentsresults/${session}/${term}/${user?.currentClass}`
@@ -96,6 +97,9 @@ export default function CheckResults() {
         // setReport([]);
       
         console.error("Error fetching results:", error);
+      }
+      finally{
+        setLoading(false)
       }
     };
 
