@@ -152,7 +152,8 @@ export default function Results() {
         `https://ferrum-sever.onrender.com/api/saveResults`,
         {
           results: values,
-          selectedClass: user?.classHandled,
+          // selectedClass: user?.classHandled,
+          selectedClass: "FGBSC_005",
           term: termName,
           currentSession: activeSession,
         }

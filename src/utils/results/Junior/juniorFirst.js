@@ -294,14 +294,14 @@ export default function JuniorFirst(props) {
             <tbody>
               <tr>
                 <td>Cont. Asses. Scores</td>
-                <td className="text-center">30</td>
+                <td className="text-center">40</td>
                 {testScores?.map((score) => (
                   <td className="text-center">{score}</td>
                 ))}
               </tr>
               <tr>
                 <td>Exam Scores</td>
-                <td className="text-center">70</td>
+                <td className="text-center">60</td>
                 {examScores?.map((score) => (
                   <td className="text-center">{score}</td>
                 ))}

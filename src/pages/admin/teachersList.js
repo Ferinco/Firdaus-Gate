@@ -121,7 +121,7 @@ export default function TeachersList() {
         page: pageNum,
         ...filter,
       });
-      
+
       const { list, totalPages, currentPage, total, limit } = result.data;
       setCanPreviousPage(currentPage > 1);
       setCanNextPage(currentPage + 1 <= totalPages);
@@ -131,9 +131,7 @@ export default function TeachersList() {
       setPageSize(limit);
       setPageCount(totalPages);
       setPage(currentPage);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     (async () => await getData(page, pageSize))();
@@ -143,7 +141,6 @@ export default function TeachersList() {
     if (multiSelect.includes(id)) {
       const newList = multiSelect.filter((item) => item !== id);
       setMultiSelect(newList);
-      
     } else {
       setMultiSelect([...multiSelect, id]);
     }
@@ -159,12 +156,10 @@ export default function TeachersList() {
       })
       .catch((error) => {
         toast.error("unable to delete teacher account");
-        
       });
   };
 
   function onSort(columnIndex) {
-    
     if (columns[columnIndex].isSorted) {
       columns[columnIndex].isSortedDesc = !columns[columnIndex].isSortedDesc;
     } else {
@@ -212,7 +207,7 @@ export default function TeachersList() {
     if (csvData.length) {
       let newTeachers = csvData.slice(1);
       setIsLoading(true);
-      
+
       Promise.all(
         newTeachers.map(async (item) => {
           const data = {
@@ -227,7 +222,7 @@ export default function TeachersList() {
             subjectTaught: item[8],
             role: "teacher",
           };
-          
+
           const formData = new FormData();
           formData.append(
             "values",
@@ -241,10 +236,8 @@ export default function TeachersList() {
       )
         .then((res) => {
           toast.success("Teacher account created successfully");
-          
         })
         .catch((error) => {
-          
           if (error?.response?.data?.message) {
             toast.error(error.response.data.message);
           } else {
@@ -285,7 +278,7 @@ export default function TeachersList() {
             })
             .catch((error) => {
               setIsLoading(false);
-              
+
               toast.error("Unable to delete teachers account");
             });
         })
@@ -343,7 +336,7 @@ export default function TeachersList() {
             </form>
 
             <button onClick={() => setCSVOpen(true)} className="csv-button">
-            Upload Teachers
+              Upload Teachers
             </button>
           </div>
           {currentTableData.length > 0 ? (
@@ -355,18 +348,20 @@ export default function TeachersList() {
                     {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
                     &nbsp;
                   </button> */}
-               {
-                multiSelect.length > 0 ?    <button
-                onClick={() => {
-                  setConfirmation(true);
-                }}
-                className="action-bar"
-              >
-                Delete &nbsp;{" "}
-                {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
-                &nbsp;
-              </button> : ""
-               }
+                  {multiSelect.length > 0 ? (
+                    <button
+                      onClick={() => {
+                        setConfirmation(true);
+                      }}
+                      className="action-bar"
+                    >
+                      Delete &nbsp;{" "}
+                      {multiSelect.length ? `(${multiSelect.length})` : "All"}{" "}
+                      &nbsp;
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className=" table-div">
@@ -623,9 +618,8 @@ const Wrapper = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   background-color: #f5f5f5 !important;
-  .name{
+  .name {
     text-transform: lowercase;
-
   }
   .buttons {
     justify-content: right;
